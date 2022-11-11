@@ -134,10 +134,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 471863E3291E155800A35786 /* Build configuration list for PBXNativeTarget "Acha" */;
 			buildPhases = (
+				47EDD1C6291E4A5D0069003A /* SwiftLint */,
 				471863B5291E155700A35786 /* Sources */,
 				471863B6291E155700A35786 /* Frameworks */,
 				471863B7291E155700A35786 /* Resources */,
-				47EDD1C6291E4A5D0069003A /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -255,8 +255,9 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		47EDD1C6291E4A5D0069003A /* ShellScript */ = {
+		47EDD1C6291E4A5D0069003A /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -264,6 +265,7 @@
 			);
 			inputPaths = (
 			);
+			name = SwiftLint;
 			outputFileListPaths = (
 			);
 			outputPaths = (
