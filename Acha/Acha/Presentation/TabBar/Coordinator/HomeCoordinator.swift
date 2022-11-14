@@ -19,6 +19,7 @@ final class HomeCoordinator: HomeCoordinatorProtocol {
     
     required init(navigationController: UINavigationController) {
         self.navigationController = navigationController
+        self.navigationController.isNavigationBarHidden = false 
     }
     
     func start() {

@@ -18,6 +18,7 @@ final class MyPageCoordinator: Coordinator {
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
+        self.navigationController.isNavigationBarHidden = false
     }
     
     func start() {
