@@ -44,5 +44,14 @@ final class AuthCoordinator: AuthCoordinatorProtocol {
 extension AuthCoordinator: CoordinatorDelegate {
     func didFinished(childCoordinator: Coordinator) {
         removeChildCoordinator(coordinator: childCoordinator)
+        
+        switch childCoordinator {
+        case is LoginCoordinator:
+            connectSignupCoordinator()
+        case is SignupCoordinator:
+            connectLoginCoordinator()
+        default:
+            break
+        }
     }
 }
