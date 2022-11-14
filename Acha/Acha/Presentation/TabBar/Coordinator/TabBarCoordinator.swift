@@ -43,10 +43,10 @@ final class TabBarCoordinator: TabBarCoordinatorProtocol {
     
     func createTabNavigationController(tabBarType type: TabBarType) -> UINavigationController {
         let tabNavigationController = UINavigationController()
+        tabBarCoordinatorAppend(type: type, navigationController: tabNavigationController)
         tabNavigationController.tabBarItem = UITabBarItem(title: nil,
                                                        image: UIImage(systemName: type.iconImage),
                                                        selectedImage: UIImage(systemName: type.selectedIconImage))
-        tabBarCoordinatorAppend(type: type, navigationController: tabNavigationController)
         return tabNavigationController
     }
     
