@@ -7,7 +7,12 @@
 
 import UIKit
 
-final class AuthCoordinator: Coordinator {
+protocol AuthCoordinatorProtocol: Coordinator {
+    func connectLoginCoordinator()
+    func connectSignupCoordinator()
+}
+
+final class AuthCoordinator: AuthCoordinatorProtocol {
     
     var navigationController: UINavigationController
     var childCoordinators: [Coordinator] = []
@@ -21,14 +26,14 @@ final class AuthCoordinator: Coordinator {
         connectLoginCoordinator()
     }
     
-    private func connectLoginCoordinator() {
+    func connectLoginCoordinator() {
         let coordinator = LoginCoordinator(navigationController: navigationController)
         childCoordinators.append(coordinator)
         coordinator.delegate = self
         coordinator.start()
     }
     
-    private func connectSignupCoordinator() {
+    func connectSignupCoordinator() {
         let coordinator = SignupCoordinator(navigationController: navigationController)
         childCoordinators.append(coordinator)
         coordinator.delegate = self
