@@ -14,9 +14,13 @@ protocol Coordinator: AnyObject {
     
     init(navigationController: UINavigationController)
     
-    func removeChildCoordinator(coordinator: Coordinator)
     func start()
+    /// 특정 자식 코디네이터 삭제
+    func removeChildCoordinator(coordinator: Coordinator)
+    /// 자식 코디네이터 추가 
     func appendChildCoordinator(coordinator: Coordinator)
+    /// 자식 코디네이터 전부 제거
+    func removeAllChildCoordinator()
 }
 
 extension Coordinator {
@@ -26,6 +30,10 @@ extension Coordinator {
     
     func appendChildCoordinator(coordinator: Coordinator) {
         childCoordinators.append(coordinator)
+    }
+    
+    func removeAllChildCoordinator() {
+        childCoordinators = []
     }
 }
 

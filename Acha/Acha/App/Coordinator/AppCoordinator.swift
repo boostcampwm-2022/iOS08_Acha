@@ -40,13 +40,12 @@ final class AppCoordinator: Coordinator {
 extension AppCoordinator: CoordinatorDelegate {
     
     func didFinished(childCoordinator: Coordinator) {
+        removeAllChildCoordinator()
         switch childCoordinator {
         case is AuthCoordinator:
-            removeChildCoordinator(coordinator: childCoordinator)
             appendChildCoordinator(coordinator: childCoordinator)
             connectTabBar()
         case is TabBarCoordinator:
-            removeChildCoordinator(coordinator: childCoordinator)
             appendChildCoordinator(coordinator: childCoordinator)
             connectAuth()
         default:
