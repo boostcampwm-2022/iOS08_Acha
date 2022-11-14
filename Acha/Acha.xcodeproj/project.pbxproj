@@ -17,6 +17,23 @@
 		471863E0291E155800A35786 /* AchaUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471863DF291E155800A35786 /* AchaUITestsLaunchTests.swift */; };
 		4738D75F2921D3E7003AE835 /* AchaLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = 4738D75E2921D3E7003AE835 /* AchaLibrary */; };
 		4738D7612921D6E4003AE835 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4738D7602921D6E4003AE835 /* GoogleService-Info.plist */; };
+		E5BE8B8F2922172400E9CFE8 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8B8E2922172400E9CFE8 /* AppCoordinator.swift */; };
+		E5BE8B91292218A500E9CFE8 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8B90292218A500E9CFE8 /* Coordinator.swift */; };
+		E5BE8B93292218F100E9CFE8 /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8B92292218F100E9CFE8 /* AuthCoordinator.swift */; };
+		E5BE8B952922196D00E9CFE8 /* TabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8B942922196D00E9CFE8 /* TabBarCoordinator.swift */; };
+		E5BE8B97292219D800E9CFE8 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8B96292219D800E9CFE8 /* HomeCoordinator.swift */; };
+		E5BE8B9929221A4C00E9CFE8 /* RecordCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8B9829221A4C00E9CFE8 /* RecordCoordinator.swift */; };
+		E5BE8B9B29221A8A00E9CFE8 /* CommunityCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8B9A29221A8A00E9CFE8 /* CommunityCoordinator.swift */; };
+		E5BE8B9D29221AAF00E9CFE8 /* MyPageCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8B9C29221AAF00E9CFE8 /* MyPageCoordinator.swift */; };
+		E5BE8B9F29221B2700E9CFE8 /* LoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8B9E29221B2700E9CFE8 /* LoginCoordinator.swift */; };
+		E5BE8BA129221B6D00E9CFE8 /* SignupCoordinator .swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8BA029221B6D00E9CFE8 /* SignupCoordinator .swift */; };
+		E5BE8BAD29221FE500E9CFE8 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8BAC29221FE400E9CFE8 /* HomeViewController.swift */; };
+		E5BE8BAF29221FF800E9CFE8 /* CommunityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8BAE29221FF800E9CFE8 /* CommunityViewController.swift */; };
+		E5BE8BB12922200000E9CFE8 /* RecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8BB02922200000E9CFE8 /* RecordViewController.swift */; };
+		E5BE8BB32922200C00E9CFE8 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8BB22922200C00E9CFE8 /* MyPageViewController.swift */; };
+		E5BE8BB52922201600E9CFE8 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8BB42922201600E9CFE8 /* SignupViewController.swift */; };
+		E5BE8BB72922201F00E9CFE8 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8BB62922201F00E9CFE8 /* LoginViewController.swift */; };
+		E5BE8BBA2922217600E9CFE8 /* TabBarType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8BB92922217600E9CFE8 /* TabBarType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +68,23 @@
 		471863DF291E155800A35786 /* AchaUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchaUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		4738D75C2921D398003AE835 /* AchaLibrary */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = AchaLibrary; path = ../AchaLibrary; sourceTree = "<group>"; };
 		4738D7602921D6E4003AE835 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../GoogleService-Info.plist"; sourceTree = "<group>"; };
+		E5BE8B8E2922172400E9CFE8 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		E5BE8B90292218A500E9CFE8 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		E5BE8B92292218F100E9CFE8 /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
+		E5BE8B942922196D00E9CFE8 /* TabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarCoordinator.swift; sourceTree = "<group>"; };
+		E5BE8B96292219D800E9CFE8 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
+		E5BE8B9829221A4C00E9CFE8 /* RecordCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordCoordinator.swift; sourceTree = "<group>"; };
+		E5BE8B9A29221A8A00E9CFE8 /* CommunityCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityCoordinator.swift; sourceTree = "<group>"; };
+		E5BE8B9C29221AAF00E9CFE8 /* MyPageCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageCoordinator.swift; sourceTree = "<group>"; };
+		E5BE8B9E29221B2700E9CFE8 /* LoginCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCoordinator.swift; sourceTree = "<group>"; };
+		E5BE8BA029221B6D00E9CFE8 /* SignupCoordinator .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SignupCoordinator .swift"; sourceTree = "<group>"; };
+		E5BE8BAC29221FE400E9CFE8 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		E5BE8BAE29221FF800E9CFE8 /* CommunityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityViewController.swift; sourceTree = "<group>"; };
+		E5BE8BB02922200000E9CFE8 /* RecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewController.swift; sourceTree = "<group>"; };
+		E5BE8BB22922200C00E9CFE8 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
+		E5BE8BB42922201600E9CFE8 /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
+		E5BE8BB62922201F00E9CFE8 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		E5BE8BB92922217600E9CFE8 /* TabBarType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +139,11 @@
 		471863BB291E155700A35786 /* Acha */ = {
 			isa = PBXGroup;
 			children = (
+				E5BE8B882922164400E9CFE8 /* App */,
+				E5BE8B8A2922169600E9CFE8 /* Data */,
+				E5BE8B8B2922169D00E9CFE8 /* Domain */,
+				E5BE8B8C292216A600E9CFE8 /* Presentation */,
+				E5BE8B8D292216B400E9CFE8 /* Util */,
 				471863BC291E155700A35786 /* AppDelegate.swift */,
 				471863BE291E155700A35786 /* SceneDelegate.swift */,
 				471863C0291E155700A35786 /* ViewController.swift */,
@@ -145,6 +184,154 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E5BE8B882922164400E9CFE8 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				E5BE8B892922167400E9CFE8 /* Coordinator */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		E5BE8B892922167400E9CFE8 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				E5BE8B90292218A500E9CFE8 /* Coordinator.swift */,
+				E5BE8B8E2922172400E9CFE8 /* AppCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		E5BE8B8A2922169600E9CFE8 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		E5BE8B8B2922169D00E9CFE8 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		E5BE8B8C292216A600E9CFE8 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				E5BE8BA329221C1000E9CFE8 /* TabBar */,
+				E5BE8BA229221C0A00E9CFE8 /* Auth */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		E5BE8B8D292216B400E9CFE8 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				E5BE8BB82922216500E9CFE8 /* Enums */,
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
+		E5BE8BA229221C0A00E9CFE8 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				E5BE8BAB29221F3100E9CFE8 /* Coordinator */,
+				E5BE8BA929221C5400E9CFE8 /* Signup */,
+				E5BE8BA829221C4F00E9CFE8 /* Login */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		E5BE8BA329221C1000E9CFE8 /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				E5BE8BAA29221F1600E9CFE8 /* Coordinator */,
+				E5BE8BA729221C3B00E9CFE8 /* MyPage */,
+				E5BE8BA629221C3200E9CFE8 /* Record */,
+				E5BE8BA529221C2D00E9CFE8 /* Community */,
+				E5BE8BA429221C2800E9CFE8 /* Home */,
+			);
+			path = TabBar;
+			sourceTree = "<group>";
+		};
+		E5BE8BA429221C2800E9CFE8 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				E5BE8BAC29221FE400E9CFE8 /* HomeViewController.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		E5BE8BA529221C2D00E9CFE8 /* Community */ = {
+			isa = PBXGroup;
+			children = (
+				E5BE8BAE29221FF800E9CFE8 /* CommunityViewController.swift */,
+			);
+			path = Community;
+			sourceTree = "<group>";
+		};
+		E5BE8BA629221C3200E9CFE8 /* Record */ = {
+			isa = PBXGroup;
+			children = (
+				E5BE8BB02922200000E9CFE8 /* RecordViewController.swift */,
+			);
+			path = Record;
+			sourceTree = "<group>";
+		};
+		E5BE8BA729221C3B00E9CFE8 /* MyPage */ = {
+			isa = PBXGroup;
+			children = (
+				E5BE8BB22922200C00E9CFE8 /* MyPageViewController.swift */,
+			);
+			path = MyPage;
+			sourceTree = "<group>";
+		};
+		E5BE8BA829221C4F00E9CFE8 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				E5BE8BB62922201F00E9CFE8 /* LoginViewController.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		E5BE8BA929221C5400E9CFE8 /* Signup */ = {
+			isa = PBXGroup;
+			children = (
+				E5BE8BB42922201600E9CFE8 /* SignupViewController.swift */,
+			);
+			path = Signup;
+			sourceTree = "<group>";
+		};
+		E5BE8BAA29221F1600E9CFE8 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				E5BE8B942922196D00E9CFE8 /* TabBarCoordinator.swift */,
+				E5BE8B96292219D800E9CFE8 /* HomeCoordinator.swift */,
+				E5BE8B9829221A4C00E9CFE8 /* RecordCoordinator.swift */,
+				E5BE8B9A29221A8A00E9CFE8 /* CommunityCoordinator.swift */,
+				E5BE8B9C29221AAF00E9CFE8 /* MyPageCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		E5BE8BAB29221F3100E9CFE8 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				E5BE8B92292218F100E9CFE8 /* AuthCoordinator.swift */,
+				E5BE8B9E29221B2700E9CFE8 /* LoginCoordinator.swift */,
+				E5BE8BA029221B6D00E9CFE8 /* SignupCoordinator .swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		E5BE8BB82922216500E9CFE8 /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				E5BE8BB92922217600E9CFE8 /* TabBarType.swift */,
+			);
+			path = Enums;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -304,8 +491,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E5BE8BB52922201600E9CFE8 /* SignupViewController.swift in Sources */,
+				E5BE8BBA2922217600E9CFE8 /* TabBarType.swift in Sources */,
+				E5BE8B8F2922172400E9CFE8 /* AppCoordinator.swift in Sources */,
 				471863C1291E155700A35786 /* ViewController.swift in Sources */,
+				E5BE8B9D29221AAF00E9CFE8 /* MyPageCoordinator.swift in Sources */,
+				E5BE8BB72922201F00E9CFE8 /* LoginViewController.swift in Sources */,
+				E5BE8BB12922200000E9CFE8 /* RecordViewController.swift in Sources */,
+				E5BE8B91292218A500E9CFE8 /* Coordinator.swift in Sources */,
+				E5BE8B952922196D00E9CFE8 /* TabBarCoordinator.swift in Sources */,
+				E5BE8BAD29221FE500E9CFE8 /* HomeViewController.swift in Sources */,
+				E5BE8B9B29221A8A00E9CFE8 /* CommunityCoordinator.swift in Sources */,
+				E5BE8B9F29221B2700E9CFE8 /* LoginCoordinator.swift in Sources */,
+				E5BE8BAF29221FF800E9CFE8 /* CommunityViewController.swift in Sources */,
+				E5BE8BB32922200C00E9CFE8 /* MyPageViewController.swift in Sources */,
 				471863BD291E155700A35786 /* AppDelegate.swift in Sources */,
+				E5BE8BA129221B6D00E9CFE8 /* SignupCoordinator .swift in Sources */,
+				E5BE8B97292219D800E9CFE8 /* HomeCoordinator.swift in Sources */,
+				E5BE8B93292218F100E9CFE8 /* AuthCoordinator.swift in Sources */,
+				E5BE8B9929221A4C00E9CFE8 /* RecordCoordinator.swift in Sources */,
 				471863BF291E155700A35786 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
