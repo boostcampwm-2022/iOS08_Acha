@@ -7,19 +7,27 @@
 
 import UIKit 
 
-final class HomeCoordinator: Coordinator {
+protocol HomeCoordinatorProtocol: Coordinator {
+    func showHomeViewController()
+}
+
+final class HomeCoordinator: HomeCoordinatorProtocol {
+    var delegate: CoordinatorDelegate?
+    
     var navigationController: UINavigationController
     var childCoordinators: [Coordinator] = []
-    weak var delegate: ChildCoordinatorPopable?
     
     required init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
     
     func start() {
+        showHomeViewController()
+    }
+    
+    func showHomeViewController() {
         let viewController = HomeViewController()
-//        viewController.coordinator = self
-        navigationController.pushViewController(viewController, animated: false)
+        navigationController.pushViewController(viewController, animated: true)
     }
     
 }

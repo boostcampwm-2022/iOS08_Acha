@@ -8,6 +8,8 @@
 import UIKit
 
 final class LoginCoordinator: Coordinator {
+    var delegate: CoordinatorDelegate?
+    
     var navigationController: UINavigationController
     
     var childCoordinators: [Coordinator] = []
@@ -17,11 +19,12 @@ final class LoginCoordinator: Coordinator {
     }
     
     func start() {
-        
+        showLoginViewController()
     }
     
-    func didFinished(coordinator: Coordinator) {
-        childCoordinators = childCoordinators.filter { $0 !== coordinator }
+    private func showLoginViewController() {
+        let viewController = LoginViewController()
+        navigationController.pushViewController(viewController, animated: true)
     }
     
 }

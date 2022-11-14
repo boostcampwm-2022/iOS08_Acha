@@ -10,14 +10,25 @@ import UIKit
 protocol Coordinator: AnyObject {
     var navigationController: UINavigationController {get set}
     var childCoordinators: [Coordinator] {get set}
+    var delegate: CoordinatorDelegate? {get set}
     
     init(navigationController: UINavigationController)
     
+    func removeChildCoordinator(coordinator: Coordinator)
     func start()
-    
+    func appendChildCoordinator(coordinator: Coordinator)
 }
 
-protocol ChildCoordinatorPopable: AnyObject {
-    /// 자식 코디네이터 해제
+extension Coordinator {
+    func removeChildCoordinator(coordinator: Coordinator) {
+        childCoordinators = childCoordinators.filter { $0 !== coordinator }
+    }
+    
+    func appendChildCoordinator(coordinator: Coordinator) {
+        childCoordinators.append(coordinator)
+    }
+}
+
+protocol CoordinatorDelegate: AnyObject {
     func didFinished(childCoordinator: Coordinator)
 }

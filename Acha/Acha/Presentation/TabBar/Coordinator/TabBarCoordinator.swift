@@ -7,12 +7,20 @@
 
 import UIKit
 
-final class TabBarCoordinator: Coordinator {
+protocol TabBarCoordinatorProtocol: Coordinator {
+    var tabBarController: UITabBarController {get set}
+    
+    func configureTabBarController()
+    func createTabNavigationController(tabBarType type: TabBarType) -> UINavigationController
+    func tabBarCoordinatorAppend(type: TabBarType, navigationController: UINavigationController)
+    
+}
+final class TabBarCoordinator: TabBarCoordinatorProtocol {
     
     var navigationController: UINavigationController
     var childCoordinators: [Coordinator] = []
-    let tabBarController = UITabBarController()
-    weak var delegate: ChildCoordinatorPopable?
+    var tabBarController = UITabBarController()
+    weak var delegate: CoordinatorDelegate?
     
     required init(navigationController: UINavigationController) {
         self.navigationController = navigationController
@@ -38,11 +46,11 @@ final class TabBarCoordinator: Coordinator {
         tabNavigationController.tabBarItem = UITabBarItem(title: nil,
                                                        image: UIImage(systemName: type.iconImage),
                                                        selectedImage: UIImage(systemName: type.selectedIconImage))
-        connect(type: type, navigationController: tabNavigationController)
+        tabBarCoordinatorAppend(type: type, navigationController: tabNavigationController)
         return tabNavigationController
     }
     
-    func connect(type: TabBarType, navigationController: UINavigationController) {
+    func tabBarCoordinatorAppend(type: TabBarType, navigationController: UINavigationController) {
         var coordinator: Coordinator
         switch type {
         case .home:
@@ -54,7 +62,14 @@ final class TabBarCoordinator: Coordinator {
         case .myPage:
             coordinator = MyPageCoordinator(navigationController: navigationController)
         }
-        coordinator.start()
+        coordinator.delegate = self
         childCoordinators.append(coordinator)
+        coordinator.start()
+    }
+}
+
+extension TabBarCoordinator: CoordinatorDelegate {
+    func didFinished(childCoordinator: Coordinator) {
+        removeChildCoordinator(coordinator: childCoordinator)
     }
 }

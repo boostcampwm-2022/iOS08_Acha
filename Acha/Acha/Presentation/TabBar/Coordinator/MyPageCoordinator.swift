@@ -7,17 +7,25 @@
 
 import UIKit
 
+protocol MyPageCoordinatorProtocol: Coordinator {
+    func showMyPageViewController()
+}
+
 final class MyPageCoordinator: Coordinator {
     var navigationController: UINavigationController
-    
     var childCoordinators: [Coordinator] = []
+    weak var delegate: CoordinatorDelegate?
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
     
     func start() {
-        
-            print("page")
+        showMyPageViewController()
+    }
+    
+    func showMyPageViewController() {
+        let viewController = MyPageViewController()
+        navigationController.pushViewController(viewController, animated: true)
     }
 }

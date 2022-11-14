@@ -11,7 +11,7 @@ final class AppCoordinator: Coordinator {
     
     var navigationController: UINavigationController
     var childCoordinators = [Coordinator]()
-    weak var delegate: ChildCoordinatorPopable?
+    weak var delegate: CoordinatorDelegate?
     
     required init(navigationController: UINavigationController) {
         self.navigationController = navigationController
@@ -37,13 +37,17 @@ final class AppCoordinator: Coordinator {
     }
 }
 
-extension AppCoordinator: ChildCoordinatorPopable {
+extension AppCoordinator: CoordinatorDelegate {
     
     func didFinished(childCoordinator: Coordinator) {
         switch childCoordinator {
         case is AuthCoordinator:
+            removeChildCoordinator(coordinator: childCoordinator)
+            appendChildCoordinator(coordinator: childCoordinator)
             connectTabBar()
         case is TabBarCoordinator:
+            removeChildCoordinator(coordinator: childCoordinator)
+            appendChildCoordinator(coordinator: childCoordinator)
             connectAuth()
         default:
             break

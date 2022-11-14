@@ -11,14 +11,33 @@ final class AuthCoordinator: Coordinator {
     
     var navigationController: UINavigationController
     var childCoordinators: [Coordinator] = []
-    weak var delegate: ChildCoordinatorPopable?
+    weak var delegate: CoordinatorDelegate?
     
     required init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
     
     func start() {
-        
+        connectLoginCoordinator()
     }
     
+    private func connectLoginCoordinator() {
+        let coordinator = LoginCoordinator(navigationController: navigationController)
+        childCoordinators.append(coordinator)
+        coordinator.delegate = self
+        coordinator.start()
+    }
+    
+    private func connectSignupCoordinator() {
+        let coordinator = SignupCoordinator(navigationController: navigationController)
+        childCoordinators.append(coordinator)
+        coordinator.delegate = self
+        coordinator.start()
+    }
+}
+
+extension AuthCoordinator: CoordinatorDelegate {
+    func didFinished(childCoordinator: Coordinator) {
+        removeChildCoordinator(coordinator: childCoordinator)
+    }
 }

@@ -7,17 +7,25 @@
 
 import UIKit
 
-final class CommunityCoordinator: Coordinator {
+protocol CommunityCoordinatorProtocol: Coordinator {
+    func showCommunityViewController()
+}
+
+final class CommunityCoordinator: CommunityCoordinatorProtocol {
     var navigationController: UINavigationController
-    
     var childCoordinators: [Coordinator] = []
+    weak var delegate: CoordinatorDelegate?
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
     
     func start() {
-        
-            print("comm")
+        showCommunityViewController()
+    }
+    
+    func showCommunityViewController() {
+        let viewController = CommunityViewController()
+        navigationController.pushViewController(viewController, animated: true)
     }
 }
