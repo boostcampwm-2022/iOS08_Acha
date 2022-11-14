@@ -37,7 +37,7 @@ final class TabBarCoordinator: TabBarCoordinatorProtocol {
         tabBarController.viewControllers = navigationControllers
         navigationController.viewControllers = [tabBarController]
         
-        tabBarController.tabBar.backgroundColor = .blue
+        tabBarController.tabBar.backgroundColor = UIColor(named: "PointColor")
         tabBarController.tabBar.tintColor = .white
     }
     
