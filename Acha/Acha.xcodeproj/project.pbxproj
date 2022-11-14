@@ -16,6 +16,7 @@
 		471863D4291E155800A35786 /* AchaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471863D3291E155800A35786 /* AchaTests.swift */; };
 		471863DE291E155800A35786 /* AchaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471863DD291E155800A35786 /* AchaUITests.swift */; };
 		471863E0291E155800A35786 /* AchaUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471863DF291E155800A35786 /* AchaUITestsLaunchTests.swift */; };
+		4738D75F2921D3E7003AE835 /* AchaLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = 4738D75E2921D3E7003AE835 /* AchaLibrary */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		471863D9291E155800A35786 /* AchaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AchaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		471863DD291E155800A35786 /* AchaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchaUITests.swift; sourceTree = "<group>"; };
 		471863DF291E155800A35786 /* AchaUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchaUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		4738D75C2921D398003AE835 /* AchaLibrary */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = AchaLibrary; path = ../AchaLibrary; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +58,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4738D75F2921D3E7003AE835 /* AchaLibrary in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -79,10 +82,12 @@
 		471863B0291E155700A35786 = {
 			isa = PBXGroup;
 			children = (
+				4738D75B2921D398003AE835 /* Packages */,
 				471863BB291E155700A35786 /* Acha */,
 				471863D2291E155800A35786 /* AchaTests */,
 				471863DC291E155800A35786 /* AchaUITests */,
 				471863BA291E155700A35786 /* Products */,
+				4738D75D2921D3E7003AE835 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -127,6 +132,21 @@
 			path = AchaUITests;
 			sourceTree = "<group>";
 		};
+		4738D75B2921D398003AE835 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				4738D75C2921D398003AE835 /* AchaLibrary */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
+		4738D75D2921D3E7003AE835 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -144,6 +164,9 @@
 			dependencies = (
 			);
 			name = Acha;
+			packageProductDependencies = (
+				4738D75E2921D3E7003AE835 /* AchaLibrary */,
+			);
 			productName = Acha;
 			productReference = 471863B9291E155700A35786 /* Acha.app */;
 			productType = "com.apple.product-type.application";
@@ -619,6 +642,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4738D75E2921D3E7003AE835 /* AchaLibrary */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AchaLibrary;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 471863B1291E155700A35786 /* Project object */;
 }
