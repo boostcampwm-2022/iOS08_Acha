@@ -17,6 +17,8 @@
 		471863E0291E155800A35786 /* AchaUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471863DF291E155800A35786 /* AchaUITestsLaunchTests.swift */; };
 		4738D75F2921D3E7003AE835 /* AchaLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = 4738D75E2921D3E7003AE835 /* AchaLibrary */; };
 		4738D7612921D6E4003AE835 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4738D7602921D6E4003AE835 /* GoogleService-Info.plist */; };
+		4738D76329223651003AE835 /* SelectMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4738D76229223651003AE835 /* SelectMapViewController.swift */; };
+		4738D766292238C3003AE835 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4738D765292238C3003AE835 /* UIColor+.swift */; };
 		E5BE8B8F2922172400E9CFE8 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8B8E2922172400E9CFE8 /* AppCoordinator.swift */; };
 		E5BE8B91292218A500E9CFE8 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8B90292218A500E9CFE8 /* Coordinator.swift */; };
 		E5BE8B93292218F100E9CFE8 /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8B92292218F100E9CFE8 /* AuthCoordinator.swift */; };
@@ -68,6 +70,8 @@
 		471863DF291E155800A35786 /* AchaUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchaUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		4738D75C2921D398003AE835 /* AchaLibrary */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = AchaLibrary; path = ../AchaLibrary; sourceTree = "<group>"; };
 		4738D7602921D6E4003AE835 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../GoogleService-Info.plist"; sourceTree = "<group>"; };
+		4738D76229223651003AE835 /* SelectMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMapViewController.swift; sourceTree = "<group>"; };
+		4738D765292238C3003AE835 /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
 		E5BE8B8E2922172400E9CFE8 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		E5BE8B90292218A500E9CFE8 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		E5BE8B92292218F100E9CFE8 /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
@@ -186,6 +190,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		4738D764292238AD003AE835 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				4738D765292238C3003AE835 /* UIColor+.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		E5BE8B882922164400E9CFE8 /* App */ = {
 			isa = PBXGroup;
 			children = (
@@ -229,6 +241,7 @@
 		E5BE8B8D292216B400E9CFE8 /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				4738D764292238AD003AE835 /* Extension */,
 				E5BE8BB82922216500E9CFE8 /* Enums */,
 			);
 			path = Util;
@@ -260,6 +273,7 @@
 			isa = PBXGroup;
 			children = (
 				E5BE8BAC29221FE400E9CFE8 /* HomeViewController.swift */,
+				4738D76229223651003AE835 /* SelectMapViewController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -506,8 +520,10 @@
 				E5BE8BAF29221FF800E9CFE8 /* CommunityViewController.swift in Sources */,
 				E5BE8BB32922200C00E9CFE8 /* MyPageViewController.swift in Sources */,
 				471863BD291E155700A35786 /* AppDelegate.swift in Sources */,
+				4738D766292238C3003AE835 /* UIColor+.swift in Sources */,
 				E5BE8BA129221B6D00E9CFE8 /* SignupCoordinator .swift in Sources */,
 				E5BE8B97292219D800E9CFE8 /* HomeCoordinator.swift in Sources */,
+				4738D76329223651003AE835 /* SelectMapViewController.swift in Sources */,
 				E5BE8B93292218F100E9CFE8 /* AuthCoordinator.swift in Sources */,
 				E5BE8B9929221A4C00E9CFE8 /* RecordCoordinator.swift in Sources */,
 				471863BF291E155700A35786 /* SceneDelegate.swift in Sources */,
@@ -679,6 +695,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Acha/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -707,6 +724,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Acha/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
