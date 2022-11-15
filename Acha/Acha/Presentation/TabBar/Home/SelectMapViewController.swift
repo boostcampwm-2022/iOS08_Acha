@@ -55,7 +55,7 @@ final class SelectMapViewController: UIViewController {
     private lazy var locationManager = CLLocationManager().then {
         // desiredAccuracy는 위치의 정확도를 설정 (정확도 높으면 배터리 많이 닳음)
         $0.desiredAccuracy = kCLLocationAccuracyBest
-        $0.startUpdatingLocation()     // startUpdate를 해야 didUpdateLocation 메서드가 호출됨
+        $0.startUpdatingLocation()
         $0.delegate = self
     }
     private let viewModel: SelectMapViewModel
@@ -206,12 +206,10 @@ extension SelectMapViewController: MKMapViewDelegate {
             mapView.mapType = .standard
         }
         
-        // 지도에 내 위치 표시
         mapView.showsUserLocation = true
-        mapView.showsCompass = false
-        // 내 위치 기준으로 지도 움직이도록 설정
         mapView.setUserTrackingMode(.follow, animated: true)
         
+        mapView.showsCompass = false
         focusUserLocation(useSpan: true)
         mapView.isRotateEnabled = false
     }
@@ -232,7 +230,7 @@ extension SelectMapViewController: MKMapViewDelegate {
         return renderer
     }
     
-    /// pin 클릭 시 액션
+    /// annotation (=pin) 클릭 시 액션
     func mapView(_ mapView: MKMapView, didSelect annotation: MKAnnotation) {
         rankingView.isHidden = false
         startButton.isValid = true
@@ -242,16 +240,14 @@ extension SelectMapViewController: MKMapViewDelegate {
         let renderer = mapView.renderer(for: annotation.polyLine) as? MKPolylineRenderer
         renderer?.strokeColor = .red
         
-        // 땅이 랭킹뷰 위에 오도록 지도 포커스
+        // 땅이 랭킹뷰 위쪽에 오도록 지도 포커스
         focusMapLocation(centerCoordinate: annotation.map.centerCoordinate)
     }
     
-    /// pin 클릭 해제 시 액션
     func mapView(_ mapView: MKMapView, didDeselect annotation: MKAnnotation) {
         rankingView.isHidden = true
         startButton.isValid = false
         
-        // 테두리 색상 변경
         guard let annotation = annotation as? MapAnnotation else { return }
         let renderer = mapView.renderer(for: annotation.polyLine) as? MKPolylineRenderer
         renderer?.strokeColor = .gray
