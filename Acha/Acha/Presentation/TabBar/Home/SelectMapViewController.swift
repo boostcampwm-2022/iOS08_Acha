@@ -145,7 +145,7 @@ final class SelectMapViewController: UIViewController {
     }
     
     @objc func focusButtonDidClick(_ sender: UIButton) {
-        focusUserLocation()
+        focusUserLocation(useSpan: false)
     }
 }
 
@@ -178,13 +178,17 @@ extension SelectMapViewController: CLLocationManagerDelegate {
 //    }
     
     /// 사용자 현위치에 폭 0.01 수준으로 지도 포커스
-    private func focusUserLocation() {
+    private func focusUserLocation(useSpan: Bool) {
         guard let userLocation = locationManager.location else { return }
         let center = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude,
                                             longitude: userLocation.coordinate.longitude)
-        let region = MKCoordinateRegion(center: center,
-                                        span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
-        mapView.setRegion(region, animated: true)
+        if useSpan {
+            let region = MKCoordinateRegion(center: center,
+                                            span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+            mapView.setRegion(region, animated: true)
+        } else {
+            mapView.setCenter(center, animated: true)
+        }
     }
 }
 
@@ -205,7 +209,7 @@ extension SelectMapViewController: MKMapViewDelegate {
         // 내 위치 기준으로 지도 움직이도록 설정
         mapView.setUserTrackingMode(.follow, animated: true)
         
-        focusUserLocation()
+        focusUserLocation(useSpan: true)
     }
     
     /// mapView.addOverlay(lineDraw) 실행 시 호출되는 함수
