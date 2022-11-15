@@ -203,6 +203,7 @@ extension SelectMapViewController: MKMapViewDelegate {
         
         // 지도에 내 위치 표시
         mapView.showsUserLocation = true
+        mapView.showsCompass = false
         // 내 위치 기준으로 지도 움직이도록 설정
         mapView.setUserTrackingMode(.follow, animated: true)
         
