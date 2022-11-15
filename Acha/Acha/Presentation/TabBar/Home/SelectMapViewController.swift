@@ -22,13 +22,13 @@ final class SelectMapViewController: UIViewController {
     
     private lazy var guideLabel = UILabel().then {
         $0.text = "땅을 선택해주세요"
-        $0.textColor = .pointColor
+        $0.textColor = .pointLight
         $0.font = UIFont.boldSystemFont(ofSize: 24)
     }
     
     private lazy var focusButton = UIButton().then {
         $0.setImage(SystemImageNameSpace.locationCircle.uiImage, for: .normal)
-        $0.tintColor = .pointColor
+        $0.tintColor = .pointLight
         $0.addTarget(self, action: #selector(focusButtonDidClick), for: .touchDown)
         
         // button image size 설정
@@ -39,7 +39,7 @@ final class SelectMapViewController: UIViewController {
     private lazy var startButton = UIButton().then {
         $0.setTitle("게임 시작", for: .normal)
         $0.tintColor = .white
-        $0.backgroundColor = .pointColor
+        $0.backgroundColor = .pointLight
         $0.layer.cornerRadius = 10
         $0.isEnabled(false)
     }
@@ -235,15 +235,22 @@ extension SelectMapViewController: MKMapViewDelegate {
     /// pin 클릭 시 액션
     func mapView(_ mapView: MKMapView, didSelect annotation: MKAnnotation) {
         rankingView.isHidden = false
+        startButton.isEnabled(true)
+        
+        // 테두리 색상 변경
         guard let annotation = annotation as? MapAnnotation else { return }
         let renderer = mapView.renderer(for: annotation.polyLine) as? MKPolylineRenderer
         renderer?.strokeColor = .red
+        
         focusMapLocation(centerCoordinate: annotation.map.centerCoordinate)
     }
     
     /// pin 클릭 해제 시 액션
     func mapView(_ mapView: MKMapView, didDeselect annotation: MKAnnotation) {
         rankingView.isHidden = true
+        startButton.isEnabled(false)
+        
+        // 테두리 색상 변경
         guard let annotation = annotation as? MapAnnotation else { return }
         let renderer = mapView.renderer(for: annotation.polyLine) as? MKPolylineRenderer
         renderer?.strokeColor = .gray
