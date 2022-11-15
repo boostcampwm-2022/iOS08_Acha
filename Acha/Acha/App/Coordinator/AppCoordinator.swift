@@ -7,7 +7,12 @@
 
 import UIKit
 
-final class AppCoordinator: Coordinator {
+protocol AppCoordinatorProtocol: Coordinator {
+    func connectAuth()
+    func connectTabBar()
+}
+
+final class AppCoordinator: AppCoordinatorProtocol {
     
     var navigationController: UINavigationController
     var childCoordinators = [Coordinator]()
