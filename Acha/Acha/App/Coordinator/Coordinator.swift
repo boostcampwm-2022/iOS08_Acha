@@ -21,6 +21,8 @@ protocol Coordinator: AnyObject {
     func appendChildCoordinator(coordinator: Coordinator)
     /// 자식 코디네이터 전부 제거
     func removeAllChildCoordinator()
+    /// 자기 자신 컨트롤러를 네비게이션 컨트롤러에서 제거
+    func popSelfFromNavigatonController()
 }
 
 extension Coordinator {
@@ -34,6 +36,10 @@ extension Coordinator {
     
     func removeAllChildCoordinator() {
         childCoordinators = []
+    }
+    
+    func popSelfFromNavigatonController() {
+        _ = navigationController.viewControllers.popLast()
     }
 }
 
