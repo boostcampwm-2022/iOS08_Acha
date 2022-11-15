@@ -11,11 +11,12 @@ import Foundation
 struct Map: Decodable {
     let mapID: Int
     let name: String
+    let centerCoordinate: Coordinate
     let coordinates: [Coordinate]
 
     enum CodingKeys: String, CodingKey {
         case mapID = "mapId"
-        case name, coordinates
+        case name, centerCoordinate, coordinates
     }
 }
 
