@@ -11,8 +11,10 @@ import Firebase
 
 final class SingleGameViewModel {
     let map: Map
-    var mapCoordinates = PublishRelay<Map>()
     var ref: DatabaseReference!
+    var mapCoordinates = PublishRelay<Map>()
+    var route = [Coordinate]()
+    let movedDistance = BehaviorRelay<Double>(value: 0.0)
     
     init(map: Map) {
         self.map = map
@@ -31,5 +33,12 @@ final class SingleGameViewModel {
             }
             self?.mapCoordinates.accept(maps.first!)
         })
+    }
+    
+    func userMoved(coordinate: Coordinate, distance: Double) {
+        route.append(coordinate)
+        
+        let newDistance = distance + movedDistance.value
+        self.movedDistance.accept(newDistance)
     }
 }
