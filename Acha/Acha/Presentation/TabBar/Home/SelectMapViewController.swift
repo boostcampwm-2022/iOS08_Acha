@@ -161,6 +161,15 @@ extension SelectMapViewController: MKMapViewDelegate {
         mapView.showsUserLocation = true
         // 내 위치 기준으로 지도 움직이도록 설정
         mapView.setUserTrackingMode(.follow, animated: true)
+        
+        // 사용자 현위치에 폭 0.01 수준으로 지도 포커스
+        guard let userLocation = locationManager.location else { return }
+        let center = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude,
+                                            longitude: userLocation.coordinate.longitude)
+        let region = MKCoordinateRegion(center: center,
+                                        span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+        mapView.setRegion(region, animated: true)
+        
     }
     
     /// mapView.addOverlay(lineDraw) 실행 시 호출되는 함수
