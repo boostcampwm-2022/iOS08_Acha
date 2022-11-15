@@ -10,8 +10,8 @@ import RxSwift
 import RxRelay
 final class HomeViewModel {
     var coordinator: HomeCoordinator
-    var singleGameTap = PublishRelay<Void>()
-    var multiGameTap = PublishRelay<Void>()
+    let singleGameTap = PublishRelay<Void>()
+    let multiGameTap = PublishRelay<Void>()
     private let disposeBag = DisposeBag()
     
     init(coordinator: HomeCoordinator) {

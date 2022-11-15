@@ -123,16 +123,14 @@ final class HomeViewController: UIViewController {
         }
         
         startGameContentView.snp.makeConstraints {
-            $0.leading.equalToSuperview().offset(15)
-            $0.trailing.equalToSuperview().offset(-15)
+            $0.leading.trailing.equalToSuperview().inset(15)
             $0.height.equalTo(400)
             $0.centerY.equalToSuperview().offset(-50)
         }
         
         titleLabel.snp.makeConstraints {
             $0.height.equalTo(100)
-            $0.leading.equalToSuperview().offset(15)
-            $0.trailing.equalToSuperview().offset(-15)
+            $0.leading.trailing.equalToSuperview().inset(15)
             $0.centerY.equalToSuperview().offset(-200)
         }
         
@@ -152,15 +150,13 @@ final class HomeViewController: UIViewController {
         
         startSingleGameButton.snp.makeConstraints {
             $0.center.equalTo(singleGameImageView)
-            $0.leading.equalTo(singleGameImageView).offset(15)
-            $0.trailing.equalTo(singleGameImageView).offset(-15)
+            $0.leading.trailing.equalToSuperview().inset(15)
             $0.height.equalTo(100)
         }
         
         startMultiGameButton.snp.makeConstraints {
             $0.center.equalTo(multiGameImageView)
-            $0.leading.equalTo(multiGameImageView).offset(15)
-            $0.trailing.equalTo(multiGameImageView).offset(-15)
+            $0.leading.trailing.equalToSuperview().inset(15)
             $0.height.equalTo(100)
         }
     }
