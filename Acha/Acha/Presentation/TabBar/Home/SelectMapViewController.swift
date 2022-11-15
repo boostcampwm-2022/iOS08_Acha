@@ -110,7 +110,7 @@ final class SelectMapViewController: UIViewController {
                     self?.addMapPin(latitude: center.latitude,
                               longitude: center.longitude,
                               delta: 0.01,
-                              title: mapElement.name, subTitle: "subTitle")
+                              title: mapElement.name)
                 }
             }).disposed(by: disposeBag)
     }
@@ -195,11 +195,11 @@ extension SelectMapViewController: MKMapViewDelegate {
         return renderer
     }
     
-    func addMapPin(latitude: Double, longitude: Double, delta span: Double, title: String, subTitle: String) {
+    func addMapPin(latitude: Double, longitude: Double, delta span: Double, title: String) {
         let annotation = MKPointAnnotation()
         annotation.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
         annotation.title = title
-        annotation.subtitle = subTitle
         mapView.addAnnotation(annotation)
     }
+    
 }
