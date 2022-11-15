@@ -171,21 +171,26 @@ extension SelectMapViewController: CLLocationManagerDelegate {
         locationManager.requestWhenInUseAuthorization()
     }
     
-//    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-//    }
-    
-    /// 사용자 현위치에 폭 0.01 수준으로 지도 포커스
     private func focusUserLocation(useSpan: Bool) {
         guard let userLocation = locationManager.location else { return }
         let center = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude,
                                             longitude: userLocation.coordinate.longitude)
         if useSpan {
+            /// 사용자 현위치에 폭 0.01 수준으로 지도 포커스
             let region = MKCoordinateRegion(center: center,
                                             span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
             mapView.setRegion(region, animated: true)
         } else {
             mapView.setCenter(center, animated: true)
         }
+    }
+    
+    private func focusMapLocation(centerCoordinate: Coordinate) {
+        let center = CLLocationCoordinate2D(latitude: centerCoordinate.latitude - 0.003,
+                                              longitude: centerCoordinate.longitude)
+        let region = MKCoordinateRegion(center: center,
+                                        span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+        mapView.setRegion(region, animated: true)
     }
 }
 
@@ -208,6 +213,7 @@ extension SelectMapViewController: MKMapViewDelegate {
         mapView.setUserTrackingMode(.follow, animated: true)
         
         focusUserLocation(useSpan: true)
+        mapView.isRotateEnabled = false
     }
     
     /// mapView.addOverlay(lineDraw) 실행 시 호출되는 함수
@@ -232,6 +238,7 @@ extension SelectMapViewController: MKMapViewDelegate {
         guard let annotation = annotation as? MapAnnotation else { return }
         let renderer = mapView.renderer(for: annotation.polyLine) as? MKPolylineRenderer
         renderer?.strokeColor = .red
+        focusMapLocation(centerCoordinate: annotation.map.centerCoordinate)
     }
     
     /// pin 클릭 해제 시 액션
