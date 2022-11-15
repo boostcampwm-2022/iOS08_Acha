@@ -35,6 +35,14 @@ final class SelectMapViewController: UIViewController {
         let imageConfig = UIImage.SymbolConfiguration(pointSize: 40)
         $0.setPreferredSymbolConfiguration(imageConfig, forImageIn: .normal)
     }
+    
+    private lazy var startButton = UIButton().then {
+        $0.setTitle("게임 시작", for: .normal)
+        $0.tintColor = .white
+        $0.backgroundColor = .pointColor
+        $0.layer.cornerRadius = 10
+        $0.isEnabled(false)
+    }
 
     // MARK: - Properties
     private var ref: DatabaseReference!     // ref는 내 데이터베이스의 주소가 저장될 변수
@@ -90,6 +98,14 @@ final class SelectMapViewController: UIViewController {
             $0.top.equalTo(mapView.snp.top).offset(15)
             $0.trailing.equalTo(mapView.snp.trailing).offset(-15)
             $0.width.height.equalTo(40)
+        }
+        
+        view.addSubview(startButton)
+        startButton.snp.makeConstraints {
+            $0.bottom.equalTo(mapView.snp.bottom).offset(-80)
+            $0.centerX.equalTo(mapView)
+            $0.width.equalTo(100)
+            $0.height.equalTo(40)
         }
     }
     
