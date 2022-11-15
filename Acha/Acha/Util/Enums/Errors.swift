@@ -9,4 +9,5 @@ import Foundation
 
 enum Errors {
     case decodeError
+    case cannotDrawPolyLine
 }

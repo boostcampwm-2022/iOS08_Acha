@@ -216,7 +216,7 @@ extension SelectMapViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         guard let polyLine = overlay as? MKPolyline
         else {
-            print("polyline을 그릴 수 없음")
+            print(Errors.cannotDrawPolyLine)
             return MKOverlayRenderer()
         }
         
