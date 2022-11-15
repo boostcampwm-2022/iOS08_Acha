@@ -13,7 +13,7 @@ import SnapKit
 import Firebase
 import RxSwift
 
-class SelectMapViewController: UIViewController {
+final class SelectMapViewController: UIViewController {
     
     // MARK: - UI properties
     private lazy var mapView = MKMapView().then {
@@ -62,7 +62,6 @@ class SelectMapViewController: UIViewController {
         configureUI()
         getLocationUsagePermission()
         setUpMapView()
-        
         viewModel.fetchAllMaps()
         bind()
     }
@@ -102,8 +101,16 @@ class SelectMapViewController: UIViewController {
                         CLLocationCoordinate2D(latitude: $0.latitude, longitude: $0.longitude)
                     }
                     
+                    // 테두리 선
                     let lineDraw = MKPolyline(coordinates: coordinates, count: coordinates.count)
                     self?.mapView.addOverlay(lineDraw)
+                    
+                    // pin
+                    let center = mapElement.centerCoordinate
+                    self?.addMapPin(latitude: center.latitude,
+                              longitude: center.longitude,
+                              delta: 0.01,
+                              title: mapElement.name, subTitle: "subTitle")
                 }
             }).disposed(by: disposeBag)
     }
@@ -138,34 +145,7 @@ extension SelectMapViewController: CLLocationManagerDelegate {
         locationManager.requestWhenInUseAuthorization()
     }
     
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        
-        // 현재 위치(경도, 위도) 얻어오기
-        guard let location = locations.last else { return }
-        let latitude = location.coordinate.latitude
-        let longtitude = location.coordinate.longitude
-        
-        // 사용자의 현재 위치에 지도 focus 설정
-        let center = CLLocationCoordinate2D(latitude: latitude,
-                                            longitude: longtitude)
-        let region = MKCoordinateRegion(center: center,
-                                        span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
-        mapView.setRegion(region, animated: true)
-        
-        // MKOverlayRenderer를 이용하여 지도 위에 이동 기록 표시
-//        if let previousCoordinate = previousCoordinate {
-//            var points: [CLLocationCoordinate2D] = []
-//            let point1 = CLLocationCoordinate2D(latitude: previousCoordinate.latitude,
-//                                                longitude: previousCoordinate.longitude)
-//            let point2 = CLLocationCoordinate2D(latitude: latitude,
-//                                                longitude: longtitude)
-//            points.append(contentsOf: [point1, point2])
-//
-//            let lineDraw = MKPolyline(coordinates: points, count: points.count)
-//            mapView.addOverlay(lineDraw)
-//        }
-//
-//        previousCoordinate = location.coordinate
+//    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
 //    }
     
     /// 사용자 현위치에 폭 0.01 수준으로 지도 포커스
@@ -213,5 +193,13 @@ extension SelectMapViewController: MKMapViewDelegate {
         renderer.alpha = 1.0
         
         return renderer
+    }
+    
+    func addMapPin(latitude: Double, longitude: Double, delta span: Double, title: String, subTitle: String) {
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        annotation.title = title
+        annotation.subtitle = subTitle
+        mapView.addAnnotation(annotation)
     }
 }
