@@ -41,7 +41,7 @@ final class SelectMapViewController: UIViewController {
         $0.tintColor = .white
         $0.backgroundColor = .pointLight
         $0.layer.cornerRadius = 10
-        $0.isEnabled(false)
+        $0.isValid = false
     }
     
     private lazy var rankingView = UIView().then {
@@ -235,20 +235,21 @@ extension SelectMapViewController: MKMapViewDelegate {
     /// pin 클릭 시 액션
     func mapView(_ mapView: MKMapView, didSelect annotation: MKAnnotation) {
         rankingView.isHidden = false
-        startButton.isEnabled(true)
+        startButton.isValid = true
         
         // 테두리 색상 변경
         guard let annotation = annotation as? MapAnnotation else { return }
         let renderer = mapView.renderer(for: annotation.polyLine) as? MKPolylineRenderer
         renderer?.strokeColor = .red
         
+        // 땅이 랭킹뷰 위에 오도록 지도 포커스
         focusMapLocation(centerCoordinate: annotation.map.centerCoordinate)
     }
     
     /// pin 클릭 해제 시 액션
     func mapView(_ mapView: MKMapView, didDeselect annotation: MKAnnotation) {
         rankingView.isHidden = true
-        startButton.isEnabled(false)
+        startButton.isValid = false
         
         // 테두리 색상 변경
         guard let annotation = annotation as? MapAnnotation else { return }

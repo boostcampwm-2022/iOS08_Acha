@@ -9,9 +9,14 @@ import UIKit
 
 extension UIButton {
     
-    func isEnabled(_ enabled: Bool) {
-        self.isEnabled = enabled
-        self.alpha = enabled ? 1.0 : 0.5
+    var isValid: Bool {
+        get {
+            isEnabled
+        }
+        set {
+            self.isEnabled = newValue
+            self.alpha = newValue ? 1.0 : 0.5
+        }
     }
     
 }
