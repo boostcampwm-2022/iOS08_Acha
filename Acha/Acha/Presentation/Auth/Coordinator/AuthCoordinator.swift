@@ -48,7 +48,8 @@ extension AuthCoordinator: CoordinatorDelegate {
         
         switch childCoordinator {
         case is LoginCoordinator:
-            connectSignupCoordinator()
+            popSelfFromNavigatonController()
+            delegate?.didFinished(childCoordinator: self)
         case is SignupCoordinator:
             connectLoginCoordinator()
         default:
