@@ -25,12 +25,20 @@ class SelectMapViewController: UIViewController {
         $0.textColor = .pointColor
         $0.font = UIFont.boldSystemFont(ofSize: 24)
     }
+    
+    private lazy var focusButton = UIButton().then {
+        $0.setImage(SystemImageNameSpace.locationCircle.uiImage, for: .normal)
+        $0.tintColor = .pointColor
+        
+        // button image size 설정
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: 40)
+        $0.setPreferredSymbolConfiguration(imageConfig, forImageIn: .normal)
+    }
 
     // MARK: - Properties
     private var ref: DatabaseReference!     // ref는 내 데이터베이스의 주소가 저장될 변수
     lazy var locationManager = CLLocationManager().then {
-        // desiredAccuracy는 위치의 정확도를 설정
-        // 정확도 높으면 배터리 많이 닳음
+        // desiredAccuracy는 위치의 정확도를 설정 (정확도 높으면 배터리 많이 닳음)
         $0.desiredAccuracy = kCLLocationAccuracyBest
         $0.startUpdatingLocation()     // startUpdate를 해야 didUpdateLocation 메서드가 호출됨
         $0.delegate = self
@@ -75,6 +83,13 @@ class SelectMapViewController: UIViewController {
             $0.top.equalTo(view.safeAreaLayoutGuide).offset(50)
             $0.centerX.equalToSuperview()
             $0.height.equalTo(50)
+        }
+        
+        view.addSubview(focusButton)
+        focusButton.snp.makeConstraints {
+            $0.top.equalTo(mapView.snp.top).offset(15)
+            $0.trailing.equalTo(mapView.snp.trailing).offset(-15)
+            $0.width.height.equalTo(40)
         }
     }
     
