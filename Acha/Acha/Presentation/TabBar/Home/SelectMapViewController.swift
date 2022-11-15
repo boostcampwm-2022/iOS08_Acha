@@ -43,6 +43,12 @@ final class SelectMapViewController: UIViewController {
         $0.layer.cornerRadius = 10
         $0.isEnabled(false)
     }
+    
+    private lazy var rankingView = UIView().then {
+        $0.backgroundColor = .red
+        $0.layer.cornerRadius = 15
+        $0.isHidden = true
+    }
 
     // MARK: - Properties
     private var ref: DatabaseReference!     // ref는 내 데이터베이스의 주소가 저장될 변수
@@ -102,10 +108,17 @@ final class SelectMapViewController: UIViewController {
         
         view.addSubview(startButton)
         startButton.snp.makeConstraints {
-            $0.bottom.equalTo(mapView.snp.bottom).offset(-80)
+            $0.bottom.equalTo(mapView.snp.bottom).offset(-60)
             $0.centerX.equalTo(mapView)
             $0.width.equalTo(100)
             $0.height.equalTo(40)
+        }
+        
+        view.addSubview(rankingView)
+        rankingView.snp.makeConstraints {
+            $0.bottom.equalTo(startButton.snp.top).offset(-30)
+            $0.leading.trailing.equalTo(mapView).inset(20)
+            $0.height.equalTo(300)
         }
     }
     
@@ -218,4 +231,13 @@ extension SelectMapViewController: MKMapViewDelegate {
         mapView.addAnnotation(annotation)
     }
     
+    func mapView(_ mapView: MKMapView, didSelect annotation: MKAnnotation) {
+        print("annotation tabbed")
+        rankingView.isHidden = false
+    }
+    
+    func mapView(_ mapView: MKMapView, didDeselect annotation: MKAnnotation) {
+        print("annotation deselect")
+        rankingView.isHidden = true
+    }
 }
