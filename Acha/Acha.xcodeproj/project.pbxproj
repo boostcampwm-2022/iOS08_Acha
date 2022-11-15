@@ -43,6 +43,9 @@
 		F156F11C2923623C0053E807 /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F156F11B2923623C0053E807 /* PaddingLabel.swift */; };
 		F156F11E292365840053E807 /* CALayer+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F156F11D292365840053E807 /* CALayer+Extension.swift */; };
 		F156F12029237B000053E807 /* GamePlayMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F156F11F29237B000053E807 /* GamePlayMenuView.swift */; };
+		F1D202942923946900F3E87D /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = F1D202932923946900F3E87D /* Then */; };
+		F1D202972923949900F3E87D /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = F1D202962923949900F3E87D /* SnapKit */; };
+		F1D202992923AB3D00F3E87D /* GameRankingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D202982923AB3D00F3E87D /* GameRankingViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -103,6 +106,7 @@
 		F156F11B2923623C0053E807 /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
 		F156F11D292365840053E807 /* CALayer+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+Extension.swift"; sourceTree = "<group>"; };
 		F156F11F29237B000053E807 /* GamePlayMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePlayMenuView.swift; sourceTree = "<group>"; };
+		F1D202982923AB3D00F3E87D /* GameRankingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRankingViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,7 +114,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F1D202972923949900F3E87D /* SnapKit in Frameworks */,
 				4738D75F2921D3E7003AE835 /* AchaLibrary in Frameworks */,
+				F1D202942923946900F3E87D /* Then in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,6 +290,7 @@
 				F156F10D292336950053E807 /* SingleGamePlayViewController.swift */,
 				F156F10F292340430053E807 /* SingleGamePlayViewModel.swift */,
 				F156F11F29237B000053E807 /* GamePlayMenuView.swift */,
+				F1D202982923AB3D00F3E87D /* GameRankingViewController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -404,6 +411,8 @@
 			name = Acha;
 			packageProductDependencies = (
 				4738D75E2921D3E7003AE835 /* AchaLibrary */,
+				F1D202932923946900F3E87D /* Then */,
+				F1D202962923949900F3E87D /* SnapKit */,
 			);
 			productName = Acha;
 			productReference = 471863B9291E155700A35786 /* Acha.app */;
@@ -477,6 +486,10 @@
 				Base,
 			);
 			mainGroup = 471863B0291E155700A35786;
+			packageReferences = (
+				F1D202922923946900F3E87D /* XCRemoteSwiftPackageReference "Then" */,
+				F1D202952923949900F3E87D /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
 			productRefGroup = 471863BA291E155700A35786 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -569,6 +582,7 @@
 				F156F11E292365840053E807 /* CALayer+Extension.swift in Sources */,
 				E5BE8B9929221A4C00E9CFE8 /* RecordCoordinator.swift in Sources */,
 				F156F1132923536A0053E807 /* DistanceAndTimeBar.swift in Sources */,
+				F1D202992923AB3D00F3E87D /* GameRankingViewController.swift in Sources */,
 				F156F10E292336950053E807 /* SingleGamePlayViewController.swift in Sources */,
 				471863BF291E155700A35786 /* SceneDelegate.swift in Sources */,
 			);
@@ -901,10 +915,39 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		F1D202922923946900F3E87D /* XCRemoteSwiftPackageReference "Then" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/devxoul/Then";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
+		F1D202952923949900F3E87D /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
 		4738D75E2921D3E7003AE835 /* AchaLibrary */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = AchaLibrary;
+		};
+		F1D202932923946900F3E87D /* Then */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F1D202922923946900F3E87D /* XCRemoteSwiftPackageReference "Then" */;
+			productName = Then;
+		};
+		F1D202962923949900F3E87D /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F1D202952923949900F3E87D /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

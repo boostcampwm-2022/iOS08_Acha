@@ -6,20 +6,22 @@
 //
 
 import UIKit
+import SnapKit
+import Then
 
 class GamePlayMenuView: UIViewController {
 
     // MARK: - UI properties
-//    let collectionView = UICollectionView()
-    private let titleLabel: UILabel = {
-        let label = UILabel()
-        label.font = FontConstants.titleFont
-        label.textColor = ColorConstants.backgroundColor
-        label.backgroundColor = ColorConstants.pointColor
-        label.textAlignment = .center
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: createBasicListLayout())
+    
+    private let titleLabel =  UILabel().then {
+        $0.font = FontConstants.titleFont
+        $0.textColor = ColorConstants.backgroundColor
+        $0.backgroundColor = ColorConstants.pointColor
+        $0.textAlignment = .center
+        $0.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
     // MARK: - Properties
     enum MenuType {
         case ranking
@@ -52,6 +54,22 @@ class GamePlayMenuView: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    private func createBasicListLayout() -> UICollectionViewLayout {
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                             heightDimension: .fractionalHeight(1.0))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+      
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                              heightDimension: .absolute(44))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
+                                                         subitems: [item])
+      
+        let section = NSCollectionLayoutSection(group: group)
+
+        let layout = UICollectionViewCompositionalLayout(section: section)
+        return layout
+    }
+    
 }
 
 // MARK: - Helpers
@@ -63,22 +81,22 @@ extension GamePlayMenuView {
     
     private func addViews() {
         view.addSubview(titleLabel)
-//        view.addSubview(collectionView)
+        view.addSubview(collectionView)
     }
     
     private func layoutViews() {
-//        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.snp.makeConstraints { make in
+            make.top.equalTo(view.snp.top)
+            make.leading.equalTo(view.snp.leading)
+            make.trailing.equalTo(view.snp.trailing)
+            make.height.equalTo(100)
+        }
         
-        NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: view.topAnchor),
-            titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            titleLabel.heightAnchor.constraint(equalToConstant: 100)
-            
-//            collectionView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor),
-//            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-//            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-//            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
+        collectionView.snp.makeConstraints { make in
+            make.top.equalTo(titleLabel.snp.bottom)
+            make.leading.equalTo(view.snp.leading)
+            make.trailing.equalTo(view.snp.trailing)
+            make.bottom.equalTo(view.snp.bottom)
+        }
     }
 }
