@@ -135,11 +135,8 @@ final class SelectMapViewController: UIViewController {
                     self?.mapView.addOverlay(lineDraw)
                     
                     // pin
-                    let center = mapElement.centerCoordinate
-                    self?.addMapPin(latitude: center.latitude,
-                              longitude: center.longitude,
-                              delta: 0.01,
-                              title: mapElement.name)
+                    let annotation = MapAnnotation(map: mapElement, polyLine: lineDraw)
+                    self?.mapView.addAnnotation(annotation)
                 }
             }).disposed(by: disposeBag)
     }
@@ -228,20 +225,19 @@ extension SelectMapViewController: MKMapViewDelegate {
         return renderer
     }
     
-    func addMapPin(latitude: Double, longitude: Double, delta span: Double, title: String) {
-        let annotation = MKPointAnnotation()
-        annotation.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-        annotation.title = title
-        mapView.addAnnotation(annotation)
-    }
-    
+    /// pin 클릭 시 액션
     func mapView(_ mapView: MKMapView, didSelect annotation: MKAnnotation) {
-        print("annotation tabbed")
         rankingView.isHidden = false
+        guard let annotation = annotation as? MapAnnotation else { return }
+        let renderer = mapView.renderer(for: annotation.polyLine) as? MKPolylineRenderer
+        renderer?.strokeColor = .red
     }
     
+    /// pin 클릭 해제 시 액션
     func mapView(_ mapView: MKMapView, didDeselect annotation: MKAnnotation) {
-        print("annotation deselect")
         rankingView.isHidden = true
+        guard let annotation = annotation as? MapAnnotation else { return }
+        let renderer = mapView.renderer(for: annotation.polyLine) as? MKPolylineRenderer
+        renderer?.strokeColor = .gray
     }
 }
