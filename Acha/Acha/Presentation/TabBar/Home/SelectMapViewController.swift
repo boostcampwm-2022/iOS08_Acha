@@ -52,14 +52,14 @@ final class SelectMapViewController: UIViewController {
 
     // MARK: - Properties
     private var ref: DatabaseReference!     // ref는 내 데이터베이스의 주소가 저장될 변수
-    lazy var locationManager = CLLocationManager().then {
+    private lazy var locationManager = CLLocationManager().then {
         // desiredAccuracy는 위치의 정확도를 설정 (정확도 높으면 배터리 많이 닳음)
         $0.desiredAccuracy = kCLLocationAccuracyBest
         $0.startUpdatingLocation()     // startUpdate를 해야 didUpdateLocation 메서드가 호출됨
         $0.delegate = self
     }
     private let viewModel: SelectMapViewModel
-    var disposeBag = DisposeBag()
+    private var disposeBag = DisposeBag()
     
     // MARK: - Lifecycles
     init(viewModel: SelectMapViewModel) {
