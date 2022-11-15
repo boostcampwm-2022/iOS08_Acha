@@ -11,31 +11,25 @@ import RxSwift
 import RxRelay
 
 class SelectMapViewModel {
+    
     var ref: DatabaseReference!
-    var selectedLocationCoordinates = PublishRelay<[(Double, Double)]>()
+    var mapCoordinates = PublishRelay<[Map]>()
+    
     init() {
         self.ref = Database.database().reference()
     }
     
-    func getCoordinates(mapID: String) {
-        ref.child("mapList/\(mapID)/coordinates")
-            .observeSingleEvent(
-                of: .value,
-                with: { [self] snapshot in
-                    let decoder = JSONDecoder()
-                    guard let snapData = snapshot.value as? [Any],
-                          let data = try? JSONSerialization.data(withJSONObject: snapData),
-                          let dictCoordinates = try? decoder.decode([[String:Double]].self, from: data)
-                    else {
-                        print("hi")
-                        return
-                    }
-                    let coordinates = dictCoordinates.compactMap { location in
-                        guard let latitude = location["latitude"],
-                              let longitude = location["longitude"] else { return (0.0, 0.0) }
-                        return (latitude, longitude)
-                    }
-                    selectedLocationCoordinates.accept(coordinates)
-                })
+    func fetchAllMaps() {
+        ref.child("mapList").observeSingleEvent(of: .value,
+                                                with: { [weak self] snapshot in
+            guard let snapData = snapshot.value as? [Any],
+                  let data = try? JSONSerialization.data(withJSONObject: snapData),
+                  let maps = try? JSONDecoder().decode([Map].self, from: data)
+            else {
+                print(Errors.decodeError)
+                return
+            }
+            self?.mapCoordinates.accept(maps)
+        })
     }
 }

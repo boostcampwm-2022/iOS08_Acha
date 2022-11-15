@@ -10,9 +10,12 @@ import CoreLocation     // 사용자 위치 정보 받아오기 위함
 import MapKit
 import Then
 import SnapKit
+import Firebase
+import RxSwift
 
 class SelectMapViewController: UIViewController {
     
+    // MARK: - UI properties
     private lazy var mapView = MKMapView().then {
         $0.delegate = self
     }
@@ -22,7 +25,9 @@ class SelectMapViewController: UIViewController {
         $0.textColor = .mainColor
         $0.font = UIFont.boldSystemFont(ofSize: 24)
     }
-    
+
+    // MARK: - Properties
+    private var ref: DatabaseReference!     // ref는 내 데이터베이스의 주소가 저장될 변수
     lazy var locationManager = CLLocationManager().then {
         // desiredAccuracy는 위치의 정확도를 설정
         // 정확도 높으면 배터리 많이 닳음
@@ -30,12 +35,27 @@ class SelectMapViewController: UIViewController {
         $0.startUpdatingLocation()     // startUpdate를 해야 didUpdateLocation 메서드가 호출됨
         $0.delegate = self
     }
+    private let viewModel: SelectMapViewModel
+    var disposeBag = DisposeBag()
+    
+    // MARK: - Lifecycles
+    init(viewModel: SelectMapViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
         getLocationUsagePermission()
         setUpMapView()
+        
+        viewModel.fetchAllMaps()
+        bind()
     }
     
     // 뷰가 화면에서 사라질 때 locationManager가 위치 업데이트를 중단하도록 설정
@@ -43,6 +63,7 @@ class SelectMapViewController: UIViewController {
         locationManager.stopUpdatingLocation()
     }
     
+    // MARK: - Helpers
     private func configureUI() {
         view.addSubview(mapView)
         mapView.snp.makeConstraints {
@@ -55,6 +76,20 @@ class SelectMapViewController: UIViewController {
             $0.centerX.equalToSuperview()
             $0.height.equalTo(50)
         }
+    }
+    
+    private func bind() {
+        viewModel.mapCoordinates
+            .subscribe(onNext: { [weak self] maps in
+                maps.forEach { mapElement in
+                    let coordinates = mapElement.coordinates.map {
+                        CLLocationCoordinate2D(latitude: $0.latitude, longitude: $0.longitude)
+                    }
+                    
+                    let lineDraw = MKPolyline(coordinates: coordinates, count: coordinates.count)
+                    self?.mapView.addOverlay(lineDraw)
+                }
+            }).disposed(by: disposeBag)
     }
 }
 
@@ -91,7 +126,8 @@ extension SelectMapViewController: CLLocationManagerDelegate {
         // 사용자의 현재 위치에 지도 focus 설정
         let center = CLLocationCoordinate2D(latitude: latitude,
                                             longitude: longtitude)
-        let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+        let region = MKCoordinateRegion(center: center,
+                                        span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
         mapView.setRegion(region, animated: true)
         
         // MKOverlayRenderer를 이용하여 지도 위에 이동 기록 표시
@@ -136,7 +172,7 @@ extension SelectMapViewController: MKMapViewDelegate {
         }
         
         let renderer = MKPolylineRenderer(polyline: polyLine)
-        renderer.strokeColor = .red
+        renderer.strokeColor = .gray
         renderer.lineWidth = 5.0
         renderer.alpha = 1.0
         
