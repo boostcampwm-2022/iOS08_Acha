@@ -34,6 +34,15 @@
 		E5BE8BB52922201600E9CFE8 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8BB42922201600E9CFE8 /* SignupViewController.swift */; };
 		E5BE8BB72922201F00E9CFE8 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8BB62922201F00E9CFE8 /* LoginViewController.swift */; };
 		E5BE8BBA2922217600E9CFE8 /* TabBarType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8BB92922217600E9CFE8 /* TabBarType.swift */; };
+		F156F10E292336950053E807 /* SingleGamePlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F156F10D292336950053E807 /* SingleGamePlayViewController.swift */; };
+		F156F110292340430053E807 /* SingleGamePlayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F156F10F292340430053E807 /* SingleGamePlayViewModel.swift */; };
+		F156F1132923536A0053E807 /* DistanceAndTimeBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F156F1122923536A0053E807 /* DistanceAndTimeBar.swift */; };
+		F156F116292354180053E807 /* FontConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F156F115292354180053E807 /* FontConstants.swift */; };
+		F156F118292355D10053E807 /* ColorConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F156F117292355D10053E807 /* ColorConstants.swift */; };
+		F156F11A29235EC50053E807 /* ImageConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F156F11929235EC50053E807 /* ImageConstants.swift */; };
+		F156F11C2923623C0053E807 /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F156F11B2923623C0053E807 /* PaddingLabel.swift */; };
+		F156F11E292365840053E807 /* CALayer+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F156F11D292365840053E807 /* CALayer+Extension.swift */; };
+		F156F12029237B000053E807 /* GamePlayMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F156F11F29237B000053E807 /* GamePlayMenuView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +94,15 @@
 		E5BE8BB42922201600E9CFE8 /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		E5BE8BB62922201F00E9CFE8 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		E5BE8BB92922217600E9CFE8 /* TabBarType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarType.swift; sourceTree = "<group>"; };
+		F156F10D292336950053E807 /* SingleGamePlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleGamePlayViewController.swift; sourceTree = "<group>"; };
+		F156F10F292340430053E807 /* SingleGamePlayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleGamePlayViewModel.swift; sourceTree = "<group>"; };
+		F156F1122923536A0053E807 /* DistanceAndTimeBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceAndTimeBar.swift; sourceTree = "<group>"; };
+		F156F115292354180053E807 /* FontConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontConstants.swift; sourceTree = "<group>"; };
+		F156F117292355D10053E807 /* ColorConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorConstants.swift; sourceTree = "<group>"; };
+		F156F11929235EC50053E807 /* ImageConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageConstants.swift; sourceTree = "<group>"; };
+		F156F11B2923623C0053E807 /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
+		F156F11D292365840053E807 /* CALayer+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+Extension.swift"; sourceTree = "<group>"; };
+		F156F11F29237B000053E807 /* GamePlayMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePlayMenuView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -229,6 +247,8 @@
 		E5BE8B8D292216B400E9CFE8 /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				F156F12329238BAB0053E807 /* Extensions */,
+				F156F1142923540C0053E807 /* Constants */,
 				E5BE8BB82922216500E9CFE8 /* Enums */,
 			);
 			path = Util;
@@ -259,7 +279,11 @@
 		E5BE8BA429221C2800E9CFE8 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				F156F1112923534B0053E807 /* RecordAndsTimeBar */,
 				E5BE8BAC29221FE400E9CFE8 /* HomeViewController.swift */,
+				F156F10D292336950053E807 /* SingleGamePlayViewController.swift */,
+				F156F10F292340430053E807 /* SingleGamePlayViewModel.swift */,
+				F156F11F29237B000053E807 /* GamePlayMenuView.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -332,6 +356,33 @@
 				E5BE8BB92922217600E9CFE8 /* TabBarType.swift */,
 			);
 			path = Enums;
+			sourceTree = "<group>";
+		};
+		F156F1112923534B0053E807 /* RecordAndsTimeBar */ = {
+			isa = PBXGroup;
+			children = (
+				F156F1122923536A0053E807 /* DistanceAndTimeBar.swift */,
+				F156F11B2923623C0053E807 /* PaddingLabel.swift */,
+			);
+			path = RecordAndsTimeBar;
+			sourceTree = "<group>";
+		};
+		F156F1142923540C0053E807 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				F156F115292354180053E807 /* FontConstants.swift */,
+				F156F117292355D10053E807 /* ColorConstants.swift */,
+				F156F11929235EC50053E807 /* ImageConstants.swift */,
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
+		F156F12329238BAB0053E807 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				F156F11D292365840053E807 /* CALayer+Extension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -497,19 +548,28 @@
 				471863C1291E155700A35786 /* ViewController.swift in Sources */,
 				E5BE8B9D29221AAF00E9CFE8 /* MyPageCoordinator.swift in Sources */,
 				E5BE8BB72922201F00E9CFE8 /* LoginViewController.swift in Sources */,
+				F156F110292340430053E807 /* SingleGamePlayViewModel.swift in Sources */,
+				F156F11A29235EC50053E807 /* ImageConstants.swift in Sources */,
 				E5BE8BB12922200000E9CFE8 /* RecordViewController.swift in Sources */,
+				F156F12029237B000053E807 /* GamePlayMenuView.swift in Sources */,
 				E5BE8B91292218A500E9CFE8 /* Coordinator.swift in Sources */,
 				E5BE8B952922196D00E9CFE8 /* TabBarCoordinator.swift in Sources */,
 				E5BE8BAD29221FE500E9CFE8 /* HomeViewController.swift in Sources */,
 				E5BE8B9B29221A8A00E9CFE8 /* CommunityCoordinator.swift in Sources */,
 				E5BE8B9F29221B2700E9CFE8 /* LoginCoordinator.swift in Sources */,
+				F156F118292355D10053E807 /* ColorConstants.swift in Sources */,
 				E5BE8BAF29221FF800E9CFE8 /* CommunityViewController.swift in Sources */,
 				E5BE8BB32922200C00E9CFE8 /* MyPageViewController.swift in Sources */,
+				F156F11C2923623C0053E807 /* PaddingLabel.swift in Sources */,
 				471863BD291E155700A35786 /* AppDelegate.swift in Sources */,
 				E5BE8BA129221B6D00E9CFE8 /* SignupCoordinator .swift in Sources */,
 				E5BE8B97292219D800E9CFE8 /* HomeCoordinator.swift in Sources */,
+				F156F116292354180053E807 /* FontConstants.swift in Sources */,
 				E5BE8B93292218F100E9CFE8 /* AuthCoordinator.swift in Sources */,
+				F156F11E292365840053E807 /* CALayer+Extension.swift in Sources */,
 				E5BE8B9929221A4C00E9CFE8 /* RecordCoordinator.swift in Sources */,
+				F156F1132923536A0053E807 /* DistanceAndTimeBar.swift in Sources */,
+				F156F10E292336950053E807 /* SingleGamePlayViewController.swift in Sources */,
 				471863BF291E155700A35786 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
