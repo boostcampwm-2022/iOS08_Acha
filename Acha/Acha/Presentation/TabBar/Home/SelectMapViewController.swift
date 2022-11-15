@@ -22,7 +22,7 @@ class SelectMapViewController: UIViewController {
     
     private lazy var guideLabel = UILabel().then {
         $0.text = "땅을 선택해주세요"
-        $0.textColor = .mainColor
+        $0.textColor = .pointColor
         $0.font = UIFont.boldSystemFont(ofSize: 24)
     }
 
