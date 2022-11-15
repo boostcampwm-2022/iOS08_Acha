@@ -39,7 +39,7 @@ extension Coordinator {
     }
     
     func popSelfFromNavigatonController() {
-        _ = navigationController.viewControllers.popLast()
+        navigationController.viewControllers.removeLast()
     }
 }
 

@@ -31,14 +31,14 @@ final class AppCoordinator: AppCoordinatorProtocol {
         let coordinator = AuthCoordinator(navigationController: navigationController)
         coordinator.start()
         coordinator.delegate = self
-        childCoordinators.append(coordinator)
+        appendChildCoordinator(coordinator: coordinator)
     }
     
     func connectTabBar() {
         let coordinator = TabBarCoordinator(navigationController: navigationController)
         coordinator.start()
         coordinator.delegate = self
-        childCoordinators.append(coordinator)
+        appendChildCoordinator(coordinator: coordinator)
     }
 }
 
