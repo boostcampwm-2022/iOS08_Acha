@@ -17,6 +17,8 @@ class SingleGameViewController: UIViewController {
     private let mapView: MKMapView = MKMapView().then {
         $0.setUserTrackingMode(.followWithHeading, animated: true)
         $0.showsUserLocation = true
+        $0.setUserTrackingMode(.followWithHeading, animated: true)
+        $0.showsCompass = false
     }
     
     // MARK: - Properties
@@ -27,6 +29,10 @@ class SingleGameViewController: UIViewController {
         $0.startUpdatingLocation()
         $0.delegate = self
     }
+    
+    var previousCoordinate: CLLocationCoordinate2D?
+    var goLine: MKPolyline?
+    var wentLine: MKPolyline?
     // MARK: - Lifecycles
     init(viewModel: SingleGameViewModel!) {
         self.viewModel = viewModel
@@ -82,7 +88,8 @@ class SingleGameViewController: UIViewController {
                 }
                 
                 let lineDraw = MKPolyline(coordinates: points, count: points.count)
-                self.mapView.addOverlay(lineDraw)
+                self.wentLine = lineDraw
+                self.mapView.addOverlay(self.wentLine ?? MKPolyline())
             }).disposed(by: disposeBag)
     }
 }
@@ -105,6 +112,21 @@ extension SingleGameViewController: CLLocationManagerDelegate {
          }
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else { return }
+        
+        if let previous = previousCoordinate {
+            let lineDraw = MKPolyline(coordinates: [previous, location.coordinate], count: 2)
+            goLine = lineDraw
+            self.mapView.addOverlay(goLine ?? MKPolyline())
+        }
+        self.previousCoordinate = location.coordinate
+        
+        setMapRegion(toCoordinate: location.coordinate)
+    }
+    
+    func setMapRegion(toCoordinate coordinate: CLLocationCoordinate2D) {
+        let span = MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
+        let region = MKCoordinateRegion(center: coordinate, span: span)
+        mapView.setRegion(region, animated: true)
     }
 }
 
@@ -118,7 +140,12 @@ extension SingleGameViewController: MKMapViewDelegate {
         }
         
         let renderer = MKPolylineRenderer(polyline: polyLine)
-        renderer.strokeColor = .red
+        
+        if overlay as? MKPolyline == wentLine {
+            renderer.strokeColor = .lightGray
+        } else if overlay as? MKPolyline == goLine {
+            renderer.strokeColor = .red
+        }
         renderer.lineWidth = 5.0
         renderer.alpha = 1.0
         
