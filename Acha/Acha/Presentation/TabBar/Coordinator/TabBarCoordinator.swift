@@ -64,7 +64,7 @@ final class TabBarCoordinator: TabBarCoordinatorProtocol {
             coordinator = MyPageCoordinator(navigationController: navigationController)
         }
         coordinator.delegate = self
-        childCoordinators.append(coordinator)
+        appendChildCoordinator(coordinator: coordinator)
         coordinator.start()
     }
 }

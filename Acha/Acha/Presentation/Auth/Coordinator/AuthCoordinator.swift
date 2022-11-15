@@ -29,14 +29,14 @@ final class AuthCoordinator: AuthCoordinatorProtocol {
     
     func connectLoginCoordinator() {
         let coordinator = LoginCoordinator(navigationController: navigationController)
-        childCoordinators.append(coordinator)
+        appendChildCoordinator(coordinator: coordinator)
         coordinator.delegate = self
         coordinator.start()
     }
     
     func connectSignupCoordinator() {
         let coordinator = SignupCoordinator(navigationController: navigationController)
-        childCoordinators.append(coordinator)
+        appendChildCoordinator(coordinator: coordinator)
         coordinator.delegate = self
         coordinator.start()
     }
