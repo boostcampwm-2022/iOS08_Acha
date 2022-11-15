@@ -7,7 +7,13 @@
 
 import UIKit
 
-final class SignupCoordinator: Coordinator {
+protocol SignupCoordinatorProtocol: Coordinator {
+    func showSignupViewController()
+}
+
+final class SignupCoordinator: SignupCoordinatorProtocol {
+    var delegate: CoordinatorDelegate?
+    
     var navigationController: UINavigationController
     
     var childCoordinators: [Coordinator] = []
@@ -17,7 +23,12 @@ final class SignupCoordinator: Coordinator {
     }
     
     func start() {
-        
+        showSignupViewController()
+    }
+    
+    func showSignupViewController() {
+        let viewController = SignupViewController()
+        navigationController.pushViewController(viewController, animated: true)
     }
 
 }

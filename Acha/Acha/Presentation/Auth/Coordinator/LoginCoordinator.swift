@@ -7,7 +7,13 @@
 
 import UIKit
 
-final class LoginCoordinator: Coordinator {
+protocol LoginCoordinatorProtocol: Coordinator {
+    func showLoginViewController()
+}
+
+final class LoginCoordinator: LoginCoordinatorProtocol {
+    var delegate: CoordinatorDelegate?
+    
     var navigationController: UINavigationController
     
     var childCoordinators: [Coordinator] = []
@@ -17,11 +23,10 @@ final class LoginCoordinator: Coordinator {
     }
     
     func start() {
-        
+        showLoginViewController()
     }
-    
-    func didFinished(coordinator: Coordinator) {
-        childCoordinators = childCoordinators.filter { $0 !== coordinator }
+    func showLoginViewController() {
+        let viewController = LoginViewController()
+        navigationController.pushViewController(viewController, animated: true)
     }
-    
 }
