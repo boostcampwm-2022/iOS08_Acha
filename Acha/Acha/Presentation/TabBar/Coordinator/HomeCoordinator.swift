@@ -15,27 +15,25 @@ final class HomeCoordinator: HomeCoordinatorProtocol {
     var delegate: CoordinatorDelegate?
     var navigationController: UINavigationController
     var childCoordinators: [Coordinator] = []
+    
     required init(navigationController: UINavigationController) {
         self.navigationController = navigationController
         self.navigationController.isNavigationBarHidden = false
     }
+    
     func start() {
         showHomeViewController()
     }
+    
     func showHomeViewController() {
-        let viewController = HomeViewController()
-        viewController.viewModel.coordinator = self
+        let viewModel = HomeViewModel(coordinator: self)
+        let viewController = HomeViewController(viewModel: viewModel)
         navigationController.pushViewController(viewController, animated: true)
     }
+    
     func showSelectViewController() {
         print(#function)
         //    let viewController = HomeViewController()
         //    navigationController.pushViewController(viewController, animated: true)
     }
 }
-
-
-
-
-
-

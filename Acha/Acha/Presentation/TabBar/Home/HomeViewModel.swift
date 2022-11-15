@@ -9,24 +9,27 @@ import Foundation
 import RxSwift
 import RxRelay
 final class HomeViewModel {
-    var coordinator: HomeCoordinator?
+    var coordinator: HomeCoordinator
     var singleGameTap = PublishRelay<Void>()
     var multiGameTap = PublishRelay<Void>()
     private let disposeBag = DisposeBag()
-    init() {
+    
+    init(coordinator: HomeCoordinator) {
+        self.coordinator = coordinator
         bind()
     }
+    
     private func bind() {
         singleGameTap
             .subscribe(onNext: {
                 print("singleGameTap")
-                self.coordinator?.showSelectViewController()
+                self.coordinator.showSelectViewController()
             })
             .disposed(by: disposeBag)
         multiGameTap
             .subscribe(onNext: {
                 print("multiGameTap")
-                self.coordinator?.showSelectViewController()
+                self.coordinator.showSelectViewController()
             })
             .disposed(by: disposeBag)
     }
