@@ -74,10 +74,10 @@ final class SelectMapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
-        getLocationUsagePermission()
-        setUpMapView()
         viewModel.fetchAllMaps()
         bind()
+        getLocationUsagePermission()
+        setUpMapView()
     }
     
     // 뷰가 화면에서 사라질 때 locationManager가 위치 업데이트를 중단하도록 설정
