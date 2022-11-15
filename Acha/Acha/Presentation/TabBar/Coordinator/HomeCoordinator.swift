@@ -9,6 +9,7 @@ import UIKit
 
 protocol HomeCoordinatorProtocol: Coordinator {
     func showHomeViewController()
+    func showSingleGamePlayViewController()
 }
 
 final class HomeCoordinator: HomeCoordinatorProtocol {
@@ -28,6 +29,12 @@ final class HomeCoordinator: HomeCoordinatorProtocol {
     
     func showHomeViewController() {
         let viewController = HomeViewController()
+        navigationController.pushViewController(viewController, animated: true)
+    }
+    
+    func showSingleGamePlayViewController() {
+        let viewModel = SingleGamePlayViewModel(coordinator: self)
+        let viewController = SingleGamePlayViewController(viewModel: viewModel)
         navigationController.pushViewController(viewController, animated: true)
     }
     
