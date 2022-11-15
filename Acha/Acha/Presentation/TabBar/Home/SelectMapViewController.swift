@@ -29,6 +29,7 @@ class SelectMapViewController: UIViewController {
     private lazy var focusButton = UIButton().then {
         $0.setImage(SystemImageNameSpace.locationCircle.uiImage, for: .normal)
         $0.tintColor = .pointColor
+        $0.addTarget(self, action: #selector(focusButtonDidClick), for: .touchDown)
         
         // button image size 설정
         let imageConfig = UIImage.SymbolConfiguration(pointSize: 40)
@@ -106,7 +107,13 @@ class SelectMapViewController: UIViewController {
                 }
             }).disposed(by: disposeBag)
     }
+    
+    @objc func focusButtonDidClick(_ sender: UIButton) {
+        focusUserLocation()
+    }
 }
+
+// MARK: - CLLocationManagerDelegate
 
 extension SelectMapViewController: CLLocationManagerDelegate {
     
@@ -159,8 +166,20 @@ extension SelectMapViewController: CLLocationManagerDelegate {
 //        }
 //
 //        previousCoordinate = location.coordinate
+//    }
+    
+    /// 사용자 현위치에 폭 0.01 수준으로 지도 포커스
+    private func focusUserLocation() {
+        guard let userLocation = locationManager.location else { return }
+        let center = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude,
+                                            longitude: userLocation.coordinate.longitude)
+        let region = MKCoordinateRegion(center: center,
+                                        span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+        mapView.setRegion(region, animated: true)
     }
 }
+
+// MARK: - MKMapViewDelegate
 
 extension SelectMapViewController: MKMapViewDelegate {
     
@@ -177,14 +196,7 @@ extension SelectMapViewController: MKMapViewDelegate {
         // 내 위치 기준으로 지도 움직이도록 설정
         mapView.setUserTrackingMode(.follow, animated: true)
         
-        // 사용자 현위치에 폭 0.01 수준으로 지도 포커스
-        guard let userLocation = locationManager.location else { return }
-        let center = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude,
-                                            longitude: userLocation.coordinate.longitude)
-        let region = MKCoordinateRegion(center: center,
-                                        span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
-        mapView.setRegion(region, animated: true)
-        
+        focusUserLocation()
     }
     
     /// mapView.addOverlay(lineDraw) 실행 시 호출되는 함수
