@@ -33,6 +33,9 @@ class MapBaseViewController: UIViewController, MapBaseViewProtocol {
         $0.desiredAccuracy = kCLLocationAccuracyBest
         $0.startUpdatingLocation()
         $0.delegate = self
+        
+        $0.showsBackgroundLocationIndicator = true
+        $0.allowsBackgroundLocationUpdates = true
     }
     
     // MARK: - Lifecycles
@@ -55,7 +58,6 @@ class MapBaseViewController: UIViewController, MapBaseViewProtocol {
             $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
-    
 }
 
 extension MapBaseViewController: CLLocationManagerDelegate {
