@@ -100,7 +100,7 @@ final class HomeViewController: UIViewController {
         navigationItem.largeTitleDisplayMode = .always
         navigationItem.title = "땅따먹기"
         navigationController?.navigationBar.largeTitleTextAttributes = [
-            .foregroundColor: UIColor(named: "PointLightColor")
+            .foregroundColor: UIColor(named: "PointLightColor") ?? .red
         ]
         navigationController?.navigationBar.shadowImage = UIImage()
     }
