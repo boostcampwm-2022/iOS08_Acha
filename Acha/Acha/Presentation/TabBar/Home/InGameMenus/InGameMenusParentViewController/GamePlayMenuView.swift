@@ -9,12 +9,12 @@ import UIKit
 import SnapKit
 import Then
 
-class GamePlayMenuView: UIViewController {
+class InGamePlayMenuView: UIViewController {
 
     // MARK: - UI properties
     lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: createBasicListLayout())
     
-    private let titleLabel =  UILabel().then {
+    let titleLabel =  UILabel().then {
         $0.font = FontConstants.titleFont
         $0.textColor = ColorConstants.backgroundColor
         $0.backgroundColor = ColorConstants.pointColor
@@ -23,20 +23,6 @@ class GamePlayMenuView: UIViewController {
     }
     
     // MARK: - Properties
-    enum MenuType {
-        case ranking
-        case recordHistory
-        
-        var description: String {
-            switch self {
-            case .ranking:
-                return "랭킹"
-            case .recordHistory:
-                return "기록"
-            }
-        }
-    }
-    let type: MenuType
     // MARK: - Lifecycles
     
     override func viewDidLoad() {
@@ -44,16 +30,7 @@ class GamePlayMenuView: UIViewController {
         layout()
     }
     
-    init(type: MenuType) {
-        self.type = type
-        titleLabel.text = type.description
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
+    // MARK: - Helpers
     private func createBasicListLayout() -> UICollectionViewLayout {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                              heightDimension: .fractionalHeight(1.0))
@@ -72,8 +49,7 @@ class GamePlayMenuView: UIViewController {
     
 }
 
-// MARK: - Helpers
-extension GamePlayMenuView {
+extension InGamePlayMenuView {
     private func layout() {
         addViews()
         layoutViews()
