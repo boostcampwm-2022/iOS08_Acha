@@ -10,6 +10,16 @@ import CoreLocation
 import Then
 import MapKit
 
+protocol MapBaseViewProtocol {
+    var mapView: MKMapView { get set }
+    var locationManager: CLLocationManager { get set }
+    
+    func configureMapViewUI()
+    func getLocationUsagePermission()
+    func focusUserLocation(useSpan: Bool)
+    func setUpMapView()
+}
+
 class MapBaseViewController: UIViewController {
     
     // MARK: - UI properties
@@ -28,7 +38,7 @@ class MapBaseViewController: UIViewController {
     // MARK: - Lifecycles
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureUI()
+        configureMapViewUI()
         setUpMapView()
     }
     
@@ -38,7 +48,7 @@ class MapBaseViewController: UIViewController {
     }
     
     // MARK: - Helpers
-    func configureUI() {
+    func configureMapViewUI() {
         view.addSubview(mapView)
         mapView.snp.makeConstraints {
             $0.edges.equalTo(view.safeAreaLayoutGuide)

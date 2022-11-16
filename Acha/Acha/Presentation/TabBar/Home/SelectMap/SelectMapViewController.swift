@@ -69,9 +69,7 @@ final class SelectMapViewController: MapBaseViewController {
     }
     
     // MARK: - Helpers
-    override func configureUI() {
-        super.configureUI()
-        
+    func configureUI() {        
         view.addSubview(guideLabel)
         guideLabel.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide).offset(50)
