@@ -14,13 +14,12 @@ protocol HomeCoordinatorProtocol: Coordinator {
 
 final class HomeCoordinator: HomeCoordinatorProtocol {
     var delegate: CoordinatorDelegate?
-    
     var navigationController: UINavigationController
     var childCoordinators: [Coordinator] = []
     
     required init(navigationController: UINavigationController) {
         self.navigationController = navigationController
-        self.navigationController.isNavigationBarHidden = false 
+        self.navigationController.isNavigationBarHidden = false
     }
     
     func start() {
@@ -28,10 +27,12 @@ final class HomeCoordinator: HomeCoordinatorProtocol {
     }
     
     func showHomeViewController() {
-        let viewController = HomeViewController()
+        let viewModel = HomeViewModel(coordinator: self)
+        let viewController = HomeViewController(viewModel: viewModel)
         navigationController.pushViewController(viewController, animated: true)
     }
     
+
     func showSingleGamePlayViewController() {
         let viewModel = SingleGamePlayViewModel(coordinator: self)
         let viewController = SingleGamePlayViewController(viewModel: viewModel)

@@ -8,5 +8,6 @@
 import UIKit
 
 extension UIColor {
-    static let mainColor = UIColor(named: "mainColor")
+    static let pointLight = UIColor(named: "PointLightColor")
+    static let pointDark = UIColor(named: "PointDarkColor")
 }
