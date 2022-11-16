@@ -20,7 +20,7 @@ protocol MapBaseViewProtocol {
     func setUpMapView()
 }
 
-class MapBaseViewController: UIViewController {
+class MapBaseViewController: UIViewController, MapBaseViewProtocol {
     
     // MARK: - UI properties
     lazy var mapView = MKMapView().then {
