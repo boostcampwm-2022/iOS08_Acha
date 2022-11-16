@@ -38,7 +38,7 @@ final class TabBarCoordinator: TabBarCoordinatorProtocol {
         tabBarController.viewControllers = navigationControllers
         navigationController.viewControllers = [tabBarController]
         
-        tabBarController.tabBar.backgroundColor = UIColor(named: "PointLightColor")
+        tabBarController.tabBar.backgroundColor = .pointLight
         tabBarController.tabBar.tintColor = .white
     }
     
@@ -55,7 +55,10 @@ final class TabBarCoordinator: TabBarCoordinatorProtocol {
         var coordinator: Coordinator
         switch type {
         case .home:
-            coordinator = HomeCoordinator(navigationController: navigationController)
+            coordinator = HomeCoordinator(
+                navigationController: navigationController,
+                tabBarController: tabBarController
+            )
         case .record:
             coordinator = RecordCoordinator(navigationController: navigationController)
         case .community:

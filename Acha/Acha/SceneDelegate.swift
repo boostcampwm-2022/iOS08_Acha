@@ -23,6 +23,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         coordinator = AppCoordinator(navigationController: navigationController)
         coordinator?.start()
         
+//        self.window?.rootViewController = SingleGameViewController(viewModel: SingleGameViewModel(map: Map(mapID: 0, name: "asdf", centerCoordinate: Coordinate(latitude: 0, longitude: 0), coordinates: [])))
         self.window?.rootViewController = navigationController
         self.window?.makeKeyAndVisible() 
     }

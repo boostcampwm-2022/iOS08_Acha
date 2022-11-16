@@ -12,6 +12,7 @@ import Then
 import SnapKit
 import Firebase
 import RxSwift
+import RxCocoa
 
 final class SelectMapViewController: MapBaseViewController {
     
@@ -63,6 +64,7 @@ final class SelectMapViewController: MapBaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
         configureUI()
         viewModel.fetchAllMaps()
         bind()
@@ -119,6 +121,9 @@ final class SelectMapViewController: MapBaseViewController {
                     self?.mapView.addAnnotation(annotation)
                 }
             }).disposed(by: disposeBag)
+        
+        let input = SelectMapViewModel.Input(startButtonTapped: startButton.rx.tap.asObservable())
+        let _ = viewModel.transform(input: input)
     }
     
     @objc func focusButtonDidClick(_ sender: UIButton) {
@@ -150,6 +155,7 @@ extension SelectMapViewController {
         
         // 땅이 랭킹뷰 위쪽에 오도록 지도 포커스
         focusMapLocation(centerCoordinate: annotation.map.centerCoordinate)
+        viewModel.selectedMap = annotation.map
     }
     
     func mapView(_ mapView: MKMapView, didDeselect annotation: MKAnnotation) {

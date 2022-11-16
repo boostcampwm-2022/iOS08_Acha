@@ -10,11 +10,31 @@ import Firebase
 import RxSwift
 import RxRelay
 
-class SelectMapViewModel {
+class SelectMapViewModel: BaseViewModel {
     
+    struct Input {
+        var startButtonTapped: Observable<Void>
+    }
+    struct Output {
+        
+    }
+    
+    func transform(input: Input) -> Output {
+        input.startButtonTapped
+            .subscribe(onNext: { [weak self] _ in
+                guard let self,
+                      let map = self.selectedMap else { return }
+                self.coordinator.showSingleGamePlayViewController(selectedMap: map)
+            })
+            .disposed(by: disposeBag)
+        return Output()
+    }
+    
+    var selectedMap: Map?
+    var disposeBag = DisposeBag()
     var ref: DatabaseReference!
-    var mapCoordinates = PublishRelay<[Map]>()
     var coordinator: SingleGameCoordinator
+    var mapCoordinates = PublishRelay<[Map]>()
     
     init(coordinator: SingleGameCoordinator) {
         self.ref = Database.database().reference()
