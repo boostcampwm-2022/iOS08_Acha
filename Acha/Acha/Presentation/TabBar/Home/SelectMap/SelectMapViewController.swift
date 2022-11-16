@@ -47,7 +47,6 @@ final class SelectMapViewController: MapBaseViewController {
     }
 
     // MARK: - Properties
-    private var ref: DatabaseReference!     // ref는 내 데이터베이스의 주소가 저장될 변수
     private let viewModel: SelectMapViewModel
     private var disposeBag = DisposeBag()
     
@@ -69,9 +68,7 @@ final class SelectMapViewController: MapBaseViewController {
     }
     
     // MARK: - Helpers
-    override func configureUI() {
-        super.configureUI()
-        
+    func configureUI() {        
         view.addSubview(guideLabel)
         guideLabel.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide).offset(50)

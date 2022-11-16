@@ -10,7 +10,17 @@ import CoreLocation
 import Then
 import MapKit
 
-class MapBaseViewController: UIViewController {
+protocol MapBaseViewProtocol {
+    var mapView: MKMapView { get set }
+    var locationManager: CLLocationManager { get set }
+    
+    func configureMapViewUI()
+    func getLocationUsagePermission()
+    func focusUserLocation(useSpan: Bool)
+    func setUpMapView()
+}
+
+class MapBaseViewController: UIViewController, MapBaseViewProtocol {
     
     // MARK: - UI properties
     lazy var mapView = MKMapView().then {
@@ -28,7 +38,7 @@ class MapBaseViewController: UIViewController {
     // MARK: - Lifecycles
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureUI()
+        configureMapViewUI()
         setUpMapView()
     }
     
@@ -38,10 +48,11 @@ class MapBaseViewController: UIViewController {
     }
     
     // MARK: - Helpers
-    func configureUI() {
+    func configureMapViewUI() {
         view.addSubview(mapView)
         mapView.snp.makeConstraints {
-            $0.edges.equalTo(view.safeAreaLayoutGuide)
+            $0.top.equalToSuperview()
+            $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
     
@@ -100,7 +111,7 @@ extension MapBaseViewController: MKMapViewDelegate {
         }
         
         mapView.showsUserLocation = true
-        mapView.setUserTrackingMode(.follow, animated: true)
+        mapView.setUserTrackingMode(.followWithHeading, animated: true)
         
         mapView.showsCompass = false
         focusUserLocation(useSpan: true)
