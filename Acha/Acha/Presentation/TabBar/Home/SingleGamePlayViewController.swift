@@ -118,14 +118,20 @@ extension SingleGamePlayViewController {
     }
     
     private func rightMenuButtonSetting() {
+        #warning("더미 데이터 입니다")
         let menuItems: [UIAction] =
         [
             UIAction(title: "랭킹", handler: { [weak self] _ in
-                let viewController = GamePlayMenuView(type: .ranking)
+                let viewController = InGameRankingViewController()
+                viewController.fetchData(data: [.init(name: "해피", time: 70),
+                                                .init(name: "멍멍이", time: 80),
+                                                .init(name: "웅이", time: 90)])
                 self?.presentModal(viewController: viewController)
             }),
             UIAction(title: "기록", handler: { [weak self] _ in
-                let viewController = GamePlayMenuView(type: .recordHistory)
+                let viewController = InGameRecordViewController()
+                viewController.fetchData(data: [.init(date: "11/16", time: 40),
+                                                .init(date: "11/17", time: 50)])
                 self?.presentModal(viewController: viewController)
             })
         ]
@@ -134,7 +140,7 @@ extension SingleGamePlayViewController {
         rightMenuButton.showsMenuAsPrimaryAction = true
     }
     
-    private func presentModal(viewController: GamePlayMenuView) {
+    private func presentModal(viewController: InGamePlayMenuView) {
         viewController.modalPresentationStyle = .pageSheet
         present(viewController, animated: true)
     }
