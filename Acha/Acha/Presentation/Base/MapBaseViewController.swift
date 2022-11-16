@@ -100,7 +100,7 @@ extension MapBaseViewController: MKMapViewDelegate {
         }
         
         mapView.showsUserLocation = true
-        mapView.setUserTrackingMode(.follow, animated: true)
+        mapView.setUserTrackingMode(.followWithHeading, animated: true)
         
         mapView.showsCompass = false
         focusUserLocation(useSpan: true)
