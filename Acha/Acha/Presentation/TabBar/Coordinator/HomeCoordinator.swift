@@ -32,11 +32,9 @@ final class HomeCoordinator: HomeCoordinatorProtocol {
         navigationController.pushViewController(viewController, animated: true)
     }
     
-
     func showSingleGamePlayViewController() {
         let viewModel = SingleGamePlayViewModel(coordinator: self)
         let viewController = SingleGamePlayViewController(viewModel: viewModel)
         navigationController.pushViewController(viewController, animated: true)
     }
-    
 }
