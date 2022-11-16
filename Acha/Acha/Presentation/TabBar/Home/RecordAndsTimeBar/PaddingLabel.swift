@@ -8,10 +8,10 @@
 import UIKit
 
 final class PaddingLabel: UILabel {
-    let topInset: CGFloat
-    let bottomInset: CGFloat
-    let leftInset: CGFloat
-    let rightInset: CGFloat
+    private let topInset: CGFloat
+    private let bottomInset: CGFloat
+    private let leftInset: CGFloat
+    private let rightInset: CGFloat
     
     init(
         topInset: CGFloat?,
