@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class InGameRecordViewController: InGamePlayMenuView {
+final class InGameRecordViewController: InGamePlayMenuViewController {
 
     // MARK: - UI properties
     // MARK: - Properties
@@ -23,7 +23,7 @@ final class InGameRecordViewController: InGamePlayMenuView {
     // MARK: - Lifecycles
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "기록"
+        titleLabel.text = "기록"
         collectionViewRegister()
     }
     
@@ -47,7 +47,7 @@ final class InGameRecordViewController: InGamePlayMenuView {
             #warning("데이터 어떻게 보내줘야 할지 결정해야 함")
             cell.setData(
                 image: nil,
-                text: "\(itemIdentifier.date)    (\(itemIdentifier.time.convertToDayHourMinueFormat()))"
+                text: "\(itemIdentifier.date.toYearMonthDateStringFormat()) \(itemIdentifier.time.convertToDayHourMinueFormat())"
             )
             return cell
         }
@@ -63,13 +63,8 @@ final class InGameRecordViewController: InGamePlayMenuView {
     
 }
 
-protocol InGameMenuModel {
-    var time: Int {get set}
-    var name: String {get set}
-    var date: Date {get set}
-}
-
-struct InGameRecord: Hashable {
-    let date: String
-    let time: Int
+struct InGameRecord: Hashable, InGameMenuModelProtocol {
+    var time: Int
+    var userName: String
+    var date: Date
 }

@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Then
 
-class InGamePlayMenuView: UIViewController {
+class InGamePlayMenuViewController: UIViewController {
 
     // MARK: - UI properties
     lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: createBasicListLayout())
@@ -49,7 +49,7 @@ class InGamePlayMenuView: UIViewController {
     
 }
 
-extension InGamePlayMenuView {
+extension InGamePlayMenuViewController {
     private func layout() {
         addViews()
         layoutViews()

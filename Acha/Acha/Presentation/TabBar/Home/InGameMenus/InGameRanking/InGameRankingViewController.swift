@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class InGameRankingViewController: InGamePlayMenuView {
+final class InGameRankingViewController: InGamePlayMenuViewController {
     // MARK: - UI properties
     // MARK: - Properties
 
@@ -23,6 +23,7 @@ final class InGameRankingViewController: InGamePlayMenuView {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        titleLabel.text = "랭킹"
         collectionViewRegister()
     }
     // MARK: - Helpers
@@ -45,7 +46,7 @@ final class InGameRankingViewController: InGamePlayMenuView {
             #warning("데이터 어떻게 보내줄지 결정해야 함")
             cell.setData(
                 image: UIImage(named: "rank\(indexPath.row)"),
-                text: itemIdentifier.name+"(\(itemIdentifier.time.convertToDayHourMinueFormat()))"
+                text: itemIdentifier.userName+"(\(itemIdentifier.time.convertToDayHourMinueFormat()))"
             )
             return cell
         }
@@ -60,7 +61,9 @@ final class InGameRankingViewController: InGamePlayMenuView {
     }
 }
 
-struct InGameRanking: Hashable {
-    let name: String
-    let time: Int
+struct InGameRanking: Hashable, InGameMenuModelProtocol {
+    var time: Int
+    var userName: String
+    var date: Date
+
 }
