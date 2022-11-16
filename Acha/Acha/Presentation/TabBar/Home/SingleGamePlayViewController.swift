@@ -43,11 +43,8 @@ final class SingleGamePlayViewController: UIViewController, DistanceAndTimeBarLi
     }()
     // MARK: - Properties
     private let disposeBag = DisposeBag()
+    #warning("더미 데이터임 삭제 요망")
     private let firstLoction = CLLocation(latitude: 37.517496, longitude: 126.959118)
-    private let distanceAndTimeView: UIView = {
-        let view = UIView()
-        return view
-    }()
     private let viewModel: SingleGamePlayViewModel
     // MARK: - Lifecycles
     
@@ -64,12 +61,17 @@ final class SingleGamePlayViewController: UIViewController, DistanceAndTimeBarLi
         super.viewDidLoad()
         layout()
         mapViewSetting()
+        bind()
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        distanceAndTimeBarBottomLineAdjust(color: .white, width: 5)
-        distanceAndTimeBarMiddleLineAdjust(color: .white, width: 5)
+        configureDistanceAndTimeBarBottomUI()
+    }
+    
+    private func configureDistanceAndTimeBarBottomUI() {
+        distanceAndTimeBarBottomLineAdjust(color: .white, width: 3)
+        distanceAndTimeBarMiddleLineAdjust(color: .white, width: 3)
     }
 }
 
@@ -78,7 +80,6 @@ extension SingleGamePlayViewController {
     private func layout() {
         addViews()
         layoutViews()
-        bind()
         rightMenuButtonSetting()
     }
     
@@ -100,14 +101,14 @@ extension SingleGamePlayViewController {
             rightMenuButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50),
             rightMenuButton.heightAnchor.constraint(equalToConstant: 50),
             rightMenuButton.widthAnchor.constraint(equalToConstant: 50),
-            rightMenuButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -50),
+            rightMenuButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10),
             
             distanceAndTimeBar.widthAnchor.constraint(equalTo: view.widthAnchor),
             distanceAndTimeBar.heightAnchor.constraint(equalToConstant: 100),
             distanceAndTimeBar.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             
-            resetButton.bottomAnchor.constraint(equalTo: distanceAndTimeBar.topAnchor),
-            resetButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 0),
+            resetButton.bottomAnchor.constraint(equalTo: distanceAndTimeBar.topAnchor, constant: -10),
+            resetButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10),
             resetButton.widthAnchor.constraint(equalToConstant: 50),
             resetButton.heightAnchor.constraint(equalToConstant: 50)
         ])
@@ -121,11 +122,11 @@ extension SingleGamePlayViewController {
         let menuItems: [UIAction] =
         [
             UIAction(title: "랭킹", handler: { [weak self] _ in
-                let viewController = GamePlayMenuView(type: .ranking)
+                let viewController = GamePlayMenuViewController(type: .ranking)
                 self?.presentModal(viewController: viewController)
             }),
             UIAction(title: "기록", handler: { [weak self] _ in
-                let viewController = GamePlayMenuView(type: .recordHistory)
+                let viewController = GamePlayMenuViewController(type: .recordHistory)
                 self?.presentModal(viewController: viewController)
             })
         ]
@@ -134,12 +135,13 @@ extension SingleGamePlayViewController {
         rightMenuButton.showsMenuAsPrimaryAction = true
     }
     
-    private func presentModal(viewController: GamePlayMenuView) {
+    private func presentModal(viewController: GamePlayMenuViewController) {
         viewController.modalPresentationStyle = .pageSheet
         present(viewController, animated: true)
     }
 }
 
+#warning("하단 부분은 맵을 초기화 하게 하는 부분이지만 일단 임시적으로 만든 코드이기 때문에 재 설정 요망")
 extension SingleGamePlayViewController {
     private func bind() {
         resetButton.rx.tap.subscribe { [weak self] _ in

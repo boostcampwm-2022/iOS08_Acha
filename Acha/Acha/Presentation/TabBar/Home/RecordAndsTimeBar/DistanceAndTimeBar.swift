@@ -84,8 +84,6 @@ extension DistanceAndTimeBar {
     private func layout() {
         addViews()
         layoutViews()
-        
-        distanceTitleLabel.layer.addBorder(directions: [.right, .top], color: .white, width: 20)
     }
     
     private func addViews() {

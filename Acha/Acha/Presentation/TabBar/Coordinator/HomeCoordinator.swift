@@ -24,7 +24,7 @@ final class HomeCoordinator: HomeCoordinatorProtocol {
     }
     
     func start() {
-        showHomeViewController()
+        showSingleGamePlayViewController()
     }
     
     func showHomeViewController() {

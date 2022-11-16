@@ -7,7 +7,7 @@
 
 import UIKit
 
-class GamePlayMenuView: UIViewController {
+class GamePlayMenuViewController: UIViewController {
 
     // MARK: - UI properties
 //    let collectionView = UICollectionView()
@@ -55,7 +55,7 @@ class GamePlayMenuView: UIViewController {
 }
 
 // MARK: - Helpers
-extension GamePlayMenuView {
+extension GamePlayMenuViewController {
     private func layout() {
         addViews()
         layoutViews()
