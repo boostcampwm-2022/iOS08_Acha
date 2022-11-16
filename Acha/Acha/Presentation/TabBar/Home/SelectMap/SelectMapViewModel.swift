@@ -14,9 +14,11 @@ class SelectMapViewModel {
     
     var ref: DatabaseReference!
     var mapCoordinates = PublishRelay<[Map]>()
+    var coordinator: SingleGameCoordinator
     
-    init() {
+    init(coordinator: SingleGameCoordinator) {
         self.ref = Database.database().reference()
+        self.coordinator = coordinator
     }
     
     func fetchAllMaps() {
