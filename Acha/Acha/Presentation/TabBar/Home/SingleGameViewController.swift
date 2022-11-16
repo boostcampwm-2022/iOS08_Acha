@@ -38,6 +38,7 @@ class SingleGameViewController: UIViewController {
     var previousCoordinate: CLLocationCoordinate2D?
     var goLine: MKPolyline?
     var wentLine: MKPolyline?
+    var visitLine: MKPolyline?
     private let currentUserCoordinate = PublishRelay<CLLocationCoordinate2D>()
     
     // MARK: - Lifecycles
@@ -93,7 +94,6 @@ class SingleGameViewController: UIViewController {
         viewModel.mapCoordinates
             .subscribe(onNext: { [weak self] thisMap in
                 guard let self else { return }
-                print("@@@@@@@", thisMap.coordinates.count)
                 let points = thisMap.coordinates.map {
                     CLLocationCoordinate2DMake($0.latitude, $0.longitude)
                 }
@@ -112,6 +112,20 @@ class SingleGameViewController: UIViewController {
                 guard let self else { return }
                 let kmString = String(format: "%.2f", distance/1000)
                 self.distanceLabel.text = "\(kmString)km"
+            }).disposed(by: disposeBag)
+        
+        viewModel.visitedCoordinate
+            .subscribe(onNext: { [weak self] (from, here) in
+                guard let self,
+                      let from,
+                      let here else { return }
+                print(from.latitude,here.latitude,"subscribe")
+                let coordinateFrom = CLLocationCoordinate2DMake(from.latitude, from.longitude)
+                let coordinateHere = CLLocationCoordinate2DMake(here.latitude, here.longitude)
+                
+                let lineDraw = MKPolyline(coordinates: [coordinateFrom, coordinateHere], count: 2)
+                self.visitLine = lineDraw
+                self.mapView.addOverlay(self.visitLine ?? MKPolyline())
             }).disposed(by: disposeBag)
     }
 }
@@ -151,9 +165,9 @@ extension SingleGameViewController: CLLocationManagerDelegate {
     }
     
     func setMapRegion(toCoordinate coordinate: CLLocationCoordinate2D) {
-        let span = MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
-        let region = MKCoordinateRegion(center: coordinate, span: span)
-        mapView.setRegion(region, animated: true)
+//        let span = MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
+//        let region = MKCoordinateRegion(center: coordinate, span: span)
+//        mapView.setRegion(region, animated: true)
     }
     
     func drawGoLine(from: CLLocationCoordinate2D, here: CLLocationCoordinate2D) {
@@ -180,8 +194,19 @@ extension SingleGameViewController: MKMapViewDelegate {
             renderer.strokeColor = .lightGray
         } else if overlay as? MKPolyline == goLine {
             renderer.strokeColor = .red
+        } else if overlay as? MKPolyline == visitLine {
+            renderer.strokeColor = .blue
         }
         
         return renderer
+    }
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        if annotation.isEqual(mapView.userLocation) {
+            let penguinView = MKAnnotationView(annotation: annotation, reuseIdentifier: "userLocation")
+            penguinView.image = UIImage(named: "penguin")
+            return penguinView
+        }
+        return nil
     }
 }
