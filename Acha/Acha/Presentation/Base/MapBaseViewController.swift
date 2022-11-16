@@ -54,6 +54,7 @@ class MapBaseViewController: UIViewController, MapBaseViewProtocol {
         super.viewDidLoad()
         configureMapViewUI()
         setUpMapView()
+        getLocationUsagePermission()
     }
     
     // 뷰가 화면에서 사라질 때 locationManager가 위치 업데이트를 중단하도록 설정
@@ -69,6 +70,9 @@ class MapBaseViewController: UIViewController, MapBaseViewProtocol {
             $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
+}
+
+extension MapBaseViewController {
     
     /// center 좌표에 span 0.01 수준으로 지도 포커스
     func focusMapLocation(center: CLLocationCoordinate2D, span: Double = 0.01) {
@@ -81,26 +85,23 @@ class MapBaseViewController: UIViewController, MapBaseViewProtocol {
         focusUserLocation(useSpan: false)
     }
     
-}
-
-extension MapBaseViewController: CLLocationManagerDelegate {
-    
-    /// GPS 권한 설정 여부에 따라 로직 분리
-    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        switch manager.authorizationStatus {
-        case .authorizedAlways, .authorizedWhenInUse:
-            print("GPS 권한 설정됨")
-            locationManager.startUpdatingLocation()
-            focusUserLocation(useSpan: true)
-        case .restricted, .notDetermined:
-            print("GPS 권한 설정되지 않음")
-            getLocationUsagePermission()
-        case .denied:
-            print("GPS 권한 요청 거부됨")
-            getLocationUsagePermission()
-        default:
-            print("GPS: Default")
+    func setUpMapView() {
+        // 어플을 종료하고 다시 실행했을 때 MapKit이 발생할 수 있는 오류를 방지하기 위한 처리
+        if #available(iOS 16.0, *) {
+            mapView.preferredConfiguration = MKStandardMapConfiguration()
+        } else {
+            mapView.mapType = .standard
         }
+        
+        mapView.showsCompass = false
+        mapView.isRotateEnabled = false
+    }
+    
+    func setUpUserLocation() {
+        locationManager.startUpdatingLocation()
+        mapView.showsUserLocation = true
+        mapView.setUserTrackingMode(.followWithHeading, animated: true)
+        focusUserLocation(useSpan: true)
     }
     
     func getLocationUsagePermission() {
@@ -117,28 +118,47 @@ extension MapBaseViewController: CLLocationManagerDelegate {
             mapView.setCenter(center, animated: true)
         }
     }
+}
+
+extension MapBaseViewController: CLLocationManagerDelegate {
     
+    /// GPS 권한 설정 여부에 따라 로직 분리
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        switch manager.authorizationStatus {
+        case .authorizedAlways, .authorizedWhenInUse:
+            print("GPS 권한 설정됨")
+            setUpUserLocation()
+        case .restricted, .notDetermined:
+            print("GPS 권한 설정되지 않음")
+            getLocationUsagePermission()
+        case .denied:
+            print("GPS 권한 요청 거부됨")
+            showAlertToMoveSetting()
+        default:
+            print("GPS: Default")
+        }
+    }
+    
+    private func showAlertToMoveSetting() {
+        let alert = UIAlertController(title: "위치 서비스를 사용할 수 없습니다. 기기의 '설정 > 개인정보 보호'에서 위치 서비스를 켜주세요.",
+                                      message: nil,
+                                      preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "취소", style: .default, handler: { _ in
+            // TODO: 홈화면이나 이전 화면으로 이동
+        })
+        let moveSettingsAction = UIAlertAction(title: "설정으로 이동", style: .cancel, handler: { _ in
+            guard let settingURL = URL(string: UIApplication.openSettingsURLString) else { return }
+            UIApplication.shared.open(settingURL)
+        })
+        alert.addAction(cancelAction)
+        alert.addAction(moveSettingsAction)
+        present(alert, animated: true)
+    }
 }
 
 // MARK: - MKMapViewDelegate
 
 extension MapBaseViewController: MKMapViewDelegate {
-    
-    func setUpMapView() {
-        // 어플을 종료하고 다시 실행했을 때 MapKit이 발생할 수 있는 오류를 방지하기 위한 처리
-        if #available(iOS 16.0, *) {
-            mapView.preferredConfiguration = MKStandardMapConfiguration()
-        } else {
-            mapView.mapType = .standard
-        }
-        
-        mapView.showsUserLocation = true
-        mapView.setUserTrackingMode(.followWithHeading, animated: true)
-        
-        mapView.showsCompass = false
-        focusUserLocation(useSpan: true)
-        mapView.isRotateEnabled = false
-    }
     
     /// mapView.addOverlay(lineDraw) 실행 시 호출되는 함수
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
