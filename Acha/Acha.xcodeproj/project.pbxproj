@@ -47,9 +47,10 @@
 		F1D2029B2923B97400F3E87D /* InGameRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D2029A2923B97400F3E87D /* InGameRecordViewController.swift */; };
 		F1D202A42923C09300F3E87D /* InGameMenuCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D202A32923C09300F3E87D /* InGameMenuCollectionViewCell.swift */; };
 		F1D202A8292463B200F3E87D /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D202A7292463B200F3E87D /* Int+Extension.swift */; };
-		F1D202AA2924744200F3E87D /* InGameMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D202A92924744200F3E87D /* InGameMenu.swift */; };
 		F1D202AD29247AC600F3E87D /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = F1D202AC29247AC600F3E87D /* Then */; };
 		F1D202B32924815E00F3E87D /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = F1D202B22924815E00F3E87D /* SnapKit */; };
+		F1D202B52924C38B00F3E87D /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D202B42924C38B00F3E87D /* Date+Extension.swift */; };
+		F1D202B72924C63F00F3E87D /* InGameMenuModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D202B62924C63F00F3E87D /* InGameMenuModelProtocol.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -114,7 +115,8 @@
 		F1D2029A2923B97400F3E87D /* InGameRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameRecordViewController.swift; sourceTree = "<group>"; };
 		F1D202A32923C09300F3E87D /* InGameMenuCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameMenuCollectionViewCell.swift; sourceTree = "<group>"; };
 		F1D202A7292463B200F3E87D /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
-		F1D202A92924744200F3E87D /* InGameMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameMenu.swift; sourceTree = "<group>"; };
+		F1D202B42924C38B00F3E87D /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
+		F1D202B62924C63F00F3E87D /* InGameMenuModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameMenuModelProtocol.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -396,6 +398,7 @@
 			children = (
 				F156F11D292365840053E807 /* CALayer+Extension.swift */,
 				F1D202A7292463B200F3E87D /* Int+Extension.swift */,
+				F1D202B42924C38B00F3E87D /* Date+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -431,7 +434,7 @@
 		F1D2029F2923BF6F00F3E87D /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
-				F1D202A92924744200F3E87D /* InGameMenu.swift */,
+				F1D202B62924C63F00F3E87D /* InGameMenuModelProtocol.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -624,6 +627,7 @@
 				F156F110292340430053E807 /* SingleGamePlayViewModel.swift in Sources */,
 				F156F11A29235EC50053E807 /* ImageConstants.swift in Sources */,
 				E5BE8BB12922200000E9CFE8 /* RecordViewController.swift in Sources */,
+				F1D202B52924C38B00F3E87D /* Date+Extension.swift in Sources */,
 				F156F12029237B000053E807 /* GamePlayMenuView.swift in Sources */,
 				E5BE8B91292218A500E9CFE8 /* Coordinator.swift in Sources */,
 				E5BE8B952922196D00E9CFE8 /* TabBarCoordinator.swift in Sources */,
@@ -638,11 +642,11 @@
 				471863BD291E155700A35786 /* AppDelegate.swift in Sources */,
 				E5BE8BA129221B6D00E9CFE8 /* SignupCoordinator .swift in Sources */,
 				E5BE8B97292219D800E9CFE8 /* HomeCoordinator.swift in Sources */,
+				F1D202B72924C63F00F3E87D /* InGameMenuModelProtocol.swift in Sources */,
 				F1D2029B2923B97400F3E87D /* InGameRecordViewController.swift in Sources */,
 				F156F116292354180053E807 /* FontConstants.swift in Sources */,
 				E5BE8B93292218F100E9CFE8 /* AuthCoordinator.swift in Sources */,
 				F156F11E292365840053E807 /* CALayer+Extension.swift in Sources */,
-				F1D202AA2924744200F3E87D /* InGameMenu.swift in Sources */,
 				F1D202A8292463B200F3E87D /* Int+Extension.swift in Sources */,
 				E5BE8B9929221A4C00E9CFE8 /* RecordCoordinator.swift in Sources */,
 				F156F1132923536A0053E807 /* DistanceAndTimeBar.swift in Sources */,
