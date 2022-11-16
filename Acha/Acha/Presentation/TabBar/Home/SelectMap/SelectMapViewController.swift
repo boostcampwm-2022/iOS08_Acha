@@ -22,16 +22,6 @@ final class SelectMapViewController: MapBaseViewController {
         $0.font = UIFont.boldSystemFont(ofSize: 24)
     }
     
-    private lazy var focusButton = UIButton().then {
-        $0.setImage(SystemImageNameSpace.locationCircle.uiImage, for: .normal)
-        $0.tintColor = .pointLight
-        $0.addTarget(self, action: #selector(focusButtonDidClick), for: .touchDown)
-        
-        // button image size 설정
-        let imageConfig = UIImage.SymbolConfiguration(pointSize: 40)
-        $0.setPreferredSymbolConfiguration(imageConfig, forImageIn: .normal)
-    }
-    
     private lazy var startButton = UIButton().then {
         $0.setTitle("게임 시작", for: .normal)
         $0.tintColor = .white
@@ -116,10 +106,6 @@ final class SelectMapViewController: MapBaseViewController {
                     self?.mapView.addAnnotation(annotation)
                 }
             }).disposed(by: disposeBag)
-    }
-    
-    @objc func focusButtonDidClick(_ sender: UIButton) {
-        focusUserLocation(useSpan: false)
     }
 }
 

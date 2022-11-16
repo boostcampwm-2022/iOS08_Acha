@@ -13,6 +13,7 @@ import MapKit
 protocol MapBaseViewProtocol {
     var mapView: MKMapView { get set }
     var locationManager: CLLocationManager { get set }
+    var focusButton: UIButton { get set }
     
     func configureMapViewUI()
     func getLocationUsagePermission()
@@ -36,6 +37,16 @@ class MapBaseViewController: UIViewController, MapBaseViewProtocol {
         
         $0.showsBackgroundLocationIndicator = true
         $0.allowsBackgroundLocationUpdates = true
+    }
+    
+    lazy var focusButton = UIButton().then {
+        $0.setImage(SystemImageNameSpace.locationCircle.uiImage, for: .normal)
+        $0.tintColor = .pointLight
+        $0.addTarget(self, action: #selector(focusButtonDidClick), for: .touchDown)
+        
+        // button image size 설정
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: 40)
+        $0.setPreferredSymbolConfiguration(imageConfig, forImageIn: .normal)
     }
     
     // MARK: - Lifecycles
@@ -65,6 +76,11 @@ class MapBaseViewController: UIViewController, MapBaseViewProtocol {
                                         span: MKCoordinateSpan(latitudeDelta: span, longitudeDelta: span))
         mapView.setRegion(region, animated: true)
     }
+    
+    @objc func focusButtonDidClick(_ sender: UIButton) {
+        focusUserLocation(useSpan: false)
+    }
+    
 }
 
 extension MapBaseViewController: CLLocationManagerDelegate {
