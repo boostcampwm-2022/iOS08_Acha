@@ -29,7 +29,7 @@ final class HomeViewController: UIViewController {
         $0.layer.cornerRadius = 10
         let cornerMask: CACornerMask = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         $0.layer.maskedCorners = cornerMask
-        $0.layer.backgroundColor = UIColor(named: "PointLightColor")?.cgColor
+        $0.layer.backgroundColor = (UIColor.pointLight ?? UIColor.red) .cgColor
         $0.numberOfLines = 0
         $0.font = UIFont.boldSystemFont(ofSize: 34)
         $0.textColor = .white
@@ -97,10 +97,10 @@ final class HomeViewController: UIViewController {
     private func configureUI() {
         view.backgroundColor = .white
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.largeTitleDisplayMode = .always
+        navigationItem.largeTitleDisplayMode = .automatic
         navigationItem.title = "땅따먹기"
         navigationController?.navigationBar.largeTitleTextAttributes = [
-            .foregroundColor: UIColor(named: "PointLightColor") ?? .red
+            .foregroundColor: UIColor.pointLight ?? .red
         ]
         navigationController?.navigationBar.shadowImage = UIImage()
     }

@@ -31,7 +31,7 @@ final class DistanceAndTimeBar: UIView {
     // MARK: - UI properties
     let distanceTitleLabel: PaddingLabel = {
         let label = PaddingLabel(topInset: 0, bottomInset: 0, leftInset: 20, rightInset: 0)
-        label.font = FontConstants.gameModeBottomTabFont
+        label.font = UIFont.title
         label.textColor = .white
         label.textAlignment = .left
         label.text = "거리"
@@ -40,7 +40,7 @@ final class DistanceAndTimeBar: UIView {
     }()
     let distanceLabel: PaddingLabel = {
         let label = PaddingLabel(topInset: 0, bottomInset: 0, leftInset: 0, rightInset: 20)
-        label.font = FontConstants.gameModeBottomTabFont
+        label.font = UIFont.title
         label.textColor = .white
         label.textAlignment = .right
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -48,7 +48,7 @@ final class DistanceAndTimeBar: UIView {
     }()
     let timeTitleLabel: PaddingLabel = {
         let label = PaddingLabel(topInset: 0, bottomInset: 0, leftInset: 20, rightInset: 0)
-        label.font = FontConstants.gameModeBottomTabFont
+        label.font = UIFont.title
         label.textColor = .white
         label.textAlignment = .left
         label.text = "시간"
@@ -57,7 +57,7 @@ final class DistanceAndTimeBar: UIView {
     }()
     let timeLabel: PaddingLabel = {
         let label = PaddingLabel(topInset: 0, bottomInset: 0, leftInset: 0, rightInset: 20)
-        label.font = FontConstants.gameModeBottomTabFont
+        label.font = UIFont.title
         label.textColor = .white
         label.textAlignment = .right
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -71,7 +71,7 @@ final class DistanceAndTimeBar: UIView {
         super.init(frame: .zero)
         layout()
         translatesAutoresizingMaskIntoConstraints = false
-        backgroundColor = ColorConstants.pointColor
+        backgroundColor = .pointDark
     }
     
     required init?(coder: NSCoder) {
