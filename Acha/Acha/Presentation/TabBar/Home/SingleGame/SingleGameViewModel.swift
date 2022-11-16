@@ -7,36 +7,19 @@
 
 import Foundation
 import RxRelay
-import Firebase
 
 final class SingleGameViewModel {
+    private let coordinator: Coordinator
+    
     let map: Map
-    var ref: DatabaseReference!
-    var mapCoordinates = PublishRelay<Map>()
-    var coordinates: [Coordinate] = []
     var route = [Coordinate]()
     let movedDistance = BehaviorRelay<Double>(value: 0.0)
-    let visitedCoordinate = BehaviorRelay<(now: Coordinate?, previous: Coordinate?)>(value: (nil, nil))
+    let visitedCoordinate = BehaviorRelay<(previous: Coordinate?, now: Coordinate?)>(value: (nil, nil))
     let time = BehaviorRelay<Int>(value: 0)
     
-    init(map: Map) {
+    init(coordinator: Coordinator, map: Map) {
         self.map = map
-        self.ref = Database.database().reference()
-    }
-    
-    func fetchAllMaps() {
-        ref.child("mapList").observeSingleEvent(of: .value,
-                                                with: { [weak self] snapshot in
-            guard let snapData = snapshot.value as? [Any],
-                  let data = try? JSONSerialization.data(withJSONObject: snapData),
-                  let maps = try? JSONDecoder().decode([Map].self, from: data)
-            else {
-                print("에러")
-                return
-            }
-            self?.mapCoordinates.accept(maps.last!)
-            self?.coordinates = maps.last!.coordinates
-        })
+        self.coordinator = coordinator
     }
     
     func userMoved(coordinate here: Coordinate, distance: Double) {
@@ -45,16 +28,17 @@ final class SingleGameViewModel {
         let newDistance = distance + movedDistance.value
         self.movedDistance.accept(newDistance)
         
-        guard let nearestCoordinate = coordinates.min(by: {
+        guard let nearestCoordinate = map.coordinates.min(by: {
             self.meterDistance(from: $0, here: here) < self.meterDistance(from: $1, here: here)
-        }) else { print("why"); return }
+        }) else { return }
         
         let nearestDistance = meterDistance(from: nearestCoordinate, here: here)
         
+        print(Int(nearestDistance))
         if nearestDistance < 0.5 {
             let before = visitedCoordinate.value
             
-            if before.now == nil {
+            if before.previous == nil {
                 visitedCoordinate.accept((nearestCoordinate, nil))
             } else {
                 visitedCoordinate.accept((nearestCoordinate, visitedCoordinate.value.previous))
