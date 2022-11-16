@@ -51,7 +51,8 @@ class MapBaseViewController: UIViewController, MapBaseViewProtocol {
     func configureMapViewUI() {
         view.addSubview(mapView)
         mapView.snp.makeConstraints {
-            $0.edges.equalTo(view.safeAreaLayoutGuide)
+            $0.top.equalToSuperview()
+            $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
     
