@@ -34,7 +34,6 @@ final class SingleGameViewModel {
         
         let nearestDistance = meterDistance(from: nearestCoordinate, here: here)
         
-        print(Int(nearestDistance))
         if nearestDistance < 0.5 {
             let before = visitedCoordinate.value
             

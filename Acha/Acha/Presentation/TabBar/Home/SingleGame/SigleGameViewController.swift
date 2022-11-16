@@ -158,7 +158,7 @@ extension SigleViewController {
             .subscribe(onNext: { [weak self] (from, here) in
                 guard let self,
                       let from,
-                      let here else { print(from, here); return }
+                      let here else { return }
                 
                 let coordinateFrom = CLLocationCoordinate2DMake(from.latitude, from.longitude)
                 let coordinateHere = CLLocationCoordinate2DMake(here.latitude, here.longitude)
