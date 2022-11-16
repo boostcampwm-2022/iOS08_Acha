@@ -10,11 +10,11 @@ import Foundation
 extension Int {
     func convertToDayHourMinueFormat() -> String {
         var time = self
-        let day = time / 3600
+        let day = String(format: "%02d", time/3600)
         time %= 3600
-        let hour = time/60
+        let hour = String(format: "%02d", time/60)
         time %= 60
-        let minute = time
+        let minute = String(format: "%02d", time)
         return "\(day):\(hour):\(minute)"
     }
 }
