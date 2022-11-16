@@ -121,14 +121,6 @@ final class SelectMapViewController: MapBaseViewController {
     @objc func focusButtonDidClick(_ sender: UIButton) {
         focusUserLocation(useSpan: false)
     }
-    
-    private func focusMapLocation(centerCoordinate: Coordinate) {
-        let center = CLLocationCoordinate2D(latitude: centerCoordinate.latitude - 0.003,
-                                              longitude: centerCoordinate.longitude)
-        let region = MKCoordinateRegion(center: center,
-                                        span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
-        mapView.setRegion(region, animated: true)
-    }
 }
 
 // MARK: - MKMapViewDelegate
@@ -146,7 +138,9 @@ extension SelectMapViewController {
         renderer?.strokeColor = .red
         
         // 땅이 랭킹뷰 위쪽에 오도록 지도 포커스
-        focusMapLocation(centerCoordinate: annotation.map.centerCoordinate)
+        let center = CLLocationCoordinate2D(latitude: annotation.map.centerCoordinate.latitude - 0.003,
+                                            longitude: annotation.map.centerCoordinate.longitude)
+        focusMapLocation(center: center)
     }
     
     func mapView(_ mapView: MKMapView, didDeselect annotation: MKAnnotation) {

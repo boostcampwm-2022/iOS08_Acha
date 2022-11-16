@@ -58,6 +58,13 @@ class MapBaseViewController: UIViewController, MapBaseViewProtocol {
             $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
+    
+    /// center 좌표에 span 0.01 수준으로 지도 포커스
+    func focusMapLocation(center: CLLocationCoordinate2D, span: Double = 0.01) {
+        let region = MKCoordinateRegion(center: center,
+                                        span: MKCoordinateSpan(latitudeDelta: span, longitudeDelta: span))
+        mapView.setRegion(region, animated: true)
+    }
 }
 
 extension MapBaseViewController: CLLocationManagerDelegate {
@@ -89,10 +96,7 @@ extension MapBaseViewController: CLLocationManagerDelegate {
         let center = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude,
                                             longitude: userLocation.coordinate.longitude)
         if useSpan {
-            /// 사용자 현위치에 폭 0.01 수준으로 지도 포커스
-            let region = MKCoordinateRegion(center: center,
-                                            span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
-            mapView.setRegion(region, animated: true)
+            focusMapLocation(center: center)
         } else {
             mapView.setCenter(center, animated: true)
         }
@@ -104,7 +108,7 @@ extension MapBaseViewController: CLLocationManagerDelegate {
 
 extension MapBaseViewController: MKMapViewDelegate {
     
-    private func setUpMapView() {
+    func setUpMapView() {
         // 어플을 종료하고 다시 실행했을 때 MapKit이 발생할 수 있는 오류를 방지하기 위한 처리
         if #available(iOS 16.0, *) {
             mapView.preferredConfiguration = MKStandardMapConfiguration()
