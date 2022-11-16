@@ -78,7 +78,7 @@ final class SelectMapViewController: MapBaseViewController {
         
         view.addSubview(focusButton)
         focusButton.snp.makeConstraints {
-            $0.top.equalTo(mapView.snp.top).offset(15)
+            $0.top.equalTo(mapView.snp.top).offset(50)
             $0.trailing.equalTo(mapView.snp.trailing).offset(-15)
             $0.width.height.equalTo(40)
         }
