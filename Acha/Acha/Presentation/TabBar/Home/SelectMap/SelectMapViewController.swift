@@ -6,20 +6,16 @@
 //
 
 import UIKit
-import CoreLocation     // 사용자 위치 정보 받아오기 위함
+import CoreLocation
 import MapKit
 import Then
 import SnapKit
 import Firebase
 import RxSwift
 
-final class SelectMapViewController: UIViewController {
+final class SelectMapViewController: MapBaseViewController {
     
     // MARK: - UI properties
-    private lazy var mapView = MKMapView().then {
-        $0.delegate = self
-    }
-    
     private lazy var guideLabel = UILabel().then {
         $0.text = "땅을 선택해주세요"
         $0.textColor = .pointLight
@@ -52,12 +48,6 @@ final class SelectMapViewController: UIViewController {
 
     // MARK: - Properties
     private var ref: DatabaseReference!     // ref는 내 데이터베이스의 주소가 저장될 변수
-    private lazy var locationManager = CLLocationManager().then {
-        // desiredAccuracy는 위치의 정확도를 설정 (정확도 높으면 배터리 많이 닳음)
-        $0.desiredAccuracy = kCLLocationAccuracyBest
-        $0.startUpdatingLocation()
-        $0.delegate = self
-    }
     private let viewModel: SelectMapViewModel
     private var disposeBag = DisposeBag()
     
@@ -76,21 +66,11 @@ final class SelectMapViewController: UIViewController {
         configureUI()
         viewModel.fetchAllMaps()
         bind()
-        getLocationUsagePermission()
-        setUpMapView()
-    }
-    
-    // 뷰가 화면에서 사라질 때 locationManager가 위치 업데이트를 중단하도록 설정
-    override func viewWillDisappear(_ animated: Bool) {
-        locationManager.stopUpdatingLocation()
     }
     
     // MARK: - Helpers
-    private func configureUI() {
-        view.addSubview(mapView)
-        mapView.snp.makeConstraints {
-            $0.edges.equalTo(view.safeAreaLayoutGuide)
-        }
+    override func configureUI() {
+        super.configureUI()
         
         view.addSubview(guideLabel)
         guideLabel.snp.makeConstraints {
@@ -144,46 +124,6 @@ final class SelectMapViewController: UIViewController {
     @objc func focusButtonDidClick(_ sender: UIButton) {
         focusUserLocation(useSpan: false)
     }
-}
-
-// MARK: - CLLocationManagerDelegate
-
-extension SelectMapViewController: CLLocationManagerDelegate {
-    
-    /// GPS 권한 설정 여부에 따라 로직 분리
-    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        switch manager.authorizationStatus {
-        case .authorizedAlways, .authorizedWhenInUse:
-            print("GPS 권한 설정됨")
-            locationManager.startUpdatingLocation()
-        case .restricted, .notDetermined:
-            print("GPS 권한 설정되지 않음")
-            getLocationUsagePermission()
-        case .denied:
-            print("GPS 권한 요청 거부됨")
-            getLocationUsagePermission()
-        default:
-            print("GPS: Default")
-        }
-    }
-    
-    func getLocationUsagePermission() {
-        locationManager.requestWhenInUseAuthorization()
-    }
-    
-    private func focusUserLocation(useSpan: Bool) {
-        guard let userLocation = locationManager.location else { return }
-        let center = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude,
-                                            longitude: userLocation.coordinate.longitude)
-        if useSpan {
-            /// 사용자 현위치에 폭 0.01 수준으로 지도 포커스
-            let region = MKCoordinateRegion(center: center,
-                                            span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
-            mapView.setRegion(region, animated: true)
-        } else {
-            mapView.setCenter(center, animated: true)
-        }
-    }
     
     private func focusMapLocation(centerCoordinate: Coordinate) {
         let center = CLLocationCoordinate2D(latitude: centerCoordinate.latitude - 0.003,
@@ -196,39 +136,7 @@ extension SelectMapViewController: CLLocationManagerDelegate {
 
 // MARK: - MKMapViewDelegate
 
-extension SelectMapViewController: MKMapViewDelegate {
-    
-    private func setUpMapView() {
-        // 어플을 종료하고 다시 실행했을 때 MapKit이 발생할 수 있는 오류를 방지하기 위한 처리
-        if #available(iOS 16.0, *) {
-            mapView.preferredConfiguration = MKStandardMapConfiguration()
-        } else {
-            mapView.mapType = .standard
-        }
-        
-        mapView.showsUserLocation = true
-        mapView.setUserTrackingMode(.follow, animated: true)
-        
-        mapView.showsCompass = false
-        focusUserLocation(useSpan: true)
-        mapView.isRotateEnabled = false
-    }
-    
-    /// mapView.addOverlay(lineDraw) 실행 시 호출되는 함수
-    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        guard let polyLine = overlay as? MKPolyline
-        else {
-            print(Errors.cannotDrawPolyLine)
-            return MKOverlayRenderer()
-        }
-        
-        let renderer = MKPolylineRenderer(polyline: polyLine)
-        renderer.strokeColor = .gray
-        renderer.lineWidth = 5.0
-        renderer.alpha = 1.0
-        
-        return renderer
-    }
+extension SelectMapViewController {
     
     /// annotation (=pin) 클릭 시 액션
     func mapView(_ mapView: MKMapView, didSelect annotation: MKAnnotation) {
