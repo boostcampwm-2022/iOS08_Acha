@@ -235,6 +235,7 @@
 		4738D764292238AD003AE835 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				F156F11D292365840053E807 /* CALayer+Extension.swift */,
 				4738D765292238C3003AE835 /* UIColor+.swift */,
 				47935E96292366CD00481307 /* UIButton+.swift */,
 				76A2E1A22923D94C001E887A /* CLLocationCoordinate2D+.swift */,
@@ -321,13 +322,9 @@
 		E5BE8B8D292216B400E9CFE8 /* Util */ = {
 			isa = PBXGroup;
 			children = (
-
-				F156F12329238BAB0053E807 /* Extensions */,
 				F156F1142923540C0053E807 /* Constants */,
-
 				477842FA2923C30F00AAC3DB /* Map */,
 				4738D764292238AD003AE835 /* Extension */,
-
 				E5BE8BB82922216500E9CFE8 /* Enums */,
 			);
 			path = Util;
@@ -360,12 +357,9 @@
 			children = (
 				76A2E19E2923C5A7001E887A /* SingleGameViewController.swift */,
 				76A2E19F2923C5A7001E887A /* SingleGameViewModel.swift */,
-
 				F156F1112923534B0053E807 /* RecordAndsTimeBar */,
-
 				477842F92923C2D400AAC3DB /* SelectMap */,
 				47935E9A29238DE300481307 /* HomeViewModel.swift */,
-
 				E5BE8BAC29221FE400E9CFE8 /* HomeViewController.swift */,
 				F156F10D292336950053E807 /* SingleGamePlayViewController.swift */,
 				F156F10F292340430053E807 /* SingleGamePlayViewModel.swift */,
@@ -463,14 +457,6 @@
 				F156F11929235EC50053E807 /* ImageConstants.swift */,
 			);
 			path = Constants;
-			sourceTree = "<group>";
-		};
-		F156F12329238BAB0053E807 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				F156F11D292365840053E807 /* CALayer+Extension.swift */,
-			);
-			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -664,11 +650,8 @@
 				4738D766292238C3003AE835 /* UIColor+.swift in Sources */,
 				E5BE8BA129221B6D00E9CFE8 /* SignupCoordinator .swift in Sources */,
 				E5BE8B97292219D800E9CFE8 /* HomeCoordinator.swift in Sources */,
-
 				F156F116292354180053E807 /* FontConstants.swift in Sources */,
-
 				47935E99292375DC00481307 /* MapAnnotation.swift in Sources */,
-
 				E5BE8B93292218F100E9CFE8 /* AuthCoordinator.swift in Sources */,
 				76A2E1A32923D94C001E887A /* CLLocationCoordinate2D+.swift in Sources */,
 				F156F11E292365840053E807 /* CALayer+Extension.swift in Sources */,
