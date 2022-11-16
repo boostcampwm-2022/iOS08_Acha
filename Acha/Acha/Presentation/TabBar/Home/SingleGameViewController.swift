@@ -17,11 +17,14 @@ class SingleGameViewController: UIViewController {
     private let mapView: MKMapView = MKMapView().then {
         $0.setUserTrackingMode(.followWithHeading, animated: true)
         $0.showsUserLocation = true
-        $0.setUserTrackingMode(.followWithHeading, animated: true)
         $0.showsCompass = false
     }
     
     private let distanceLabel: UILabel = UILabel().then {
+        $0.font = .systemFont(ofSize: 20, weight: .bold)
+        $0.textAlignment = .center
+    }
+    private let timeLabel: UILabel = UILabel().then {
         $0.font = .systemFont(ofSize: 20, weight: .bold)
         $0.textAlignment = .center
     }
@@ -59,16 +62,21 @@ class SingleGameViewController: UIViewController {
         configureLocationManager()
         drawGoLine()
         bind()
+        viewModel.startTimer()
     }
     
     // MARK: - Helpers
     private func setupSubviews() {
-        [mapView, distanceLabel].forEach { view.addSubview($0) }
+        [mapView, distanceLabel, timeLabel].forEach { view.addSubview($0) }
         mapView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
         distanceLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(100)
+            $0.centerX.equalToSuperview()
+        }
+        timeLabel.snp.makeConstraints {
+            $0.top.equalTo(distanceLabel.snp.bottom).offset(30)
             $0.centerX.equalToSuperview()
         }
     }
@@ -119,13 +127,19 @@ class SingleGameViewController: UIViewController {
                 guard let self,
                       let from,
                       let here else { return }
-                print(from.latitude,here.latitude,"subscribe")
+                
                 let coordinateFrom = CLLocationCoordinate2DMake(from.latitude, from.longitude)
                 let coordinateHere = CLLocationCoordinate2DMake(here.latitude, here.longitude)
                 
                 let lineDraw = MKPolyline(coordinates: [coordinateFrom, coordinateHere], count: 2)
                 self.visitLine = lineDraw
                 self.mapView.addOverlay(self.visitLine ?? MKPolyline())
+            }).disposed(by: disposeBag)
+        
+        viewModel.time
+            .subscribe(onNext: { [weak self] time in
+                guard let self else { return }
+                self.timeLabel.text = "\(time)초"
             }).disposed(by: disposeBag)
     }
 }

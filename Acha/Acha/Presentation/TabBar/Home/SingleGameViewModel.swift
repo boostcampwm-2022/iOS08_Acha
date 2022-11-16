@@ -17,6 +17,7 @@ final class SingleGameViewModel {
     var route = [Coordinate]()
     let movedDistance = BehaviorRelay<Double>(value: 0.0)
     let visitedCoordinate = BehaviorRelay<(Coordinate?, Coordinate?)>(value: (nil, nil))
+    let time = BehaviorRelay<Int>(value: 0)
     
     init(map: Map) {
         self.map = map
@@ -44,12 +45,6 @@ final class SingleGameViewModel {
         let newDistance = distance + movedDistance.value
         self.movedDistance.accept(newDistance)
         
-//        let nearest = map.coordinates.map { self.distance(from: $0, here: here) }.min()
-        if coordinates.count == 0 {
-            print("00")
-            return
-        }
-        print(self.meterDistance(from: coordinates.first!, here: here))
         guard let nearestCoordinate = coordinates.min(by: {
             self.meterDistance(from: $0, here: here) < self.meterDistance(from: $1, here: here)
         }) else { print("why"); return }
@@ -58,7 +53,7 @@ final class SingleGameViewModel {
         
         if nearestDistance < 0.5 {
             let before = visitedCoordinate.value
-            print("near")
+            
             if before.0 == nil {
                 visitedCoordinate.accept((nearestCoordinate, nil))
             } else {
@@ -87,6 +82,12 @@ final class SingleGameViewModel {
     
     private func rad2deg(_ radian: Double) -> Double {
         return radian * 180.0 / .pi
-     }
+    }
+    
+    func startTimer() {
+        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { _ in
+            self.time.accept(self.time.value + 1)
+        })
+    }
 
 }
