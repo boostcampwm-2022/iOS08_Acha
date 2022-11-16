@@ -43,9 +43,13 @@
 		F156F11C2923623C0053E807 /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F156F11B2923623C0053E807 /* PaddingLabel.swift */; };
 		F156F11E292365840053E807 /* CALayer+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F156F11D292365840053E807 /* CALayer+Extension.swift */; };
 		F156F12029237B000053E807 /* GamePlayMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F156F11F29237B000053E807 /* GamePlayMenuView.swift */; };
-		F1D202942923946900F3E87D /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = F1D202932923946900F3E87D /* Then */; };
-		F1D202972923949900F3E87D /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = F1D202962923949900F3E87D /* SnapKit */; };
-		F1D202992923AB3D00F3E87D /* GameRankingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D202982923AB3D00F3E87D /* GameRankingViewController.swift */; };
+		F1D202992923AB3D00F3E87D /* InGameRankingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D202982923AB3D00F3E87D /* InGameRankingViewController.swift */; };
+		F1D2029B2923B97400F3E87D /* InGameRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D2029A2923B97400F3E87D /* InGameRecordViewController.swift */; };
+		F1D202A42923C09300F3E87D /* InGameMenuCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D202A32923C09300F3E87D /* InGameMenuCollectionViewCell.swift */; };
+		F1D202A8292463B200F3E87D /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D202A7292463B200F3E87D /* Int+Extension.swift */; };
+		F1D202AA2924744200F3E87D /* InGameMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D202A92924744200F3E87D /* InGameMenu.swift */; };
+		F1D202AD29247AC600F3E87D /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = F1D202AC29247AC600F3E87D /* Then */; };
+		F1D202B32924815E00F3E87D /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = F1D202B22924815E00F3E87D /* SnapKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -106,7 +110,11 @@
 		F156F11B2923623C0053E807 /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
 		F156F11D292365840053E807 /* CALayer+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+Extension.swift"; sourceTree = "<group>"; };
 		F156F11F29237B000053E807 /* GamePlayMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePlayMenuView.swift; sourceTree = "<group>"; };
-		F1D202982923AB3D00F3E87D /* GameRankingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRankingViewController.swift; sourceTree = "<group>"; };
+		F1D202982923AB3D00F3E87D /* InGameRankingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameRankingViewController.swift; sourceTree = "<group>"; };
+		F1D2029A2923B97400F3E87D /* InGameRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameRecordViewController.swift; sourceTree = "<group>"; };
+		F1D202A32923C09300F3E87D /* InGameMenuCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameMenuCollectionViewCell.swift; sourceTree = "<group>"; };
+		F1D202A7292463B200F3E87D /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
+		F1D202A92924744200F3E87D /* InGameMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameMenu.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,9 +122,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F1D202972923949900F3E87D /* SnapKit in Frameworks */,
+				F1D202B32924815E00F3E87D /* SnapKit in Frameworks */,
 				4738D75F2921D3E7003AE835 /* AchaLibrary in Frameworks */,
-				F1D202942923946900F3E87D /* Then in Frameworks */,
+				F1D202AD29247AC600F3E87D /* Then in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -285,12 +293,11 @@
 		E5BE8BA429221C2800E9CFE8 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				F1D2029C2923BF0800F3E87D /* InGameMenus */,
 				F156F1112923534B0053E807 /* RecordAndsTimeBar */,
 				E5BE8BAC29221FE400E9CFE8 /* HomeViewController.swift */,
 				F156F10D292336950053E807 /* SingleGamePlayViewController.swift */,
 				F156F10F292340430053E807 /* SingleGamePlayViewModel.swift */,
-				F156F11F29237B000053E807 /* GamePlayMenuView.swift */,
-				F1D202982923AB3D00F3E87D /* GameRankingViewController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -388,8 +395,61 @@
 			isa = PBXGroup;
 			children = (
 				F156F11D292365840053E807 /* CALayer+Extension.swift */,
+				F1D202A7292463B200F3E87D /* Int+Extension.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		F1D2029C2923BF0800F3E87D /* InGameMenus */ = {
+			isa = PBXGroup;
+			children = (
+				F1D202A12923C02200F3E87D /* InGameMenusParentViewController */,
+				F1D202A02923C01500F3E87D /* InGameMenusCell */,
+				F1D2029F2923BF6F00F3E87D /* Protocol */,
+				F1D2029E2923BF5B00F3E87D /* InGameRecord */,
+				F1D2029D2923BF5600F3E87D /* InGameRanking */,
+			);
+			path = InGameMenus;
+			sourceTree = "<group>";
+		};
+		F1D2029D2923BF5600F3E87D /* InGameRanking */ = {
+			isa = PBXGroup;
+			children = (
+				F1D202982923AB3D00F3E87D /* InGameRankingViewController.swift */,
+			);
+			path = InGameRanking;
+			sourceTree = "<group>";
+		};
+		F1D2029E2923BF5B00F3E87D /* InGameRecord */ = {
+			isa = PBXGroup;
+			children = (
+				F1D2029A2923B97400F3E87D /* InGameRecordViewController.swift */,
+			);
+			path = InGameRecord;
+			sourceTree = "<group>";
+		};
+		F1D2029F2923BF6F00F3E87D /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				F1D202A92924744200F3E87D /* InGameMenu.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		F1D202A02923C01500F3E87D /* InGameMenusCell */ = {
+			isa = PBXGroup;
+			children = (
+				F1D202A32923C09300F3E87D /* InGameMenuCollectionViewCell.swift */,
+			);
+			path = InGameMenusCell;
+			sourceTree = "<group>";
+		};
+		F1D202A12923C02200F3E87D /* InGameMenusParentViewController */ = {
+			isa = PBXGroup;
+			children = (
+				F156F11F29237B000053E807 /* GamePlayMenuView.swift */,
+			);
+			path = InGameMenusParentViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -411,8 +471,8 @@
 			name = Acha;
 			packageProductDependencies = (
 				4738D75E2921D3E7003AE835 /* AchaLibrary */,
-				F1D202932923946900F3E87D /* Then */,
-				F1D202962923949900F3E87D /* SnapKit */,
+				F1D202AC29247AC600F3E87D /* Then */,
+				F1D202B22924815E00F3E87D /* SnapKit */,
 			);
 			productName = Acha;
 			productReference = 471863B9291E155700A35786 /* Acha.app */;
@@ -487,8 +547,8 @@
 			);
 			mainGroup = 471863B0291E155700A35786;
 			packageReferences = (
-				F1D202922923946900F3E87D /* XCRemoteSwiftPackageReference "Then" */,
-				F1D202952923949900F3E87D /* XCRemoteSwiftPackageReference "SnapKit" */,
+				F1D202AB29247AC600F3E87D /* XCRemoteSwiftPackageReference "Then" */,
+				F1D202B12924815E00F3E87D /* XCRemoteSwiftPackageReference "SnapKit" */,
 			);
 			productRefGroup = 471863BA291E155700A35786 /* Products */;
 			projectDirPath = "";
@@ -573,16 +633,20 @@
 				F156F118292355D10053E807 /* ColorConstants.swift in Sources */,
 				E5BE8BAF29221FF800E9CFE8 /* CommunityViewController.swift in Sources */,
 				E5BE8BB32922200C00E9CFE8 /* MyPageViewController.swift in Sources */,
+				F1D202A42923C09300F3E87D /* InGameMenuCollectionViewCell.swift in Sources */,
 				F156F11C2923623C0053E807 /* PaddingLabel.swift in Sources */,
 				471863BD291E155700A35786 /* AppDelegate.swift in Sources */,
 				E5BE8BA129221B6D00E9CFE8 /* SignupCoordinator .swift in Sources */,
 				E5BE8B97292219D800E9CFE8 /* HomeCoordinator.swift in Sources */,
+				F1D2029B2923B97400F3E87D /* InGameRecordViewController.swift in Sources */,
 				F156F116292354180053E807 /* FontConstants.swift in Sources */,
 				E5BE8B93292218F100E9CFE8 /* AuthCoordinator.swift in Sources */,
 				F156F11E292365840053E807 /* CALayer+Extension.swift in Sources */,
+				F1D202AA2924744200F3E87D /* InGameMenu.swift in Sources */,
+				F1D202A8292463B200F3E87D /* Int+Extension.swift in Sources */,
 				E5BE8B9929221A4C00E9CFE8 /* RecordCoordinator.swift in Sources */,
 				F156F1132923536A0053E807 /* DistanceAndTimeBar.swift in Sources */,
-				F1D202992923AB3D00F3E87D /* GameRankingViewController.swift in Sources */,
+				F1D202992923AB3D00F3E87D /* InGameRankingViewController.swift in Sources */,
 				F156F10E292336950053E807 /* SingleGamePlayViewController.swift in Sources */,
 				471863BF291E155700A35786 /* SceneDelegate.swift in Sources */,
 			);
@@ -682,7 +746,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -736,7 +800,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -916,7 +980,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		F1D202922923946900F3E87D /* XCRemoteSwiftPackageReference "Then" */ = {
+		F1D202AB29247AC600F3E87D /* XCRemoteSwiftPackageReference "Then" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/devxoul/Then";
 			requirement = {
@@ -924,7 +988,7 @@
 				minimumVersion = 3.0.0;
 			};
 		};
-		F1D202952923949900F3E87D /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+		F1D202B12924815E00F3E87D /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit";
 			requirement = {
@@ -939,14 +1003,14 @@
 			isa = XCSwiftPackageProductDependency;
 			productName = AchaLibrary;
 		};
-		F1D202932923946900F3E87D /* Then */ = {
+		F1D202AC29247AC600F3E87D /* Then */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = F1D202922923946900F3E87D /* XCRemoteSwiftPackageReference "Then" */;
+			package = F1D202AB29247AC600F3E87D /* XCRemoteSwiftPackageReference "Then" */;
 			productName = Then;
 		};
-		F1D202962923949900F3E87D /* SnapKit */ = {
+		F1D202B22924815E00F3E87D /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = F1D202952923949900F3E87D /* XCRemoteSwiftPackageReference "SnapKit" */;
+			package = F1D202B12924815E00F3E87D /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
 		};
 /* End XCSwiftPackageProductDependency section */
