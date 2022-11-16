@@ -16,7 +16,7 @@ final class SingleGameViewModel {
     var coordinates: [Coordinate] = []
     var route = [Coordinate]()
     let movedDistance = BehaviorRelay<Double>(value: 0.0)
-    let visitedCoordinate = BehaviorRelay<(Coordinate?, Coordinate?)>(value: (nil, nil))
+    let visitedCoordinate = BehaviorRelay<(now:Coordinate?, previous:Coordinate?)>(value: (nil, nil))
     let time = BehaviorRelay<Int>(value: 0)
     
     init(map: Map) {
@@ -34,8 +34,8 @@ final class SingleGameViewModel {
                 print("에러")
                 return
             }
-            self?.mapCoordinates.accept(maps.first!)
-            self?.coordinates = maps.first!.coordinates
+            self?.mapCoordinates.accept(maps.last!)
+            self?.coordinates = maps.last!.coordinates
         })
     }
     
@@ -54,12 +54,12 @@ final class SingleGameViewModel {
         if nearestDistance < 0.5 {
             let before = visitedCoordinate.value
             
-            if before.0 == nil {
+            if before.now == nil {
                 visitedCoordinate.accept((nearestCoordinate, nil))
             } else {
-                visitedCoordinate.accept((nearestCoordinate, visitedCoordinate.value.0))
+                visitedCoordinate.accept((nearestCoordinate, visitedCoordinate.value.previous))
             }
-            print(visitedCoordinate.value, "hi")
+            
         } else if nearestDistance > 10 {
             #warning("todo: alert")
         }
@@ -89,5 +89,4 @@ final class SingleGameViewModel {
             self.time.accept(self.time.value + 1)
         })
     }
-
 }

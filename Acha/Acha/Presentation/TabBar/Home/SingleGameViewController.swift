@@ -28,6 +28,10 @@ class SingleGameViewController: UIViewController {
         $0.font = .systemFont(ofSize: 20, weight: .bold)
         $0.textAlignment = .center
     }
+    private lazy var testLabel: UILabel = UILabel().then { #warning("지우기")
+        $0.font = .systemFont(ofSize: 20, weight: .bold)
+        $0.textAlignment = .center
+    }
     
     // MARK: - Properties
     private let viewModel: SingleGameViewModel!
@@ -56,18 +60,16 @@ class SingleGameViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        locationManager.requestWhenInUseAuthorization()
+        locationManager.requestAlwaysAuthorization()
         setupSubviews()
         configureMap()
-        configureLocationManager()
-        drawGoLine()
+        configureViewModel()
         bind()
-        viewModel.startTimer()
     }
     
     // MARK: - Helpers
     private func setupSubviews() {
-        [mapView, distanceLabel, timeLabel].forEach { view.addSubview($0) }
+        [mapView, distanceLabel, timeLabel, testLabel].forEach { view.addSubview($0) }
         mapView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
@@ -77,6 +79,10 @@ class SingleGameViewController: UIViewController {
         }
         timeLabel.snp.makeConstraints {
             $0.top.equalTo(distanceLabel.snp.bottom).offset(30)
+            $0.centerX.equalToSuperview()
+        }
+        testLabel.snp.makeConstraints {
+            $0.top.equalTo(timeLabel.snp.bottom).offset(5)
             $0.centerX.equalToSuperview()
         }
     }
@@ -92,10 +98,8 @@ class SingleGameViewController: UIViewController {
         let span = MKCoordinateSpan(latitudeDelta: 0.002, longitudeDelta: 0.002)
         let region = MKCoordinateRegion(center: centerLocation, span: span)
         mapView.setRegion(region, animated: true)
-    }
-    
-    private func configureLocationManager() {
         
+        drawGoLine()
     }
     
     private func drawGoLine() {
@@ -112,9 +116,12 @@ class SingleGameViewController: UIViewController {
             }).disposed(by: disposeBag)
     }
     
-    private func bind() {
+    private func configureViewModel() {
         viewModel.fetchAllMaps()
-        
+        viewModel.startTimer()
+    }
+    
+    private func bind() {
         viewModel.movedDistance
             .subscribe(onNext: { [weak self] distance in
                 guard let self else { return }
@@ -152,10 +159,10 @@ extension SingleGameViewController: CLLocationManagerDelegate {
             locationManager.startUpdatingLocation()
         case .restricted, .notDetermined:
             print("GPS 권한 설정되지 않음")
-            locationManager.requestWhenInUseAuthorization()
+            locationManager.requestAlwaysAuthorization()
         case .denied:
             print("GPS 권한 요청 거부됨")
-            locationManager.requestWhenInUseAuthorization()
+            locationManager.requestAlwaysAuthorization()
         default:
             print("GPS: Default")
         }
