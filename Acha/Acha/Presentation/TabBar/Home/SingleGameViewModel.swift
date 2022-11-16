@@ -16,7 +16,7 @@ final class SingleGameViewModel {
     var coordinates: [Coordinate] = []
     var route = [Coordinate]()
     let movedDistance = BehaviorRelay<Double>(value: 0.0)
-    let visitedCoordinate = BehaviorRelay<(now:Coordinate?, previous:Coordinate?)>(value: (nil, nil))
+    let visitedCoordinate = BehaviorRelay<(now: Coordinate?, previous: Coordinate?)>(value: (nil, nil))
     let time = BehaviorRelay<Int>(value: 0)
     
     init(map: Map) {
@@ -67,21 +67,13 @@ final class SingleGameViewModel {
     
     func meterDistance(from: Coordinate, here: Coordinate) -> Double {
         let theta = from.longitude - here.longitude
-        let dist = sin(deg2rad(from.latitude)) *
-        sin(deg2rad(here.latitude)) +
-        cos(deg2rad(from.latitude)) *
-        cos(deg2rad(here.latitude)) *
-        cos(deg2rad(theta))
+        let dist = sin(from.latitude.deg2rad()) *
+        sin(here.latitude.deg2rad()) +
+        cos(from.latitude.deg2rad()) *
+        cos(here.latitude.deg2rad()) *
+        cos(theta.deg2rad())
         
-        return rad2deg(acos(dist)) * 60 * 1.853159616 / 1000
-    }
-    
-    private func deg2rad(_ degree: Double) -> Double {
-        return degree * .pi / 180
-     }
-    
-    private func rad2deg(_ radian: Double) -> Double {
-        return radian * 180.0 / .pi
+        return acos(dist).rad2deg() * 60 * 1.853159616 / 1000
     }
     
     func startTimer() {
