@@ -71,12 +71,12 @@ class GameOverViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .orange
         tabBarController?.tabBar.isHidden = true
-        setupSubviews()
+        setUpSubviews()
         inputDummytexts()
     }
     
     // MARK: - Helpers
-    func setupSubviews() {
+    func setUpSubviews() {
         view.addSubview(resultBackground)
         [gameOverLabel, mapNameLabel,
          timeLabel, timeValueLabel, distanceLabel, distanceValueLabel, kcalLabel, kcalValueLabel, okButton]
