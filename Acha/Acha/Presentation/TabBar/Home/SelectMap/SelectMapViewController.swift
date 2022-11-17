@@ -64,7 +64,6 @@ final class SelectMapViewController: MapBaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
         configureUI()
         viewModel.fetchAllMaps()
         bind()
