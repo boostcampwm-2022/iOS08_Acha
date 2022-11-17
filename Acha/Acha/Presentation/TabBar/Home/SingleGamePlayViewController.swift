@@ -123,7 +123,6 @@ extension SingleGamePlayViewController {
         let menuItems: [UIAction] =
         [
             UIAction(title: "랭킹", handler: { [weak self] _ in
-<<<<<<< HEAD
                 let viewController = InGameRankingViewController()
                 viewController.fetchData(data: [.init(time: 90, userName: "해피", date: Date()),
                                                 .init(time: 120, userName: "멍멍이", date: Date()),
@@ -134,13 +133,7 @@ extension SingleGamePlayViewController {
                 let viewController = InGameRecordViewController()
                 viewController.fetchData(data: [.init(time: 90, userName: "해피", date: Date()),
                                                 .init(time: 66, userName: "해피", date: Date())])
-=======
-                let viewController = GamePlayMenuViewController(type: .ranking)
-                self?.presentModal(viewController: viewController)
-            }),
-            UIAction(title: "기록", handler: { [weak self] _ in
-                let viewController = GamePlayMenuViewController(type: .recordHistory)
->>>>>>> f7b5b6a5010a997dea00353a3e65050451c0efc2
+
                 self?.presentModal(viewController: viewController)
             })
         ]
@@ -149,11 +142,9 @@ extension SingleGamePlayViewController {
         rightMenuButton.showsMenuAsPrimaryAction = true
     }
     
-<<<<<<< HEAD
+
     private func presentModal(viewController: InGamePlayMenuViewController) {
-=======
-    private func presentModal(viewController: GamePlayMenuViewController) {
->>>>>>> f7b5b6a5010a997dea00353a3e65050451c0efc2
+
         viewController.modalPresentationStyle = .pageSheet
         present(viewController, animated: true)
     }

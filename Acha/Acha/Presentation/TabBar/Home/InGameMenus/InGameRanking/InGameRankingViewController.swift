@@ -30,7 +30,7 @@ final class InGameRankingViewController: InGamePlayMenuViewController {
     private func collectionViewRegister() {
         collectionView.register(
             InGameMenuCollectionViewCell.self,
-            forCellWithReuseIdentifier: InGameMenuCollectionViewCell.cellId
+            forCellWithReuseIdentifier: InGameMenuCollectionViewCell.identifier
         )
     }
     private func makeDataSource() -> RankingDataSource {
@@ -40,7 +40,7 @@ final class InGameRankingViewController: InGamePlayMenuViewController {
                 collectionView
         ) { collectionView, indexPath, itemIdentifier in
             guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: InGameMenuCollectionViewCell.cellId,
+                withReuseIdentifier: InGameMenuCollectionViewCell.identifier,
                 for: indexPath
             ) as? InGameMenuCollectionViewCell else {return UICollectionViewCell()}
             #warning("데이터 어떻게 보내줄지 결정해야 함")

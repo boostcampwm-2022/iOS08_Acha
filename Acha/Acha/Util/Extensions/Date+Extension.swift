@@ -8,7 +8,7 @@
 import Foundation
 
 extension Date {
-    func toYearMonthDateStringFormat() -> String {
+    func convertToYearMonthDateStringFormat() -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy년 MM월 dd일 EEE요일"
         dateFormatter.locale = Locale(identifier: "ko_kr")

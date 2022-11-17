@@ -14,7 +14,7 @@ class InGamePlayMenuViewController: UIViewController {
     // MARK: - UI properties
     lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: createBasicListLayout())
     
-    let titleLabel =  UILabel().then {
+    let titleLabel = UILabel().then {
         $0.font = FontConstants.titleFont
         $0.textColor = ColorConstants.backgroundColor
         $0.backgroundColor = ColorConstants.pointColor
@@ -61,18 +61,15 @@ extension InGamePlayMenuViewController {
     }
     
     private func layoutViews() {
-        titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(view.snp.top)
-            make.leading.equalTo(view.snp.leading)
-            make.trailing.equalTo(view.snp.trailing)
-            make.height.equalTo(100)
+        titleLabel.snp.makeConstraints {
+            $0.top.leading.trailing.equalToSuperview()
+            $0.height.equalTo(100)
+
         }
         
-        collectionView.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom)
-            make.leading.equalTo(view.snp.leading)
-            make.trailing.equalTo(view.snp.trailing)
-            make.bottom.equalTo(view.snp.bottom)
+        collectionView.snp.makeConstraints {
+            $0.top.equalTo(titleLabel.snp.bottom)
+            $0.leading.trailing.bottom.equalToSuperview()
         }
     }
 }

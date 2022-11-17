@@ -31,7 +31,7 @@ final class InGameRecordViewController: InGamePlayMenuViewController {
     private func collectionViewRegister() {
         collectionView.register(
             InGameMenuCollectionViewCell.self,
-            forCellWithReuseIdentifier: InGameMenuCollectionViewCell.cellId
+            forCellWithReuseIdentifier: InGameMenuCollectionViewCell.identifier
         )
     }
     
@@ -41,13 +41,13 @@ final class InGameRecordViewController: InGamePlayMenuViewController {
             collectionView: collectionView
         ) { collectionView, indexPath, itemIdentifier in
             guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: InGameMenuCollectionViewCell.cellId,
+                withReuseIdentifier: InGameMenuCollectionViewCell.identifier,
                 for: indexPath
             ) as? InGameMenuCollectionViewCell else {return UICollectionViewCell()}
             #warning("데이터 어떻게 보내줘야 할지 결정해야 함")
             cell.setData(
                 image: nil,
-                text: "\(itemIdentifier.date.toYearMonthDateStringFormat()) \(itemIdentifier.time.convertToDayHourMinueFormat())"
+                text: "\(itemIdentifier.date.convertToYearMonthDateStringFormat()) \(itemIdentifier.time.convertToDayHourMinueFormat())"
             )
             return cell
         }

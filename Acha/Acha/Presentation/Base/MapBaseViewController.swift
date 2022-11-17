@@ -102,7 +102,7 @@ extension MapBaseViewController: CLLocationManagerDelegate {
 
 extension MapBaseViewController: MKMapViewDelegate {
     
-    private func setUpMapView() {
+    internal func setUpMapView() {
         // 어플을 종료하고 다시 실행했을 때 MapKit이 발생할 수 있는 오류를 방지하기 위한 처리
         if #available(iOS 16.0, *) {
             mapView.preferredConfiguration = MKStandardMapConfiguration()

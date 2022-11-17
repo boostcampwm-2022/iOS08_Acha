@@ -364,11 +364,8 @@
 		E5BE8BA429221C2800E9CFE8 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-<<<<<<< HEAD
 				F1D2029C2923BF0800F3E87D /* InGameMenus */,
-=======
 
->>>>>>> f7b5b6a5010a997dea00353a3e65050451c0efc2
 				F156F1112923534B0053E807 /* RecordAndsTimeBar */,
 
 				477842F92923C2D400AAC3DB /* SelectMap */,
@@ -730,12 +727,11 @@
 				4738D766292238C3003AE835 /* UIColor+.swift in Sources */,
 				E5BE8BA129221B6D00E9CFE8 /* SignupCoordinator .swift in Sources */,
 				E5BE8B97292219D800E9CFE8 /* HomeCoordinator.swift in Sources */,
-<<<<<<< HEAD
+
 				F1D202B72924C63F00F3E87D /* InGameMenuModelProtocol.swift in Sources */,
 				F1D2029B2923B97400F3E87D /* InGameRecordViewController.swift in Sources */,
-=======
 
->>>>>>> f7b5b6a5010a997dea00353a3e65050451c0efc2
+
 				F156F116292354180053E807 /* FontConstants.swift in Sources */,
 
 				47935E99292375DC00481307 /* MapAnnotation.swift in Sources */,
