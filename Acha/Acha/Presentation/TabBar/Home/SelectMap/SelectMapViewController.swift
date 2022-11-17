@@ -32,14 +32,46 @@ final class SelectMapViewController: MapBaseViewController {
     }
     
     private lazy var rankingView = UIView().then {
-        $0.backgroundColor = .red
+        $0.layer.shadowOffset = CGSize(width: 0, height: 10)
+        $0.layer.shadowColor = UIColor.gray.cgColor
+        $0.layer.shadowOpacity = 1.0
+        $0.layer.shadowOffset = CGSize.zero
+        $0.layer.shadowRadius = 6
         $0.layer.cornerRadius = 15
+        $0.backgroundColor = .white
         $0.isHidden = true
     }
-
+    
+    private lazy var mapNameLabel = PaddingLabel(topInset: 0,
+                                                 bottomInset: 0,
+                                                 leftInset: 20,
+                                                 rightInset: 20)
+        .then {
+            $0.layer.backgroundColor = UIColor.pointLight.cgColor
+            $0.font = .boldBody
+            $0.textColor = .white
+            $0.text = "땅 이름 랭킹"
+            $0.clipsToBounds = true
+            $0.layer.cornerRadius = 15
+            
+            // 왼쪽 위, 오른쪽 위 테두리
+            let cornerMask: CACornerMask = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+            $0.layer.maskedCorners = cornerMask
+        }
+    
+    lazy var rankingCollectionView: UICollectionView = UICollectionView(
+        frame: .zero,
+        collectionViewLayout: configureCollectionViewLayout()).then {
+            $0.clipsToBounds = true
+            $0.layer.cornerRadius = 15
+        }
+    
     // MARK: - Properties
     private let viewModel: SelectMapViewModel
     private var disposeBag = DisposeBag()
+    
+    typealias DataSource = UICollectionViewDiffableDataSource<String, AchaRecord>
+    private var dataSource: DataSource!
     
     // MARK: - Lifecycles
     init(viewModel: SelectMapViewModel) {
@@ -50,13 +82,18 @@ final class SelectMapViewController: MapBaseViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
-        viewModel.fetchAllMaps()
         bind()
+        viewModel.fetchAllMaps()
+        configureCollectionView()
+        makeSnapshot()
     }
+}
+
+extension SelectMapViewController {
     
     // MARK: - Helpers
     func configureUI() {        
@@ -88,6 +125,20 @@ final class SelectMapViewController: MapBaseViewController {
             $0.leading.trailing.equalTo(mapView).inset(20)
             $0.height.equalTo(300)
         }
+        
+        rankingView.addSubview(mapNameLabel)
+        mapNameLabel.snp.makeConstraints {
+            $0.top.leading.trailing.equalToSuperview()
+            $0.height.equalTo(60)
+        }
+        
+        rankingView.addSubview(rankingCollectionView)
+        rankingCollectionView.snp.makeConstraints {
+            $0.top.equalTo(mapNameLabel.snp.bottom).offset(15)
+            $0.leading.trailing.equalToSuperview()
+            $0.bottom.equalToSuperview().offset(-15)
+        }
+        
     }
     
     private func bind() {
@@ -141,5 +192,83 @@ extension SelectMapViewController {
         guard let annotation = annotation as? MapAnnotation else { return }
         let renderer = mapView.renderer(for: annotation.polyLine) as? MKPolylineRenderer
         renderer?.strokeColor = .gray
+    }
+}
+
+extension SelectMapViewController: UICollectionViewDelegate {
+    
+    private func configureCollectionView() {
+        rankingCollectionView.contentInsetAdjustmentBehavior = .never
+        rankingCollectionView.delegate = self
+        
+        rankingCollectionView.register(RecordViewCell.self, forCellWithReuseIdentifier: RecordViewCell.identifier)
+        configureCollectionViewDataSource()
+    }
+    
+    private func configureCollectionViewLayout() -> UICollectionViewLayout {
+        let layout = UICollectionViewCompositionalLayout { (_, _ ) -> NSCollectionLayoutSection? in
+            let itemsize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                                  heightDimension: .fractionalHeight(1.0))
+            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                                   heightDimension: .absolute(70))
+            let groupInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
+            
+            return self.makeSectionLayout(itemSize: itemsize,
+                                          groupSize: groupSize,
+                                          groupInsets: groupInsets)
+        }
+        
+        return layout
+    }
+    
+    private func configureCollectionViewDataSource() {
+        dataSource = DataSource(collectionView: rankingCollectionView,
+                                cellProvider: { collectionView, indexPath, itemIdentifier in
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecordViewCell.identifier,
+                                                                for: indexPath) as? RecordViewCell
+            else { return UICollectionViewCell() }
+            cell.bind(ranking: indexPath.row + 1, record: itemIdentifier)
+            return cell
+        })
+    }
+    
+    private func makeSectionLayout(itemSize: NSCollectionLayoutSize,
+                                   groupSize: NSCollectionLayoutSize,
+                                   groupInsets: NSDirectionalEdgeInsets? = nil,
+                                   sectionInsets: NSDirectionalEdgeInsets? = nil,
+                                   headerSize: NSCollectionLayoutSize? = nil,
+                                   orthogonalScrollingBehavior: UICollectionLayoutSectionOrthogonalScrollingBehavior? = nil) -> NSCollectionLayoutSection {
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
+                                                       subitems: [item])
+        
+        if let groupInsets { group.contentInsets = groupInsets }
+        
+        let section = NSCollectionLayoutSection(group: group)
+        if let sectionInsets { section.contentInsets = sectionInsets }
+        
+        if let headerSize {
+            let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
+                layoutSize: headerSize,
+                elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
+            section.boundarySupplementaryItems = [sectionHeader]
+        }
+    
+        if let orthogonalScrollingBehavior {
+            section.orthogonalScrollingBehavior = orthogonalScrollingBehavior
+        }
+        
+        return section
+    }
+    
+    private func makeSnapshot() {
+        var snapshot = dataSource.snapshot()
+        snapshot.deleteAllItems()
+        snapshot.appendSections(["Ranking"])
+        snapshot.appendItems([AchaRecord(mapID: 0, userID: "옹이", calorie: 30, distance: 30, time: 10000, isSingleMode: true, createdAt: ""),
+                              AchaRecord(mapID: 0, userID: "멍멍이", calorie: 20, distance: 20, time: 20000, isSingleMode: true, createdAt: ""),
+                              AchaRecord(mapID: 0, userID: "해피", calorie: 10, distance: 10, time: 30000, isSingleMode: true, createdAt: "")],
+                             toSection: "Ranking")
+        dataSource.apply(snapshot)
     }
 }
