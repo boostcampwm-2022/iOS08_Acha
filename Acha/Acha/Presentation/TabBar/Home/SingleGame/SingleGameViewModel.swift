@@ -65,7 +65,7 @@ final class SingleGameViewModel {
         isHideGameOverButton
             .subscribe(onNext: { [weak self] isHide in
                 guard let self else { return }
-                if isHide {
+                if !isHide {
                     self.isHideTimerStart()
                 }
             }).disposed(by: disposeBag)
@@ -137,7 +137,6 @@ final class SingleGameViewModel {
         isHideTimer = DispatchSource.makeTimerSource()
         isHideTimer?.schedule(deadline: .now() + 3)
         isHideTimer?.setEventHandler(handler: {
-            print("possible")
             self.isHideGameOverButton.accept(true)
         })
         isHideTimer?.resume()

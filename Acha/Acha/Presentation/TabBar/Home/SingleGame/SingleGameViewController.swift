@@ -197,7 +197,6 @@ extension SingleViewController {
         viewModel.isHideGameOverButton
             .subscribe(onNext: { [weak self] isHide in
                 guard let self else { return }
-                print(isHide, "ishide")
                 DispatchQueue.main.async {
                     self.gameOverButton.isHidden = isHide
                 }
