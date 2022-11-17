@@ -9,6 +9,28 @@ import Foundation
 import RxRelay
 import RxSwift
 
+struct AchaRecord: Hashable, Decodable {
+    var mapID: Int
+    var userID: String
+    var calorie: Int
+    var distance: Int
+    var time: Int
+    var isSingleMode: Bool
+    var isWin: Bool?
+    var createdAt: String
+    
+    enum CodingKeys: String, CodingKey {
+        case mapID = "map_id"
+        case userID = "user_id"
+        case calorie
+        case distance
+        case time
+        case isSingleMode
+        case isWin
+        case createdAt = "created_at"
+    }
+}
+
 final class SingleGameViewModel {
     
     // MARK: - Input
@@ -35,7 +57,7 @@ final class SingleGameViewModel {
     private let coordinator: SingleGameCoordinator
     let map: Map
     private let disposeBag = DisposeBag()
-    private var isHideTimer: DispatchSourceTimer?
+    private var hideButtonTimer: DispatchSourceTimer?
     
     // MARK: - Lifecycle
     init(coordinator: SingleGameCoordinator, map: Map) {
@@ -50,6 +72,7 @@ final class SingleGameViewModel {
         input.gameOverButtonTapped
             .subscribe(onNext: { [weak self] _ in
                 guard let self else { return }
+                let record = AchaRecord(mapID: self.map.mapID, userID: "배변조홍", calorie: Int((1.5)*67.7*self.movedDistance/(60*15)), distance: Int(self.movedDistance.value), time: selftime.value, isSingleMode: true, createdAt: <#T##String#>)
                 self.coordinator
                     .showSingleGameOverViewController(result: "hi")
             }).disposed(by: disposeBag)
@@ -132,13 +155,13 @@ final class SingleGameViewModel {
     }
     
     private func isHideTimerStart() {
-        isHideTimer?.cancel()
-        isHideTimer = nil
-        isHideTimer = DispatchSource.makeTimerSource()
-        isHideTimer?.schedule(deadline: .now() + 3)
-        isHideTimer?.setEventHandler(handler: {
+        hideButtonTimer?.cancel()
+        hideButtonTimer = nil
+        hideButtonTimer = DispatchSource.makeTimerSource()
+        hideButtonTimer?.schedule(deadline: .now() + 3)
+        hideButtonTimer?.setEventHandler(handler: {
             self.isHideGameOverButton.accept(true)
         })
-        isHideTimer?.resume()
+        hideButtonTimer?.resume()
     }
 }
