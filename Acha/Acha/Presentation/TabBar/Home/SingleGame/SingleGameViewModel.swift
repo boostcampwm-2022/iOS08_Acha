@@ -13,9 +13,15 @@ final class SingleGameViewModel {
     
     // MARK: - Input
     var currentCoordinate = PublishRelay<Coordinate>()
+    struct Input {
+        var gameOverButtonTapped: Observable<Void>
+    }
     
     // MARK: - Output
     var route = [Coordinate]()
+    struct Output {
+        
+    }
     
     // 사용자가 이동한 두 점의 좌표 (과거좌표, 현재좌표)
     let userMovedCoordinates = BehaviorRelay<(previous: Coordinate?, current: Coordinate?)>(value: (nil, nil))
@@ -23,26 +29,45 @@ final class SingleGameViewModel {
     let visitedMapCoordinates = BehaviorRelay<(previous: Coordinate?, current: Coordinate?)>(value: (nil, nil))
     let time = BehaviorRelay<Int>(value: 0)
     let movedDistance = BehaviorRelay<Double>(value: 0.0)
+    let isHideGameOverButton = BehaviorRelay<Bool>(value: true)
     
     // MARK: - Dependency
-    private let coordinator: Coordinator
+    private let coordinator: SingleGameCoordinator
     let map: Map
     private let disposeBag = DisposeBag()
+    private var isHideTimer: DispatchSourceTimer?
     
     // MARK: - Lifecycle
-    init(coordinator: Coordinator, map: Map) {
+    init(coordinator: SingleGameCoordinator, map: Map) {
         self.map = map
         self.coordinator = coordinator
         bind()
-        startTimer()
+        configureTimer()
     }
     
     // MARK: - Helpers
+    func transform(input: Input) -> Output {
+        input.gameOverButtonTapped
+            .subscribe(onNext: { [weak self] _ in
+                guard let self else { return }
+                self.coordinator
+                    .showSingleGameOverViewController(result: "hi")
+            }).disposed(by: disposeBag)
+        return Output()
+    }
     private func bind() {
         currentCoordinate
             .subscribe(onNext: { [weak self] coordinate in
                 guard let self else { return }
                 self.userMoved(coordinate: coordinate)
+            }).disposed(by: disposeBag)
+        
+        isHideGameOverButton
+            .subscribe(onNext: { [weak self] isHide in
+                guard let self else { return }
+                if isHide {
+                    self.isHideTimerStart()
+                }
             }).disposed(by: disposeBag)
     }
     
@@ -61,8 +86,9 @@ final class SingleGameViewModel {
             from: userMovedPrevious,
             here: current
         )
-
-        movedDistance.accept(newDistance)
+        if !newDistance.isNaN {
+            movedDistance.accept(newDistance)
+        }
         
         // 게임) 가장 가까운 등록된 좌표 ( 현재위치와 회색 라인으로 보이는 점중 가장 가까운 점 )
         guard let nearestMapCoordinate = map.coordinates.min(by: {
@@ -95,9 +121,25 @@ final class SingleGameViewModel {
         return acos(dist).radianToDegree() * 60 * 1.853159616 * 1000
     }
     
+    private func configureTimer() {
+        startTimer()
+    }
+    
     private func startTimer() {
         Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { _ in
             self.time.accept(self.time.value + 1)
         })
+    }
+    
+    private func isHideTimerStart() {
+        isHideTimer?.cancel()
+        isHideTimer = nil
+        isHideTimer = DispatchSource.makeTimerSource()
+        isHideTimer?.schedule(deadline: .now() + 3)
+        isHideTimer?.setEventHandler(handler: {
+            print("possible")
+            self.isHideGameOverButton.accept(true)
+        })
+        isHideTimer?.resume()
     }
 }

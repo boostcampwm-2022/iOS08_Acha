@@ -38,4 +38,18 @@ final class SingleGameCoordinator: SingleGameCoordinatorProtocol {
         let viewController = SingleViewController(viewModel: viewModel)
         navigationController.pushViewController(viewController, animated: true)
     }
+    
+    func showSingleGameOverViewController(result: String) {
+        let viewModel = GameOverViewModel(coordinator: self, result: result)
+        let viewController = GameOverViewController(viewModel: viewModel)
+        navigationController.pushViewController(viewController, animated: true)
+    }
+}
+
+extension SingleGameCoordinator: CoordinatorDelegate {
+    func didFinished(childCoordinator: Coordinator) {
+        removeAllChildCoordinator()
+        navigationController.popViewController(animated: true)
+        navigationController.navigationBar.isHidden = false
+    }
 }

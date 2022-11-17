@@ -17,38 +17,38 @@ class GameOverViewController: UIViewController {
     }
     private let gameOverLabel: UILabel = UILabel().then {
         $0.text = "게임 종료"
-        $0.font = .systemFont(ofSize: 32, weight: .bold)
+        $0.font = .largeTitle
         $0.textAlignment = .center
     }
     private let mapNameLabel: UILabel = UILabel().then {
-        $0.font = .systemFont(ofSize: 32, weight: .medium)
+        $0.font = .largeBody
         $0.textAlignment = .center
     }
     private let timeLabel: UILabel = UILabel().then {
         $0.text = "시간"
-        $0.font = .systemFont(ofSize: 32, weight: .bold)
+        $0.font = .largeTitle
         $0.textAlignment = .left
     }
     private let timeValueLabel: UILabel = UILabel().then {
-        $0.font = .systemFont(ofSize: 32)
+        $0.font = .largeBody
         $0.textAlignment = .center
     }
     private let distanceLabel: UILabel = UILabel().then {
         $0.text = "거리"
-        $0.font = .systemFont(ofSize: 32, weight: .bold)
+        $0.font = .largeTitle
         $0.textAlignment = .left
     }
     private let distanceValueLabel: UILabel = UILabel().then {
-        $0.font = .systemFont(ofSize: 32)
+        $0.font = .largeBody
         $0.textAlignment = .center
     }
     private let kcalLabel: UILabel = UILabel().then {
         $0.text = "칼로리"
-        $0.font = .systemFont(ofSize: 32, weight: .bold)
+        $0.font = .largeTitle
         $0.textAlignment = .left
     }
     private let kcalValueLabel: UILabel = UILabel().then {
-        $0.font = .systemFont(ofSize: 32)
+        $0.font = .largeBody
         $0.textAlignment = .center
     }
     private let rankBoardStackView: UIStackView = UIStackView().then {
@@ -60,19 +60,27 @@ class GameOverViewController: UIViewController {
     private let okButton: UIButton = UIButton().then {
         $0.setTitle("확인", for: .normal)
         $0.tintColor = .white
-        $0.backgroundColor = #colorLiteral(red: 0.4196078431, green: 0.4470588235, blue: 0.5568627451, alpha: 1)
+        $0.backgroundColor = .lightGray
         $0.layer.cornerRadius = 10
     }
     
     // MARK: - Properties
-    
+    private let viewModel: GameOverViewModel
     // MARK: - Lifecycles
+    init(viewModel: GameOverViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .orange
         tabBarController?.tabBar.isHidden = true
         setupSubviews()
         inputDummytexts()
+        print(viewModel.result)
     }
     
     // MARK: - Helpers

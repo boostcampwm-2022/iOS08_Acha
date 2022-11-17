@@ -11,6 +11,7 @@ import Then
 import SnapKit
 import RxSwift
 import RxRelay
+import RxCocoa
 
 class SingleViewController: MapBaseViewController, DistanceAndTimeBarLine {
     // MARK: - UI properties
@@ -34,6 +35,12 @@ class SingleViewController: MapBaseViewController, DistanceAndTimeBarLine {
                 ),
             for: .normal
         )
+    }
+    private lazy var gameOverButton = UIButton().then {
+        $0.setTitle("게임 종료", for: .normal)
+        $0.tintColor = .white
+        $0.backgroundColor = .pointLight
+        $0.layer.cornerRadius = 10
     }
     // MARK: - Properties
     private let viewModel: SingleGameViewModel!
@@ -74,7 +81,7 @@ class SingleViewController: MapBaseViewController, DistanceAndTimeBarLine {
 // MARK: - Helpers
 extension SingleViewController {
     private func setupSubviews() {
-        [rightMenuButton, distanceAndTimeBar, resetButton]
+        [rightMenuButton, distanceAndTimeBar, resetButton, gameOverButton]
             .forEach {
                 view.addSubview($0)
             }
@@ -93,6 +100,13 @@ extension SingleViewController {
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-10)
             $0.width.height.equalTo(50)
         }
+        gameOverButton.snp.makeConstraints {
+            $0.bottom.equalTo(distanceAndTimeBar.snp.top).offset(-30)
+            $0.centerX.equalTo(mapView)
+            $0.width.equalTo(100)
+            $0.height.equalTo(40)
+        }
+        
         rightMenuButtonSetting()
     }
     
@@ -124,8 +138,8 @@ extension SingleViewController {
     
     private func configureMap() {
         drawGoLine()
+        configureMapTapped()
     }
-    
     private func drawGoLine() {
         let points = viewModel.map.coordinates.map {
             CLLocationCoordinate2DMake($0.latitude, $0.longitude)
@@ -136,13 +150,18 @@ extension SingleViewController {
         mapView.addOverlay(goLine ?? MKPolyline())
     }
     
+    func configureMapTapped() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(mapViewTapped(_:)))
+        let pan = UIPanGestureRecognizer(target: self, action: #selector(mapViewTapped(_:)))
+        mapView.addGestureRecognizer(tap)
+        mapView.addGestureRecognizer(pan)
+    }
+    
+    @objc func mapViewTapped(_ sender: UITapGestureRecognizer) {
+        viewModel.isHideGameOverButton.accept(false)
+    }
+    
     private func bind() {
-        resetButton.rx.tap
-            .subscribe(onNext: { [weak self] in
-                guard let self else { return }
-                self.focusUserLocation(useSpan: false)
-            }).disposed(by: disposeBag)
-        
         viewModel.visitedMapCoordinates
             .subscribe(onNext: { [weak self] (previous, current) in
                 guard let self,
@@ -154,19 +173,16 @@ extension SingleViewController {
                 self.visitLine = MKPolyline(coordinates: [previousCoordinate, currentCoordinate], count: 2)
                 self.mapView.addOverlay(self.visitLine ?? MKPolyline())
             }).disposed(by: disposeBag)
-        
         viewModel.time
             .subscribe(onNext: { [weak self] time in
                 guard let self else { return }
                 self.distanceAndTimeBar.timeLabel.text = "\(time)초"
             }).disposed(by: disposeBag)
-        
         viewModel.movedDistance
             .subscribe(onNext: { [weak self] distance in
                 guard let self else { return }
                 self.distanceAndTimeBar.distanceLabel.text = distance.meterToKmString
             }).disposed(by: disposeBag)
-        
         viewModel.userMovedCoordinates
             .subscribe(onNext: { [weak self] (previous, current) in
                 guard let self,
@@ -178,7 +194,36 @@ extension SingleViewController {
                 self.wentLine = MKPolyline(coordinates: [previousCoordinate, currentCoordinate], count: 2)
                 self.mapView.addOverlay(self.wentLine ?? MKPolyline())
             }).disposed(by: disposeBag)
-        
+        viewModel.isHideGameOverButton
+            .subscribe(onNext: { [weak self] isHide in
+                guard let self else { return }
+                print(isHide, "ishide")
+                DispatchQueue.main.async {
+                    self.gameOverButton.isHidden = isHide
+                }
+            }).disposed(by: disposeBag)
+        let input = SingleGameViewModel.Input(
+            gameOverButtonTapped: gameOverButton.rx.tap.asObservable()
+        )
+        _ = viewModel.transform(input: input)
+        bindButtons()
+    }
+    private func bindButtons() {
+        resetButton.rx.tap
+            .subscribe(onNext: { [weak self] in
+                guard let self else { return }
+                self.focusUserLocation(useSpan: false)
+            }).disposed(by: disposeBag)
+    }
+    func setMapRegion(toCoordinate coordinate: CLLocationCoordinate2D) {
+        let span = MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
+        let region = MKCoordinateRegion(center: coordinate, span: span)
+        mapView.setRegion(region, animated: true)
+    }
+    
+    func drawWentLine(from: CLLocationCoordinate2D, here: CLLocationCoordinate2D) {
+        wentLine = MKPolyline(coordinates: [from, here], count: 2)
+        self.mapView.addOverlay(wentLine ?? MKPolyline())
     }
 }
 
@@ -193,17 +238,6 @@ extension SingleViewController {
                 longitude: location.coordinate.longitude
             )
         )
-    }
-    
-    func setMapRegion(toCoordinate coordinate: CLLocationCoordinate2D) {
-        let span = MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
-        let region = MKCoordinateRegion(center: coordinate, span: span)
-        mapView.setRegion(region, animated: true)
-    }
-    
-    func drawWentLine(from: CLLocationCoordinate2D, here: CLLocationCoordinate2D) {
-        wentLine = MKPolyline(coordinates: [from, here], count: 2)
-        self.mapView.addOverlay(wentLine ?? MKPolyline())
     }
 }
 
