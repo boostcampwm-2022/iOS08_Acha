@@ -17,7 +17,6 @@
 		471863E0291E155800A35786 /* AchaUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471863DF291E155800A35786 /* AchaUITestsLaunchTests.swift */; };
 		4738D75F2921D3E7003AE835 /* AchaLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = 4738D75E2921D3E7003AE835 /* AchaLibrary */; };
 		4738D7612921D6E4003AE835 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4738D7602921D6E4003AE835 /* GoogleService-Info.plist */; };
-		4738D766292238C3003AE835 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4738D765292238C3003AE835 /* UIColor+.swift */; };
 		4738D768292267BA003AE835 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4738D767292267BA003AE835 /* Errors.swift */; };
 		4738D76F2922756B003AE835 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4738D76E2922756B003AE835 /* Map.swift */; };
 		477842F82923BFA300AAC3DB /* MapBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 477842F72923BFA300AAC3DB /* MapBaseViewController.swift */; };
@@ -38,6 +37,16 @@
 		76B3BF52292624DB0056ABFD /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B3BF51292624DA0056ABFD /* Int+Extension.swift */; };
 		76B3BF54292624E30056ABFD /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B3BF53292624E30056ABFD /* Date+Extension.swift */; };
 		76B3BF56292627A30056ABFD /* GamePlayMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B3BF55292627A30056ABFD /* GamePlayMenuView.swift */; };
+		E5027D5229263D4F0021BF60 /* RecordHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E516A6BB292393FA00CD6BDB /* RecordHeaderView.swift */; };
+		E5027D5329263D620021BF60 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4738D765292238C3003AE835 /* UIColor+.swift */; };
+		E5027D5629265D910021BF60 /* SelectMapRecordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5027D5529265D910021BF60 /* SelectMapRecordCell.swift */; };
+		E5027D58292670570021BF60 /* RecordViewRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5027D57292670570021BF60 /* RecordViewRecord.swift */; };
+		E5027D5A292670BC0021BF60 /* RecordViewHeaderRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5027D59292670BC0021BF60 /* RecordViewHeaderRecord.swift */; };
+		E5027D5C292670F30021BF60 /* RecordViewChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5027D5B292670F30021BF60 /* RecordViewChartData.swift */; };
+		E5027D5E292686440021BF60 /* RecordViewDayTotalRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5027D5D292686440021BF60 /* RecordViewDayTotalRecord.swift */; };
+		E516A6BA2923929800CD6BDB /* RecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E516A6B92923929800CD6BDB /* RecordViewModel.swift */; };
+		E516A6BE2923941500CD6BDB /* RecordChartCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E516A6BD2923941500CD6BDB /* RecordChartCell.swift */; };
+		E516A6C02923942500CD6BDB /* RecordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E516A6BF2923942500CD6BDB /* RecordCell.swift */; };
 		E5BE8B8F2922172400E9CFE8 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8B8E2922172400E9CFE8 /* AppCoordinator.swift */; };
 		E5BE8B91292218A500E9CFE8 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8B90292218A500E9CFE8 /* Coordinator.swift */; };
 		E5BE8B93292218F100E9CFE8 /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8B92292218F100E9CFE8 /* AuthCoordinator.swift */; };
@@ -62,8 +71,6 @@
 		F1D202992923AB3D00F3E87D /* InGameRankingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D202982923AB3D00F3E87D /* InGameRankingViewController.swift */; };
 		F1D2029B2923B97400F3E87D /* InGameRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D2029A2923B97400F3E87D /* InGameRecordViewController.swift */; };
 		F1D202A42923C09300F3E87D /* InGameMenuCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D202A32923C09300F3E87D /* InGameMenuCollectionViewCell.swift */; };
-		F1D202AD29247AC600F3E87D /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = F1D202AC29247AC600F3E87D /* Then */; };
-		F1D202B32924815E00F3E87D /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = F1D202B22924815E00F3E87D /* SnapKit */; };
 		F1D202B72924C63F00F3E87D /* InGameMenuModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D202B62924C63F00F3E87D /* InGameMenuModelProtocol.swift */; };
 /* End PBXBuildFile section */
 
@@ -120,6 +127,15 @@
 		76B3BF51292624DA0056ABFD /* Int+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
 		76B3BF53292624E30056ABFD /* Date+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		76B3BF55292627A30056ABFD /* GamePlayMenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GamePlayMenuView.swift; sourceTree = "<group>"; };
+		E5027D5529265D910021BF60 /* SelectMapRecordCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMapRecordCell.swift; sourceTree = "<group>"; };
+		E5027D57292670570021BF60 /* RecordViewRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewRecord.swift; sourceTree = "<group>"; };
+		E5027D59292670BC0021BF60 /* RecordViewHeaderRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewHeaderRecord.swift; sourceTree = "<group>"; };
+		E5027D5B292670F30021BF60 /* RecordViewChartData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewChartData.swift; sourceTree = "<group>"; };
+		E5027D5D292686440021BF60 /* RecordViewDayTotalRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewDayTotalRecord.swift; sourceTree = "<group>"; };
+		E516A6B92923929800CD6BDB /* RecordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewModel.swift; sourceTree = "<group>"; };
+		E516A6BB292393FA00CD6BDB /* RecordHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordHeaderView.swift; sourceTree = "<group>"; };
+		E516A6BD2923941500CD6BDB /* RecordChartCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordChartCell.swift; sourceTree = "<group>"; };
+		E516A6BF2923942500CD6BDB /* RecordCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordCell.swift; sourceTree = "<group>"; };
 		E5BE8B8E2922172400E9CFE8 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		E5BE8B90292218A500E9CFE8 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		E5BE8B92292218F100E9CFE8 /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
@@ -154,9 +170,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F1D202B32924815E00F3E87D /* SnapKit in Frameworks */,
 				4738D75F2921D3E7003AE835 /* AchaLibrary in Frameworks */,
-				F1D202AD29247AC600F3E87D /* Then in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,8 +272,8 @@
 				76B3BF4B29250C190056ABFD /* UIFont+.swift */,
 				F156F11D292365840053E807 /* CALayer+Extension.swift */,
 				4738D765292238C3003AE835 /* UIColor+.swift */,
-				47935E96292366CD00481307 /* UIButton+.swift */,
 				76A2E1A22923D94C001E887A /* CLLocationCoordinate2D+.swift */,
+				47935E96292366CD00481307 /* UIButton+.swift */,
 				76A2E1A429249099001E887A /* Double+.swift */,
 			);
 			path = Extension;
@@ -269,6 +283,10 @@
 			isa = PBXGroup;
 			children = (
 				4738D76E2922756B003AE835 /* Map.swift */,
+				E5027D57292670570021BF60 /* RecordViewRecord.swift */,
+				E5027D59292670BC0021BF60 /* RecordViewHeaderRecord.swift */,
+				E5027D5B292670F30021BF60 /* RecordViewChartData.swift */,
+				E5027D5D292686440021BF60 /* RecordViewDayTotalRecord.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -287,6 +305,7 @@
 			children = (
 				47935E9C29238E9E00481307 /* SelectMapViewController.swift */,
 				47935E9E29238EB300481307 /* SelectMapViewModel.swift */,
+				E5027D5529265D910021BF60 /* SelectMapRecordCell.swift */,
 			);
 			path = SelectMap;
 			sourceTree = "<group>";
@@ -411,6 +430,10 @@
 			isa = PBXGroup;
 			children = (
 				E5BE8BB02922200000E9CFE8 /* RecordViewController.swift */,
+				E516A6B92923929800CD6BDB /* RecordViewModel.swift */,
+				E516A6BB292393FA00CD6BDB /* RecordHeaderView.swift */,
+				E516A6BD2923941500CD6BDB /* RecordChartCell.swift */,
+				E516A6BF2923942500CD6BDB /* RecordCell.swift */,
 			);
 			path = Record;
 			sourceTree = "<group>";
@@ -560,8 +583,6 @@
 			name = Acha;
 			packageProductDependencies = (
 				4738D75E2921D3E7003AE835 /* AchaLibrary */,
-				F1D202AC29247AC600F3E87D /* Then */,
-				F1D202B22924815E00F3E87D /* SnapKit */,
 			);
 			productName = Acha;
 			productReference = 471863B9291E155700A35786 /* Acha.app */;
@@ -710,16 +731,20 @@
 				76A2E1A529249099001E887A /* Double+.swift in Sources */,
 				47935E9D29238E9E00481307 /* SelectMapViewController.swift in Sources */,
 				4738D76F2922756B003AE835 /* Map.swift in Sources */,
+				E5027D5E292686440021BF60 /* RecordViewDayTotalRecord.swift in Sources */,
+				E5027D58292670570021BF60 /* RecordViewRecord.swift in Sources */,
 				47935E9F29238EB400481307 /* SelectMapViewModel.swift in Sources */,
 				E5BE8B8F2922172400E9CFE8 /* AppCoordinator.swift in Sources */,
 				47935E97292366CD00481307 /* UIButton+.swift in Sources */,
 				471863C1291E155700A35786 /* ViewController.swift in Sources */,
 				76B3BF52292624DB0056ABFD /* Int+Extension.swift in Sources */,
 				477842F82923BFA300AAC3DB /* MapBaseViewController.swift in Sources */,
+				E5027D5C292670F30021BF60 /* RecordViewChartData.swift in Sources */,
 				4738D768292267BA003AE835 /* Errors.swift in Sources */,
 				E5BE8B9D29221AAF00E9CFE8 /* MyPageCoordinator.swift in Sources */,
 				76B3BF56292627A30056ABFD /* GamePlayMenuView.swift in Sources */,
 				76B3BF462924D93C0056ABFD /* SingleGameCoordinator.swift in Sources */,
+				E5027D5A292670BC0021BF60 /* RecordViewHeaderRecord.swift in Sources */,
 				E5BE8BB72922201F00E9CFE8 /* LoginViewController.swift in Sources */,
 				76B3BF442924C7450056ABFD /* SingleGameViewController.swift in Sources */,
 				F156F11A29235EC50053E807 /* ImageConstants.swift in Sources */,
@@ -727,28 +752,33 @@
 				E5BE8B91292218A500E9CFE8 /* Coordinator.swift in Sources */,
 				E5BE8B952922196D00E9CFE8 /* TabBarCoordinator.swift in Sources */,
 				E5BE8BAD29221FE500E9CFE8 /* HomeViewController.swift in Sources */,
+				E5027D5629265D910021BF60 /* SelectMapRecordCell.swift in Sources */,
+				E516A6C02923942500CD6BDB /* RecordCell.swift in Sources */,
 				47935E952923310700481307 /* SystemImageNameSpace.swift in Sources */,
 				E5BE8B9B29221A8A00E9CFE8 /* CommunityCoordinator.swift in Sources */,
 				76B3BF54292624E30056ABFD /* Date+Extension.swift in Sources */,
 				47935E9B29238DE400481307 /* HomeViewModel.swift in Sources */,
 				E5BE8B9F29221B2700E9CFE8 /* LoginCoordinator.swift in Sources */,
 				E5BE8BAF29221FF800E9CFE8 /* CommunityViewController.swift in Sources */,
+				E516A6BE2923941500CD6BDB /* RecordChartCell.swift in Sources */,
 				E5BE8BB32922200C00E9CFE8 /* MyPageViewController.swift in Sources */,
 				F1D202A42923C09300F3E87D /* InGameMenuCollectionViewCell.swift in Sources */,
 				F156F11C2923623C0053E807 /* PaddingLabel.swift in Sources */,
 				471863BD291E155700A35786 /* AppDelegate.swift in Sources */,
-				4738D766292238C3003AE835 /* UIColor+.swift in Sources */,
 				E5BE8BA129221B6D00E9CFE8 /* SignupCoordinator .swift in Sources */,
 				E5BE8B97292219D800E9CFE8 /* HomeCoordinator.swift in Sources */,
 				F1D202B72924C63F00F3E87D /* InGameMenuModelProtocol.swift in Sources */,
 				F1D2029B2923B97400F3E87D /* InGameRecordViewController.swift in Sources */,
 				47935E99292375DC00481307 /* MapAnnotation.swift in Sources */,
+				E5027D5329263D620021BF60 /* UIColor+.swift in Sources */,
 				E5BE8B93292218F100E9CFE8 /* AuthCoordinator.swift in Sources */,
 				76B3BF4C29250C190056ABFD /* UIFont+.swift in Sources */,
 				76A2E1A32923D94C001E887A /* CLLocationCoordinate2D+.swift in Sources */,
 				76B3BF50292624850056ABFD /* InGamePlayMenuViewController.swift in Sources */,
+				E5027D5229263D4F0021BF60 /* RecordHeaderView.swift in Sources */,
 				F156F11E292365840053E807 /* CALayer+Extension.swift in Sources */,
 				E5BE8B9929221A4C00E9CFE8 /* RecordCoordinator.swift in Sources */,
+				E516A6BA2923929800CD6BDB /* RecordViewModel.swift in Sources */,
 				76B3BF4A2924DDE70056ABFD /* BaseViewModel.swift in Sources */,
 				F156F1132923536A0053E807 /* DistanceAndTimeBar.swift in Sources */,
 				F1D202992923AB3D00F3E87D /* InGameRankingViewController.swift in Sources */,
@@ -1112,16 +1142,6 @@
 		4738D75E2921D3E7003AE835 /* AchaLibrary */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = AchaLibrary;
-		};
-		F1D202AC29247AC600F3E87D /* Then */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = F1D202AB29247AC600F3E87D /* XCRemoteSwiftPackageReference "Then" */;
-			productName = Then;
-		};
-		F1D202B22924815E00F3E87D /* SnapKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = F1D202B12924815E00F3E87D /* XCRemoteSwiftPackageReference "SnapKit" */;
-			productName = SnapKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

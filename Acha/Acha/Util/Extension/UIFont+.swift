@@ -18,4 +18,5 @@ extension UIFont {
     static let postBody = UIFont.systemFont(ofSize: 18, weight: .regular)
     static let commentBody = UIFont.systemFont(ofSize: 16, weight: .regular)
     static let subBody = UIFont.systemFont(ofSize: 14, weight: .regular)
+    static let recordBody = UIFont.systemFont(ofSize: 12, weight: .bold)
 }
