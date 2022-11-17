@@ -70,7 +70,7 @@ final class SelectMapViewController: MapBaseViewController {
     private let viewModel: SelectMapViewModel
     private var disposeBag = DisposeBag()
     
-    typealias DataSource = UICollectionViewDiffableDataSource<String, AchaRecord>
+    typealias DataSource = UICollectionViewDiffableDataSource<String, Record>
     private var dataSource: DataSource!
     
     // MARK: - Lifecycles
@@ -264,7 +264,7 @@ extension SelectMapViewController: UICollectionViewDelegate {
         return section
     }
     
-    private func makeSnapshot(rankings: [AchaRecord]) {
+    private func makeSnapshot(rankings: [Record]) {
         var snapshot = dataSource.snapshot()
         snapshot.deleteAllItems()
         snapshot.appendSections(["Ranking"])

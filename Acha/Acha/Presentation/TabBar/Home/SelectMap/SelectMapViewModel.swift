@@ -25,7 +25,7 @@ class SelectMapViewModel: BaseViewModel {
 //        var mapTop3Ranking: Single<[AchaRecord]>
     }
     var maps: [Int: Map]
-    var rankings: [Int: [AchaRecord]]
+    var rankings: [Int: [Record]]
     
     // MARK: - Properties
     var ref: DatabaseReference!
@@ -91,13 +91,13 @@ class SelectMapViewModel: BaseViewModel {
         }
     }
     
-    func fetchMapRecord(mapID: Int) -> Single<[AchaRecord]> {
+    func fetchMapRecord(mapID: Int) -> Single<[Record]> {
         return Single.create { [weak self] single in
             self?.ref.child("record").observeSingleEvent(of: .value,
                                                    with: { snapshot in
                 guard let snapData = snapshot.value as? [Any],
                       let data = try? JSONSerialization.data(withJSONObject: snapData),
-                      let records = try? JSONDecoder().decode([AchaRecord].self, from: data)
+                      let records = try? JSONDecoder().decode([Record].self, from: data)
                 else { return }
                 
                 let rankings = Array(records.filter { $0.mapID == mapID }.sorted { $0.time < $1.time }.prefix(3))
