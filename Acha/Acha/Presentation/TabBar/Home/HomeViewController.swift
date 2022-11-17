@@ -29,9 +29,9 @@ final class HomeViewController: UIViewController {
         $0.layer.cornerRadius = 10
         let cornerMask: CACornerMask = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         $0.layer.maskedCorners = cornerMask
-        $0.layer.backgroundColor = UIColor(named: "PointLightColor")?.cgColor
+        $0.layer.backgroundColor = (UIColor.pointLight ?? UIColor.red) .cgColor
         $0.numberOfLines = 0
-        $0.font = UIFont.boldSystemFont(ofSize: 34)
+        $0.font = .boldSystemFont(ofSize: 34)
         $0.textColor = .white
         $0.text = " 시작하기"
         $0.sizeToFit()
@@ -59,7 +59,7 @@ final class HomeViewController: UIViewController {
     private lazy var startSingleGameButton = UIButton().then {
         $0.layer.backgroundColor = UIColor(named: "PointDarkColor")?.cgColor
         $0.setTitle("혼자 하기", for: .normal)
-        $0.titleLabel?.font = UIFont.boldSystemFont(ofSize: 30)
+        $0.titleLabel?.font = .boldSystemFont(ofSize: 30)
         $0.tintColor = .white
         $0.layer.cornerRadius = 10
     }
@@ -67,7 +67,7 @@ final class HomeViewController: UIViewController {
     private lazy var startMultiGameButton = UIButton().then {
         $0.layer.backgroundColor = UIColor(named: "PointDarkColor")?.cgColor
         $0.setTitle("같이 하기", for: .normal)
-        $0.titleLabel?.font = UIFont.boldSystemFont(ofSize: 30)
+        $0.titleLabel?.font = .boldSystemFont(ofSize: 30)
         $0.tintColor = .white
         $0.layer.cornerRadius = 10
     }
@@ -97,10 +97,10 @@ final class HomeViewController: UIViewController {
     private func configureUI() {
         view.backgroundColor = .white
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.largeTitleDisplayMode = .always
+        navigationItem.largeTitleDisplayMode = .automatic
         navigationItem.title = "땅따먹기"
         navigationController?.navigationBar.largeTitleTextAttributes = [
-            .foregroundColor: UIColor(named: "PointLightColor")
+            .foregroundColor: UIColor.pointLight ?? .red
         ]
         navigationController?.navigationBar.shadowImage = UIImage()
     }

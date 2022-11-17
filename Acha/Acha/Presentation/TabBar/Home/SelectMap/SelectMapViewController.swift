@@ -12,6 +12,7 @@ import Then
 import SnapKit
 import Firebase
 import RxSwift
+import RxCocoa
 
 final class SelectMapViewController: MapBaseViewController {
     
@@ -106,6 +107,9 @@ final class SelectMapViewController: MapBaseViewController {
                     self?.mapView.addAnnotation(annotation)
                 }
             }).disposed(by: disposeBag)
+        
+        let input = SelectMapViewModel.Input(startButtonTapped: startButton.rx.tap.asObservable())
+        _ = viewModel.transform(input: input)
     }
 }
 
@@ -127,6 +131,7 @@ extension SelectMapViewController {
         let center = CLLocationCoordinate2D(latitude: annotation.map.centerCoordinate.latitude - 0.003,
                                             longitude: annotation.map.centerCoordinate.longitude)
         focusMapLocation(center: center)
+        viewModel.selectedMap = annotation.map
     }
     
     func mapView(_ mapView: MKMapView, didDeselect annotation: MKAnnotation) {

@@ -13,9 +13,9 @@ class GamePlayMenuViewController: UIViewController {
 //    let collectionView = UICollectionView()
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = FontConstants.titleFont
-        label.textColor = ColorConstants.backgroundColor
-        label.backgroundColor = ColorConstants.pointColor
+        label.font = .largeTitle
+        label.textColor = .white
+        label.backgroundColor = .pointLight
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         return label

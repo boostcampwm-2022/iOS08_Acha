@@ -15,7 +15,7 @@ class InGamePlayMenuViewController: UIViewController {
     lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: createBasicListLayout())
     
     let titleLabel = UILabel().then {
-        $0.font = FontConstants.titleFont
+        $0.font = .largeTitle
         $0.textColor = .white
         $0.backgroundColor = .pointLight
         $0.textAlignment = .center
