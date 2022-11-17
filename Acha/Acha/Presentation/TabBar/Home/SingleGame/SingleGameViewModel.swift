@@ -86,13 +86,13 @@ final class SingleGameViewModel {
     
     private func meterDistance(from: Coordinate, here: Coordinate) -> Double {
         let theta = from.longitude - here.longitude
-        let dist = sin(from.latitude.deg2rad()) *
-        sin(here.latitude.deg2rad()) +
-        cos(from.latitude.deg2rad()) *
-        cos(here.latitude.deg2rad()) *
-        cos(theta.deg2rad())
+        let dist = sin(from.latitude.degreeToRadian()) *
+        sin(here.latitude.degreeToRadian()) +
+        cos(from.latitude.degreeToRadian()) *
+        cos(here.latitude.degreeToRadian()) *
+        cos(theta.degreeToRadian())
     
-        return acos(dist).rad2deg() * 60 * 1.853159616 * 1000
+        return acos(dist).radianToDegree() * 60 * 1.853159616 * 1000
     }
     
     private func startTimer() {

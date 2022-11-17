@@ -164,7 +164,7 @@ extension SingleViewController {
         viewModel.movedDistance
             .subscribe(onNext: { [weak self] distance in
                 guard let self else { return }
-                self.distanceAndTimeBar.distanceLabel.text = distance.meter2KmString
+                self.distanceAndTimeBar.distanceLabel.text = distance.meterToKmString
             }).disposed(by: disposeBag)
         
         viewModel.userMovedCoordinates

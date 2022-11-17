@@ -8,15 +8,15 @@
 import Foundation
 
 extension Double {
-    func deg2rad() -> Double {
+    func degreeToRadian() -> Double {
         self * .pi / 180
      }
     
-    func rad2deg() -> Double {
+    func radianToDegree() -> Double {
         self * 180.0 / .pi
     }
     
-    var meter2KmString: String {
+    var meterToKmString: String {
         String(format: "%.2f", self/1000) + "km"
     }
 }
