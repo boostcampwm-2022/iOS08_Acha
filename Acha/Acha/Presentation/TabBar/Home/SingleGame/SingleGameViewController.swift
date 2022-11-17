@@ -164,10 +164,7 @@ extension SingleViewController {
     private func bind() {
         viewModel.visitedMapCoordinates
             .subscribe(onNext: { [weak self] (previous, current) in
-                guard let self,
-                      let previous,
-                      let current else { return }
-                
+                guard let self, let previous, let current else { return }
                 let previousCoordinate = CLLocationCoordinate2DMake(previous.latitude, previous.longitude)
                 let currentCoordinate = CLLocationCoordinate2DMake(current.latitude, current.longitude)
                 self.visitLine = MKPolyline(coordinates: [previousCoordinate, currentCoordinate], count: 2)
