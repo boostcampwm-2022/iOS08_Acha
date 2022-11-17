@@ -159,23 +159,6 @@ extension MapBaseViewController: CLLocationManagerDelegate {
 
 extension MapBaseViewController: MKMapViewDelegate {
     
-
-    internal func setUpMapView() {
-        // 어플을 종료하고 다시 실행했을 때 MapKit이 발생할 수 있는 오류를 방지하기 위한 처리
-        if #available(iOS 16.0, *) {
-            mapView.preferredConfiguration = MKStandardMapConfiguration()
-        } else {
-            mapView.mapType = .standard
-        }
-        
-        mapView.showsUserLocation = true
-        mapView.setUserTrackingMode(.followWithHeading, animated: true)
-        
-        mapView.showsCompass = false
-        focusUserLocation(useSpan: true)
-        mapView.isRotateEnabled = false
-    }
-    
     /// mapView.addOverlay(lineDraw) 실행 시 호출되는 함수
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         guard let polyLine = overlay as? MKPolyline

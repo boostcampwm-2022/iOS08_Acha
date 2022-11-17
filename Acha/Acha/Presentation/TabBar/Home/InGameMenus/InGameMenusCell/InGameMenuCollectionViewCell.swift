@@ -22,7 +22,7 @@ final class InGameMenuCollectionViewCell: UICollectionViewCell {
         $0.contentMode = .scaleToFill
     }
     private let contextLabel = UILabel().then {
-        $0.font = FontConstants.inGameContextFont
+        $0.font = .postBody
     }
     
     // MARK: - Properties

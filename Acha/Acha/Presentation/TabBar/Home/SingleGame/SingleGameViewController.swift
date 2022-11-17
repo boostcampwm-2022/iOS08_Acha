@@ -69,11 +69,6 @@ class SingleViewController: MapBaseViewController, DistanceAndTimeBarLine {
         distanceAndTimeBarBottomLineAdjust(color: UIColor.white, width: 3)
         distanceAndTimeBarMiddleLineAdjust(color: UIColor.white, width: 3)
     }
-    
-    override func configureUI() {
-        super.configureUI()
-        view.backgroundColor = .white
-    }
 }
 
 // MARK: - Helpers
@@ -105,11 +100,15 @@ extension SingleViewController {
         let menuItems: [UIAction] =
         [
             UIAction(title: "랭킹", handler: { [weak self] _ in
-                let viewController = GamePlayMenuViewController(type: .ranking)
+                let viewController = InGameRankingViewController()
+                viewController.fetchData(data: [.init(time: 1, userName: "승기", date: Date(timeIntervalSince1970: 0))])
+                #warning("더미데이터")
                 self?.presentModal(viewController: viewController)
             }),
             UIAction(title: "기록", handler: { [weak self] _ in
-                let viewController = GamePlayMenuViewController(type: .recordHistory)
+                let viewController = InGameRecordViewController()
+                viewController.fetchData(data: [.init(time: 123, userName: "승기", date: Date())])
+                #warning("더미데이터")
                 self?.presentModal(viewController: viewController)
             })
         ]
@@ -118,7 +117,7 @@ extension SingleViewController {
         rightMenuButton.showsMenuAsPrimaryAction = true
     }
     
-    private func presentModal(viewController: GamePlayMenuViewController) {
+    private func presentModal(viewController: UIViewController) {
         viewController.modalPresentationStyle = .pageSheet
         present(viewController, animated: true)
     }

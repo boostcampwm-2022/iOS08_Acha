@@ -107,6 +107,9 @@ final class SelectMapViewController: MapBaseViewController {
                     self?.mapView.addAnnotation(annotation)
                 }
             }).disposed(by: disposeBag)
+        
+        let input = SelectMapViewModel.Input(startButtonTapped: startButton.rx.tap.asObservable())
+        _ = viewModel.transform(input: input)
     }
 }
 
