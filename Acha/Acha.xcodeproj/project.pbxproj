@@ -17,6 +17,16 @@
 		471863E0291E155800A35786 /* AchaUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471863DF291E155800A35786 /* AchaUITestsLaunchTests.swift */; };
 		4738D75F2921D3E7003AE835 /* AchaLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = 4738D75E2921D3E7003AE835 /* AchaLibrary */; };
 		4738D7612921D6E4003AE835 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4738D7602921D6E4003AE835 /* GoogleService-Info.plist */; };
+		4738D766292238C3003AE835 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4738D765292238C3003AE835 /* UIColor+.swift */; };
+		4738D768292267BA003AE835 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4738D767292267BA003AE835 /* Errors.swift */; };
+		4738D76F2922756B003AE835 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4738D76E2922756B003AE835 /* Map.swift */; };
+		477842F82923BFA300AAC3DB /* MapBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 477842F72923BFA300AAC3DB /* MapBaseViewController.swift */; };
+		47935E952923310700481307 /* SystemImageNameSpace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47935E942923310700481307 /* SystemImageNameSpace.swift */; };
+		47935E97292366CD00481307 /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47935E96292366CD00481307 /* UIButton+.swift */; };
+		47935E99292375DC00481307 /* MapAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47935E98292375DC00481307 /* MapAnnotation.swift */; };
+		47935E9B29238DE400481307 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47935E9A29238DE300481307 /* HomeViewModel.swift */; };
+		47935E9D29238E9E00481307 /* SelectMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47935E9C29238E9E00481307 /* SelectMapViewController.swift */; };
+		47935E9F29238EB400481307 /* SelectMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47935E9E29238EB300481307 /* SelectMapViewModel.swift */; };
 		E5BE8B8F2922172400E9CFE8 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8B8E2922172400E9CFE8 /* AppCoordinator.swift */; };
 		E5BE8B91292218A500E9CFE8 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8B90292218A500E9CFE8 /* Coordinator.swift */; };
 		E5BE8B93292218F100E9CFE8 /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8B92292218F100E9CFE8 /* AuthCoordinator.swift */; };
@@ -85,6 +95,16 @@
 		471863DF291E155800A35786 /* AchaUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchaUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		4738D75C2921D398003AE835 /* AchaLibrary */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = AchaLibrary; path = ../AchaLibrary; sourceTree = "<group>"; };
 		4738D7602921D6E4003AE835 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../GoogleService-Info.plist"; sourceTree = "<group>"; };
+		4738D765292238C3003AE835 /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
+		4738D767292267BA003AE835 /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
+		4738D76E2922756B003AE835 /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
+		477842F72923BFA300AAC3DB /* MapBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapBaseViewController.swift; sourceTree = "<group>"; };
+		47935E942923310700481307 /* SystemImageNameSpace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemImageNameSpace.swift; sourceTree = "<group>"; };
+		47935E96292366CD00481307 /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
+		47935E98292375DC00481307 /* MapAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAnnotation.swift; sourceTree = "<group>"; };
+		47935E9A29238DE300481307 /* HomeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		47935E9C29238E9E00481307 /* SelectMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectMapViewController.swift; sourceTree = "<group>"; };
+		47935E9E29238EB300481307 /* SelectMapViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectMapViewModel.swift; sourceTree = "<group>"; };
 		E5BE8B8E2922172400E9CFE8 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		E5BE8B90292218A500E9CFE8 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		E5BE8B92292218F100E9CFE8 /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
@@ -220,6 +240,48 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		4738D764292238AD003AE835 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				4738D765292238C3003AE835 /* UIColor+.swift */,
+				47935E96292366CD00481307 /* UIButton+.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		4738D76D2922755B003AE835 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				4738D76E2922756B003AE835 /* Map.swift */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		477842F62923BF9800AAC3DB /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				477842F72923BFA300AAC3DB /* MapBaseViewController.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		477842F92923C2D400AAC3DB /* SelectMap */ = {
+			isa = PBXGroup;
+			children = (
+				47935E9C29238E9E00481307 /* SelectMapViewController.swift */,
+				47935E9E29238EB300481307 /* SelectMapViewModel.swift */,
+			);
+			path = SelectMap;
+			sourceTree = "<group>";
+		};
+		477842FA2923C30F00AAC3DB /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				47935E98292375DC00481307 /* MapAnnotation.swift */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
 		E5BE8B882922164400E9CFE8 /* App */ = {
 			isa = PBXGroup;
 			children = (
@@ -247,6 +309,7 @@
 		E5BE8B8B2922169D00E9CFE8 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				4738D76D2922755B003AE835 /* Entity */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -254,6 +317,7 @@
 		E5BE8B8C292216A600E9CFE8 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				477842F62923BF9800AAC3DB /* Base */,
 				E5BE8BA329221C1000E9CFE8 /* TabBar */,
 				E5BE8BA229221C0A00E9CFE8 /* Auth */,
 			);
@@ -263,8 +327,13 @@
 		E5BE8B8D292216B400E9CFE8 /* Util */ = {
 			isa = PBXGroup;
 			children = (
+
 				F156F12329238BAB0053E807 /* Extensions */,
 				F156F1142923540C0053E807 /* Constants */,
+
+				477842FA2923C30F00AAC3DB /* Map */,
+				4738D764292238AD003AE835 /* Extension */,
+
 				E5BE8BB82922216500E9CFE8 /* Enums */,
 			);
 			path = Util;
@@ -295,8 +364,16 @@
 		E5BE8BA429221C2800E9CFE8 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+<<<<<<< HEAD
 				F1D2029C2923BF0800F3E87D /* InGameMenus */,
+=======
+
+>>>>>>> f7b5b6a5010a997dea00353a3e65050451c0efc2
 				F156F1112923534B0053E807 /* RecordAndsTimeBar */,
+
+				477842F92923C2D400AAC3DB /* SelectMap */,
+				47935E9A29238DE300481307 /* HomeViewModel.swift */,
+
 				E5BE8BAC29221FE400E9CFE8 /* HomeViewController.swift */,
 				F156F10D292336950053E807 /* SingleGamePlayViewController.swift */,
 				F156F10F292340430053E807 /* SingleGamePlayViewModel.swift */,
@@ -370,6 +447,8 @@
 			isa = PBXGroup;
 			children = (
 				E5BE8BB92922217600E9CFE8 /* TabBarType.swift */,
+				4738D767292267BA003AE835 /* Errors.swift */,
+				47935E942923310700481307 /* SystemImageNameSpace.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -620,8 +699,14 @@
 			files = (
 				E5BE8BB52922201600E9CFE8 /* SignupViewController.swift in Sources */,
 				E5BE8BBA2922217600E9CFE8 /* TabBarType.swift in Sources */,
+				47935E9D29238E9E00481307 /* SelectMapViewController.swift in Sources */,
+				4738D76F2922756B003AE835 /* Map.swift in Sources */,
+				47935E9F29238EB400481307 /* SelectMapViewModel.swift in Sources */,
 				E5BE8B8F2922172400E9CFE8 /* AppCoordinator.swift in Sources */,
+				47935E97292366CD00481307 /* UIButton+.swift in Sources */,
 				471863C1291E155700A35786 /* ViewController.swift in Sources */,
+				477842F82923BFA300AAC3DB /* MapBaseViewController.swift in Sources */,
+				4738D768292267BA003AE835 /* Errors.swift in Sources */,
 				E5BE8B9D29221AAF00E9CFE8 /* MyPageCoordinator.swift in Sources */,
 				E5BE8BB72922201F00E9CFE8 /* LoginViewController.swift in Sources */,
 				F156F110292340430053E807 /* SingleGamePlayViewModel.swift in Sources */,
@@ -632,7 +717,9 @@
 				E5BE8B91292218A500E9CFE8 /* Coordinator.swift in Sources */,
 				E5BE8B952922196D00E9CFE8 /* TabBarCoordinator.swift in Sources */,
 				E5BE8BAD29221FE500E9CFE8 /* HomeViewController.swift in Sources */,
+				47935E952923310700481307 /* SystemImageNameSpace.swift in Sources */,
 				E5BE8B9B29221A8A00E9CFE8 /* CommunityCoordinator.swift in Sources */,
+				47935E9B29238DE400481307 /* HomeViewModel.swift in Sources */,
 				E5BE8B9F29221B2700E9CFE8 /* LoginCoordinator.swift in Sources */,
 				F156F118292355D10053E807 /* ColorConstants.swift in Sources */,
 				E5BE8BAF29221FF800E9CFE8 /* CommunityViewController.swift in Sources */,
@@ -640,11 +727,19 @@
 				F1D202A42923C09300F3E87D /* InGameMenuCollectionViewCell.swift in Sources */,
 				F156F11C2923623C0053E807 /* PaddingLabel.swift in Sources */,
 				471863BD291E155700A35786 /* AppDelegate.swift in Sources */,
+				4738D766292238C3003AE835 /* UIColor+.swift in Sources */,
 				E5BE8BA129221B6D00E9CFE8 /* SignupCoordinator .swift in Sources */,
 				E5BE8B97292219D800E9CFE8 /* HomeCoordinator.swift in Sources */,
+<<<<<<< HEAD
 				F1D202B72924C63F00F3E87D /* InGameMenuModelProtocol.swift in Sources */,
 				F1D2029B2923B97400F3E87D /* InGameRecordViewController.swift in Sources */,
+=======
+
+>>>>>>> f7b5b6a5010a997dea00353a3e65050451c0efc2
 				F156F116292354180053E807 /* FontConstants.swift in Sources */,
+
+				47935E99292375DC00481307 /* MapAnnotation.swift in Sources */,
+
 				E5BE8B93292218F100E9CFE8 /* AuthCoordinator.swift in Sources */,
 				F156F11E292365840053E807 /* CALayer+Extension.swift in Sources */,
 				F1D202A8292463B200F3E87D /* Int+Extension.swift in Sources */,
@@ -821,6 +916,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = WW8WYM6B54;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Acha/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -849,6 +945,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = WW8WYM6B54;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Acha/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
