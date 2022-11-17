@@ -10,6 +10,7 @@ import MapKit
 import Then
 import SnapKit
 import RxSwift
+import RxRelay
 
 class SigleViewController: MapBaseViewController, DistanceAndTimeBarLine {
     // MARK: - UI properties
@@ -38,7 +39,6 @@ class SigleViewController: MapBaseViewController, DistanceAndTimeBarLine {
     private let viewModel: SingleGameViewModel!
     private let disposeBag = DisposeBag()
     
-    var previousCoordinate: CLLocationCoordinate2D?
     var goLine: MKPolyline?
     var wentLine: MKPolyline?
     var visitLine: MKPolyline?
@@ -57,9 +57,7 @@ class SigleViewController: MapBaseViewController, DistanceAndTimeBarLine {
         super.viewDidLoad()
         setupSubviews()
         configureMap()
-        drawGoLine()
         bind()
-        viewModel.startTimer()
     }
     
     override func viewDidLayoutSubviews() {
@@ -71,7 +69,6 @@ class SigleViewController: MapBaseViewController, DistanceAndTimeBarLine {
         distanceAndTimeBarBottomLineAdjust(color: UIColor.white, width: 3)
         distanceAndTimeBarMiddleLineAdjust(color: UIColor.white, width: 3)
     }
-    
     
     override func configureUI() {
         super.configureUI()
@@ -136,8 +133,8 @@ extension SigleViewController {
         }
         
         let lineDraw = MKPolyline(coordinates: points, count: points.count)
-        wentLine = lineDraw
-        mapView.addOverlay(wentLine ?? MKPolyline())
+        goLine = lineDraw
+        mapView.addOverlay(goLine ?? MKPolyline())
     }
     
     private func bind() {
@@ -147,24 +144,15 @@ extension SigleViewController {
                 self.focusUserLocation(useSpan: false)
             }).disposed(by: disposeBag)
         
-        viewModel.movedDistance
-            .subscribe(onNext: { [weak self] distance in
-                guard let self else { return }
-                let kmString = String(format: "%.2f", distance/1000)
-                self.distanceAndTimeBar.distanceLabel.text = "\(kmString)km"
-            }).disposed(by: disposeBag)
-        
-        viewModel.visitedCoordinate
-            .subscribe(onNext: { [weak self] (from, here) in
+        viewModel.visitedMapCoordinates
+            .subscribe(onNext: { [weak self] (previous, current) in
                 guard let self,
-                      let from,
-                      let here else { return }
+                      let previous,
+                      let current else { return }
                 
-                let coordinateFrom = CLLocationCoordinate2DMake(from.latitude, from.longitude)
-                let coordinateHere = CLLocationCoordinate2DMake(here.latitude, here.longitude)
-                
-                let lineDraw = MKPolyline(coordinates: [coordinateFrom, coordinateHere], count: 2)
-                self.visitLine = lineDraw
+                let previousCoordinate = CLLocationCoordinate2DMake(previous.latitude, previous.longitude)
+                let currentCoordinate = CLLocationCoordinate2DMake(current.latitude, current.longitude)
+                self.visitLine = MKPolyline(coordinates: [previousCoordinate, currentCoordinate], count: 2)
                 self.mapView.addOverlay(self.visitLine ?? MKPolyline())
             }).disposed(by: disposeBag)
         
@@ -173,28 +161,39 @@ extension SigleViewController {
                 guard let self else { return }
                 self.distanceAndTimeBar.timeLabel.text = "\(time)초"
             }).disposed(by: disposeBag)
+        
+        viewModel.movedDistance
+            .subscribe(onNext: { [weak self] distance in
+                guard let self else { return }
+                self.distanceAndTimeBar.distanceLabel.text = distance.meter2KmString
+            }).disposed(by: disposeBag)
+        
+        viewModel.userMovedCoordinates
+            .subscribe(onNext: { [weak self] (previous, current) in
+                guard let self,
+                      let previous,
+                      let current else { return }
+                
+                let previousCoordinate = CLLocationCoordinate2DMake(previous.latitude, previous.longitude)
+                let currentCoordinate = CLLocationCoordinate2DMake(current.latitude, current.longitude)
+                self.wentLine = MKPolyline(coordinates: [previousCoordinate, currentCoordinate], count: 2)
+                self.mapView.addOverlay(self.wentLine ?? MKPolyline())
+            }).disposed(by: disposeBag)
+        
     }
 }
 
 // MARK: - CLLocationManagerDelegate
 extension SigleViewController {
-    func locationManager(
-        _ manager: CLLocationManager,
-        didUpdateLocations locations: [CLLocation]
-    ) {
+    func locationManager( _ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else { return }
         
-        if let previous = previousCoordinate {
-            drawGoLine(from: previous, here: location.coordinate)
-            viewModel.userMoved(
-                coordinate: Coordinate(
-                    latitude: location.coordinate.latitude,
-                    longitude: location.coordinate.longitude),
-                distance: previous.distance(to: location.coordinate)
+        viewModel.currentCoordinate.accept(
+            Coordinate(
+                latitude: location.coordinate.latitude,
+                longitude: location.coordinate.longitude
             )
-        }
-        
-        self.previousCoordinate = location.coordinate
+        )
     }
     
     func setMapRegion(toCoordinate coordinate: CLLocationCoordinate2D) {
@@ -203,10 +202,9 @@ extension SigleViewController {
         mapView.setRegion(region, animated: true)
     }
     
-    func drawGoLine(from: CLLocationCoordinate2D, here: CLLocationCoordinate2D) {
-        let lineDraw = MKPolyline(coordinates: [from, here], count: 2)
-        goLine = lineDraw
-        self.mapView.addOverlay(goLine ?? MKPolyline())
+    func drawWentLine(from: CLLocationCoordinate2D, here: CLLocationCoordinate2D) {
+        wentLine = MKPolyline(coordinates: [from, here], count: 2)
+        self.mapView.addOverlay(wentLine ?? MKPolyline())
     }
 }
 
@@ -225,9 +223,9 @@ extension SigleViewController {
         renderer.alpha = 1.0
         
         if overlay as? MKPolyline == wentLine {
-            renderer.strokeColor = .lightGray
-        } else if overlay as? MKPolyline == goLine {
             renderer.strokeColor = .red
+        } else if overlay as? MKPolyline == goLine {
+            renderer.strokeColor = .lightGray
         } else if overlay as? MKPolyline == visitLine {
             renderer.strokeColor = .blue
         }

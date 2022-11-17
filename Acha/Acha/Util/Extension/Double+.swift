@@ -15,4 +15,8 @@ extension Double {
     func rad2deg() -> Double {
         self * 180.0 / .pi
     }
+    
+    var meter2KmString: String {
+        String(format: "%.2f", self/1000) + "km"
+    }
 }
