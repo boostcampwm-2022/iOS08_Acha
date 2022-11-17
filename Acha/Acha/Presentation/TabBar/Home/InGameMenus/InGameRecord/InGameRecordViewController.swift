@@ -15,7 +15,7 @@ final class InGameRecordViewController: InGamePlayMenuViewController {
         case main
     }
     
-    private lazy var recordDataSource: RecordDataSource = makeDataSource()
+    private lazy var recordDataSource: RecordDataSource = configureDataSource()
     
     typealias RecordDataSource = UICollectionViewDiffableDataSource<Section, InGameRecord>
     typealias RecordSnapShot = NSDiffableDataSourceSnapshot<Section, InGameRecord>
@@ -35,7 +35,7 @@ final class InGameRecordViewController: InGamePlayMenuViewController {
         )
     }
     
-    private func makeDataSource() -> RecordDataSource {
+    private func configureDataSource() -> RecordDataSource {
 
         let datasource = RecordDataSource(
             collectionView: collectionView

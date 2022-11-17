@@ -28,6 +28,15 @@ final class InGameMenuCollectionViewCell: UICollectionViewCell {
     // MARK: - Properties
     static let identifier = "inGameCell"
     // MARK: - Lifecycles
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        layout()
+      }
+      required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+      }
+    
     override func prepareForReuse() {
         super.prepareForReuse()
         extraImageView.image = nil
@@ -71,7 +80,6 @@ extension InGameMenuCollectionViewCell {
 
 extension InGameMenuCollectionViewCell {
     func setData(image: UIImage?, text: String) {
-        layout()
         if case .some(let wrapped) = image {
             extraImageView.image = wrapped
         }
