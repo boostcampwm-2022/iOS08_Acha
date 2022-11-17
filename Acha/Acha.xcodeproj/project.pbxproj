@@ -67,8 +67,6 @@
 		F1D202992923AB3D00F3E87D /* InGameRankingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D202982923AB3D00F3E87D /* InGameRankingViewController.swift */; };
 		F1D2029B2923B97400F3E87D /* InGameRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D2029A2923B97400F3E87D /* InGameRecordViewController.swift */; };
 		F1D202A42923C09300F3E87D /* InGameMenuCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D202A32923C09300F3E87D /* InGameMenuCollectionViewCell.swift */; };
-		F1D202AD29247AC600F3E87D /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = F1D202AC29247AC600F3E87D /* Then */; };
-		F1D202B32924815E00F3E87D /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = F1D202B22924815E00F3E87D /* SnapKit */; };
 		F1D202B72924C63F00F3E87D /* InGameMenuModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D202B62924C63F00F3E87D /* InGameMenuModelProtocol.swift */; };
 /* End PBXBuildFile section */
 
@@ -164,9 +162,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F1D202B32924815E00F3E87D /* SnapKit in Frameworks */,
 				4738D75F2921D3E7003AE835 /* AchaLibrary in Frameworks */,
-				F1D202AD29247AC600F3E87D /* Then in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -575,8 +571,6 @@
 			name = Acha;
 			packageProductDependencies = (
 				4738D75E2921D3E7003AE835 /* AchaLibrary */,
-				F1D202AC29247AC600F3E87D /* Then */,
-				F1D202B22924815E00F3E87D /* SnapKit */,
 			);
 			productName = Acha;
 			productReference = 471863B9291E155700A35786 /* Acha.app */;
@@ -1132,16 +1126,6 @@
 		4738D75E2921D3E7003AE835 /* AchaLibrary */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = AchaLibrary;
-		};
-		F1D202AC29247AC600F3E87D /* Then */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = F1D202AB29247AC600F3E87D /* XCRemoteSwiftPackageReference "Then" */;
-			productName = Then;
-		};
-		F1D202B22924815E00F3E87D /* SnapKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = F1D202B12924815E00F3E87D /* XCRemoteSwiftPackageReference "SnapKit" */;
-			productName = SnapKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
