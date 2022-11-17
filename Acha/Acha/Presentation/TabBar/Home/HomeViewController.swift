@@ -89,7 +89,7 @@ final class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
-        setupSubViews()
+        setUpSubviews()
         bind()
     }
     
@@ -114,7 +114,7 @@ final class HomeViewController: UIViewController {
             .disposed(by: disposeBag)
     }
     
-    private func setupSubViews() {
+    private func setUpSubviews() {
         view.addSubview(startGameContentView)
         view.addSubview(titleLabel)
         
@@ -150,13 +150,13 @@ final class HomeViewController: UIViewController {
         
         startSingleGameButton.snp.makeConstraints {
             $0.center.equalTo(singleGameImageView)
-            $0.leading.trailing.equalToSuperview().inset(15)
+            $0.leading.trailing.equalTo(singleGameImageView).inset(15)
             $0.height.equalTo(100)
         }
         
         startMultiGameButton.snp.makeConstraints {
             $0.center.equalTo(multiGameImageView)
-            $0.leading.trailing.equalToSuperview().inset(15)
+            $0.leading.trailing.equalTo(multiGameImageView).inset(15)
             $0.height.equalTo(100)
         }
     }
