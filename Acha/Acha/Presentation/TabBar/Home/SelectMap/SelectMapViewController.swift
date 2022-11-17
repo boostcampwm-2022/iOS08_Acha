@@ -23,16 +23,6 @@ final class SelectMapViewController: MapBaseViewController {
         $0.font = UIFont.boldSystemFont(ofSize: 24)
     }
     
-    private lazy var focusButton = UIButton().then {
-        $0.setImage(SystemImageNameSpace.locationCircle.uiImage, for: .normal)
-        $0.tintColor = .pointLight
-        $0.addTarget(self, action: #selector(focusButtonDidClick), for: .touchDown)
-        
-        // button image size 설정
-        let imageConfig = UIImage.SymbolConfiguration(pointSize: 40)
-        $0.setPreferredSymbolConfiguration(imageConfig, forImageIn: .normal)
-    }
-    
     private lazy var startButton = UIButton().then {
         $0.setTitle("게임 시작", for: .normal)
         $0.tintColor = .white
@@ -48,7 +38,6 @@ final class SelectMapViewController: MapBaseViewController {
     }
 
     // MARK: - Properties
-    private var ref: DatabaseReference!     // ref는 내 데이터베이스의 주소가 저장될 변수
     private let viewModel: SelectMapViewModel
     private var disposeBag = DisposeBag()
     
@@ -70,9 +59,7 @@ final class SelectMapViewController: MapBaseViewController {
     }
     
     // MARK: - Helpers
-    override func configureUI() {
-        super.configureUI()
-        
+    func configureUI() {        
         view.addSubview(guideLabel)
         guideLabel.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide).offset(50)
@@ -82,7 +69,7 @@ final class SelectMapViewController: MapBaseViewController {
         
         view.addSubview(focusButton)
         focusButton.snp.makeConstraints {
-            $0.top.equalTo(mapView.snp.top).offset(15)
+            $0.top.equalTo(mapView.snp.top).offset(50)
             $0.trailing.equalTo(mapView.snp.trailing).offset(-15)
             $0.width.height.equalTo(40)
         }
@@ -120,21 +107,6 @@ final class SelectMapViewController: MapBaseViewController {
                     self?.mapView.addAnnotation(annotation)
                 }
             }).disposed(by: disposeBag)
-        
-        let input = SelectMapViewModel.Input(startButtonTapped: startButton.rx.tap.asObservable())
-        let _ = viewModel.transform(input: input)
-    }
-    
-    @objc func focusButtonDidClick(_ sender: UIButton) {
-        focusUserLocation(useSpan: false)
-    }
-    
-    private func focusMapLocation(centerCoordinate: Coordinate) {
-        let center = CLLocationCoordinate2D(latitude: centerCoordinate.latitude - 0.003,
-                                              longitude: centerCoordinate.longitude)
-        let region = MKCoordinateRegion(center: center,
-                                        span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
-        mapView.setRegion(region, animated: true)
     }
 }
 
@@ -153,7 +125,9 @@ extension SelectMapViewController {
         renderer?.strokeColor = .red
         
         // 땅이 랭킹뷰 위쪽에 오도록 지도 포커스
-        focusMapLocation(centerCoordinate: annotation.map.centerCoordinate)
+        let center = CLLocationCoordinate2D(latitude: annotation.map.centerCoordinate.latitude - 0.003,
+                                            longitude: annotation.map.centerCoordinate.longitude)
+        focusMapLocation(center: center)
         viewModel.selectedMap = annotation.map
     }
     

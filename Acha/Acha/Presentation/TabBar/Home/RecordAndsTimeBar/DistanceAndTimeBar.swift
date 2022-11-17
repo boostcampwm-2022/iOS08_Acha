@@ -71,7 +71,7 @@ final class DistanceAndTimeBar: UIView {
         super.init(frame: .zero)
         layout()
         translatesAutoresizingMaskIntoConstraints = false
-        backgroundColor = .pointDark
+        backgroundColor = .pointLight
     }
     
     required init?(coder: NSCoder) {
