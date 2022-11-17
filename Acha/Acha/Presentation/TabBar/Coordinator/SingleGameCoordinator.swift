@@ -45,11 +45,3 @@ final class SingleGameCoordinator: SingleGameCoordinatorProtocol {
         navigationController.pushViewController(viewController, animated: true)
     }
 }
-
-extension SingleGameCoordinator: CoordinatorDelegate {
-    func didFinished(childCoordinator: Coordinator) {
-        removeAllChildCoordinator()
-        navigationController.popViewController(animated: true)
-        navigationController.navigationBar.isHidden = false
-    }
-}

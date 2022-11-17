@@ -75,9 +75,10 @@ final class SingleGameViewModel {
                 let dateFormatter = DateFormatter()
                 dateFormatter.locale = Locale(identifier: "ko_kr")
                 dateFormatter.dateFormat = "yyyy-MM-dd"
+                let kcal = Int(0.1128333333*Double(self.time.value))
                 let record = AchaRecord(mapID: self.map.mapID,
                                         userID: "배변조홍",
-                                        calorie: 123,
+                                        calorie: kcal,
                                         distance: Int(self.movedDistance.value),
                                         time: self.time.value,
                                         isSingleMode: true,

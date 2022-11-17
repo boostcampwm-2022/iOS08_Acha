@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import Then
+import RxSwift
 
 class GameOverViewController: UIViewController {
     // MARK: - UI properties
@@ -30,7 +31,7 @@ class GameOverViewController: UIViewController {
         $0.textAlignment = .left
     }
     private let timeValueLabel: UILabel = UILabel().then {
-        $0.font = .largeBody
+        $0.font = .body
         $0.textAlignment = .center
     }
     private let distanceLabel: UILabel = UILabel().then {
@@ -39,7 +40,7 @@ class GameOverViewController: UIViewController {
         $0.textAlignment = .left
     }
     private let distanceValueLabel: UILabel = UILabel().then {
-        $0.font = .largeBody
+        $0.font = .body
         $0.textAlignment = .center
     }
     private let kcalLabel: UILabel = UILabel().then {
@@ -140,6 +141,11 @@ class GameOverViewController: UIViewController {
     private func bind() {
         let record = viewModel.record
         mapNameLabel.text = record.userID
-        timeValueLabel.text = "\(record.time)"
+        timeValueLabel.text = "\(record.time.convertToDayHourMinueFormat())"
+        distanceValueLabel.text = "\(record.distance)m"
+        kcalValueLabel.text = "\(record.calorie)"
+        
+        let input = GameOverViewModel.Input(okButtonTapped: okButton.rx.tap.asObservable())
+        _ = viewModel.transform(input: input)
     }
 }

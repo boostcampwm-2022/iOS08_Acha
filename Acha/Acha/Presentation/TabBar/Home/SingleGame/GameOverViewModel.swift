@@ -10,7 +10,7 @@ import RxSwift
 
 final class GameOverViewModel: BaseViewModel {
     struct Input {
-        
+        var okButtonTapped: Observable<Void>
     }
     
     struct Output {
@@ -27,6 +27,11 @@ final class GameOverViewModel: BaseViewModel {
     }
     
     func transform(input: Input) -> Output {
+        input.okButtonTapped
+            .subscribe(onNext: { [weak self] in
+                guard let self else { return }
+                self.coordinator.delegate?.didFinished(childCoordinator: self.coordinator)
+            }).disposed(by: disposeBag)
         return Output()
     }
 }
