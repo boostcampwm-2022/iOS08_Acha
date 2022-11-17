@@ -16,6 +16,21 @@ struct DayData {
     var calorie: Int
 }
 
+struct MapData: Decodable {
+  let mapID: Int
+  let name: String
+  let centerCoordinate: CoordinateData
+  let coordinates: [CoordinateData]
+  enum CodingKeys: String, CodingKey {
+    case mapID = "mapId"
+    case name, centerCoordinate, coordinates
+  }
+}
+// MARK: - Coordinate
+struct CoordinateData: Decodable {
+  let latitude, longitude: Double
+}
+
 class RecordViewModel {
     private var ref: DatabaseReference!
     private let disposeBag = DisposeBag()
@@ -24,12 +39,24 @@ class RecordViewModel {
     var recordAtDays = [String: [AchaRecord]]()
     var weekDistance = [ChartData]()
     var isFinishFetched = PublishRelay<Bool>()
+    var mapData = [Int: MapData]()
     
     init() {
         self.ref = Database.database().reference()
     }
     
     func fetchAllData() {
+        ref.child("mapList").observeSingleEvent(of: .value,
+                                                with: { [weak self] snapshot in
+            guard let snapData = snapshot.value as? [Any],
+                  let data = try? JSONSerialization.data(withJSONObject: snapData),
+                  let map = try? JSONDecoder().decode([MapData].self, from: data)
+            else { return }
+            map.forEach {
+                self?.mapData[$0.mapID] = $0
+            }
+        })
+        
         ref.child("record").observeSingleEvent(of: .value,
                                                 with: { [weak self] snapshot in
             guard let snapData = snapshot.value as? [Any],
@@ -52,8 +79,8 @@ class RecordViewModel {
                                                             calorie: record.calorie)
                 }
                 
-                let achaRecord = AchaRecord(mapID: 0,
-                                            userID: "",
+                let achaRecord = AchaRecord(mapID: record.mapID,
+                                            userID: record.userID,
                                             calorie: record.calorie,
                                             distance: record.distance,
                                             time: record.time,
@@ -100,5 +127,10 @@ class RecordViewModel {
             }
             return aCreateAt[0] > bCreateAt[0]
         }
+    }
+    
+    func searchMapName(mapId: Int) -> String {
+        let mapName = self.mapData[mapId]!.name
+        return mapName
     }
 }

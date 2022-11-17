@@ -110,9 +110,9 @@ class RecordCell: UICollectionViewCell {
         }
     }
     
-    func bind(record: AchaRecord) {
+    func bind(mapName: String, record: AchaRecord) {
         imageView.image = UIImage(systemName: "house")
-        mapNameLabel.text = record.mapID.description
+        mapNameLabel.text = mapName
         timeLabel.text = "시간: \(record.time.converToTime)"
         modeLabel.text = record.isSingleMode == true ? "모드: 혼자 하기" : "모드: 같이 하기"
         distanceLabel.text = "거리: \(record.distance.convertToDecimal) m"

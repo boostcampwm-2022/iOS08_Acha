@@ -142,7 +142,8 @@ class RecordViewController: UIViewController, UICollectionViewDelegate {
                     return UICollectionViewCell()
                 }
                 
-                cell.bind(record: record)
+                let mapName = self.viewModel.searchMapName(mapId: record.mapID)
+                cell.bind(mapName: mapName, record: record)
                 
                 return cell
             }
