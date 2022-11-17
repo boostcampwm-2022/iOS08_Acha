@@ -40,7 +40,7 @@
 		E5027D5229263D4F0021BF60 /* RecordHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E516A6BB292393FA00CD6BDB /* RecordHeaderView.swift */; };
 		E5027D5329263D620021BF60 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4738D765292238C3003AE835 /* UIColor+.swift */; };
 		E5027D5629265D910021BF60 /* SelectMapRecordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5027D5529265D910021BF60 /* SelectMapRecordCell.swift */; };
-		E5027D58292670570021BF60 /* RecordViewRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5027D57292670570021BF60 /* RecordViewRecord.swift */; };
+		E5027D58292670570021BF60 /* Record.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5027D57292670570021BF60 /* Record.swift */; };
 		E5027D5A292670BC0021BF60 /* RecordViewHeaderRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5027D59292670BC0021BF60 /* RecordViewHeaderRecord.swift */; };
 		E5027D5C292670F30021BF60 /* RecordViewChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5027D5B292670F30021BF60 /* RecordViewChartData.swift */; };
 		E5027D5E292686440021BF60 /* RecordViewDayTotalRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5027D5D292686440021BF60 /* RecordViewDayTotalRecord.swift */; };
@@ -128,7 +128,7 @@
 		76B3BF53292624E30056ABFD /* Date+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		76B3BF55292627A30056ABFD /* GamePlayMenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GamePlayMenuView.swift; sourceTree = "<group>"; };
 		E5027D5529265D910021BF60 /* SelectMapRecordCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMapRecordCell.swift; sourceTree = "<group>"; };
-		E5027D57292670570021BF60 /* RecordViewRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewRecord.swift; sourceTree = "<group>"; };
+		E5027D57292670570021BF60 /* Record.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Record.swift; sourceTree = "<group>"; };
 		E5027D59292670BC0021BF60 /* RecordViewHeaderRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewHeaderRecord.swift; sourceTree = "<group>"; };
 		E5027D5B292670F30021BF60 /* RecordViewChartData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewChartData.swift; sourceTree = "<group>"; };
 		E5027D5D292686440021BF60 /* RecordViewDayTotalRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewDayTotalRecord.swift; sourceTree = "<group>"; };
@@ -283,7 +283,7 @@
 			isa = PBXGroup;
 			children = (
 				4738D76E2922756B003AE835 /* Map.swift */,
-				E5027D57292670570021BF60 /* RecordViewRecord.swift */,
+				E5027D57292670570021BF60 /* Record.swift */,
 				E5027D59292670BC0021BF60 /* RecordViewHeaderRecord.swift */,
 				E5027D5B292670F30021BF60 /* RecordViewChartData.swift */,
 				E5027D5D292686440021BF60 /* RecordViewDayTotalRecord.swift */,
@@ -732,7 +732,7 @@
 				47935E9D29238E9E00481307 /* SelectMapViewController.swift in Sources */,
 				4738D76F2922756B003AE835 /* Map.swift in Sources */,
 				E5027D5E292686440021BF60 /* RecordViewDayTotalRecord.swift in Sources */,
-				E5027D58292670570021BF60 /* RecordViewRecord.swift in Sources */,
+				E5027D58292670570021BF60 /* Record.swift in Sources */,
 				47935E9F29238EB400481307 /* SelectMapViewModel.swift in Sources */,
 				E5BE8B8F2922172400E9CFE8 /* AppCoordinator.swift in Sources */,
 				47935E97292366CD00481307 /* UIButton+.swift in Sources */,

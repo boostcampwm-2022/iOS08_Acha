@@ -204,7 +204,7 @@ extension SelectMapViewController: UICollectionViewDelegate {
         rankingCollectionView.contentInsetAdjustmentBehavior = .never
         rankingCollectionView.delegate = self
         
-        rankingCollectionView.register(RecordViewCell.self, forCellWithReuseIdentifier: RecordViewCell.identifier)
+        rankingCollectionView.register(SelectMapRecordCell.self, forCellWithReuseIdentifier: SelectMapRecordCell.identifier)
         configureCollectionViewDataSource()
     }
     
@@ -227,8 +227,8 @@ extension SelectMapViewController: UICollectionViewDelegate {
     private func configureCollectionViewDataSource() {
         dataSource = DataSource(collectionView: rankingCollectionView,
                                 cellProvider: { collectionView, indexPath, itemIdentifier in
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecordViewCell.identifier,
-                                                                for: indexPath) as? RecordViewCell
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SelectMapRecordCell.identifier,
+                                                                for: indexPath) as? SelectMapRecordCell
             else { return UICollectionViewCell() }
             cell.bind(ranking: indexPath.row + 1, record: itemIdentifier)
             return cell
