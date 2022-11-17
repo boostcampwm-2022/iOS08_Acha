@@ -84,7 +84,7 @@ final class SingleGameViewModel {
                                         isSingleMode: true,
                                         createdAt: dateFormatter.string(from: Date()))
                 self.coordinator
-                    .showSingleGameOverViewController(record: record)
+                    .showSingleGameOverViewController(record: record, mapName: self.map.name)
             }).disposed(by: disposeBag)
         return Output()
     }
