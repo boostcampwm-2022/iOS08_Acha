@@ -19,7 +19,7 @@ enum Week: String, CaseIterable {
 
 class RecordChartCell: UICollectionViewCell {
     // MARK: - UI properties
-    private lazy var underscoreStackView = UIStackView().then {
+    private lazy var chartsBackgroundStackView = UIStackView().then {
         $0.distribution = .fillEqually
         $0.spacing = 1
         $0.axis = .vertical
@@ -53,38 +53,38 @@ class RecordChartCell: UICollectionViewCell {
         $0.backgroundColor = .clear
     }
     private lazy var firstLabel = UILabel().then {
-        $0.font = .systemFont(ofSize: 17, weight: .regular)
-        $0.textColor = UIColor(named: "PointLightColor")
+        $0.font = .smallTitle
+        $0.textColor = .pointLight
         $0.textAlignment = .center
     }
     private lazy var secondLabel = UILabel().then {
-        $0.font = .systemFont(ofSize: 17, weight: .regular)
-        $0.textColor = UIColor(named: "PointLightColor")
+        $0.font = .smallTitle
+        $0.textColor = .pointLight
         $0.textAlignment = .center
     }
     private lazy var thirdLabel = UILabel().then {
-        $0.font = .systemFont(ofSize: 17, weight: .regular)
-        $0.textColor = UIColor(named: "PointLightColor")
+        $0.font = .smallTitle
+        $0.textColor = .pointLight
         $0.textAlignment = .center
     }
     private lazy var fourthLabel = UILabel().then {
-        $0.font = .systemFont(ofSize: 17, weight: .regular)
-        $0.textColor = UIColor(named: "PointLightColor")
+        $0.font = .smallTitle
+        $0.textColor = .pointLight
         $0.textAlignment = .center
     }
     private lazy var fivethLabel = UILabel().then {
-        $0.font = .systemFont(ofSize: 17, weight: .regular)
-        $0.textColor = UIColor(named: "PointLightColor")
+        $0.font = .smallTitle
+        $0.textColor = .pointLight
         $0.textAlignment = .center
     }
     private lazy var sixthLabel = UILabel().then {
-        $0.font = .systemFont(ofSize: 17, weight: .regular)
-        $0.textColor = UIColor(named: "PointLightColor")
+        $0.font = .smallTitle
+        $0.textColor = .pointLight
         $0.textAlignment = .center
     }
     private lazy var seventhLabel = UILabel().then {
-        $0.font = .systemFont(ofSize: 17, weight: .regular)
-        $0.textColor = UIColor(named: "PointLightColor")
+        $0.font = .smallTitle
+        $0.textColor = .pointLight
         $0.textAlignment = .center
     }
     
@@ -103,14 +103,14 @@ class RecordChartCell: UICollectionViewCell {
     
     // MARK: - Helpers
     private func setUpSubviews() {
-        contentView.addSubview(underscoreStackView)
+        contentView.addSubview(chartsBackgroundStackView)
         contentView.addSubview(weekStackView)
         
         (1...9).forEach { _ in
             let backgrounView = UIView().then {
                 $0.backgroundColor = .white
             }
-            underscoreStackView.addArrangedSubview(backgrounView)
+            chartsBackgroundStackView.addArrangedSubview(backgrounView)
         }
         
         [firstView, secondView, thirdView, fourthView, fivethView, sixthView, seventhView]
@@ -132,9 +132,9 @@ class RecordChartCell: UICollectionViewCell {
     }
     
     private func configureUI() {
-        contentView.backgroundColor = #colorLiteral(red: 0.6642269492, green: 0.6642268896, blue: 0.6642268896, alpha: 1)
+        contentView.backgroundColor = .gray
         
-        underscoreStackView.snp.makeConstraints {
+        chartsBackgroundStackView.snp.makeConstraints {
             $0.top.bottom.leading.trailing.equalToSuperview()
         }
         
@@ -150,31 +150,33 @@ class RecordChartCell: UICollectionViewCell {
             }
     }
     
-    func bind(chartDataArray: [ChartData]) {
+    func bind(recordViewChartDataArray: [RecordViewChartData]) {
         let days = Week.allCases
         
-        let maxDistance = chartDataArray.max { chartDataA, chartDataB in
+        let maxDistance = recordViewChartDataArray.max { chartDataA, chartDataB in
             return chartDataA.distance < chartDataB.distance
         }.map { Double($0.distance) }
         
         guard let maxDistance else { return }
         
-        let heightPerMeter = 368.0 / maxDistance
+        let chartHeight = 368.0
+        let heightPerMeter = chartHeight / maxDistance
         
-        chartDataArray.enumerated().forEach { index, element in
+        recordViewChartDataArray.enumerated().forEach { index, element in
             [firstLabel, secondLabel, thirdLabel, fourthLabel, fivethLabel, sixthLabel, seventhLabel][index].text = days[element.number - 1].rawValue
             [firstView, secondView, thirdView, fourthView, fivethView, sixthView, seventhView][index].subviews.forEach {
                 $0.removeFromSuperview()
             }
             
             let customView = UIView().then {
-                $0.backgroundColor = .red
+                $0.backgroundColor = .pointLight
             }
             
             [firstView, secondView, thirdView, fourthView, fivethView, sixthView, seventhView][index].addSubview(customView)
             
             customView.snp.makeConstraints {
-                $0.bottom.leading.trailing.equalToSuperview()
+                $0.bottom.equalToSuperview()
+                $0.leading.trailing.equalToSuperview().inset(10)
                 $0.height.equalTo(heightPerMeter * Double(element.distance))
             }
         }

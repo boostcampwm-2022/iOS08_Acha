@@ -14,33 +14,33 @@ class RecordCell: UICollectionViewCell {
     }
     
     private lazy var mapNameLabel = UILabel().then {
-        $0.font = .systemFont(ofSize: 20, weight: .bold)
-        $0.textColor = UIColor(named: "PointLightColor")
-        $0.sizeToFit()
+        $0.font = .title
+        $0.textColor = .pointLight
     }
     
     private lazy var timeLabel = UILabel().then {
-        $0.font = .systemFont(ofSize: 12, weight: .bold)
-        $0.textColor = UIColor(named: "PointLightColor")
-        $0.sizeToFit()
+        $0.font = .recordBody
+        $0.textColor = .pointLight
     }
     
     private lazy var modeLabel = UILabel().then {
-        $0.font = .systemFont(ofSize: 12, weight: .bold)
-        $0.textColor = UIColor(named: "PointLightColor")
-        $0.sizeToFit()
+        $0.font = .recordBody
+        $0.textColor = .pointLight
     }
     
     private lazy var distanceLabel = UILabel().then {
-        $0.font = .systemFont(ofSize: 12, weight: .bold)
-        $0.textColor = UIColor(named: "PointLightColor")
-        $0.sizeToFit()
+        $0.font = .recordBody
+        $0.textColor = .pointLight
     }
     
     private lazy var kcalLabel = UILabel().then {
-        $0.font = .systemFont(ofSize: 12, weight: .bold)
-        $0.textColor = UIColor(named: "PointLightColor")
-        $0.sizeToFit()
+        $0.font = .recordBody
+        $0.textColor = .pointLight
+    }
+    
+    private lazy var winLabel = UILabel().then {
+        $0.font = .title
+        $0.textColor = .pointLight
     }
     
     // MARK: - Properties
@@ -58,7 +58,7 @@ class RecordCell: UICollectionViewCell {
     
     // MARK: - Helpers
     private func setUpSubviews() {
-        [imageView, mapNameLabel, timeLabel, modeLabel, distanceLabel, kcalLabel].forEach {
+        [imageView, mapNameLabel, winLabel, timeLabel, modeLabel, distanceLabel, kcalLabel].forEach {
             contentView.addSubview($0)
         }
         
@@ -67,7 +67,7 @@ class RecordCell: UICollectionViewCell {
     
     private func configureUI() {
         contentView.layer.cornerRadius = 15
-        contentView.layer.borderColor = UIColor(named: "PointLightColor")?.cgColor
+        contentView.layer.borderColor = UIColor.pointLight.cgColor
         contentView.layer.borderWidth = 3
         
         imageView.snp.makeConstraints {
@@ -76,8 +76,14 @@ class RecordCell: UICollectionViewCell {
         }
         
         mapNameLabel.snp.makeConstraints {
-            $0.top.trailing.equalToSuperview().inset(15)
+            $0.top.equalToSuperview().inset(15)
             $0.leading.equalTo(imageView.snp.trailing).offset(15)
+            $0.height.equalTo(30)
+        }
+        
+        winLabel.snp.makeConstraints {
+            $0.centerY.equalTo(mapNameLabel)
+            $0.leading.equalTo(mapNameLabel.snp.trailing).offset(5)
             $0.height.equalTo(30)
         }
         
@@ -90,32 +96,41 @@ class RecordCell: UICollectionViewCell {
         
         modeLabel.snp.makeConstraints {
             $0.leading.equalTo(timeLabel.snp.trailing).inset(5)
-            $0.top.equalTo(mapNameLabel.snp.bottom)
-            $0.width.equalTo(120)
-            $0.height.equalTo(20)
+            $0.top.equalTo(timeLabel)
+            $0.width.height.equalTo(timeLabel)
         }
         
         distanceLabel.snp.makeConstraints {
             $0.leading.equalTo(imageView.snp.trailing).offset(15)
             $0.top.equalTo(timeLabel.snp.bottom)
-            $0.height.equalTo(20)
-            $0.width.equalTo(120)
+            $0.width.height.equalTo(timeLabel)
         }
         
         kcalLabel.snp.makeConstraints {
             $0.leading.equalTo(distanceLabel.snp.trailing).inset(5)
-            $0.top.equalTo(modeLabel.snp.bottom)
-            $0.height.equalTo(20)
-            $0.width.equalTo(120)
+            $0.top.equalTo(distanceLabel)
+            $0.width.height.equalTo(timeLabel)
         }
     }
     
-    func bind(mapName: String, record: AchaRecord) {
+    func bind(mapName: String, recordViewRecord: RecordViewRecord) {
         imageView.image = UIImage(systemName: "house")
+        if let isWin = recordViewRecord.isWin {
+            winLabel.isHidden = false
+            if isWin {
+                winLabel.text = "승"
+                winLabel.textColor = .red
+            } else {
+                winLabel.text = "패"
+                winLabel.textColor = .blue
+            }
+        } else {
+            winLabel.isHidden = true
+        }
         mapNameLabel.text = mapName
-        timeLabel.text = "시간: \(record.time.converToTime)"
-        modeLabel.text = record.isSingleMode == true ? "모드: 혼자 하기" : "모드: 같이 하기"
-        distanceLabel.text = "거리: \(record.distance.convertToDecimal) m"
-        kcalLabel.text = "칼로리: \(record.calorie.convertToDecimal) kcal"
+        timeLabel.text = "시간: \(recordViewRecord.time.convertToDayHourMinueFormat())"
+        modeLabel.text = recordViewRecord.isSingleMode == true ? "모드: 혼자 하기" : "모드: 같이 하기"
+        distanceLabel.text = "거리: \(recordViewRecord.distance.convertToDecimal) m"
+        kcalLabel.text = "칼로리: \(recordViewRecord.calorie.convertToDecimal) kcal"
     }
 }

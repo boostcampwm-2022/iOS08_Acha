@@ -11,35 +11,15 @@ import RxSwift
 import RxRelay
 import Firebase
 
-struct DayData {
-    var distance: Int
-    var calorie: Int
-}
-
-struct MapData: Decodable {
-  let mapID: Int
-  let name: String
-  let centerCoordinate: CoordinateData
-  let coordinates: [CoordinateData]
-  enum CodingKeys: String, CodingKey {
-    case mapID = "mapId"
-    case name, centerCoordinate, coordinates
-  }
-}
-// MARK: - Coordinate
-struct CoordinateData: Decodable {
-  let latitude, longitude: Double
-}
-
 class RecordViewModel {
     private var ref: DatabaseReference!
     private let disposeBag = DisposeBag()
     
-    var sortedSetionDays: [Dictionary<String, DayData>.Element] = []
-    var recordAtDays = [String: [AchaRecord]]()
-    var weekDistance = [ChartData]()
+    var sortedSectionDays: [Dictionary<String, DayTotalRecord>.Element] = []
+    var recordAtDays = [String: [RecordViewRecord]]()
+    var weekDistance = [RecordViewChartData]()
     var isFinishFetched = PublishRelay<Bool>()
-    var mapData = [Int: MapData]()
+    var mapData = [Int: Map]()
     
     init() {
         self.ref = Database.database().reference()
@@ -50,7 +30,7 @@ class RecordViewModel {
                                                 with: { [weak self] snapshot in
             guard let snapData = snapshot.value as? [Any],
                   let data = try? JSONSerialization.data(withJSONObject: snapData),
-                  let map = try? JSONDecoder().decode([MapData].self, from: data)
+                  let map = try? JSONDecoder().decode([Map].self, from: data)
             else { return }
             map.forEach {
                 self?.mapData[$0.mapID] = $0
@@ -61,13 +41,10 @@ class RecordViewModel {
                                                 with: { [weak self] snapshot in
             guard let snapData = snapshot.value as? [Any],
                   let data = try? JSONSerialization.data(withJSONObject: snapData),
-                  let records = try? JSONDecoder().decode([AchaRecord].self, from: data)
+                  let records = try? JSONDecoder().decode([RecordViewRecord].self, from: data)
             else { return }
             
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd"
-            
-            var sectionDays = [String: DayData]()
+            var sectionDays = [String: DayTotalRecord]()
             records.forEach { record in
                 let stringDate = record.createdAt
                 
@@ -75,16 +52,17 @@ class RecordViewModel {
                     sectionDays[stringDate]?.distance += record.distance
                     sectionDays[stringDate]?.calorie += record.calorie
                 } else {
-                    sectionDays[stringDate] = DayData(distance: record.distance,
+                    sectionDays[stringDate] = DayTotalRecord(distance: record.distance,
                                                             calorie: record.calorie)
                 }
                 
-                let achaRecord = AchaRecord(mapID: record.mapID,
+                let achaRecord = RecordViewRecord(mapID: record.mapID,
                                             userID: record.userID,
                                             calorie: record.calorie,
                                             distance: record.distance,
                                             time: record.time,
                                             isSingleMode: record.isSingleMode,
+                                            isWin: record.isWin,
                                             createdAt: record.createdAt)
                 
                 if self?.recordAtDays[stringDate] != nil {
@@ -97,14 +75,11 @@ class RecordViewModel {
             
             let startDay = Date(timeIntervalSinceNow: -(86400 * 6))
             
-            let dayFormmater = DateFormatter()
-            dayFormmater.dateFormat = "e"
-            
-            self?.weekDistance = Array(repeating: ChartData(number: 0, distance: 0), count: 7)
+            self?.weekDistance = Array(repeating: RecordViewChartData(number: 0, distance: 0), count: 7)
             for index in 0...6 {
                 let day = startDay.addingTimeInterval(Double(index) * 86400)
-                let dayString = dateFormatter.string(from: day)
-                self?.weekDistance[index].number = Int(dayFormmater.string(from: day))!
+                let dayString = day.convertToStringFormat(format: "yyyy-MM-dd")
+                self?.weekDistance[index].number = Int(day.convertToStringFormat(format: "e"))!
                 
                 if let recordAtDay = sectionDays[dayString] {
                     self?.weekDistance[index].distance = recordAtDay.distance
@@ -114,10 +89,10 @@ class RecordViewModel {
         })
     }
     
-    func sortSectionDays(sectionDays: [String: DayData]) {
-        self.sortedSetionDays = sectionDays.sorted { dicA, dicB in
-            let aCreateAt = dicA.key.components(separatedBy: "-").map { Int($0)! }
-            let bCreateAt = dicB.key.components(separatedBy: "-").map { Int($0)! }
+    func sortSectionDays(sectionDays: [String: DayTotalRecord]) {
+        self.sortedSectionDays = sectionDays.sorted { sectionDayA, sectionDayB in
+            let aCreateAt = sectionDayA.key.components(separatedBy: "-").map { Int($0)! }
+            let bCreateAt = sectionDayB.key.components(separatedBy: "-").map { Int($0)! }
             
             if aCreateAt[0] == bCreateAt[0] {
                 if aCreateAt[1] == bCreateAt[1] {
@@ -130,7 +105,8 @@ class RecordViewModel {
     }
     
     func searchMapName(mapId: Int) -> String {
-        let mapName = self.mapData[mapId]!.name
+        guard let mapData = self.mapData[mapId] else { return "" }
+        let mapName = mapData.name
         return mapName
     }
 }

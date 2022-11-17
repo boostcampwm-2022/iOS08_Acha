@@ -12,50 +12,9 @@ import RxSwift
 import RxRelay
 import RxCocoa
 
-struct AchaRecord: Hashable, Decodable {
-    var mapID: Int
-    var userID: String
-    var calorie: Int
-    var distance: Int
-    var time: Int
-    var isSingleMode: Bool
-    var isWin: Bool?
-    var createdAt: String
-    
-    enum CodingKeys: String, CodingKey {
-        case mapID = "map_id"
-        case userID = "user_id"
-        case calorie
-        case distance
-        case time
-        case isSingleMode
-        case isWin
-        case createdAt = "created_at"
-    }
-}
-
-struct Record: Hashable {
-    var mapName: String
-    var time: String
-    var distance: String
-    var mode: String
-    var kcal: String
-}
-
-struct HeaderRecord: Hashable {
-    var date: String
-    var distance: Int
-    var kcal: Int
-}
-
-struct ChartData: Hashable {
-    var number: Int
-    var distance: Int
-}
-
 enum RecordViewItems: Hashable {
-    case chart([ChartData])
-    case myRecord(AchaRecord)
+    case chart([RecordViewChartData])
+    case myRecord(RecordViewRecord)
 }
 
 class RecordViewController: UIViewController, UICollectionViewDelegate {
@@ -99,7 +58,7 @@ class RecordViewController: UIViewController, UICollectionViewDelegate {
     private func configureUI() {
         
         navigationItem.title = "개인 기록"
-        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor(named: "PointLightColor")!]
+        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.pointLight]
         view.backgroundColor = .white
         
         configureCollectionView()
@@ -127,23 +86,23 @@ class RecordViewController: UIViewController, UICollectionViewDelegate {
         dataSource = DataSource(collectionView: collectionView,
                                 cellProvider: { collectionView, indexPath, itemIdentifier in
             switch itemIdentifier {
-            case .chart(let chartDataArray):
+            case .chart(let recordViewChartDataArray):
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecordChartCell.identifier,
                                                                     for: indexPath) as? RecordChartCell else {
                     return UICollectionViewCell()
                 }
                 
-                cell.bind(chartDataArray: chartDataArray)
+                cell.bind(recordViewChartDataArray: recordViewChartDataArray)
                 
                 return cell
-            case .myRecord(let record):
+            case .myRecord(let recordViewRecord):
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecordCell.identifier,
                                                                     for: indexPath) as? RecordCell else {
                     return UICollectionViewCell()
                 }
                 
-                let mapName = self.viewModel.searchMapName(mapId: record.mapID)
-                cell.bind(mapName: mapName, record: record)
+                let mapName = self.viewModel.searchMapName(mapId: recordViewRecord.mapID)
+                cell.bind(mapName: mapName, recordViewRecord: recordViewRecord)
                 
                 return cell
             }
@@ -161,9 +120,9 @@ class RecordViewController: UIViewController, UICollectionViewDelegate {
                 case 0:
                     break
                 default:
-                    let sectionDay = self.viewModel.sortedSetionDays[indexPath.section - 1]
+                    let sectionDay = self.viewModel.sortedSectionDays[indexPath.section - 1]
                     
-                    let headerRecord = HeaderRecord(date: sectionDay.key,
+                    let headerRecord = RecordViewHeaderRecord(date: sectionDay.key,
                                                     distance: sectionDay.value.distance,
                                                     kcal: sectionDay.value.calorie)
                     header.bind(headerRecord: headerRecord)
@@ -250,7 +209,7 @@ class RecordViewController: UIViewController, UICollectionViewDelegate {
         var snapshot = dataSource.snapshot()
         snapshot.deleteAllItems()
         snapshot.appendSections(["charts"])
-        viewModel.sortedSetionDays.forEach { dicA in
+        viewModel.sortedSectionDays.forEach { dicA in
             snapshot.appendSections([dicA.key])
         }
         snapshot.appendItems([.chart(viewModel.weekDistance)], toSection: "charts")
