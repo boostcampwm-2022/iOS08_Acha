@@ -1,13 +1,23 @@
 //
-//  Int+.swift
+//  Int+Extension.swift
 //  Acha
 //
-//  Created by 배남석 on 2022/11/17.
+//  Created by hong on 2022/11/16.
 //
 
 import Foundation
 
 extension Int {
+    func convertToDayHourMinueFormat() -> String {
+        var time = self
+        let day = String(format: "%02d", time/3600)
+        time %= 3600
+        let hour = String(format: "%02d", time/60)
+        time %= 60
+        let minute = String(format: "%02d", time)
+        return "\(day):\(hour):\(minute)"
+    }
+    
     var convertToDecimal: String {
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .decimal

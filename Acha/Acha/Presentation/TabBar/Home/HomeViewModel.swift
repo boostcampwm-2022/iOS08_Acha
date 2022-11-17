@@ -22,14 +22,15 @@ final class HomeViewModel {
     private func bind() {
         singleGameTap
             .subscribe(onNext: {
-                print("singleGameTap")
-                self.coordinator.showSelectViewController()
+                self.coordinator.connectSingleGameFlow()
             })
             .disposed(by: disposeBag)
         multiGameTap
             .subscribe(onNext: {
                 print("multiGameTap")
-                self.coordinator.showSelectViewController()
+                #warning("TODO : 멀티모드")
+//                self.coordinator.showSelectViewController()
+                self.coordinator.connectSingleGameFlow()
             })
             .disposed(by: disposeBag)
     }
