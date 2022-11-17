@@ -88,7 +88,6 @@ final class SelectMapViewController: MapBaseViewController {
         configureUI()
         bind()
         configureCollectionView()
-        makeSnapshot()
     }
 }
 
@@ -166,7 +165,6 @@ extension SelectMapViewController {
 }
 
 // MARK: - MKMapViewDelegate
-
 extension SelectMapViewController {
     
     /// annotation (=pin) 클릭 시 액션
@@ -184,6 +182,9 @@ extension SelectMapViewController {
                                             longitude: annotation.map.centerCoordinate.longitude)
         focusMapLocation(center: center)
         viewModel.selectedMap = annotation.map
+        
+        guard let rankings = viewModel.rankings[annotation.map.mapID] else { return }
+        makeSnapshot(rankings: rankings)
     }
     
     func mapView(_ mapView: MKMapView, didDeselect annotation: MKAnnotation) {
@@ -196,6 +197,7 @@ extension SelectMapViewController {
     }
 }
 
+// MARK: - UICollectionViewDelegate
 extension SelectMapViewController: UICollectionViewDelegate {
     
     private func configureCollectionView() {
@@ -262,14 +264,11 @@ extension SelectMapViewController: UICollectionViewDelegate {
         return section
     }
     
-    private func makeSnapshot() {
+    private func makeSnapshot(rankings: [AchaRecord]) {
         var snapshot = dataSource.snapshot()
         snapshot.deleteAllItems()
         snapshot.appendSections(["Ranking"])
-        snapshot.appendItems([AchaRecord(mapID: 0, userID: "옹이", calorie: 30, distance: 30, time: 10000, isSingleMode: true, createdAt: ""),
-                              AchaRecord(mapID: 0, userID: "멍멍이", calorie: 20, distance: 20, time: 20000, isSingleMode: true, createdAt: ""),
-                              AchaRecord(mapID: 0, userID: "해피", calorie: 10, distance: 10, time: 30000, isSingleMode: true, createdAt: "")],
-                             toSection: "Ranking")
+        snapshot.appendItems(rankings, toSection: "Ranking")
         dataSource.apply(snapshot)
     }
 }
