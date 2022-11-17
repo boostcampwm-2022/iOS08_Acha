@@ -87,7 +87,6 @@ final class SelectMapViewController: MapBaseViewController {
         super.viewDidLoad()
         configureUI()
         bind()
-        viewModel.fetchAllMaps()
         configureCollectionView()
         makeSnapshot()
     }
@@ -142,8 +141,13 @@ extension SelectMapViewController {
     }
     
     private func bind() {
-        viewModel.mapCoordinates
-            .subscribe(onNext: { [weak self] maps in
+        
+        let input = SelectMapViewModel.Input(startButtonTapped: startButton.rx.tap.asObservable())
+        let output = viewModel.transform(input: input)
+        
+        output.mapCoordinates
+            .asDriver(onErrorJustReturn: [])
+            .drive(onNext: { [weak self] maps in
                 maps.forEach { mapElement in
                     let coordinates = mapElement.coordinates.map {
                         CLLocationCoordinate2D(latitude: $0.latitude, longitude: $0.longitude)
@@ -158,9 +162,6 @@ extension SelectMapViewController {
                     self?.mapView.addAnnotation(annotation)
                 }
             }).disposed(by: disposeBag)
-        
-        let input = SelectMapViewModel.Input(startButtonTapped: startButton.rx.tap.asObservable())
-        _ = viewModel.transform(input: input)
     }
 }
 
