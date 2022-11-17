@@ -751,6 +751,7 @@
 				F1D202A42923C09300F3E87D /* InGameMenuCollectionViewCell.swift in Sources */,
 				F156F11C2923623C0053E807 /* PaddingLabel.swift in Sources */,
 				471863BD291E155700A35786 /* AppDelegate.swift in Sources */,
+				4738D766292238C3003AE835 /* UIColor+.swift in Sources */,
 				E5BE8BA129221B6D00E9CFE8 /* SignupCoordinator .swift in Sources */,
 				E5BE8B97292219D800E9CFE8 /* HomeCoordinator.swift in Sources */,
 				F1D202B72924C63F00F3E87D /* InGameMenuModelProtocol.swift in Sources */,
