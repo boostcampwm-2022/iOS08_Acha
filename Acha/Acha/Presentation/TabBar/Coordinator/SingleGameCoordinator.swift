@@ -35,7 +35,7 @@ final class SingleGameCoordinator: SingleGameCoordinatorProtocol {
     
     func showSingleGamePlayViewController(selectedMap: Map) {
         let viewModel = SingleGameViewModel(coordinator: self, map: selectedMap)
-        let viewController = SigleViewController(viewModel: viewModel)
+        let viewController = SingleViewController(viewModel: viewModel)
         navigationController.pushViewController(viewController, animated: true)
     }
 }

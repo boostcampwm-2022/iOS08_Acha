@@ -1,5 +1,5 @@
 //
-//  SigleViewController.swift
+//  SingleViewController.swift
 //  Acha
 //
 //  Created by 조승기 on 2022/11/16.
@@ -12,7 +12,7 @@ import SnapKit
 import RxSwift
 import RxRelay
 
-class SigleViewController: MapBaseViewController, DistanceAndTimeBarLine {
+class SingleViewController: MapBaseViewController, DistanceAndTimeBarLine {
     // MARK: - UI properties
     private lazy var resetButton: UIButton = UIButton().then {
         $0.setImage(
@@ -77,7 +77,7 @@ class SigleViewController: MapBaseViewController, DistanceAndTimeBarLine {
 }
 
 // MARK: - Helpers
-extension SigleViewController {
+extension SingleViewController {
     private func setupSubviews() {
         [rightMenuButton, distanceAndTimeBar, resetButton]
             .forEach {
@@ -184,7 +184,7 @@ extension SigleViewController {
 }
 
 // MARK: - CLLocationManagerDelegate
-extension SigleViewController {
+extension SingleViewController {
     func locationManager( _ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else { return }
         
@@ -209,7 +209,7 @@ extension SigleViewController {
 }
 
 // MARK: - MKMapViewDelegate
-extension SigleViewController {
+extension SingleViewController {
     // mapView.addOverlay(lineDraw) 실행 시 호출되는 함수
     override func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         guard let polyLine = overlay as? MKPolyline
