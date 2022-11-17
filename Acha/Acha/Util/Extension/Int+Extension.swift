@@ -17,4 +17,11 @@ extension Int {
         let minute = String(format: "%02d", time)
         return "\(day):\(hour):\(minute)"
     }
+    
+    var convertToDecimal: String {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        
+        return numberFormatter.string(from: NSNumber(value: self))!
+    }
 }
