@@ -72,9 +72,18 @@ final class SingleGameViewModel {
         input.gameOverButtonTapped
             .subscribe(onNext: { [weak self] _ in
                 guard let self else { return }
-                let record = AchaRecord(mapID: self.map.mapID, userID: "배변조홍", calorie: Int((1.5)*67.7*self.movedDistance/(60*15)), distance: Int(self.movedDistance.value), time: selftime.value, isSingleMode: true, createdAt: <#T##String#>)
+                let dateFormatter = DateFormatter()
+                dateFormatter.locale = Locale(identifier: "ko_kr")
+                dateFormatter.dateFormat = "yyyy-MM-dd"
+                let record = AchaRecord(mapID: self.map.mapID,
+                                        userID: "배변조홍",
+                                        calorie: 123,
+                                        distance: Int(self.movedDistance.value),
+                                        time: self.time.value,
+                                        isSingleMode: true,
+                                        createdAt: dateFormatter.string(from: Date()))
                 self.coordinator
-                    .showSingleGameOverViewController(result: "hi")
+                    .showSingleGameOverViewController(record: record)
             }).disposed(by: disposeBag)
         return Output()
     }

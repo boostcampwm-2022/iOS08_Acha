@@ -19,11 +19,11 @@ final class GameOverViewModel: BaseViewModel {
     
     var disposeBag = DisposeBag()
     private let coordinator: SingleGameCoordinator
-    let result: String
+    let record: AchaRecord
     
-    init(coordinator: SingleGameCoordinator, result: String) {
+    init(coordinator: SingleGameCoordinator, record: AchaRecord) {
         self.coordinator = coordinator
-        self.result = result
+        self.record = record
     }
     
     func transform(input: Input) -> Output {

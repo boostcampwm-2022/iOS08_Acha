@@ -76,11 +76,10 @@ class GameOverViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .orange
+        view.backgroundColor = .clear
         tabBarController?.tabBar.isHidden = true
         setupSubviews()
-        inputDummytexts()
-        print(viewModel.result)
+        bind()
     }
     
     // MARK: - Helpers
@@ -138,11 +137,9 @@ class GameOverViewController: UIViewController {
         
     }
     
-    #warning("지워야합니다.")
-    private func inputDummytexts() {
-        mapNameLabel.text = "시장 로터리"
-        timeValueLabel.text = "00:05:21"
-        distanceValueLabel.text = "4,590m"
-        kcalValueLabel.text = "1,212kcal"
+    private func bind() {
+        let record = viewModel.record
+        mapNameLabel.text = record.userID
+        timeValueLabel.text = "\(record.time)"
     }
 }
