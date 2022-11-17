@@ -33,7 +33,7 @@ class RecordHeaderView: UICollectionReusableView {
     // MARK: - Lifecycles
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupSubviews()
+        setUpSubviews()
     }
     
     required init?(coder: NSCoder) {
@@ -42,7 +42,7 @@ class RecordHeaderView: UICollectionReusableView {
     
     // MARK: - Helpers
     
-    private func setupSubviews() {
+    private func setUpSubviews() {
         [dateLabel, distanceLabel, kcalLabel].forEach {
             addSubview($0)
         }
@@ -70,7 +70,7 @@ class RecordHeaderView: UICollectionReusableView {
     
     func bind(headerRecord: HeaderRecord) {
         dateLabel.text = headerRecord.date
-        distanceLabel.text = headerRecord.distance
-        kcalLabel.text = headerRecord.kcal
+        distanceLabel.text = "누적 거리: \(headerRecord.distance.convertToDecimal) m"
+        kcalLabel.text = "누적 칼로리: \(headerRecord.kcal.convertToDecimal) kcal"
     }
 }

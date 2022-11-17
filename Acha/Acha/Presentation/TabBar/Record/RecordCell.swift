@@ -49,7 +49,7 @@ class RecordCell: UICollectionViewCell {
     // MARK: - Lifecycles
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupSubviews()
+        setUpSubviews()
     }
     
     required init?(coder: NSCoder) {
@@ -57,7 +57,7 @@ class RecordCell: UICollectionViewCell {
     }
     
     // MARK: - Helpers
-    private func setupSubviews() {
+    private func setUpSubviews() {
         [imageView, mapNameLabel, timeLabel, modeLabel, distanceLabel, kcalLabel].forEach {
             contentView.addSubview($0)
         }
@@ -84,14 +84,14 @@ class RecordCell: UICollectionViewCell {
         timeLabel.snp.makeConstraints {
             $0.leading.equalTo(imageView.snp.trailing).offset(15)
             $0.top.equalTo(mapNameLabel.snp.bottom)
-            $0.width.equalTo(100)
+            $0.width.equalTo(120)
             $0.height.equalTo(20)
         }
         
         modeLabel.snp.makeConstraints {
             $0.leading.equalTo(timeLabel.snp.trailing).inset(5)
             $0.top.equalTo(mapNameLabel.snp.bottom)
-            $0.width.equalTo(100)
+            $0.width.equalTo(120)
             $0.height.equalTo(20)
         }
         
@@ -99,22 +99,23 @@ class RecordCell: UICollectionViewCell {
             $0.leading.equalTo(imageView.snp.trailing).offset(15)
             $0.top.equalTo(timeLabel.snp.bottom)
             $0.height.equalTo(20)
-            $0.width.equalTo(100)
+            $0.width.equalTo(120)
         }
         
         kcalLabel.snp.makeConstraints {
             $0.leading.equalTo(distanceLabel.snp.trailing).inset(5)
             $0.top.equalTo(modeLabel.snp.bottom)
             $0.height.equalTo(20)
-            $0.width.equalTo(100)
+            $0.width.equalTo(120)
         }
     }
     
-    func bind(record: Record) {
-        mapNameLabel.text = record.mapName
-        timeLabel.text = record.time
-        modeLabel.text = record.mode
-        distanceLabel.text = record.distance
-        kcalLabel.text = record.kcal
+    func bind(record: AchaRecord) {
+        imageView.image = UIImage(systemName: "house")
+        mapNameLabel.text = record.mapID.description
+        timeLabel.text = "시간: \(record.time.converToTime)"
+        modeLabel.text = record.isSingleMode == true ? "모드: 혼자 하기" : "모드: 같이 하기"
+        distanceLabel.text = "거리: \(record.distance.convertToDecimal) m"
+        kcalLabel.text = "칼로리: \(record.calorie.convertToDecimal) kcal"
     }
 }

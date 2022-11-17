@@ -8,13 +8,13 @@
 import UIKit
 
 enum Week: String, CaseIterable {
+    case sunday = "일"
     case monday = "월"
-    case tuesdayView = "화"
-    case wednesdayView = "수"
-    case thursdayView = "목"
-    case fridayView = "금"
-    case saturdayView = "토"
-    case sundayView = "일"
+    case tuesday = "화"
+    case wednesday = "수"
+    case thursday = "목"
+    case friday = "금"
+    case saturday = "토"
 }
 
 class RecordChartCell: UICollectionViewCell {
@@ -31,13 +31,62 @@ class RecordChartCell: UICollectionViewCell {
         $0.axis = .horizontal
     }
     
-    private lazy var mondayView = UIView()
-    private lazy var tuesdayView = UIView()
-    private lazy var wednesdayView = UIView()
-    private lazy var thursdayView = UIView()
-    private lazy var fridayView = UIView()
-    private lazy var saturdayView = UIView()
-    private lazy var sundayView = UIView()
+    private lazy var firstView = UIView().then {
+        $0.backgroundColor = .clear
+    }
+    private lazy var secondView = UIView().then {
+        $0.backgroundColor = .clear
+    }
+    private lazy var thirdView = UIView().then {
+        $0.backgroundColor = .clear
+    }
+    private lazy var fourthView = UIView().then {
+        $0.backgroundColor = .clear
+    }
+    private lazy var fivethView = UIView().then {
+        $0.backgroundColor = .clear
+    }
+    private lazy var sixthView = UIView().then {
+        $0.backgroundColor = .clear
+    }
+    private lazy var seventhView = UIView().then {
+        $0.backgroundColor = .clear
+    }
+    private lazy var firstLabel = UILabel().then {
+        $0.font = .systemFont(ofSize: 17, weight: .regular)
+        $0.textColor = UIColor(named: "PointLightColor")
+        $0.textAlignment = .center
+    }
+    private lazy var secondLabel = UILabel().then {
+        $0.font = .systemFont(ofSize: 17, weight: .regular)
+        $0.textColor = UIColor(named: "PointLightColor")
+        $0.textAlignment = .center
+    }
+    private lazy var thirdLabel = UILabel().then {
+        $0.font = .systemFont(ofSize: 17, weight: .regular)
+        $0.textColor = UIColor(named: "PointLightColor")
+        $0.textAlignment = .center
+    }
+    private lazy var fourthLabel = UILabel().then {
+        $0.font = .systemFont(ofSize: 17, weight: .regular)
+        $0.textColor = UIColor(named: "PointLightColor")
+        $0.textAlignment = .center
+    }
+    private lazy var fivethLabel = UILabel().then {
+        $0.font = .systemFont(ofSize: 17, weight: .regular)
+        $0.textColor = UIColor(named: "PointLightColor")
+        $0.textAlignment = .center
+    }
+    private lazy var sixthLabel = UILabel().then {
+        $0.font = .systemFont(ofSize: 17, weight: .regular)
+        $0.textColor = UIColor(named: "PointLightColor")
+        $0.textAlignment = .center
+    }
+    private lazy var seventhLabel = UILabel().then {
+        $0.font = .systemFont(ofSize: 17, weight: .regular)
+        $0.textColor = UIColor(named: "PointLightColor")
+        $0.textAlignment = .center
+    }
     
     // MARK: - Properties
     static let identifier = "RecordChartCell"
@@ -45,7 +94,7 @@ class RecordChartCell: UICollectionViewCell {
     // MARK: - Lifecycles
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupSubviews()
+        setUpSubviews()
     }
     
     required init?(coder: NSCoder) {
@@ -53,11 +102,9 @@ class RecordChartCell: UICollectionViewCell {
     }
     
     // MARK: - Helpers
-    private func setupSubviews() {
+    private func setUpSubviews() {
         contentView.addSubview(underscoreStackView)
         contentView.addSubview(weekStackView)
-        
-        let days = Week.allCases
         
         (1...9).forEach { _ in
             let backgrounView = UIView().then {
@@ -66,28 +113,17 @@ class RecordChartCell: UICollectionViewCell {
             underscoreStackView.addArrangedSubview(backgrounView)
         }
         
-        [mondayView, tuesdayView, wednesdayView, thursdayView, fridayView, saturdayView, sundayView]
+        [firstView, secondView, thirdView, fourthView, fivethView, sixthView, seventhView]
             .enumerated()
             .forEach { (index, view) in
-                view.backgroundColor = .clear
                 
                 let stackView = UIStackView().then {
                     $0.axis = .vertical
                 }
                 
-                let label = UILabel().then {
-                    $0.text = days[index].rawValue
-                    $0.font = .systemFont(ofSize: 17, weight: .regular)
-                    $0.textColor = UIColor(named: "PointLightColor")
-                    $0.textAlignment = .center
-                }
-                
                 stackView.addArrangedSubview(view)
+                let label = [firstLabel, secondLabel, thirdLabel, fourthLabel, fivethLabel, sixthLabel, seventhLabel][index]
                 stackView.addArrangedSubview(label)
-                
-                label.snp.makeConstraints {
-                    $0.height.equalTo(45)
-                }
                 
                 weekStackView.addArrangedSubview(stackView)
         }
@@ -105,21 +141,41 @@ class RecordChartCell: UICollectionViewCell {
         weekStackView.snp.makeConstraints {
             $0.top.bottom.leading.trailing.equalToSuperview()
         }
+        
+        [firstLabel, secondLabel, thirdLabel, fourthLabel, fivethLabel, sixthLabel, seventhLabel]
+            .forEach { label in
+                label.snp.makeConstraints {
+                    $0.height.equalTo(45)
+                }
+            }
     }
     
-    func bind(distanceArray: [Int]) {
-        [mondayView, tuesdayView, wednesdayView, thursdayView, fridayView, saturdayView, sundayView].enumerated().forEach { (index, view) in
-            view.subviews.forEach { $0.removeFromSuperview() }
+    func bind(chartDataArray: [ChartData]) {
+        let days = Week.allCases
+        
+        let maxDistance = chartDataArray.max { chartDataA, chartDataB in
+            return chartDataA.distance < chartDataB.distance
+        }.map { Double($0.distance) }
+        
+        guard let maxDistance else { return }
+        
+        let heightPerMeter = 368.0 / maxDistance
+        
+        chartDataArray.enumerated().forEach { index, element in
+            [firstLabel, secondLabel, thirdLabel, fourthLabel, fivethLabel, sixthLabel, seventhLabel][index].text = days[element.number - 1].rawValue
+            [firstView, secondView, thirdView, fourthView, fivethView, sixthView, seventhView][index].subviews.forEach {
+                $0.removeFromSuperview()
+            }
             
             let customView = UIView().then {
                 $0.backgroundColor = .red
             }
             
-            view.addSubview(customView)
+            [firstView, secondView, thirdView, fourthView, fivethView, sixthView, seventhView][index].addSubview(customView)
             
             customView.snp.makeConstraints {
                 $0.bottom.leading.trailing.equalToSuperview()
-                $0.height.equalTo(distanceArray[index] * 25)
+                $0.height.equalTo(heightPerMeter * Double(element.distance))
             }
         }
     }

@@ -12,6 +12,28 @@ import RxSwift
 import RxRelay
 import RxCocoa
 
+struct AchaRecord: Hashable, Decodable {
+    var mapID: Int
+    var userID: String
+    var calorie: Int
+    var distance: Int
+    var time: Int
+    var isSingleMode: Bool
+    var isWin: Bool?
+    var createdAt: String
+    
+    enum CodingKeys: String, CodingKey {
+        case mapID = "map_id"
+        case userID = "user_id"
+        case calorie
+        case distance
+        case time
+        case isSingleMode
+        case isWin
+        case createdAt = "created_at"
+    }
+}
+
 struct Record: Hashable {
     var mapName: String
     var time: String
@@ -22,18 +44,18 @@ struct Record: Hashable {
 
 struct HeaderRecord: Hashable {
     var date: String
-    var distance: String
-    var kcal: String
+    var distance: Int
+    var kcal: Int
 }
 
-enum RecordViewSections: Hashable, CaseIterable {
-    case chart
-    case myRecord
+struct ChartData: Hashable {
+    var number: Int
+    var distance: Int
 }
 
 enum RecordViewItems: Hashable {
-    case chart([Int])
-    case myRecord(Record)
+    case chart([ChartData])
+    case myRecord(AchaRecord)
 }
 
 class RecordViewController: UIViewController, UICollectionViewDelegate {
@@ -41,23 +63,43 @@ class RecordViewController: UIViewController, UICollectionViewDelegate {
     private var collectionView: UICollectionView!
     
     // MARK: - Properties
-    typealias DataSource = UICollectionViewDiffableDataSource<RecordViewSections, RecordViewItems>
+    typealias DataSource = UICollectionViewDiffableDataSource<String, RecordViewItems>
     private var dataSource: DataSource!
+    private let viewModel: RecordViewModel
+    private let disposeBag = DisposeBag()
     
     // MARK: - Lifecycles
+    init(viewModel: RecordViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureUI()
-        makeSnapshot()
+        bind()
+        viewModel.fetchAllData()
     }
     
     // MARK: - Helpers
     
+    private func bind() {
+        viewModel.isFinishFetched
+            .subscribe(onNext: { _ in
+                self.configureCollectionViewDataSource()
+                self.makeSnapshot()
+            }).disposed(by: disposeBag)
+    }
+    
     private func configureUI() {
         
         navigationItem.title = "개인 기록"
-        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor(named: "PointLightColor")]
+        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor(named: "PointLightColor")!]
         view.backgroundColor = .white
         
         configureCollectionView()
@@ -76,23 +118,22 @@ class RecordViewController: UIViewController, UICollectionViewDelegate {
         
         view.addSubview(collectionView)
         collectionView.snp.makeConstraints {
-            $0.top.bottom.equalToSuperview()
-            $0.leading.trailing.equalToSuperview().inset(15)
+            $0.top.bottom.equalTo(view.safeAreaLayoutGuide)
+            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(15)
         }
-        
-        configureCollectionViewDataSource()
     }
     
     private func configureCollectionViewDataSource() {
-        dataSource = DataSource(collectionView: collectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
+        dataSource = DataSource(collectionView: collectionView,
+                                cellProvider: { collectionView, indexPath, itemIdentifier in
             switch itemIdentifier {
-            case .chart(let distanceArray):
+            case .chart(let chartDataArray):
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecordChartCell.identifier,
                                                                     for: indexPath) as? RecordChartCell else {
                     return UICollectionViewCell()
                 }
                 
-                cell.bind(distanceArray: distanceArray)
+                cell.bind(chartDataArray: chartDataArray)
                 
                 return cell
             case .myRecord(let record):
@@ -109,19 +150,22 @@ class RecordViewController: UIViewController, UICollectionViewDelegate {
         
         dataSource.supplementaryViewProvider = { collectionView, kind, indexPath in
             if kind == UICollectionView.elementKindSectionHeader {
-                guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
-                                                                                   withReuseIdentifier: RecordHeaderView.identifier,
-                                                                             for: indexPath) as? RecordHeaderView
+                guard let header = collectionView.dequeueReusableSupplementaryView(
+                    ofKind: kind,
+                    withReuseIdentifier: RecordHeaderView.identifier,
+                    for: indexPath) as? RecordHeaderView
                 else { return UICollectionReusableView() }
                 
                 switch indexPath.section {
-                case 1:
-                    let headerRecord = HeaderRecord(date: "2022년 12월 16일", distance: "뛴 거리 : 10.43km", kcal: "소비 칼로리 : 700kcal")
-                    header.bind(headerRecord: headerRecord)
-                    
-                    return header
-                default:
+                case 0:
                     break
+                default:
+                    let sectionDay = self.viewModel.sortedSetionDays[indexPath.section - 1]
+                    
+                    let headerRecord = HeaderRecord(date: sectionDay.key,
+                                                    distance: sectionDay.value.distance,
+                                                    kcal: sectionDay.value.calorie)
+                    header.bind(headerRecord: headerRecord)
                 }
                 
                 return header
@@ -132,10 +176,8 @@ class RecordViewController: UIViewController, UICollectionViewDelegate {
     
     private func configureCollectionViewLayout() -> UICollectionViewLayout {
         let layout = UICollectionViewCompositionalLayout { (sectionIndex: Int, _ ) -> NSCollectionLayoutSection? in
-            let sectionLayoutKind = RecordViewSections.allCases[sectionIndex]
-            
-            switch sectionLayoutKind {
-            case .chart:
+            switch sectionIndex {
+            case 0:
                 let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                                       heightDimension: .fractionalHeight(1.0))
                 let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
@@ -143,8 +185,11 @@ class RecordViewController: UIViewController, UICollectionViewDelegate {
                 let groupInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10)
                 let sectionInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 20, trailing: 0)
                 
-                return self.makeSectionLayout(itemSize: itemSize, groupSize: groupSize, groupInsets: groupInsets, sectionInsets: sectionInsets)
-            case .myRecord:
+                return self.makeSectionLayout(itemSize: itemSize,
+                                              groupSize: groupSize,
+                                              groupInsets: groupInsets,
+                                              sectionInsets: sectionInsets)
+            default:
                 let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                                       heightDimension: .fractionalHeight(1.0))
                 let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
@@ -152,18 +197,25 @@ class RecordViewController: UIViewController, UICollectionViewDelegate {
                 let groupInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 0, trailing: 10)
                 let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                                         heightDimension: .absolute(100))
-                return self.makeSectionLayout(itemSize: itemSize, groupSize: groupSize, groupInsets: groupInsets, headerSize: headerSize)
+                let sectionInsets = NSDirectionalEdgeInsets(top: 10, leading: 0, bottom: 20, trailing: 0)
+                return self.makeSectionLayout(itemSize: itemSize,
+                                              groupSize: groupSize,
+                                              groupInsets: groupInsets,
+                                              sectionInsets: sectionInsets,
+                                              headerSize: headerSize)
             }
         }
         return layout
     }
 
-    private func makeSectionLayout(itemSize: NSCollectionLayoutSize,
-                                   groupSize: NSCollectionLayoutSize,
-                                   groupInsets: NSDirectionalEdgeInsets? = nil,
-                                   sectionInsets: NSDirectionalEdgeInsets? = nil,
-                                   headerSize: NSCollectionLayoutSize? = nil,
-                                   orthogonalScrollingBehavior: UICollectionLayoutSectionOrthogonalScrollingBehavior? = nil) -> NSCollectionLayoutSection {
+    private func makeSectionLayout(
+        itemSize: NSCollectionLayoutSize,
+        groupSize: NSCollectionLayoutSize,
+        groupInsets: NSDirectionalEdgeInsets? = nil,
+        sectionInsets: NSDirectionalEdgeInsets? = nil,
+        headerSize: NSCollectionLayoutSize? = nil,
+        orthogonalScrollingBehavior: UICollectionLayoutSectionOrthogonalScrollingBehavior? = nil
+    ) -> NSCollectionLayoutSection {
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
                                                        subitems: [item])
@@ -196,12 +248,16 @@ class RecordViewController: UIViewController, UICollectionViewDelegate {
     private func makeSnapshot() {
         var snapshot = dataSource.snapshot()
         snapshot.deleteAllItems()
-        snapshot.appendSections(RecordViewSections.allCases)
-        snapshot.appendItems([.chart([5, 2, 3, 4, 5, 6, 7])], toSection: .chart)
-        snapshot.appendItems([.myRecord(Record(mapName: "벨루스 호텔", time: "시간: 00:10:05", distance: "거리: 2,424m", mode: "모드: 같이하기", kcal: "칼로리: 2020kcal")),
-                              .myRecord(Record(mapName: "지하종합상가", time: "시간: 00:10:05", distance: "거리: 2,424m", mode: "모드: 같이하기", kcal: "칼로리: 2020kcal")),
-                              .myRecord(Record(mapName: "승기님 집", time: "시간: 00:10:05", distance: "거리: 2,424m", mode: "모드: 같이하기", kcal: "칼로리: 2020kcal"))],
-                             toSection: .myRecord)
+        snapshot.appendSections(["charts"])
+        viewModel.sortedSetionDays.forEach { dicA in
+            snapshot.appendSections([dicA.key])
+        }
+        snapshot.appendItems([.chart(viewModel.weekDistance)], toSection: "charts")
+        viewModel.recordAtDays.forEach { date, recordArray in
+            recordArray.forEach { record in
+                snapshot.appendItems([.myRecord(record)], toSection: date)
+            }
+        }
         
         dataSource.apply(snapshot)
     }

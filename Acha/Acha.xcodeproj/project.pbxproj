@@ -20,6 +20,9 @@
 		762DF33529235E5B00787942 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 762DF33429235E5B00787942 /* UIColor+.swift */; };
 		762DF3372923616100787942 /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 762DF3362923616100787942 /* UIFont+.swift */; };
 		765D09B62923381800E009F1 /* GameOverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 765D09B52923381800E009F1 /* GameOverViewController.swift */; };
+		E5027D472924B8560021BF60 /* Record.json in Resources */ = {isa = PBXBuildFile; fileRef = E5027D462924B8560021BF60 /* Record.json */; };
+		E5027D492925D6300021BF60 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5027D482925D6300021BF60 /* String+.swift */; };
+		E5027D4B2925D6950021BF60 /* Int+.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5027D4A2925D6950021BF60 /* Int+.swift */; };
 		E516A6B2292335F700CD6BDB /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E516A6B1292335F700CD6BDB /* HomeViewModel.swift */; };
 		E516A6BA2923929800CD6BDB /* RecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E516A6B92923929800CD6BDB /* RecordViewModel.swift */; };
 		E516A6BC292393FA00CD6BDB /* RecordHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E516A6BB292393FA00CD6BDB /* RecordHeaderView.swift */; };
@@ -79,6 +82,9 @@
 		762DF33429235E5B00787942 /* UIColor+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
 		762DF3362923616100787942 /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
 		765D09B52923381800E009F1 /* GameOverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverViewController.swift; sourceTree = "<group>"; };
+		E5027D462924B8560021BF60 /* Record.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Record.json; sourceTree = "<group>"; };
+		E5027D482925D6300021BF60 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
+		E5027D4A2925D6950021BF60 /* Int+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+.swift"; sourceTree = "<group>"; };
 		E516A6B1292335F700CD6BDB /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		E516A6B92923929800CD6BDB /* RecordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewModel.swift; sourceTree = "<group>"; };
 		E516A6BB292393FA00CD6BDB /* RecordHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordHeaderView.swift; sourceTree = "<group>"; };
@@ -207,6 +213,8 @@
 			children = (
 				762DF33429235E5B00787942 /* UIColor+.swift */,
 				762DF3362923616100787942 /* UIFont+.swift */,
+				E5027D482925D6300021BF60 /* String+.swift */,
+				E5027D4A2925D6950021BF60 /* Int+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -308,6 +316,7 @@
 				E516A6BB292393FA00CD6BDB /* RecordHeaderView.swift */,
 				E516A6BD2923941500CD6BDB /* RecordChartCell.swift */,
 				E516A6BF2923942500CD6BDB /* RecordCell.swift */,
+				E5027D462924B8560021BF60 /* Record.json */,
 			);
 			path = Record;
 			sourceTree = "<group>";
@@ -475,6 +484,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				471863C9291E155800A35786 /* LaunchScreen.storyboard in Resources */,
+				E5027D472924B8560021BF60 /* Record.json in Resources */,
 				471863C6291E155800A35786 /* Assets.xcassets in Resources */,
 				4738D7612921D6E4003AE835 /* GoogleService-Info.plist in Resources */,
 			);
@@ -540,6 +550,7 @@
 				E5BE8B9F29221B2700E9CFE8 /* LoginCoordinator.swift in Sources */,
 				E5BE8BAF29221FF800E9CFE8 /* CommunityViewController.swift in Sources */,
 				E516A6BE2923941500CD6BDB /* RecordChartCell.swift in Sources */,
+				E5027D4B2925D6950021BF60 /* Int+.swift in Sources */,
 				E5BE8BB32922200C00E9CFE8 /* MyPageViewController.swift in Sources */,
 				762DF33529235E5B00787942 /* UIColor+.swift in Sources */,
 				471863BD291E155700A35786 /* AppDelegate.swift in Sources */,
@@ -548,6 +559,7 @@
 				E516A6B2292335F700CD6BDB /* HomeViewModel.swift in Sources */,
 				E5BE8B97292219D800E9CFE8 /* HomeCoordinator.swift in Sources */,
 				E5BE8B93292218F100E9CFE8 /* AuthCoordinator.swift in Sources */,
+				E5027D492925D6300021BF60 /* String+.swift in Sources */,
 				E5BE8B9929221A4C00E9CFE8 /* RecordCoordinator.swift in Sources */,
 				E516A6BA2923929800CD6BDB /* RecordViewModel.swift in Sources */,
 				471863BF291E155700A35786 /* SceneDelegate.swift in Sources */,
