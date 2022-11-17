@@ -22,7 +22,6 @@ final class HomeViewModel {
     private func bind() {
         singleGameTap
             .subscribe(onNext: {
-                print("singleGameTap")
                 self.coordinator.connectSingleGameFlow()
             })
             .disposed(by: disposeBag)
