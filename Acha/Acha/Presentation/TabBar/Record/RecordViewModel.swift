@@ -41,7 +41,8 @@ class RecordViewModel {
                                                 with: { [weak self] snapshot in
             guard let snapData = snapshot.value as? [Any],
                   let data = try? JSONSerialization.data(withJSONObject: snapData),
-                  let records = try? JSONDecoder().decode([RecordViewRecord].self, from: data)
+                  let records = try? JSONDecoder().decode([RecordViewRecord].self, from: data),
+                  let self
             else { return }
             
             var sectionDays = [String: DayTotalRecord]()
@@ -65,27 +66,27 @@ class RecordViewModel {
                                             isWin: record.isWin,
                                             createdAt: record.createdAt)
                 
-                if self?.recordAtDays[stringDate] != nil {
-                    self?.recordAtDays[stringDate]?.append(achaRecord)
+                if self.recordAtDays[stringDate] != nil {
+                    self.recordAtDays[stringDate]?.append(achaRecord)
                 } else {
-                    self?.recordAtDays[stringDate] = [achaRecord]
+                    self.recordAtDays[stringDate] = [achaRecord]
                 }
             }
-            self?.sortSectionDays(sectionDays: sectionDays)
+            self.sortSectionDays(sectionDays: sectionDays)
             
             let startDay = Date(timeIntervalSinceNow: -(86400 * 6))
             
-            self?.weekDistance = Array(repeating: RecordViewChartData(number: 0, distance: 0), count: 7)
+            self.weekDistance = Array(repeating: RecordViewChartData(number: 0, distance: 0), count: 7)
             for index in 0...6 {
                 let day = startDay.addingTimeInterval(Double(index) * 86400)
                 let dayString = day.convertToStringFormat(format: "yyyy-MM-dd")
-                self?.weekDistance[index].number = Int(day.convertToStringFormat(format: "e"))!
+                self.weekDistance[index].number = Int(day.convertToStringFormat(format: "e"))!
                 
                 if let recordAtDay = sectionDays[dayString] {
-                    self?.weekDistance[index].distance = recordAtDay.distance
+                    self.weekDistance[index].distance = recordAtDay.distance
                 }
             }
-            self?.isFinishFetched.accept(true)
+            self.isFinishFetched.accept(true)
         })
     }
     
