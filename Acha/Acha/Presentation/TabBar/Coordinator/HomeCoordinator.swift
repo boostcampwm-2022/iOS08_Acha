@@ -5,7 +5,7 @@
 //  Created by 배남석 on 2022/11/14.
 //
 
-import UIKit 
+import UIKit
 
 protocol HomeCoordinatorProtocol: Coordinator {
     func showHomeViewController()
@@ -23,6 +23,7 @@ final class HomeCoordinator: HomeCoordinatorProtocol {
     }
     
     func start() {
+//        showHomeViewController()
         showSingleGamePlayViewController()
     }
     
@@ -32,7 +33,6 @@ final class HomeCoordinator: HomeCoordinatorProtocol {
         navigationController.pushViewController(viewController, animated: true)
     }
     
-
     func showSingleGamePlayViewController() {
         let viewModel = SingleGamePlayViewModel(coordinator: self)
         let viewController = SingleGamePlayViewController(viewModel: viewModel)

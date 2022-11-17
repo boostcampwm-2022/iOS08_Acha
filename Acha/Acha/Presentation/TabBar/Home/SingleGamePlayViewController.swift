@@ -19,7 +19,7 @@ final class SingleGamePlayViewController: UIViewController, DistanceAndTimeBarLi
             ImageConstants
                 .arrowPositionResetImage?
                 .withTintColor(
-                    ColorConstants.pointColor ?? UIColor(),
+                    .pointLight ?? UIColor(),
                     renderingMode: .alwaysOriginal
                 ),
             for: .normal
@@ -33,7 +33,7 @@ final class SingleGamePlayViewController: UIViewController, DistanceAndTimeBarLi
         button.setImage(
             ImageConstants.inGameMenuButtonImage?
                 .withTintColor(
-                    ColorConstants.pointColor ?? UIColor(),
+                    .pointLight ?? UIColor(),
                     renderingMode: .alwaysOriginal
                 ),
             for: .normal
@@ -119,14 +119,21 @@ extension SingleGamePlayViewController {
     }
     
     private func rightMenuButtonSetting() {
+        #warning("더미 데이터 입니다")
         let menuItems: [UIAction] =
         [
             UIAction(title: "랭킹", handler: { [weak self] _ in
-                let viewController = GamePlayMenuViewController(type: .ranking)
+                let viewController = InGameRankingViewController()
+                viewController.fetchData(data: [.init(time: 90, userName: "해피", date: Date()),
+                                                .init(time: 120, userName: "멍멍이", date: Date()),
+                                                .init(time: 190, userName: "웅이", date: Date())])
                 self?.presentModal(viewController: viewController)
             }),
             UIAction(title: "기록", handler: { [weak self] _ in
-                let viewController = GamePlayMenuViewController(type: .recordHistory)
+                let viewController = InGameRecordViewController()
+                viewController.fetchData(data: [.init(time: 90, userName: "해피", date: Date()),
+                                                .init(time: 66, userName: "해피", date: Date())])
+
                 self?.presentModal(viewController: viewController)
             })
         ]
@@ -135,7 +142,8 @@ extension SingleGamePlayViewController {
         rightMenuButton.showsMenuAsPrimaryAction = true
     }
     
-    private func presentModal(viewController: GamePlayMenuViewController) {
+    private func presentModal(viewController: InGamePlayMenuViewController) {
+
         viewController.modalPresentationStyle = .pageSheet
         present(viewController, animated: true)
     }

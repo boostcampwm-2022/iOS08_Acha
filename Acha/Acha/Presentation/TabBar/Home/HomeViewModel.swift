@@ -23,13 +23,11 @@ final class HomeViewModel {
         singleGameTap
             .subscribe(onNext: {
                 print("singleGameTap")
-                self.coordinator.showSelectViewController()
             })
             .disposed(by: disposeBag)
         multiGameTap
             .subscribe(onNext: {
                 print("multiGameTap")
-                self.coordinator.showSelectViewController()
             })
             .disposed(by: disposeBag)
     }
