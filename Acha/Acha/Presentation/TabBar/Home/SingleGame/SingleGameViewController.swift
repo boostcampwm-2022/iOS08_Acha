@@ -192,11 +192,10 @@ extension SingleViewController {
                 self.mapView.addOverlay(self.wentLine ?? MKPolyline())
             }).disposed(by: disposeBag)
         viewModel.isHideGameOverButton
-            .subscribe(onNext: { [weak self] isHide in
+            .asDriver()
+            .drive(onNext: { [weak self] isHide in
                 guard let self else { return }
-                DispatchQueue.main.async {
-                    self.gameOverButton.isHidden = isHide
-                }
+                self.gameOverButton.isHidden = isHide
             }).disposed(by: disposeBag)
         let input = SingleGameViewModel.Input(
             gameOverButtonTapped: gameOverButton.rx.tap.asObservable()
