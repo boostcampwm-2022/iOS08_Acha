@@ -19,7 +19,7 @@ final class SingleGamePlayViewController: UIViewController, DistanceAndTimeBarLi
             ImageConstants
                 .arrowPositionResetImage?
                 .withTintColor(
-                    ColorConstants.pointColor ?? UIColor(),
+                    .pointLight ?? UIColor(),
                     renderingMode: .alwaysOriginal
                 ),
             for: .normal
@@ -33,7 +33,7 @@ final class SingleGamePlayViewController: UIViewController, DistanceAndTimeBarLi
         button.setImage(
             ImageConstants.inGameMenuButtonImage?
                 .withTintColor(
-                    ColorConstants.pointColor ?? UIColor(),
+                    .pointLight ?? UIColor(),
                     renderingMode: .alwaysOriginal
                 ),
             for: .normal
@@ -142,7 +142,6 @@ extension SingleGamePlayViewController {
         rightMenuButton.showsMenuAsPrimaryAction = true
     }
     
-
     private func presentModal(viewController: InGamePlayMenuViewController) {
 
         viewController.modalPresentationStyle = .pageSheet

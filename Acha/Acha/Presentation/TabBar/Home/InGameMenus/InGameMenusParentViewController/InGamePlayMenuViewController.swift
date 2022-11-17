@@ -16,8 +16,8 @@ class InGamePlayMenuViewController: UIViewController {
     
     let titleLabel = UILabel().then {
         $0.font = FontConstants.titleFont
-        $0.textColor = ColorConstants.backgroundColor
-        $0.backgroundColor = ColorConstants.pointColor
+        $0.textColor = .white
+        $0.backgroundColor = .pointLight
         $0.textAlignment = .center
         $0.translatesAutoresizingMaskIntoConstraints = false
     }
