@@ -1,7 +1,0 @@
-disabled_rules:
-- trailing_whitespace
-excluded:
-- Project/Derived
-- Project/Resources
-- Sources/Application/AppDelegate.swift
-- Sources/Application/SceneDelegate.swift

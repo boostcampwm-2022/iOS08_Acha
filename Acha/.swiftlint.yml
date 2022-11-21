@@ -1,0 +1,7 @@
+disabled_rules:
+- trailing_whitespace
+excluded:
+- Acha/AppDelegate.swift
+- Acha/SceneDelegate.swift
+- AchaUITests/AchaUITests.swift
+- AchaTests/AchaTests.swift
