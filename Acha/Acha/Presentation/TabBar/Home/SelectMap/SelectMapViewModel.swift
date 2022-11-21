@@ -15,6 +15,7 @@ class SelectMapViewModel: BaseViewModel {
     // MARK: - Input
     struct Input {
         var startButtonTapped: Observable<Void>
+        var backButtonTapped: Observable<Void>
     }
     var mapTapped = PublishRelay<Map>()
     var selectedMap: Map?
@@ -22,7 +23,6 @@ class SelectMapViewModel: BaseViewModel {
     // MARK: - Output
     struct Output {
         var mapCoordinates: Single<[Map]>
-//        var mapTop3Ranking: Single<[AchaRecord]>
     }
     var maps: [Int: Map]
     var rankings: [Int: [Record]]
@@ -40,16 +40,13 @@ class SelectMapViewModel: BaseViewModel {
             })
             .disposed(by: disposeBag)
         
-//        var top3Rankings = Single<[AchaRecord]>
-//        mapTapped.subscribe(onNext: { [weak self] map in
-//            top3Rankings = Single.create { single in
-//                if let rankings = self?.rankings[map.mapID] {
-//                    single(.success(rankings))
-//                }
-//                return Disposables.create()
-//            }
-//        }).disposed(by: disposeBag)
-//
+        input.backButtonTapped
+            .subscribe(onNext: { [weak self] in
+                guard let self else { return }
+                self.coordinator.delegate?.didFinished(childCoordinator: self.coordinator)
+            })
+            .disposed(by: disposeBag)
+    
         return Output(mapCoordinates: fetchAllMaps())
     }
     

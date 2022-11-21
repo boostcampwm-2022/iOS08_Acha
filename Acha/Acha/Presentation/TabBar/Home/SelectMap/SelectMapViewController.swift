@@ -155,7 +155,8 @@ extension SelectMapViewController {
     
     private func bind() {
         
-        let input = SelectMapViewModel.Input(startButtonTapped: startButton.rx.tap.asObservable())
+        let input = SelectMapViewModel.Input(startButtonTapped: startButton.rx.tap.asObservable(),
+                                             backButtonTapped: backButton.rx.tap.asObservable())
         let output = viewModel.transform(input: input)
         
         output.mapCoordinates
