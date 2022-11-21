@@ -31,6 +31,13 @@ final class SelectMapViewController: MapBaseViewController {
         $0.isValid = false
     }
     
+    private lazy var backButton: UIButton = UIButton().then {
+        $0.setImage(SystemImageNameSpace.xmark.uiImage, for: .normal)
+        $0.tintColor = .pointLight
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: 30)
+        $0.setPreferredSymbolConfiguration(imageConfig, forImageIn: .normal)
+    }
+    
     private lazy var rankingView = UIView().then {
         $0.layer.shadowOffset = CGSize(width: 0, height: 10)
         $0.layer.shadowColor = UIColor.gray.cgColor
@@ -115,6 +122,13 @@ extension SelectMapViewController {
             $0.centerX.equalTo(mapView)
             $0.width.equalTo(100)
             $0.height.equalTo(40)
+        }
+        
+        view.addSubview(backButton)
+        backButton.snp.makeConstraints {
+            $0.top.equalTo(focusButton)
+            $0.leading.equalTo(view.safeAreaLayoutGuide).offset(15)
+            $0.width.height.equalTo(40)
         }
         
         view.addSubview(rankingView)
