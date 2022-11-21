@@ -19,10 +19,12 @@ class SelectMapViewModel: BaseViewModel {
     }
     var mapTapped = PublishRelay<Map>()
     var selectedMap: Map?
+    var userLocation: Coordinate?
     
     // MARK: - Output
     struct Output {
         var mapCoordinates: Single<[Map]>
+        var cannotStart = PublishRelay<Void>()
     }
     var maps: [Int: Map]
     var rankings: [Int: [Record]]
@@ -32,10 +34,17 @@ class SelectMapViewModel: BaseViewModel {
     
     func transform(input: Input) -> Output {
         
+        let output = Output(mapCoordinates: fetchAllMaps())
+        
         input.startButtonTapped
             .subscribe(onNext: { [weak self] _ in
                 guard let self,
-                      let map = self.selectedMap else { return }
+                      let map = self.selectedMap,
+                      let userLocation = self.userLocation else { return }
+                guard let minDistance = map.coordinates.map({ userLocation.distance(from: $0) }).min() else { return }
+                if minDistance > 5 {
+                    output.cannotStart.accept(())
+                }
                 self.coordinator.showSingleGamePlayViewController(selectedMap: map)
             })
             .disposed(by: disposeBag)
@@ -47,7 +56,7 @@ class SelectMapViewModel: BaseViewModel {
             })
             .disposed(by: disposeBag)
     
-        return Output(mapCoordinates: fetchAllMaps())
+        return output
     }
     
     // MARK: - Dependency

@@ -176,6 +176,18 @@ extension SelectMapViewController {
                     self?.mapView.addAnnotation(annotation)
                 }
             }).disposed(by: disposeBag)
+        
+        output.cannotStart
+            .subscribe { [weak self] _ in
+                #warning("showAlert으로 변경")
+                let alert = UIAlertController(title: "선택한 땅과의 거리가 너무 멀어요",
+                                  message: "가까이 가서 다시 시작해주세요",
+                                  preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "확인", style: .default)
+                alert.addAction(okAction)
+                self?.present(alert, animated: true)
+            }
+            .disposed(by: disposeBag)
     }
 }
 
@@ -210,6 +222,15 @@ extension SelectMapViewController {
         guard let annotation = annotation as? MapAnnotation else { return }
         let renderer = mapView.renderer(for: annotation.polyLine) as? MKPolylineRenderer
         renderer?.strokeColor = .gray
+    }
+}
+
+// MARK: - CLLocationManagerDelegate
+extension SelectMapViewController {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let userLocation = locations.last else { return }
+        viewModel.userLocation = Coordinate(latitude: userLocation.coordinate.latitude,
+                                            longitude: userLocation.coordinate.longitude)
     }
 }
 
