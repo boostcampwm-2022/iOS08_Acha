@@ -199,6 +199,13 @@ extension SingleViewController {
                 guard let self else { return }
                 self.gameOverButton.isHidden = isHide
             }).disposed(by: disposeBag)
+        viewModel.tooFarFromMapEvent
+            .asDriver(onErrorJustReturn: ())
+            .drive(onNext: { [weak self] in
+                guard let self else { return }
+                self.showAlert(title: "멀어지고 있습니다.", message: "거기아니에요")
+            }).disposed(by: disposeBag)
+        
         let input = SingleGameViewModel.Input(
             gameOverButtonTapped: gameOverButton.rx.tap.asObservable()
         )

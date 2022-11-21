@@ -26,6 +26,7 @@
 		47935E9B29238DE400481307 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47935E9A29238DE300481307 /* HomeViewModel.swift */; };
 		47935E9D29238E9E00481307 /* SelectMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47935E9C29238E9E00481307 /* SelectMapViewController.swift */; };
 		47935E9F29238EB400481307 /* SelectMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47935E9E29238EB300481307 /* SelectMapViewModel.swift */; };
+		764AF29D292B639200D16DC9 /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764AF29C292B639200D16DC9 /* UIViewController+.swift */; };
 		76A2E1A12923C5A7001E887A /* SingleGameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A2E19F2923C5A7001E887A /* SingleGameViewModel.swift */; };
 		76A2E1A32923D94C001E887A /* CLLocationCoordinate2D+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A2E1A22923D94C001E887A /* CLLocationCoordinate2D+.swift */; };
 		76A2E1A529249099001E887A /* Double+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A2E1A429249099001E887A /* Double+.swift */; };
@@ -118,6 +119,8 @@
 		47935E9A29238DE300481307 /* HomeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		47935E9C29238E9E00481307 /* SelectMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectMapViewController.swift; sourceTree = "<group>"; };
 		47935E9E29238EB300481307 /* SelectMapViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectMapViewModel.swift; sourceTree = "<group>"; };
+		764AF29B292B61CB00D16DC9 /* gpxgenerator_path.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = gpxgenerator_path.gpx; sourceTree = "<group>"; };
+		764AF29C292B639200D16DC9 /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
 		76A2E19F2923C5A7001E887A /* SingleGameViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleGameViewModel.swift; sourceTree = "<group>"; };
 		76A2E1A22923D94C001E887A /* CLLocationCoordinate2D+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationCoordinate2D+.swift"; sourceTree = "<group>"; };
 		76A2E1A429249099001E887A /* Double+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+.swift"; sourceTree = "<group>"; };
@@ -198,6 +201,7 @@
 		471863B0291E155700A35786 = {
 			isa = PBXGroup;
 			children = (
+				764AF29B292B61CB00D16DC9 /* gpxgenerator_path.gpx */,
 				4738D7602921D6E4003AE835 /* GoogleService-Info.plist */,
 				4738D75B2921D398003AE835 /* Packages */,
 				471863BB291E155700A35786 /* Acha */,
@@ -279,6 +283,7 @@
 				76A2E1A22923D94C001E887A /* CLLocationCoordinate2D+.swift */,
 				47935E96292366CD00481307 /* UIButton+.swift */,
 				76A2E1A429249099001E887A /* Double+.swift */,
+				764AF29C292B639200D16DC9 /* UIViewController+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -782,6 +787,7 @@
 				E5BE8B93292218F100E9CFE8 /* AuthCoordinator.swift in Sources */,
 				76B3BF4C29250C190056ABFD /* UIFont+.swift in Sources */,
 				76A2E1A32923D94C001E887A /* CLLocationCoordinate2D+.swift in Sources */,
+				764AF29D292B639200D16DC9 /* UIViewController+.swift in Sources */,
 				76B3BF50292624850056ABFD /* InGamePlayMenuViewController.swift in Sources */,
 				E5027D5229263D4F0021BF60 /* RecordHeaderView.swift in Sources */,
 				F156F11E292365840053E807 /* CALayer+Extension.swift in Sources */,

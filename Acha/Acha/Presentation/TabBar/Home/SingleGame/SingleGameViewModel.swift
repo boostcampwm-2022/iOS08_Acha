@@ -52,6 +52,7 @@ final class SingleGameViewModel {
     let time = BehaviorRelay<Int>(value: 0)
     let movedDistance = BehaviorRelay<Double>(value: 0.0)
     let isHideGameOverButton = BehaviorRelay<Bool>(value: true)
+    let tooFarFromMapEvent = PublishRelay<Void>()
     
     // MARK: - Dependency
     private let coordinator: SingleGameCoordinator
@@ -137,6 +138,10 @@ final class SingleGameViewModel {
             } else { // (과거의 과거, 과거) -> (과거, 현재)
                 visitedMapCoordinates.accept((visitedMapCoordinates.value.current, nearestMapCoordinate))
             }
+        }
+        
+        if nearestDistance > 10 {
+            tooFarFromMapEvent.accept(())
         }
 
     }
