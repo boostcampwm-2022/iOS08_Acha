@@ -26,6 +26,7 @@
 		47935E9B29238DE400481307 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47935E9A29238DE300481307 /* HomeViewModel.swift */; };
 		47935E9D29238E9E00481307 /* SelectMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47935E9C29238E9E00481307 /* SelectMapViewController.swift */; };
 		47935E9F29238EB400481307 /* SelectMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47935E9E29238EB300481307 /* SelectMapViewModel.swift */; };
+		47A26DBC292B73850007FBBF /* Coordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A26DBB292B73850007FBBF /* Coordinate.swift */; };
 		76A2E1A12923C5A7001E887A /* SingleGameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A2E19F2923C5A7001E887A /* SingleGameViewModel.swift */; };
 		76A2E1A32923D94C001E887A /* CLLocationCoordinate2D+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A2E1A22923D94C001E887A /* CLLocationCoordinate2D+.swift */; };
 		76A2E1A529249099001E887A /* Double+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A2E1A429249099001E887A /* Double+.swift */; };
@@ -116,6 +117,7 @@
 		47935E9A29238DE300481307 /* HomeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		47935E9C29238E9E00481307 /* SelectMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectMapViewController.swift; sourceTree = "<group>"; };
 		47935E9E29238EB300481307 /* SelectMapViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectMapViewModel.swift; sourceTree = "<group>"; };
+		47A26DBB292B73850007FBBF /* Coordinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinate.swift; sourceTree = "<group>"; };
 		76A2E19F2923C5A7001E887A /* SingleGameViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleGameViewModel.swift; sourceTree = "<group>"; };
 		76A2E1A22923D94C001E887A /* CLLocationCoordinate2D+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationCoordinate2D+.swift"; sourceTree = "<group>"; };
 		76A2E1A429249099001E887A /* Double+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+.swift"; sourceTree = "<group>"; };
@@ -287,6 +289,7 @@
 				E5027D59292670BC0021BF60 /* RecordViewHeaderRecord.swift */,
 				E5027D5B292670F30021BF60 /* RecordViewChartData.swift */,
 				E5027D5D292686440021BF60 /* RecordViewDayTotalRecord.swift */,
+				47A26DBB292B73850007FBBF /* Coordinate.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -733,6 +736,7 @@
 				4738D76F2922756B003AE835 /* Map.swift in Sources */,
 				E5027D5E292686440021BF60 /* RecordViewDayTotalRecord.swift in Sources */,
 				E5027D58292670570021BF60 /* Record.swift in Sources */,
+				47A26DBC292B73850007FBBF /* Coordinate.swift in Sources */,
 				47935E9F29238EB400481307 /* SelectMapViewModel.swift in Sources */,
 				E5BE8B8F2922172400E9CFE8 /* AppCoordinator.swift in Sources */,
 				47935E97292366CD00481307 /* UIButton+.swift in Sources */,
