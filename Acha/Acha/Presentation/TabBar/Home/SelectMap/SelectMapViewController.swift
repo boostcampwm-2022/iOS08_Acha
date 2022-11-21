@@ -32,14 +32,46 @@ final class SelectMapViewController: MapBaseViewController {
     }
     
     private lazy var rankingView = UIView().then {
-        $0.backgroundColor = .red
+        $0.layer.shadowOffset = CGSize(width: 0, height: 10)
+        $0.layer.shadowColor = UIColor.gray.cgColor
+        $0.layer.shadowOpacity = 1.0
+        $0.layer.shadowOffset = CGSize.zero
+        $0.layer.shadowRadius = 6
         $0.layer.cornerRadius = 15
+        $0.backgroundColor = .white
         $0.isHidden = true
     }
-
+    
+    private lazy var mapNameLabel = PaddingLabel(topInset: 0,
+                                                 bottomInset: 0,
+                                                 leftInset: 20,
+                                                 rightInset: 20)
+        .then {
+            $0.layer.backgroundColor = UIColor.pointLight.cgColor
+            $0.font = .boldBody
+            $0.textColor = .white
+            $0.text = "땅 이름 랭킹"
+            $0.clipsToBounds = true
+            $0.layer.cornerRadius = 15
+            
+            // 왼쪽 위, 오른쪽 위 테두리
+            let cornerMask: CACornerMask = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+            $0.layer.maskedCorners = cornerMask
+        }
+    
+    lazy var rankingCollectionView: UICollectionView = UICollectionView(
+        frame: .zero,
+        collectionViewLayout: configureCollectionViewLayout()).then {
+            $0.clipsToBounds = true
+            $0.layer.cornerRadius = 15
+        }
+    
     // MARK: - Properties
     private let viewModel: SelectMapViewModel
     private var disposeBag = DisposeBag()
+    
+    typealias DataSource = UICollectionViewDiffableDataSource<String, Record>
+    private var dataSource: DataSource!
     
     // MARK: - Lifecycles
     init(viewModel: SelectMapViewModel) {
@@ -50,13 +82,16 @@ final class SelectMapViewController: MapBaseViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
-        viewModel.fetchAllMaps()
         bind()
+        configureCollectionView()
     }
+}
+
+extension SelectMapViewController {
     
     // MARK: - Helpers
     func configureUI() {        
@@ -88,11 +123,30 @@ final class SelectMapViewController: MapBaseViewController {
             $0.leading.trailing.equalTo(mapView).inset(20)
             $0.height.equalTo(300)
         }
+        
+        rankingView.addSubview(mapNameLabel)
+        mapNameLabel.snp.makeConstraints {
+            $0.top.leading.trailing.equalToSuperview()
+            $0.height.equalTo(60)
+        }
+        
+        rankingView.addSubview(rankingCollectionView)
+        rankingCollectionView.snp.makeConstraints {
+            $0.top.equalTo(mapNameLabel.snp.bottom).offset(15)
+            $0.leading.trailing.equalToSuperview()
+            $0.bottom.equalToSuperview().offset(-15)
+        }
+        
     }
     
     private func bind() {
-        viewModel.mapCoordinates
-            .subscribe(onNext: { [weak self] maps in
+        
+        let input = SelectMapViewModel.Input(startButtonTapped: startButton.rx.tap.asObservable())
+        let output = viewModel.transform(input: input)
+        
+        output.mapCoordinates
+            .asDriver(onErrorJustReturn: [])
+            .drive(onNext: { [weak self] maps in
                 maps.forEach { mapElement in
                     let coordinates = mapElement.coordinates.map {
                         CLLocationCoordinate2D(latitude: $0.latitude, longitude: $0.longitude)
@@ -107,14 +161,10 @@ final class SelectMapViewController: MapBaseViewController {
                     self?.mapView.addAnnotation(annotation)
                 }
             }).disposed(by: disposeBag)
-        
-        let input = SelectMapViewModel.Input(startButtonTapped: startButton.rx.tap.asObservable())
-        _ = viewModel.transform(input: input)
     }
 }
 
 // MARK: - MKMapViewDelegate
-
 extension SelectMapViewController {
     
     /// annotation (=pin) 클릭 시 액션
@@ -132,6 +182,9 @@ extension SelectMapViewController {
                                             longitude: annotation.map.centerCoordinate.longitude)
         focusMapLocation(center: center)
         viewModel.selectedMap = annotation.map
+        
+        guard let rankings = viewModel.rankings[annotation.map.mapID] else { return }
+        makeSnapshot(rankings: rankings)
     }
     
     func mapView(_ mapView: MKMapView, didDeselect annotation: MKAnnotation) {
@@ -141,5 +194,81 @@ extension SelectMapViewController {
         guard let annotation = annotation as? MapAnnotation else { return }
         let renderer = mapView.renderer(for: annotation.polyLine) as? MKPolylineRenderer
         renderer?.strokeColor = .gray
+    }
+}
+
+// MARK: - UICollectionViewDelegate
+extension SelectMapViewController: UICollectionViewDelegate {
+    
+    private func configureCollectionView() {
+        rankingCollectionView.contentInsetAdjustmentBehavior = .never
+        rankingCollectionView.delegate = self
+        
+        rankingCollectionView.register(SelectMapRecordCell.self, forCellWithReuseIdentifier: SelectMapRecordCell.identifier)
+        configureCollectionViewDataSource()
+    }
+    
+    private func configureCollectionViewLayout() -> UICollectionViewLayout {
+        let layout = UICollectionViewCompositionalLayout { (_, _ ) -> NSCollectionLayoutSection? in
+            let itemsize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                                  heightDimension: .fractionalHeight(1.0))
+            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                                   heightDimension: .absolute(70))
+            let groupInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
+            
+            return self.makeSectionLayout(itemSize: itemsize,
+                                          groupSize: groupSize,
+                                          groupInsets: groupInsets)
+        }
+        
+        return layout
+    }
+    
+    private func configureCollectionViewDataSource() {
+        dataSource = DataSource(collectionView: rankingCollectionView,
+                                cellProvider: { collectionView, indexPath, itemIdentifier in
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SelectMapRecordCell.identifier,
+                                                                for: indexPath) as? SelectMapRecordCell
+            else { return UICollectionViewCell() }
+            cell.bind(ranking: indexPath.row + 1, record: itemIdentifier)
+            return cell
+        })
+    }
+    
+    private func makeSectionLayout(itemSize: NSCollectionLayoutSize,
+                                   groupSize: NSCollectionLayoutSize,
+                                   groupInsets: NSDirectionalEdgeInsets? = nil,
+                                   sectionInsets: NSDirectionalEdgeInsets? = nil,
+                                   headerSize: NSCollectionLayoutSize? = nil,
+                                   orthogonalScrollingBehavior: UICollectionLayoutSectionOrthogonalScrollingBehavior? = nil) -> NSCollectionLayoutSection {
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
+                                                       subitems: [item])
+        
+        if let groupInsets { group.contentInsets = groupInsets }
+        
+        let section = NSCollectionLayoutSection(group: group)
+        if let sectionInsets { section.contentInsets = sectionInsets }
+        
+        if let headerSize {
+            let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
+                layoutSize: headerSize,
+                elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
+            section.boundarySupplementaryItems = [sectionHeader]
+        }
+    
+        if let orthogonalScrollingBehavior {
+            section.orthogonalScrollingBehavior = orthogonalScrollingBehavior
+        }
+        
+        return section
+    }
+    
+    private func makeSnapshot(rankings: [Record]) {
+        var snapshot = dataSource.snapshot()
+        snapshot.deleteAllItems()
+        snapshot.appendSections(["Ranking"])
+        snapshot.appendItems(rankings, toSection: "Ranking")
+        dataSource.apply(snapshot)
     }
 }
