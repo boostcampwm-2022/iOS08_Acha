@@ -184,6 +184,7 @@ extension SelectMapViewController {
     
     /// annotation (=pin) 클릭 시 액션
     func mapView(_ mapView: MKMapView, didSelect annotation: MKAnnotation) {
+        if annotation is MKUserLocation { return }
         rankingView.isHidden = false
         startButton.isValid = true
         
@@ -219,7 +220,8 @@ extension SelectMapViewController: UICollectionViewDelegate {
         rankingCollectionView.contentInsetAdjustmentBehavior = .never
         rankingCollectionView.delegate = self
         
-        rankingCollectionView.register(SelectMapRecordCell.self, forCellWithReuseIdentifier: SelectMapRecordCell.identifier)
+        rankingCollectionView.register(SelectMapRecordCell.self,
+                                       forCellWithReuseIdentifier: SelectMapRecordCell.identifier)
         configureCollectionViewDataSource()
     }
     
