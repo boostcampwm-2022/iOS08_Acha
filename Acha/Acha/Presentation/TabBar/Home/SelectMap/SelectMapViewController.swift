@@ -97,6 +97,11 @@ final class SelectMapViewController: MapBaseViewController {
         bind()
         configureCollectionView()
     }
+    
+    override func setUpMapView() {
+        super.setUpMapView()
+        mapView.isRotateEnabled = false
+    }
 }
 
 extension SelectMapViewController {
@@ -155,7 +160,6 @@ extension SelectMapViewController {
     }
     
     private func bind() {
-        
         let input = SelectMapViewModel.Input(startButtonTapped: startButton.rx.tap.asObservable(),
                                              backButtonTapped: backButton.rx.tap.asObservable())
         let output = viewModel.transform(input: input)
