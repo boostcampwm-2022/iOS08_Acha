@@ -12,6 +12,20 @@ import RxSwift
 import RxRelay
 import RxCocoa
 
+enum RecordViewSections: Hashable {
+    case chart
+    case record(String)
+    
+    var title: String {
+        switch self {
+        case .chart:
+            return "chart"
+        case .record(let title):
+            return title
+        }
+    }
+}
+
 enum RecordViewItems: Hashable {
     case chart([RecordViewChartData])
     case myRecord(RecordViewRecord)
@@ -22,7 +36,7 @@ class RecordViewController: UIViewController, UICollectionViewDelegate {
     private var collectionView: UICollectionView!
     
     // MARK: - Properties
-    typealias DataSource = UICollectionViewDiffableDataSource<String, RecordViewItems>
+    typealias DataSource = UICollectionViewDiffableDataSource<RecordViewSections, RecordViewItems>
     private var dataSource: DataSource!
     private let viewModel: RecordViewModel
     private let disposeBag = DisposeBag()
@@ -51,12 +65,12 @@ class RecordViewController: UIViewController, UICollectionViewDelegate {
         viewModel.isFinishFetched
             .subscribe(onNext: { _ in
                 self.configureCollectionViewDataSource()
+                self.appendSections(days: self.viewModel.days)
                 self.makeSnapshot()
             }).disposed(by: disposeBag)
     }
     
     private func configureUI() {
-        
         navigationItem.title = "개인 기록"
         navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.pointLight]
         view.backgroundColor = .white
@@ -116,17 +130,14 @@ class RecordViewController: UIViewController, UICollectionViewDelegate {
                     for: indexPath) as? RecordHeaderView
                 else { return UICollectionReusableView() }
                 
-                switch indexPath.section {
-                case 0:
-                    break
-                default:
-                    let sectionDay = self.viewModel.sortedSectionDays[indexPath.section - 1]
-                    
-                    let headerRecord = RecordViewHeaderRecord(date: sectionDay.key,
-                                                    distance: sectionDay.value.distance,
-                                                    kcal: sectionDay.value.calorie)
-                    header.bind(headerRecord: headerRecord)
-                }
+                let section = self.dataSource.snapshot().sectionIdentifiers[indexPath.section]
+                guard let dayTotalRecord = self.viewModel.sectionDays[section.title]
+                else { return UICollectionReusableView() }
+                
+                let headerRecord = RecordViewHeaderRecord(date: section.title,
+                                                          distance: dayTotalRecord.distance,
+                                                kcal: dayTotalRecord.calorie)
+                header.bind(headerRecord: headerRecord)
                 
                 return header
             }
@@ -205,17 +216,21 @@ class RecordViewController: UIViewController, UICollectionViewDelegate {
         return section
     }
     
+    private func appendSections(days: [String]) {
+        var snapshot = dataSource.snapshot()
+        snapshot.appendSections([.chart])
+        days.forEach { day in
+            snapshot.appendSections([.record(day)])
+        }
+        dataSource.apply(snapshot)
+    }
+    
     private func makeSnapshot() {
         var snapshot = dataSource.snapshot()
-        snapshot.deleteAllItems()
-        snapshot.appendSections(["charts"])
-        viewModel.sortedSectionDays.forEach { dicA in
-            snapshot.appendSections([dicA.key])
-        }
-        snapshot.appendItems([.chart(viewModel.weekDistance)], toSection: "charts")
+        snapshot.appendItems([.chart(viewModel.weekDistance)], toSection: .chart)
         viewModel.recordAtDays.forEach { date, recordArray in
             recordArray.forEach { record in
-                snapshot.appendItems([.myRecord(record)], toSection: date)
+                snapshot.appendItems([.myRecord(record)], toSection: .record(date))
             }
         }
         

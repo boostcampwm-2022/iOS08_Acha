@@ -15,9 +15,10 @@ class RecordViewModel {
     private var ref: DatabaseReference!
     private let disposeBag = DisposeBag()
     
-    var sortedSectionDays: [Dictionary<String, DayTotalRecord>.Element] = []
+    var sectionDays = [String: DayTotalRecord]()
     var recordAtDays = [String: [RecordViewRecord]]()
     var weekDistance = [RecordViewChartData]()
+    var days = [String]()
     var isFinishFetched = PublishRelay<Bool>()
     var mapData = [Int: Map]()
     
@@ -45,15 +46,17 @@ class RecordViewModel {
                   let self
             else { return }
             
-            var sectionDays = [String: DayTotalRecord]()
             records.forEach { record in
                 let stringDate = record.createdAt
+                if !self.days.contains(stringDate) {
+                    self.days.append(stringDate)
+                }
                 
-                if sectionDays[stringDate] != nil {
-                    sectionDays[stringDate]?.distance += record.distance
-                    sectionDays[stringDate]?.calorie += record.calorie
+                if self.sectionDays[stringDate] != nil {
+                    self.sectionDays[stringDate]?.distance += record.distance
+                    self.sectionDays[stringDate]?.calorie += record.calorie
                 } else {
-                    sectionDays[stringDate] = DayTotalRecord(distance: record.distance,
+                    self.sectionDays[stringDate] = DayTotalRecord(distance: record.distance,
                                                             calorie: record.calorie)
                 }
                 
@@ -72,8 +75,7 @@ class RecordViewModel {
                     self.recordAtDays[stringDate] = [achaRecord]
                 }
             }
-            self.sortSectionDays(sectionDays: sectionDays)
-            
+            self.sortDays()
             let startDay = Date(timeIntervalSinceNow: -(86400 * 6))
             
             self.weekDistance = Array(repeating: RecordViewChartData(number: 0, distance: 0), count: 7)
@@ -82,7 +84,7 @@ class RecordViewModel {
                 let dayString = day.convertToStringFormat(format: "yyyy-MM-dd")
                 self.weekDistance[index].number = Int(day.convertToStringFormat(format: "e"))!
                 
-                if let recordAtDay = sectionDays[dayString] {
+                if let recordAtDay = self.sectionDays[dayString] {
                     self.weekDistance[index].distance = recordAtDay.distance
                 }
             }
@@ -90,18 +92,18 @@ class RecordViewModel {
         })
     }
     
-    func sortSectionDays(sectionDays: [String: DayTotalRecord]) {
-        self.sortedSectionDays = sectionDays.sorted { sectionDayA, sectionDayB in
-            let aCreateAt = sectionDayA.key.components(separatedBy: "-").map { Int($0)! }
-            let bCreateAt = sectionDayB.key.components(separatedBy: "-").map { Int($0)! }
+    private func sortDays() {
+        days.sort { first, second in
+            let firstCreateAt = first.components(separatedBy: "-").map { Int($0)! }
+            let secondCreateAt = second.components(separatedBy: "-").map { Int($0)! }
             
-            if aCreateAt[0] == bCreateAt[0] {
-                if aCreateAt[1] == bCreateAt[1] {
-                    return aCreateAt[2] > bCreateAt[2]
+            if firstCreateAt[0] == secondCreateAt[0] {
+                if firstCreateAt[1] == secondCreateAt[1] {
+                    return firstCreateAt[2] > secondCreateAt[2]
                 }
-                return aCreateAt[1] > bCreateAt[1]
+                return firstCreateAt[1] > secondCreateAt[1]
             }
-            return aCreateAt[0] > bCreateAt[0]
+            return firstCreateAt[0] > secondCreateAt[0]
         }
     }
     
