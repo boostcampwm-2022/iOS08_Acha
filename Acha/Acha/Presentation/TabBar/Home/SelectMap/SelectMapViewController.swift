@@ -71,6 +71,7 @@ final class SelectMapViewController: MapBaseViewController {
         collectionViewLayout: configureCollectionViewLayout()).then {
             $0.clipsToBounds = true
             $0.layer.cornerRadius = 15
+            $0.isScrollEnabled = false
         }
     
     // MARK: - Properties
@@ -197,13 +198,15 @@ extension SelectMapViewController {
     /// annotation (=pin) 클릭 시 액션
     func mapView(_ mapView: MKMapView, didSelect annotation: MKAnnotation) {
         if annotation is MKUserLocation { return }
+        
         rankingView.isHidden = false
         startButton.isValid = true
         
         // 테두리 색상 변경
         guard let annotation = annotation as? MapAnnotation else { return }
-        let renderer = mapView.renderer(for: annotation.polyLine) as? MKPolylineRenderer
-        renderer?.strokeColor = .red
+        if let renderer = mapView.renderer(for: annotation.polyLine) as? MKPolylineRenderer {
+            renderer.strokeColor = .red
+        }
         
         // 땅이 랭킹뷰 위쪽에 오도록 지도 포커스
         let center = CLLocationCoordinate2D(latitude: annotation.map.centerCoordinate.latitude - 0.003,

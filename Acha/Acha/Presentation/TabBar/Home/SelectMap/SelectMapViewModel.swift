@@ -26,11 +26,11 @@ class SelectMapViewModel: BaseViewModel {
         var mapCoordinates: Single<[Map]>
         var cannotStart = PublishRelay<Void>()
     }
-    var maps: [Int: Map]
+    private var maps: [Int: Map]
     var rankings: [Int: [Record]]
     
     // MARK: - Properties
-    var ref: DatabaseReference!
+    private var ref: DatabaseReference!
     
     func transform(input: Input) -> Output {
         
@@ -74,7 +74,8 @@ class SelectMapViewModel: BaseViewModel {
     // MARK: - Helpers
     func fetchAllMaps() -> Single<[Map]> {
         return Single.create { [weak self] single in
-            self?.ref.child("mapList").observeSingleEvent(of: .value,
+            guard let self else { return Disposables.create() }
+            self.ref.child("mapList").observeSingleEvent(of: .value,
                                                     with: { snapshot in
                 guard let snapData = snapshot.value as? [Any],
                       let data = try? JSONSerialization.data(withJSONObject: snapData),
@@ -85,10 +86,10 @@ class SelectMapViewModel: BaseViewModel {
                 }
                 
                 mapDatas.forEach { map in
-                    self?.fetchMapRecord(mapID: map.mapID)
+                    self.fetchMapRecord(mapID: map.mapID)
                         .subscribe {
-                            self?.rankings[map.mapID] = $0
-                        }.disposed(by: self!.disposeBag)
+                            self.rankings[map.mapID] = $0
+                        }.disposed(by: self.disposeBag)
                 }
                 
                 single(.success(mapDatas))
@@ -99,7 +100,8 @@ class SelectMapViewModel: BaseViewModel {
     
     func fetchMapRecord(mapID: Int) -> Single<[Record]> {
         return Single.create { [weak self] single in
-            self?.ref.child("record").observeSingleEvent(of: .value,
+            guard let self else { return Disposables.create() }
+            self.ref.child("record").observeSingleEvent(of: .value,
                                                    with: { snapshot in
                 guard let snapData = snapshot.value as? [Any],
                       let data = try? JSONSerialization.data(withJSONObject: snapData),
