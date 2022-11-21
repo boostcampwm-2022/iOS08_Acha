@@ -10,6 +10,7 @@ import UIKit
 enum SystemImageNameSpace: String {
     case locationCircle = "location.circle"
     case ellipsis = "ellipsis"
+    case xmark = "xmark"
     
     var uiImage: UIImage? { UIImage(systemName: self.rawValue) }
     
