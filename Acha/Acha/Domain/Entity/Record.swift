@@ -29,4 +29,24 @@ struct Record: Hashable, Codable {
         case isWin
         case createdAt = "created_at"
     }
+    
+    init(id: Int = -1,
+         mapID: Int = -1,
+         userID: String = "",
+         calorie: Int = -1,
+         distance: Int = -1,
+         time: Int = Int.max,
+         isSingleMode: Bool = true,
+         isWin: Bool? = nil,
+         createdAt: String = "") {
+        self.id = id
+        self.mapID = mapID
+        self.userID = userID
+        self.calorie = calorie
+        self.distance = distance
+        self.time = time
+        self.isSingleMode = isSingleMode
+        self.isWin = isWin
+        self.createdAt = createdAt
+    }
 }
