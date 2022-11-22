@@ -133,7 +133,10 @@ class SelectMapViewModel: BaseViewModel {
                 guard let snapData = snapshot.value as? [Any],
                       let data = try? JSONSerialization.data(withJSONObject: snapData),
                       let records = try? JSONDecoder().decode([Record].self, from: data)
-                else { return }
+                else {
+                    print(Errors.decodeError)
+                    return
+                }
                 
                 let rankings = Array(records.filter { $0.mapID == mapID }.sorted { $0.time < $1.time }.prefix(3))
                 return single(.success(rankings))

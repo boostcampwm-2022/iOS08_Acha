@@ -49,29 +49,14 @@ final class SelectMapViewController: MapBaseViewController {
         $0.isHidden = true
     }
     
-    private lazy var mapNameLabel = PaddingLabel(topInset: 0,
-                                                 bottomInset: 0,
-                                                 leftInset: 20,
-                                                 rightInset: 20)
-        .then {
-            $0.layer.backgroundColor = UIColor.pointLight.cgColor
-            $0.font = .boldBody
-            $0.textColor = .white
-            $0.text = "땅 이름 랭킹"
-            $0.clipsToBounds = true
-            $0.layer.cornerRadius = 15
-            
-            // 왼쪽 위, 오른쪽 위 테두리
-            let cornerMask: CACornerMask = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-            $0.layer.maskedCorners = cornerMask
-        }
-    
     lazy var rankingCollectionView: UICollectionView = UICollectionView(
         frame: .zero,
-        collectionViewLayout: configureCollectionViewLayout()).then {
+        collectionViewLayout: configureCollectionViewLayout())
+        .then {
             $0.clipsToBounds = true
             $0.layer.cornerRadius = 15
             $0.isScrollEnabled = false
+            $0.isHidden = true
         }
     
     // MARK: - Properties
@@ -138,26 +123,12 @@ extension SelectMapViewController {
             $0.width.height.equalTo(40)
         }
         
-        view.addSubview(rankingView)
-        rankingView.snp.makeConstraints {
+        view.addSubview(rankingCollectionView)
+        rankingCollectionView.snp.makeConstraints {
             $0.bottom.equalTo(startButton.snp.top).offset(-30)
             $0.leading.trailing.equalTo(mapView).inset(20)
-            $0.height.equalTo(300)
+            $0.height.equalTo(290)
         }
-        
-        rankingView.addSubview(mapNameLabel)
-        mapNameLabel.snp.makeConstraints {
-            $0.top.leading.trailing.equalToSuperview()
-            $0.height.equalTo(60)
-        }
-        
-        rankingView.addSubview(rankingCollectionView)
-        rankingCollectionView.snp.makeConstraints {
-            $0.top.equalTo(mapNameLabel.snp.bottom).offset(15)
-            $0.leading.trailing.equalToSuperview()
-            $0.bottom.equalToSuperview().offset(-15)
-        }
-        
     }
     
     private func bind() {
@@ -170,7 +141,6 @@ extension SelectMapViewController {
 
         output.visibleMap
             .subscribe { [weak self] mapElement in
-                print(mapElement.name)
                 let coordinates = mapElement.coordinates.map {
                     CLLocationCoordinate2D(latitude: $0.latitude, longitude: $0.longitude)
                 }
@@ -203,8 +173,7 @@ extension SelectMapViewController {
     /// annotation (=pin) 클릭 시 액션
     func mapView(_ mapView: MKMapView, didSelect annotation: MKAnnotation) {
         if annotation is MKUserLocation { return }
-        
-        rankingView.isHidden = false
+        rankingCollectionView.isHidden = false
         startButton.isValid = true
         
         // 테두리 색상 변경
@@ -218,13 +187,14 @@ extension SelectMapViewController {
                                             longitude: annotation.map.centerCoordinate.longitude)
         focusMapLocation(center: center)
         viewModel.selectedMap = annotation.map
+        let name = annotation.map.name
         
         guard let rankings = viewModel.rankings[annotation.map.mapID] else { return }
-        makeSnapshot(rankings: rankings)
+        makeSnapshot(rankings: rankings, mapName: name)
     }
     
     func mapView(_ mapView: MKMapView, didDeselect annotation: MKAnnotation) {
-        rankingView.isHidden = true
+        rankingCollectionView.isHidden = true
         startButton.isValid = false
         
         guard let annotation = annotation as? MapAnnotation else { return }
@@ -253,78 +223,74 @@ extension SelectMapViewController {
 }
 
 // MARK: - UICollectionViewDelegate
-extension SelectMapViewController: UICollectionViewDelegate {
+extension SelectMapViewController {
+    
+    private func configureCollectionViewLayout() -> UICollectionViewLayout {
+        return UICollectionViewCompositionalLayout { (_, _) -> NSCollectionLayoutSection? in
+            let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                                  heightDimension: .fractionalHeight(1.0))
+            let item = NSCollectionLayoutItem(layoutSize: itemSize)
+            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                                   heightDimension: .absolute(75))
+            let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
+            let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
+                                                    heightDimension: .absolute(60))
+            let header = NSCollectionLayoutBoundarySupplementaryItem(
+                layoutSize: headerSize,
+                elementKind: UICollectionView.elementKindSectionHeader,
+                alignment: .top)
+            let section = NSCollectionLayoutSection(group: group)
+            section.boundarySupplementaryItems = [header]
+            return section
+        }
+    }
     
     private func configureCollectionView() {
         rankingCollectionView.contentInsetAdjustmentBehavior = .never
-        rankingCollectionView.delegate = self
-        
         rankingCollectionView.register(SelectMapRecordCell.self,
                                        forCellWithReuseIdentifier: SelectMapRecordCell.identifier)
+        rankingCollectionView.register(SelectMapRankingHeaderView.self,
+                                       forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+                                       withReuseIdentifier: SelectMapRankingHeaderView.identifier)
         configureCollectionViewDataSource()
-    }
-    
-    private func configureCollectionViewLayout() -> UICollectionViewLayout {
-        let layout = UICollectionViewCompositionalLayout { (_, _ ) -> NSCollectionLayoutSection? in
-            let itemsize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                  heightDimension: .fractionalHeight(1.0))
-            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                   heightDimension: .absolute(70))
-            let groupInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
-            
-            return self.makeSectionLayout(itemSize: itemsize,
-                                          groupSize: groupSize,
-                                          groupInsets: groupInsets)
-        }
-        
-        return layout
     }
     
     private func configureCollectionViewDataSource() {
         dataSource = DataSource(collectionView: rankingCollectionView,
-                                cellProvider: { collectionView, indexPath, itemIdentifier in
+                                cellProvider: { collectionView, indexPath, item in
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SelectMapRecordCell.identifier,
                                                                 for: indexPath) as? SelectMapRecordCell
             else { return UICollectionViewCell() }
-            cell.bind(ranking: indexPath.row + 1, record: itemIdentifier)
+            cell.bind(ranking: indexPath.row + 1, record: item)
             return cell
         })
+        
+        configureDataSourceHeader()
     }
     
-    private func makeSectionLayout(itemSize: NSCollectionLayoutSize,
-                                   groupSize: NSCollectionLayoutSize,
-                                   groupInsets: NSDirectionalEdgeInsets? = nil,
-                                   sectionInsets: NSDirectionalEdgeInsets? = nil,
-                                   headerSize: NSCollectionLayoutSize? = nil,
-                                   orthogonalScrollingBehavior: UICollectionLayoutSectionOrthogonalScrollingBehavior? = nil) -> NSCollectionLayoutSection {
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
-                                                       subitems: [item])
-        
-        if let groupInsets { group.contentInsets = groupInsets }
-        
-        let section = NSCollectionLayoutSection(group: group)
-        if let sectionInsets { section.contentInsets = sectionInsets }
-        
-        if let headerSize {
-            let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
-                layoutSize: headerSize,
-                elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
-            section.boundarySupplementaryItems = [sectionHeader]
+    private func configureDataSourceHeader() {
+        dataSource.supplementaryViewProvider = { collectionView, kind, indexPath in
+            guard kind == UICollectionView.elementKindSectionHeader,
+                  let header = collectionView.dequeueReusableSupplementaryView(
+                ofKind: kind,
+                withReuseIdentifier: SelectMapRankingHeaderView.identifier,
+                for: indexPath) as? SelectMapRankingHeaderView
+            else { return UICollectionReusableView() }
+            
+            let section = self.dataSource.snapshot().sectionIdentifiers[indexPath.section]
+            
+            header.setData(mapName: section, closeButtonHandler: {
+                self.mapView.deselectAnnotation(self.mapView.selectedAnnotations.first, animated: true)
+            })
+            return header
         }
-    
-        if let orthogonalScrollingBehavior {
-            section.orthogonalScrollingBehavior = orthogonalScrollingBehavior
-        }
-        
-        return section
     }
     
-    private func makeSnapshot(rankings: [Record]) {
+    private func makeSnapshot(rankings: [Record], mapName: String) {
         var snapshot = dataSource.snapshot()
         snapshot.deleteAllItems()
-        snapshot.appendSections(["Ranking"])
-        snapshot.appendItems(rankings, toSection: "Ranking")
+        snapshot.appendSections([mapName])
+        snapshot.appendItems(rankings, toSection: mapName)
         dataSource.apply(snapshot)
     }
 }
