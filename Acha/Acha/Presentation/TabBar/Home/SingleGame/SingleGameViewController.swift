@@ -133,6 +133,7 @@ extension SingleViewController {
     private func configureMap() {
         drawGoLine()
         configureMapTapped()
+        focusUserLocation(useSpan: true)
     }
     private func drawGoLine() {
         let points = viewModel.map.coordinates.map {
@@ -157,13 +158,13 @@ extension SingleViewController {
     
     private func bind() {
         viewModel.visitedMapCoordinates
-            .subscribe(onNext: { [weak self] (previous, current) in
+            .subscribe(onNext: { [weak self] visitedCoordinates in
                 guard let self,
-                      let previous,
-                      let current else { return }
-                let previousCoordinate = CLLocationCoordinate2DMake(previous.latitude, previous.longitude)
-                let currentCoordinate = CLLocationCoordinate2DMake(current.latitude, current.longitude)
-                self.visitLine = MKPolyline(coordinates: [previousCoordinate, currentCoordinate], count: 2)
+                      visitedCoordinates.count >= 2 else { return }
+                
+                let coordinates = visitedCoordinates.map { CLLocationCoordinate2DMake($0.latitude, $0.longitude) }
+            
+                self.visitLine = MKPolyline(coordinates: coordinates, count: coordinates.count)
                 self.mapView.addOverlay(self.visitLine ?? MKPolyline())
             }).disposed(by: disposeBag)
         viewModel.time

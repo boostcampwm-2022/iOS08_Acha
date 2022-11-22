@@ -122,6 +122,7 @@
 		47935E9A29238DE300481307 /* HomeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		47935E9C29238E9E00481307 /* SelectMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectMapViewController.swift; sourceTree = "<group>"; };
 		47935E9E29238EB300481307 /* SelectMapViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectMapViewModel.swift; sourceTree = "<group>"; };
+		76213CBC292C97C900895462 /* gpxgenerator_path-2.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "gpxgenerator_path-2.gpx"; sourceTree = "<group>"; };
 		764AF29B292B61CB00D16DC9 /* gpxgenerator_path.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = gpxgenerator_path.gpx; sourceTree = "<group>"; };
 		764AF29C292B639200D16DC9 /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
 		764AF29E292B6EF500D16DC9 /* InGameRecordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameRecordViewModel.swift; sourceTree = "<group>"; };
@@ -207,6 +208,7 @@
 		471863B0291E155700A35786 = {
 			isa = PBXGroup;
 			children = (
+				76213CBC292C97C900895462 /* gpxgenerator_path-2.gpx */,
 				764AF29B292B61CB00D16DC9 /* gpxgenerator_path.gpx */,
 				4738D7602921D6E4003AE835 /* GoogleService-Info.plist */,
 				4738D75B2921D398003AE835 /* Packages */,
