@@ -140,7 +140,7 @@ class GameOverViewController: UIViewController {
     
     private func bind() {
         let record = viewModel.record
-        mapNameLabel.text = viewModel.mapName
+        mapNameLabel.text = viewModel.map.name
         timeValueLabel.text = "\(record.time.convertToDayHourMinueFormat())"
         distanceValueLabel.text = "\(record.distance)m"
         kcalValueLabel.text = "\(record.calorie)"

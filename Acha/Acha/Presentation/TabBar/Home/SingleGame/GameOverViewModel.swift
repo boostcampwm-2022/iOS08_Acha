@@ -21,20 +21,24 @@ final class GameOverViewModel: BaseViewModel {
     private let coordinator: SingleGameCoordinator
     var disposeBag = DisposeBag()
     let ref: DatabaseReference!
-    let record: AchaRecord
-    let mapName: String
-    let isCompleted: Bool
+    var record: Record
+    let map: Map
+    
+    private let recordID = PublishSubject<Int>()
     
     init(coordinator: SingleGameCoordinator,
-         record: AchaRecord,
-         mapName: String,
+         record: Record,
+         map: Map,
          isCompleted: Bool
     ) {
         self.coordinator = coordinator
         self.record = record
-        self.mapName = mapName
-        self.isCompleted = isCompleted
+        self.map = map
         self.ref = Database.database().reference()
+        self.uploadRecord()
+        if isCompleted {
+            uploadMapRecord()
+        }
     }
     
     func transform(input: Input) -> Output {
@@ -46,7 +50,52 @@ final class GameOverViewModel: BaseViewModel {
         return Output()
     }
     
-    private func upload() {
-        #warning("파이어스토어가 완료된 후 다시하겠습니다.")
+    private func uploadRecord() {
+        ref.child("record").observeSingleEvent(
+            of: .value,
+            with: { [weak self] snapshot in
+                
+                guard let self,
+                      let snapData = snapshot.value as? [Any],
+                      let data = try? JSONSerialization.data(withJSONObject: snapData),
+                      var records = try? JSONDecoder().decode([Record].self, from: data)
+                else {
+                    print(Errors.decodeError)
+                    return
+                }
+                
+                self.record.id = records.count
+                self.recordID.onNext(records.count)
+                guard let json = try? JSONEncoder().encode(self.record),
+                      let jsonSerial = try? JSONSerialization.jsonObject(with: json) as? [String: Any] ?? [:]
+                else { return }
+                
+                self.ref.child("record").updateChildValues(["\(records.count)": jsonSerial])
+            })
+    }
+    
+    private func uploadMapRecord() {
+        recordID.subscribe(onNext: { [weak self] recordID in
+            guard let self else { return }
+            print(self.map.mapID)
+            self.ref.child("mapList").child("\(self.map.mapID)").observeSingleEvent(
+                of: .value,
+                with: { snapshot in
+
+                    guard let snapData = snapshot.value,
+                          let data = try? JSONSerialization.data(withJSONObject: snapData),
+                          let mapData = try? JSONDecoder().decode(Map.self, from: data)
+                    else {
+                        print(Errors.decodeError)
+                        return
+                    }
+                    
+                    let newRecord = (mapData.records ?? []) + [recordID]
+                    print("mapList/\(self.map.mapID)/records")  
+                    self.ref
+                        .child("mapList/\(self.map.mapID)/records")
+                        .setValue(newRecord)
+                })
+        }).disposed(by: disposeBag)
     }
 }

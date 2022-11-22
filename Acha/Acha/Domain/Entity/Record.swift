@@ -16,6 +16,7 @@ struct Record: Hashable, Codable {
     var isSingleMode: Bool
     var isWin: Bool?
     var createdAt: String
+    var id: Int
     
     enum CodingKeys: String, CodingKey {
         case mapID = "map_id"
@@ -26,5 +27,6 @@ struct Record: Hashable, Codable {
         case isSingleMode
         case isWin
         case createdAt = "created_at"
+        case id
     }
 }

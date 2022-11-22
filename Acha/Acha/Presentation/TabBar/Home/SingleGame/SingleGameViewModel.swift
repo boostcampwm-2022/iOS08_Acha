@@ -9,28 +9,6 @@ import Foundation
 import RxRelay
 import RxSwift
 
-struct AchaRecord: Hashable, Decodable {
-    var mapID: Int
-    var userID: String
-    var calorie: Int
-    var distance: Int
-    var time: Int
-    var isSingleMode: Bool
-    var isWin: Bool?
-    var createdAt: String
-    
-    enum CodingKeys: String, CodingKey {
-        case mapID = "map_id"
-        case userID = "user_id"
-        case calorie
-        case distance
-        case time
-        case isSingleMode
-        case isWin
-        case createdAt = "created_at"
-    }
-}
-
 final class SingleGameViewModel {
     
     // MARK: - Input
@@ -136,7 +114,7 @@ final class SingleGameViewModel {
         }
         visitedMapCoordinates.accept(inBoundMapCoordinates.map { $0.element })
         inBoundMapCoordinates.forEach { checkedMapIndex.insert($0.offset) }
-
+        
         if checkedMapIndex.count >= Int(Double(map.coordinates.count) * 0.95) {
             gameOver(isCompleted: true)
         }
@@ -149,7 +127,7 @@ final class SingleGameViewModel {
         cos(from.latitude.degreeToRadian()) *
         cos(here.latitude.degreeToRadian()) *
         cos(theta.degreeToRadian())
-    
+        
         return acos(dist).radianToDegree() * 60 * 1.853159616 * 1000
     }
     
@@ -165,14 +143,17 @@ final class SingleGameViewModel {
     
     private func gameOver(isCompleted: Bool) {
         let kcal = Int(0.1128333333*Double(self.time.value))
-        let record = AchaRecord(mapID: self.map.mapID,
-                                userID: "남석 배",
-                                calorie: kcal,
-                                distance: Int(self.movedDistance.value),
-                                time: self.time.value,
-                                isSingleMode: true,
-                                createdAt: Date().convertToStringFormat(format: "yyyy-MM-dd"))
-        self.coordinator.showSingleGameOverViewController(record: record, mapName: self.map.name, isCompleted: isCompleted)
+        let record = Record(mapID: self.map.mapID,
+                            userID: "남석 배",
+                            calorie: kcal,
+                            distance: Int(self.movedDistance.value),
+                            time: self.time.value,
+                            isSingleMode: true,
+                            createdAt: Date().convertToStringFormat(format: "yyyy-MM-dd"),
+                            id: 0)
+        self.coordinator.showSingleGameOverViewController(record: record,
+                                                          map: map,
+                                                          isCompleted: isCompleted)
     }
     
     private func isHideTimerStart() {

@@ -44,7 +44,7 @@ class InGameRankingViewModel: BaseViewModel {
                 }
                 
                 let inGameRanking = records.enumerated()
-                    .filter { mapRank.contains($0.0) }
+                    .filter { mapRank.contains($0.element.id) }
                     .map { InGameRanking(time: $1.time,
                                         userName: $1.userID,
                                         date: $1.createdAt.convertToDateFormat(format: "yyyy-MM-dd"))}
