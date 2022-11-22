@@ -21,7 +21,7 @@ final class SelectMapRankingHeaderView: UICollectionReusableView {
     private let closeButton: UIButton = UIButton().then {
         $0.setImage(SystemImageNameSpace.xmark.uiImage, for: .normal)
         $0.tintColor = .white
-        let imageConfig = UIImage.SymbolConfiguration(pointSize: 30)
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: 24)
         $0.setPreferredSymbolConfiguration(imageConfig, forImageIn: .normal)
     }
     
@@ -53,7 +53,7 @@ final class SelectMapRankingHeaderView: UICollectionReusableView {
         addSubview(closeButton)
         closeButton.snp.makeConstraints {
             $0.top.trailing.bottom.equalToSuperview().inset(15)
-            $0.width.height.equalTo(40)
+            $0.width.height.equalTo(30)
         }
         
         addSubview(titleLabel)
