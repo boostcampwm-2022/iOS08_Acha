@@ -8,6 +8,7 @@
 import Foundation
  
 struct Record: Hashable, Codable {
+    var id: Int
     var mapID: Int
     var userID: String
     var calorie: Int
@@ -18,6 +19,7 @@ struct Record: Hashable, Codable {
     var createdAt: String
     
     enum CodingKeys: String, CodingKey {
+        case id
         case mapID = "map_id"
         case userID = "user_id"
         case calorie
