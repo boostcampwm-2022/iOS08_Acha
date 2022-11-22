@@ -94,7 +94,8 @@ final class SingleGameViewModel {
             }).disposed(by: disposeBag)
         input.recordButtonTapped
             .subscribe(onNext: { [weak self] in
-                self?.coordinator.showInGameRecordViewController()
+                guard let self else { return }
+                self.coordinator.showInGameRecordViewController(mapID: self.map.mapID)
             }).disposed(by: disposeBag)
         return Output()
     }

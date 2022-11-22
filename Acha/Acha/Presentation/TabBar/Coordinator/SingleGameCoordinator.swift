@@ -45,8 +45,9 @@ final class SingleGameCoordinator: SingleGameCoordinatorProtocol {
         navigationController.pushViewController(viewController, animated: true)
     }
     
-    func showInGameRecordViewController() {
-        let viewController = InGameRecordViewController()
+    func showInGameRecordViewController(mapID: Int) {
+        let viewModel = InGameRecordViewModel(mapID: mapID)
+        let viewController = InGameRecordViewController(viewModel: viewModel)
         viewController.modalPresentationStyle = .pageSheet
         self.navigationController.viewControllers.last?.present(viewController, animated: true)
     }

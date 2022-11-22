@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxSwift
 
 final class InGameRecordViewController: InGamePlayMenuViewController {
 
@@ -15,19 +16,41 @@ final class InGameRecordViewController: InGamePlayMenuViewController {
         case main
     }
     
+    private let viewModel: InGameRecordViewModel
+    private let disposeBag = DisposeBag()
     private lazy var recordDataSource: RecordDataSource = configureDataSource()
     
     typealias RecordDataSource = UICollectionViewDiffableDataSource<Section, InGameRecord>
     typealias RecordSnapShot = NSDiffableDataSourceSnapshot<Section, InGameRecord>
     
     // MARK: - Lifecycles
+    init(viewModel: InGameRecordViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         titleLabel.text = "기록"
+        bind()
         collectionViewRegister()
     }
     
     // MARK: - Helpers
+    private func bind() {
+        let input = InGameRecordViewModel.Input()
+        let output = viewModel.transform(input: input)
+        output.inGameRecord
+            .subscribe(onSuccess: { [weak self] in
+                guard let self else { return }
+                self.fetchData(data: $0)
+            }).disposed(by: disposeBag)
+
+    }
     private func collectionViewRegister() {
         collectionView.register(
             InGameMenuCollectionViewCell.self,

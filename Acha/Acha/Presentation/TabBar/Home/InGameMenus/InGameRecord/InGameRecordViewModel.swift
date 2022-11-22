@@ -17,22 +17,46 @@ final class InGameRecordViewModel: BaseViewModel {
     }
     
     struct Output {
-        var inGameRecord: PublishRelay<[InGameRecord]> = PublishRelay()
+        var inGameRecord: Single<[InGameRecord]>
     }
     
     var disposeBag = DisposeBag()
-    let map: Map
+    let mapID: Int
     private let ref: DatabaseReference!
     
-    init(map: Map) {
-        self.map = map
+    init(mapID: Int) {
+        self.mapID = mapID
         self.ref = Database.database().reference()
     }
     
     func transform(input: Input) -> Output {
-        let output = Output()
-        
-        return Output()
+        Output(inGameRecord: fetchData())
     }
     
+    private func fetchData() -> Single<[InGameRecord]> {
+        return Single.create { [weak self] single in
+            guard let self else { return Disposables.create() }
+            self.ref.child("record").observeSingleEvent(of: .value,
+                                                        with: { snapshot in
+                guard let snapData = snapshot.value as? [Any],
+                      let data = try? JSONSerialization.data(withJSONObject: snapData),
+                      let records = try? JSONDecoder().decode([Record].self, from: data)
+                else {
+                    print(Errors.decodeError)
+                    return
+                }
+                
+                let inGameRecord = records
+                    .filter { $0.mapID == self.mapID }
+                    .map { InGameRecord(time: $0.time,
+                                        userName: $0.userID,
+                                        date: $0.createdAt.convertToDateFormat(format: "yyyy-MM-dd"))}
+                    .sorted(by: { $0.date < $1.date})
+                
+                single(.success(inGameRecord))
+                return
+            })
+            return Disposables.create()
+        }
+    }
 }
