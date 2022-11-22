@@ -37,7 +37,7 @@
 		76B3BF52292624DB0056ABFD /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B3BF51292624DA0056ABFD /* Int+Extension.swift */; };
 		76B3BF54292624E30056ABFD /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B3BF53292624E30056ABFD /* Date+Extension.swift */; };
 		76B3BF56292627A30056ABFD /* GamePlayMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B3BF55292627A30056ABFD /* GamePlayMenuView.swift */; };
-		E5027D5229263D4F0021BF60 /* RecordHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E516A6BB292393FA00CD6BDB /* RecordHeaderView.swift */; };
+		E5027D5229263D4F0021BF60 /* RecordMainHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E516A6BB292393FA00CD6BDB /* RecordMainHeaderView.swift */; };
 		E5027D5329263D620021BF60 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4738D765292238C3003AE835 /* UIColor+.swift */; };
 		E5027D5629265D910021BF60 /* SelectMapRecordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5027D5529265D910021BF60 /* SelectMapRecordCell.swift */; };
 		E5027D58292670570021BF60 /* RecordViewRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5027D57292670570021BF60 /* RecordViewRecord.swift */; };
@@ -46,9 +46,14 @@
 		E5027D5E292686440021BF60 /* RecordViewDayTotalRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5027D5D292686440021BF60 /* RecordViewDayTotalRecord.swift */; };
 		E5027D6A292BA2030021BF60 /* RecordViewUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5027D69292BA2030021BF60 /* RecordViewUseCase.swift */; };
 		E5027D6C292BA20B0021BF60 /* DefaultRecordViewUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5027D6B292BA20B0021BF60 /* DefaultRecordViewUseCase.swift */; };
-		E516A6BA2923929800CD6BDB /* RecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E516A6B92923929800CD6BDB /* RecordViewModel.swift */; };
-		E516A6BE2923941500CD6BDB /* RecordChartCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E516A6BD2923941500CD6BDB /* RecordChartCell.swift */; };
-		E516A6C02923942500CD6BDB /* RecordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E516A6BF2923942500CD6BDB /* RecordCell.swift */; };
+		E5027D6E292C656E0021BF60 /* RecordPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5027D6D292C656E0021BF60 /* RecordPageViewController.swift */; };
+		E5027D77292C900D0021BF60 /* RecordMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5027D76292C900D0021BF60 /* RecordMapViewController.swift */; };
+		E5027D7A292C90250021BF60 /* RecordMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5027D79292C90250021BF60 /* RecordMapViewModel.swift */; };
+		E5027D7C292C90460021BF60 /* RecordMapCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5027D7B292C90460021BF60 /* RecordMapCategoryCell.swift */; };
+		E5027D7E292C907D0021BF60 /* RecordMapHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5027D7D292C907D0021BF60 /* RecordMapHeaderView.swift */; };
+		E516A6BA2923929800CD6BDB /* RecordMainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E516A6B92923929800CD6BDB /* RecordMainViewModel.swift */; };
+		E516A6BE2923941500CD6BDB /* RecordMainChartCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E516A6BD2923941500CD6BDB /* RecordMainChartCell.swift */; };
+		E516A6C02923942500CD6BDB /* RecordMainCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E516A6BF2923942500CD6BDB /* RecordMainCell.swift */; };
 		E5BE8B8F2922172400E9CFE8 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8B8E2922172400E9CFE8 /* AppCoordinator.swift */; };
 		E5BE8B91292218A500E9CFE8 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8B90292218A500E9CFE8 /* Coordinator.swift */; };
 		E5BE8B93292218F100E9CFE8 /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8B92292218F100E9CFE8 /* AuthCoordinator.swift */; };
@@ -61,7 +66,7 @@
 		E5BE8BA129221B6D00E9CFE8 /* SignupCoordinator .swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8BA029221B6D00E9CFE8 /* SignupCoordinator .swift */; };
 		E5BE8BAD29221FE500E9CFE8 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8BAC29221FE400E9CFE8 /* HomeViewController.swift */; };
 		E5BE8BAF29221FF800E9CFE8 /* CommunityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8BAE29221FF800E9CFE8 /* CommunityViewController.swift */; };
-		E5BE8BB12922200000E9CFE8 /* RecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8BB02922200000E9CFE8 /* RecordViewController.swift */; };
+		E5BE8BB12922200000E9CFE8 /* RecordMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8BB02922200000E9CFE8 /* RecordMainViewController.swift */; };
 		E5BE8BB32922200C00E9CFE8 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8BB22922200C00E9CFE8 /* MyPageViewController.swift */; };
 		E5BE8BB52922201600E9CFE8 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8BB42922201600E9CFE8 /* SignupViewController.swift */; };
 		E5BE8BB72922201F00E9CFE8 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8BB62922201F00E9CFE8 /* LoginViewController.swift */; };
@@ -136,10 +141,15 @@
 		E5027D5D292686440021BF60 /* RecordViewDayTotalRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewDayTotalRecord.swift; sourceTree = "<group>"; };
 		E5027D69292BA2030021BF60 /* RecordViewUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewUseCase.swift; sourceTree = "<group>"; };
 		E5027D6B292BA20B0021BF60 /* DefaultRecordViewUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultRecordViewUseCase.swift; sourceTree = "<group>"; };
-		E516A6B92923929800CD6BDB /* RecordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewModel.swift; sourceTree = "<group>"; };
-		E516A6BB292393FA00CD6BDB /* RecordHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordHeaderView.swift; sourceTree = "<group>"; };
-		E516A6BD2923941500CD6BDB /* RecordChartCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordChartCell.swift; sourceTree = "<group>"; };
-		E516A6BF2923942500CD6BDB /* RecordCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordCell.swift; sourceTree = "<group>"; };
+		E5027D6D292C656E0021BF60 /* RecordPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordPageViewController.swift; sourceTree = "<group>"; };
+		E5027D76292C900D0021BF60 /* RecordMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordMapViewController.swift; sourceTree = "<group>"; };
+		E5027D79292C90250021BF60 /* RecordMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordMapViewModel.swift; sourceTree = "<group>"; };
+		E5027D7B292C90460021BF60 /* RecordMapCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordMapCategoryCell.swift; sourceTree = "<group>"; };
+		E5027D7D292C907D0021BF60 /* RecordMapHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordMapHeaderView.swift; sourceTree = "<group>"; };
+		E516A6B92923929800CD6BDB /* RecordMainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordMainViewModel.swift; sourceTree = "<group>"; };
+		E516A6BB292393FA00CD6BDB /* RecordMainHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordMainHeaderView.swift; sourceTree = "<group>"; };
+		E516A6BD2923941500CD6BDB /* RecordMainChartCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordMainChartCell.swift; sourceTree = "<group>"; };
+		E516A6BF2923942500CD6BDB /* RecordMainCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordMainCell.swift; sourceTree = "<group>"; };
 		E5BE8B8E2922172400E9CFE8 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		E5BE8B90292218A500E9CFE8 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		E5BE8B92292218F100E9CFE8 /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
@@ -152,7 +162,7 @@
 		E5BE8BA029221B6D00E9CFE8 /* SignupCoordinator .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SignupCoordinator .swift"; sourceTree = "<group>"; };
 		E5BE8BAC29221FE400E9CFE8 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		E5BE8BAE29221FF800E9CFE8 /* CommunityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityViewController.swift; sourceTree = "<group>"; };
-		E5BE8BB02922200000E9CFE8 /* RecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewController.swift; sourceTree = "<group>"; };
+		E5BE8BB02922200000E9CFE8 /* RecordMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordMainViewController.swift; sourceTree = "<group>"; };
 		E5BE8BB22922200C00E9CFE8 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		E5BE8BB42922201600E9CFE8 /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		E5BE8BB62922201F00E9CFE8 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -349,6 +359,29 @@
 			path = UseCase;
 			sourceTree = "<group>";
 		};
+		E5027D75292C8CF90021BF60 /* RecordMain */ = {
+			isa = PBXGroup;
+			children = (
+				E5BE8BB02922200000E9CFE8 /* RecordMainViewController.swift */,
+				E516A6B92923929800CD6BDB /* RecordMainViewModel.swift */,
+				E516A6BB292393FA00CD6BDB /* RecordMainHeaderView.swift */,
+				E516A6BD2923941500CD6BDB /* RecordMainChartCell.swift */,
+				E516A6BF2923942500CD6BDB /* RecordMainCell.swift */,
+			);
+			path = RecordMain;
+			sourceTree = "<group>";
+		};
+		E5027D78292C90150021BF60 /* RecordMap */ = {
+			isa = PBXGroup;
+			children = (
+				E5027D76292C900D0021BF60 /* RecordMapViewController.swift */,
+				E5027D79292C90250021BF60 /* RecordMapViewModel.swift */,
+				E5027D7B292C90460021BF60 /* RecordMapCategoryCell.swift */,
+				E5027D7D292C907D0021BF60 /* RecordMapHeaderView.swift */,
+			);
+			path = RecordMap;
+			sourceTree = "<group>";
+		};
 		E5BE8B882922164400E9CFE8 /* App */ = {
 			isa = PBXGroup;
 			children = (
@@ -443,11 +476,9 @@
 		E5BE8BA629221C3200E9CFE8 /* Record */ = {
 			isa = PBXGroup;
 			children = (
-				E5BE8BB02922200000E9CFE8 /* RecordViewController.swift */,
-				E516A6B92923929800CD6BDB /* RecordViewModel.swift */,
-				E516A6BB292393FA00CD6BDB /* RecordHeaderView.swift */,
-				E516A6BD2923941500CD6BDB /* RecordChartCell.swift */,
-				E516A6BF2923942500CD6BDB /* RecordCell.swift */,
+				E5027D6D292C656E0021BF60 /* RecordPageViewController.swift */,
+				E5027D78292C90150021BF60 /* RecordMap */,
+				E5027D75292C8CF90021BF60 /* RecordMain */,
 			);
 			path = Record;
 			sourceTree = "<group>";
@@ -757,26 +788,29 @@
 				E5027D5C292670F30021BF60 /* RecordViewChartData.swift in Sources */,
 				4738D768292267BA003AE835 /* Errors.swift in Sources */,
 				E5BE8B9D29221AAF00E9CFE8 /* MyPageCoordinator.swift in Sources */,
+				E5027D7C292C90460021BF60 /* RecordMapCategoryCell.swift in Sources */,
 				76B3BF56292627A30056ABFD /* GamePlayMenuView.swift in Sources */,
 				76B3BF462924D93C0056ABFD /* SingleGameCoordinator.swift in Sources */,
 				E5027D5A292670BC0021BF60 /* RecordViewHeaderRecord.swift in Sources */,
 				E5BE8BB72922201F00E9CFE8 /* LoginViewController.swift in Sources */,
 				76B3BF442924C7450056ABFD /* SingleGameViewController.swift in Sources */,
 				F156F11A29235EC50053E807 /* ImageConstants.swift in Sources */,
-				E5BE8BB12922200000E9CFE8 /* RecordViewController.swift in Sources */,
+				E5BE8BB12922200000E9CFE8 /* RecordMainViewController.swift in Sources */,
 				E5BE8B91292218A500E9CFE8 /* Coordinator.swift in Sources */,
 				E5BE8B952922196D00E9CFE8 /* TabBarCoordinator.swift in Sources */,
 				E5BE8BAD29221FE500E9CFE8 /* HomeViewController.swift in Sources */,
 				E5027D6A292BA2030021BF60 /* RecordViewUseCase.swift in Sources */,
+				E5027D6E292C656E0021BF60 /* RecordPageViewController.swift in Sources */,
 				E5027D5629265D910021BF60 /* SelectMapRecordCell.swift in Sources */,
-				E516A6C02923942500CD6BDB /* RecordCell.swift in Sources */,
+				E516A6C02923942500CD6BDB /* RecordMainCell.swift in Sources */,
 				47935E952923310700481307 /* SystemImageNameSpace.swift in Sources */,
+				E5027D7E292C907D0021BF60 /* RecordMapHeaderView.swift in Sources */,
 				E5BE8B9B29221A8A00E9CFE8 /* CommunityCoordinator.swift in Sources */,
 				76B3BF54292624E30056ABFD /* Date+Extension.swift in Sources */,
 				47935E9B29238DE400481307 /* HomeViewModel.swift in Sources */,
 				E5BE8B9F29221B2700E9CFE8 /* LoginCoordinator.swift in Sources */,
 				E5BE8BAF29221FF800E9CFE8 /* CommunityViewController.swift in Sources */,
-				E516A6BE2923941500CD6BDB /* RecordChartCell.swift in Sources */,
+				E516A6BE2923941500CD6BDB /* RecordMainChartCell.swift in Sources */,
 				E5BE8BB32922200C00E9CFE8 /* MyPageViewController.swift in Sources */,
 				F1D202A42923C09300F3E87D /* InGameMenuCollectionViewCell.swift in Sources */,
 				F156F11C2923623C0053E807 /* PaddingLabel.swift in Sources */,
@@ -791,11 +825,13 @@
 				76B3BF4C29250C190056ABFD /* UIFont+.swift in Sources */,
 				76A2E1A32923D94C001E887A /* CLLocationCoordinate2D+.swift in Sources */,
 				76B3BF50292624850056ABFD /* InGamePlayMenuViewController.swift in Sources */,
-				E5027D5229263D4F0021BF60 /* RecordHeaderView.swift in Sources */,
+				E5027D5229263D4F0021BF60 /* RecordMainHeaderView.swift in Sources */,
 				F156F11E292365840053E807 /* CALayer+Extension.swift in Sources */,
+				E5027D77292C900D0021BF60 /* RecordMapViewController.swift in Sources */,
 				E5BE8B9929221A4C00E9CFE8 /* RecordCoordinator.swift in Sources */,
-				E516A6BA2923929800CD6BDB /* RecordViewModel.swift in Sources */,
+				E516A6BA2923929800CD6BDB /* RecordMainViewModel.swift in Sources */,
 				76B3BF4A2924DDE70056ABFD /* BaseViewModel.swift in Sources */,
+				E5027D7A292C90250021BF60 /* RecordMapViewModel.swift in Sources */,
 				F156F1132923536A0053E807 /* DistanceAndTimeBar.swift in Sources */,
 				F1D202992923AB3D00F3E87D /* InGameRankingViewController.swift in Sources */,
 				471863BF291E155700A35786 /* SceneDelegate.swift in Sources */,
