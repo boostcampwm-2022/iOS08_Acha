@@ -14,7 +14,7 @@ protocol SignUpAble {
 }
 
 protocol LoginAble {
-    func logIn(data: LoginData) -> Observable<Bool>
+    func logIn(data: LoginData) -> Observable<Result<String, Error>>
 }
 
 protocol EmailValidate {
@@ -29,7 +29,35 @@ protocol NickNameValidate {
     func nickNameValidate(text: String) -> Bool
 }
 
-final class AuthUseCase: SignUpAble {
+protocol KeyChainStorable {
+    func storeToKeyChain(id: String) -> Observable<Result<String, Error>>
+}
+
+extension KeyChainStorable {
+    func storeToKeyChain(id: String) -> Observable<Result<String, Error>> {
+        return Observable<Result<String, Error>>.create { observer in
+            do {
+                try KeyChainManager.delete()
+                try KeyChainManager.save(id: id)
+                observer.onNext(.success(id))
+            } catch {
+                observer.onNext(.failure(KeyChainManager.KeychainServiceError.saveIDError))
+            }
+            return Disposables.create()
+        }
+    }
+}
+
+final class AuthUseCase: KeyChainStorable {
+    enum AuthError: Error {
+         case serverError
+         case signUpError
+         case logInError
+         case uidError
+     }
+}
+
+extension AuthUseCase: SignUpAble {
     
     public func signUp(data: SignUpData) -> Observable<Bool> {
         return Observable<Bool>.create { observer in
@@ -48,21 +76,22 @@ final class AuthUseCase: SignUpAble {
     }
 }
 extension AuthUseCase: LoginAble {
-    public func logIn(data: LoginData) -> Observable<Bool> {
-        print(data)
-        return Observable<Bool>.create { observer in
-            FirebaseAuth.Auth.auth().signIn(withEmail: data.email,
-                                            password: data.password) { result, error in
+    public func logIn(data: LoginData) -> Observable<Result<String, Error>> {
+        
+        return Observable<Result<String, Error>>.create { observer in
+            FirebaseAuth.Auth.auth().signIn(
+                withEmail: data.email,
+                password: data.password
+            ) { result, error in
                 guard error == nil else {
-                    print(error)
-                    observer.onNext(false)
+                    observer.onNext(.failure(AuthError.serverError))
                     return
                 }
                 guard let uid = result?.user.uid else {
-                    observer.onNext(false)
+                    observer.onNext(.failure(AuthError.uidError))
                     return
                 }
-                observer.onNext(true)
+                observer.onNext(.success(uid))
             }
             return Disposables.create()
         }
