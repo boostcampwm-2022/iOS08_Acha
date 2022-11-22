@@ -13,6 +13,10 @@ protocol SignUpAble {
     func signUp(data: SignUpData) -> Observable<Bool>
 }
 
+protocol LoginAble {
+    func logIn(data: LoginData) -> Observable<Bool>
+}
+
 protocol EmailValidate {
     func emailValidate(text: String) -> Bool
 }
@@ -25,7 +29,7 @@ protocol NickNameValidate {
     func nickNameValidate(text: String) -> Bool
 }
 
-final class AuthUpUseCase: SignUpAble {
+final class AuthUseCase: SignUpAble {
     
     public func signUp(data: SignUpData) -> Observable<Bool> {
         return Observable<Bool>.create { observer in
@@ -43,8 +47,29 @@ final class AuthUpUseCase: SignUpAble {
         }
     }
 }
+extension AuthUseCase: LoginAble {
+    public func logIn(data: LoginData) -> Observable<Bool> {
+        print(data)
+        return Observable<Bool>.create { observer in
+            FirebaseAuth.Auth.auth().signIn(withEmail: data.email,
+                                            password: data.password) { result, error in
+                guard error == nil else {
+                    print(error)
+                    observer.onNext(false)
+                    return
+                }
+                guard let uid = result?.user.uid else {
+                    observer.onNext(false)
+                    return
+                }
+                observer.onNext(true)
+            }
+            return Disposables.create()
+        }
+    }
+}
 
-extension AuthUpUseCase: EmailValidate, PasswordValidate, NickNameValidate {
+extension AuthUseCase: EmailValidate, PasswordValidate, NickNameValidate {
     public func emailValidate(text: String) -> Bool {
         let pattern = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
         return text.stringCheck(pattern: pattern)
@@ -63,4 +88,9 @@ struct SignUpData {
     let email: String
     let password: String
     let nickName: String
+}
+
+struct LoginData {
+    let email: String
+    let password: String
 }
