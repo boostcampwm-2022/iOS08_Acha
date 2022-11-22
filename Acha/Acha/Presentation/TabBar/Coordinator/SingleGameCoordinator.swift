@@ -39,8 +39,8 @@ final class SingleGameCoordinator: SingleGameCoordinatorProtocol {
         navigationController.pushViewController(viewController, animated: true)
     }
     
-    func showSingleGameOverViewController(record: AchaRecord, mapName: String) {
-        let viewModel = GameOverViewModel(coordinator: self, record: record, mapName: mapName)
+    func showSingleGameOverViewController(record: AchaRecord, mapName: String, isCompleted: Bool) {
+        let viewModel = GameOverViewModel(coordinator: self, record: record, mapName: mapName, isCompleted: isCompleted)
         let viewController = GameOverViewController(viewModel: viewModel)
         navigationController.pushViewController(viewController, animated: true)
     }

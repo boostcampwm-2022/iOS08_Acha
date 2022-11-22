@@ -76,7 +76,7 @@ final class SingleGameViewModel {
         input.gameOverButtonTapped
             .subscribe(onNext: { [weak self] _ in
                 guard let self else { return }
-                self.gameOver()
+                self.gameOver(isCompleted: false)
             }).disposed(by: disposeBag)
         input.rankButtonTapped
             .subscribe(onNext: { [weak self] in
@@ -137,8 +137,8 @@ final class SingleGameViewModel {
         visitedMapCoordinates.accept(inBoundMapCoordinates.map { $0.element })
         inBoundMapCoordinates.forEach { checkedMapIndex.insert($0.offset) }
 
-        if checkedMapIndex.count >= Int(Double(map.coordinates.count) * 0.9) {
-            gameOver()
+        if checkedMapIndex.count >= Int(Double(map.coordinates.count) * 0.95) {
+            gameOver(isCompleted: true)
         }
     }
     
@@ -163,7 +163,7 @@ final class SingleGameViewModel {
         })
     }
     
-    private func gameOver() {
+    private func gameOver(isCompleted: Bool) {
         let kcal = Int(0.1128333333*Double(self.time.value))
         let record = AchaRecord(mapID: self.map.mapID,
                                 userID: "남석 배",
@@ -172,7 +172,7 @@ final class SingleGameViewModel {
                                 time: self.time.value,
                                 isSingleMode: true,
                                 createdAt: Date().convertToStringFormat(format: "yyyy-MM-dd"))
-        self.coordinator.showSingleGameOverViewController(record: record, mapName: self.map.name)
+        self.coordinator.showSingleGameOverViewController(record: record, mapName: self.map.name, isCompleted: isCompleted)
     }
     
     private func isHideTimerStart() {
