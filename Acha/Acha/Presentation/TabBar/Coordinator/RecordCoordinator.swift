@@ -26,7 +26,8 @@ final class RecordCoordinator: RecordCoordinatorProtocol {
     }
     
     func showRecordViewController() {
-        let viewModel = RecordViewModel()
+        let useCase = DefaultRecordViewUseCase()
+        let viewModel = RecordViewModel(useCase: useCase)
         let viewController = RecordViewController(viewModel: viewModel)
         navigationController.pushViewController(viewController, animated: true)
     }

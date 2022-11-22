@@ -56,17 +56,47 @@ class RecordViewController: UIViewController, UICollectionViewDelegate {
         
         configureUI()
         bind()
-        viewModel.fetchAllData()
     }
     
     // MARK: - Helpers
     
     private func bind() {
-        viewModel.isFinishFetched
-            .subscribe(onNext: { _ in
-                self.configureCollectionViewDataSource()
-                self.appendSections(days: self.viewModel.days)
-                self.makeSnapshot()
+        let input = RecordViewModel.Input(
+            viewDidLoadEvent: rx.methodInvoked(#selector(viewDidAppear(_:)))
+                .map({ _ in })
+                .asObservable()
+        )
+        
+        let output = self.viewModel.transform(input: input)
+        
+        output.sectionDays.asDriver(onErrorJustReturn: [:])
+            .drive(onNext: { [weak self] sectionDays in
+                guard let self else { return }
+                self.viewModel.sectionDays = sectionDays
+            }).disposed(by: disposeBag)
+        
+        output.days.asDriver(onErrorJustReturn: [])
+            .drive(onNext: { [weak self] days in
+                guard let self else { return }
+                self.appendSections(days: days)
+            }).disposed(by: disposeBag)
+        
+        output.weekDistances.asDriver(onErrorJustReturn: [])
+            .drive(onNext: { [weak self] weekDistances in
+                guard let self else { return }
+                self.appendChartItem(weekDistances: weekDistances)
+            }).disposed(by: disposeBag)
+        
+        output.recordAtDays.asDriver(onErrorJustReturn: [:])
+            .drive(onNext: { [weak self] recordAtDays in
+                guard let self else { return }
+                self.appendRecordItem(recordAtDays: recordAtDays)
+            }).disposed(by: disposeBag)
+        
+        output.mapData.asDriver(onErrorJustReturn: [:])
+            .drive(onNext: { [weak self] mapData in
+                guard let self else { return }
+                self.viewModel.mapData = mapData
             }).disposed(by: disposeBag)
     }
     
@@ -94,6 +124,8 @@ class RecordViewController: UIViewController, UICollectionViewDelegate {
             $0.top.bottom.equalTo(view.safeAreaLayoutGuide)
             $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(15)
         }
+        
+        configureCollectionViewDataSource()
     }
     
     private func configureCollectionViewDataSource() {
@@ -225,15 +257,19 @@ class RecordViewController: UIViewController, UICollectionViewDelegate {
         dataSource.apply(snapshot)
     }
     
-    private func makeSnapshot() {
+    private func appendChartItem(weekDistances: [RecordViewChartData]) {
         var snapshot = dataSource.snapshot()
-        snapshot.appendItems([.chart(viewModel.weekDistance)], toSection: .chart)
-        viewModel.recordAtDays.forEach { date, recordArray in
-            recordArray.forEach { record in
+        snapshot.appendItems([.chart(weekDistances)], toSection: .chart)
+        dataSource.apply(snapshot)
+    }
+    
+    private func appendRecordItem(recordAtDays: [String: [RecordViewRecord]]) {
+        var snapshot = dataSource.snapshot()
+        recordAtDays.forEach { date, records in
+            records.forEach { record in
                 snapshot.appendItems([.myRecord(record)], toSection: .record(date))
             }
         }
-        
         dataSource.apply(snapshot)
     }
 }
