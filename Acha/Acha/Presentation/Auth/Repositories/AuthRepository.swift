@@ -35,7 +35,7 @@ final class AuthRepository: SignUpRepository {
     
     func getSignUpdata() -> RxSwift.Observable<SignUpData> {
         return Observable
-            .combineLatest(emailRelay, passwordRelay, nickNameRelay)
+            .zip(emailRelay, passwordRelay, nickNameRelay)
             .map { (email, password, nickName) in
                 return SignUpData(email: email, password: password, nickName: nickName)
             }
