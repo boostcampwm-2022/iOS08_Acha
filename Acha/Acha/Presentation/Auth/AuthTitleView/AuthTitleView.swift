@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AuthTitleView: UIStackView {
+final class AuthTitleView: UIStackView {
     
     private let imageView = UIImageView().then {
         $0.contentMode = .scaleAspectFill

@@ -18,6 +18,7 @@ final class SignUpViewModel {
         let nickNameUpdated: Observable<String>
         let emailUpdated: Observable<String>
         let signUpButtonDidTap: Observable<Void>
+        let logInButtonDidTap: Observable<Void>
     }
     
     struct Output {
@@ -27,11 +28,15 @@ final class SignUpViewModel {
         let signUpSuccesssed: Observable<Bool>
     }
     
-    typealias SignUpUseCase = SignUpAble & EmailValidate & PasswordValidate & NickNameValidate
+    typealias SignUpUseCase = SignUpAble
+    & EmailValidate
+    & PasswordValidate
+    & NickNameValidate
+    & UserDataAppendToDatabase
     
-    let useCase: SignUpUseCase
+    private let useCase: SignUpUseCase
     private let coordinator: SignupCoordinatorProtocol
-    var repository: SignUpRepository
+    private var repository: SignUpRepository
     
     init(
         coordinator: SignupCoordinatorProtocol,
@@ -94,6 +99,11 @@ final class SignUpViewModel {
             return Disposables.create()
         }
         
+        input.logInButtonDidTap
+            .subscribe { [weak self] _ in
+                self?.transitionView()
+            }
+        
         let signUpButtonDidTap = Observable<Bool>.create { observer in
             input.signUpButtonDidTap
                 .subscribe { [weak self] _ in
@@ -103,7 +113,14 @@ final class SignUpViewModel {
                             if self?.repository.isSignAble() ?? false {
                                 self?.useCase.signUp(data: signUpData)
                                     .subscribe(onNext: { result in
-                                        observer.onNext(result)
+                                        switch result {
+                                        case .failure(_):
+                                            observer.onNext(false)
+                                        case .success(let uid):
+                                            let userData = signUpData.toUserDTO(id: uid)
+                                            self?.useCase.userDataAppendToDatabase(userData: userData)
+                                            self?.transitionView()
+                                        }
                                     })
                                     .disposed(by: bag)
                             } else {
@@ -123,4 +140,9 @@ final class SignUpViewModel {
                       emailValidated: emailValidate,
                       signUpSuccesssed: signUpButtonDidTap)
     }
+    
+    private func transitionView() {
+        coordinator.delegate?.didFinished(childCoordinator: coordinator)
+    }
+    
 }

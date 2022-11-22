@@ -27,7 +27,7 @@ final class SignupCoordinator: SignupCoordinatorProtocol {
     }
     
     func showSignupViewController() {
-        let useCase = AuthUpUseCase()
+        let useCase = AuthUseCase()
         let repository = AuthRepository()
         let viewModel = SignUpViewModel(
             coordinator: self,
