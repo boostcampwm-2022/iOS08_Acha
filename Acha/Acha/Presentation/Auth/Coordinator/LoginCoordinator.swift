@@ -9,9 +9,10 @@ import UIKit
 
 protocol LoginCoordinatorProtocol: Coordinator {
     func showLoginViewController()
+    func connectSignupCoordinator()
 }
 
-final class LoginCoordinator: LoginCoordinatorProtocol, SignupCoordinatorProtocol {
+final class LoginCoordinator: LoginCoordinatorProtocol {
     var delegate: CoordinatorDelegate?
     
     var navigationController: UINavigationController
@@ -38,16 +39,16 @@ final class LoginCoordinator: LoginCoordinatorProtocol, SignupCoordinatorProtoco
         self.navigationController.isNavigationBarHidden = true
     }
     
-    func showSignupViewController() {
-        let useCase = AuthUseCase()
-        let repository = AuthRepository()
-        let viewModel = SignUpViewModel(
-            coordinator: self,
-            useCase: useCase,
-            repository: repository
-        )
-        let viewController = SignupViewController(viewModel: viewModel)
-        navigationController.pushViewController(viewController, animated: true)
-        self.navigationController.isNavigationBarHidden = false
+    func connectSignupCoordinator() {
+        let coordinator = SignupCoordinator(navigationController: navigationController)
+        appendChildCoordinator(coordinator: coordinator)
+        coordinator.delegate = self
+        coordinator.start()
+    }
+}
+
+extension LoginCoordinator: CoordinatorDelegate {
+    func didFinished(childCoordinator: Coordinator) {
+        connectSignupCoordinator()
     }
 }
