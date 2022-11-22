@@ -14,27 +14,34 @@ class SelectMapViewModel: BaseViewModel {
     
     // MARK: - Input
     struct Input {
+        var viewWillAppearEvent: Observable<Void>
+        var regionDidChanged: PublishSubject<MapRegion>
         var startButtonTapped: Observable<Void>
         var backButtonTapped: Observable<Void>
     }
-    var mapTapped = PublishRelay<Map>()
     var selectedMap: Map?
     var userLocation: Coordinate?
     
     // MARK: - Output
     struct Output {
-        var mapCoordinates: Single<[Map]>
+        var visibleMap = PublishRelay<Map>()
         var cannotStart = PublishRelay<Void>()
     }
-    private var maps: [Int: Map]
+    private var maps: [Map]
+    private var visbleMapsIdx: [Int]
     var rankings: [Int: [Record]]
     
     // MARK: - Properties
     private var ref: DatabaseReference!
     
     func transform(input: Input) -> Output {
+        let output = Output()
         
-        let output = Output(mapCoordinates: fetchAllMaps())
+        input.viewWillAppearEvent
+            .subscribe(onNext: { [weak self] _ in
+                self?.fetchAllMaps()
+            })
+            .disposed(by: disposeBag)
         
         input.startButtonTapped
             .subscribe(onNext: { [weak self] _ in
@@ -55,6 +62,30 @@ class SelectMapViewModel: BaseViewModel {
                 self.coordinator.delegate?.didFinished(childCoordinator: self.coordinator)
             })
             .disposed(by: disposeBag)
+        
+        input.regionDidChanged
+            .subscribe(onNext: { [weak self] region in
+                guard let self else { return }
+                let northWestCorner = Coordinate(latitude: region.center.latitude-(region.span.latitudeDelta / 2.0),
+                                                 longitude: region.center.longitude-(region.span.longitudeDelta / 2.0))
+                let southEastCorner = Coordinate(latitude: region.center.latitude+(region.span.latitudeDelta / 2.0),
+                                                 longitude: region.center.longitude+(region.span.longitudeDelta / 2.0))
+
+                self.maps.filter { !self.visbleMapsIdx.contains($0.mapID)}
+                    .forEach { map in
+                        let first = map.coordinates.first { coordinate in
+                            coordinate.latitude >= northWestCorner.latitude &&
+                            coordinate.latitude <= southEastCorner.latitude &&
+                            coordinate.longitude >= northWestCorner.longitude &&
+                            coordinate.longitude <= southEastCorner.longitude
+                        }
+                        if first != nil {
+                            output.visibleMap.accept(map)
+                            self.visbleMapsIdx.append(map.mapID)
+                        }
+                    }
+            })
+            .disposed(by: disposeBag)
     
         return output
     }
@@ -67,35 +98,31 @@ class SelectMapViewModel: BaseViewModel {
     init(coordinator: SingleGameCoordinator) {
         self.ref = Database.database().reference()
         self.coordinator = coordinator
-        self.maps = [:]
+        self.maps = []
         self.rankings = [:]
+        self.visbleMapsIdx = []
     }
     
     // MARK: - Helpers
-    func fetchAllMaps() -> Single<[Map]> {
-        return Single.create { [weak self] single in
-            guard let self else { return Disposables.create() }
-            self.ref.child("mapList").observeSingleEvent(of: .value,
-                                                    with: { snapshot in
-                guard let snapData = snapshot.value as? [Any],
-                      let data = try? JSONSerialization.data(withJSONObject: snapData),
-                      let mapDatas = try? JSONDecoder().decode([Map].self, from: data)
-                else {
-                    print(Errors.decodeError)
-                    return
-                }
-                
-                mapDatas.forEach { map in
-                    self.fetchMapRecord(mapID: map.mapID)
-                        .subscribe {
-                            self.rankings[map.mapID] = $0
-                        }.disposed(by: self.disposeBag)
-                }
-                
-                single(.success(mapDatas))
-            })
-            return Disposables.create()
-        }
+    func fetchAllMaps() {
+        self.ref.child("mapList").observeSingleEvent(of: .value,
+                                                with: { snapshot in
+            guard let snapData = snapshot.value as? [Any],
+                  let data = try? JSONSerialization.data(withJSONObject: snapData),
+                  let mapDatas = try? JSONDecoder().decode([Map].self, from: data)
+            else {
+                print(Errors.decodeError)
+                return
+            }
+            
+            self.maps = mapDatas
+            mapDatas.forEach { map in
+                self.fetchMapRecord(mapID: map.mapID)
+                    .subscribe {
+                        self.rankings[map.mapID] = $0
+                    }.disposed(by: self.disposeBag)
+            }
+        })
     }
     
     func fetchMapRecord(mapID: Int) -> Single<[Record]> {

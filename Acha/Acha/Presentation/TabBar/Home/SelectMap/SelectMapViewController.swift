@@ -77,6 +77,7 @@ final class SelectMapViewController: MapBaseViewController {
     // MARK: - Properties
     private let viewModel: SelectMapViewModel
     private var disposeBag = DisposeBag()
+    private let regionDidChanged = PublishSubject<MapRegion>()
     
     typealias DataSource = UICollectionViewDiffableDataSource<String, Record>
     private var dataSource: DataSource!
@@ -160,27 +161,28 @@ extension SelectMapViewController {
     }
     
     private func bind() {
-        let input = SelectMapViewModel.Input(startButtonTapped: startButton.rx.tap.asObservable(),
-                                             backButtonTapped: backButton.rx.tap.asObservable())
+        let input = SelectMapViewModel.Input(
+            viewWillAppearEvent: rx.methodInvoked(#selector(UIViewController.viewWillAppear)).map { _ in },
+            regionDidChanged: regionDidChanged,
+            startButtonTapped: startButton.rx.tap.asObservable(),
+            backButtonTapped: backButton.rx.tap.asObservable())
         let output = viewModel.transform(input: input)
-        
-        output.mapCoordinates
-            .asDriver(onErrorJustReturn: [])
-            .drive(onNext: { [weak self] maps in
-                maps.forEach { mapElement in
-                    let coordinates = mapElement.coordinates.map {
-                        CLLocationCoordinate2D(latitude: $0.latitude, longitude: $0.longitude)
-                    }
-                    
-                    // 테두리 선
-                    let lineDraw = MKPolyline(coordinates: coordinates, count: coordinates.count)
-                    self?.mapView.addOverlay(lineDraw)
-                    
-                    // pin
-                    let annotation = MapAnnotation(map: mapElement, polyLine: lineDraw)
-                    self?.mapView.addAnnotation(annotation)
+
+        output.visibleMap
+            .subscribe { [weak self] mapElement in
+                print(mapElement.name)
+                let coordinates = mapElement.coordinates.map {
+                    CLLocationCoordinate2D(latitude: $0.latitude, longitude: $0.longitude)
                 }
-            }).disposed(by: disposeBag)
+                
+                // 테두리 선
+                let lineDraw = MKPolyline(coordinates: coordinates, count: coordinates.count)
+                self?.mapView.addOverlay(lineDraw)
+                
+                // pin
+                let annotation = MapAnnotation(map: mapElement, polyLine: lineDraw)
+                self?.mapView.addAnnotation(annotation)
+            }.disposed(by: disposeBag)
         
         output.cannotStart
             .subscribe { [weak self] _ in
@@ -191,8 +193,7 @@ extension SelectMapViewController {
                 let okAction = UIAlertAction(title: "확인", style: .default)
                 alert.addAction(okAction)
                 self?.present(alert, animated: true)
-            }
-            .disposed(by: disposeBag)
+            }.disposed(by: disposeBag)
     }
 }
 
@@ -230,6 +231,16 @@ extension SelectMapViewController {
         let renderer = mapView.renderer(for: annotation.polyLine) as? MKPolylineRenderer
         renderer?.strokeColor = .gray
     }
+    
+    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        let center = Coordinate(latitude: mapView.region.center.latitude,
+                                longitude: mapView.region.center.longitude)
+        let span = CoordinateSpan(latitudeDelta: mapView.region.span.latitudeDelta,
+                                  longitudeDelta: mapView.region.span.longitudeDelta)
+        let region = MapRegion(center: center, span: span)
+        regionDidChanged.onNext(region)
+    }
+
 }
 
 // MARK: - CLLocationManagerDelegate
