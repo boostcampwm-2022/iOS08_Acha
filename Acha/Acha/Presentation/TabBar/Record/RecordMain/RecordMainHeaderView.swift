@@ -7,7 +7,7 @@
 
 import UIKit
 
-class RecordHeaderView: UICollectionReusableView {
+class RecordMainHeaderView: UICollectionReusableView {
     // MARK: - UI properties
     private lazy var dateLabel = UILabel().then {
         $0.font = .largeTitle

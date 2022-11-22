@@ -11,7 +11,7 @@ import RxSwift
 import RxRelay
 import Firebase
 
-class RecordViewModel: BaseViewModel {
+class RecordMainViewModel: BaseViewModel {
     
     struct Input {
         var viewDidLoadEvent: Observable<Void>
@@ -32,6 +32,7 @@ class RecordViewModel: BaseViewModel {
     
     var sectionDays = [String: DayTotalRecord]()
     var mapData = [Int: Map]()
+    var isFethed: Bool = false
     
     init(useCase: DefaultRecordViewUseCase) {
         self.ref = Database.database().reference()
@@ -44,7 +45,10 @@ class RecordViewModel: BaseViewModel {
         input.viewDidLoadEvent
             .subscribe { [weak self] _ in
                 guard let self else { return }
-                self.useCase.fetchAllData()
+                if !self.isFethed {
+                    self.useCase.fetchAllData()
+                    self.isFethed = true
+                }
             }.disposed(by: disposeBag)
         
         useCase.days

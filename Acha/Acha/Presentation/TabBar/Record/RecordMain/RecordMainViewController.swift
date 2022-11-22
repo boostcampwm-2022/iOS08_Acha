@@ -12,7 +12,7 @@ import RxSwift
 import RxRelay
 import RxCocoa
 
-enum RecordViewSections: Hashable {
+enum RecordMainViewSections: Hashable {
     case chart
     case record(String)
     
@@ -26,23 +26,23 @@ enum RecordViewSections: Hashable {
     }
 }
 
-enum RecordViewItems: Hashable {
+enum RecordMainViewItems: Hashable {
     case chart([RecordViewChartData])
     case myRecord(RecordViewRecord)
 }
 
-class RecordViewController: UIViewController, UICollectionViewDelegate {
+class RecordMainViewController: UIViewController, UICollectionViewDelegate {
     // MARK: - UI properties
     private var collectionView: UICollectionView!
     
     // MARK: - Properties
-    typealias DataSource = UICollectionViewDiffableDataSource<RecordViewSections, RecordViewItems>
+    typealias DataSource = UICollectionViewDiffableDataSource<RecordMainViewSections, RecordMainViewItems>
     private var dataSource: DataSource!
-    private let viewModel: RecordViewModel
+    private let viewModel: RecordMainViewModel
     private let disposeBag = DisposeBag()
     
     // MARK: - Lifecycles
-    init(viewModel: RecordViewModel) {
+    init(viewModel: RecordMainViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -61,7 +61,7 @@ class RecordViewController: UIViewController, UICollectionViewDelegate {
     // MARK: - Helpers
     
     private func bind() {
-        let input = RecordViewModel.Input(
+        let input = RecordMainViewModel.Input(
             viewDidLoadEvent: rx.methodInvoked(#selector(viewDidAppear(_:)))
                 .map({ _ in })
                 .asObservable()
@@ -113,11 +113,11 @@ class RecordViewController: UIViewController, UICollectionViewDelegate {
         collectionView.delegate = self
         collectionView.contentInsetAdjustmentBehavior = .never
         
-        collectionView.register(RecordHeaderView.self,
+        collectionView.register(RecordMainHeaderView.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-                                withReuseIdentifier: RecordHeaderView.identifier)
-        collectionView.register(RecordChartCell.self, forCellWithReuseIdentifier: RecordChartCell.identifier)
-        collectionView.register(RecordCell.self, forCellWithReuseIdentifier: RecordCell.identifier)
+                                withReuseIdentifier: RecordMainHeaderView.identifier)
+        collectionView.register(RecordMainChartCell.self, forCellWithReuseIdentifier: RecordMainChartCell.identifier)
+        collectionView.register(RecordMainCell.self, forCellWithReuseIdentifier: RecordMainCell.identifier)
         
         view.addSubview(collectionView)
         collectionView.snp.makeConstraints {
@@ -133,8 +133,8 @@ class RecordViewController: UIViewController, UICollectionViewDelegate {
                                 cellProvider: { collectionView, indexPath, itemIdentifier in
             switch itemIdentifier {
             case .chart(let recordViewChartDataArray):
-                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecordChartCell.identifier,
-                                                                    for: indexPath) as? RecordChartCell else {
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecordMainChartCell.identifier,
+                                                                    for: indexPath) as? RecordMainChartCell else {
                     return UICollectionViewCell()
                 }
                 
@@ -142,8 +142,8 @@ class RecordViewController: UIViewController, UICollectionViewDelegate {
                 
                 return cell
             case .myRecord(let recordViewRecord):
-                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecordCell.identifier,
-                                                                    for: indexPath) as? RecordCell else {
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecordMainCell.identifier,
+                                                                    for: indexPath) as? RecordMainCell else {
                     return UICollectionViewCell()
                 }
                 
@@ -158,8 +158,8 @@ class RecordViewController: UIViewController, UICollectionViewDelegate {
             if kind == UICollectionView.elementKindSectionHeader {
                 guard let header = collectionView.dequeueReusableSupplementaryView(
                     ofKind: kind,
-                    withReuseIdentifier: RecordHeaderView.identifier,
-                    for: indexPath) as? RecordHeaderView
+                    withReuseIdentifier: RecordMainHeaderView.identifier,
+                    for: indexPath) as? RecordMainHeaderView
                 else { return UICollectionReusableView() }
                 
                 let section = self.dataSource.snapshot().sectionIdentifiers[indexPath.section]
@@ -250,7 +250,12 @@ class RecordViewController: UIViewController, UICollectionViewDelegate {
     
     private func appendSections(days: [String]) {
         var snapshot = dataSource.snapshot()
-        snapshot.appendSections([.chart])
+        snapshot.deleteSections(snapshot.sectionIdentifiers)
+        snapshot.deleteAllItems()
+        
+        if !snapshot.sectionIdentifiers.contains(.chart) {
+            snapshot.appendSections([.chart])
+        }
         days.forEach { day in
             snapshot.appendSections([.record(day)])
         }

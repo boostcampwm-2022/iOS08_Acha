@@ -7,7 +7,7 @@
 
 import UIKit
 
-class RecordCell: UICollectionViewCell {
+class RecordMainCell: UICollectionViewCell {
     // MARK: - UI properties
     private lazy var imageView = UIImageView().then {
         $0.image = UIImage(systemName: "house")

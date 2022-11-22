@@ -17,7 +17,7 @@ enum Week: String, CaseIterable {
     case saturday = "토"
 }
 
-class RecordChartCell: UICollectionViewCell {
+class RecordMainChartCell: UICollectionViewCell {
     // MARK: - UI properties
     private lazy var chartsBackgroundStackView = UIStackView().then {
         $0.distribution = .fillEqually
