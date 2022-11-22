@@ -74,10 +74,8 @@ class SelectMapViewModel: BaseViewModel {
                 self.maps.filter { !self.visbleMapsIdx.contains($0.mapID)}
                     .forEach { map in
                         let first = map.coordinates.first { coordinate in
-                            coordinate.latitude >= northWestCorner.latitude &&
-                            coordinate.latitude <= southEastCorner.latitude &&
-                            coordinate.longitude >= northWestCorner.longitude &&
-                            coordinate.longitude <= southEastCorner.longitude
+                            (northWestCorner.latitude...southEastCorner.latitude).contains(coordinate.latitude) &&
+                            (northWestCorner.longitude...southEastCorner.longitude).contains(coordinate.longitude)
                         }
                         if first != nil {
                             output.visibleMap.accept(map)
@@ -132,13 +130,21 @@ class SelectMapViewModel: BaseViewModel {
                                                    with: { snapshot in
                 guard let snapData = snapshot.value as? [Any],
                       let data = try? JSONSerialization.data(withJSONObject: snapData),
-                      let records = try? JSONDecoder().decode([Record].self, from: data)
+                      var records = try? JSONDecoder().decode([Record].self, from: data)
                 else {
                     print(Errors.decodeError)
                     return
                 }
                 
-                let rankings = Array(records.filter { $0.mapID == mapID }.sorted { $0.time < $1.time }.prefix(3))
+                records.append(contentsOf: [Record(id: -1, mapID: mapID),
+                                            Record(id: -2, mapID: mapID),
+                                            Record(id: -3, mapID: mapID)])
+                let rankings = Array(
+                    records.filter { $0.mapID == mapID }
+                    .sorted { $0.time < $1.time }
+                    .prefix(3)
+                )
+                print(rankings)
                 return single(.success(rankings))
             })
             return Disposables.create()
