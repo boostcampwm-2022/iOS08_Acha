@@ -116,12 +116,8 @@ extension LoginViewController {
             .disposed(by: disposeBag)
         
         outputs.loginResult
-            .subscribe(onNext: { [weak self] loginResult in
-                if loginResult {
-                    print("로그인 성공")
-                } else {
-                    self?.alertLoginFailed()
-                }
+            .subscribe(onNext: { [weak self] _ in
+                self?.alertLoginFailed()
             })
             .disposed(by: disposeBag)
     }

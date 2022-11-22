@@ -24,14 +24,14 @@ final class LoginViewModel: BaseViewModel {
         let loginResult: Observable<Bool>
     }
     
-    typealias LoginUseCase = EmailValidate & PasswordValidate & LoginAble
+    typealias LoginUseCase = EmailValidate & PasswordValidate & LoginAble & KeyChainStorable
     
     private var repository: LoginReposity
     private let useCase: LoginUseCase
-    private let coordinator: LoginCoordinatorProtocol & SignupCoordinatorProtocol
+    private let coordinator: LoginCoordinatorProtocol
     
-    init(coordinator: LoginCoordinatorProtocol & SignupCoordinatorProtocol,
-         useCase: AuthUseCase,
+    init(coordinator: LoginCoordinatorProtocol,
+         useCase: LoginUseCase,
          repository: AuthRepository) {
         self.coordinator = coordinator
         self.useCase = useCase
@@ -82,7 +82,23 @@ final class LoginViewModel: BaseViewModel {
                             if self?.repository.isLoginAble() ?? false {
                                 self?.useCase.logIn(data: loginData)
                                     .subscribe(onNext: { loginResult in
-                                        observer.onNext(loginResult)
+                                        switch loginResult {
+                                        case .failure(_):
+                                            observer.onNext(false)
+                                        case .success(let uid):
+                                            self?.useCase.storeToKeyChain(id: uid)
+                                                .subscribe(onNext: { result in
+                                                    switch result {
+                                                    case .failure(let error):
+                                                        print(error)
+                                                        observer.onNext(false)
+                                                    case .success(_):
+                                                        self?.translateView()
+                                                    }
+                                                })
+                                                .disposed(by: bag)
+
+                                        }
                                     })
                                     .disposed(by: bag)
                             } else {
@@ -98,13 +114,19 @@ final class LoginViewModel: BaseViewModel {
         
         input.signUpButtonDidTap
             .subscribe { [weak self] _ in
-                self?.coordinator.showSignupViewController()
+                self?.coordinator.connectSignupCoordinator()
             }
             .disposed(by: bag)
+        
+        disposeBag = bag 
         
         return Output.init(emailValidate: emailValidate,
                            passwordValidate: passwordValidate,
                            loginResult: loginResult)
+    }
+    
+    private func translateView() {
+        coordinator.delegate?.didFinished(childCoordinator: coordinator)
     }
     
 }
