@@ -37,6 +37,8 @@ final class SingleGameViewModel {
     var currentCoordinate = PublishRelay<Coordinate>()
     struct Input {
         var gameOverButtonTapped: Observable<Void>
+        var rankButtonTapped: Observable<Void>
+        var recordButtonTapped: Observable<Void>
     }
     
     // MARK: - Output
@@ -84,6 +86,15 @@ final class SingleGameViewModel {
                                         createdAt: Date().convertToStringFormat(format: "yyyy-MM-dd"))
                 self.coordinator
                     .showSingleGameOverViewController(record: record, mapName: self.map.name)
+            }).disposed(by: disposeBag)
+        input.rankButtonTapped
+            .subscribe(onNext: { [weak self] in
+                guard let self else { return }
+                self.coordinator.showInGameRankViewController(map: self.map)
+            }).disposed(by: disposeBag)
+        input.recordButtonTapped
+            .subscribe(onNext: { [weak self] in
+                self?.coordinator.showInGameRecordViewController()
             }).disposed(by: disposeBag)
         return Output()
     }

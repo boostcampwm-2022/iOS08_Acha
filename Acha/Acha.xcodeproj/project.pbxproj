@@ -27,6 +27,9 @@
 		47935E9D29238E9E00481307 /* SelectMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47935E9C29238E9E00481307 /* SelectMapViewController.swift */; };
 		47935E9F29238EB400481307 /* SelectMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47935E9E29238EB300481307 /* SelectMapViewModel.swift */; };
 		764AF29D292B639200D16DC9 /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764AF29C292B639200D16DC9 /* UIViewController+.swift */; };
+		764AF29F292B6EF500D16DC9 /* InGameRecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764AF29E292B6EF500D16DC9 /* InGameRecordViewModel.swift */; };
+		764AF2A1292B9C1F00D16DC9 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764AF2A0292B9C1F00D16DC9 /* String+.swift */; };
+		764AF2A3292B9D3600D16DC9 /* InGameRankingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764AF2A2292B9D3600D16DC9 /* InGameRankingViewModel.swift */; };
 		76A2E1A12923C5A7001E887A /* SingleGameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A2E19F2923C5A7001E887A /* SingleGameViewModel.swift */; };
 		76A2E1A32923D94C001E887A /* CLLocationCoordinate2D+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A2E1A22923D94C001E887A /* CLLocationCoordinate2D+.swift */; };
 		76A2E1A529249099001E887A /* Double+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A2E1A429249099001E887A /* Double+.swift */; };
@@ -43,7 +46,7 @@
 		E5027D5229263D4F0021BF60 /* RecordHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E516A6BB292393FA00CD6BDB /* RecordHeaderView.swift */; };
 		E5027D5329263D620021BF60 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4738D765292238C3003AE835 /* UIColor+.swift */; };
 		E5027D5629265D910021BF60 /* SelectMapRecordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5027D5529265D910021BF60 /* SelectMapRecordCell.swift */; };
-		E5027D58292670570021BF60 /* RecordViewRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5027D57292670570021BF60 /* RecordViewRecord.swift */; };
+		E5027D58292670570021BF60 /* Record.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5027D57292670570021BF60 /* Record.swift */; };
 		E5027D5A292670BC0021BF60 /* RecordViewHeaderRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5027D59292670BC0021BF60 /* RecordViewHeaderRecord.swift */; };
 		E5027D5C292670F30021BF60 /* RecordViewChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5027D5B292670F30021BF60 /* RecordViewChartData.swift */; };
 		E5027D5E292686440021BF60 /* RecordViewDayTotalRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5027D5D292686440021BF60 /* RecordViewDayTotalRecord.swift */; };
@@ -121,6 +124,9 @@
 		47935E9E29238EB300481307 /* SelectMapViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectMapViewModel.swift; sourceTree = "<group>"; };
 		764AF29B292B61CB00D16DC9 /* gpxgenerator_path.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = gpxgenerator_path.gpx; sourceTree = "<group>"; };
 		764AF29C292B639200D16DC9 /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
+		764AF29E292B6EF500D16DC9 /* InGameRecordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameRecordViewModel.swift; sourceTree = "<group>"; };
+		764AF2A0292B9C1F00D16DC9 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
+		764AF2A2292B9D3600D16DC9 /* InGameRankingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameRankingViewModel.swift; sourceTree = "<group>"; };
 		76A2E19F2923C5A7001E887A /* SingleGameViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleGameViewModel.swift; sourceTree = "<group>"; };
 		76A2E1A22923D94C001E887A /* CLLocationCoordinate2D+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationCoordinate2D+.swift"; sourceTree = "<group>"; };
 		76A2E1A429249099001E887A /* Double+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+.swift"; sourceTree = "<group>"; };
@@ -135,7 +141,7 @@
 		76B3BF57292634BD0056ABFD /* GameOverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverViewController.swift; sourceTree = "<group>"; };
 		76B3BF59292668780056ABFD /* GameOverViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverViewModel.swift; sourceTree = "<group>"; };
 		E5027D5529265D910021BF60 /* SelectMapRecordCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMapRecordCell.swift; sourceTree = "<group>"; };
-		E5027D57292670570021BF60 /* RecordViewRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewRecord.swift; sourceTree = "<group>"; };
+		E5027D57292670570021BF60 /* Record.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Record.swift; sourceTree = "<group>"; };
 		E5027D59292670BC0021BF60 /* RecordViewHeaderRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewHeaderRecord.swift; sourceTree = "<group>"; };
 		E5027D5B292670F30021BF60 /* RecordViewChartData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewChartData.swift; sourceTree = "<group>"; };
 		E5027D5D292686440021BF60 /* RecordViewDayTotalRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewDayTotalRecord.swift; sourceTree = "<group>"; };
@@ -276,6 +282,7 @@
 			isa = PBXGroup;
 			children = (
 				76B3BF53292624E30056ABFD /* Date+Extension.swift */,
+				764AF2A0292B9C1F00D16DC9 /* String+.swift */,
 				76B3BF51292624DA0056ABFD /* Int+Extension.swift */,
 				76B3BF4B29250C190056ABFD /* UIFont+.swift */,
 				F156F11D292365840053E807 /* CALayer+Extension.swift */,
@@ -292,7 +299,7 @@
 			isa = PBXGroup;
 			children = (
 				4738D76E2922756B003AE835 /* Map.swift */,
-				E5027D57292670570021BF60 /* RecordViewRecord.swift */,
+				E5027D57292670570021BF60 /* Record.swift */,
 				E5027D59292670BC0021BF60 /* RecordViewHeaderRecord.swift */,
 				E5027D5B292670F30021BF60 /* RecordViewChartData.swift */,
 				E5027D5D292686440021BF60 /* RecordViewDayTotalRecord.swift */,
@@ -539,6 +546,7 @@
 			isa = PBXGroup;
 			children = (
 				F1D202982923AB3D00F3E87D /* InGameRankingViewController.swift */,
+				764AF2A2292B9D3600D16DC9 /* InGameRankingViewModel.swift */,
 			);
 			path = InGameRanking;
 			sourceTree = "<group>";
@@ -547,6 +555,7 @@
 			isa = PBXGroup;
 			children = (
 				F1D2029A2923B97400F3E87D /* InGameRecordViewController.swift */,
+				764AF29E292B6EF500D16DC9 /* InGameRecordViewModel.swift */,
 			);
 			path = InGameRecord;
 			sourceTree = "<group>";
@@ -744,7 +753,7 @@
 				47935E9D29238E9E00481307 /* SelectMapViewController.swift in Sources */,
 				4738D76F2922756B003AE835 /* Map.swift in Sources */,
 				E5027D5E292686440021BF60 /* RecordViewDayTotalRecord.swift in Sources */,
-				E5027D58292670570021BF60 /* RecordViewRecord.swift in Sources */,
+				E5027D58292670570021BF60 /* Record.swift in Sources */,
 				47935E9F29238EB400481307 /* SelectMapViewModel.swift in Sources */,
 				E5BE8B8F2922172400E9CFE8 /* AppCoordinator.swift in Sources */,
 				47935E97292366CD00481307 /* UIButton+.swift in Sources */,
@@ -755,6 +764,7 @@
 				4738D768292267BA003AE835 /* Errors.swift in Sources */,
 				E5BE8B9D29221AAF00E9CFE8 /* MyPageCoordinator.swift in Sources */,
 				76B3BF56292627A30056ABFD /* GamePlayMenuView.swift in Sources */,
+				764AF2A1292B9C1F00D16DC9 /* String+.swift in Sources */,
 				76B3BF462924D93C0056ABFD /* SingleGameCoordinator.swift in Sources */,
 				E5027D5A292670BC0021BF60 /* RecordViewHeaderRecord.swift in Sources */,
 				E5BE8BB72922201F00E9CFE8 /* LoginViewController.swift in Sources */,
@@ -762,6 +772,7 @@
 				F156F11A29235EC50053E807 /* ImageConstants.swift in Sources */,
 				E5BE8BB12922200000E9CFE8 /* RecordViewController.swift in Sources */,
 				E5BE8B91292218A500E9CFE8 /* Coordinator.swift in Sources */,
+				764AF29F292B6EF500D16DC9 /* InGameRecordViewModel.swift in Sources */,
 				E5BE8B952922196D00E9CFE8 /* TabBarCoordinator.swift in Sources */,
 				E5BE8BAD29221FE500E9CFE8 /* HomeViewController.swift in Sources */,
 				E5027D5629265D910021BF60 /* SelectMapRecordCell.swift in Sources */,
@@ -796,6 +807,7 @@
 				76B3BF4A2924DDE70056ABFD /* BaseViewModel.swift in Sources */,
 				F156F1132923536A0053E807 /* DistanceAndTimeBar.swift in Sources */,
 				F1D202992923AB3D00F3E87D /* InGameRankingViewController.swift in Sources */,
+				764AF2A3292B9D3600D16DC9 /* InGameRankingViewModel.swift in Sources */,
 				471863BF291E155700A35786 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

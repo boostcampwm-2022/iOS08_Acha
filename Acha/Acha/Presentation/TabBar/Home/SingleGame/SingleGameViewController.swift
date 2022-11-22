@@ -46,6 +46,9 @@ class SingleViewController: MapBaseViewController, DistanceAndTimeBarLine {
     private let viewModel: SingleGameViewModel!
     private let disposeBag = DisposeBag()
     
+    let rankButtonTappedEvent = PublishRelay<Void>()
+    let recordButtonTappedEvent = PublishRelay<Void>()
+    
     var goLine: MKPolyline?
     var wentLine: MKPolyline?
     var visitLine: MKPolyline?
@@ -114,26 +117,17 @@ extension SingleViewController {
         let menuItems: [UIAction] =
         [
             UIAction(title: "랭킹", handler: { [weak self] _ in
-                let viewController = InGameRankingViewController()
-                viewController.fetchData(data: [.init(time: 1, userName: "승기", date: Date(timeIntervalSince1970: 0))])
-                #warning("더미데이터")
-                self?.presentModal(viewController: viewController)
+                guard let self else { return }
+                self.rankButtonTappedEvent.accept(())
             }),
             UIAction(title: "기록", handler: { [weak self] _ in
-                let viewController = InGameRecordViewController()
-                viewController.fetchData(data: [.init(time: 123, userName: "승기", date: Date())])
-                #warning("더미데이터")
-                self?.presentModal(viewController: viewController)
+                guard let self else { return }
+                self.recordButtonTappedEvent.accept(())
             })
         ]
         let menu = UIMenu(title: "", children: menuItems)
         rightMenuButton.menu = menu
         rightMenuButton.showsMenuAsPrimaryAction = true
-    }
-    
-    private func presentModal(viewController: UIViewController) {
-        viewController.modalPresentationStyle = .pageSheet
-        present(viewController, animated: true)
     }
     
     private func configureMap() {
@@ -207,7 +201,9 @@ extension SingleViewController {
             }).disposed(by: disposeBag)
         
         let input = SingleGameViewModel.Input(
-            gameOverButtonTapped: gameOverButton.rx.tap.asObservable()
+            gameOverButtonTapped: gameOverButton.rx.tap.asObservable(),
+            rankButtonTapped: rankButtonTappedEvent.asObservable(),
+            recordButtonTapped: recordButtonTappedEvent.asObservable()
         )
         _ = viewModel.transform(input: input)
         bindButtons()

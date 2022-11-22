@@ -44,4 +44,17 @@ final class SingleGameCoordinator: SingleGameCoordinatorProtocol {
         let viewController = GameOverViewController(viewModel: viewModel)
         navigationController.pushViewController(viewController, animated: true)
     }
+    
+    func showInGameRecordViewController() {
+        let viewController = InGameRecordViewController()
+        viewController.modalPresentationStyle = .pageSheet
+        self.navigationController.viewControllers.last?.present(viewController, animated: true)
+    }
+    
+    func showInGameRankViewController(map: Map) {
+        let viewModel = InGameRankingViewModel(map: map)
+        let viewController = InGameRankingViewController(viewModel: viewModel)
+        viewController.modalPresentationStyle = .pageSheet
+        self.navigationController.viewControllers.last?.present(viewController, animated: true)
+    }
 }
