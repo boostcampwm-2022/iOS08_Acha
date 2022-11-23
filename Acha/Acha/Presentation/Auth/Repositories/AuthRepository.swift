@@ -22,6 +22,18 @@ protocol SignUpRepository {
     func isSignAble() -> Bool
 }
 
+protocol LoginReposity {
+    var emailRelay: BehaviorRelay<String> {get set}
+    var passwordRelay: BehaviorRelay<String> {get set}
+    
+    var emailValidation: Bool {get set}
+    var passwordValidation: Bool {get set}
+    
+    func getLoginData() -> Observable<LoginData>
+    func isLoginAble() -> Bool
+
+}
+
 final class AuthRepository: SignUpRepository {
     var emailValidation: Bool = false
     var passwordValidation: Bool = false
@@ -44,4 +56,19 @@ final class AuthRepository: SignUpRepository {
     func isSignAble() -> Bool {
         return emailValidation && passwordValidation && nickNameValidation
     }
+}
+
+extension AuthRepository: LoginReposity {
+    func getLoginData() -> RxSwift.Observable<LoginData> {
+        return Observable
+            .zip(emailRelay, passwordRelay)
+            .map { (email, password) in
+                return LoginData(email: email, password: password)
+            }
+    }
+    
+    func isLoginAble() -> Bool {
+        return emailValidation == true && passwordValidation == true
+    }
+    
 }
