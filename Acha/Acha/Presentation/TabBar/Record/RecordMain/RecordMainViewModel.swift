@@ -27,14 +27,14 @@ class RecordMainViewModel: BaseViewModel {
     }
     
     private var ref: DatabaseReference!
-    var useCase: DefaultRecordViewUseCase!
+    var useCase: DefaultRecordMainViewUseCase!
     var disposeBag = DisposeBag()
     
     var sectionDays = [String: DayTotalRecord]()
     var mapData = [Int: Map]()
     var isFethed: Bool = false
     
-    init(useCase: DefaultRecordViewUseCase) {
+    init(useCase: DefaultRecordMainViewUseCase) {
         self.ref = Database.database().reference()
         self.useCase = useCase
     }

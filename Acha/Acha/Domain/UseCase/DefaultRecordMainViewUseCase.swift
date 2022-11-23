@@ -9,7 +9,7 @@ import Foundation
 import Firebase
 import RxSwift
 
-final class DefaultRecordViewUseCase: RecordViewUseCase {
+final class DefaultRecordMainViewUseCase: RecordMainViewUseCase {
     var ref: DatabaseReference!
     var mapData = PublishSubject<[Int: Map]>()
     var days = PublishSubject<[String]>()
@@ -69,13 +69,14 @@ final class DefaultRecordViewUseCase: RecordViewUseCase {
                 }
                 
                 let achaRecord = RecordViewRecord(mapID: record.mapID,
-                                            userID: record.userID,
-                                            calorie: record.calorie,
-                                            distance: record.distance,
-                                            time: record.time,
-                                            isSingleMode: record.isSingleMode,
-                                            isWin: record.isWin,
-                                            createdAt: record.createdAt)
+                                                  userID: record.userID,
+                                                  calorie: record.calorie,
+                                                  distance: record.distance,
+                                                  time: record.time,
+                                                  isSingleMode: record.isSingleMode,
+                                                  isWin: record.isWin,
+                                                  createdAt: record.createdAt,
+                                                  id: record.id)
                 
                 if recordAtDays[stringDate] != nil {
                     recordAtDays[stringDate]?.append(achaRecord)
@@ -100,7 +101,6 @@ final class DefaultRecordViewUseCase: RecordViewUseCase {
                 }
             }
             self.weekDistances.onNext(weekDistances)
-//            self.isFinishFetched.accept(true)
         })
     }
     

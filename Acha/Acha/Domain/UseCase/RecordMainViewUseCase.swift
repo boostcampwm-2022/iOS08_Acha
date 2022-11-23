@@ -7,6 +7,6 @@
 
 import Foundation
 
-protocol RecordViewUseCase {
+protocol RecordMainViewUseCase {
     
 }

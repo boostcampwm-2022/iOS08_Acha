@@ -101,8 +101,6 @@ class RecordMainViewController: UIViewController, UICollectionViewDelegate {
     }
     
     private func configureUI() {
-        navigationItem.title = "개인 기록"
-        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.pointLight]
         view.backgroundColor = .white
         
         configureCollectionView()

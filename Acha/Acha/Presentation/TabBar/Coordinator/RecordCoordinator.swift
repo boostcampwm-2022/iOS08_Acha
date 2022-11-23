@@ -27,14 +27,17 @@ final class RecordCoordinator: RecordCoordinatorProtocol {
     }
     
     func showRecordPageViewController() {
-        let useCase = DefaultRecordViewUseCase()
-        let viewModel = RecordMainViewModel(useCase: useCase)
-        let viewController = RecordPageViewController(viewModel: viewModel)
+        let mainUseCase = DefaultRecordMainViewUseCase()
+        let mainViewModel = RecordMainViewModel(useCase: mainUseCase)
+        
+        let mapUseCase = DefaultRecordMapViewUseCase()
+        let mapViewModel = RecordMapViewModel(useCase: mapUseCase)
+        let viewController = RecordPageViewController(mainViewModel: mainViewModel, mapViewModel: mapViewModel)
         navigationController.pushViewController(viewController, animated: true)
     }
     
     func showRecordViewController() {
-        let useCase = DefaultRecordViewUseCase()
+        let useCase = DefaultRecordMainViewUseCase()
         let viewModel = RecordMainViewModel(useCase: useCase)
         let viewController = RecordMainViewController(viewModel: viewModel)
         navigationController.pushViewController(viewController, animated: true)
