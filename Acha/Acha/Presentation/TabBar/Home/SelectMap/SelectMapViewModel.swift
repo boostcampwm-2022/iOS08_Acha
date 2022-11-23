@@ -24,7 +24,7 @@ class SelectMapViewModel: BaseViewModel {
     
     // MARK: - Output
     struct Output {
-        var visibleMap = PublishRelay<Map>()
+        var visibleMaps = PublishRelay<[Map]>()
         var cannotStart = PublishRelay<Void>()
     }
     private var maps: [Map]
@@ -46,13 +46,12 @@ class SelectMapViewModel: BaseViewModel {
         input.startButtonTapped
             .subscribe(onNext: { [weak self] _ in
                 guard let self,
-                      let map = self.selectedMap,
-                      let userLocation = self.userLocation else { return }
-                guard let minDistance = map.coordinates.map({ userLocation.distance(from: $0) }).min() else { return }
-                if minDistance > 10 {
+                      let map = self.selectedMap else { return }
+                if self.checkStartable(mapCoordinates: map.coordinates) {
+                    self.coordinator.showSingleGamePlayViewController(selectedMap: map)
+                } else {
                     output.cannotStart.accept(())
                 }
-                self.coordinator.showSingleGamePlayViewController(selectedMap: map)
             })
             .disposed(by: disposeBag)
         
@@ -66,22 +65,11 @@ class SelectMapViewModel: BaseViewModel {
         input.regionDidChanged
             .subscribe(onNext: { [weak self] region in
                 guard let self else { return }
-                let northWestCorner = Coordinate(latitude: region.center.latitude-(region.span.latitudeDelta / 2.0),
-                                                 longitude: region.center.longitude-(region.span.longitudeDelta / 2.0))
-                let southEastCorner = Coordinate(latitude: region.center.latitude+(region.span.latitudeDelta / 2.0),
-                                                 longitude: region.center.longitude+(region.span.longitudeDelta / 2.0))
-
-                self.maps.filter { !self.visbleMapsIdx.contains($0.mapID)}
-                    .forEach { map in
-                        let first = map.coordinates.first { coordinate in
-                            (northWestCorner.latitude...southEastCorner.latitude).contains(coordinate.latitude) &&
-                            (northWestCorner.longitude...southEastCorner.longitude).contains(coordinate.longitude)
-                        }
-                        if first != nil {
-                            output.visibleMap.accept(map)
-                            self.visbleMapsIdx.append(map.mapID)
-                        }
-                    }
+                let mapsToDisplay = self.getMapsInUpdatedRegion(region: region)
+                self.visbleMapsIdx.append(contentsOf: mapsToDisplay.map { $0.mapID })
+                output.visibleMaps.accept(mapsToDisplay)
+            })
+            .disposed(by: disposeBag)
             })
             .disposed(by: disposeBag)
     
@@ -149,5 +137,29 @@ class SelectMapViewModel: BaseViewModel {
             })
             return Disposables.create()
         }
+    }
+    
+    private func checkStartable(mapCoordinates: [Coordinate]) -> Bool {
+        guard let userLocation = self.userLocation,
+              let minDistance = mapCoordinates.map({ userLocation.distance(from: $0) }).min()
+        else { return false }
+        return !(minDistance > 10)
+    }
+    
+    private func getMapsInUpdatedRegion(region: MapRegion) -> [Map] {
+        let northWestCorner = Coordinate(latitude: region.center.latitude-(region.span.latitudeDelta / 2.0),
+                                         longitude: region.center.longitude-(region.span.longitudeDelta / 2.0))
+        let southEastCorner = Coordinate(latitude: region.center.latitude+(region.span.latitudeDelta / 2.0),
+                                         longitude: region.center.longitude+(region.span.longitudeDelta / 2.0))
+
+        let mapsToDisplay = maps.filter { !self.visbleMapsIdx.contains($0.mapID) }
+            .filter { map in
+                let first = map.coordinates.first { coordinate in
+                    (northWestCorner.latitude...southEastCorner.latitude).contains(coordinate.latitude) &&
+                    (northWestCorner.longitude...southEastCorner.longitude).contains(coordinate.longitude)
+                }
+                return first != nil
+            }
+        return mapsToDisplay
     }
 }

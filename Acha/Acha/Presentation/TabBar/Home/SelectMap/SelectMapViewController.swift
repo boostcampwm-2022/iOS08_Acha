@@ -139,19 +139,21 @@ extension SelectMapViewController {
             backButtonTapped: backButton.rx.tap.asObservable())
         let output = viewModel.transform(input: input)
 
-        output.visibleMap
-            .subscribe { [weak self] mapElement in
-                let coordinates = mapElement.coordinates.map {
-                    CLLocationCoordinate2D(latitude: $0.latitude, longitude: $0.longitude)
+        output.visibleMaps
+            .subscribe { [weak self] maps in
+                maps.forEach { mapElement in
+                    let coordinates = mapElement.coordinates.map {
+                        CLLocationCoordinate2D(latitude: $0.latitude, longitude: $0.longitude)
+                    }
+                    
+                    // 테두리 선
+                    let lineDraw = MKPolyline(coordinates: coordinates, count: coordinates.count)
+                    self?.mapView.addOverlay(lineDraw)
+                    
+                    // pin
+                    let annotation = MapAnnotation(map: mapElement, polyLine: lineDraw)
+                    self?.mapView.addAnnotation(annotation)
                 }
-                
-                // 테두리 선
-                let lineDraw = MKPolyline(coordinates: coordinates, count: coordinates.count)
-                self?.mapView.addOverlay(lineDraw)
-                
-                // pin
-                let annotation = MapAnnotation(map: mapElement, polyLine: lineDraw)
-                self?.mapView.addAnnotation(annotation)
             }.disposed(by: disposeBag)
         
         output.cannotStart
@@ -176,11 +178,8 @@ extension SelectMapViewController {
         rankingCollectionView.isHidden = false
         startButton.isValid = true
         
-        // 테두리 색상 변경
         guard let annotation = annotation as? MapAnnotation else { return }
-        if let renderer = mapView.renderer(for: annotation.polyLine) as? MKPolylineRenderer {
-            renderer.strokeColor = .red
-        }
+        changeLineColor(polyLine: annotation.polyLine, color: .red)
         
         // 땅이 랭킹뷰 위쪽에 오도록 지도 포커스
         let center = CLLocationCoordinate2D(latitude: annotation.map.centerCoordinate.latitude - 0.003,
@@ -191,6 +190,10 @@ extension SelectMapViewController {
         
         guard let rankings = viewModel.rankings[annotation.map.mapID] else { return }
         makeSnapshot(rankings: rankings, mapName: name)
+    private func changeLineColor(polyLine: MKPolyline, color: UIColor) {
+        if let renderer = mapView.renderer(for: polyLine) as? MKPolylineRenderer {
+            renderer.strokeColor = color
+        }
     }
     
     func mapView(_ mapView: MKMapView, didDeselect annotation: MKAnnotation) {
@@ -198,8 +201,7 @@ extension SelectMapViewController {
         startButton.isValid = false
         
         guard let annotation = annotation as? MapAnnotation else { return }
-        let renderer = mapView.renderer(for: annotation.polyLine) as? MKPolylineRenderer
-        renderer?.strokeColor = .gray
+        changeLineColor(polyLine: annotation.polyLine, color: .gray)
     }
     
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
