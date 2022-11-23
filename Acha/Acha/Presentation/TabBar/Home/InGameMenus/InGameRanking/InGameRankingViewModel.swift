@@ -48,7 +48,7 @@ class InGameRankingViewModel: BaseViewModel {
                     .map { InGameRanking(time: $1.time,
                                         userName: $1.userID,
                                         date: $1.createdAt.convertToDateFormat(format: "yyyy-MM-dd"))}
-                    .sorted(by: { $0.time < $1.time})
+                    .sorted(by: { $0.time < $1.time })
                 
                 single(.success(inGameRanking))
                 return
