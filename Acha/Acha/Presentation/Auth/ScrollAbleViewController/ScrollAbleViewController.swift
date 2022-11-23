@@ -15,6 +15,7 @@ class ScrollAbleViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()
+        hideKeyboardWhenTapped()
     }
 
 }
@@ -41,8 +42,24 @@ extension ScrollAbleViewController {
         addView()
         addConstraint()
         contentView.axis = .vertical
-        contentView.spacing = 70
+        contentView.spacing = 50
         contentView.backgroundColor = .white
     }
     
+}
+
+extension ScrollAbleViewController {
+    
+    private func hideKeyboardWhenTapped() {
+        let tapGestureRecognizer = UITapGestureRecognizer(
+            target: self,
+            action: #selector(dismissKeyboard)
+        )
+        tapGestureRecognizer.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapGestureRecognizer)
+    }
+    
+    @objc private func dismissKeyboard() {
+        view.endEditing(true)
+    }
 }

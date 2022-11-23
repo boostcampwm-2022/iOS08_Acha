@@ -16,7 +16,7 @@ class RecordViewModel {
     private let disposeBag = DisposeBag()
     
     var sortedSectionDays: [Dictionary<String, DayTotalRecord>.Element] = []
-    var recordAtDays = [String: [RecordViewRecord]]()
+    var recordAtDays = [String: [Record]]()
     var weekDistance = [RecordViewChartData]()
     var isFinishFetched = PublishRelay<Bool>()
     var mapData = [Int: Map]()
@@ -41,7 +41,7 @@ class RecordViewModel {
                                                 with: { [weak self] snapshot in
             guard let snapData = snapshot.value as? [Any],
                   let data = try? JSONSerialization.data(withJSONObject: snapData),
-                  let records = try? JSONDecoder().decode([RecordViewRecord].self, from: data),
+                  let records = try? JSONDecoder().decode([Record].self, from: data),
                   let self
             else { return }
             
@@ -57,7 +57,7 @@ class RecordViewModel {
                                                             calorie: record.calorie)
                 }
                 
-                let achaRecord = RecordViewRecord(mapID: record.mapID,
+                let achaRecord = Record(mapID: record.mapID,
                                             userID: record.userID,
                                             calorie: record.calorie,
                                             distance: record.distance,

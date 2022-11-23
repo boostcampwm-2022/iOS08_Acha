@@ -11,13 +11,14 @@ import Then
 import RxSwift
 import RxCocoa
 
-class SignupViewController: ScrollAbleViewController {
+final class SignupViewController: ScrollAbleViewController {
     
     private let titleView = AuthTitleView(image: nil, text: "회원가입")
     private let emailTextField = AuthInputTextField(type: .email)
     private let passwordTextField = AuthInputTextField(type: .password)
     private let nickNameTextField = AuthInputTextField(type: .nickName)
     private let signUpButton = AuthButton(color: .pointDark, text: "회원가입")
+    private let logInButton = AuthButton(color: .pointDark, text: "로그인")
     
     private let viewModel: SignUpViewModel
     private var disposeBag = DisposeBag()
@@ -43,32 +44,39 @@ class SignupViewController: ScrollAbleViewController {
             passwordUpdated: passwordTextField.rx.text.orEmpty.asObservable(),
             nickNameUpdated: nickNameTextField.rx.text.orEmpty.asObservable(),
             emailUpdated: emailTextField.rx.text.orEmpty.asObservable(),
-            signUpButtonDidTap: signUpButton.rx.tap.asObservable()
+            signUpButtonDidTap: signUpButton.rx.tap.asObservable(),
+            logInButtonDidTap: logInButton.rx.tap.asObservable()
         )
         
         let outputs = viewModel.transform(input: inputs)
         outputs.passwordValidated
-            .subscribe(onNext: { [weak self] result in
+            .asDriver(onErrorJustReturn: false)
+            .drive(onNext: { [weak self] result in
                 self?.passwordTextField.validateUpdate(result)
             })
             .disposed(by: disposeBag)
+
         outputs.emailValidated
-            .subscribe(onNext: { [weak self] result in
+            .asDriver(onErrorJustReturn: false)
+            .drive(onNext: { [weak self] result in
                 self?.emailTextField.validateUpdate(result)
             })
             .disposed(by: disposeBag)
+        
         outputs.nickNameValidated
-            .subscribe(onNext: { [weak self] result in
+            .asDriver(onErrorJustReturn: false)
+            .drive(onNext: { [weak self] result in
                 self?.nickNameTextField.validateUpdate(result)
             })
             .disposed(by: disposeBag)
         
         outputs.signUpSuccesssed
-            .subscribe { [weak self] result in
+            .asDriver(onErrorJustReturn: false)
+            .drive(onNext: { [weak self] result in
                 if !result {
                     self?.alertSignUpFailed()
                 }
-            }
+            })
             .disposed(by: disposeBag)
 
         KeyboardManager.keyboardWillHide(view: contentView)
@@ -85,12 +93,6 @@ class SignupViewController: ScrollAbleViewController {
             }
             .disposed(by: disposeBag)
 
-//        nickNameTextField.rx.controlEvent([.editingDidEndOnExit])
-//            .subscribe { [weak self] _ in
-//                self?.nickNameTextField.resignFirstResponder()
-//            }
-//            .disposed(by: disposeBag)
-    
     }
     
     override func viewDidLayoutSubviews() {
@@ -116,6 +118,7 @@ extension SignupViewController {
         contentView.addArrangedSubview(passwordTextField)
         contentView.addArrangedSubview(nickNameTextField)
         contentView.addArrangedSubview(signUpButton)
+        contentView.addArrangedSubview(logInButton)
         
         titleView.snp.makeConstraints {
             $0.top.equalTo(contentView.snp.top).inset(70)
@@ -123,26 +126,28 @@ extension SignupViewController {
         
         emailTextField.snp.makeConstraints {
             $0.height.equalTo(60)
-            $0.leading.equalTo(contentView.snp.leading).inset(70)
-            $0.trailing.equalTo(contentView.snp.trailing).inset(70)
+            $0.leading.trailing.equalTo(contentView).inset(70)
         }
         
         passwordTextField.snp.makeConstraints {
             $0.height.equalTo(60)
             $0.leading.equalTo(contentView.snp.leading).inset(70)
-            $0.trailing.equalTo(contentView.snp.trailing).inset(70)
+            $0.leading.trailing.equalTo(contentView).inset(70)
         }
         
         nickNameTextField.snp.makeConstraints {
             $0.height.equalTo(60)
-            $0.leading.equalTo(contentView.snp.leading).inset(70)
-            $0.trailing.equalTo(contentView.snp.trailing).inset(70)
+            $0.leading.trailing.equalTo(contentView).inset(70)
         }
         
         signUpButton.snp.makeConstraints {
             $0.height.equalTo(60)
-            $0.leading.equalTo(contentView.snp.leading).inset(70)
-            $0.trailing.equalTo(contentView.snp.trailing).inset(70)
+            $0.leading.trailing.equalTo(contentView).inset(70)
+        }
+        
+        logInButton.snp.makeConstraints {
+            $0.height.equalTo(60)
+            $0.leading.trailing.equalTo(contentView).inset(70)
         }
         
     }

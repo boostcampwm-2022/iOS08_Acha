@@ -69,6 +69,17 @@ class MapBaseViewController: UIViewController, MapBaseViewProtocol {
             $0.edges.equalToSuperview()
         }
     }
+    
+    func setUpMapView() {
+        // 어플을 종료하고 다시 실행했을 때 MapKit이 발생할 수 있는 오류를 방지하기 위한 처리
+        if #available(iOS 16.0, *) {
+            mapView.preferredConfiguration = MKStandardMapConfiguration()
+        } else {
+            mapView.mapType = .standard
+        }
+        
+        mapView.showsCompass = false
+    }
 }
 
 extension MapBaseViewController {
@@ -82,18 +93,6 @@ extension MapBaseViewController {
     
     @objc func focusButtonDidClick(_ sender: UIButton) {
         focusUserLocation(useSpan: false)
-    }
-    
-    func setUpMapView() {
-        // 어플을 종료하고 다시 실행했을 때 MapKit이 발생할 수 있는 오류를 방지하기 위한 처리
-        if #available(iOS 16.0, *) {
-            mapView.preferredConfiguration = MKStandardMapConfiguration()
-        } else {
-            mapView.mapType = .standard
-        }
-        
-        mapView.showsCompass = false
-        mapView.isRotateEnabled = false
     }
     
     func setUpUserLocation() {

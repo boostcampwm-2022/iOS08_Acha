@@ -8,9 +8,10 @@
 import Foundation
 import FirebaseAuth
 import RxSwift
+import FirebaseDatabase
 
 protocol SignUpAble {
-    func signUp(data: SignUpData) -> Observable<Bool>
+    func signUp(data: SignUpData) -> Observable<Result<String, Error>>
 }
 
 protocol LoginAble {
@@ -28,6 +29,7 @@ protocol PasswordValidate {
 protocol NickNameValidate {
     func nickNameValidate(text: String) -> Bool
 }
+
 
 protocol KeyChainStorable {
     func storeToKeyChain(id: String) -> Observable<Result<String, Error>>
@@ -58,18 +60,23 @@ final class AuthUseCase: KeyChainStorable {
 }
 
 extension AuthUseCase: SignUpAble {
+
     
-    public func signUp(data: SignUpData) -> Observable<Bool> {
-        return Observable<Bool>.create { observer in
+    public func signUp(data: SignUpData) -> Observable<Result<String, Error>> {
+        return Observable<Result<String, Error>>.create { observer in
             FirebaseAuth.Auth.auth().createUser(
                 withEmail: data.email,
                 password: data.password
-            ) { _, error in
+            ) { result, error in
                 guard error == nil else {
-                    observer.onNext(false)
+                    observer.onNext(.failure(AuthError.serverError))
                     return
                 }
-                observer.onNext(true)
+                guard let userId = result?.user.uid else {
+                    observer.onNext(.failure(AuthError.uidError))
+                    return
+                }
+                observer.onNext(.success(userId))
             }
             return Disposables.create()
         }
@@ -113,10 +120,11 @@ extension AuthUseCase: EmailValidate, PasswordValidate, NickNameValidate {
     }
 }
 
-struct SignUpData {
-    let email: String
-    let password: String
-    let nickName: String
+extension AuthUseCase: UserDataAppendToDatabase {
+    public func userDataAppendToDatabase(userData: UserDTO) {
+        let ref = Database.database().reference()
+        ref.child("User/\(userData.id)").setValue(userData.dictionary)
+    }
 }
 
 struct LoginData {

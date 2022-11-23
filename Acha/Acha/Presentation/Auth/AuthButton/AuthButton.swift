@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AuthButton: UIButton {
+final class AuthButton: UIButton {
 
     init(color: UIColor, text: String) {
         super.init(frame: .zero)
