@@ -42,6 +42,6 @@ final class AuthRepository: SignUpRepository {
     }
     
     func isSignAble() -> Bool {
-        return emailValidation == true && passwordValidation == true && nickNameValidation == true 
+        return emailValidation && passwordValidation && nickNameValidation
     }
 }

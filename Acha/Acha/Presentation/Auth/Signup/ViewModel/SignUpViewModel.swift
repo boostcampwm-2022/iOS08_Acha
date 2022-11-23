@@ -35,7 +35,7 @@ final class SignUpViewModel {
     & UserDataAppendToDatabase
     
     private let useCase: SignUpUseCase
-    private let coordinator: SignupCoordinatorProtocol
+    private weak var coordinator: SignupCoordinatorProtocol?
     private var repository: SignUpRepository
     
     init(
@@ -103,13 +103,13 @@ final class SignUpViewModel {
             .subscribe { [weak self] _ in
                 self?.transitionView()
             }
+            .disposed(by: bag)
         
         let signUpButtonDidTap = Observable<Bool>.create { observer in
             input.signUpButtonDidTap
                 .subscribe { [weak self] _ in
                     self?.repository.getSignUpdata()
                         .subscribe(onNext: { signUpData in
-                            print(signUpData)
                             if self?.repository.isSignAble() ?? false {
                                 self?.useCase.signUp(data: signUpData)
                                     .subscribe(onNext: { result in
@@ -142,7 +142,8 @@ final class SignUpViewModel {
     }
     
     private func transitionView() {
-        coordinator.delegate?.didFinished(childCoordinator: coordinator)
+        guard let strongCoordinator = coordinator else {return}
+        strongCoordinator.delegate?.didFinished(childCoordinator: strongCoordinator)
     }
     
 }

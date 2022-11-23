@@ -50,27 +50,33 @@ final class SignupViewController: ScrollAbleViewController {
         
         let outputs = viewModel.transform(input: inputs)
         outputs.passwordValidated
-            .subscribe(onNext: { [weak self] result in
+            .asDriver(onErrorJustReturn: false)
+            .drive(onNext: { [weak self] result in
                 self?.passwordTextField.validateUpdate(result)
             })
             .disposed(by: disposeBag)
+
         outputs.emailValidated
-            .subscribe(onNext: { [weak self] result in
+            .asDriver(onErrorJustReturn: false)
+            .drive(onNext: { [weak self] result in
                 self?.emailTextField.validateUpdate(result)
             })
             .disposed(by: disposeBag)
+        
         outputs.nickNameValidated
-            .subscribe(onNext: { [weak self] result in
+            .asDriver(onErrorJustReturn: false)
+            .drive(onNext: { [weak self] result in
                 self?.nickNameTextField.validateUpdate(result)
             })
             .disposed(by: disposeBag)
         
         outputs.signUpSuccesssed
-            .subscribe { [weak self] result in
+            .asDriver(onErrorJustReturn: false)
+            .drive(onNext: { [weak self] result in
                 if !result {
                     self?.alertSignUpFailed()
                 }
-            }
+            })
             .disposed(by: disposeBag)
 
         KeyboardManager.keyboardWillHide(view: contentView)
@@ -120,32 +126,28 @@ extension SignupViewController {
         
         emailTextField.snp.makeConstraints {
             $0.height.equalTo(60)
-            $0.leading.equalTo(contentView.snp.leading).inset(70)
-            $0.trailing.equalTo(contentView.snp.trailing).inset(70)
+            $0.leading.trailing.equalTo(contentView).inset(70)
         }
         
         passwordTextField.snp.makeConstraints {
             $0.height.equalTo(60)
             $0.leading.equalTo(contentView.snp.leading).inset(70)
-            $0.trailing.equalTo(contentView.snp.trailing).inset(70)
+            $0.leading.trailing.equalTo(contentView).inset(70)
         }
         
         nickNameTextField.snp.makeConstraints {
             $0.height.equalTo(60)
-            $0.leading.equalTo(contentView.snp.leading).inset(70)
-            $0.trailing.equalTo(contentView.snp.trailing).inset(70)
+            $0.leading.trailing.equalTo(contentView).inset(70)
         }
         
         signUpButton.snp.makeConstraints {
             $0.height.equalTo(60)
-            $0.leading.equalTo(contentView.snp.leading).inset(70)
-            $0.trailing.equalTo(contentView.snp.trailing).inset(70)
+            $0.leading.trailing.equalTo(contentView).inset(70)
         }
         
         logInButton.snp.makeConstraints {
             $0.height.equalTo(60)
-            $0.leading.equalTo(contentView.snp.leading).inset(70)
-            $0.trailing.equalTo(contentView.snp.trailing).inset(70)
+            $0.leading.trailing.equalTo(contentView).inset(70)
         }
         
     }
