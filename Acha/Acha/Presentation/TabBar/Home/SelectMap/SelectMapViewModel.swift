@@ -49,7 +49,7 @@ class SelectMapViewModel: BaseViewModel {
                       let map = self.selectedMap,
                       let userLocation = self.userLocation else { return }
                 guard let minDistance = map.coordinates.map({ userLocation.distance(from: $0) }).min() else { return }
-                if minDistance > 5 {
+                if minDistance > 10 {
                     output.cannotStart.accept(())
                 }
                 self.coordinator.showSingleGamePlayViewController(selectedMap: map)
