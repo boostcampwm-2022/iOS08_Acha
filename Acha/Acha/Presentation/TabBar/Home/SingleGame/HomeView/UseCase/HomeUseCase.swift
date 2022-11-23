@@ -19,4 +19,8 @@ struct HomeUseCase {
         return repository.getUUID()
     }
     
+    func makeRoomID() -> String {
+        return repository.makeRoomID()
+    }
+    
 }

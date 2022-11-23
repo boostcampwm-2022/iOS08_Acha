@@ -14,10 +14,16 @@ final class HomeViewModel: BaseViewModel {
     struct Input {
         let singleGameModeDidTap: Observable<Void>
         let multiGameModeDidTap: Observable<Void>
+        let makeRoomButtonDidTap: Observable<Void>
+        let enterOtherRoomButtonDidTap: Observable<Void>
+        let cameraDetectedSometing: Observable<String>
     }
     
     struct Output {
         let multiGameModeTapped: Observable<Void>
+        let uuidDidPass: Observable<String>
+        let roomEnterBehavior: Observable<Void>
+        let qrInformationDetectedByCamera: Observable<String>
     }
     
     var disposeBag = DisposeBag()
@@ -32,7 +38,7 @@ final class HomeViewModel: BaseViewModel {
         self.coordinator = coordinator
     }
     
-    func transform(input: Input) -> Output {
+    public func transform(input: Input) -> Output {
         
         let bag = DisposeBag()
         
@@ -41,11 +47,36 @@ final class HomeViewModel: BaseViewModel {
                 self?.coordinator?.connectSingleGameFlow()
             }
             .disposed(by: bag)
+        input.cameraDetectedSometing
+            .distinctUntilChanged()
+            .subscribe { [weak self] qrStirngValue in
+                self?.coordinator?.connectMultiGameFlow(gameID: qrStirngValue)
+            }
+            .disposed(by: bag)
+        
+        input.makeRoomButtonDidTap
+            .subscribe { [weak self] _ in
+                guard let strongSelf = self else {return}
+                strongSelf.coordinator?.connectMultiGameFlow(gameID: strongSelf.useCase.makeRoomID())
+            }
+            .disposed(by: bag)
+        
+        let uuidDidPass = Observable<String>.create { observer in
+            input.makeRoomButtonDidTap
+                .subscribe { [weak self] _ in
+                    self?.useCase.getUUID()
+                        .subscribe { uuid in
+                            observer.onNext(uuid)
+                        }
+                        .disposed(by: bag)
+                }
+                .disposed(by: bag)
+            return Disposables.create()
+        }
         
         let didMultiGameModeDidTap = Observable<Void>.create { observer in
             input.multiGameModeDidTap
-                .subscribe { [weak self] _ in
-                    print("tapped")
+                .subscribe { _ in
                     observer.onNext(())
                 }
                 .disposed(by: bag)
@@ -54,6 +85,11 @@ final class HomeViewModel: BaseViewModel {
         
         disposeBag = bag
         
-        return Output(multiGameModeTapped: didMultiGameModeDidTap)
+        return Output(
+            multiGameModeTapped: didMultiGameModeDidTap,
+            uuidDidPass: uuidDidPass,
+            roomEnterBehavior: input.enterOtherRoomButtonDidTap, 
+            qrInformationDetectedByCamera: uuidDidPass
+        )
     }
 }

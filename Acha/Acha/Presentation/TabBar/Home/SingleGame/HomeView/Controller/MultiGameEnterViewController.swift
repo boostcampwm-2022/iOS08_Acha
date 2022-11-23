@@ -9,15 +9,15 @@ import UIKit
 import Then
 import SnapKit
 
-class MultiGameEnterViewController: UIViewController {
+final class MultiGameEnterViewController: UIViewController {
     
-    private lazy var makeRoomButton: UIButton = UIButton().then {
+    lazy var makeRoomButton: UIButton = UIButton().then {
         $0.backgroundColor = .pointLight
         $0.layer.cornerRadius = 10
         $0.setTitle("방 만들기", for: .normal)
     }
     
-    private lazy var enterRoomtButton: UIButton = UIButton().then {
+    lazy var enterRoomtButton: UIButton = UIButton().then {
         $0.backgroundColor = .pointLight
         $0.layer.cornerRadius = 10
         $0.setTitle("방 입장", for: .normal)
@@ -44,15 +44,15 @@ extension MultiGameEnterViewController {
     
     private func addConstraints() {
         makeRoomButton.snp.makeConstraints {
-            $0.top.equalTo(view).offset(100)
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(100)
             $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(100)
-            $0.bottom.equalTo(view.snp.centerY).inset(50)
+            $0.bottom.equalTo(view.snp.centerY).inset(-100)
         }
         
         enterRoomtButton.snp.makeConstraints {
-            $0.top.equalTo(makeRoomButton.snp.bottom)
-            $0.leading.trailing.equalToSuperview().inset(100)
-            $0.bottom.equalTo(view.snp.bottom).inset(50)
+            $0.top.equalTo(makeRoomButton.snp.bottom).inset(-50)
+            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(100)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(100)
         }
     }
 }

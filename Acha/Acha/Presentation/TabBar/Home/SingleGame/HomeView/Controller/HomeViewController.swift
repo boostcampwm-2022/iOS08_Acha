@@ -72,7 +72,8 @@ final class HomeViewController: UIViewController {
         $0.layer.cornerRadius = 10
     }
     
-    private lazy var multiGameEnterView = MultiGameEnterViewController()
+    private lazy var multiGamePreView = MultiGameEnterViewController()
+    private lazy var qrReaderView = QRReaderViewController()
     
     // MARK: - Properties
     private let disposeBag: DisposeBag = DisposeBag()
@@ -110,13 +111,28 @@ final class HomeViewController: UIViewController {
     private func bind() {
         let inputs = HomeViewModel.Input(
             singleGameModeDidTap: startSingleGameButton.rx.tap.asObservable(),
-            multiGameModeDidTap: startMultiGameButton.rx.tap.asObservable()
+            multiGameModeDidTap: startMultiGameButton.rx.tap.asObservable(),
+            makeRoomButtonDidTap: multiGamePreView.makeRoomButton.rx.tap.asObservable(),
+            enterOtherRoomButtonDidTap: multiGamePreView.enterRoomtButton.rx.tap.asObservable(),
+            cameraDetectedSometing: qrReaderView.roomIDInformation.asObservable()
         )
         
         let outputs = viewModel.transform(input: inputs)
         outputs.multiGameModeTapped
             .subscribe { _ in
-                self.present(self.multiGameEnterView, animated: true)
+                self.present(self.multiGamePreView, animated: true)
+            }
+            .disposed(by: disposeBag)
+
+        outputs.roomEnterBehavior
+            .subscribe { _ in
+                self.multiGamePreView.dismiss(animated: true)
+                self.present(self.qrReaderView, animated: true)
+            }
+        
+        outputs.uuidDidPass
+            .subscribe { [weak self] _ in
+                self?.multiGamePreView.dismiss(animated: true)
             }
             .disposed(by: disposeBag)
     }
