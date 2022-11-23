@@ -10,6 +10,10 @@ import FirebaseAuth
 import RxSwift
 import FirebaseDatabase
 
+protocol UserDataAppendToDatabase {
+  func userDataAppendToDatabase(userData: UserDTO)
+}
+
 protocol SignUpAble {
     func signUp(data: SignUpData) -> Observable<Result<String, Error>>
 }
