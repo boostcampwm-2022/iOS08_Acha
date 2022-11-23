@@ -13,14 +13,14 @@ import RxSwift
 import RxRelay
 import RxCocoa
 
-class SingleViewController: MapBaseViewController, DistanceAndTimeBarLine {
+class SingleGameViewController: MapBaseViewController, DistanceAndTimeBarLine {
     // MARK: - UI properties
     private lazy var resetButton: UIButton = UIButton().then {
         $0.setImage(
             ImageConstants
                 .arrowPositionResetImage?
                 .withTintColor(
-                    .pointLight ?? UIColor.red,
+                    .pointLight,
                     renderingMode: .alwaysOriginal),
             for: .normal
         )
@@ -30,7 +30,7 @@ class SingleViewController: MapBaseViewController, DistanceAndTimeBarLine {
         $0.setImage(
             ImageConstants.inGameMenuButtonImage?
                 .withTintColor(
-                    .pointLight ?? UIColor.red,
+                    .pointLight,
                     renderingMode: .alwaysOriginal
                 ),
             for: .normal
@@ -70,6 +70,10 @@ class SingleViewController: MapBaseViewController, DistanceAndTimeBarLine {
         bind()
     }
     
+    deinit {
+        presentedViewController?.dismiss(animated: true)
+    }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         configureDistanceAndTimeBarBottomUI()
@@ -82,7 +86,7 @@ class SingleViewController: MapBaseViewController, DistanceAndTimeBarLine {
 }
 
 // MARK: - Helpers
-extension SingleViewController {
+extension SingleGameViewController {
     private func setupSubviews() {
         [rightMenuButton, distanceAndTimeBar, resetButton, gameOverButton]
             .forEach {
@@ -229,7 +233,7 @@ extension SingleViewController {
 }
 
 // MARK: - CLLocationManagerDelegate
-extension SingleViewController {
+extension SingleGameViewController {
     func locationManager( _ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else { return }
         
@@ -243,7 +247,7 @@ extension SingleViewController {
 }
 
 // MARK: - MKMapViewDelegate
-extension SingleViewController {
+extension SingleGameViewController {
     // mapView.addOverlay(lineDraw) 실행 시 호출되는 함수
     override func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         guard let polyLine = overlay as? MKPolyline

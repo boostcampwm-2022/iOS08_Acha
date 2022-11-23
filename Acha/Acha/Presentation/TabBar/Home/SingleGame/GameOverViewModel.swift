@@ -15,10 +15,11 @@ final class GameOverViewModel: BaseViewModel {
     }
     
     struct Output {
-        
+        var record: Record
+        var mapName: String
     }
     
-    private let coordinator: SingleGameCoordinator
+    private weak var coordinator: SingleGameCoordinator?
     var disposeBag = DisposeBag()
     let ref: DatabaseReference!
     var record: Record
@@ -45,9 +46,9 @@ final class GameOverViewModel: BaseViewModel {
         input.okButtonTapped
             .subscribe(onNext: { [weak self] in
                 guard let self else { return }
-                self.coordinator.delegate?.didFinished(childCoordinator: self.coordinator)
+                self.coordinator?.delegate?.didFinished(childCoordinator: self.coordinator!)
             }).disposed(by: disposeBag)
-        return Output()
+        return Output(record: record, mapName: map.name)
     }
     
     private func uploadRecord() {

@@ -49,7 +49,7 @@ class GameOverViewController: UIViewController {
         $0.textAlignment = .left
     }
     private let kcalValueLabel: UILabel = UILabel().then {
-        $0.font = .largeBody
+        $0.font = .body
         $0.textAlignment = .center
     }
     private let rankBoardStackView: UIStackView = UIStackView().then {
@@ -139,13 +139,13 @@ class GameOverViewController: UIViewController {
     }
     
     private func bind() {
-        let record = viewModel.record
-        mapNameLabel.text = viewModel.map.name
-        timeValueLabel.text = "\(record.time.convertToDayHourMinueFormat())"
-        distanceValueLabel.text = "\(record.distance)m"
-        kcalValueLabel.text = "\(record.calorie)"
-        
         let input = GameOverViewModel.Input(okButtonTapped: okButton.rx.tap.asObservable())
-        _ = viewModel.transform(input: input)
+        let output = viewModel.transform(input: input)
+        let record = output.record
+        
+        mapNameLabel.text = output.mapName
+        timeValueLabel.text = "\(record.time.convertToDayHourMinueFormat())"
+        distanceValueLabel.text = record.distance.convertToDecimal+"m"
+        kcalValueLabel.text = record.calorie.convertToDecimal+"kcal"
     }
 }

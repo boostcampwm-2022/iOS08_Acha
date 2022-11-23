@@ -35,14 +35,16 @@ final class SingleGameCoordinator: SingleGameCoordinatorProtocol {
     
     func showSingleGamePlayViewController(selectedMap: Map) {
         let viewModel = SingleGameViewModel(coordinator: self, map: selectedMap)
-        let viewController = SingleViewController(viewModel: viewModel)
+        let viewController = SingleGameViewController(viewModel: viewModel)
         navigationController.pushViewController(viewController, animated: true)
     }
     
     func showSingleGameOverViewController(record: Record, map: Map, isCompleted: Bool) {
         let viewModel = GameOverViewModel(coordinator: self, record: record, map: map, isCompleted: isCompleted)
         let viewController = GameOverViewController(viewModel: viewModel)
-        navigationController.pushViewController(viewController, animated: true)
+//        navigationController.pushViewController(viewController, animated: true)
+        viewController.modalPresentationStyle = .overFullScreen
+        self.navigationController.viewControllers.last?.present(viewController, animated: true)
     }
     
     func showInGameRecordViewController(mapID: Int) {
