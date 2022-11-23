@@ -219,11 +219,6 @@ extension SingleGameViewController {
                 self.focusUserLocation(useSpan: false)
             }).disposed(by: disposeBag)
     }
-    func setMapRegion(toCoordinate coordinate: CLLocationCoordinate2D) {
-        let span = MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
-        let region = MKCoordinateRegion(center: coordinate, span: span)
-        mapView.setRegion(region, animated: true)
-    }
     
     func drawWentLine(from: CLLocationCoordinate2D, here: CLLocationCoordinate2D) {
         wentLine = MKPolyline(coordinates: [from, here], count: 2)
