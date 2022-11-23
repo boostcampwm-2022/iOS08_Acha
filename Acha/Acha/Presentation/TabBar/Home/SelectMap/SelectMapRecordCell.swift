@@ -45,6 +45,13 @@ class SelectMapRecordCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        pinImageView.image = UIImage()
+        idLabel.text = "아직 기록이 없습니다"
+        timeLabel.text = "00:00:00"
+    }
 
     func configureUI() {
         [rankingLabel, pinImageView, idLabel, timeLabel].forEach {
