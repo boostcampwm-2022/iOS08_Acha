@@ -111,7 +111,7 @@ class SelectMapViewModel: BaseViewModel {
                   let data = try? JSONSerialization.data(withJSONObject: snapData),
                   let mapDatas = try? JSONDecoder().decode([Map].self, from: data)
             else {
-                print(Errors.decodeError)
+                print(Errors.decodeError, " Map")
                 return
             }
             

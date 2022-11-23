@@ -7,12 +7,13 @@
 
 import UIKit
 
-protocol LoginCoordinatorProtocol: Coordinator {
+protocol LoginCoordinatorProtocol: Coordinator, SignupCoordinatorProtocol {
     func showLoginViewController()
-    func connectSignupCoordinator()
+    func showSignupViewController()
 }
 
 final class LoginCoordinator: LoginCoordinatorProtocol {
+    
     var delegate: CoordinatorDelegate?
     
     var navigationController: UINavigationController
@@ -39,16 +40,23 @@ final class LoginCoordinator: LoginCoordinatorProtocol {
         self.navigationController.isNavigationBarHidden = true
     }
     
-    func connectSignupCoordinator() {
+    func showSignupViewController() {
         let coordinator = SignupCoordinator(navigationController: navigationController)
         appendChildCoordinator(coordinator: coordinator)
         coordinator.delegate = self
         coordinator.start()
     }
+    
+    /// snapkit 에서 superview 를 찾을 수 없다는 오류로 인해서 강제적으로 네비게이션 컨트롤러를
+    /// 정리해 줘야 되서 만든 함수 입니다.
+    private func navigationControllerRefactoring() {
+        var viewControllers = navigationController.viewControllers
+        viewControllers.remove(at: viewControllers.count-2)
+    }
 }
 
 extension LoginCoordinator: CoordinatorDelegate {
     func didFinished(childCoordinator: Coordinator) {
-        connectSignupCoordinator()
+        showLoginViewController()
     }
 }

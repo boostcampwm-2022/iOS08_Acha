@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxSwift
 
 final class InGameRankingViewController: InGamePlayMenuViewController {
     // MARK: - UI properties
@@ -19,12 +20,38 @@ final class InGameRankingViewController: InGamePlayMenuViewController {
     
     typealias RankingDataSource = UICollectionViewDiffableDataSource<Section, InGameRanking>
     typealias RankingSnapShot = NSDiffableDataSourceSnapshot<Section, InGameRanking>
+    
+    let viewModel: InGameRankingViewModel
+    let disposeBag = DisposeBag()
     // MARK: - Lifecycles
 
+    init(viewModel: InGameRankingViewModel){
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         titleLabel.text = "랭킹"
+        bind()
         collectionViewRegister()
+    }
+    
+    private func bind() {
+        let input = InGameRankingViewModel.Input()
+        let output = viewModel.transform(input: input)
+        output.rankings
+            .subscribe(onSuccess: { [weak self] in
+                guard let self else { return }
+                self.makeSnapshot(data: $0)
+            }, onFailure: {
+                print($0)
+            }).disposed(by: disposeBag)
+    
     }
     // MARK: - Helpers
     private func collectionViewRegister() {
@@ -53,7 +80,7 @@ final class InGameRankingViewController: InGamePlayMenuViewController {
         return datasource
     }
     
-    func fetchData(data: [InGameRanking]) {
+    func makeSnapshot(data: [InGameRanking]) {
         var snapshot = RankingSnapShot()
         snapshot.appendSections([.main])
         snapshot.appendItems(data)

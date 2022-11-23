@@ -28,7 +28,7 @@ final class LoginViewModel: BaseViewModel {
     
     private var repository: LoginReposity
     private let useCase: LoginUseCase
-    private let coordinator: LoginCoordinatorProtocol
+    private weak var coordinator: LoginCoordinatorProtocol?
     
     init(coordinator: LoginCoordinatorProtocol,
          useCase: LoginUseCase,
@@ -78,6 +78,7 @@ final class LoginViewModel: BaseViewModel {
             input.loginButtonDidTap
                 .subscribe { [weak self] _ in
                     self?.repository.getLoginData()
+                        .distinctUntilChanged()
                         .subscribe(onNext: { loginData in
                             if self?.repository.isLoginAble() ?? false {
                                 self?.useCase.logIn(data: loginData)
@@ -97,7 +98,6 @@ final class LoginViewModel: BaseViewModel {
                                                     }
                                                 })
                                                 .disposed(by: bag)
-
                                         }
                                     })
                                     .disposed(by: bag)
@@ -114,7 +114,7 @@ final class LoginViewModel: BaseViewModel {
         
         input.signUpButtonDidTap
             .subscribe { [weak self] _ in
-                self?.coordinator.connectSignupCoordinator()
+                self?.coordinator?.showSignupViewController()
             }
             .disposed(by: bag)
         
@@ -126,7 +126,8 @@ final class LoginViewModel: BaseViewModel {
     }
     
     private func translateView() {
-        coordinator.delegate?.didFinished(childCoordinator: coordinator)
+        guard let storngCoordinator = coordinator else {return}
+        storngCoordinator.delegate?.didFinished(childCoordinator: storngCoordinator)
     }
     
 }

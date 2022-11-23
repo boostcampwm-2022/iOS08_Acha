@@ -27,23 +27,25 @@ extension ScrollAbleViewController {
     }
     
     func addConstraint() {
-        
         scrollView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+            $0.top.bottom.equalToSuperview()
+            $0.leading.trailing.equalToSuperview().inset(80)
         }
-        
+
         contentView.snp.makeConstraints {
             $0.width.equalToSuperview()
             $0.centerX.top.bottom.equalToSuperview()
         }
+
     }
     
     func configure() {
-        addView()
-        addConstraint()
         contentView.axis = .vertical
         contentView.spacing = 50
         contentView.backgroundColor = .white
+        contentView.distribution = .fillProportionally
+        addView()
+        addConstraint()
     }
     
 }

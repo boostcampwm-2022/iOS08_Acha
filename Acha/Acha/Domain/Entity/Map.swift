@@ -13,9 +13,11 @@ struct Map: Decodable {
     let name: String
     let centerCoordinate: Coordinate
     let coordinates: [Coordinate]
+    let location: String
+    let records: [Int]?
 
     enum CodingKeys: String, CodingKey {
         case mapID = "mapId"
-        case name, centerCoordinate, coordinates
+        case name, centerCoordinate, coordinates, records, location
     }
 }

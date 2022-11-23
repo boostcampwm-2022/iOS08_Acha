@@ -33,18 +33,20 @@ final class LoginViewController: ScrollAbleViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        layout()
         bind()
         resignBind()
     }
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        layout()
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        scrollView.removeFromSuperview()
     }
 }
 
 extension LoginViewController {
     
-    private func layout() {
+    private func layout() {        
         addViews()
         addConstraints()
     }
@@ -59,32 +61,24 @@ extension LoginViewController {
     
     private func addConstraints() {
         titleView.snp.makeConstraints {
-            $0.top.leading.trailing.equalToSuperview()
             $0.height.equalTo(80)
         }
         
         emailTextField.snp.makeConstraints {
             $0.height.equalTo(60)
-            $0.leading.equalTo(contentView.snp.leading).inset(70)
-            $0.trailing.equalTo(contentView.snp.trailing).inset(70)
         }
         
         passwordTextField.snp.makeConstraints {
             $0.height.equalTo(60)
-            $0.leading.equalTo(contentView.snp.leading).inset(70)
-            $0.trailing.equalTo(contentView.snp.trailing).inset(70)
+
         }
         
         loginButton.snp.makeConstraints {
             $0.height.equalTo(60)
-            $0.leading.equalTo(contentView.snp.leading).inset(70)
-            $0.trailing.equalTo(contentView.snp.trailing).inset(70)
         }
         
         toSignUpButton.snp.makeConstraints {
             $0.height.equalTo(60)
-            $0.leading.equalTo(contentView.snp.leading).inset(70)
-            $0.trailing.equalTo(contentView.snp.trailing).inset(70)
         }
     }
     

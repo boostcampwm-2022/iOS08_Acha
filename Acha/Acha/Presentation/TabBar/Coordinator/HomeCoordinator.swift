@@ -66,6 +66,7 @@ final class HomeCoordinator: HomeCoordinatorProtocol {
 
 extension HomeCoordinator: CoordinatorDelegate {
     func didFinished(childCoordinator: Coordinator) {
+        navigationController.viewControllers.last?.dismiss(animated: true)
         removeChildCoordinator(coordinator: childCoordinator)
         navigationController.viewControllers.removeAll()
         tabBarController?.tabBar.isHidden = false
