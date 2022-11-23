@@ -27,7 +27,14 @@ final class SignupCoordinator: SignupCoordinatorProtocol {
     }
     
     func showSignupViewController() {
-        let viewController = SignupViewController()
+        let useCase = AuthUseCase()
+        let repository = AuthRepository()
+        let viewModel = SignUpViewModel(
+            coordinator: self,
+            useCase: useCase,
+            repository: repository
+        )
+        let viewController = SignupViewController(viewModel: viewModel)
         navigationController.pushViewController(viewController, animated: true)
     }
 

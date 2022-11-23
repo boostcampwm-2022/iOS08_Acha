@@ -31,4 +31,16 @@ struct ImageConstants {
     ) -> UIImage {
         return image.withTintColor(color, renderingMode: .alwaysOriginal)
     }
+    
+    static func authPasswordImage() -> UIImage {
+        return UIImage(named: "password")!
+    }
+    
+    static func authEmailImage() -> UIImage {
+        return UIImage(named: "email")!
+    }
+    
+    static func authNickNameImage() -> UIImage {
+        return UIImage(named: "nickName")!
+    }    
 }
