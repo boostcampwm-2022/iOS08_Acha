@@ -34,7 +34,13 @@ final class HomeCoordinator: HomeCoordinatorProtocol {
     }
     
     func showHomeViewController() {
-        let viewModel = HomeViewModel(coordinator: self)
+        let provider = KeyChainManager()
+        let repository = HomeRepository(provider: provider)
+        let useCase = HomeUseCase(repository: repository)
+        let viewModel = HomeViewModel(
+            coordinator: self,
+            useCase: useCase
+        )
         let viewController = HomeViewController(viewModel: viewModel)
         navigationController.navigationBar.isHidden = false
         navigationController.pushViewController(viewController, animated: true)

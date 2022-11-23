@@ -76,6 +76,7 @@
 		F156F11A29235EC50053E807 /* ImageConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F156F11929235EC50053E807 /* ImageConstants.swift */; };
 		F156F11C2923623C0053E807 /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F156F11B2923623C0053E807 /* PaddingLabel.swift */; };
 		F156F11E292365840053E807 /* CALayer+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F156F11D292365840053E807 /* CALayer+Extension.swift */; };
+		F17F86B5292E035100BDCE0F /* MultiGameEnterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17F86B4292E035100BDCE0F /* MultiGameEnterViewController.swift */; };
 		F18A7FCF292BE75A0054FADE /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18A7FCE292BE75A0054FADE /* String+Extension.swift */; };
 		F18A7FD1292C5DA50054FADE /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18A7FD0292C5DA50054FADE /* UIImage+Extension.swift */; };
 		F1AC0391292B33F8008302F8 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1AC0390292B33F8008302F8 /* SignUpViewModel.swift */; };
@@ -84,6 +85,8 @@
 		F1B0D8AE292CCAAC00EBDD02 /* UserDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B0D8AD292CCAAC00EBDD02 /* UserDTO.swift */; };
 		F1B0D8B0292CCABE00EBDD02 /* BadgeDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B0D8AF292CCABE00EBDD02 /* BadgeDTO.swift */; };
 		F1B0D8B2292CCAD900EBDD02 /* RecordDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B0D8B1292CCAD900EBDD02 /* RecordDTO.swift */; };
+		F1CCF912292DF8BE0082B250 /* HomeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CCF911292DF8BE0082B250 /* HomeUseCase.swift */; };
+		F1CCF915292DF8CD0082B250 /* HomeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CCF914292DF8CD0082B250 /* HomeRepository.swift */; };
 		F1D202992923AB3D00F3E87D /* InGameRankingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D202982923AB3D00F3E87D /* InGameRankingViewController.swift */; };
 		F1D2029B2923B97400F3E87D /* InGameRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D2029A2923B97400F3E87D /* InGameRecordViewController.swift */; };
 		F1D202A42923C09300F3E87D /* InGameMenuCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D202A32923C09300F3E87D /* InGameMenuCollectionViewCell.swift */; };
@@ -185,6 +188,7 @@
 		F156F11929235EC50053E807 /* ImageConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageConstants.swift; sourceTree = "<group>"; };
 		F156F11B2923623C0053E807 /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
 		F156F11D292365840053E807 /* CALayer+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+Extension.swift"; sourceTree = "<group>"; };
+		F17F86B4292E035100BDCE0F /* MultiGameEnterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiGameEnterViewController.swift; sourceTree = "<group>"; };
 		F18A7FCE292BE75A0054FADE /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		F18A7FD0292C5DA50054FADE /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		F1AC0390292B33F8008302F8 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
@@ -193,6 +197,8 @@
 		F1B0D8AD292CCAAC00EBDD02 /* UserDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDTO.swift; sourceTree = "<group>"; };
 		F1B0D8AF292CCABE00EBDD02 /* BadgeDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeDTO.swift; sourceTree = "<group>"; };
 		F1B0D8B1292CCAD900EBDD02 /* RecordDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordDTO.swift; sourceTree = "<group>"; };
+		F1CCF911292DF8BE0082B250 /* HomeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeUseCase.swift; sourceTree = "<group>"; };
+		F1CCF914292DF8CD0082B250 /* HomeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRepository.swift; sourceTree = "<group>"; };
 		F1D202982923AB3D00F3E87D /* InGameRankingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameRankingViewController.swift; sourceTree = "<group>"; };
 		F1D2029A2923B97400F3E87D /* InGameRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameRecordViewController.swift; sourceTree = "<group>"; };
 		F1D202A32923C09300F3E87D /* InGameMenuCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameMenuCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -369,6 +375,7 @@
 		76B3BF4D292526680056ABFD /* SingleGame */ = {
 			isa = PBXGroup;
 			children = (
+				F1CCF90B292DF8830082B250 /* HomeView */,
 				76B3BF432924C7450056ABFD /* SingleGameViewController.swift */,
 				76A2E19F2923C5A7001E887A /* SingleGameViewModel.swift */,
 			);
@@ -467,8 +474,6 @@
 				76B3BF4D292526680056ABFD /* SingleGame */,
 				F156F1112923534B0053E807 /* RecordAndsTimeBar */,
 				477842F92923C2D400AAC3DB /* SelectMap */,
-				47935E9A29238DE300481307 /* HomeViewModel.swift */,
-				E5BE8BAC29221FE400E9CFE8 /* HomeViewController.swift */,
 				76B3BF55292627A30056ABFD /* GamePlayMenuView.swift */,
 			);
 			path = Home;
@@ -642,6 +647,50 @@
 				F1B0D8AB292CCA5200EBDD02 /* SignUpData.swift */,
 			);
 			path = Auth;
+			sourceTree = "<group>";
+		};
+		F1CCF90B292DF8830082B250 /* HomeView */ = {
+			isa = PBXGroup;
+			children = (
+				F1CCF90D292DF8920082B250 /* ViewModel */,
+				F1CCF90F292DF8A70082B250 /* Repository */,
+				F1CCF90E292DF89F0082B250 /* UseCase */,
+				F1CCF90C292DF88C0082B250 /* Controller */,
+			);
+			path = HomeView;
+			sourceTree = "<group>";
+		};
+		F1CCF90C292DF88C0082B250 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				E5BE8BAC29221FE400E9CFE8 /* HomeViewController.swift */,
+				F17F86B4292E035100BDCE0F /* MultiGameEnterViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		F1CCF90D292DF8920082B250 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				47935E9A29238DE300481307 /* HomeViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		F1CCF90E292DF89F0082B250 /* UseCase */ = {
+			isa = PBXGroup;
+			children = (
+				F1CCF911292DF8BE0082B250 /* HomeUseCase.swift */,
+			);
+			path = UseCase;
+			sourceTree = "<group>";
+		};
+		F1CCF90F292DF8A70082B250 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				F1CCF914292DF8CD0082B250 /* HomeRepository.swift */,
+			);
+			path = Repository;
 			sourceTree = "<group>";
 		};
 		F1D2029C2923BF0800F3E87D /* InGameMenus */ = {
@@ -889,15 +938,13 @@
 				47935E9D29238E9E00481307 /* SelectMapViewController.swift in Sources */,
 				4738D76F2922756B003AE835 /* Map.swift in Sources */,
 				E5027D5E292686440021BF60 /* RecordViewDayTotalRecord.swift in Sources */,
-
-				E5027D58292670570021BF60 /* RecordViewRecord.swift in Sources */,
+				E5027D58292670570021BF60 /* Record.swift in Sources */,
 				F1034B59292B37EB00BD8407 /* LoginViewModel.swift in Sources */,
-
 				E5027D58292670570021BF60 /* Record.swift in Sources */,
 				47A26DBC292B73850007FBBF /* Coordinate.swift in Sources */,
-
 				47935E9F29238EB400481307 /* SelectMapViewModel.swift in Sources */,
 				F14B1495292BA1D40010E966 /* KeyboardManager.swift in Sources */,
+				F1CCF912292DF8BE0082B250 /* HomeUseCase.swift in Sources */,
 				F13DB58F292B3C8D00323B28 /* AuthInputTextField.swift in Sources */,
 				E5BE8B8F2922172400E9CFE8 /* AppCoordinator.swift in Sources */,
 				47935E97292366CD00481307 /* UIButton+.swift in Sources */,
@@ -919,6 +966,7 @@
 				E5BE8B91292218A500E9CFE8 /* Coordinator.swift in Sources */,
 				F1FCEE14292B4E9A001A55D6 /* AuthTitleView.swift in Sources */,
 				F12210C2292D031800AE5F26 /* KeyChainManager.swift in Sources */,
+				F17F86B5292E035100BDCE0F /* MultiGameEnterViewController.swift in Sources */,
 				E5BE8B952922196D00E9CFE8 /* TabBarCoordinator.swift in Sources */,
 				E5BE8BAD29221FE500E9CFE8 /* HomeViewController.swift in Sources */,
 				E5027D5629265D910021BF60 /* SelectMapRecordCell.swift in Sources */,
@@ -944,6 +992,7 @@
 				47935E99292375DC00481307 /* MapAnnotation.swift in Sources */,
 				E5027D5329263D620021BF60 /* UIColor+.swift in Sources */,
 				F14B1498292BA6B00010E966 /* AuthUseCase.swift in Sources */,
+				F1CCF915292DF8CD0082B250 /* HomeRepository.swift in Sources */,
 				E5BE8B93292218F100E9CFE8 /* AuthCoordinator.swift in Sources */,
 				76B3BF4C29250C190056ABFD /* UIFont+.swift in Sources */,
 				F1FCEE1A292B52E4001A55D6 /* ScrollAbleViewController.swift in Sources */,
@@ -1131,9 +1180,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-
 				DEVELOPMENT_TEAM = WW8WYM6B54;
-
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Acha/Info.plist;
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "";
@@ -1164,9 +1211,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-
 				DEVELOPMENT_TEAM = WW8WYM6B54;
-
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Acha/Info.plist;
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "";

@@ -30,6 +30,9 @@ protocol NickNameValidate {
     func nickNameValidate(text: String) -> Bool
 }
 
+protocol UserDataAppendToDatabase {
+    func userDataAppendToDatabase(userData: UserDTO)
+}
 
 protocol KeyChainStorable {
     func storeToKeyChain(id: String) -> Observable<Result<String, Error>>
@@ -61,7 +64,6 @@ final class AuthUseCase: KeyChainStorable {
 
 extension AuthUseCase: SignUpAble {
 
-    
     public func signUp(data: SignUpData) -> Observable<Result<String, Error>> {
         return Observable<Result<String, Error>>.create { observer in
             FirebaseAuth.Auth.auth().createUser(

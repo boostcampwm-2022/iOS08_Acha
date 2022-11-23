@@ -29,7 +29,7 @@ final class HomeViewController: UIViewController {
         $0.layer.cornerRadius = 10
         let cornerMask: CACornerMask = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         $0.layer.maskedCorners = cornerMask
-        $0.layer.backgroundColor = (UIColor.pointLight ?? UIColor.red) .cgColor
+        $0.layer.backgroundColor = (UIColor.pointLight ?? UIColor.red).cgColor
         $0.numberOfLines = 0
         $0.font = .boldSystemFont(ofSize: 34)
         $0.textColor = .white
@@ -39,7 +39,7 @@ final class HomeViewController: UIViewController {
     
     private lazy var singleGameImageView = UIImageView().then {
         $0.layer.cornerRadius = 10
-        $0.image = UIImage(systemName: "house")
+        $0.image = UIImage(named: "map_0")
         $0.layer.shadowOffset = CGSize(width: 0, height: 5)
         $0.layer.shadowColor = UIColor.gray.cgColor
         $0.layer.shadowOpacity = 1.0
@@ -49,7 +49,7 @@ final class HomeViewController: UIViewController {
     
     private lazy var multiGameImageView = UIImageView().then {
         $0.layer.cornerRadius = 10
-        $0.image = UIImage(systemName: "person")
+        $0.image = UIImage(named: "map_1")
         $0.layer.shadowOffset = CGSize(width: 0, height: 5)
         $0.layer.shadowColor = UIColor.gray.cgColor
         $0.layer.shadowOpacity = 1.0
@@ -71,6 +71,8 @@ final class HomeViewController: UIViewController {
         $0.tintColor = .white
         $0.layer.cornerRadius = 10
     }
+    
+    private lazy var multiGameEnterView = MultiGameEnterViewController()
     
     // MARK: - Properties
     private let disposeBag: DisposeBag = DisposeBag()
@@ -100,17 +102,22 @@ final class HomeViewController: UIViewController {
         navigationItem.largeTitleDisplayMode = .automatic
         navigationItem.title = "땅따먹기"
         navigationController?.navigationBar.largeTitleTextAttributes = [
-            .foregroundColor: UIColor.pointLight ?? .red
+            .foregroundColor: UIColor.pointLight
         ]
         navigationController?.navigationBar.shadowImage = UIImage()
     }
     
     private func bind() {
-        startSingleGameButton.rx.tap
-            .bind(to: viewModel.singleGameTap)
-            .disposed(by: disposeBag)
-        startMultiGameButton.rx.tap
-            .bind(to: viewModel.multiGameTap)
+        let inputs = HomeViewModel.Input(
+            singleGameModeDidTap: startSingleGameButton.rx.tap.asObservable(),
+            multiGameModeDidTap: startMultiGameButton.rx.tap.asObservable()
+        )
+        
+        let outputs = viewModel.transform(input: inputs)
+        outputs.multiGameModeTapped
+            .subscribe { _ in
+                self.present(self.multiGameEnterView, animated: true)
+            }
             .disposed(by: disposeBag)
     }
     
