@@ -87,6 +87,7 @@ final class InGameRecordViewController: InGamePlayMenuViewController {
 }
 
 struct InGameRecord: Hashable, InGameMenuModelProtocol {
+    var id: Int
     var time: Int
     var userName: String
     var date: Date

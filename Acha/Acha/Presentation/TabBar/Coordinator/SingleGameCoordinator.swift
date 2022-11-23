@@ -15,7 +15,7 @@ protocol SingleGameCoordinatorProtocol: Coordinator {
 final class SingleGameCoordinator: SingleGameCoordinatorProtocol {
     var navigationController: UINavigationController
     var childCoordinators: [Coordinator]
-    var delegate: CoordinatorDelegate?
+    weak var delegate: CoordinatorDelegate?
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController

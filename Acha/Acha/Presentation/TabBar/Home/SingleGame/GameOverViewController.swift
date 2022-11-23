@@ -93,7 +93,6 @@ class GameOverViewController: UIViewController {
             }
         
         resultBackground.snp.makeConstraints {
-            $0.center.equalToSuperview()
             $0.leading.trailing.equalToSuperview().inset(44)
             $0.top.equalToSuperview().offset(140)
             $0.bottom.equalToSuperview().offset(-270)
@@ -140,7 +139,10 @@ class GameOverViewController: UIViewController {
     }
     
     private func bind() {
-        let input = GameOverViewModel.Input(okButtonTapped: okButton.rx.tap.asObservable())
+        let input = GameOverViewModel.Input(
+            okButtonTapped: okButton.rx.tap.asObservable(),
+            viewDidLoad: rx.methodInvoked(#selector(UIViewController.viewWillAppear)).map { _ in }
+        )    
         let output = viewModel.transform(input: input)
         let record = output.record
         

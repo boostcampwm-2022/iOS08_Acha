@@ -14,7 +14,7 @@ protocol HomeCoordinatorProtocol: Coordinator {
 }
 
 final class HomeCoordinator: HomeCoordinatorProtocol {
-    var delegate: CoordinatorDelegate?
+    weak var delegate: CoordinatorDelegate?
     var navigationController: UINavigationController
     var childCoordinators: [Coordinator] = []
     var tabBarController: UITabBarController?
@@ -68,8 +68,7 @@ extension HomeCoordinator: CoordinatorDelegate {
     func didFinished(childCoordinator: Coordinator) {
         navigationController.viewControllers.last?.dismiss(animated: true)
         removeChildCoordinator(coordinator: childCoordinator)
-        navigationController.viewControllers.removeAll()
+        navigationController.viewControllers.removeAll(where: { !($0 is HomeViewController) })
         tabBarController?.tabBar.isHidden = false
-        showHomeViewController()
     }
 }
