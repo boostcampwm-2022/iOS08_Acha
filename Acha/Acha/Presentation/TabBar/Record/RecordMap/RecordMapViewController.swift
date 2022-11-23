@@ -248,13 +248,16 @@ class RecordMapViewController: UIViewController {
     }
     
     func appendRankingSectionAndItems(categoryName: String? = "인천") {
-        guard let categoryName,
-              let maps = self.viewModel.mapDataAtCategory[categoryName] else { return }
-        
-        let map = maps[0]
         var snapshot = dataSource.snapshot()
         let previousSections = snapshot.sectionIdentifiers.filter { $0 != .category }
         snapshot.deleteSections(previousSections)
+        
+        guard let categoryName,
+              let maps = self.viewModel.mapDataAtCategory[categoryName] else {
+            dataSource.apply(snapshot)
+            return
+        }
+        let map = maps[0]
         
         snapshot.appendSections([.ranking(map.name)])
         
@@ -271,11 +274,14 @@ class RecordMapViewController: UIViewController {
     }
     
     func appendRankingSectionAndItems(mapName: String) {
-        guard let map = self.viewModel.mapDataAtMapName[mapName] else { return }
-        
         var snapshot = dataSource.snapshot()
         let previousSections = snapshot.sectionIdentifiers.filter { $0 != .category }
         snapshot.deleteSections(previousSections)
+        
+        guard let map = self.viewModel.mapDataAtMapName[mapName] else {
+            dataSource.apply(snapshot)
+            return
+        }
         
         snapshot.appendSections([.ranking(mapName)])
         
