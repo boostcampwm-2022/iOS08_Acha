@@ -78,7 +78,6 @@ final class GameOverViewModel: BaseViewModel {
     private func uploadMapRecord() {
         recordID.subscribe(onNext: { [weak self] recordID in
             guard let self else { return }
-            print(self.map.mapID)
             self.ref.child("mapList").child("\(self.map.mapID)").observeSingleEvent(
                 of: .value,
                 with: { snapshot in
@@ -92,7 +91,6 @@ final class GameOverViewModel: BaseViewModel {
                     }
                     
                     let newRecord = (mapData.records ?? []) + [recordID]
-                    print("mapList/\(self.map.mapID)/records")  
                     self.ref
                         .child("mapList/\(self.map.mapID)/records")
                         .setValue(newRecord)
