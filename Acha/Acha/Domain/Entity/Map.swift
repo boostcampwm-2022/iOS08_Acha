@@ -21,8 +21,3 @@ struct Map: Decodable {
         case name, centerCoordinate, coordinates, records, location
     }
 }
-
-// MARK: - Coordinate
-struct Coordinate: Decodable {
-    let latitude, longitude: Double
-}
