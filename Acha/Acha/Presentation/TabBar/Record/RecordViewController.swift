@@ -14,7 +14,7 @@ import RxCocoa
 
 enum RecordViewItems: Hashable {
     case chart([RecordViewChartData])
-    case myRecord(RecordViewRecord)
+    case myRecord(Record)
 }
 
 class RecordViewController: UIViewController, UICollectionViewDelegate {

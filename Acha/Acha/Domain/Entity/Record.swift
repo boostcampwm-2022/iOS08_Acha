@@ -7,7 +7,7 @@
 
 import Foundation
  
-struct RecordViewRecord: Hashable, Codable {
+struct Record: Hashable, Codable {
     var mapID: Int
     var userID: String
     var calorie: Int
