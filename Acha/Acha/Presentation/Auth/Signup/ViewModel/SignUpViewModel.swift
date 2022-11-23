@@ -54,12 +54,13 @@ final class SignUpViewModel {
         let paswordValidate =  Observable<Bool>.create { observer in
             input.passwordUpdated
                 .subscribe(onNext: { [weak self] text in
-                    if self?.useCase.passwordValidate(text: text) ?? false {
-                        self?.repository.passwordValidation = true
-                        self?.repository.passwordRelay.accept(text)
+                    guard let self = self else {return}
+                    if self.useCase.passwordValidate(text: text) {
+                        self.repository.passwordValidation = true
+                        self.repository.passwordRelay.accept(text)
                         observer.onNext(true)
                     } else {
-                        self?.repository.passwordValidation = false
+                        self.repository.passwordValidation = false
                         observer.onNext(false)
                     }
                 })
@@ -70,12 +71,13 @@ final class SignUpViewModel {
         let emailValidate = Observable<Bool>.create { observer in
             input.emailUpdated
                 .subscribe { [weak self] text in
-                    if self?.useCase.emailValidate(text: text) ?? false {
-                        self?.repository.emailValidation = true
-                        self?.repository.emailRelay.accept(text)
+                    guard let self = self else {return}
+                    if self.useCase.emailValidate(text: text) {
+                        self.repository.emailValidation = true
+                        self.repository.emailRelay.accept(text)
                         observer.onNext(true)
                     } else {
-                        self?.repository.emailValidation = false
+                        self.repository.emailValidation = false
                         observer.onNext(false)
                     }
                 }
@@ -86,12 +88,13 @@ final class SignUpViewModel {
         let nickNameValidate = Observable<Bool>.create { observer in
             input.nickNameUpdated
                 .subscribe { [weak self] text in
-                    if self?.useCase.nickNameValidate(text: text) ?? false {
-                        self?.repository.nickNameValidation = true
-                        self?.repository.nickNameRelay.accept(text)
+                    guard let self = self else {return}
+                    if self.useCase.nickNameValidate(text: text) {
+                        self.repository.nickNameValidation = true
+                        self.repository.nickNameRelay.accept(text)
                         observer.onNext(true)
                     } else {
-                        self?.repository.nickNameValidation = false
+                        self.repository.nickNameValidation = false
                         observer.onNext(false)
                     }
                 }
@@ -110,16 +113,17 @@ final class SignUpViewModel {
                 .subscribe { [weak self] _ in
                     self?.repository.getSignUpdata()
                         .subscribe(onNext: { signUpData in
-                            if self?.repository.isSignAble() ?? false {
-                                self?.useCase.signUp(data: signUpData)
+                            guard let self = self else {return}
+                            if self.repository.isSignAble() {
+                                self.useCase.signUp(data: signUpData)
                                     .subscribe(onNext: { result in
                                         switch result {
                                         case .failure(_):
                                             observer.onNext(false)
                                         case .success(let uid):
                                             let userData = signUpData.toUserDTO(id: uid)
-                                            self?.useCase.userDataAppendToDatabase(userData: userData)
-                                            self?.transitionView()
+                                            self.useCase.userDataAppendToDatabase(userData: userData)
+                                            self.transitionView()
                                         }
                                     })
                                     .disposed(by: bag)
