@@ -46,6 +46,7 @@ final class InGameRecordViewModel: BaseViewModel {
                     return
                 }
                 
+                #warning("나의 기록만 가져오게 AND 연산을 한번 더 수행해야함!")
                 let inGameRecord = records
                     .filter { $0.mapID == self.mapID }
                     .map { InGameRecord(time: $0.time,
