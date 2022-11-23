@@ -47,7 +47,7 @@ final class InGameRecordViewController: InGamePlayMenuViewController {
         output.inGameRecord
             .subscribe(onSuccess: { [weak self] in
                 guard let self else { return }
-                self.fetchData(data: $0)
+                self.makeSnapshot(data: $0)
             }).disposed(by: disposeBag)
 
     }
@@ -77,7 +77,7 @@ final class InGameRecordViewController: InGamePlayMenuViewController {
         return datasource
     }
     
-    func fetchData(data: [InGameRecord]) {
+    func makeSnapshot(data: [InGameRecord]) {
         var snapshot = RecordSnapShot()
         snapshot.appendSections([.main])
         snapshot.appendItems(data)

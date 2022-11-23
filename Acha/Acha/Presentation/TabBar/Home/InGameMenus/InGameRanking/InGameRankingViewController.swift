@@ -47,7 +47,7 @@ final class InGameRankingViewController: InGamePlayMenuViewController {
         output.rankings
             .subscribe(onSuccess: { [weak self] in
                 guard let self else { return }
-                self.fetchData(data: $0)
+                self.makeSnapshot(data: $0)
             }, onFailure: {
                 print($0)
             }).disposed(by: disposeBag)
@@ -80,7 +80,7 @@ final class InGameRankingViewController: InGamePlayMenuViewController {
         return datasource
     }
     
-    func fetchData(data: [InGameRanking]) {
+    func makeSnapshot(data: [InGameRanking]) {
         var snapshot = RankingSnapShot()
         snapshot.appendSections([.main])
         snapshot.appendItems(data)
