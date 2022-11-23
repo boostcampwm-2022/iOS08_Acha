@@ -137,7 +137,6 @@ extension SingleGameViewController {
     private func configureMap() {
         drawGoLine()
         configureMapTapped()
-        focusUserLocation(useSpan: true)
     }
     private func drawGoLine() {
         let points = viewModel.map.coordinates.map {
