@@ -12,20 +12,20 @@ class RecordPageViewController: UIViewController {
     private lazy var pageViewController = UIPageViewController(transitionStyle: .scroll,
                                                                navigationOrientation: .horizontal)
     
-    private lazy var recordMainViewController = RecordMainViewController(viewModel: viewModel)
+    private lazy var recordMainViewController = RecordMainViewController(viewModel: mainViewModel)
     
-    private lazy var secondVC = UIViewController().then {
-        $0.view.backgroundColor = .red
-    }
+    private lazy var recordMapViewController = RecordMapViewController(viewModel: mapViewModel)
     
-    private lazy var viewList = [recordMainViewController, secondVC]
+    private lazy var viewList = [recordMainViewController, recordMapViewController]
     
     // MARK: - Properties
-    private let viewModel: RecordMainViewModel
+    private let mainViewModel: RecordMainViewModel
+    private let mapViewModel: RecordMapViewModel
     
     // MARK: - Lifecycles
-    init(viewModel: RecordMainViewModel) {
-        self.viewModel = viewModel
+    init(mainViewModel: RecordMainViewModel, mapViewModel: RecordMapViewModel) {
+        self.mainViewModel = mainViewModel
+        self.mapViewModel = mapViewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -58,7 +58,8 @@ class RecordPageViewController: UIViewController {
     }
     
     private func configureUI() {
-        
+        navigationItem.title = "개인 기록"
+        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.pointLight]
     }
 }
 
