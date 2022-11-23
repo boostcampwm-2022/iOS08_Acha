@@ -53,7 +53,6 @@ class RecordMapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setUpViews()
         configureUI()
         bind()
     }
@@ -87,9 +86,6 @@ class RecordMapViewController: UIViewController {
                 self.viewModel.mapDataAtCategory = mapDataAtCategory
                 self.appendRankingSectionAndItems()
             }).disposed(by: disposeBag)
-    }
-    
-    private func setUpViews() {
     }
     
     private func configureUI() {
@@ -126,44 +122,11 @@ class RecordMapViewController: UIViewController {
         let layout = UICollectionViewCompositionalLayout { (sectionIndex: Int, _ ) -> NSCollectionLayoutSection? in
             switch sectionIndex {
             case 0:
-                let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.25),
-                                                      heightDimension: .fractionalHeight(1.0))
-                let itemInsets = NSDirectionalEdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 15)
-                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                       heightDimension: .absolute(50))
-                let sectionInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 20, trailing: 0)
-                let orthogonalScrollingBehavior = UICollectionLayoutSectionOrthogonalScrollingBehavior.continuous
-                
-                return self.makeSectionLayout(itemSize: itemSize,
-                                              itemInsets: itemInsets,
-                                              groupSize: groupSize,
-                                              sectionInsets: sectionInsets,
-                                              orthogonalScrollingBehavior: orthogonalScrollingBehavior)
+                return self.categoryLayout()
             case 1:
-                let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                      heightDimension: .fractionalHeight(1.0))
-                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                       heightDimension: .absolute(70))
-                let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                        heightDimension: .absolute(100))
-                let groupInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 10, trailing: 10)
-                let sectionInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 20, trailing: 0)
-                return self.makeSectionLayout(itemSize: itemSize,
-                                              groupSize: groupSize,
-                                              groupInsets: groupInsets,
-                                              sectionInsets: sectionInsets,
-                                              headerSize: headerSize)
+                return self.rankingLayout()
             default:
-                let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                      heightDimension: .fractionalHeight(1.0))
-                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                       heightDimension: .absolute(70))
-                let groupInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10)
-                let sectionInsets = NSDirectionalEdgeInsets(top: 10, leading: 0, bottom: 20, trailing: 0)
-                return self.makeSectionLayout(itemSize: itemSize,
-                                              groupSize: groupSize,
-                                              groupInsets: groupInsets,
-                                              sectionInsets: sectionInsets)
+                return self.mapViewLayout()
             }
         }
         return layout
@@ -179,7 +142,6 @@ class RecordMapViewController: UIViewController {
                     for: indexPath) as? RecordMapCategoryCell else {
                     return UICollectionViewCell()
                 }
-                
                 cell.setLocationName(name: locationName)
                 
                 return cell
@@ -189,7 +151,6 @@ class RecordMapViewController: UIViewController {
                     for: indexPath) as? RecordMapRankingCell else {
                     return UICollectionViewCell()
                 }
-                
                 cell.bind(ranking: rank, record: recond)
                 
                 return cell
@@ -207,7 +168,7 @@ class RecordMapViewController: UIViewController {
                 header.parentViewController = self
                 
                 let section = self.dataSource.snapshot().sectionIdentifiers[indexPath.section]
-        
+                
                 guard let map = self.viewModel.mapDataAtMapName[section.title],
                       let maps = self.viewModel.mapDataAtCategory[map.location]
                 else { return UICollectionReusableView() }
@@ -221,39 +182,68 @@ class RecordMapViewController: UIViewController {
         }
     }
     
-    private func makeSectionLayout(
-        itemSize: NSCollectionLayoutSize,
-        itemInsets: NSDirectionalEdgeInsets? = nil,
-        groupSize: NSCollectionLayoutSize,
-        groupInsets: NSDirectionalEdgeInsets? = nil,
-        sectionInsets: NSDirectionalEdgeInsets? = nil,
-        headerSize: NSCollectionLayoutSize? = nil,
-        orthogonalScrollingBehavior: UICollectionLayoutSectionOrthogonalScrollingBehavior? = nil
-    ) -> NSCollectionLayoutSection {
+    private func categoryLayout() -> NSCollectionLayoutSection {
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.25),
+                                              heightDimension: .fractionalHeight(1.0))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        if let itemInsets {
-            item.contentInsets = itemInsets
-        }
+        let itemInsets = NSDirectionalEdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 15)
+        item.contentInsets = itemInsets
+        
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                               heightDimension: .absolute(50))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
-                                                       subitems: [item])
-        if let groupInsets {
-            group.contentInsets = groupInsets
-        }
+                                                     subitems: [item])
+        let section = NSCollectionLayoutSection(group: group)
+        let sectionInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 20, trailing: 0)
+        section.contentInsets = sectionInsets
+        section.orthogonalScrollingBehavior = .continuous
+        
+        return section
+    }
+    
+    private func rankingLayout() -> NSCollectionLayoutSection {
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                              heightDimension: .fractionalHeight(1.0))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                               heightDimension: .absolute(70))
+        let groupInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 10, trailing: 10)
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
+                                                     subitems: [item])
+        group.contentInsets = groupInsets
         
         let section = NSCollectionLayoutSection(group: group)
-        if let headerSize {
-            let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
-                layoutSize: headerSize,
-                elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
-            
-            section.boundarySupplementaryItems = [sectionHeader]
-        }
-        if let sectionInsets {
-            section.contentInsets = sectionInsets
-        }
-        if let orthogonalScrollingBehavior {
-            section.orthogonalScrollingBehavior = orthogonalScrollingBehavior
-        }
+        let sectionInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 20, trailing: 0)
+        section.contentInsets = sectionInsets
+        
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                                heightDimension: .absolute(100))
+        let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
+            layoutSize: headerSize,
+            elementKind: UICollectionView.elementKindSectionHeader, alignment: .top
+        )
+        section.boundarySupplementaryItems = [sectionHeader]
+        
+        return section
+    }
+    
+    private func mapViewLayout() -> NSCollectionLayoutSection {
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                              heightDimension: .fractionalHeight(1.0))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                               heightDimension: .absolute(70))
+        let groupInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10)
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
+                                                     subitems: [item])
+        group.contentInsets = groupInsets
+        
+        let sectionInsets = NSDirectionalEdgeInsets(top: 10, leading: 0, bottom: 20, trailing: 0)
+        let section = NSCollectionLayoutSection(group: group)
+        section.contentInsets = sectionInsets
+        
         return section
     }
     
@@ -263,48 +253,48 @@ class RecordMapViewController: UIViewController {
         
         let map = maps[0]
         var snapshot = dataSource.snapshot()
+        let previousSections = snapshot.sectionIdentifiers.filter { $0 != .category }
+        snapshot.deleteSections(previousSections)
+        
         snapshot.appendSections([.ranking(map.name)])
         
-        guard let records = map.records else {
+        guard let recordIndexs = map.records else {
             dataSource.apply(snapshot)
             return
         }
         
-        for index in 1...3 {
-            guard let record = self.viewModel.recordData[records[index-1]] else {
-                dataSource.apply(snapshot)
-                return
-            }
-            snapshot.appendItems([.ranking(index, record)], toSection: .ranking(map.name))
+        let records = self.viewModel.sortRecords(recordIndexs: recordIndexs)
+        records.prefix(3).enumerated().forEach {
+            snapshot.appendItems([.ranking($0.offset + 1, $0.element)], toSection: .ranking(map.name))
         }
         dataSource.apply(snapshot)
     }
     
     func appendRankingSectionAndItems(mapName: String) {
-        var snapshot = dataSource.snapshot()
         guard let map = self.viewModel.mapDataAtMapName[mapName] else { return }
+        
+        var snapshot = dataSource.snapshot()
+        let previousSections = snapshot.sectionIdentifiers.filter { $0 != .category }
+        snapshot.deleteSections(previousSections)
+        
         snapshot.appendSections([.ranking(mapName)])
         
-        guard let records = map.records else {
+        guard let recordIndexs = map.records else {
             dataSource.apply(snapshot)
             return
         }
-        for index in 1...3 {
-            guard let record = self.viewModel.recordData[records[index-1]] else {
-                dataSource.apply(snapshot)
-                return
-            }
-            snapshot.appendItems([.ranking(index, record)], toSection: .ranking(mapName))
+        
+        let records = self.viewModel.sortRecords(recordIndexs: recordIndexs)
+        records.prefix(3).enumerated().forEach {
+            snapshot.appendItems([.ranking($0.offset + 1, $0.element)], toSection: .ranking(map.name))
         }
         dataSource.apply(snapshot)
     }
     
     func makeSnapshot() {
         var snapshot = dataSource.snapshot()
-        snapshot.deleteAllItems()
-        snapshot.deleteSections(snapshot.sectionIdentifiers)
         snapshot.appendSections([.category])
-        ["서울", "인천", "경기", "강원", "대구", "부평"].forEach {
+        self.viewModel.achaCategorys.forEach {
             snapshot.appendItems([.category($0)], toSection: .category)
         }
         dataSource.apply(snapshot)
@@ -314,7 +304,6 @@ class RecordMapViewController: UIViewController {
 extension RecordMapViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let cell  = collectionView.cellForItem(at: indexPath) as? RecordMapCategoryCell else { return }
-        makeSnapshot()
         appendRankingSectionAndItems(categoryName: cell.getLocationName())
     }
 }

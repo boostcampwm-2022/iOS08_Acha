@@ -23,6 +23,7 @@ final class RecordMapViewModel: BaseViewModel {
     }
     
     private var ref: DatabaseReference!
+    let achaCategorys = ["서울", "인천", "경기", "부산", "경북", "경남","충남", "충북", "대전","광주", "전남", "전북", "강원"]
     let useCase: DefaultRecordMapViewUseCase!
     var disposeBag = DisposeBag()
     var recordData = [Int: RecordViewRecord]()
@@ -60,5 +61,20 @@ final class RecordMapViewModel: BaseViewModel {
             .disposed(by: disposeBag)
         
         return output
+    }
+    
+    func sortRecords(recordIndexs: [Int]) -> [RecordViewRecord] {
+        var records: [RecordViewRecord] = []
+        
+        recordIndexs.forEach {
+            guard let record = self.recordData[$0] else { return }
+            records.append(record)
+        }
+        
+        records.sort { recordA, recordB in
+            return recordA.time < recordB.time
+        }
+        
+        return records
     }
 }

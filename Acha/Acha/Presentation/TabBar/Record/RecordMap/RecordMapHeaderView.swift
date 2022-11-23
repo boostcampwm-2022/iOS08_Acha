@@ -71,7 +71,6 @@ class RecordMapHeaderView: UICollectionReusableView {
         maps.forEach {
             menuItems.append(
                 UIAction(title: $0.name) { action in
-                    self.parentViewController.makeSnapshot()
                     self.parentViewController.appendRankingSectionAndItems(mapName: action.title)
             })
         }
