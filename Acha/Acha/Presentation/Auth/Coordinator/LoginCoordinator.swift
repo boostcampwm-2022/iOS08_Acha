@@ -9,10 +9,11 @@ import UIKit
 
 protocol LoginCoordinatorProtocol: Coordinator {
     func showLoginViewController()
-    func connectSignupCoordinator()
+    func connectSignupFlow()
 }
 
 final class LoginCoordinator: LoginCoordinatorProtocol {
+    
     var delegate: CoordinatorDelegate?
     
     var navigationController: UINavigationController
@@ -39,7 +40,7 @@ final class LoginCoordinator: LoginCoordinatorProtocol {
         self.navigationController.isNavigationBarHidden = true
     }
     
-    func connectSignupCoordinator() {
+    func connectSignupFlow() {
         let coordinator = SignupCoordinator(navigationController: navigationController)
         appendChildCoordinator(coordinator: coordinator)
         coordinator.delegate = self
@@ -49,6 +50,6 @@ final class LoginCoordinator: LoginCoordinatorProtocol {
 
 extension LoginCoordinator: CoordinatorDelegate {
     func didFinished(childCoordinator: Coordinator) {
-        connectSignupCoordinator()
+        childCoordinator.popSelfFromNavigatonController()
     }
 }

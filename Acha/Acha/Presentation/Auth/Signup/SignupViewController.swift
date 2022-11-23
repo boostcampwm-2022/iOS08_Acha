@@ -121,7 +121,8 @@ extension SignupViewController {
         contentView.addArrangedSubview(logInButton)
         
         titleView.snp.makeConstraints {
-            $0.top.equalTo(contentView.snp.top).inset(70)
+            $0.height.equalTo(80)
+            $0.top.leading.trailing.equalToSuperview()
         }
         
         emailTextField.snp.makeConstraints {
@@ -131,7 +132,6 @@ extension SignupViewController {
         
         passwordTextField.snp.makeConstraints {
             $0.height.equalTo(60)
-            $0.leading.equalTo(contentView.snp.leading).inset(70)
             $0.leading.trailing.equalTo(contentView).inset(70)
         }
         
@@ -142,12 +142,12 @@ extension SignupViewController {
         
         signUpButton.snp.makeConstraints {
             $0.height.equalTo(60)
-            $0.leading.trailing.equalTo(contentView).inset(70)
+            $0.left.right.equalTo(contentView).inset(70)
         }
         
         logInButton.snp.makeConstraints {
             $0.height.equalTo(60)
-            $0.leading.trailing.equalTo(contentView).inset(70)
+            $0.left.right.equalTo(contentView).inset(70)
         }
         
     }
