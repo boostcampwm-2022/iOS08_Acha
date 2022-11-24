@@ -17,7 +17,7 @@ final class GameRoomCollectionViewCell: UICollectionViewCell {
         $0.textColor = .pointDark
     }
 
-    init() {
+    override init(frame: CGRect) {
         super.init(frame: .zero)
         layout()
     }

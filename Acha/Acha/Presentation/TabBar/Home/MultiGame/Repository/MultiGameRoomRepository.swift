@@ -19,7 +19,7 @@ struct MultiGameRoomRepository {
         dataSource.make(roomID: roomID)
     }
     
-//    func get(roomID: String) -> Observable<RoomDTO> {
-//        return dataSource.get(roomID: roomID)
-//    }
+    func detect(roomID: String) -> Observable<RoomDTO> {
+        return dataSource.detect(roomID: roomID)
+    }
 }

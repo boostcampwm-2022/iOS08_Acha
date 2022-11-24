@@ -69,8 +69,7 @@ struct FBRealTimeDB: FBRealTimeDBProtocol {
     
     func detect<T: Decodable>(
         _ type: FBRealTimeDBType,
-        responseType: T.Type,
-        handler: @escaping ((T) -> Void)
+        responseType: T.Type
     ) -> Observable<T> {
         
         return Observable<T>.create { observer in
@@ -80,7 +79,6 @@ struct FBRealTimeDB: FBRealTimeDBProtocol {
                       let list = try? JSONDecoder().decode(T.self, from: data) else {
                     return
                 }
-                handler(list)
                 observer.onNext(list)
             }
             return Disposables.create()

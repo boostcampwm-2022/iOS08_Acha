@@ -19,9 +19,16 @@ final class MultiGameRoomViewController: UIViewController {
         $0.textColor = .pointDark
         $0.textAlignment = .center
     }
-    private lazy var roomCollectionView!
-    
-    
+    private lazy var roomCollectionView = UICollectionView(
+        frame: CGRect.zero,
+        collectionViewLayout: UICollectionViewFlowLayout.init()
+    )
+    private lazy var startButton: UIButton = UIButton().then {
+        $0.layer.cornerRadius = 10
+        $0.backgroundColor = .pointLight
+        $0.setTitle("시작하기", for: .normal)
+    }
+
     private let viewModel: MultiGameRoomViewModel
     
     enum Section {
@@ -49,12 +56,15 @@ final class MultiGameRoomViewController: UIViewController {
         super.viewDidLoad()
         layout()
         bind()
+        applySnapshot(datas: [.init(id: "waeatw", nickName: "내맘")])
     }
     
     func bind() {
         let inputs = MultiGameRoomViewModel.Input(
-            viewWillAppear: rx.viewWillAppear.asObservable()
+            viewWillAppear: rx.viewWillAppear.asObservable(),
+            viewDidAppear: rx.viewDidAppear.asObservable()
         )
+        
         _ = viewModel.transform(input: inputs)
             
     }
@@ -67,7 +77,9 @@ extension MultiGameRoomViewController {
         )
     }
     private func makeDataSource() -> RoomDataSource {
-        let dataSource = RoomDataSource(collectionView: roomCollectionView) { collectionView, indexPath, itemIdentifier in
+        let dataSource = RoomDataSource(
+            collectionView: roomCollectionView
+        ) { collectionView, indexPath, itemIdentifier in
             let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: GameRoomCollectionViewCell.identifier,
                 for: indexPath
@@ -83,21 +95,20 @@ extension MultiGameRoomViewController {
         snapshot.appendItems(datas)
         dataSource.apply(snapshot, animatingDifferences: true)
     }
-    
-    
 }
-
 
 extension MultiGameRoomViewController {
     private func layout() {
         addViews()
         addConstraints()
+        configureCollectionView()
     }
     
     private func addViews() {
         view.addSubview(qrCodeImageView)
         view.addSubview(roomIdLabel)
         view.addSubview(roomCollectionView)
+        view.addSubview(startButton)
     }
     
     private func addConstraints() {
@@ -113,10 +124,10 @@ extension MultiGameRoomViewController {
             $0.width.equalToSuperview()
         }
         
-        roomCollectionView.snp.makeConstraints {
-            $0.top.equalTo(roomIdLabel.snp.bottom).inset(-40)
-            $0.centerX.equalToSuperview()
-            $0.leading.trailing.equalTo(qrCodeImageView)
+        startButton.snp.makeConstraints {
+            $0.height.equalTo(50)
+            $0.leading.trailing.equalToSuperview().inset(30)
+            $0.bottom.equalToSuperview().inset(40)
         }
     }
     
@@ -125,7 +136,34 @@ extension MultiGameRoomViewController {
             widthDimension: .fractionalWidth(1.0),
             heightDimension: .fractionalWidth(0.8)
         )
-        
-        let item = 
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        let groupSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .absolute(40)
+        )
+        let group = NSCollectionLayoutGroup.horizontal(
+            layoutSize: groupSize,
+            subitems: [item]
+        )
+
+        let section = NSCollectionLayoutSection(group: group)
+        let layout = UICollectionViewCompositionalLayout(section: section)
+        return layout
+    }
+    
+    private func configureCollectionView() {
+        roomCollectionView = UICollectionView(
+            frame: .zero,
+            collectionViewLayout: makeCompositionLayout()
+        )
+        registerCollectionView()
+        roomCollectionView.backgroundColor = .green
+        view.addSubview(roomCollectionView)
+        roomCollectionView.snp.makeConstraints {
+            $0.top.equalTo(roomIdLabel.snp.bottom).inset(-40)
+            $0.centerX.equalToSuperview()
+            $0.leading.trailing.equalToSuperview().inset(30)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(100)
+        }
     }
 }

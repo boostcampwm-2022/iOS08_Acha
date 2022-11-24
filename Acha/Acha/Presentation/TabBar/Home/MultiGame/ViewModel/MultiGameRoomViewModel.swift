@@ -7,16 +7,17 @@
 
 import Foundation
 import RxSwift
+import RxRelay
 
 final class MultiGameRoomViewModel: BaseViewModel {
     var disposeBag: RxSwift.DisposeBag = .init()
 
     struct Input {
         let viewWillAppear: Observable<Void>
+        let viewDidAppear: Observable<Void>
     }
     
     struct Output {
-
     }
     
     private weak var coordinator: MultiGameCoordinatorProtocol?
@@ -34,19 +35,18 @@ final class MultiGameRoomViewModel: BaseViewModel {
     }
     
     func transform(input: Input) -> Output {
+        let bag = disposeBag
         input.viewWillAppear.subscribe { [weak self] _ in
             self?.useCase.make(roomID: self?.roomID ?? "")
-//            self?.getData()
         }
         .disposed(by: disposeBag)
+
+        input.viewDidAppear
+            .subscribe { [weak self] _ in
+                print("didAppear")
+            }
+            .disposed(by: bag)
+        disposeBag = bag
         return Output()
     }
-    
-//    private func getData() {
-//        self.useCase.get(roomID: self.roomID)
-//            .subscribe(onError: { error in
-//                print(error)
-//            })
-//            .disposed(by: disposeBag)
-//    }
 }
