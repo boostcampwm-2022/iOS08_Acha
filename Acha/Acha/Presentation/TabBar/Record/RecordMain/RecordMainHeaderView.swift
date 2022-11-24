@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxRelay
 
 class RecordMainHeaderView: UICollectionReusableView {
     // MARK: - UI properties
@@ -29,6 +31,7 @@ class RecordMainHeaderView: UICollectionReusableView {
     
     // MARK: - Properties
     static let identifier = "RecordHeaderView"
+    var bindEvent = PublishRelay<String>()
     
     // MARK: - Lifecycles
     override init(frame: CGRect) {
@@ -66,6 +69,10 @@ class RecordMainHeaderView: UICollectionReusableView {
             $0.top.equalTo(distanceLabel.snp.bottom)
             $0.leading.trailing.bottom.equalToSuperview()
         }
+    }
+    
+    func bind(day: String) {
+        self.bindEvent.accept(day)
     }
     
     func bind(headerRecord: RecordViewHeaderRecord) {

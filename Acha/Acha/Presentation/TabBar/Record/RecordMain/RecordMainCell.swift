@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxRelay
 
 class RecordMainCell: UICollectionViewCell {
     // MARK: - UI properties
@@ -45,6 +47,7 @@ class RecordMainCell: UICollectionViewCell {
     
     // MARK: - Properties
     static let identifier = "RecordCell"
+    var bindEvent = PublishRelay<Int>()
     
     // MARK: - Lifecycles
     override init(frame: CGRect) {
@@ -113,7 +116,15 @@ class RecordMainCell: UICollectionViewCell {
         }
     }
     
-    func bind(mapName: String, recordViewRecord: RecordViewRecord) {
+    func bind(mapId: Int) {
+        self.bindEvent.accept(mapId)
+    }
+    
+    func bind(mapName: String) {
+        mapNameLabel.text = mapName
+    }
+    
+    func bind(recordViewRecord: RecordViewRecord) {
         imageView.image = UIImage(systemName: "house")
         if let isWin = recordViewRecord.isWin {
             winLabel.isHidden = false
@@ -127,7 +138,6 @@ class RecordMainCell: UICollectionViewCell {
         } else {
             winLabel.isHidden = true
         }
-        mapNameLabel.text = mapName
         timeLabel.text = "시간: \(recordViewRecord.time.convertToDayHourMinueFormat())"
         modeLabel.text = recordViewRecord.isSingleMode == true ? "모드: 혼자 하기" : "모드: 같이 하기"
         distanceLabel.text = "거리: \(recordViewRecord.distance.convertToDecimal) m"

@@ -6,7 +6,23 @@
 //
 
 import Foundation
+import RxSwift
 
 protocol RecordMainViewUseCase {
+    var recordData: BehaviorSubject<[RecordViewRecord]> { get set }
+    var mapData: BehaviorSubject<[Map]> { get set }
+    var allDates: PublishSubject<[String]> { get set }
+    var weekDatas: PublishSubject<[RecordViewChartData]> { get set }
+    var headerRecord: PublishSubject<RecordViewHeaderRecord> { get set }
+    var mapAtRecordId: PublishSubject<Map> { get set }
+    var recordsAtDate: PublishSubject<[String: [RecordViewRecord]]> { get set }
     
+    func loadMapData()
+    func loadRecordData()
+    func fetchTotalDataAtDay() -> Observable<[String: DayTotalRecord]>
+    func getRecordsAtDate()
+    func getAllDates()
+    func getWeekDatas()
+    func getHeaderRecord(date: String)
+    func getmapAtRecordId(mapId: Int)
 }

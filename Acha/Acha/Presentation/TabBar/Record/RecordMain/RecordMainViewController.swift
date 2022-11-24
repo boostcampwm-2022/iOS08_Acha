@@ -34,12 +34,16 @@ enum RecordMainViewItems: Hashable {
 class RecordMainViewController: UIViewController, UICollectionViewDelegate {
     // MARK: - UI properties
     private var collectionView: UICollectionView!
+    var headerView = RecordMainHeaderView()
+    var cell = RecordMainCell()
     
     // MARK: - Properties
     typealias DataSource = UICollectionViewDiffableDataSource<RecordMainViewSections, RecordMainViewItems>
     private var dataSource: DataSource!
     private let viewModel: RecordMainViewModel
     private let disposeBag = DisposeBag()
+    var headerViewBindEvent = PublishRelay<String>()
+    var cellBindEvent = PublishRelay<Int>()
     
     // MARK: - Lifecycles
     init(viewModel: RecordMainViewModel) {
@@ -64,39 +68,47 @@ class RecordMainViewController: UIViewController, UICollectionViewDelegate {
         let input = RecordMainViewModel.Input(
             viewDidLoadEvent: rx.methodInvoked(#selector(viewDidAppear(_:)))
                 .map({ _ in })
-                .asObservable()
+                .asObservable(),
+            headerViewBindEvent: self.headerViewBindEvent.asObservable(),
+            cellBindEvent: self.cellBindEvent.asObservable()
         )
         
         let output = self.viewModel.transform(input: input)
         
-        output.sectionDays.asDriver(onErrorJustReturn: [:])
-            .drive(onNext: { [weak self] sectionDays in
+        output.weekDatas.asDriver(onErrorJustReturn: [])
+            .drive(onNext: { [weak self] weekDatas in
                 guard let self else { return }
-                self.viewModel.sectionDays = sectionDays
+                self.appendChartItem(weekDistances: weekDatas)
             }).disposed(by: disposeBag)
         
-        output.days.asDriver(onErrorJustReturn: [])
-            .drive(onNext: { [weak self] days in
+        output.allDates.asDriver(onErrorJustReturn: [])
+            .drive(onNext: { [weak self] allDays in
                 guard let self else { return }
-                self.appendSections(days: days)
+                self.appendSections(dates: allDays)
             }).disposed(by: disposeBag)
         
-        output.weekDistances.asDriver(onErrorJustReturn: [])
-            .drive(onNext: { [weak self] weekDistances in
+        output.headerRecord.asDriver(onErrorJustReturn: RecordViewHeaderRecord(date: "",
+                                                                               distance: 0,
+                                                                               kcal: 0))
+            .drive(onNext: { [weak self] headerRecord in
                 guard let self else { return }
-                self.appendChartItem(weekDistances: weekDistances)
+                self.headerView.bind(headerRecord: headerRecord)
             }).disposed(by: disposeBag)
         
-        output.recordAtDays.asDriver(onErrorJustReturn: [:])
-            .drive(onNext: { [weak self] recordAtDays in
+        output.recordsAtDate.asDriver(onErrorJustReturn: [:])
+            .drive(onNext: { [weak self] recordsAtDay in
                 guard let self else { return }
-                self.appendRecordItem(recordAtDays: recordAtDays)
+                self.appendRecordItem(recordsAtDate: recordsAtDay)
             }).disposed(by: disposeBag)
         
-        output.mapData.asDriver(onErrorJustReturn: [:])
-            .drive(onNext: { [weak self] mapData in
+        output.mapAtRecordId.asDriver(onErrorJustReturn: Map(mapID: 0,
+                                                             name: "",
+                                                             centerCoordinate: Coordinate(latitude: 0, longitude: 0),
+                                                             coordinates: [], location: "",
+                                                             records: nil))
+            .drive(onNext: { [weak self] map in
                 guard let self else { return }
-                self.viewModel.mapData = mapData
+                self.cell.bind(mapName: map.name)
             }).disposed(by: disposeBag)
     }
     
@@ -144,9 +156,13 @@ class RecordMainViewController: UIViewController, UICollectionViewDelegate {
                                                                     for: indexPath) as? RecordMainCell else {
                     return UICollectionViewCell()
                 }
-                
-                let mapName = self.viewModel.searchMapName(mapId: recordViewRecord.mapID)
-                cell.bind(mapName: mapName, recordViewRecord: recordViewRecord)
+                self.cell = cell
+                cell.bindEvent
+                    .subscribe(onNext: {
+                        self.cellBindEvent.accept($0)
+                    }).disposed(by: self.disposeBag)
+                cell.bind(mapId: recordViewRecord.mapID)
+                cell.bind(recordViewRecord: recordViewRecord)
                 
                 return cell
             }
@@ -159,15 +175,15 @@ class RecordMainViewController: UIViewController, UICollectionViewDelegate {
                     withReuseIdentifier: RecordMainHeaderView.identifier,
                     for: indexPath) as? RecordMainHeaderView
                 else { return UICollectionReusableView() }
+                self.headerView = header
+                
+                header.bindEvent
+                    .subscribe(onNext: {
+                        self.headerViewBindEvent.accept($0)
+                    }).disposed(by: self.disposeBag)
                 
                 let section = self.dataSource.snapshot().sectionIdentifiers[indexPath.section]
-                guard let dayTotalRecord = self.viewModel.sectionDays[section.title]
-                else { return UICollectionReusableView() }
-                
-                let headerRecord = RecordViewHeaderRecord(date: section.title,
-                                                          distance: dayTotalRecord.distance,
-                                                kcal: dayTotalRecord.calorie)
-                header.bind(headerRecord: headerRecord)
+                header.bind(day: section.title)
                 
                 return header
             }
@@ -179,98 +195,81 @@ class RecordMainViewController: UIViewController, UICollectionViewDelegate {
         let layout = UICollectionViewCompositionalLayout { (sectionIndex: Int, _ ) -> NSCollectionLayoutSection? in
             switch sectionIndex {
             case 0:
-                let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                      heightDimension: .fractionalHeight(1.0))
-                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                       heightDimension: .absolute(413))
-                let groupInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10)
-                let sectionInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 20, trailing: 0)
-                
-                return self.makeSectionLayout(itemSize: itemSize,
-                                              groupSize: groupSize,
-                                              groupInsets: groupInsets,
-                                              sectionInsets: sectionInsets)
+                return self.chartLayout()
             default:
-                let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                      heightDimension: .fractionalHeight(1.0))
-                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                       heightDimension: .absolute(110))
-                let groupInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 0, trailing: 10)
-                let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                        heightDimension: .absolute(100))
-                let sectionInsets = NSDirectionalEdgeInsets(top: 10, leading: 0, bottom: 20, trailing: 0)
-                return self.makeSectionLayout(itemSize: itemSize,
-                                              groupSize: groupSize,
-                                              groupInsets: groupInsets,
-                                              sectionInsets: sectionInsets,
-                                              headerSize: headerSize)
+                return self.recordLayout()
             }
         }
         return layout
     }
-
-    private func makeSectionLayout(
-        itemSize: NSCollectionLayoutSize,
-        groupSize: NSCollectionLayoutSize,
-        groupInsets: NSDirectionalEdgeInsets? = nil,
-        sectionInsets: NSDirectionalEdgeInsets? = nil,
-        headerSize: NSCollectionLayoutSize? = nil,
-        orthogonalScrollingBehavior: UICollectionLayoutSectionOrthogonalScrollingBehavior? = nil
-    ) -> NSCollectionLayoutSection {
+    
+    private func chartLayout() -> NSCollectionLayoutSection {
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                              heightDimension: .fractionalHeight(1.0))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                               heightDimension: .absolute(413))
+        let groupInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10)
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
                                                        subitems: [item])
-        
-        if let groupInsets {
-            group.contentInsets = groupInsets
-        }
-        
+        group.contentInsets = groupInsets
+        let sectionInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 20, trailing: 0)
         let section = NSCollectionLayoutSection(group: group)
-        
-        if let headerSize {
-            let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
-                layoutSize: headerSize,
-                elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
-            
-            section.boundarySupplementaryItems = [sectionHeader]
-        }
-        
-        if let sectionInsets {
-            section.contentInsets = sectionInsets
-        }
-    
-        if let orthogonalScrollingBehavior {
-            section.orthogonalScrollingBehavior = orthogonalScrollingBehavior
-        }
+        section.contentInsets = sectionInsets
         
         return section
     }
     
-    private func appendSections(days: [String]) {
-        var snapshot = dataSource.snapshot()
-        snapshot.deleteSections(snapshot.sectionIdentifiers)
-        snapshot.deleteAllItems()
+    private func recordLayout() -> NSCollectionLayoutSection {
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                              heightDimension: .fractionalHeight(1.0))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                               heightDimension: .absolute(110))
+        let groupInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 0, trailing: 10)
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
+                                                       subitems: [item])
+        group.contentInsets = groupInsets
+        let section = NSCollectionLayoutSection(group: group)
+        let sectionInsets = NSDirectionalEdgeInsets(top: 10, leading: 0, bottom: 20, trailing: 0)
+        section.contentInsets = sectionInsets
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                                heightDimension: .absolute(100))
+        let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
+            layoutSize: headerSize,
+            elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
+        section.boundarySupplementaryItems = [sectionHeader]
         
-        if !snapshot.sectionIdentifiers.contains(.chart) {
-            snapshot.appendSections([.chart])
-        }
-        days.forEach { day in
-            snapshot.appendSections([.record(day)])
+        return section
+    }
+    
+    private func appendSections(dates: [String]) {
+        var snapshot = dataSource.snapshot()
+        let previousSections = snapshot.sectionIdentifiers.filter { $0 != .chart }
+        snapshot.deleteSections(previousSections)
+        
+        dates.forEach { dates in
+            snapshot.appendSections([.record(dates)])
         }
         dataSource.apply(snapshot)
     }
     
     private func appendChartItem(weekDistances: [RecordViewChartData]) {
         var snapshot = dataSource.snapshot()
+        let previousSections = snapshot.sectionIdentifiers.filter { $0 == .chart }
+        snapshot.deleteSections(previousSections)
+        
+        snapshot.appendSections([.chart])
         snapshot.appendItems([.chart(weekDistances)], toSection: .chart)
         dataSource.apply(snapshot)
     }
     
-    private func appendRecordItem(recordAtDays: [String: [RecordViewRecord]]) {
+    private func appendRecordItem(recordsAtDate: [String: [RecordViewRecord]]) {
         var snapshot = dataSource.snapshot()
-        recordAtDays.forEach { date, records in
-            records.forEach { record in
-                snapshot.appendItems([.myRecord(record)], toSection: .record(date))
+        recordsAtDate.forEach {
+            let date = $0.key
+            $0.value.forEach {
+                snapshot.appendItems([.myRecord($0)], toSection: .record(date))
             }
         }
         dataSource.apply(snapshot)

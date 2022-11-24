@@ -26,11 +26,15 @@ final class RecordCoordinator: RecordCoordinatorProtocol {
     }
     
     func showRecordPageViewController() {
-        let mainRepository = DefaultRecordRepository(realtimeDatabaseNetworkService: DefaultRealtimeDatabaseNetworkService())
+        let mainRepository = DefaultRecordRepository(
+            realtimeDatabaseNetworkService: DefaultRealtimeDatabaseNetworkService()
+        )
         let mainUseCase = DefaultRecordMainViewUseCase(repository: mainRepository)
         let mainViewModel = RecordMainViewModel(useCase: mainUseCase)
         
-        let mapRepository = DefaultRecordRepository(realtimeDatabaseNetworkService: DefaultRealtimeDatabaseNetworkService())
+        let mapRepository = DefaultRecordRepository(
+            realtimeDatabaseNetworkService: DefaultRealtimeDatabaseNetworkService()
+        )
         let mapUseCase = DefaultRecordMapViewUseCase(repository: mapRepository)
         let mapViewModel = RecordMapViewModel(useCase: mapUseCase)
         

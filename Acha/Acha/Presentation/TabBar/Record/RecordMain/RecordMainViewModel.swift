@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import UIKit
 import RxSwift
 import RxRelay
 import Firebase
@@ -15,24 +14,21 @@ class RecordMainViewModel: BaseViewModel {
     
     struct Input {
         var viewDidLoadEvent: Observable<Void>
+        var headerViewBindEvent: Observable<String>
+        var cellBindEvent: Observable<Int>
     }
     
     struct Output {
-        var isFinishedFetch = PublishRelay<Bool>()
-        var days = PublishRelay<[String]>()
-        var recordAtDays = PublishRelay<[String: [RecordViewRecord]]>()
-        var weekDistances = PublishRelay<[RecordViewChartData]>()
-        var sectionDays = PublishRelay<[String: DayTotalRecord]>()
-        var mapData = PublishRelay<[Int: Map]>()
+        var allDates = PublishRelay<[String]>()
+        var weekDatas = PublishRelay<[RecordViewChartData]>()
+        var headerRecord = PublishRelay<RecordViewHeaderRecord>()
+        var mapAtRecordId = PublishRelay<Map>()
+        var recordsAtDate = PublishRelay<[String: [RecordViewRecord]]>()
     }
     
     private var ref: DatabaseReference!
-    var useCase: DefaultRecordMainViewUseCase!
+    var useCase: RecordMainViewUseCase!
     var disposeBag = DisposeBag()
-    
-    var sectionDays = [String: DayTotalRecord]()
-    var mapData = [Int: Map]()
-    var isFethed: Bool = false
     
     init(useCase: DefaultRecordMainViewUseCase) {
         self.ref = Database.database().reference()
@@ -43,39 +39,45 @@ class RecordMainViewModel: BaseViewModel {
         let output = Output()
         
         input.viewDidLoadEvent
-            .subscribe { [weak self] _ in
+            .subscribe(onNext: { [weak self] _ in
                 guard let self else { return }
-                if !self.isFethed {
-                    self.useCase.fetchAllData()
-                    self.isFethed = true
-                }
-            }.disposed(by: disposeBag)
+                self.useCase.getWeekDatas()
+                self.useCase.getAllDates()
+                self.useCase.getRecordsAtDate()
+            }).disposed(by: disposeBag)
         
-        useCase.days
-            .bind(to: output.days)
+        input.headerViewBindEvent
+            .subscribe(onNext: { [weak self] date in
+                guard let self else { return }
+                self.useCase.getHeaderRecord(date: date)
+            }).disposed(by: disposeBag)
+        
+        input.cellBindEvent
+            .subscribe(onNext: { [weak self] mapId in
+                guard let self else { return }
+                self.useCase.getmapAtRecordId(mapId: mapId)
+            }).disposed(by: disposeBag)
+        
+        useCase.allDates
+            .bind(to: output.allDates)
             .disposed(by: disposeBag)
         
-        useCase.sectionDays
-            .bind(to: output.sectionDays)
+        useCase.weekDatas
+            .bind(to: output.weekDatas)
             .disposed(by: disposeBag)
         
-        useCase.weekDistances
-            .bind(to: output.weekDistances)
+        useCase.headerRecord
+            .bind(to: output.headerRecord)
             .disposed(by: disposeBag)
         
-        useCase.recordAtDays
-            .bind(to: output.recordAtDays)
+        useCase.recordsAtDate
+            .bind(to: output.recordsAtDate)
             .disposed(by: disposeBag)
-        useCase.mapData
-            .bind(to: output.mapData)
+        
+        useCase.mapAtRecordId
+            .bind(to: output.mapAtRecordId)
             .disposed(by: disposeBag)
         
         return output
-    }
-    
-    func searchMapName(mapId: Int) -> String {
-        guard let mapData = self.mapData[mapId] else { return "" }
-        let mapName = mapData.name
-        return mapName
     }
 }

@@ -159,6 +159,10 @@ class RecordMainChartCell: UICollectionViewCell {
         
         guard let maxDistance else { return }
         
+        if maxDistance == 0 {
+            return
+        }
+        
         let chartHeight = 368.0
         let heightPerMeter = chartHeight / maxDistance
         
