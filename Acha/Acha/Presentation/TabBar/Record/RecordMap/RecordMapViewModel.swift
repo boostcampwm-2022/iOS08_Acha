@@ -14,21 +14,19 @@ final class RecordMapViewModel: BaseViewModel {
     
     struct Input {
         var viewDidLoadEvent: Observable<Void>
+        var sectionHeaderCreateEvent: Observable<String>
+        var dropDownMenuTapEvent: Observable<String>
+        var categoryCellTapEvent: Observable<String>
     }
     
     struct Output {
-        var mapDataAtCategory = PublishRelay<[String: [Map]]>()
-        var mapDataAtMapName = PublishRelay<[String: Map]>()
-        var recordData = PublishRelay<[Int: RecordViewRecord]>()
+        var dropDownMenus = BehaviorRelay<[Map]>(value: [])
+        var mapNameAndRecords = BehaviorRelay<(String, [RecordViewRecord])>(value: ("", []))
     }
     
     private var ref: DatabaseReference!
-    let achaCategorys = ["서울", "인천", "경기", "부산", "경북", "경남","충남", "충북", "대전","광주", "전남", "전북", "강원"]
-    let useCase: DefaultRecordMapViewUseCase!
+    private let useCase: RecordMapViewUseCase!
     var disposeBag = DisposeBag()
-    var recordData = [Int: RecordViewRecord]()
-    var mapDataAtCategory = [String: [Map]]()
-    var mapDataAtMapName = [String: Map]()
     var isFetched: Bool = false
     
     init(useCase: DefaultRecordMapViewUseCase) {
@@ -42,39 +40,35 @@ final class RecordMapViewModel: BaseViewModel {
         input.viewDidLoadEvent
             .subscribe { [weak self] _ in
                 guard let self else { return }
-                if !self.isFetched {
-                    self.useCase.fetchAllData()
-                    self.isFetched = true
-                }
+                self.useCase.getMapNameAndRecordsAtCategory(category: Locations.incheon.string)
             }.disposed(by: disposeBag)
         
-        useCase.recordData
-            .bind(to: output.recordData)
+        input.sectionHeaderCreateEvent
+            .subscribe { [weak self] mapName in
+                guard let self else { return }
+                self.useCase.getDropDownMenus(mapName: mapName)
+            }.disposed(by: disposeBag)
+        
+        input.dropDownMenuTapEvent
+            .subscribe(onNext: { [weak self] mapName in
+                guard let self else { return }
+                self.useCase.getMapNameAndRecordsAtMapName(mapName: mapName)
+            }).disposed(by: disposeBag)
+        
+        input.categoryCellTapEvent
+            .subscribe(onNext: { [weak self] category in
+                guard let self else { return }
+                self.useCase.getMapNameAndRecordsAtCategory(category: category)
+            }).disposed(by: disposeBag)
+        
+        useCase.dropDownMenus
+            .bind(to: output.dropDownMenus)
             .disposed(by: disposeBag)
         
-        useCase.mapDataAtMapName
-            .bind(to: output.mapDataAtMapName)
-            .disposed(by: disposeBag)
-        
-        useCase.mapDataAtCategory
-            .bind(to: output.mapDataAtCategory)
+        useCase.mapNameAndReocrds
+            .bind(to: output.mapNameAndRecords)
             .disposed(by: disposeBag)
         
         return output
-    }
-    
-    func sortRecords(recordIndexs: [Int]) -> [RecordViewRecord] {
-        var records: [RecordViewRecord] = []
-        
-        recordIndexs.forEach {
-            guard let record = self.recordData[$0] else { return }
-            records.append(record)
-        }
-        
-        records.sort { recordA, recordB in
-            return recordA.time < recordB.time
-        }
-        
-        return records
     }
 }

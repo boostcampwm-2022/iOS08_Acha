@@ -17,16 +17,19 @@ class RecordMapRankingCell: UICollectionViewCell {
        private lazy var pinImageView = UIImageView().then {
            $0.contentMode = .scaleAspectFit
            $0.clipsToBounds = true
+           $0.image = UIImage()
        }
        
        private lazy var idLabel = UILabel().then {
            $0.textColor = .pointLight
            $0.font = .title
+           $0.text = "아직 기록이 없습니다"
        }
        
        private lazy var timeLabel = UILabel().then {
            $0.textColor = .gray
            $0.font = .subBody
+           $0.text = "00:00:00"
        }
        
        static let identifier: String = "RecordMapRankingCell"
@@ -77,8 +80,11 @@ class RecordMapRankingCell: UICollectionViewCell {
        
        func bind(ranking: Int, record: RecordViewRecord) {
            rankingLabel.text = String(ranking)
+           if record.id < 0 { return }
+           #warning("getUser() 해서 user nickname 가져와야 함")
            idLabel.text = record.userID
            timeLabel.text = record.time.convertToDayHourMinueFormat()
+           #warning("getUser() 해서 user pinCharacter 가져와야 함")
            pinImageView.image = UIImage(named: "penguin")
        }
 }

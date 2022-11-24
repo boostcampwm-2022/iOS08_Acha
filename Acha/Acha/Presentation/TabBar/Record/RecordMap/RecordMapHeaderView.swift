@@ -28,7 +28,7 @@ class RecordMapHeaderView: UICollectionReusableView {
     
     // MARK: - Properties
     static let identifier = "RecordMapHeaderView"
-    var parentViewController: RecordMapViewController!
+    var dropDownMenuTepEvent = PublishRelay<String>()
     
     // MARK: - Lifecycles
     override init(frame: CGRect) {
@@ -71,16 +71,10 @@ class RecordMapHeaderView: UICollectionReusableView {
         maps.forEach {
             menuItems.append(
                 UIAction(title: $0.name) { action in
-                    self.parentViewController.appendRankingSectionAndItems(mapName: action.title)
+                    self.dropDownMenuTepEvent.accept(action.title)
             })
         }
         downButton.menu = UIMenu(children: menuItems)
         downButton.showsMenuAsPrimaryAction = true
-    }
-    
-    func getMapName() -> String {
-        guard let text = mapName.text else { return ""}
-        
-        return text
     }
 }

@@ -33,12 +33,16 @@ enum RecordMapViewItems: Hashable {
 class RecordMapViewController: UIViewController {
     // MARK: - UI properties
     private var collectionView: UICollectionView!
+    var sectionHeaderView = RecordMapHeaderView()
     
     // MARK: - Properties
     typealias DataSource = UICollectionViewDiffableDataSource<RecordMapViewSections, RecordMapViewItems>
     private var dataSource: DataSource!
     private let viewModel: RecordMapViewModel
     private let disposeBag = DisposeBag()
+    var sectionHeaderCreateEvent = PublishRelay<String>()
+    var categoryCellTapEvent = PublishRelay<String>()
+    var dropDownMenuTapEvent = PublishRelay<String>()
     
     // MARK: - Lifecycles
     init(viewModel: RecordMapViewModel) {
@@ -52,39 +56,34 @@ class RecordMapViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         configureUI()
         bind()
     }
     
     // MARK: - Helpers
-    
     private func bind() {
         let input = RecordMapViewModel.Input(
             viewDidLoadEvent: rx.methodInvoked(#selector(viewDidAppear(_:)))
-                .map({_ in})
-                .asObservable()
+                .map({ _ in})
+                .asObservable(),
+            sectionHeaderCreateEvent: self.sectionHeaderCreateEvent.asObservable(),
+            dropDownMenuTapEvent: self.dropDownMenuTapEvent.asObservable(),
+            categoryCellTapEvent: self.categoryCellTapEvent.asObservable()
         )
         
         let output = self.viewModel.transform(input: input)
         
-        output.recordData.asDriver(onErrorJustReturn: [:])
-            .drive(onNext: { [weak self] recordData in
+        output.dropDownMenus.asDriver(onErrorJustReturn: [])
+            .drive(onNext: { [weak self] maps in
                 guard let self else { return }
-                self.viewModel.recordData = recordData
+                self.sectionHeaderView.setDropDownMenus(maps: maps)
             }).disposed(by: disposeBag)
         
-        output.mapDataAtMapName.asDriver(onErrorJustReturn: [:])
-            .drive(onNext: { [weak self] mapDataAtMapName in
-                guard let self else { return }
-                self.viewModel.mapDataAtMapName = mapDataAtMapName
-            }).disposed(by: disposeBag)
-        
-        output.mapDataAtCategory.asDriver(onErrorJustReturn: [:])
-            .drive(onNext: { [weak self] mapDataAtCategory in
-                guard let self else { return }
-                self.viewModel.mapDataAtCategory = mapDataAtCategory
-                self.appendRankingSectionAndItems()
+        output.mapNameAndRecords.asDriver(onErrorJustReturn: ("", []))
+            .drive(onNext: { [weak self] mapNameAndRecords in
+                guard let self else {return }
+                self.updateRankingSectionAndItems(mapName: mapNameAndRecords.0,
+                                                  records: mapNameAndRecords.1)
             }).disposed(by: disposeBag)
     }
     
@@ -165,16 +164,15 @@ class RecordMapViewController: UIViewController {
                     for: indexPath) as? RecordMapHeaderView
                 else { return UICollectionReusableView() }
                 
-                header.parentViewController = self
-                
                 let section = self.dataSource.snapshot().sectionIdentifiers[indexPath.section]
                 
-                guard let map = self.viewModel.mapDataAtMapName[section.title],
-                      let maps = self.viewModel.mapDataAtCategory[map.location]
-                else { return UICollectionReusableView() }
-                
                 header.setMapName(mapName: section.title)
-                header.setDropDownMenus(maps: maps)
+                self.sectionHeaderView = header
+                self.sectionHeaderCreateEvent.accept(section.title)
+                header.dropDownMenuTepEvent
+                    .subscribe {
+                        self.dropDownMenuTapEvent.accept($0)
+                    }.disposed(by: self.disposeBag)
                 
                 return header
             }
@@ -247,61 +245,24 @@ class RecordMapViewController: UIViewController {
         return section
     }
     
-    func appendRankingSectionAndItems(categoryName: String? = "인천") {
+    func updateRankingSectionAndItems(mapName: String, records: [RecordViewRecord]) {
         var snapshot = dataSource.snapshot()
         let previousSections = snapshot.sectionIdentifiers.filter { $0 != .category }
         snapshot.deleteSections(previousSections)
-        
-        guard let categoryName,
-              let maps = self.viewModel.mapDataAtCategory[categoryName] else {
-            dataSource.apply(snapshot)
-            return
-        }
-        let map = maps[0]
-        
-        snapshot.appendSections([.ranking(map.name)])
-        
-        guard let recordIndexs = map.records else {
-            dataSource.apply(snapshot)
-            return
-        }
-        
-        let records = self.viewModel.sortRecords(recordIndexs: recordIndexs)
-        records.prefix(3).enumerated().forEach {
-            snapshot.appendItems([.ranking($0.offset + 1, $0.element)], toSection: .ranking(map.name))
-        }
-        dataSource.apply(snapshot)
-    }
-    
-    func appendRankingSectionAndItems(mapName: String) {
-        var snapshot = dataSource.snapshot()
-        let previousSections = snapshot.sectionIdentifiers.filter { $0 != .category }
-        snapshot.deleteSections(previousSections)
-        
-        guard let map = self.viewModel.mapDataAtMapName[mapName] else {
-            dataSource.apply(snapshot)
-            return
-        }
         
         snapshot.appendSections([.ranking(mapName)])
-        
-        guard let recordIndexs = map.records else {
-            dataSource.apply(snapshot)
-            return
-        }
-        
-        let records = self.viewModel.sortRecords(recordIndexs: recordIndexs)
         records.prefix(3).enumerated().forEach {
-            snapshot.appendItems([.ranking($0.offset + 1, $0.element)], toSection: .ranking(map.name))
+            snapshot.appendItems([.ranking($0.offset + 1, $0.element)], toSection: .ranking(mapName))
         }
+        
         dataSource.apply(snapshot)
     }
     
     func makeSnapshot() {
         var snapshot = dataSource.snapshot()
         snapshot.appendSections([.category])
-        self.viewModel.achaCategorys.forEach {
-            snapshot.appendItems([.category($0)], toSection: .category)
+        Locations.allCases.forEach {
+            snapshot.appendItems([.category($0.string)], toSection: .category)
         }
         dataSource.apply(snapshot)
     }
@@ -310,6 +271,6 @@ class RecordMapViewController: UIViewController {
 extension RecordMapViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let cell  = collectionView.cellForItem(at: indexPath) as? RecordMapCategoryCell else { return }
-        appendRankingSectionAndItems(categoryName: cell.getLocationName())
+        self.categoryCellTapEvent.accept(cell.getLocationName())
     }
 }
