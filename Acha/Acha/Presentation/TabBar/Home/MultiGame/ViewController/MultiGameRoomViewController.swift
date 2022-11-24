@@ -145,8 +145,18 @@ extension MultiGameRoomViewController {
             layoutSize: groupSize,
             subitems: [item]
         )
-
+        
+        let headerSize =  NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .absolute(60)
+        )
+        let header = NSCollectionLayoutBoundarySupplementaryItem(
+            layoutSize: headerSize,
+            elementKind: UICollectionView.elementKindSectionHeader,
+            alignment: .top
+        )
         let section = NSCollectionLayoutSection(group: group)
+        section.boundarySupplementaryItems = [header]
         let layout = UICollectionViewCompositionalLayout(section: section)
         return layout
     }
