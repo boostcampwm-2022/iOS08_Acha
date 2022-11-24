@@ -93,7 +93,6 @@ class GameOverViewController: UIViewController {
             }
         
         resultBackground.snp.makeConstraints {
-            $0.center.equalToSuperview()
             $0.leading.trailing.equalToSuperview().inset(44)
             $0.top.equalToSuperview().offset(140)
             $0.bottom.equalToSuperview().offset(-270)
