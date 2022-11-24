@@ -48,6 +48,7 @@ class SingleGameViewController: MapBaseViewController, DistanceAndTimeBarLine {
     
     let rankButtonTappedEvent = PublishRelay<Void>()
     let recordButtonTappedEvent = PublishRelay<Void>()
+    let realGameOverButtonTappedEvent = PublishRelay<Void>()
     
     var goLine: MKPolyline?
     var wentLine: MKPolyline?
@@ -68,10 +69,6 @@ class SingleGameViewController: MapBaseViewController, DistanceAndTimeBarLine {
         setupSubviews()
         configureMap()
         bind()
-    }
-    
-    deinit {
-        presentedViewController?.dismiss(animated: true)
     }
     
     override func viewDidLayoutSubviews() {
@@ -205,7 +202,7 @@ extension SingleGameViewController {
             }).disposed(by: disposeBag)
         
         let input = SingleGameViewModel.Input(
-            gameOverButtonTapped: gameOverButton.rx.tap.asObservable(),
+            gameOverButtonTapped: realGameOverButtonTappedEvent.asObservable(),
             rankButtonTapped: rankButtonTappedEvent.asObservable(),
             recordButtonTapped: recordButtonTappedEvent.asObservable()
         )
@@ -217,6 +214,18 @@ extension SingleGameViewController {
             .subscribe(onNext: { [weak self] in
                 guard let self else { return }
                 self.focusUserLocation(useSpan: false)
+            }).disposed(by: disposeBag)
+        gameOverButton.rx.tap
+            .subscribe(onNext: { [weak self] in
+                guard let self else { return }
+                self.showAlert(
+                    title: "게임을 종료하시겠습니까?",
+                    message: "",
+                    actionTitle: "종료하기",
+                    actionHandler: {
+                        self.realGameOverButtonTappedEvent.accept(())
+                    }
+                )
             }).disposed(by: disposeBag)
     }
     

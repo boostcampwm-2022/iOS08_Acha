@@ -139,7 +139,10 @@ class GameOverViewController: UIViewController {
     }
     
     private func bind() {
-        let input = GameOverViewModel.Input(okButtonTapped: okButton.rx.tap.asObservable())
+        let input = GameOverViewModel.Input(
+            okButtonTapped: okButton.rx.tap.asObservable(),
+            viewDidLoad: rx.methodInvoked(#selector(UIViewController.viewWillAppear)).map { _ in }
+        )    
         let output = viewModel.transform(input: input)
         let record = output.record
         
