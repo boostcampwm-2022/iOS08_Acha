@@ -9,4 +9,5 @@ import Foundation
 
 enum FirebaseServiceError: Error {
     case nilDataError
+    case fetchError
 }
