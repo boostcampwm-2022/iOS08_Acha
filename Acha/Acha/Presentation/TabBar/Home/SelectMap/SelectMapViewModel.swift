@@ -81,8 +81,9 @@ class SelectMapViewModel: BaseViewModel {
         input.mapSelected
             .subscribe(onNext: { [weak self] selectedMap in
                 guard let self else { return }
+                let records = selectedMap.records ?? []
                 self.selectedMap = selectedMap
-                self.fetchMapRecord(mapID: selectedMap.mapID)
+                self.fetchMapRecord(indexes: records)
                     .asObservable()
                     .map { (selectedMap.name, $0) }
                     .bind(to: output.selectedMapRankings)
@@ -119,11 +120,11 @@ class SelectMapViewModel: BaseViewModel {
         })
     }
     
-    func fetchMapRecord(mapID: Int) -> Single<[Record]> {
+    func fetchMapRecord(indexes: [Int]) -> Single<[Record]> {
         return Single.create { [weak self] single in
             guard let self else { return Disposables.create() }
             self.ref.child("record").observeSingleEvent(of: .value,
-                                                   with: { snapshot in
+                                                        with: { snapshot in
                 guard let snapData = snapshot.value as? [Any],
                       let data = try? JSONSerialization.data(withJSONObject: snapData),
                       var records = try? JSONDecoder().decode([Record].self, from: data)
@@ -132,13 +133,18 @@ class SelectMapViewModel: BaseViewModel {
                     return
                 }
 
-                records.append(contentsOf: [Record(id: -1, mapID: mapID),
-                                            Record(id: -2, mapID: mapID),
-                                            Record(id: -3, mapID: mapID)])
+                // 현재 map의 완주된 기록만 filtering
+                records = records.enumerated()
+                    .filter { indexes.contains($0.offset) }
+                    .map { $0.element }
+                
+                // record 없을 경우 예외 처리
+                records.append(contentsOf: [Record(id: -1),
+                                            Record(id: -2),
+                                            Record(id: -3)])
+                
                 let rankings = Array(
-                    records.filter { $0.mapID == mapID }
-                    .sorted { $0.time < $1.time }
-                    .prefix(3)
+                    records.sorted { $0.time < $1.time }.prefix(3)
                 )
                 return single(.success(rankings))
             })
