@@ -88,9 +88,10 @@ final class GameOverViewModel: BaseViewModel {
             guard let self else { return }
             self.ref.child("mapList").child("\(self.map.mapID)").observeSingleEvent(
                 of: .value,
-                with: { snapshot in
+                with: { [weak self] snapshot in
 
-                    guard let snapData = snapshot.value,
+                    guard let self,
+                          let snapData = snapshot.value,
                           let data = try? JSONSerialization.data(withJSONObject: snapData),
                           let mapData = try? JSONDecoder().decode(Map.self, from: data)
                     else {
