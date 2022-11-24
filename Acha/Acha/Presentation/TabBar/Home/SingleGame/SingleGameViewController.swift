@@ -133,7 +133,7 @@ extension SingleViewController {
         
         let lineDraw = MKPolyline(coordinates: points, count: points.count)
         goLine = lineDraw
-        mapView.addOverlay(goLine ?? MKPolyline())
+        mapView?.addOverlay(goLine ?? MKPolyline())
     }
     
     private func bind() {
@@ -152,7 +152,7 @@ extension SingleViewController {
                 let previousCoordinate = CLLocationCoordinate2DMake(previous.latitude, previous.longitude)
                 let currentCoordinate = CLLocationCoordinate2DMake(current.latitude, current.longitude)
                 self.visitLine = MKPolyline(coordinates: [previousCoordinate, currentCoordinate], count: 2)
-                self.mapView.addOverlay(self.visitLine ?? MKPolyline())
+                self.mapView?.addOverlay(self.visitLine ?? MKPolyline())
             }).disposed(by: disposeBag)
         
         viewModel.time
@@ -176,7 +176,7 @@ extension SingleViewController {
                 let previousCoordinate = CLLocationCoordinate2DMake(previous.latitude, previous.longitude)
                 let currentCoordinate = CLLocationCoordinate2DMake(current.latitude, current.longitude)
                 self.wentLine = MKPolyline(coordinates: [previousCoordinate, currentCoordinate], count: 2)
-                self.mapView.addOverlay(self.wentLine ?? MKPolyline())
+                self.mapView?.addOverlay(self.wentLine ?? MKPolyline())
             }).disposed(by: disposeBag)
         
     }
@@ -198,12 +198,12 @@ extension SingleViewController {
     func setMapRegion(toCoordinate coordinate: CLLocationCoordinate2D) {
         let span = MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
         let region = MKCoordinateRegion(center: coordinate, span: span)
-        mapView.setRegion(region, animated: true)
+        mapView?.setRegion(region, animated: true)
     }
     
     func drawWentLine(from: CLLocationCoordinate2D, here: CLLocationCoordinate2D) {
         wentLine = MKPolyline(coordinates: [from, here], count: 2)
-        self.mapView.addOverlay(wentLine ?? MKPolyline())
+        self.mapView?.addOverlay(wentLine ?? MKPolyline())
     }
 }
 

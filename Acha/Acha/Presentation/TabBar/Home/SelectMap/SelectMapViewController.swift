@@ -38,7 +38,7 @@ final class SelectMapViewController: MapBaseViewController {
         $0.setPreferredSymbolConfiguration(imageConfig, forImageIn: .normal)
     }
     
-    lazy var rankingCollectionView: UICollectionView = UICollectionView(
+    private lazy var rankingCollectionView: UICollectionView = UICollectionView(
         frame: .zero,
         collectionViewLayout: configureCollectionViewLayout())
         .then {
@@ -53,9 +53,10 @@ final class SelectMapViewController: MapBaseViewController {
     private var disposeBag = DisposeBag()
     private let regionDidChanged = PublishSubject<MapRegion>()
     private let mapSelectedEvent = PublishSubject<Map>()
+    private let locationDidChanged = PublishSubject<Coordinate>()
     
     typealias DataSource = UICollectionViewDiffableDataSource<String, Record>
-    private var dataSource: DataSource!
+    private var dataSource: DataSource?
     
     // MARK: - Lifecycles
     init(viewModel: SelectMapViewModel) {
@@ -76,8 +77,9 @@ final class SelectMapViewController: MapBaseViewController {
     
     override func setUpMapView() {
         super.setUpMapView()
-        mapView.isRotateEnabled = false
+        mapView?.isRotateEnabled = false
     }
+
 }
 
 extension SelectMapViewController {
@@ -90,6 +92,8 @@ extension SelectMapViewController {
             $0.centerX.equalToSuperview()
             $0.height.equalTo(50)
         }
+        
+        guard let mapView else { return }
         
         view.addSubview(focusButton)
         focusButton.snp.makeConstraints {
@@ -126,6 +130,7 @@ extension SelectMapViewController {
             viewWillAppearEvent: rx.methodInvoked(#selector(UIViewController.viewWillAppear)).map { _ in },
             mapSelected: mapSelectedEvent,
             regionDidChanged: regionDidChanged,
+            locationDidChanged: locationDidChanged,
             startButtonTapped: startButton.rx.tap.asObservable(),
             backButtonTapped: backButton.rx.tap.asObservable())
         let output = viewModel.transform(input: input)
@@ -139,18 +144,17 @@ extension SelectMapViewController {
                     
                     // 테두리 선
                     let lineDraw = MKPolyline(coordinates: coordinates, count: coordinates.count)
-                    self?.mapView.addOverlay(lineDraw)
+                    self?.mapView?.addOverlay(lineDraw)
                     
                     // pin
                     let annotation = MapAnnotation(map: mapElement, polyLine: lineDraw)
-                    self?.mapView.addAnnotation(annotation)
+                    self?.mapView?.addAnnotation(annotation)
                 }
             }.disposed(by: disposeBag)
         
         output.selectedMapRankings
             .subscribe { [weak self] mapName, records in
-                guard let self else { return }
-                self.makeSnapshot(rankings: records, mapName: mapName)
+                self?.makeSnapshot(rankings: records, mapName: mapName)
             }
             .disposed(by: disposeBag)
         
@@ -188,7 +192,7 @@ extension SelectMapViewController {
     }
     
     private func changeLineColor(polyLine: MKPolyline, color: UIColor) {
-        if let renderer = mapView.renderer(for: polyLine) as? MKPolylineRenderer {
+        if let renderer = mapView?.renderer(for: polyLine) as? MKPolylineRenderer {
             renderer.strokeColor = color
         }
     }
@@ -216,8 +220,9 @@ extension SelectMapViewController {
 extension SelectMapViewController {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let userLocation = locations.last else { return }
-        viewModel.userLocation = Coordinate(latitude: userLocation.coordinate.latitude,
-                                            longitude: userLocation.coordinate.longitude)
+        let newLocation = Coordinate(latitude: userLocation.coordinate.latitude,
+                                     longitude: userLocation.coordinate.longitude)
+        locationDidChanged.onNext(newLocation)
     }
 }
 
@@ -268,24 +273,26 @@ extension SelectMapViewController {
     }
     
     private func configureDataSourceHeader() {
-        dataSource.supplementaryViewProvider = { collectionView, kind, indexPath in
+        dataSource?.supplementaryViewProvider = { [weak self] collectionView, kind, indexPath in
             guard kind == UICollectionView.elementKindSectionHeader,
                   let header = collectionView.dequeueReusableSupplementaryView(
-                ofKind: kind,
-                withReuseIdentifier: SelectMapRankingHeaderView.identifier,
-                for: indexPath) as? SelectMapRankingHeaderView
+                    ofKind: kind,
+                    withReuseIdentifier: SelectMapRankingHeaderView.identifier,
+                    for: indexPath) as? SelectMapRankingHeaderView
             else { return UICollectionReusableView() }
             
-            let section = self.dataSource.snapshot().sectionIdentifiers[indexPath.section]
-            
+            guard let dataSource = self?.dataSource,
+                  let mapView = self?.mapView else { return header }
+            let section = dataSource.snapshot().sectionIdentifiers[indexPath.section]
             header.setData(mapName: section, closeButtonHandler: {
-                self.mapView.deselectAnnotation(self.mapView.selectedAnnotations.first, animated: true)
+                mapView.deselectAnnotation(mapView.selectedAnnotations.first, animated: true)
             })
             return header
         }
     }
     
     private func makeSnapshot(rankings: [Record], mapName: String) {
+        guard let dataSource else { return }
         var snapshot = dataSource.snapshot()
         snapshot.deleteAllItems()
         snapshot.appendSections([mapName])

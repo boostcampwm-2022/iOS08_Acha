@@ -15,8 +15,9 @@ class SelectMapViewModel: BaseViewModel {
     // MARK: - Input
     struct Input {
         var viewWillAppearEvent: Observable<Void>
-        var mapSelected = PublishSubject<Map>()
+        var mapSelected: PublishSubject<Map>
         var regionDidChanged: PublishSubject<MapRegion>
+        var locationDidChanged: PublishSubject<Coordinate>
         var startButtonTapped: Observable<Void>
         var backButtonTapped: Observable<Void>
     }
@@ -29,9 +30,8 @@ class SelectMapViewModel: BaseViewModel {
     }
     private var maps: [Map]
     private var visbleMapsIdx: [Int]
-    var rankings: [Int: [Record]]
-    var selectedMap: Map?
-    var userLocation: Coordinate?
+    private var selectedMap: Map?
+    private var userLocation: Coordinate?
     
     // MARK: - Properties
     private var ref: DatabaseReference!
@@ -48,10 +48,9 @@ class SelectMapViewModel: BaseViewModel {
         
         input.startButtonTapped
             .subscribe(onNext: { [weak self] _ in
-                guard let self,
-                      let map = self.selectedMap else { return }
-                if self.checkStartable(mapCoordinates: map.coordinates) {
-                    self.coordinator.showSingleGamePlayViewController(selectedMap: map)
+                guard let map = self?.selectedMap else { return }
+                if self?.checkStartable(mapCoordinates: map.coordinates) ?? false {
+                    self?.coordinator?.showSingleGamePlayViewController(selectedMap: map)
                 } else {
                     output.cannotStart.accept(())
                 }
@@ -60,17 +59,22 @@ class SelectMapViewModel: BaseViewModel {
         
         input.backButtonTapped
             .subscribe(onNext: { [weak self] in
-                guard let self else { return }
-                self.coordinator.delegate?.didFinished(childCoordinator: self.coordinator)
+                guard let coordinator = self?.coordinator else { return }
+                self?.coordinator?.delegate?.didFinished(childCoordinator: coordinator)
             })
             .disposed(by: disposeBag)
         
         input.regionDidChanged
             .subscribe(onNext: { [weak self] region in
-                guard let self else { return }
-                let mapsToDisplay = self.getMapsInUpdatedRegion(region: region)
-                self.visbleMapsIdx.append(contentsOf: mapsToDisplay.map { $0.mapID })
+                guard let mapsToDisplay = self?.getMapsInUpdatedRegion(region: region) else { return }
+                self?.visbleMapsIdx.append(contentsOf: mapsToDisplay.map { $0.mapID })
                 output.visibleMaps.accept(mapsToDisplay)
+            })
+            .disposed(by: disposeBag)
+        
+        input.locationDidChanged
+            .subscribe(onNext: { [weak self] newLocation in
+                self?.userLocation = newLocation
             })
             .disposed(by: disposeBag)
         
@@ -90,20 +94,19 @@ class SelectMapViewModel: BaseViewModel {
     }
     
     // MARK: - Dependency
-    var coordinator: SingleGameCoordinator
+    private weak var coordinator: SingleGameCoordinator?
     
     // MARK: - Lifecycles
-    init(coordinator: SingleGameCoordinator) {
+    init(coordinator: SingleGameCoordinator?) {
         self.ref = Database.database().reference()
         self.coordinator = coordinator
         self.maps = []
-        self.rankings = [:]
         self.visbleMapsIdx = []
     }
     
     // MARK: - Helpers
     func fetchAllMaps() {
-        self.ref.child("mapList").observeSingleEvent(of: .value,
+        ref.child("mapList").observeSingleEvent(of: .value,
                                                 with: { [weak self] snapshot in
             guard let snapData = snapshot.value as? [Any],
                   let data = try? JSONSerialization.data(withJSONObject: snapData),
