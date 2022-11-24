@@ -15,24 +15,27 @@ class SelectMapViewModel: BaseViewModel {
     // MARK: - Input
     struct Input {
         var viewWillAppearEvent: Observable<Void>
+        var mapSelected = PublishSubject<Map>()
         var regionDidChanged: PublishSubject<MapRegion>
         var startButtonTapped: Observable<Void>
         var backButtonTapped: Observable<Void>
     }
-    var selectedMap: Map?
-    var userLocation: Coordinate?
     
     // MARK: - Output
     struct Output {
         var visibleMaps = PublishRelay<[Map]>()
         var cannotStart = PublishRelay<Void>()
+        var selectedMapRankings = PublishRelay<(String, [Record])>()    // map name, ranking
     }
     private var maps: [Map]
     private var visbleMapsIdx: [Int]
     var rankings: [Int: [Record]]
+    var selectedMap: Map?
+    var userLocation: Coordinate?
     
     // MARK: - Properties
     private var ref: DatabaseReference!
+    var disposeBag = DisposeBag()
     
     func transform(input: Input) -> Output {
         let output = Output()
@@ -70,6 +73,16 @@ class SelectMapViewModel: BaseViewModel {
                 output.visibleMaps.accept(mapsToDisplay)
             })
             .disposed(by: disposeBag)
+        
+        input.mapSelected
+            .subscribe(onNext: { [weak self] selectedMap in
+                guard let self else { return }
+                self.selectedMap = selectedMap
+                self.fetchMapRecord(mapID: selectedMap.mapID)
+                    .asObservable()
+                    .map { (selectedMap.name, $0) }
+                    .bind(to: output.selectedMapRankings)
+                    .disposed(by: self.disposeBag)
             })
             .disposed(by: disposeBag)
     
@@ -77,7 +90,6 @@ class SelectMapViewModel: BaseViewModel {
     }
     
     // MARK: - Dependency
-    var disposeBag = DisposeBag()
     var coordinator: SingleGameCoordinator
     
     // MARK: - Lifecycles
@@ -92,7 +104,7 @@ class SelectMapViewModel: BaseViewModel {
     // MARK: - Helpers
     func fetchAllMaps() {
         self.ref.child("mapList").observeSingleEvent(of: .value,
-                                                with: { snapshot in
+                                                with: { [weak self] snapshot in
             guard let snapData = snapshot.value as? [Any],
                   let data = try? JSONSerialization.data(withJSONObject: snapData),
                   let mapDatas = try? JSONDecoder().decode([Map].self, from: data)
@@ -100,14 +112,7 @@ class SelectMapViewModel: BaseViewModel {
                 print(Errors.decodeError)
                 return
             }
-            
-            self.maps = mapDatas
-            mapDatas.forEach { map in
-                self.fetchMapRecord(mapID: map.mapID)
-                    .subscribe {
-                        self.rankings[map.mapID] = $0
-                    }.disposed(by: self.disposeBag)
-            }
+            self?.maps = mapDatas
         })
     }
     
@@ -123,7 +128,7 @@ class SelectMapViewModel: BaseViewModel {
                     print(Errors.decodeError)
                     return
                 }
-                
+
                 records.append(contentsOf: [Record(id: -1, mapID: mapID),
                                             Record(id: -2, mapID: mapID),
                                             Record(id: -3, mapID: mapID)])
@@ -132,7 +137,6 @@ class SelectMapViewModel: BaseViewModel {
                     .sorted { $0.time < $1.time }
                     .prefix(3)
                 )
-                print(rankings)
                 return single(.success(rankings))
             })
             return Disposables.create()

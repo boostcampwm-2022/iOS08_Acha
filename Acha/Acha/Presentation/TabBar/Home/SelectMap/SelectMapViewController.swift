@@ -38,17 +38,6 @@ final class SelectMapViewController: MapBaseViewController {
         $0.setPreferredSymbolConfiguration(imageConfig, forImageIn: .normal)
     }
     
-    private lazy var rankingView = UIView().then {
-        $0.layer.shadowOffset = CGSize(width: 0, height: 10)
-        $0.layer.shadowColor = UIColor.gray.cgColor
-        $0.layer.shadowOpacity = 1.0
-        $0.layer.shadowOffset = CGSize.zero
-        $0.layer.shadowRadius = 6
-        $0.layer.cornerRadius = 15
-        $0.backgroundColor = .white
-        $0.isHidden = true
-    }
-    
     lazy var rankingCollectionView: UICollectionView = UICollectionView(
         frame: .zero,
         collectionViewLayout: configureCollectionViewLayout())
@@ -63,6 +52,7 @@ final class SelectMapViewController: MapBaseViewController {
     private let viewModel: SelectMapViewModel
     private var disposeBag = DisposeBag()
     private let regionDidChanged = PublishSubject<MapRegion>()
+    private let mapSelectedEvent = PublishSubject<Map>()
     
     typealias DataSource = UICollectionViewDiffableDataSource<String, Record>
     private var dataSource: DataSource!
@@ -134,6 +124,7 @@ extension SelectMapViewController {
     private func bind() {
         let input = SelectMapViewModel.Input(
             viewWillAppearEvent: rx.methodInvoked(#selector(UIViewController.viewWillAppear)).map { _ in },
+            mapSelected: mapSelectedEvent,
             regionDidChanged: regionDidChanged,
             startButtonTapped: startButton.rx.tap.asObservable(),
             backButtonTapped: backButton.rx.tap.asObservable())
@@ -155,6 +146,13 @@ extension SelectMapViewController {
                     self?.mapView.addAnnotation(annotation)
                 }
             }.disposed(by: disposeBag)
+        
+        output.selectedMapRankings
+            .subscribe { [weak self] mapName, records in
+                guard let self else { return }
+                self.makeSnapshot(rankings: records, mapName: mapName)
+            }
+            .disposed(by: disposeBag)
         
         output.cannotStart
             .subscribe { [weak self] _ in
@@ -185,11 +183,10 @@ extension SelectMapViewController {
         let center = CLLocationCoordinate2D(latitude: annotation.map.centerCoordinate.latitude - 0.003,
                                             longitude: annotation.map.centerCoordinate.longitude)
         focusMapLocation(center: center)
-        viewModel.selectedMap = annotation.map
-        let name = annotation.map.name
         
-        guard let rankings = viewModel.rankings[annotation.map.mapID] else { return }
-        makeSnapshot(rankings: rankings, mapName: name)
+        mapSelectedEvent.onNext(annotation.map)
+    }
+    
     private func changeLineColor(polyLine: MKPolyline, color: UIColor) {
         if let renderer = mapView.renderer(for: polyLine) as? MKPolylineRenderer {
             renderer.strokeColor = color
