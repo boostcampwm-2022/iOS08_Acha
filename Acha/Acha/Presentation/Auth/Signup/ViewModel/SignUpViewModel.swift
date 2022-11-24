@@ -104,7 +104,7 @@ final class SignUpViewModel {
         
         input.logInButtonDidTap
             .subscribe { [weak self] _ in
-                self?.transitionView()
+                self?.coordinator?.showLoginViewController()
             }
             .disposed(by: bag)
         

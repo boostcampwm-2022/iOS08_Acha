@@ -35,7 +35,14 @@ final class SignupViewController: ScrollAbleViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        configureContentView()
         bind()
+
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        scrollView.removeFromSuperview()
     }
 
     func bind() {
@@ -95,11 +102,6 @@ final class SignupViewController: ScrollAbleViewController {
 
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        configureContentView()
-    }
-    
     private func alertSignUpFailed() {
         let alertController = UIAlertController(title: "경고",
                                                 message: "회원가입에 실패하셨습니다.",
@@ -122,32 +124,26 @@ extension SignupViewController {
         
         titleView.snp.makeConstraints {
             $0.height.equalTo(80)
-            $0.top.leading.trailing.equalToSuperview()
         }
         
         emailTextField.snp.makeConstraints {
             $0.height.equalTo(60)
-            $0.leading.trailing.equalTo(contentView).inset(70)
         }
         
         passwordTextField.snp.makeConstraints {
             $0.height.equalTo(60)
-            $0.leading.trailing.equalTo(contentView).inset(70)
         }
         
         nickNameTextField.snp.makeConstraints {
             $0.height.equalTo(60)
-            $0.leading.trailing.equalTo(contentView).inset(70)
         }
         
         signUpButton.snp.makeConstraints {
             $0.height.equalTo(60)
-            $0.left.right.equalTo(contentView).inset(70)
         }
         
         logInButton.snp.makeConstraints {
             $0.height.equalTo(60)
-            $0.left.right.equalTo(contentView).inset(70)
         }
         
     }
