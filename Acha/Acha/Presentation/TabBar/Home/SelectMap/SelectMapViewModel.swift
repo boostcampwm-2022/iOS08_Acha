@@ -49,7 +49,7 @@ class SelectMapViewModel: BaseViewModel {
         input.startButtonTapped
             .subscribe(onNext: { [weak self] _ in
                 guard let map = self?.selectedMap else { return }
-                if self?.checkStartable(mapCoordinates: map.coordinates) ?? false {
+                if self?.isStartable(mapCoordinates: map.coordinates) ?? false {
                     self?.coordinator?.showSingleGamePlayViewController(selectedMap: map)
                 } else {
                     output.cannotStart.accept(())
@@ -152,11 +152,11 @@ class SelectMapViewModel: BaseViewModel {
         }
     }
     
-    private func checkStartable(mapCoordinates: [Coordinate]) -> Bool {
+    private func isStartable(mapCoordinates: [Coordinate]) -> Bool {
         guard let userLocation = self.userLocation,
               let minDistance = mapCoordinates.map({ userLocation.distance(from: $0) }).min()
         else { return false }
-        return !(minDistance > 10)
+        return minDistance <= 10
     }
     
     private func getMapsInUpdatedRegion(region: MapRegion) -> [Map] {
