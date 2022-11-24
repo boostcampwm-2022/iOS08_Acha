@@ -8,7 +8,7 @@
 import UIKit
 
 protocol MultiGameCoordinatorProtocol: Coordinator {
-    func showMultiGameRoomViewController(gameID: String)
+    func showMultiGameRoomViewController(roomID: String)
 }
 
 final class MultiGameCoordinator: MultiGameCoordinatorProtocol {
@@ -25,18 +25,24 @@ final class MultiGameCoordinator: MultiGameCoordinatorProtocol {
     }
     
     func start(gameID: String) {
-        showMultiGameRoomViewController(gameID: gameID)
+        showMultiGameRoomViewController(roomID: gameID)
     }
     
-    func showMultiGameRoomViewController(gameID: String) {
-        let provider = MultiGameRoomProvider()
-        let useCase = MultiGameRoomUseCase(repository: provider)
+    func showMultiGameRoomViewController(roomID: String) {
+        let provider = FBRealTimeDB()
+        let datasource = MultiGameRoomDataSource(provider: provider)
+        let repository = MultiGameRoomRepository(dataSource: datasource)
+        let useCase = MultiGameRoomUseCase(repository: repository)
         let viewModel = MultiGameRoomViewModel(
             coordinator: self,
-            useCase: useCase
+            useCase: useCase,
+            roomID: roomID
         )
-        let viewController = MultiGameRoomViewController(viewModel: viewModel)
-        viewController.qrCodeImageView.image = gameID.generateQRCode(from: gameID)!
+        let viewController = MultiGameRoomViewController(
+            viewModel: viewModel,
+            roomID: roomID
+        )
+
         navigationController.pushViewController(viewController, animated: true)
     }
 }

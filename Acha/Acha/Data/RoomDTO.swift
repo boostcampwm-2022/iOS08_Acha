@@ -9,6 +9,6 @@ import Foundation
 
 struct RoomDTO: Codable {
     let id: String
-    let user: [UserDTO]?
+    var user: [UserDTO]
     let mapID: Int
 }

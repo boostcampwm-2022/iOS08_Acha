@@ -9,7 +9,7 @@ import Foundation
 
 struct RandomFactory {
     static func make() -> String {
-        let numbers = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "f", "g", "h", "i", "k", "l"]
+        let numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
         var random = ""
         for _ in 0..<16 {
             random += numbers.randomElement()!
