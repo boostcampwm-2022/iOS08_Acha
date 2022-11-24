@@ -15,7 +15,7 @@ final class MultiGameRoomViewController: UIViewController {
     
     private lazy var qrCodeImageView = UIImageView()
     private lazy var roomIdLabel: UILabel = UILabel().then {
-        $0.font = .largeBody
+        $0.font = .boldBody
         $0.textColor = .pointDark
         $0.textAlignment = .center
     }
@@ -44,7 +44,7 @@ final class MultiGameRoomViewController: UIViewController {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
         self.qrCodeImageView.image = roomID.generateQRCode()
-        self.roomIdLabel.text = roomID
+        self.roomIdLabel.text = "방코드 : " + roomID
         view.backgroundColor = .white
     }
     
@@ -56,7 +56,10 @@ final class MultiGameRoomViewController: UIViewController {
         super.viewDidLoad()
         layout()
         bind()
-        applySnapshot(datas: [.init(id: "waeatw", nickName: "내맘")])
+        applySnapshot(datas: [.init(id: "waeatw", nickName: "내맘"),
+            RoomUser(id: "watewt", nickName: "watewtaetw"),
+                              RoomUser(id: "wthoaw", nickName: "awttwetwe")
+                             ])
     }
     
     func bind() {
@@ -74,6 +77,11 @@ extension MultiGameRoomViewController {
         roomCollectionView.register(
             GameRoomCollectionViewCell.self,
             forCellWithReuseIdentifier: GameRoomCollectionViewCell.identifier
+        )
+        roomCollectionView.register(
+            GameRoomCollectionViewHeader.self,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: GameRoomCollectionViewHeader.identifier
         )
     }
     private func makeDataSource() -> RoomDataSource {
@@ -102,6 +110,7 @@ extension MultiGameRoomViewController {
         addViews()
         addConstraints()
         configureCollectionView()
+        configureCollectionViewHeader()
     }
     
     private func addViews() {
@@ -134,7 +143,7 @@ extension MultiGameRoomViewController {
     private func makeCompositionLayout() -> UICollectionViewCompositionalLayout {
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
-            heightDimension: .fractionalWidth(0.8)
+            heightDimension: .absolute(30)
         )
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         let groupSize = NSCollectionLayoutSize(
@@ -166,8 +175,9 @@ extension MultiGameRoomViewController {
             frame: .zero,
             collectionViewLayout: makeCompositionLayout()
         )
+        roomCollectionView.dragInteractionEnabled = false
         registerCollectionView()
-        roomCollectionView.backgroundColor = .green
+        roomCollectionView.backgroundColor = .gameRoomColor
         view.addSubview(roomCollectionView)
         roomCollectionView.snp.makeConstraints {
             $0.top.equalTo(roomIdLabel.snp.bottom).inset(-40)
@@ -176,4 +186,19 @@ extension MultiGameRoomViewController {
             $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(100)
         }
     }
+    
+    private func configureCollectionViewHeader() {
+        
+        dataSource.supplementaryViewProvider = { collectionView, elementKind, indexPath in
+            guard elementKind == UICollectionView.elementKindSectionHeader,
+                  let header = collectionView.dequeueReusableSupplementaryView(
+                    ofKind: elementKind,
+                    withReuseIdentifier: GameRoomCollectionViewHeader.identifier,
+                    for: indexPath) as? GameRoomCollectionViewHeader
+            else { return UICollectionReusableView() }
+            header.bind(label: "플레이어")
+            return header
+        }
+    }
+    
 }

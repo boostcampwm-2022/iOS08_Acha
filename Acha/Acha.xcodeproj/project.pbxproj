@@ -84,6 +84,7 @@
 		F17A3FB2292F3BE900647AD0 /* FBProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17A3FB1292F3BE900647AD0 /* FBProvider.swift */; };
 		F17A3FB4292F3C1000647AD0 /* FBProviderType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17A3FB3292F3C1000647AD0 /* FBProviderType.swift */; };
 		F17A3FB6292F4F0700647AD0 /* MultiGameRoomDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17A3FB5292F4F0700647AD0 /* MultiGameRoomDataSource.swift */; };
+		F17A3FB8292FA12E00647AD0 /* GameRoomCollectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17A3FB7292FA12E00647AD0 /* GameRoomCollectionViewHeader.swift */; };
 		F17F86B5292E035100BDCE0F /* MultiGameEnterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17F86B4292E035100BDCE0F /* MultiGameEnterViewController.swift */; };
 		F17F86B7292E27B500BDCE0F /* MultiGameRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17F86B6292E27B500BDCE0F /* MultiGameRoomViewController.swift */; };
 		F17F86B9292E28EF00BDCE0F /* MultiGameRoomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17F86B8292E28EF00BDCE0F /* MultiGameRoomViewModel.swift */; };
@@ -212,6 +213,7 @@
 		F17A3FB1292F3BE900647AD0 /* FBProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBProvider.swift; sourceTree = "<group>"; };
 		F17A3FB3292F3C1000647AD0 /* FBProviderType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBProviderType.swift; sourceTree = "<group>"; };
 		F17A3FB5292F4F0700647AD0 /* MultiGameRoomDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiGameRoomDataSource.swift; sourceTree = "<group>"; };
+		F17A3FB7292FA12E00647AD0 /* GameRoomCollectionViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRoomCollectionViewHeader.swift; sourceTree = "<group>"; };
 		F17F86B4292E035100BDCE0F /* MultiGameEnterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiGameEnterViewController.swift; sourceTree = "<group>"; };
 		F17F86B6292E27B500BDCE0F /* MultiGameRoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiGameRoomViewController.swift; sourceTree = "<group>"; };
 		F17F86B8292E28EF00BDCE0F /* MultiGameRoomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiGameRoomViewModel.swift; sourceTree = "<group>"; };
@@ -702,6 +704,7 @@
 			isa = PBXGroup;
 			children = (
 				F17A3F9E292F074E00647AD0 /* GameRoomCollectionViewCell.swift */,
+				F17A3FB7292FA12E00647AD0 /* GameRoomCollectionViewHeader.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -1096,6 +1099,7 @@
 				F17A3FB2292F3BE900647AD0 /* FBProvider.swift in Sources */,
 				F17F86BF292E3F3000BDCE0F /* MultiGameRoomRepository.swift in Sources */,
 				76B3BF442924C7450056ABFD /* SingleGameViewController.swift in Sources */,
+				F17A3FB8292FA12E00647AD0 /* GameRoomCollectionViewHeader.swift in Sources */,
 				F156F11A29235EC50053E807 /* ImageConstants.swift in Sources */,
 				F1B0D8AE292CCAAC00EBDD02 /* UserDTO.swift in Sources */,
 				E5BE8BB12922200000E9CFE8 /* RecordViewController.swift in Sources */,

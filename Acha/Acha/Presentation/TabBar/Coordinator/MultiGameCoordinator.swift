@@ -42,7 +42,7 @@ final class MultiGameCoordinator: MultiGameCoordinatorProtocol {
             viewModel: viewModel,
             roomID: roomID
         )
-
+        
         navigationController.pushViewController(viewController, animated: true)
     }
 }

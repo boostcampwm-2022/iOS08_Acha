@@ -11,7 +11,12 @@ import SnapKit
 
 final class GameRoomCollectionViewCell: UICollectionViewCell {
     static let identifier = "gameRoomCollectionViewCell"
-    private lazy var nameLabel = UILabel().then {
+    private lazy var nameLabel = PaddingLabel(
+        topInset: 0,
+        bottomInset: 0,
+        leftInset: 12,
+        rightInset: 12
+    ).then {
         $0.numberOfLines = 0
         $0.font = .commentBody
         $0.textColor = .pointDark
