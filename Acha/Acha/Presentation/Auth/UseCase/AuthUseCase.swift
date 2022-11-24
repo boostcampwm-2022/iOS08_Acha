@@ -131,7 +131,7 @@ extension AuthUseCase: UserDataAppendToDatabase {
     }
 }
 
-struct LoginData {
+struct LoginData: Equatable {
     let email: String
     let password: String
 }

@@ -41,16 +41,10 @@ final class LoginCoordinator: LoginCoordinatorProtocol {
     }
     
     func showSignupViewController() {
-        let useCase = AuthUseCase()
-        let repository = AuthRepository()
-        let viewModel = SignUpViewModel(
-            coordinator: self,
-            useCase: useCase,
-            repository: repository
-        )
-        let viewController = SignupViewController(viewModel: viewModel)
-        navigationController.pushViewController(viewController, animated: true)
-        navigationControllerRefactoring()
+        let coordinator = SignupCoordinator(navigationController: navigationController)
+        appendChildCoordinator(coordinator: coordinator)
+        coordinator.delegate = self
+        coordinator.start()
     }
     
     /// snapkit 에서 superview 를 찾을 수 없다는 오류로 인해서 강제적으로 네비게이션 컨트롤러를
@@ -63,6 +57,6 @@ final class LoginCoordinator: LoginCoordinatorProtocol {
 
 extension LoginCoordinator: CoordinatorDelegate {
     func didFinished(childCoordinator: Coordinator) {
-        navigationController.popViewController(animated: true)
+        showLoginViewController()
     }
 }

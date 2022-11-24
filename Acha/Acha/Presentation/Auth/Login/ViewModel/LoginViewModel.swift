@@ -78,6 +78,7 @@ final class LoginViewModel: BaseViewModel {
             input.loginButtonDidTap
                 .subscribe { [weak self] _ in
                     self?.repository.getLoginData()
+                        .distinctUntilChanged()
                         .subscribe(onNext: { loginData in
                             if self?.repository.isLoginAble() ?? false {
                                 self?.useCase.logIn(data: loginData)

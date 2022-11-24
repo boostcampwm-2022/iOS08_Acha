@@ -112,6 +112,7 @@ final class SignUpViewModel {
             input.signUpButtonDidTap
                 .subscribe { [weak self] _ in
                     self?.repository.getSignUpdata()
+                        .distinctUntilChanged()
                         .subscribe(onNext: { signUpData in
                             guard let self = self else {return}
                             if self.repository.isSignAble() {
