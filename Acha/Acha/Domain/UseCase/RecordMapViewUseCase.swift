@@ -20,7 +20,7 @@ protocol RecordMapViewUseCase {
     func getMapArrayAtCategory(category: String) -> Observable<[Map]>
     func getMapAtMapName(mapName: String) -> Observable<Map>
     func getDropDownMenus(mapName: String)
-    func getRecordsAtIndexs(indexs: [Int]) -> Observable<[RecordViewRecord]>
+    func getRecordsAtindexes(indexes: [Int]) -> Observable<[RecordViewRecord]>
     func getMapNameAndRecordsAtCategory(category: String)
     func getMapNameAndRecordsAtMapName(mapName: String)
 }

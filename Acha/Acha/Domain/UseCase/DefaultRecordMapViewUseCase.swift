@@ -10,8 +10,8 @@ import Firebase
 import RxSwift
 
 final class DefaultRecordMapViewUseCase: RecordMapViewUseCase {
-    var ref: DatabaseReference!
-    var repository: RecordRepository
+    private let ref: DatabaseReference!
+    private let repository: RecordRepository
     private let disposeBag = DisposeBag()
     
     var recordData = BehaviorSubject<[Int: RecordViewRecord]>(value: [:])
@@ -57,8 +57,7 @@ final class DefaultRecordMapViewUseCase: RecordMapViewUseCase {
                 }
             }
     }
-    
-    
+     
     func fetchMapDataAtMapName() -> Observable<[String: Map]> {
         self.loadMapData()
             .flatMap { maps -> Observable<[String: Map]> in
@@ -127,13 +126,13 @@ final class DefaultRecordMapViewUseCase: RecordMapViewUseCase {
             }.disposed(by: self.disposeBag)
     }
     
-    func getRecordsAtIndexs(indexs: [Int]) -> Observable<[RecordViewRecord]> {
+    func getRecordsAtindexes(indexes: [Int]) -> Observable<[RecordViewRecord]> {
         return Observable.create { emitter in
             self.fetchRecordDataAtIndex()
                 .subscribe {
                     guard let recordAtIndex = $0.element else { return }
                     var records = recordAtIndex
-                        .filter { indexs.contains($0.key) }
+                        .filter { indexes.contains($0.key) }
                         .map { $0.value }
                     records.sort { return $0.time < $1.time }
                     
@@ -152,7 +151,7 @@ final class DefaultRecordMapViewUseCase: RecordMapViewUseCase {
                     return
                 }
                 
-                self.getRecordsAtIndexs(indexs: recordIndex)
+                self.getRecordsAtindexes(indexes: recordIndex)
                     .subscribe {
                         guard let records = $0.element else { return }
                         self.mapNameAndReocrds.onNext((maps[0].name, records))
@@ -169,7 +168,7 @@ final class DefaultRecordMapViewUseCase: RecordMapViewUseCase {
                     return
                 }
                 
-                self.getRecordsAtIndexs(indexs: recordIndex)
+                self.getRecordsAtindexes(indexes: recordIndex)
                     .subscribe {
                         guard let records = $0.element else { return }
                         self.mapNameAndReocrds.onNext((mapName, records))

@@ -169,7 +169,7 @@ class RecordMapViewController: UIViewController {
                 header.setMapName(mapName: section.title)
                 self.sectionHeaderView = header
                 self.sectionHeaderCreateEvent.accept(section.title)
-                header.dropDownMenuTepEvent
+                header.dropDownMenuTapEvent
                     .subscribe {
                         self.dropDownMenuTapEvent.accept($0)
                     }.disposed(by: self.disposeBag)

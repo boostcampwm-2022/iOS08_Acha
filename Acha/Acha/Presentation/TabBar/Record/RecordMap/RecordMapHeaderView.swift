@@ -28,7 +28,7 @@ class RecordMapHeaderView: UICollectionReusableView {
     
     // MARK: - Properties
     static let identifier = "RecordMapHeaderView"
-    var dropDownMenuTepEvent = PublishRelay<String>()
+    var dropDownMenuTapEvent = PublishRelay<String>()
     
     // MARK: - Lifecycles
     override init(frame: CGRect) {
@@ -71,7 +71,7 @@ class RecordMapHeaderView: UICollectionReusableView {
         maps.forEach {
             menuItems.append(
                 UIAction(title: $0.name) { action in
-                    self.dropDownMenuTepEvent.accept(action.title)
+                    self.dropDownMenuTapEvent.accept(action.title)
             })
         }
         downButton.menu = UIMenu(children: menuItems)
