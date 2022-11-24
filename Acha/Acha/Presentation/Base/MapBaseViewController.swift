@@ -57,7 +57,6 @@ class MapBaseViewController: UIViewController, MapBaseViewProtocol {
         getLocationUsagePermission()
     }
     
-    // 뷰가 화면에서 사라질 때 locationManager가 위치 업데이트를 중단하도록 설정
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         if let mapView {
@@ -87,7 +86,6 @@ class MapBaseViewController: UIViewController, MapBaseViewProtocol {
         } else {
             mapView?.mapType = .standard
         }
-        
         mapView?.showsCompass = false
     }
 }
