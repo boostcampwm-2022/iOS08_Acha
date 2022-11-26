@@ -11,4 +11,8 @@ struct RoomDTO: Codable {
     let id: String
     var user: [UserDTO]
     let mapID: Int
+    
+    func toRoomUsers() -> [RoomUser] {
+        return user.map { $0.toRoomUser() }
+    }
 }

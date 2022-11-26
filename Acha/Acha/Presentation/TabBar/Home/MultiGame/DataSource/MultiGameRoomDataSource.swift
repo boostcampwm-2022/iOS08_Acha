@@ -11,7 +11,7 @@ import RxSwift
 protocol MultiGameRoomDataSourceProtocol {
     // 방 만들기
     func make(roomID: String)
-    func detect(roomID: String) -> Observable<RoomDTO>
+    func get(roomID: String) -> Observable<RoomDTO>
     // 방 데이터 얻기
 //    func get(roomID: String) -> Observable<RoomDTO>
     // 방 폭파
@@ -32,7 +32,7 @@ struct MultiGameRoomDataSource: MultiGameRoomDataSourceProtocol {
         provider.make(.room(id: roomID, data: nil))
     }
     
-    func detect(roomID: String) -> Observable<RoomDTO> {
-        return provider.detect(.room(id: roomID, data: nil), responseType: RoomDTO.self)
+    func get(roomID: String) -> Observable<RoomDTO> {
+        return provider.get(.room(id: roomID, data: nil), responseType: RoomDTO.self)
     }
 }

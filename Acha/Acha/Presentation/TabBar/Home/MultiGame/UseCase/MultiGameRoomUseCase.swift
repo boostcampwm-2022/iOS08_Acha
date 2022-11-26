@@ -19,7 +19,7 @@ struct MultiGameRoomUseCase {
         repository.make(roomID: roomID)
     }
     
-    func detect(roomID: String) -> Observable<RoomDTO> {
-        return repository.detect(roomID: roomID)
+    func get(roomID: String) -> Observable<[RoomUser]> {
+        return repository.get(roomID: roomID)
     }
 }

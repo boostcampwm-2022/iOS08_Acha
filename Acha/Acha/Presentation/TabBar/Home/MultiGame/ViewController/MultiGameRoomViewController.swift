@@ -10,6 +10,7 @@ import Then
 import SnapKit
 import RxSwift
 import RxCocoa
+import FirebaseDatabase
 
 final class MultiGameRoomViewController: UIViewController {
     
@@ -30,6 +31,8 @@ final class MultiGameRoomViewController: UIViewController {
     }
 
     private let viewModel: MultiGameRoomViewModel
+    private let disposeBag = DisposeBag()
+    private let roomDataChanged = PublishSubject<Void>()
     
     enum Section {
         case gameRoom
@@ -39,13 +42,17 @@ final class MultiGameRoomViewController: UIViewController {
     typealias RoomSnapShot = NSDiffableDataSourceSnapshot<Section, RoomUser>
     
     private lazy var dataSource = makeDataSource()
-    
+    private lazy var snapshot = RoomSnapShot()
+        
     init(viewModel: MultiGameRoomViewModel, roomID: String) {
         self.viewModel = viewModel
+
         super.init(nibName: nil, bundle: nil)
         self.qrCodeImageView.image = roomID.generateQRCode()
         self.roomIdLabel.text = "방코드 : " + roomID
+
         view.backgroundColor = .white
+        addRoomDataObserver(roomID: roomID)
     }
     
     required init?(coder: NSCoder) {
@@ -56,20 +63,27 @@ final class MultiGameRoomViewController: UIViewController {
         super.viewDidLoad()
         layout()
         bind()
-        applySnapshot(datas: [.init(id: "waeatw", nickName: "내맘"),
-            RoomUser(id: "watewt", nickName: "watewtaetw"),
-                              RoomUser(id: "wthoaw", nickName: "awttwetwe")
-                             ])
     }
     
-    func bind() {
+    private func addRoomDataObserver(roomID: String) {
+        FBRealTimeDB().ref.child("Room/\(roomID)").observe(.value) { [weak self] _ in
+            self?.roomDataChanged.onNext(())
+        }
+    }
+    
+    private func bind() {
         let inputs = MultiGameRoomViewModel.Input(
             viewWillAppear: rx.viewWillAppear.asObservable(),
-            viewDidAppear: rx.viewDidAppear.asObservable()
+            roomDataChanged: roomDataChanged.asObservable()
         )
-        
-        _ = viewModel.transform(input: inputs)
+                
+        let outputs = viewModel.transform(input: inputs)
             
+        outputs.dataFetched
+            .subscribe { [weak self] roomUser in
+                self?.applySnapshot(datas: roomUser)
+            }
+            .disposed(by: disposeBag)
     }
 }
 extension MultiGameRoomViewController {
@@ -98,9 +112,9 @@ extension MultiGameRoomViewController {
         return dataSource
     }
     private func applySnapshot(datas: [RoomUser]) {
-        var snapshot = RoomSnapShot()
-        snapshot.appendSections([.gameRoom])
-        snapshot.appendItems(datas)
+        let oldItems = snapshot.itemIdentifiers(inSection: .gameRoom)
+        snapshot.deleteItems(oldItems)
+        snapshot.appendItems(datas, toSection: .gameRoom)
         dataSource.apply(snapshot, animatingDifferences: true)
     }
 }
@@ -185,6 +199,7 @@ extension MultiGameRoomViewController {
             $0.leading.trailing.equalToSuperview().inset(30)
             $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(100)
         }
+        snapshot.appendSections([.gameRoom])
     }
     
     private func configureCollectionViewHeader() {

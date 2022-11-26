@@ -17,9 +17,9 @@ protocol FBRealTimeDBProtocol {
 
 struct FBRealTimeDB: FBRealTimeDBProtocol {
     
-    private let ref = Database.database().reference()
+    let ref = Database.database().reference()
     
-    private func get<T: Decodable>(
+    private func getData<T: Decodable>(
         _ type: FBRealTimeDBType,
         responseType: T.Type,
         handler: @escaping ((T) -> Void)
@@ -43,7 +43,7 @@ struct FBRealTimeDB: FBRealTimeDBProtocol {
             ref.child(type.path).setValue(type.data)
         case .room(id: _, data: _):
             guard let uuid = try? KeyChainManager.get() else {return}
-            get(.user(id: uuid, data: nil), responseType: UserDTO.self) { userData in
+            getData(.user(id: uuid, data: nil), responseType: UserDTO.self) { userData in
                 let newRoomData = RoomDTO(id: type.id, user: [userData], mapID: 0)
                 ref.child(type.path).setValue(newRoomData.dictionary)
             }
@@ -54,9 +54,9 @@ struct FBRealTimeDB: FBRealTimeDBProtocol {
         _ who: FBRealTimeDBType,
         _ to: FBRealTimeDBType
     ) {
-        get(to, responseType: RoomDTO.self) { roomData in
+        getData(to, responseType: RoomDTO.self) { roomData in
             var roomData = roomData
-            get(who, responseType: UserDTO.self) { userData in
+            getData(who, responseType: UserDTO.self) { userData in
                 roomData.user.append(userData)
                 update(.room(id: roomData.id, data: roomData))
             }
@@ -67,18 +67,17 @@ struct FBRealTimeDB: FBRealTimeDBProtocol {
         ref.child(type.path).setValue(type.data)
     }
     
-    func detect<T: Decodable>(
+    func get<T: Decodable>(
         _ type: FBRealTimeDBType,
         responseType: T.Type
     ) -> Observable<T> {
         
         return Observable<T>.create { observer in
-            ref.child(type.path).observe(.childChanged) { snapshot in
-                guard let snapData = snapshot.value as? [String: Any],
-                      let data = try? JSONSerialization.data(withJSONObject: snapData),
-                      let list = try? JSONDecoder().decode(T.self, from: data) else {
-                    return
-                }
+            ref.child(type.path).getData { error, snapshot in
+                guard error == nil else { return }
+                guard let snapData = snapshot?.value as? [String: Any] else { return }
+                guard let data = try? JSONSerialization.data(withJSONObject: snapData) else { return }
+                guard let list = try? JSONDecoder().decode(T.self, from: data) else { return }
                 observer.onNext(list)
             }
             return Disposables.create()

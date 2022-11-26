@@ -14,15 +14,15 @@ enum FBProviderType {
 
 extension FBProviderType {
     var rootUrl: String {
-        return "https://acha-75e27-default-rtdb.firebaseio.com/"
+        return "https://acha-75e27-default-rtdb.firebaseio.com"
     }
     
     var path: String {
         switch self {
         case .user(let userDTO):
-            return rootUrl + "/\(userDTO.id)"
+            return rootUrl + "/User/\(userDTO.id)"
         case .room(let roomDTO):
-            return rootUrl + "/\(roomDTO.id)"
+            return rootUrl + "/Room/\(roomDTO.id)"
         }
     }
     
@@ -55,7 +55,7 @@ extension FBProviderType {
         var urlRequest = URLRequest(url: toURL())
         urlRequest.allHTTPHeaderFields = HTTPHeader
         urlRequest.httpMethod = HTTPMethod
-        urlRequest.httpBody = HTTPBody
+        urlRequest.httpBody = HTTPMethod == "GET" ? nil : HTTPBody
         return urlRequest
     }
     
