@@ -35,4 +35,8 @@ struct MultiGameRoomDataSource: MultiGameRoomDataSourceProtocol {
     func get(roomID: String) -> Observable<RoomDTO> {
         return provider.get(.room(id: roomID, data: nil), responseType: RoomDTO.self)
     }
+    
+    func leave(roomID: String) {
+        provider.leave(from: .room(id: roomID, data: nil))
+    }
 }

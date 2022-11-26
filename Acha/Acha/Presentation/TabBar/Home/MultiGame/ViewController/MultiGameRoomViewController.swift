@@ -14,6 +14,9 @@ import FirebaseDatabase
 
 final class MultiGameRoomViewController: UIViewController {
     
+    private lazy var exitButton = UIButton().then {
+        $0.setImage(.exitImage, for: .normal)
+    }
     private lazy var qrCodeImageView = UIImageView()
     private lazy var roomIdLabel: UILabel = UILabel().then {
         $0.font = .boldBody
@@ -73,7 +76,9 @@ final class MultiGameRoomViewController: UIViewController {
     private func bind() {
         let inputs = MultiGameRoomViewModel.Input(
             viewWillAppear: rx.viewWillAppear.asObservable(),
-            roomDataChanged: roomDataChanged.asObservable()
+            roomDataChanged: roomDataChanged.asObservable(),
+            exitButtonTapped: exitButton.rx.tap.asObservable(),
+            gameStartButtonTapped: startButton.rx.tap.asObservable()
         )
                 
         let outputs = viewModel.transform(input: inputs)
@@ -128,6 +133,7 @@ extension MultiGameRoomViewController {
     }
     
     private func addViews() {
+        view.addSubview(exitButton)
         view.addSubview(qrCodeImageView)
         view.addSubview(roomIdLabel)
         view.addSubview(roomCollectionView)
@@ -135,6 +141,12 @@ extension MultiGameRoomViewController {
     }
     
     private func addConstraints() {
+        
+        exitButton.snp.makeConstraints {
+            $0.leading.top.equalTo(view.safeAreaLayoutGuide).inset(10)
+            $0.width.height.equalTo(40)
+        }
+        
         qrCodeImageView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide).inset(50)
             $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(100)
@@ -150,7 +162,7 @@ extension MultiGameRoomViewController {
         startButton.snp.makeConstraints {
             $0.height.equalTo(50)
             $0.leading.trailing.equalToSuperview().inset(30)
-            $0.bottom.equalToSuperview().inset(40)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(20)
         }
     }
     

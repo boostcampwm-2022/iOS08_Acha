@@ -26,4 +26,8 @@ struct MultiGameRoomRepository {
             return Disposables.create()
         }
     }
+    
+    func leave(roomID: String) {
+        dataSource.leave(roomID: roomID)
+    }
 }

@@ -16,6 +16,8 @@ final class MultiGameRoomViewModel: BaseViewModel {
     struct Input {
         let viewWillAppear: Observable<Void>
         let roomDataChanged: Observable<Void>
+        let exitButtonTapped: Observable<Void>
+        let gameStartButtonTapped: Observable<Void>
     }
     
     struct Output {
@@ -42,6 +44,21 @@ final class MultiGameRoomViewModel: BaseViewModel {
             self?.useCase.make(roomID: self?.roomID ?? "")
         }
         .disposed(by: disposeBag)
+        
+        input.gameStartButtonTapped
+            .subscribe { [weak self] _ in
+                guard let self = self else {return}
+                self.coordinator?.showMultiGameSelectViewController(roomID: self.roomID)
+            }
+            .disposed(by: bag)
+            
+        input.exitButtonTapped
+            .subscribe { [weak self] _ in
+                guard let self = self else {return}
+                self.useCase.leave(roomID: self.roomID)
+                self.coordinator?.popSelfFromNavigatonController()
+            }
+            .disposed(by: bag)
         
         let dataFetched = Observable<[RoomUser]>.create { observer in
             input.roomDataChanged

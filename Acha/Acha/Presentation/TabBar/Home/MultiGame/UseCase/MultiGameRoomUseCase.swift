@@ -22,4 +22,8 @@ struct MultiGameRoomUseCase {
     func get(roomID: String) -> Observable<[RoomUser]> {
         return repository.get(roomID: roomID)
     }
+    
+    func leave(roomID: String) {
+        repository.leave(roomID: roomID)
+    }
 }

@@ -87,4 +87,19 @@ struct FBRealTimeDB: FBRealTimeDBProtocol {
     func delete(_ type: FBRealTimeDBType) {
         ref.child(type.path).removeValue()
     }
+    
+    func leave(from: FBRealTimeDBType) {
+        getData(from, responseType: RoomDTO.self) { roomDTO in
+            guard let uuid = try? KeyChainManager.get() else {return}
+            var roomData = roomDTO
+            var userDatas = roomDTO.user
+            userDatas = userDatas.filter { $0.id != uuid }
+            roomData.user = userDatas
+            if roomData.user.count == 0 {
+                delete(from)
+                return
+            }
+            update(.room(id: roomData.id, data: roomData))
+        }
+    }
 }

@@ -57,8 +57,6 @@ final class HomeCoordinator: HomeCoordinatorProtocol {
     }
     
     func connectMultiGameFlow(gameID: String) {
-        tabBarController?.tabBar.isHidden = true
-        
         let coordinator = MultiGameCoordinator(navigationController: navigationController)
         coordinator.delegate = self
         appendChildCoordinator(coordinator: coordinator)

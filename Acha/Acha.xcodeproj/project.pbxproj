@@ -77,6 +77,7 @@
 		F156F11C2923623C0053E807 /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F156F11B2923623C0053E807 /* PaddingLabel.swift */; };
 		F156F11E292365840053E807 /* CALayer+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F156F11D292365840053E807 /* CALayer+Extension.swift */; };
 		F16B450E293250C4002429A2 /* MultiGameEnterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16B450D293250C4002429A2 /* MultiGameEnterViewController.swift */; };
+		F16B453229326C16002429A2 /* MultiGameSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16B453129326C16002429A2 /* MultiGameSelectViewController.swift */; };
 		F17A3F9F292F074E00647AD0 /* GameRoomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17A3F9E292F074E00647AD0 /* GameRoomCollectionViewCell.swift */; };
 		F17A3FA1292F0BF200647AD0 /* RoomUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17A3FA0292F0BF200647AD0 /* RoomUser.swift */; };
 		F17A3FA3292F2C1200647AD0 /* RxSwift+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17A3FA2292F2C1200647AD0 /* RxSwift+Extension.swift */; };
@@ -206,6 +207,7 @@
 		F156F11B2923623C0053E807 /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
 		F156F11D292365840053E807 /* CALayer+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+Extension.swift"; sourceTree = "<group>"; };
 		F16B450D293250C4002429A2 /* MultiGameEnterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiGameEnterViewController.swift; sourceTree = "<group>"; };
+		F16B453129326C16002429A2 /* MultiGameSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiGameSelectViewController.swift; sourceTree = "<group>"; };
 		F17A3F9E292F074E00647AD0 /* GameRoomCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRoomCollectionViewCell.swift; sourceTree = "<group>"; };
 		F17A3FA0292F0BF200647AD0 /* RoomUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomUser.swift; sourceTree = "<group>"; };
 		F17A3FA2292F2C1200647AD0 /* RxSwift+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RxSwift+Extension.swift"; sourceTree = "<group>"; };
@@ -672,6 +674,7 @@
 			isa = PBXGroup;
 			children = (
 				F17F86B6292E27B500BDCE0F /* MultiGameRoomViewController.swift */,
+				F16B453129326C16002429A2 /* MultiGameSelectViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -1127,6 +1130,7 @@
 				F156F11C2923623C0053E807 /* PaddingLabel.swift in Sources */,
 				471863BD291E155700A35786 /* AppDelegate.swift in Sources */,
 				E5BE8BA129221B6D00E9CFE8 /* SignupCoordinator .swift in Sources */,
+				F16B453229326C16002429A2 /* MultiGameSelectViewController.swift in Sources */,
 				E5BE8B97292219D800E9CFE8 /* HomeCoordinator.swift in Sources */,
 				F1D202B72924C63F00F3E87D /* InGameMenuModelProtocol.swift in Sources */,
 				F1B0D8B2292CCAD900EBDD02 /* RecordDTO.swift in Sources */,

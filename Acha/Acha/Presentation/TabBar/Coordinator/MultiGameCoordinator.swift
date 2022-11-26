@@ -9,6 +9,7 @@ import UIKit
 
 protocol MultiGameCoordinatorProtocol: Coordinator {
     func showMultiGameRoomViewController(roomID: String)
+    func showMultiGameSelectViewController(roomID: String)
 }
 
 final class MultiGameCoordinator: MultiGameCoordinatorProtocol {
@@ -43,6 +44,11 @@ final class MultiGameCoordinator: MultiGameCoordinatorProtocol {
             roomID: roomID
         )
         
+        navigationController.pushViewController(viewController, animated: true)
+    }
+    
+    func showMultiGameSelectViewController(roomID: String) {
+        let viewController = MultiGameSelectViewController()
         navigationController.pushViewController(viewController, animated: true)
     }
 }

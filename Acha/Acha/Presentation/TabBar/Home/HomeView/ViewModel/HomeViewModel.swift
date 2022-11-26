@@ -50,7 +50,8 @@ final class HomeViewModel: BaseViewModel {
         input.cameraDetectedSometing
             .distinctUntilChanged()
             .subscribe { [weak self] qrStirngValue in
-                FBRealTimeDB().enter(.user(id: "AZCgPBWrL7hqGFsfWDXBqeYxyrU2", data: nil), .room(id: qrStirngValue, data: nil))
+                guard let uuid = try? KeyChainManager.get() else {return}
+                FBRealTimeDB().enter(.user(id: uuid, data: nil), .room(id: qrStirngValue, data: nil))
                 self?.coordinator?.connectMultiGameFlow(gameID: qrStirngValue)
             }
             .disposed(by: bag)
