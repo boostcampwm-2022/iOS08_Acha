@@ -53,7 +53,7 @@ extension GameRoomCollectionViewHeader {
         }
     }
     
-    func bind(label: String) {
-        headerLabel.text = label
+    func bind(playerNumber: Int) {
+        headerLabel.text = "플레이어 \(playerNumber) 명"
     }
 }

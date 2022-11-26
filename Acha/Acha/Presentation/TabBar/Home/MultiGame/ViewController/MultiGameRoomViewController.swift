@@ -50,7 +50,6 @@ final class MultiGameRoomViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         self.qrCodeImageView.image = roomID.generateQRCode()
         self.roomIdLabel.text = "방코드 : " + roomID
-
         view.backgroundColor = .white
         addRoomDataObserver(roomID: roomID)
     }
@@ -80,9 +79,10 @@ final class MultiGameRoomViewController: UIViewController {
         let outputs = viewModel.transform(input: inputs)
             
         outputs.dataFetched
-            .subscribe { [weak self] roomUser in
+            .subscribe(onNext: { [weak self] roomUser in
                 self?.applySnapshot(datas: roomUser)
-            }
+                self?.collectionViewHeaderBind(playerNumber: roomUser.count)
+            })
             .disposed(by: disposeBag)
     }
 }
@@ -211,9 +211,18 @@ extension MultiGameRoomViewController {
                     withReuseIdentifier: GameRoomCollectionViewHeader.identifier,
                     for: indexPath) as? GameRoomCollectionViewHeader
             else { return UICollectionReusableView() }
-            header.bind(label: "플레이어")
             return header
         }
+    }
+    
+    private func collectionViewHeaderBind(playerNumber: Int) {
+        guard let header = roomCollectionView.supplementaryView(
+            forElementKind: UICollectionView.elementKindSectionHeader,
+            at: IndexPath.init(row: 0, section: 0)
+        ) as? GameRoomCollectionViewHeader else {
+            return
+        }
+        header.bind(playerNumber: playerNumber)
     }
     
 }

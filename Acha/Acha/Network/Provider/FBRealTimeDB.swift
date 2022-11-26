@@ -75,9 +75,9 @@ struct FBRealTimeDB: FBRealTimeDBProtocol {
         return Observable<T>.create { observer in
             ref.child(type.path).getData { error, snapshot in
                 guard error == nil else { return }
-                guard let snapData = snapshot?.value as? [String: Any] else { return }
-                guard let data = try? JSONSerialization.data(withJSONObject: snapData) else { return }
-                guard let list = try? JSONDecoder().decode(T.self, from: data) else { return }
+                guard let snapData = snapshot?.value as? [String: Any],
+                      let data = try? JSONSerialization.data(withJSONObject: snapData),
+                      let list = try? JSONDecoder().decode(T.self, from: data) else { return }
                 observer.onNext(list)
             }
             return Disposables.create()
