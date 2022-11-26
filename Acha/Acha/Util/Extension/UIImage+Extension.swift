@@ -9,4 +9,6 @@ import UIKit
 
 extension UIImage {
     static let authInvalidateImage: UIImage = UIImage(named: "invalidate")!
+    static let homeImage: UIImage = UIImage(named: "home")!
+    static let magnyfingGlassImage: UIImage = UIImage(named: "magnifyingGlass")!
 }

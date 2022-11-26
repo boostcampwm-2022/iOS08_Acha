@@ -76,6 +76,7 @@
 		F156F11A29235EC50053E807 /* ImageConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F156F11929235EC50053E807 /* ImageConstants.swift */; };
 		F156F11C2923623C0053E807 /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F156F11B2923623C0053E807 /* PaddingLabel.swift */; };
 		F156F11E292365840053E807 /* CALayer+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F156F11D292365840053E807 /* CALayer+Extension.swift */; };
+		F16B450E293250C4002429A2 /* MultiGameEnterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16B450D293250C4002429A2 /* MultiGameEnterViewController.swift */; };
 		F17A3F9F292F074E00647AD0 /* GameRoomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17A3F9E292F074E00647AD0 /* GameRoomCollectionViewCell.swift */; };
 		F17A3FA1292F0BF200647AD0 /* RoomUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17A3FA0292F0BF200647AD0 /* RoomUser.swift */; };
 		F17A3FA3292F2C1200647AD0 /* RxSwift+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17A3FA2292F2C1200647AD0 /* RxSwift+Extension.swift */; };
@@ -85,7 +86,6 @@
 		F17A3FB4292F3C1000647AD0 /* FBProviderType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17A3FB3292F3C1000647AD0 /* FBProviderType.swift */; };
 		F17A3FB6292F4F0700647AD0 /* MultiGameRoomDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17A3FB5292F4F0700647AD0 /* MultiGameRoomDataSource.swift */; };
 		F17A3FB8292FA12E00647AD0 /* GameRoomCollectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17A3FB7292FA12E00647AD0 /* GameRoomCollectionViewHeader.swift */; };
-		F17F86B5292E035100BDCE0F /* MultiGameEnterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17F86B4292E035100BDCE0F /* MultiGameEnterViewController.swift */; };
 		F17F86B7292E27B500BDCE0F /* MultiGameRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17F86B6292E27B500BDCE0F /* MultiGameRoomViewController.swift */; };
 		F17F86B9292E28EF00BDCE0F /* MultiGameRoomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17F86B8292E28EF00BDCE0F /* MultiGameRoomViewModel.swift */; };
 		F17F86BB292E29B200BDCE0F /* MultiGameCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17F86BA292E29B200BDCE0F /* MultiGameCoordinator.swift */; };
@@ -205,6 +205,7 @@
 		F156F11929235EC50053E807 /* ImageConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageConstants.swift; sourceTree = "<group>"; };
 		F156F11B2923623C0053E807 /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
 		F156F11D292365840053E807 /* CALayer+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+Extension.swift"; sourceTree = "<group>"; };
+		F16B450D293250C4002429A2 /* MultiGameEnterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiGameEnterViewController.swift; sourceTree = "<group>"; };
 		F17A3F9E292F074E00647AD0 /* GameRoomCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRoomCollectionViewCell.swift; sourceTree = "<group>"; };
 		F17A3FA0292F0BF200647AD0 /* RoomUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomUser.swift; sourceTree = "<group>"; };
 		F17A3FA2292F2C1200647AD0 /* RxSwift+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RxSwift+Extension.swift"; sourceTree = "<group>"; };
@@ -214,7 +215,6 @@
 		F17A3FB3292F3C1000647AD0 /* FBProviderType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBProviderType.swift; sourceTree = "<group>"; };
 		F17A3FB5292F4F0700647AD0 /* MultiGameRoomDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiGameRoomDataSource.swift; sourceTree = "<group>"; };
 		F17A3FB7292FA12E00647AD0 /* GameRoomCollectionViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRoomCollectionViewHeader.swift; sourceTree = "<group>"; };
-		F17F86B4292E035100BDCE0F /* MultiGameEnterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiGameEnterViewController.swift; sourceTree = "<group>"; };
 		F17F86B6292E27B500BDCE0F /* MultiGameRoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiGameRoomViewController.swift; sourceTree = "<group>"; };
 		F17F86B8292E28EF00BDCE0F /* MultiGameRoomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiGameRoomViewModel.swift; sourceTree = "<group>"; };
 		F17F86BA292E29B200BDCE0F /* MultiGameCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiGameCoordinator.swift; sourceTree = "<group>"; };
@@ -794,8 +794,8 @@
 			isa = PBXGroup;
 			children = (
 				E5BE8BAC29221FE400E9CFE8 /* HomeViewController.swift */,
-				F17F86B4292E035100BDCE0F /* MultiGameEnterViewController.swift */,
 				F18513D6292E422900C466E7 /* QRReaderViewController.swift */,
+				F16B450D293250C4002429A2 /* MultiGameEnterViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1106,7 +1106,6 @@
 				E5BE8B91292218A500E9CFE8 /* Coordinator.swift in Sources */,
 				F1FCEE14292B4E9A001A55D6 /* AuthTitleView.swift in Sources */,
 				F12210C2292D031800AE5F26 /* KeyChainManager.swift in Sources */,
-				F17F86B5292E035100BDCE0F /* MultiGameEnterViewController.swift in Sources */,
 				E5BE8B952922196D00E9CFE8 /* TabBarCoordinator.swift in Sources */,
 				E5BE8BAD29221FE500E9CFE8 /* HomeViewController.swift in Sources */,
 				F17A3FB0292F365700647AD0 /* FBRealTimeDB.swift in Sources */,
@@ -1147,6 +1146,7 @@
 				F18A7FCF292BE75A0054FADE /* String+Extension.swift in Sources */,
 				76B3BF50292624850056ABFD /* InGamePlayMenuViewController.swift in Sources */,
 				E5027D5229263D4F0021BF60 /* RecordHeaderView.swift in Sources */,
+				F16B450E293250C4002429A2 /* MultiGameEnterViewController.swift in Sources */,
 				47A26DBE292BB2970007FBBF /* MapRegion.swift in Sources */,
 				F156F11E292365840053E807 /* CALayer+Extension.swift in Sources */,
 				F1FCEE0E292B483E001A55D6 /* UITextField+Extension.swift in Sources */,

@@ -11,7 +11,7 @@ import SnapKit
 import RxCocoa
 import RxSwift
 
-final class HomeViewController: UIViewController {
+final class HomeViewController: UIViewController, UIViewControllerTransitioningDelegate {
     
     // MARK: - UI properties
     private lazy var startGameContentView = UIView().then {
@@ -72,7 +72,7 @@ final class HomeViewController: UIViewController {
         $0.layer.cornerRadius = 10
     }
     
-    private lazy var multiGamePreView = MultiGameEnterViewController()
+    private lazy var multiGameEnterView = MultiGameEnterViewController()
     private lazy var qrReaderView = QRReaderViewController()
     
     // MARK: - Properties
@@ -83,6 +83,7 @@ final class HomeViewController: UIViewController {
     init(viewModel: HomeViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
+
     }
     
     required init?(coder: NSCoder) {
@@ -94,6 +95,7 @@ final class HomeViewController: UIViewController {
         configureUI()
         setUpSubviews()
         bind()
+    
     }
     
     // MARK: - Helpers
@@ -112,27 +114,30 @@ final class HomeViewController: UIViewController {
         let inputs = HomeViewModel.Input(
             singleGameModeDidTap: startSingleGameButton.rx.tap.asObservable(),
             multiGameModeDidTap: startMultiGameButton.rx.tap.asObservable(),
-            makeRoomButtonDidTap: multiGamePreView.makeRoomButton.rx.tap.asObservable(),
-            enterOtherRoomButtonDidTap: multiGamePreView.enterRoomtButton.rx.tap.asObservable(),
+            makeRoomButtonDidTap: multiGameEnterView.makeRoomButton.rx.tap.asObservable(),
+            enterOtherRoomButtonDidTap: multiGameEnterView.enterRoomtButton.rx.tap.asObservable(),
             cameraDetectedSometing: qrReaderView.roomIDInformation.asObservable()
         )
         
         let outputs = viewModel.transform(input: inputs)
         outputs.multiGameModeTapped
-            .subscribe { _ in
-                self.present(self.multiGamePreView, animated: true)
+            .subscribe { [weak self] _ in
+                guard let strongSelf = self else {return}
+                strongSelf.present(strongSelf.multiGameEnterView, animated: true)
             }
             .disposed(by: disposeBag)
 
         outputs.roomEnterBehavior
-            .subscribe { _ in
-                self.multiGamePreView.dismiss(animated: true)
-                self.present(self.qrReaderView, animated: true)
+            .subscribe { [weak self] _ in
+                guard let strongSelf = self else {return}
+                strongSelf.multiGameEnterView.dismiss(animated: true)
+                strongSelf.present(strongSelf.qrReaderView, animated: true)
             }
+            .disposed(by: disposeBag)
         
         outputs.uuidDidPass
             .subscribe { [weak self] _ in
-                self?.multiGamePreView.dismiss(animated: true)
+                self?.multiGameEnterView.dismiss(animated: true)
             }
             .disposed(by: disposeBag)
     }
