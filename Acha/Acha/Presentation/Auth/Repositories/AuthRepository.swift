@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 import RxRelay
 
-protocol SignUpRepository {
+protocol SignUpRepository1 {
     var emailRelay: BehaviorRelay<String> {get set}
     var passwordRelay: BehaviorRelay<String> {get set}
     var nickNameRelay: BehaviorRelay<String> {get set}
@@ -22,7 +22,7 @@ protocol SignUpRepository {
     func isSignAble() -> Bool
 }
 
-protocol LoginReposity {
+protocol LoginReposity1 {
     var emailRelay: BehaviorRelay<String> {get set}
     var passwordRelay: BehaviorRelay<String> {get set}
     
@@ -32,43 +32,4 @@ protocol LoginReposity {
     func getLoginData() -> Observable<LoginData>
     func isLoginAble() -> Bool
 
-}
-
-final class AuthRepository: SignUpRepository {
-    var emailValidation: Bool = false
-    var passwordValidation: Bool = false
-    var nickNameValidation: Bool = false
-    
-    var emailRelay: RxRelay.BehaviorRelay<String> = .init(value: "")
-    
-    var passwordRelay: RxRelay.BehaviorRelay<String> = .init(value: "")
-    
-    var nickNameRelay: RxRelay.BehaviorRelay<String> = .init(value: "")
-    
-    func getSignUpdata() -> RxSwift.Observable<SignUpData> {
-        return Observable
-            .zip(emailRelay, passwordRelay, nickNameRelay)
-            .map { (email, password, nickName) in
-                return SignUpData(email: email, password: password, nickName: nickName)
-            }
-    }
-    
-    func isSignAble() -> Bool {
-        return emailValidation && passwordValidation && nickNameValidation
-    }
-}
-
-extension AuthRepository: LoginReposity {
-    func getLoginData() -> RxSwift.Observable<LoginData> {
-        return Observable
-            .zip(emailRelay, passwordRelay)
-            .map { (email, password) in
-                return LoginData(email: email, password: password)
-            }
-    }
-    
-    func isLoginAble() -> Bool {
-        return emailValidation == true && passwordValidation == true
-    }
-    
 }

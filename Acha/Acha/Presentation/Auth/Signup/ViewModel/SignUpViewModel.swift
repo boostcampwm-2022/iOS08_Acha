@@ -28,24 +28,15 @@ final class SignUpViewModel {
         let signUpSuccesssed: Observable<Bool>
     }
     
-    typealias SignUpUseCase = SignUpAble
-    & EmailValidate
-    & PasswordValidate
-    & NickNameValidate
-    & UserDataAppendToDatabase
-    
-    private let useCase: SignUpUseCase
+    private let useCase: SignUpUsecase
     private weak var coordinator: SignupCoordinatorProtocol?
-    private var repository: SignUpRepository
     
     init(
         coordinator: SignupCoordinatorProtocol,
-        useCase: SignUpUseCase,
-        repository: SignUpRepository
+        useCase: SignUpUsecase
     ) {
         self.useCase = useCase
         self.coordinator = coordinator
-        self.repository = repository
     }
     
     func transform(input: Input) -> Output {
@@ -55,14 +46,7 @@ final class SignUpViewModel {
             input.passwordUpdated
                 .subscribe(onNext: { [weak self] text in
                     guard let self = self else {return}
-                    if self.useCase.passwordValidate(text: text) {
-                        self.repository.passwordValidation = true
-                        self.repository.passwordRelay.accept(text)
-                        observer.onNext(true)
-                    } else {
-                        self.repository.passwordValidation = false
-                        observer.onNext(false)
-                    }
+                    self.useCase.passwordValidate(text: text)
                 })
                 .disposed(by: bag)
             return Disposables.create()
@@ -72,14 +56,7 @@ final class SignUpViewModel {
             input.emailUpdated
                 .subscribe { [weak self] text in
                     guard let self = self else {return}
-                    if self.useCase.emailValidate(text: text) {
-                        self.repository.emailValidation = true
-                        self.repository.emailRelay.accept(text)
-                        observer.onNext(true)
-                    } else {
-                        self.repository.emailValidation = false
-                        observer.onNext(false)
-                    }
+                    self.useCase.emailValidate(text: text)
                 }
                 .disposed(by: bag)
             return Disposables.create()
@@ -89,14 +66,7 @@ final class SignUpViewModel {
             input.nickNameUpdated
                 .subscribe { [weak self] text in
                     guard let self = self else {return}
-                    if self.useCase.nickNameValidate(text: text) {
-                        self.repository.nickNameValidation = true
-                        self.repository.nickNameRelay.accept(text)
-                        observer.onNext(true)
-                    } else {
-                        self.repository.nickNameValidation = false
-                        observer.onNext(false)
-                    }
+                    self.useCase.nickNameValidate(text: text)
                 }
                 .disposed(by: bag)
             return Disposables.create()
@@ -111,28 +81,7 @@ final class SignUpViewModel {
         let signUpButtonDidTap = Observable<Bool>.create { observer in
             input.signUpButtonDidTap
                 .subscribe { [weak self] _ in
-                    self?.repository.getSignUpdata()
-                        .distinctUntilChanged()
-                        .subscribe(onNext: { signUpData in
-                            guard let self = self else {return}
-                            if self.repository.isSignAble() {
-                                self.useCase.signUp(data: signUpData)
-                                    .subscribe(onNext: { result in
-                                        switch result {
-                                        case .failure(_):
-                                            observer.onNext(false)
-                                        case .success(let uid):
-                                            let userData = signUpData.toUserDTO(id: uid)
-                                            self.useCase.userDataAppendToDatabase(userData: userData)
-                                            self.transitionView()
-                                        }
-                                    })
-                                    .disposed(by: bag)
-                            } else {
-                                observer.onNext(false)
-                            }
-                        })
-                        .disposed(by: bag)
+                    
                 }
                 .disposed(by: bag)
             return Disposables.create()

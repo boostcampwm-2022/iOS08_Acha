@@ -24,18 +24,13 @@ final class LoginViewModel: BaseViewModel {
         let loginResult: Observable<Bool>
     }
     
-    typealias LoginUseCase = EmailValidate & PasswordValidate & LoginAble & KeyChainStorable
-    
-    private var repository: LoginReposity
     private let useCase: LoginUseCase
     private weak var coordinator: LoginCoordinatorProtocol?
     
     init(coordinator: LoginCoordinatorProtocol,
-         useCase: LoginUseCase,
-         repository: AuthRepository) {
+         useCase: LoginUseCase) {
         self.coordinator = coordinator
         self.useCase = useCase
-        self.repository = repository
     }
     
     func transform(input: Input) -> Output {
@@ -45,14 +40,7 @@ final class LoginViewModel: BaseViewModel {
         let emailValidate = Observable<Bool>.create { observer in
             input.emailUpdated
                 .subscribe { [weak self] email in
-                    if self?.useCase.emailValidate(text: email) ?? false {
-                        self?.repository.emailValidation = true
-                        self?.repository.emailRelay.accept(email)
-                        observer.onNext(true)
-                    } else {
-                        self?.repository.emailValidation = false
-                        observer.onNext(false)
-                    }
+                    self?.useCase.emailValidate(text: email)
                 }
                 .disposed(by: bag)
             return Disposables.create()
@@ -61,14 +49,7 @@ final class LoginViewModel: BaseViewModel {
         let passwordValidate = Observable<Bool>.create { observer in
             input.passwordUpdated
                 .subscribe { [weak self] password in
-                    if self?.useCase.passwordValidate(text: password) ?? false {
-                        self?.repository.passwordValidation = true
-                        self?.repository.passwordRelay.accept(password)
-                        observer.onNext(true)
-                    } else {
-                        self?.repository.passwordValidation = false
-                        observer.onNext(false)
-                    }
+                    self?.useCase.passwordValidate(text: password)
                 }
                 .disposed(by: bag)
             return Disposables.create()
@@ -77,33 +58,12 @@ final class LoginViewModel: BaseViewModel {
         let loginResult = Observable<Bool>.create { observer in
             input.loginButtonDidTap
                 .subscribe { [weak self] _ in
-                    self?.repository.getLoginData()
-                        .distinctUntilChanged()
-                        .subscribe(onNext: { loginData in
-                            if self?.repository.isLoginAble() ?? false {
-                                self?.useCase.logIn(data: loginData)
-                                    .subscribe(onNext: { loginResult in
-                                        switch loginResult {
-                                        case .failure(_):
-                                            observer.onNext(false)
-                                        case .success(let uid):
-                                            self?.useCase.storeToKeyChain(id: uid)
-                                                .subscribe(onNext: { result in
-                                                    switch result {
-                                                    case .failure(let error):
-                                                        print(error)
-                                                        observer.onNext(false)
-                                                    case .success(_):
-                                                        self?.translateView()
-                                                    }
-                                                })
-                                                .disposed(by: bag)
-                                        }
-                                    })
-                                    .disposed(by: bag)
-                            } else {
-                                observer.onNext(false)
-                            }
+                    self?.useCase.logIn()
+                        .subscribe(onNext: { _ in
+                            guard let self = self else {return}
+                            self.coordinator?.delegate?.didFinished(childCoordinator: self.coordinator!)
+                        }, onError: { _ in
+                            observer.onNext(false)
                         })
                         .disposed(by: bag)
                 }
