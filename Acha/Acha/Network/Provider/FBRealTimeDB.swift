@@ -44,7 +44,7 @@ struct FBRealTimeDB: FBRealTimeDBProtocol {
         case .room(id: _, data: _):
             guard let uuid = try? KeyChainManager.get() else {return}
             getData(.user(id: uuid, data: nil), responseType: UserDTO.self) { userData in
-                let newRoomData = RoomDTO(id: type.id, user: [userData], mapID: 0)
+                let newRoomData = RoomDTO(id: type.id, user: [userData])
                 ref.child(type.path).setValue(newRoomData.dictionary)
             }
         }
@@ -57,7 +57,7 @@ struct FBRealTimeDB: FBRealTimeDBProtocol {
         getData(to, responseType: RoomDTO.self) { roomData in
             var roomData = roomData
             getData(who, responseType: UserDTO.self) { userData in
-                roomData.user.append(userData)
+                roomData.enterRoom(user: userData)
                 update(.room(id: roomData.id, data: roomData))
             }
         }
@@ -92,9 +92,7 @@ struct FBRealTimeDB: FBRealTimeDBProtocol {
         getData(from, responseType: RoomDTO.self) { roomDTO in
             guard let uuid = try? KeyChainManager.get() else {return}
             var roomData = roomDTO
-            var userDatas = roomDTO.user
-            userDatas = userDatas.filter { $0.id != uuid }
-            roomData.user = userDatas
+            roomData.leaveFromRoom(userID: uuid)
             if roomData.user.count == 0 {
                 delete(from)
                 return

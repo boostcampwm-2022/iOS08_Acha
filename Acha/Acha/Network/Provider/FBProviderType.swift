@@ -7,28 +7,34 @@
 
 import Foundation
 
-enum FBProviderType {
-    case room(RoomDTO)
-    case user(UserDTO)
+enum FBProviderType: ProvidableType {
+    case room(id: String)
+    case user(id: String)
+    case newRoom(data: RoomDTO)
+    case newUser(data: UserDTO)
 }
 
 extension FBProviderType {
     var rootUrl: String {
-        return "https://acha-75e27-default-rtdb.firebaseio.com"
+        return "https://firestore.googleapis.com/v1/projects/acha-75e27/databases/(default)/documents/Acha"
     }
     
     var path: String {
         switch self {
-        case .user(let userDTO):
-            return rootUrl + "/User/\(userDTO.id)"
-        case .room(let roomDTO):
-            return rootUrl + "/Room/\(roomDTO.id)"
+        case .user (let id):
+            return rootUrl + "/User/\(id)"
+        case .room(let id):
+            return rootUrl + "/Room/\(id)"
+        case .newRoom(let data):
+            return rootUrl + "/Room/\(data.id)"
+        case .newUser(let data):
+            return rootUrl + "/User/\(data.id)"
         }
     }
     
     var HTTPHeader: [String: String] {
         switch self {
-        case .room(_), .user(_):
+        case .room(_), .user(_), .newUser(data: _), .newRoom(data: _):
             return ["Content-Type": "application/json"]
         }
     }
@@ -37,29 +43,47 @@ extension FBProviderType {
         switch self {
         case .room(_), .user(_):
             return "GET"
+        case .newRoom(data: _), .newUser(data: _):
+            return "POST"
         }
     }
     
     var HTTPBody: Data? {
         switch self {
-        case .room(let roomDTO):
-            return roomDTO.toJSON
-        case .user(let userDTO):
-            return userDTO.toJSON
+        case .room(_), .user(_):
+            return nil
+        case .newUser(data: let data):
+            return data.toJSON
+        case .newRoom(data: let data):
+            return data.toJSON
+        }
+    }
+    
+    var id: String {
+        switch self {
+        case .user(id: let id):
+            return id
+        case .room(id: let id):
+            return id
+        case .newUser(data: let data):
+            return data.id
+        case .newRoom(data: let data):
+            return data.id
         }
     }
 }
 
 extension FBProviderType {
-    func toURLRequest() -> URLRequest {
-        var urlRequest = URLRequest(url: toURL())
+    func toURLRequest() -> URLRequest? {
+        guard let url = toURL() else {return nil}
+        var urlRequest = URLRequest(url: url)
         urlRequest.allHTTPHeaderFields = HTTPHeader
         urlRequest.httpMethod = HTTPMethod
-        urlRequest.httpBody = HTTPMethod == "GET" ? nil : HTTPBody
+        urlRequest.httpBody = HTTPBody
         return urlRequest
     }
     
-    func toURL() -> URL {
-        return URL(string: path)!
+    func toURL() -> URL? {
+        return URL(string: path)
     }
 }

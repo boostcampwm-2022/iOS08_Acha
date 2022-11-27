@@ -7,7 +7,8 @@
 
 import Foundation
 
-enum FBRealTimeDBType {
+enum FBRealTimeDBType: ProvidableType {
+    
     case room(id: String, data: RoomDTO?)
     case user(id: String, data: UserDTO?)
     
@@ -54,3 +55,12 @@ enum FBRealTimeDBType {
     }
 }
 
+extension FBRealTimeDBType {
+    func toURL() -> URL? {
+        return nil
+    }
+    
+    func toURLRequest() -> URLRequest? {
+        return nil
+    }
+}
