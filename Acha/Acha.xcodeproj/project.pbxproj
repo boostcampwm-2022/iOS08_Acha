@@ -26,12 +26,12 @@
 		47935E9B29238DE400481307 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47935E9A29238DE300481307 /* HomeViewModel.swift */; };
 		47935E9D29238E9E00481307 /* SelectMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47935E9C29238E9E00481307 /* SelectMapViewController.swift */; };
 		47935E9F29238EB400481307 /* SelectMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47935E9E29238EB300481307 /* SelectMapViewModel.swift */; };
+		47A26DBC292B73850007FBBF /* Coordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A26DBB292B73850007FBBF /* Coordinate.swift */; };
+		47A26DBE292BB2970007FBBF /* MapRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A26DBD292BB2970007FBBF /* MapRegion.swift */; };
 		764AF29D292B639200D16DC9 /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764AF29C292B639200D16DC9 /* UIViewController+.swift */; };
 		764AF29F292B6EF500D16DC9 /* InGameRecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764AF29E292B6EF500D16DC9 /* InGameRecordViewModel.swift */; };
 		764AF2A1292B9C1F00D16DC9 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764AF2A0292B9C1F00D16DC9 /* String+.swift */; };
 		764AF2A3292B9D3600D16DC9 /* InGameRankingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764AF2A2292B9D3600D16DC9 /* InGameRankingViewModel.swift */; };
-		47A26DBC292B73850007FBBF /* Coordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A26DBB292B73850007FBBF /* Coordinate.swift */; };
-		47A26DBE292BB2970007FBBF /* MapRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A26DBD292BB2970007FBBF /* MapRegion.swift */; };
 		76A2E1A12923C5A7001E887A /* SingleGameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A2E19F2923C5A7001E887A /* SingleGameViewModel.swift */; };
 		76A2E1A32923D94C001E887A /* CLLocationCoordinate2D+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A2E1A22923D94C001E887A /* CLLocationCoordinate2D+.swift */; };
 		76A2E1A529249099001E887A /* Double+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A2E1A429249099001E887A /* Double+.swift */; };
@@ -169,14 +169,14 @@
 		47935E9A29238DE300481307 /* HomeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		47935E9C29238E9E00481307 /* SelectMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectMapViewController.swift; sourceTree = "<group>"; };
 		47935E9E29238EB300481307 /* SelectMapViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectMapViewModel.swift; sourceTree = "<group>"; };
+		47A26DBB292B73850007FBBF /* Coordinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinate.swift; sourceTree = "<group>"; };
+		47A26DBD292BB2970007FBBF /* MapRegion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapRegion.swift; sourceTree = "<group>"; };
 		76213CBD292CEA6600895462 /* WorkSpace by 25km:h.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "WorkSpace by 25km:h.gpx"; sourceTree = "<group>"; };
 		76213CBE292CEA6600895462 /* WorkSpace by 6km:h.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "WorkSpace by 6km:h.gpx"; sourceTree = "<group>"; };
 		764AF29C292B639200D16DC9 /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
 		764AF29E292B6EF500D16DC9 /* InGameRecordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameRecordViewModel.swift; sourceTree = "<group>"; };
 		764AF2A0292B9C1F00D16DC9 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 		764AF2A2292B9D3600D16DC9 /* InGameRankingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameRankingViewModel.swift; sourceTree = "<group>"; };
-		47A26DBB292B73850007FBBF /* Coordinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinate.swift; sourceTree = "<group>"; };
-		47A26DBD292BB2970007FBBF /* MapRegion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapRegion.swift; sourceTree = "<group>"; };
 		76A2E19F2923C5A7001E887A /* SingleGameViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleGameViewModel.swift; sourceTree = "<group>"; };
 		76A2E1A22923D94C001E887A /* CLLocationCoordinate2D+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationCoordinate2D+.swift"; sourceTree = "<group>"; };
 		76A2E1A429249099001E887A /* Double+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+.swift"; sourceTree = "<group>"; };
@@ -1025,7 +1025,7 @@
 		471863B1291E155700A35786 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				BuildIndependentTargetsInParallel = 1;
+				BuildIndependentTargetsInParallel = NO;
 				LastSwiftUpdateCheck = 1410;
 				LastUpgradeCheck = 1410;
 				TargetAttributes = {
@@ -1124,12 +1124,9 @@
 				F1FCEE11292B4C87001A55D6 /* AuthButton.swift in Sources */,
 				E5BE8BBA2922217600E9CFE8 /* TabBarType.swift in Sources */,
 				76A2E1A12923C5A7001E887A /* SingleGameViewModel.swift in Sources */,
-<<<<<<< HEAD
 				F18513DA292E59DD00C466E7 /* RandomFactory.swift in Sources */,
 				F17A3FA1292F0BF200647AD0 /* RoomUser.swift in Sources */,
-=======
 				76B3BF5A292668780056ABFD /* GameOverViewModel.swift in Sources */,
->>>>>>> 9f121775dbcf45c21785c5c62f4b3a10fb41628a
 				76A2E1A529249099001E887A /* Double+.swift in Sources */,
 				47935E9D29238E9E00481307 /* SelectMapViewController.swift in Sources */,
 				4738D76F2922756B003AE835 /* Map.swift in Sources */,
@@ -1214,11 +1211,8 @@
 				F14B149A292BB5B00010E966 /* AuthRepository.swift in Sources */,
 				F18A7FD1292C5DA50054FADE /* UIImage+Extension.swift in Sources */,
 				76A2E1A32923D94C001E887A /* CLLocationCoordinate2D+.swift in Sources */,
-<<<<<<< HEAD
 				F18513DC292E60F000C466E7 /* RoomDTO.swift in Sources */,
-=======
 				764AF29D292B639200D16DC9 /* UIViewController+.swift in Sources */,
->>>>>>> 9f121775dbcf45c21785c5c62f4b3a10fb41628a
 				F18A7FCF292BE75A0054FADE /* String+Extension.swift in Sources */,
 				76B3BF50292624850056ABFD /* InGamePlayMenuViewController.swift in Sources */,
 				E5027D5229263D4F0021BF60 /* RecordHeaderView.swift in Sources */,
@@ -1233,13 +1227,10 @@
 				76B3BF4A2924DDE70056ABFD /* BaseViewModel.swift in Sources */,
 				F156F1132923536A0053E807 /* DistanceAndTimeBar.swift in Sources */,
 				F1D202992923AB3D00F3E87D /* InGameRankingViewController.swift in Sources */,
-<<<<<<< HEAD
 				F17F86B7292E27B500BDCE0F /* MultiGameRoomViewController.swift in Sources */,
 				F17A3FB6292F4F0700647AD0 /* MultiGameRoomDataSource.swift in Sources */,
 				F17F86BD292E2A7900BDCE0F /* MultiGameRoomUseCase.swift in Sources */,
-=======
 				764AF2A3292B9D3600D16DC9 /* InGameRankingViewModel.swift in Sources */,
->>>>>>> 9f121775dbcf45c21785c5c62f4b3a10fb41628a
 				471863BF291E155700A35786 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
