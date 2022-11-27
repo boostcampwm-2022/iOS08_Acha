@@ -9,19 +9,14 @@ import UIKit
 
 final class AuthTitleView: UIStackView {
     
-    private let imageView = UIImageView().then {
-        $0.contentMode = .scaleAspectFill
-    }
-
-    private let label = UILabel().then {
+    lazy var label = UILabel().then {
         $0.font = .largeTitle
         $0.textAlignment = .center
     }
     
     init(image: UIImage?, text: String) {
-        imageView.image = image
-        label.text = text
         super.init(frame: .zero)
+        label.text = text
         configure()
     }
     
@@ -47,5 +42,8 @@ extension AuthTitleView {
     }
     
     private func addConstraints() {
+        label.snp.makeConstraints { make in
+            make.edges.equalTo(self)
+        }
     }
 }

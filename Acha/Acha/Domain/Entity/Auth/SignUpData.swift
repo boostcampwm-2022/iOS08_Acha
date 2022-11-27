@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct SignUpData {
+struct SignUpData: Equatable {
     let email: String
     let password: String
     let nickName: String
