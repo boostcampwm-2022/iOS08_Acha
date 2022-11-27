@@ -10,6 +10,10 @@ import Foundation
 struct StringValue: Codable {
     let value: String
     
+    init(value: String) {
+        self.value = value
+    }
+    
     private enum Codingkeys: String, CodingKey {
         case value = "stringValue"
     }
@@ -17,6 +21,10 @@ struct StringValue: Codable {
 
 struct IntValue: Codable {
     let value: Int
+    
+    init(value: Int) {
+        self.value = value
+    }
     
     private enum Codingkeys: String, CodingKey {
         case value = "integerValue"

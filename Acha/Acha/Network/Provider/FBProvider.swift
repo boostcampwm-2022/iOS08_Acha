@@ -15,6 +15,7 @@ struct FBProvider {
                 return }
             do {
                 let data = try JSONDecoder().decode(responseType, from: data!)
+                print(data)
             } catch {
                 print(error)
             }
@@ -22,13 +23,17 @@ struct FBProvider {
         task.resume()
     }
     
-    public func make(_ type: ProvidableType) {
+    public func make<T: Decodable>(_ type: ProvidableType, responseType: T.Type) {
+        guard let urlRequest = type.toURLRequest() else {
+            return
+        }
         let task = URLSession.shared.dataTask(with: type.toURLRequest()!) { data, _, error in
-
             guard error == nil else {
-                return }
+                print(error)
+                return
+            }
             do {
-                print(String(data: data!, encoding: .utf8))
+                let data = try JSONDecoder().decode(responseType, from: data!)
             } catch {
                 print(error)
             }

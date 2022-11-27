@@ -22,7 +22,7 @@ protocol SignUpUsecaseProtocol: EmailValidatable, PasswordValidatable, NickNameV
     func signUp() -> Observable<String>
 }
 
-final class SignUpUsecase {
+final class SignUpUsecase: SignUpUsecaseProtocol {
     
     var emailValidation: Bool = false
     var passwordValidation: Bool = false

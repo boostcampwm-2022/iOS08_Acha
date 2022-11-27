@@ -20,7 +20,7 @@ protocol LoginUseCaseProtocol: EmailValidatable, PasswordValidatable {
     func logIn() -> Observable<String>
 }
 
-final class LoginUseCase {
+final class LoginUseCase: LoginUseCaseProtocol {
     
     var emailValidation: Bool = false
     var passwordValidation: Bool = false

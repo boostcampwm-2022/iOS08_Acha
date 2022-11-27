@@ -8,15 +8,16 @@
 import Foundation
 
 enum FBProviderType: ProvidableType {
+
     case room(id: String)
     case user(id: String)
     case newRoom(data: RoomDTO)
-    case newUser(data: UserDTO)
+    case newUser(data: UserFireStoreDTO)
 }
 
 extension FBProviderType {
     var rootUrl: String {
-        return "https://firestore.googleapis.com/v1/projects/acha-75e27/databases/(default)/documents/Acha"
+        return "https://firestore.googleapis.com/v1/projects/acha-75e27/databases/(default)/documents"
     }
     
     var path: String {
@@ -28,18 +29,18 @@ extension FBProviderType {
         case .newRoom(let data):
             return rootUrl + "/Room/\(data.id)"
         case .newUser(let data):
-            return rootUrl + "/User/\(data.id)"
+            return rootUrl + "/User"
         }
     }
     
-    var HTTPHeader: [String: String] {
+    var httpHeader: [String: String]? {
         switch self {
         case .room(_), .user(_), .newUser(data: _), .newRoom(data: _):
             return ["Content-Type": "application/json"]
         }
     }
     
-    var HTTPMethod: String {
+    var httpMethod: String {
         switch self {
         case .room(_), .user(_):
             return "GET"
@@ -48,7 +49,7 @@ extension FBProviderType {
         }
     }
     
-    var HTTPBody: Data? {
+    var httpBody: Data? {
         switch self {
         case .room(_), .user(_):
             return nil
@@ -66,7 +67,7 @@ extension FBProviderType {
         case .room(id: let id):
             return id
         case .newUser(data: let data):
-            return data.id
+            return data.id.value
         case .newRoom(data: let data):
             return data.id
         }
@@ -77,9 +78,9 @@ extension FBProviderType {
     func toURLRequest() -> URLRequest? {
         guard let url = toURL() else {return nil}
         var urlRequest = URLRequest(url: url)
-        urlRequest.allHTTPHeaderFields = HTTPHeader
-        urlRequest.httpMethod = HTTPMethod
-        urlRequest.httpBody = HTTPBody
+        urlRequest.allHTTPHeaderFields = httpHeader
+        urlRequest.httpMethod = httpMethod
+        urlRequest.httpBody = httpBody ?? nil
         return urlRequest
     }
     

@@ -95,7 +95,26 @@ final class HomeViewController: UIViewController, UIViewControllerTransitioningD
         configureUI()
         setUpSubviews()
         bind()
-    
+        
+//        FBProvider().make(FBRealTimeDBType.newRoom(id: "12345",
+//                                                   dat: RoomDTO(id: "12345",
+//                                                                user: [UserDTO(id: "wate",
+//                                                                               password: "WAet",
+//                                                                               nickname: "AWEt",
+//                                                                               badges: nil,
+//                                                                               records: nil,
+//                                                                               pinCharacter: nil,
+//                                                                               friends: nil)])),
+//                          responseType: RoomDTO.self)
+//
+        FBProvider().make(FBProviderType.newUser(data: UserFireStoreDTO(data: UserDTO(id: "1223",
+                                                                                      password: "!@421",
+                                                                                      nickname: "!2443",
+                                                                                      badges: nil,
+                                                                                      records: nil,
+                                                                                      pinCharacter: nil,
+                                                                                      friends: nil  ))),
+                          responseType: UserFireStoreDTO.self)
     }
     
     // MARK: - Helpers

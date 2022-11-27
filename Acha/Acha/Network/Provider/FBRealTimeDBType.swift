@@ -11,6 +11,7 @@ enum FBRealTimeDBType: ProvidableType {
     
     case room(id: String, data: RoomDTO?)
     case user(id: String, data: UserDTO?)
+    case newRoom(id: String, dat: RoomDTO)
     
     var path: String {
         switch self {
@@ -18,6 +19,20 @@ enum FBRealTimeDBType: ProvidableType {
             return "Room/\(id)"
         case .user(id: let id, data: _):
             return "User/\(id)"
+        default:
+            return "User/"
+        }
+    }
+    
+    var restapiPath: String {
+        let baseUrl = "https://acha-75e27-default-rtdb.firebaseio.com/"
+        switch self {
+        case .room(id: let id, data: _):
+            return baseUrl + "Room/\(id).json"
+        case .user(id: let id, data: _):
+            return baseUrl + "Room/\(id).json"
+        case .newRoom(id: let id, dat: _):
+            return baseUrl + "Room/\(id).json"
         }
     }
     
@@ -31,6 +46,33 @@ enum FBRealTimeDBType: ProvidableType {
             return UserDTO.self
         case .room(_, _):
             return RoomDTO.self
+        default:
+            return RoomDTO.self
+        }
+    }
+    
+    var httpHeader: [String: String]? {
+        switch self {
+        case .room(_), .user(_), .newRoom(_):
+            return ["Content-Type": "application/json"]
+        }
+    }
+    
+    var httpMethod: String {
+        switch self {
+        case .room(_), .user(_):
+            return "GET"
+        case .newRoom(_):
+            return "POST"
+        }
+    }
+    
+    var httpBody: Data? {
+        switch self {
+        case .room(_), .user(_):
+            return nil
+        case .newRoom(id: _, dat: let data):
+            return data.toJSON
         }
     }
     
@@ -42,6 +84,8 @@ enum FBRealTimeDBType: ProvidableType {
         case .user(id: _, data: let data):
             guard let data = data else {return nil}
             return data.dictionary
+        default:
+            return nil
         }
     }
     
@@ -51,16 +95,23 @@ enum FBRealTimeDBType: ProvidableType {
             return id
         case .user(id: let id, data: _):
             return id
+        default:
+            return "weatw"
         }
     }
 }
 
 extension FBRealTimeDBType {
     func toURL() -> URL? {
-        return nil
+        return URL(string: restapiPath)
     }
     
     func toURLRequest() -> URLRequest? {
-        return nil
+        guard let url = toURL() else {return nil}
+        var urlReqeust = URLRequest(url: url)
+        urlReqeust.httpMethod = httpMethod
+        urlReqeust.allHTTPHeaderFields = httpHeader
+        urlReqeust.httpBody = httpBody
+        return urlReqeust
     }
 }

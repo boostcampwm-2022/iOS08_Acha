@@ -126,6 +126,7 @@
 		F1E83D51293373D0004C7992 /* SignUpRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E83D50293373D0004C7992 /* SignUpRepository.swift */; };
 		F1E83D5329337431004C7992 /* LogInRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E83D5229337431004C7992 /* LogInRepository.swift */; };
 		F1E83D5729337DE0004C7992 /* LogInData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E83D5629337DE0004C7992 /* LogInData.swift */; };
+		F1E83D5D29338A99004C7992 /* UserFireStoreDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E83D5C29338A99004C7992 /* UserFireStoreDTO.swift */; };
 		F1FCEE0E292B483E001A55D6 /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FCEE0D292B483E001A55D6 /* UITextField+Extension.swift */; };
 		F1FCEE11292B4C87001A55D6 /* AuthButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FCEE10292B4C87001A55D6 /* AuthButton.swift */; };
 		F1FCEE14292B4E9A001A55D6 /* AuthTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FCEE13292B4E9A001A55D6 /* AuthTitleView.swift */; };
@@ -277,6 +278,7 @@
 		F1E83D50293373D0004C7992 /* SignUpRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpRepository.swift; sourceTree = "<group>"; };
 		F1E83D5229337431004C7992 /* LogInRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInRepository.swift; sourceTree = "<group>"; };
 		F1E83D5629337DE0004C7992 /* LogInData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInData.swift; sourceTree = "<group>"; };
+		F1E83D5C29338A99004C7992 /* UserFireStoreDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFireStoreDTO.swift; sourceTree = "<group>"; };
 		F1FCEE0D292B483E001A55D6 /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 		F1FCEE10292B4C87001A55D6 /* AuthButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthButton.swift; sourceTree = "<group>"; };
 		F1FCEE13292B4E9A001A55D6 /* AuthTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthTitleView.swift; sourceTree = "<group>"; };
@@ -831,6 +833,7 @@
 		F1B0D8A4292CC81A00EBDD02 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				F1E83D5B29338A7D004C7992 /* FBStoreDTO */,
 				F1B0D8AD292CCAAC00EBDD02 /* UserDTO.swift */,
 				F1B0D8AF292CCABE00EBDD02 /* BadgeDTO.swift */,
 				F1B0D8B1292CCAD900EBDD02 /* RecordDTO.swift */,
@@ -972,6 +975,14 @@
 				E5BE8BB42922201600E9CFE8 /* SignupViewController.swift */,
 			);
 			path = ViewController;
+			sourceTree = "<group>";
+		};
+		F1E83D5B29338A7D004C7992 /* FBStoreDTO */ = {
+			isa = PBXGroup;
+			children = (
+				F1E83D5C29338A99004C7992 /* UserFireStoreDTO.swift */,
+			);
+			path = FBStoreDTO;
 			sourceTree = "<group>";
 		};
 		F1FCEE0F292B4C6B001A55D6 /* AuthButton */ = {
@@ -1233,6 +1244,7 @@
 				F16B4534293323B1002429A2 /* FBStoreDB.swift in Sources */,
 				E516A6BE2923941500CD6BDB /* RecordChartCell.swift in Sources */,
 				E5BE8BB32922200C00E9CFE8 /* MyPageViewController.swift in Sources */,
+				F1E83D5D29338A99004C7992 /* UserFireStoreDTO.swift in Sources */,
 				F1D202A42923C09300F3E87D /* InGameMenuCollectionViewCell.swift in Sources */,
 				F156F11C2923623C0053E807 /* PaddingLabel.swift in Sources */,
 				471863BD291E155700A35786 /* AppDelegate.swift in Sources */,

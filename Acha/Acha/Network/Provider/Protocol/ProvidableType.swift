@@ -10,6 +10,9 @@ import Foundation
 protocol ProvidableType {
     var path: String {get}
     var id: String {get}
+    var httpHeader: [String: String]? {get}
+    var httpBody: Data? {get}
+    var httpMethod: String {get}
     
     func toURL() -> URL?
     func toURLRequest() -> URLRequest?

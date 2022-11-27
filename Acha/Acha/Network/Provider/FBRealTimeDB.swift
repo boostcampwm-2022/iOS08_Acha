@@ -47,6 +47,8 @@ struct FBRealTimeDB: FBRealTimeDBProtocol {
                 let newRoomData = RoomDTO(id: type.id, user: [userData])
                 ref.child(type.path).setValue(newRoomData.dictionary)
             }
+        default:
+            break
         }
     }
     
