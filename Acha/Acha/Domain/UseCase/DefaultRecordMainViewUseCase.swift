@@ -6,16 +6,14 @@
 //
 
 import Foundation
-import Firebase
 import RxSwift
 
 final class DefaultRecordMainViewUseCase: RecordMainViewUseCase {
-    private let ref: DatabaseReference!
     private let repository: RecordRepository
     private let disposeBag = DisposeBag()
     
-    var recordData = BehaviorSubject<[RecordViewRecord]>(value: [])
-    var mapData = BehaviorSubject<[Map]>(value: [])
+    var recordDatas = BehaviorSubject<[RecordViewRecord]>(value: [])
+    var mapDatas = BehaviorSubject<[Map]>(value: [])
     var allDates = PublishSubject<[String]>()
     var weekDatas = PublishSubject<[RecordViewChartData]>()
     var headerRecord = PublishSubject<RecordViewHeaderRecord>()
@@ -23,7 +21,6 @@ final class DefaultRecordMainViewUseCase: RecordMainViewUseCase {
     var recordsAtDate = PublishSubject<[String: [RecordViewRecord]]>()
     
     init(repository: RecordRepository) {
-        ref = Database.database().reference()
         self.repository = repository
         
         loadMapData()
@@ -33,19 +30,19 @@ final class DefaultRecordMainViewUseCase: RecordMainViewUseCase {
     func loadMapData() {
         self.repository.fetchMapData()
             .subscribe { maps in
-                self.mapData.onNext(maps)
+                self.mapDatas.onNext(maps)
             }.disposed(by: self.disposeBag)
     }
     
     func loadRecordData() {
         self.repository.fetchRecordData()
             .subscribe(onNext: { records in
-                self.recordData.onNext(records)
+                self.recordDatas.onNext(records)
             }).disposed(by: self.disposeBag)
     }
         
     func fetchTotalDataAtDay() -> Observable<[String: DayTotalRecord]> {
-        guard let records = try? self.recordData.value() else {
+        guard let records = try? self.recordDatas.value() else {
             return Observable.error(FirebaseServiceError.fetchError)
         }
         var totalDataAtDay = [String: DayTotalRecord]()
@@ -67,21 +64,17 @@ final class DefaultRecordMainViewUseCase: RecordMainViewUseCase {
     }
     
     func getRecordsAtDate() {
-        guard let records = try? self.recordData.value() else { return }
+        guard let records = try? self.recordDatas.value() else { return }
         var recordsAtDate = [String: [RecordViewRecord]]()
         records.forEach {
-            if recordsAtDate[$0.createdAt] != nil {
-                recordsAtDate[$0.createdAt]?.append($0)
-            } else {
-                recordsAtDate[$0.createdAt] = [$0]
-            }
+            recordsAtDate[$0.createdAt] = recordsAtDate[$0.createdAt] ?? [] + [$0]
         }
         
         self.recordsAtDate.onNext(recordsAtDate)
     }
     
     func getAllDates() {
-        guard let records = try? self.recordData.value() else { return }
+        guard let records = try? self.recordDatas.value() else { return }
         var allDates = [String]()
         
         records.forEach {
@@ -137,8 +130,8 @@ final class DefaultRecordMainViewUseCase: RecordMainViewUseCase {
             }.disposed(by: self.disposeBag)
     }
     
-    func getmapAtRecordId(mapId: Int) {
-        guard let maps = try? self.mapData.value() else { return }
+    func getRecordAtMapId(mapId: Int) {
+        guard let maps = try? self.mapDatas.value() else { return }
         let map = maps.filter { $0.mapID == mapId }[0]
         self.mapAtRecordId.onNext(map)
     }

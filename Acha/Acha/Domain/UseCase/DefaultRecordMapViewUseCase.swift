@@ -6,20 +6,17 @@
 //
 
 import Foundation
-import Firebase
 import RxSwift
 
 final class DefaultRecordMapViewUseCase: RecordMapViewUseCase {
-    private let ref: DatabaseReference!
     private let repository: RecordRepository
     private let disposeBag = DisposeBag()
     
     var recordData = BehaviorSubject<[Int: RecordViewRecord]>(value: [:])
     var dropDownMenus = BehaviorSubject<[Map]>(value: [])
-    var mapNameAndReocrds = BehaviorSubject<(String, [RecordViewRecord])>(value: ("", []))
+    var mapNameAndRecords = BehaviorSubject<(String, [RecordViewRecord])>(value: ("", []))
     
     init(repository: RecordRepository) {
-        ref = Database.database().reference()
         self.repository = repository
     }
     
@@ -78,11 +75,7 @@ final class DefaultRecordMapViewUseCase: RecordMapViewUseCase {
             .flatMap { maps -> Observable<[String: [Map]]> in
                 var mapDataAtCategory = [String: [Map]]()
                 maps.forEach {
-                    if mapDataAtCategory[$0.location] != nil {
-                        mapDataAtCategory[$0.location]?.append($0)
-                    } else {
-                        mapDataAtCategory[$0.location] = [$0]
-                    }
+                    mapDataAtCategory[$0.location] = mapDataAtCategory[$0.location] ?? [] + [$0]
                 }
                 return Observable.create { emitter in
                     emitter.onNext(mapDataAtCategory)
@@ -126,16 +119,15 @@ final class DefaultRecordMapViewUseCase: RecordMapViewUseCase {
             }.disposed(by: self.disposeBag)
     }
     
-    func getRecordsAtindexes(indexes: [Int]) -> Observable<[RecordViewRecord]> {
+    func getRecordsAtIndexes(indexes: [Int]) -> Observable<[RecordViewRecord]> {
         return Observable.create { emitter in
             self.fetchRecordDataAtIndex()
                 .subscribe {
                     guard let recordAtIndex = $0.element else { return }
                     var records = recordAtIndex
-                        .filter { indexes.contains($0.key) }
-                        .map { $0.value }
-                    records.sort { return $0.time < $1.time }
-                    
+                                .filter { indexes.contains($0.key) }
+                                .map { $0.value }
+                                .sorted { $0.time < $1.time }
                     emitter.onNext(records)
                 }.disposed(by: self.disposeBag)
             return Disposables.create()
@@ -147,14 +139,14 @@ final class DefaultRecordMapViewUseCase: RecordMapViewUseCase {
             .subscribe {
                 guard let maps = $0.element else { return }
                 guard let recordIndex = maps[0].records else {
-                    self.mapNameAndReocrds.onNext((maps[0].name, []))
+                    self.mapNameAndRecords.onNext((maps[0].name, []))
                     return
                 }
                 
-                self.getRecordsAtindexes(indexes: recordIndex)
+                self.getRecordsAtIndexes(indexes: recordIndex)
                     .subscribe {
                         guard let records = $0.element else { return }
-                        self.mapNameAndReocrds.onNext((maps[0].name, records))
+                        self.mapNameAndRecords.onNext((maps[0].name, records))
                     }.disposed(by: self.disposeBag)
             }.disposed(by: self.disposeBag)
     }
@@ -164,14 +156,14 @@ final class DefaultRecordMapViewUseCase: RecordMapViewUseCase {
             .subscribe {
                 guard let map = $0.element,
                       let recordIndex = map.records else {
-                    self.mapNameAndReocrds.onNext((mapName, []))
+                    self.mapNameAndRecords.onNext((mapName, []))
                     return
                 }
                 
-                self.getRecordsAtindexes(indexes: recordIndex)
+                self.getRecordsAtIndexes(indexes: recordIndex)
                     .subscribe {
                         guard let records = $0.element else { return }
-                        self.mapNameAndReocrds.onNext((mapName, records))
+                        self.mapNameAndRecords.onNext((mapName, records))
                     }.disposed(by: self.disposeBag)
             }.disposed(by: self.disposeBag)
     }

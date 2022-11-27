@@ -12,9 +12,9 @@ class RecordPageViewController: UIViewController {
     private lazy var pageViewController = UIPageViewController(transitionStyle: .scroll,
                                                                navigationOrientation: .horizontal)
     
-    private lazy var recordMainViewController = RecordMainViewController(viewModel: mainViewModel)
+    private let recordMainViewController: RecordMainViewController
     
-    private lazy var recordMapViewController = RecordMapViewController(viewModel: mapViewModel)
+    private let recordMapViewController: RecordMapViewController
     
     private lazy var viewList = [recordMainViewController, recordMapViewController]
     
@@ -23,9 +23,14 @@ class RecordPageViewController: UIViewController {
     private let mapViewModel: RecordMapViewModel
     
     // MARK: - Lifecycles
-    init(mainViewModel: RecordMainViewModel, mapViewModel: RecordMapViewModel) {
+    init(mainViewModel: RecordMainViewModel,
+         mapViewModel: RecordMapViewModel,
+         recordMainViewController: RecordMainViewController,
+         recordMapViewController: RecordMapViewController) {
         self.mainViewModel = mainViewModel
         self.mapViewModel = mapViewModel
+        self.recordMainViewController = recordMainViewController
+        self.recordMapViewController = recordMapViewController
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -67,22 +72,18 @@ extension RecordPageViewController: UIPageViewControllerDelegate, UIPageViewCont
     func pageViewController(_ pageViewController: UIPageViewController,
                             viewControllerBefore viewController: UIViewController) -> UIViewController? {
         guard let index = viewList.firstIndex(of: viewController) else {return nil}
-                
-                let previousIndex = index - 1
-                
-                if previousIndex < 0 { return nil}
-                
-                return viewList[previousIndex]
+        let previousIndex = index - 1
+        if previousIndex < 0 { return nil}
+        
+        return viewList[previousIndex]
     }
     
     func pageViewController(_ pageViewController: UIPageViewController,
                             viewControllerAfter viewController: UIViewController) -> UIViewController? {
         guard let index = viewList.firstIndex(of: viewController) else {return nil}
-                     
-               let nextIndex = index + 1
-                     
-               if nextIndex == viewList.count { return nil}
-                     
-               return viewList[nextIndex]
+       let nextIndex = index + 1
+       if nextIndex == viewList.count { return nil}
+             
+       return viewList[nextIndex]
     }
 }

@@ -11,13 +11,14 @@ import RxSwift
 import RxRelay
 
 final class DefaultRealtimeDatabaseNetworkService: RealtimeDatabaseNetworkService {
-    private let databaseReference: DatabaseReference = Database.database().reference()
+    var databaseReference: DatabaseReference
+    
+    init() {
+        databaseReference = Database.database().reference()
+    }
     
     private func childReference(_ path: String) -> DatabaseReference {
-        var childReference = self.databaseReference
-        childReference = childReference.child(path)
-        
-        return childReference
+        return databaseReference.child(path)
     }
     
     func fetchData(path: String) -> Observable<Data> {

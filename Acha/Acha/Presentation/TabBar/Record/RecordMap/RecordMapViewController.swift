@@ -11,26 +11,26 @@ import RxCocoa
 import SnapKit
 import Then
 
-enum RecordMapViewSections: Hashable {
-    case category
-    case ranking(String)
-    
-    var title: String {
-        switch self {
-        case .category:
-            return "category"
-        case .ranking(let mapName):
-            return mapName
+class RecordMapViewController: UIViewController {
+    enum RecordMapViewSections: Hashable {
+        case category
+        case ranking(String)
+        
+        var title: String {
+            switch self {
+            case .category:
+                return "category"
+            case .ranking(let mapName):
+                return mapName
+            }
         }
     }
-}
 
-enum RecordMapViewItems: Hashable {
-    case category(String)
-    case ranking(Int, RecordViewRecord)
-}
-
-class RecordMapViewController: UIViewController {
+    enum RecordMapViewItems: Hashable {
+        case category(String)
+        case ranking(Int, RecordViewRecord)
+    }
+    
     // MARK: - UI properties
     private var collectionView: UICollectionView!
     var sectionHeaderView = RecordMapHeaderView()
@@ -63,7 +63,7 @@ class RecordMapViewController: UIViewController {
     // MARK: - Helpers
     private func bind() {
         let input = RecordMapViewModel.Input(
-            viewDidLoadEvent: rx.methodInvoked(#selector(viewDidAppear(_:)))
+            viewDidAppearEvent: rx.methodInvoked(#selector(viewDidAppear(_:)))
                 .map({ _ in})
                 .asObservable(),
             sectionHeaderCreateEvent: self.sectionHeaderCreateEvent.asObservable(),

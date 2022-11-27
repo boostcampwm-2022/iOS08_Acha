@@ -26,19 +26,21 @@ final class RecordCoordinator: RecordCoordinatorProtocol {
     }
     
     func showRecordPageViewController() {
-        let mainRepository = DefaultRecordRepository(
+        print(#function)
+        let recordRepository = DefaultRecordRepository(
             realtimeDatabaseNetworkService: DefaultRealtimeDatabaseNetworkService()
         )
-        let mainUseCase = DefaultRecordMainViewUseCase(repository: mainRepository)
+        
+        let mainUseCase = DefaultRecordMainViewUseCase(repository: recordRepository)
         let mainViewModel = RecordMainViewModel(useCase: mainUseCase)
         
-        let mapRepository = DefaultRecordRepository(
-            realtimeDatabaseNetworkService: DefaultRealtimeDatabaseNetworkService()
-        )
-        let mapUseCase = DefaultRecordMapViewUseCase(repository: mapRepository)
+        let mapUseCase = DefaultRecordMapViewUseCase(repository: recordRepository)
         let mapViewModel = RecordMapViewModel(useCase: mapUseCase)
         
-        let viewController = RecordPageViewController(mainViewModel: mainViewModel, mapViewModel: mapViewModel)
+        let viewController = RecordPageViewController(mainViewModel: mainViewModel,
+                                                      mapViewModel: mapViewModel,
+                                                      recordMainViewController: RecordMainViewController(viewModel: mainViewModel),
+                                                      recordMapViewController: RecordMapViewController(viewModel: mapViewModel) )
         navigationController.pushViewController(viewController, animated: true)
     }
 }

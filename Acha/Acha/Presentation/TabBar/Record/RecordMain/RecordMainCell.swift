@@ -116,15 +116,9 @@ class RecordMainCell: UICollectionViewCell {
         }
     }
     
-    func bind(mapId: Int) {
+    func bind(mapId: Int, recordViewRecord: RecordViewRecord) {
         self.bindEvent.accept(mapId)
-    }
-    
-    func bind(mapName: String) {
-        mapNameLabel.text = mapName
-    }
-    
-    func bind(recordViewRecord: RecordViewRecord) {
+        
         imageView.image = UIImage(systemName: "house")
         if let isWin = recordViewRecord.isWin {
             winLabel.isHidden = false
@@ -142,5 +136,9 @@ class RecordMainCell: UICollectionViewCell {
         modeLabel.text = recordViewRecord.isSingleMode == true ? "모드: 혼자 하기" : "모드: 같이 하기"
         distanceLabel.text = "거리: \(recordViewRecord.distance.convertToDecimal) m"
         kcalLabel.text = "칼로리: \(recordViewRecord.calorie.convertToDecimal) kcal"
+    }
+    
+    func bind(mapName: String) {
+        mapNameLabel.text = mapName
     }
 }

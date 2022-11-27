@@ -157,11 +157,7 @@ class RecordMainChartCell: UICollectionViewCell {
             return chartDataA.distance < chartDataB.distance
         }.map { Double($0.distance) }
         
-        guard let maxDistance else { return }
-        
-        if maxDistance == 0 {
-            return
-        }
+        guard let maxDistance, maxDistance != 0 else { return }
         
         let chartHeight = 368.0
         let heightPerMeter = chartHeight / maxDistance

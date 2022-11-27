@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 
 final class DefaultRecordRepository: RecordRepository {
-    private let realtimeDatabaseNetworkService: RealtimeDatabaseNetworkService
+    var realtimeDatabaseNetworkService: RealtimeDatabaseNetworkService
     
     init(realtimeDatabaseNetworkService: RealtimeDatabaseNetworkService) {
         self.realtimeDatabaseNetworkService = realtimeDatabaseNetworkService

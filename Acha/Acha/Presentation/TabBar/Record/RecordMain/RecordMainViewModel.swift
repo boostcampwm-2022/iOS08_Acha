@@ -8,12 +8,11 @@
 import Foundation
 import RxSwift
 import RxRelay
-import Firebase
 
 class RecordMainViewModel: BaseViewModel {
     
     struct Input {
-        var viewDidLoadEvent: Observable<Void>
+        var viewDidAppearEvent: Observable<Void>
         var headerViewBindEvent: Observable<String>
         var cellBindEvent: Observable<Int>
     }
@@ -26,19 +25,17 @@ class RecordMainViewModel: BaseViewModel {
         var recordsAtDate = PublishRelay<[String: [RecordViewRecord]]>()
     }
     
-    private var ref: DatabaseReference!
     var useCase: RecordMainViewUseCase!
     var disposeBag = DisposeBag()
     
     init(useCase: DefaultRecordMainViewUseCase) {
-        self.ref = Database.database().reference()
         self.useCase = useCase
     }
     
     func transform(input: Input) -> Output {
         let output = Output()
         
-        input.viewDidLoadEvent
+        input.viewDidAppearEvent
             .subscribe(onNext: { [weak self] _ in
                 guard let self else { return }
                 self.useCase.getWeekDatas()
@@ -55,7 +52,7 @@ class RecordMainViewModel: BaseViewModel {
         input.cellBindEvent
             .subscribe(onNext: { [weak self] mapId in
                 guard let self else { return }
-                self.useCase.getmapAtRecordId(mapId: mapId)
+                self.useCase.getRecordAtMapId(mapId: mapId)
             }).disposed(by: disposeBag)
         
         useCase.allDates

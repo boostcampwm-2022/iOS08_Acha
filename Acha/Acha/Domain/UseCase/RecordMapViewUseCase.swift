@@ -11,7 +11,7 @@ import RxSwift
 protocol RecordMapViewUseCase {
     var recordData: BehaviorSubject<[Int: RecordViewRecord]> { get set }
     var dropDownMenus: BehaviorSubject<[Map]> { get set }
-    var mapNameAndReocrds: BehaviorSubject<(String, [RecordViewRecord])> { get set }
+    var mapNameAndRecords: BehaviorSubject<(String, [RecordViewRecord])> { get set }
     func loadMapData() -> Observable<[Map]>
     func loadRecordData() -> Observable<[RecordViewRecord]>
     func fetchRecordDataAtIndex() -> Observable<[Int: RecordViewRecord]>
@@ -20,7 +20,7 @@ protocol RecordMapViewUseCase {
     func getMapArrayAtCategory(category: String) -> Observable<[Map]>
     func getMapAtMapName(mapName: String) -> Observable<Map>
     func getDropDownMenus(mapName: String)
-    func getRecordsAtindexes(indexes: [Int]) -> Observable<[RecordViewRecord]>
+    func getRecordsAtIndexes(indexes: [Int]) -> Observable<[RecordViewRecord]>
     func getMapNameAndRecordsAtCategory(category: String)
     func getMapNameAndRecordsAtMapName(mapName: String)
 }

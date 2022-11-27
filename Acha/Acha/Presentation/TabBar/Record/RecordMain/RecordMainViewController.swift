@@ -12,26 +12,26 @@ import RxSwift
 import RxRelay
 import RxCocoa
 
-enum RecordMainViewSections: Hashable {
-    case chart
-    case record(String)
-    
-    var title: String {
-        switch self {
-        case .chart:
-            return "chart"
-        case .record(let title):
-            return title
+class RecordMainViewController: UIViewController, UICollectionViewDelegate {
+    enum RecordMainViewSections: Hashable {
+        case chart
+        case record(String)
+        
+        var title: String {
+            switch self {
+            case .chart:
+                return "chart"
+            case .record(let title):
+                return title
+            }
         }
     }
-}
 
-enum RecordMainViewItems: Hashable {
-    case chart([RecordViewChartData])
-    case myRecord(RecordViewRecord)
-}
-
-class RecordMainViewController: UIViewController, UICollectionViewDelegate {
+    enum RecordMainViewItems: Hashable {
+        case chart([RecordViewChartData])
+        case myRecord(RecordViewRecord)
+    }
+    
     // MARK: - UI properties
     private var collectionView: UICollectionView!
     var headerView = RecordMainHeaderView()
@@ -66,7 +66,7 @@ class RecordMainViewController: UIViewController, UICollectionViewDelegate {
     
     private func bind() {
         let input = RecordMainViewModel.Input(
-            viewDidLoadEvent: rx.methodInvoked(#selector(viewDidAppear(_:)))
+                        viewDidAppearEvent: rx.methodInvoked(#selector(viewDidAppear(_:)))
                 .map({ _ in })
                 .asObservable(),
             headerViewBindEvent: self.headerViewBindEvent.asObservable(),
@@ -161,8 +161,7 @@ class RecordMainViewController: UIViewController, UICollectionViewDelegate {
                     .subscribe(onNext: {
                         self.cellBindEvent.accept($0)
                     }).disposed(by: self.disposeBag)
-                cell.bind(mapId: recordViewRecord.mapID)
-                cell.bind(recordViewRecord: recordViewRecord)
+                cell.bind(mapId: recordViewRecord.mapID, recordViewRecord: recordViewRecord)
                 
                 return cell
             }
@@ -237,7 +236,8 @@ class RecordMainViewController: UIViewController, UICollectionViewDelegate {
                                                 heightDimension: .absolute(100))
         let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
             layoutSize: headerSize,
-            elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
+            elementKind: UICollectionView.elementKindSectionHeader,
+            alignment: .top)
         section.boundarySupplementaryItems = [sectionHeader]
         
         return section

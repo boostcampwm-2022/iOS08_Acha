@@ -11,10 +11,6 @@ import RxRelay
 
 class RecordMapHeaderView: UICollectionReusableView {
     // MARK: - UI properties
-    private lazy var contentView = UIView().then {
-        $0.backgroundColor = .white
-    }
-    
     private lazy var mapName = UILabel().then {
         $0.textColor = .pointLight
         $0.font = .largeTitle

@@ -9,6 +9,7 @@ import Foundation
 import RxSwift
 
 protocol RecordRepository {
+    var realtimeDatabaseNetworkService: RealtimeDatabaseNetworkService { get set }
     func fetchMapData() -> Observable<[Map]>
     func fetchRecordData() -> Observable<[RecordViewRecord]>
 }

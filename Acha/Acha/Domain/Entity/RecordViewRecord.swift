@@ -8,6 +8,7 @@
 import Foundation
  
 struct RecordViewRecord: Hashable, Codable {
+    var id: Int
     var mapID: Int
     var userID: String
     var calorie: Int
@@ -16,7 +17,6 @@ struct RecordViewRecord: Hashable, Codable {
     var isSingleMode: Bool
     var isWin: Bool?
     var createdAt: String
-    var id: Int
     
     enum CodingKeys: String, CodingKey {
         case mapID = "map_id"

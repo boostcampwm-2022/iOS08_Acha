@@ -6,14 +6,13 @@
 //
 
 import Foundation
-import Firebase
 import RxSwift
 import RxRelay
 
 final class RecordMapViewModel: BaseViewModel {
     
     struct Input {
-        var viewDidLoadEvent: Observable<Void>
+        var viewDidAppearEvent: Observable<Void>
         var sectionHeaderCreateEvent: Observable<String>
         var dropDownMenuTapEvent: Observable<String>
         var categoryCellTapEvent: Observable<String>
@@ -24,20 +23,18 @@ final class RecordMapViewModel: BaseViewModel {
         var mapNameAndRecords = BehaviorRelay<(String, [RecordViewRecord])>(value: ("", []))
     }
     
-    private var ref: DatabaseReference!
     private let useCase: RecordMapViewUseCase!
     var disposeBag = DisposeBag()
     var isFetched: Bool = false
     
     init(useCase: DefaultRecordMapViewUseCase) {
-        self.ref = Database.database().reference()
         self.useCase = useCase
     }
     
     func transform(input: Input) -> Output {
         let output = Output()
         
-        input.viewDidLoadEvent
+        input.viewDidAppearEvent
             .subscribe { [weak self] _ in
                 guard let self else { return }
                 self.useCase.getMapNameAndRecordsAtCategory(category: Locations.incheon.string)
@@ -65,7 +62,7 @@ final class RecordMapViewModel: BaseViewModel {
             .bind(to: output.dropDownMenus)
             .disposed(by: disposeBag)
         
-        useCase.mapNameAndReocrds
+        useCase.mapNameAndRecords
             .bind(to: output.mapNameAndRecords)
             .disposed(by: disposeBag)
         

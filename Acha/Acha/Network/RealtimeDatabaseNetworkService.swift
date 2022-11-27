@@ -8,7 +8,9 @@
 import Foundation
 import RxRelay
 import RxSwift
+import Firebase
 
 protocol RealtimeDatabaseNetworkService {
+    var databaseReference: DatabaseReference { get set }
     func fetchData(path: String) -> Observable<Data>
 }
