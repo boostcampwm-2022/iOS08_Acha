@@ -10,19 +10,14 @@ import FirebaseAuth
 import RxSwift
 import FirebaseDatabase
 
-protocol EmailValidate {
+protocol EmailValidatable {
     func emailValidate(text: String) -> Bool
 }
 
-protocol PasswordValidate {
+protocol PasswordValidatable {
     func passwordValidate(text: String) -> Bool
 }
 
-protocol NickNameValidate {
+protocol NickNameValidatable {
     func nickNameValidate(text: String) -> Bool
-}
-
-struct LoginData: Equatable {
-    let email: String
-    let password: String
 }

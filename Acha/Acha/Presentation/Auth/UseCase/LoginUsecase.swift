@@ -9,6 +9,17 @@ import Foundation
 import RxSwift
 import RxRelay
 
+protocol LoginUseCaseProtocol: EmailValidatable, PasswordValidatable {
+    var emailRelay: BehaviorRelay<String> {get set}
+    var passwordRelay: BehaviorRelay<String> {get set}
+    
+    var emailValidation: Bool {get set}
+    var passwordValidation: Bool {get set}
+
+    func isLogInAble() -> Bool
+    func logIn() -> Observable<String>
+}
+
 final class LoginUseCase {
     
     var emailValidation: Bool = false
@@ -44,7 +55,6 @@ final class LoginUseCase {
     func logIn() -> Observable<String> {
         let loginData = LoginData(email: emailRelay.value, password: passwordRelay.value)
         return repository.logIn(data: loginData)
-            
     }
 
 }
