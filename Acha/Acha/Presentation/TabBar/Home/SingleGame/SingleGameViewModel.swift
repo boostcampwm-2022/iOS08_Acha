@@ -143,14 +143,14 @@ final class SingleGameViewModel {
     
     private func gameOver(isCompleted: Bool) {
         let kcal = Int(0.1128333333*Double(self.time.value))
-        let record = Record(mapID: self.map.mapID,
+        let record = Record(id: 0,
+                            mapID: self.map.mapID,
                             userID: "연상변",
                             calorie: kcal,
                             distance: Int(self.movedDistance.value),
                             time: self.time.value,
                             isSingleMode: true,
-                            createdAt: Date().convertToStringFormat(format: "yyyy-MM-dd"),
-                            id: 0)
+                            createdAt: Date().convertToStringFormat(format: "yyyy-MM-dd"))
         self.coordinator.showSingleGameOverViewController(record: record,
                                                           map: map,
                                                           isCompleted: isCompleted)

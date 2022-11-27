@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 import RxRelay
 final class HomeViewModel {
-    var coordinator: HomeCoordinator
+    weak var coordinator: HomeCoordinator?
     let singleGameTap = PublishRelay<Void>()
     let multiGameTap = PublishRelay<Void>()
     private let disposeBag = DisposeBag()
@@ -21,16 +21,15 @@ final class HomeViewModel {
     
     private func bind() {
         singleGameTap
-            .subscribe(onNext: {
-                self.coordinator.connectSingleGameFlow()
+            .subscribe(onNext: { [weak self] in
+                self?.coordinator?.connectSingleGameFlow()
             })
             .disposed(by: disposeBag)
         multiGameTap
-            .subscribe(onNext: {
+            .subscribe(onNext: { [weak self] in
                 print("multiGameTap")
                 #warning("TODO : 멀티모드")
-//                self.coordinator.showSelectViewController()
-                self.coordinator.connectSingleGameFlow()
+                self?.coordinator?.connectSingleGameFlow()
             })
             .disposed(by: disposeBag)
     }

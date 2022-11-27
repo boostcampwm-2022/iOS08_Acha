@@ -28,6 +28,7 @@
 		47935E9F29238EB400481307 /* SelectMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47935E9E29238EB300481307 /* SelectMapViewModel.swift */; };
 		47A26DBC292B73850007FBBF /* Coordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A26DBB292B73850007FBBF /* Coordinate.swift */; };
 		47A26DBE292BB2970007FBBF /* MapRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A26DBD292BB2970007FBBF /* MapRegion.swift */; };
+		47A26DC0292C9F8A0007FBBF /* SelectMapRankingHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A26DBF292C9F8A0007FBBF /* SelectMapRankingHeaderView.swift */; };
 		764AF29D292B639200D16DC9 /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764AF29C292B639200D16DC9 /* UIViewController+.swift */; };
 		764AF29F292B6EF500D16DC9 /* InGameRecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764AF29E292B6EF500D16DC9 /* InGameRecordViewModel.swift */; };
 		764AF2A1292B9C1F00D16DC9 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764AF2A0292B9C1F00D16DC9 /* String+.swift */; };
@@ -144,6 +145,7 @@
 		47935E9E29238EB300481307 /* SelectMapViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectMapViewModel.swift; sourceTree = "<group>"; };
 		47A26DBB292B73850007FBBF /* Coordinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinate.swift; sourceTree = "<group>"; };
 		47A26DBD292BB2970007FBBF /* MapRegion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapRegion.swift; sourceTree = "<group>"; };
+		47A26DBF292C9F8A0007FBBF /* SelectMapRankingHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMapRankingHeaderView.swift; sourceTree = "<group>"; };
 		76213CBD292CEA6600895462 /* WorkSpace by 25km:h.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "WorkSpace by 25km:h.gpx"; sourceTree = "<group>"; };
 		76213CBE292CEA6600895462 /* WorkSpace by 6km:h.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "WorkSpace by 6km:h.gpx"; sourceTree = "<group>"; };
 		764AF29C292B639200D16DC9 /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
@@ -384,6 +386,7 @@
 			isa = PBXGroup;
 			children = (
 				47935E9C29238E9E00481307 /* SelectMapViewController.swift */,
+				47A26DBF292C9F8A0007FBBF /* SelectMapRankingHeaderView.swift */,
 				47935E9E29238EB300481307 /* SelectMapViewModel.swift */,
 				E5027D5529265D910021BF60 /* SelectMapRecordCell.swift */,
 			);
@@ -942,6 +945,7 @@
 				E5027D5C292670F30021BF60 /* RecordViewChartData.swift in Sources */,
 				4738D768292267BA003AE835 /* Errors.swift in Sources */,
 				E5BE8B9D29221AAF00E9CFE8 /* MyPageCoordinator.swift in Sources */,
+				47A26DC0292C9F8A0007FBBF /* SelectMapRankingHeaderView.swift in Sources */,
 				76B3BF56292627A30056ABFD /* GamePlayMenuView.swift in Sources */,
 				764AF2A1292B9C1F00D16DC9 /* String+.swift in Sources */,
 				76B3BF462924D93C0056ABFD /* SingleGameCoordinator.swift in Sources */,

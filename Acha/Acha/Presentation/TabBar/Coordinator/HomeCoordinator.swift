@@ -13,7 +13,7 @@ protocol HomeCoordinatorProtocol: Coordinator {
 }
 
 final class HomeCoordinator: HomeCoordinatorProtocol {
-    var delegate: CoordinatorDelegate?
+    weak var delegate: CoordinatorDelegate?
     var navigationController: UINavigationController
     var childCoordinators: [Coordinator] = []
     var tabBarController: UITabBarController?

@@ -57,20 +57,20 @@ class RecordViewModel {
                                                              calorie: record.calorie)
                 }
                 
-                let achaRecord = Record(mapID: record.mapID,
+                let record = Record(id: record.id,
+                                        mapID: record.mapID,
                                         userID: record.userID,
                                         calorie: record.calorie,
                                         distance: record.distance,
                                         time: record.time,
                                         isSingleMode: record.isSingleMode,
                                         isWin: record.isWin,
-                                        createdAt: record.createdAt,
-                                        id: record.id)
+                                        createdAt: record.createdAt)
                 
                 if self.recordAtDays[stringDate] != nil {
-                    self.recordAtDays[stringDate]?.append(achaRecord)
+                    self.recordAtDays[stringDate]?.append(record)
                 } else {
-                    self.recordAtDays[stringDate] = [achaRecord]
+                    self.recordAtDays[stringDate] = [record]
                 }
             }
             self.sortSectionDays(sectionDays: sectionDays)
