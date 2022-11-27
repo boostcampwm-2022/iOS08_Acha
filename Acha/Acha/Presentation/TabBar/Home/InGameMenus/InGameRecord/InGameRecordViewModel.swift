@@ -46,13 +46,13 @@ final class InGameRecordViewModel: BaseViewModel {
                     return
                 }
                 
-                #warning("나의 기록만 가져오게 AND 연산을 한번 더 수행해야함!")
                 let inGameRecord = records
                     .filter { $0.mapID == self.mapID }
-                    .map { InGameRecord(time: $0.time,
+                    .map { InGameRecord(id: $0.id,
+                                        time: $0.time,
                                         userName: $0.userID,
                                         date: $0.createdAt.convertToDateFormat(format: "yyyy-MM-dd"))}
-                    .sorted(by: { $0.date < $1.date})
+                    .sorted(by: { $0.date > $1.date})
                 
                 single(.success(inGameRecord))
                 return

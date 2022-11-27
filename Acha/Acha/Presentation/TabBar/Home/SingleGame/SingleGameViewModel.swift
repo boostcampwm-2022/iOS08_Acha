@@ -38,7 +38,7 @@ final class SingleGameViewModel {
     // MARK: - Dependency
     private let coordinator: SingleGameCoordinator
     let map: Map
-    private let disposeBag = DisposeBag()
+    private var disposeBag = DisposeBag()
     private var hideButtonTimer: DispatchSourceTimer?
     
     // MARK: - Lifecycle
@@ -144,7 +144,7 @@ final class SingleGameViewModel {
     private func gameOver(isCompleted: Bool) {
         let kcal = Int(0.1128333333*Double(self.time.value))
         let record = Record(mapID: self.map.mapID,
-                            userID: "남석 배",
+                            userID: "연상변",
                             calorie: kcal,
                             distance: Int(self.movedDistance.value),
                             time: self.time.value,
@@ -154,6 +154,7 @@ final class SingleGameViewModel {
         self.coordinator.showSingleGameOverViewController(record: record,
                                                           map: map,
                                                           isCompleted: isCompleted)
+        self.disposeBag = DisposeBag()
     }
     
     private func isHideTimerStart() {

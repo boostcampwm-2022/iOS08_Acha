@@ -12,6 +12,7 @@ import Firebase
 final class GameOverViewModel: BaseViewModel {
     struct Input {
         var okButtonTapped: Observable<Void>
+        var viewDidLoad: Observable<Void>
     }
     
     struct Output {
@@ -24,8 +25,7 @@ final class GameOverViewModel: BaseViewModel {
     let ref: DatabaseReference!
     var record: Record
     let map: Map
-    
-    private let recordID = PublishSubject<Int>()
+    let isCompleted: Bool
     
     init(coordinator: SingleGameCoordinator,
          record: Record,
@@ -36,10 +36,7 @@ final class GameOverViewModel: BaseViewModel {
         self.record = record
         self.map = map
         self.ref = Database.database().reference()
-        self.uploadRecord()
-        if isCompleted {
-            uploadMapRecord()
-        }
+        self.isCompleted = isCompleted
     }
     
     func transform(input: Input) -> Output {
@@ -48,6 +45,12 @@ final class GameOverViewModel: BaseViewModel {
                 guard let self else { return }
                 self.coordinator?.delegate?.didFinished(childCoordinator: self.coordinator!)
             }).disposed(by: disposeBag)
+        input.viewDidLoad
+            .subscribe(onNext: { [weak self] in
+                guard let self else { return }
+                self.uploadRecord()
+            }).disposed(by: disposeBag)
+        
         return Output(record: record, mapName: map.name)
     }
     
@@ -59,14 +62,16 @@ final class GameOverViewModel: BaseViewModel {
                 guard let self,
                       let snapData = snapshot.value as? [Any],
                       let data = try? JSONSerialization.data(withJSONObject: snapData),
-                      var records = try? JSONDecoder().decode([Record].self, from: data)
+                      let records = try? JSONDecoder().decode([Record].self, from: data)
                 else {
-                    print(Errors.decodeError)
+                    print(Errors.decodeError, #function)
                     return
                 }
                 
                 self.record.id = records.count
-                self.recordID.onNext(records.count)
+                if self.isCompleted {
+                    self.uploadMapRecord(index: self.record.id)
+                }
                 guard let json = try? JSONEncoder().encode(self.record),
                       let jsonSerial = try? JSONSerialization.jsonObject(with: json) as? [String: Any] ?? [:]
                 else { return }
@@ -75,26 +80,24 @@ final class GameOverViewModel: BaseViewModel {
             })
     }
     
-    private func uploadMapRecord() {
-        recordID.subscribe(onNext: { [weak self] recordID in
-            guard let self else { return }
-            self.ref.child("mapList").child("\(self.map.mapID)").observeSingleEvent(
-                of: .value,
-                with: { snapshot in
-
-                    guard let snapData = snapshot.value,
-                          let data = try? JSONSerialization.data(withJSONObject: snapData),
-                          let mapData = try? JSONDecoder().decode(Map.self, from: data)
-                    else {
-                        print(Errors.decodeError)
-                        return
-                    }
-                    
-                    let newRecord = (mapData.records ?? []) + [recordID]
-                    self.ref
-                        .child("mapList/\(self.map.mapID)/records")
-                        .setValue(newRecord)
-                })
-        }).disposed(by: disposeBag)
+    private func uploadMapRecord(index: Int) {
+        self.ref.child("mapList").child("\(self.map.mapID)").observeSingleEvent(
+            of: .value,
+            with: { [weak self] snapshot in
+                
+                guard let self,
+                      let snapData = snapshot.value,
+                      let data = try? JSONSerialization.data(withJSONObject: snapData),
+                      let mapData = try? JSONDecoder().decode(Map.self, from: data)
+                else {
+                    print(Errors.decodeError, #function)
+                    return
+                }
+                
+                let newRecord = (mapData.records ?? []) + [index]
+                self.ref
+                    .child("mapList/\(self.map.mapID)/records")
+                    .setValue(newRecord)
+            })
     }
 }
