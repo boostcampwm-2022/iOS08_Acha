@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import FirebaseAuth
+import Firebase
 
 protocol AuthCoordinatorProtocol: Coordinator {
     func connectLoginCoordinator()
@@ -45,7 +47,6 @@ final class AuthCoordinator: AuthCoordinatorProtocol {
 extension AuthCoordinator: CoordinatorDelegate {
     func didFinished(childCoordinator: Coordinator) {
         removeChildCoordinator(coordinator: childCoordinator)
-        
         switch childCoordinator {
         case is LoginCoordinator:
             popSelfFromNavigatonController()

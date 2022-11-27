@@ -24,7 +24,8 @@ final class AppCoordinator: AppCoordinatorProtocol {
     
     func start() {
         // 로그인 여부 따라 로직 분리
-        connectTabBar()
+//        connectTabBar()
+        connectAuth()
     }
     
     func connectAuth() {

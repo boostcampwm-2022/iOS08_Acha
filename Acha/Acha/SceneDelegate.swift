@@ -21,10 +21,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let navigationController = UINavigationController()
         coordinator = AppCoordinator(navigationController: navigationController)
-        coordinator?.start()
-        
         self.window?.rootViewController = navigationController
         self.window?.makeKeyAndVisible() 
+        coordinator?.start()
+        
+
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

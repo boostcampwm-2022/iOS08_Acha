@@ -38,7 +38,7 @@ class RecordViewModel {
         })
         
         ref.child("record").observeSingleEvent(of: .value,
-                                                with: { [weak self] snapshot in
+                                               with: { [weak self] snapshot in
             guard let snapData = snapshot.value as? [Any],
                   let data = try? JSONSerialization.data(withJSONObject: snapData),
                   let records = try? JSONDecoder().decode([Record].self, from: data),
@@ -54,7 +54,7 @@ class RecordViewModel {
                     sectionDays[stringDate]?.calorie += record.calorie
                 } else {
                     sectionDays[stringDate] = DayTotalRecord(distance: record.distance,
-                                                            calorie: record.calorie)
+                                                             calorie: record.calorie)
                 }
                 
                 let record = Record(id: record.id,
