@@ -40,7 +40,8 @@ final class LoginViewModel: BaseViewModel {
         let emailValidate = Observable<Bool>.create { observer in
             input.emailUpdated
                 .subscribe { [weak self] email in
-                    self?.useCase.emailValidate(text: email)
+                    let result = self?.useCase.emailValidate(text: email)
+                    observer.onNext(result ?? false)
                 }
                 .disposed(by: bag)
             return Disposables.create()
@@ -49,7 +50,8 @@ final class LoginViewModel: BaseViewModel {
         let passwordValidate = Observable<Bool>.create { observer in
             input.passwordUpdated
                 .subscribe { [weak self] password in
-                    self?.useCase.passwordValidate(text: password)
+                    let result = self?.useCase.passwordValidate(text: password)
+                    observer.onNext(result ?? false)
                 }
                 .disposed(by: bag)
             return Disposables.create()

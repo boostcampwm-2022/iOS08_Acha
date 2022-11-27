@@ -25,7 +25,7 @@ final class SignUpViewModel {
         let passwordValidated: Observable<Bool>
         let nickNameValidated: Observable<Bool>
         let emailValidated: Observable<Bool>
-        let signUpSuccesssed: Observable<Bool>
+        let signUpFailed: Observable<Bool>
     }
     
     private let useCase: SignUpUsecase
@@ -46,7 +46,8 @@ final class SignUpViewModel {
             input.passwordUpdated
                 .subscribe(onNext: { [weak self] text in
                     guard let self = self else {return}
-                    self.useCase.passwordValidate(text: text)
+                    let result = self.useCase.passwordValidate(text: text)
+                    observer.onNext(result)
                 })
                 .disposed(by: bag)
             return Disposables.create()
@@ -56,7 +57,8 @@ final class SignUpViewModel {
             input.emailUpdated
                 .subscribe { [weak self] text in
                     guard let self = self else {return}
-                    self.useCase.emailValidate(text: text)
+                    let result = self.useCase.emailValidate(text: text)
+                    observer.onNext(result)
                 }
                 .disposed(by: bag)
             return Disposables.create()
@@ -66,7 +68,8 @@ final class SignUpViewModel {
             input.nickNameUpdated
                 .subscribe { [weak self] text in
                     guard let self = self else {return}
-                    self.useCase.nickNameValidate(text: text)
+                    let result = self.useCase.nickNameValidate(text: text)
+                    observer.onNext(result)
                 }
                 .disposed(by: bag)
             return Disposables.create()
@@ -81,7 +84,14 @@ final class SignUpViewModel {
         let signUpButtonDidTap = Observable<Bool>.create { observer in
             input.signUpButtonDidTap
                 .subscribe { [weak self] _ in
-                    
+                    self?.useCase.signUp()
+                        .subscribe(onNext: { _ in
+                            guard let self = self else {return}
+                            self.coordinator?.delegate?.didFinished(childCoordinator: self.coordinator!)
+                        }, onError: { _ in
+                            observer.onNext(false)
+                        })
+                        .disposed(by: bag)
                 }
                 .disposed(by: bag)
             return Disposables.create()
@@ -92,7 +102,7 @@ final class SignUpViewModel {
         return Output(passwordValidated: paswordValidate,
                       nickNameValidated: nickNameValidate,
                       emailValidated: emailValidate,
-                      signUpSuccesssed: signUpButtonDidTap)
+                      signUpFailed: signUpButtonDidTap)
     }
     
     private func transitionView() {

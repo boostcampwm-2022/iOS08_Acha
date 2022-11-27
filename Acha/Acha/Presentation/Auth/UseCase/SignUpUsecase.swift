@@ -50,4 +50,13 @@ final class SignUpUsecase {
     func isSignAble() -> Bool {
         return emailValidation && passwordValidation && nickNameValidation
     }
+    
+    func signUp() -> Observable<String> {
+        let signUpData = SignUpData(
+            email: emailRelay.value,
+            password: passwordRelay.value,
+            nickName: nickNameRelay.value
+        )
+        return repository.signUp(data: signUpData)
+    }
 }
