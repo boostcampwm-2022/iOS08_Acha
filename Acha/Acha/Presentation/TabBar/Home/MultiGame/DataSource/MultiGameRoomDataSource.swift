@@ -29,14 +29,17 @@ struct MultiGameRoomDataSource: MultiGameRoomDataSourceProtocol {
     }
     
     func make(roomID: String) {
-        provider.make(.room(id: roomID, data: nil))
+        provider.make(FBRealTimeDBType.room(id: roomID, data: nil))
     }
     
     func get(roomID: String) -> Observable<RoomDTO> {
-        return provider.get(.room(id: roomID, data: nil), responseType: RoomDTO.self)
+        return provider.get(
+            FBRealTimeDBType.room(id: roomID, data: nil),
+            responseType: RoomDTO.self
+        )
     }
     
     func leave(roomID: String) {
-        provider.leave(from: .room(id: roomID, data: nil))
+        provider.leaveRoom(from: FBRealTimeDBType.room(id: roomID, data: nil))
     }
 }

@@ -133,6 +133,8 @@
 		F1E83D652933DE04004C7992 /* InGameUserDataFireStoreDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E83D642933DE04004C7992 /* InGameUserDataFireStoreDTO.swift */; };
 		F1E83D672933DE26004C7992 /* CoordinateFireStoreDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E83D662933DE26004C7992 /* CoordinateFireStoreDTO.swift */; };
 		F1E83D692933DEB6004C7992 /* MapFireStoreDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E83D682933DEB6004C7992 /* MapFireStoreDTO.swift */; };
+		F1E83D6E2934524B004C7992 /* UUIDGetable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E83D6D2934524B004C7992 /* UUIDGetable.swift */; };
+		F1E83D712934553F004C7992 /* HomeProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E83D702934553F004C7992 /* HomeProvider.swift */; };
 		F1FCEE0E292B483E001A55D6 /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FCEE0D292B483E001A55D6 /* UITextField+Extension.swift */; };
 		F1FCEE11292B4C87001A55D6 /* AuthButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FCEE10292B4C87001A55D6 /* AuthButton.swift */; };
 		F1FCEE14292B4E9A001A55D6 /* AuthTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FCEE13292B4E9A001A55D6 /* AuthTitleView.swift */; };
@@ -291,6 +293,8 @@
 		F1E83D642933DE04004C7992 /* InGameUserDataFireStoreDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameUserDataFireStoreDTO.swift; sourceTree = "<group>"; };
 		F1E83D662933DE26004C7992 /* CoordinateFireStoreDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateFireStoreDTO.swift; sourceTree = "<group>"; };
 		F1E83D682933DEB6004C7992 /* MapFireStoreDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapFireStoreDTO.swift; sourceTree = "<group>"; };
+		F1E83D6D2934524B004C7992 /* UUIDGetable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UUIDGetable.swift; sourceTree = "<group>"; };
+		F1E83D702934553F004C7992 /* HomeProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeProvider.swift; sourceTree = "<group>"; };
 		F1FCEE0D292B483E001A55D6 /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 		F1FCEE10292B4C87001A55D6 /* AuthButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthButton.swift; sourceTree = "<group>"; };
 		F1FCEE13292B4E9A001A55D6 /* AuthTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthTitleView.swift; sourceTree = "<group>"; };
@@ -721,6 +725,7 @@
 			isa = PBXGroup;
 			children = (
 				F16B4536293325A2002429A2 /* ProvidableType.swift */,
+				F1E83D6D2934524B004C7992 /* UUIDGetable.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -869,6 +874,7 @@
 		F1CCF90B292DF8830082B250 /* HomeView */ = {
 			isa = PBXGroup;
 			children = (
+				F1E83D6F29345535004C7992 /* Provider */,
 				F1CCF90D292DF8920082B250 /* ViewModel */,
 				F1CCF90F292DF8A70082B250 /* Repository */,
 				F1CCF90E292DF89F0082B250 /* UseCase */,
@@ -1001,6 +1007,14 @@
 				F1E83D682933DEB6004C7992 /* MapFireStoreDTO.swift */,
 			);
 			path = FBStoreDTO;
+			sourceTree = "<group>";
+		};
+		F1E83D6F29345535004C7992 /* Provider */ = {
+			isa = PBXGroup;
+			children = (
+				F1E83D702934553F004C7992 /* HomeProvider.swift */,
+			);
+			path = Provider;
 			sourceTree = "<group>";
 		};
 		F1FCEE0F292B4C6B001A55D6 /* AuthButton */ = {
@@ -1263,6 +1277,7 @@
 				E5BE8BAF29221FF800E9CFE8 /* CommunityViewController.swift in Sources */,
 				F1B0D8AA292CCA0F00EBDD02 /* Encodable+Extension.swift in Sources */,
 				F16B4534293323B1002429A2 /* FBStoreDB.swift in Sources */,
+				F1E83D712934553F004C7992 /* HomeProvider.swift in Sources */,
 				E516A6BE2923941500CD6BDB /* RecordChartCell.swift in Sources */,
 				E5BE8BB32922200C00E9CFE8 /* MyPageViewController.swift in Sources */,
 				F1E83D5D29338A99004C7992 /* UserFireStoreDTO.swift in Sources */,
@@ -1302,6 +1317,7 @@
 				F1E83D612933D561004C7992 /* RecordFireStoreDTO.swift in Sources */,
 				E5BE8B9929221A4C00E9CFE8 /* RecordCoordinator.swift in Sources */,
 				F1B0D8AC292CCA5200EBDD02 /* SignUpData.swift in Sources */,
+				F1E83D6E2934524B004C7992 /* UUIDGetable.swift in Sources */,
 				E516A6BA2923929800CD6BDB /* RecordViewModel.swift in Sources */,
 				76B3BF4A2924DDE70056ABFD /* BaseViewModel.swift in Sources */,
 				F1E83D692933DEB6004C7992 /* MapFireStoreDTO.swift in Sources */,

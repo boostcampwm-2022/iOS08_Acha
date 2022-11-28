@@ -15,7 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         try! KeyChainManager.delete()
-        try! KeyChainManager.save(id: "vpyFgiN6yLYets6UIarqGf7zeSC3")
+        try! KeyChainManager.save(id: "xUXN9iDnLdhKtrOUvOCyvahl2Ut2")
         FirebaseApp.configure()
         return true
     }

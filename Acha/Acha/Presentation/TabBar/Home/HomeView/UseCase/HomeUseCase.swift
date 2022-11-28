@@ -8,7 +8,13 @@
 import Foundation
 import RxSwift
 
-struct HomeUseCase {
+protocol HomeUseCaseProtocol {
+    func getUUID() -> Observable<String>
+    func makeRoomID() -> String
+    func enterRoom(roomID: String)
+}
+
+struct HomeUseCase: HomeUseCaseProtocol {
     
     private let repository: HomeRepositoryProtocol
     init(repository: HomeRepositoryProtocol) {
@@ -21,6 +27,10 @@ struct HomeUseCase {
     
     func makeRoomID() -> String {
         return repository.makeRoomID()
+    }
+    
+    func enterRoom(roomID: String) {
+        repository.enterRoom(roomID: roomID)
     }
     
 }

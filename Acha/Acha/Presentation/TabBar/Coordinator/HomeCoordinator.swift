@@ -35,7 +35,7 @@ final class HomeCoordinator: HomeCoordinatorProtocol {
     }
     
     func showHomeViewController() {
-        let provider = HomeViewProvider()
+        let provider = HomeProvider()
         let repository = HomeRepository(provider: provider)
         let useCase = HomeUseCase(repository: repository)
         let viewModel = HomeViewModel(

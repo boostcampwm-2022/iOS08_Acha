@@ -11,7 +11,7 @@ enum FBRealTimeDBType: ProvidableType {
     
     case room(id: String, data: RoomDTO?)
     case user(id: String, data: UserDTO?)
-    case newRoom(id: String, dat: RoomDTO)
+    case newRoom(id: String, data: RoomDTO)
     
     var path: String {
         switch self {
@@ -31,7 +31,7 @@ enum FBRealTimeDBType: ProvidableType {
             return baseUrl + "Room/\(id).json"
         case .user(id: let id, data: _):
             return baseUrl + "Room/\(id).json"
-        case .newRoom(id: let id, dat: _):
+        case .newRoom(id: let id, data: _):
             return baseUrl + "Room/\(id).json"
         }
     }
@@ -71,7 +71,7 @@ enum FBRealTimeDBType: ProvidableType {
         switch self {
         case .room(_), .user(_):
             return nil
-        case .newRoom(id: _, dat: let data):
+        case .newRoom(id: _, data: let data):
             return data.toJSON
         }
     }

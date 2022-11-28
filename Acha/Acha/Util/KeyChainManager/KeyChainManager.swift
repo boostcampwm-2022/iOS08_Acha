@@ -8,7 +8,7 @@
 import Foundation
 import RxSwift
 
-struct KeyChainManager: UUIDProvider {
+struct KeyChainManager {
     
     func getUUID() -> RxSwift.Observable<String> {
         return Observable<String>.create { observer in

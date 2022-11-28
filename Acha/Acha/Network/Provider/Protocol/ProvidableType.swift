@@ -13,6 +13,7 @@ protocol ProvidableType {
     var httpHeader: [String: String]? {get}
     var httpBody: Data? {get}
     var httpMethod: String {get}
+    var data: [String: Any]? {get}
     
     func toURL() -> URL?
     func toURLRequest() -> URLRequest?

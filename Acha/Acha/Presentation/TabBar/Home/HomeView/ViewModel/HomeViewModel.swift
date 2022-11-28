@@ -28,11 +28,11 @@ final class HomeViewModel: BaseViewModel {
     
     var disposeBag = DisposeBag()
     private weak var coordinator: HomeCoordinator?
-    private let useCase: HomeUseCase
+    private let useCase: HomeUseCaseProtocol
     
     init(
         coordinator: HomeCoordinator,
-        useCase: HomeUseCase
+        useCase: HomeUseCaseProtocol
     ) {
         self.useCase = useCase
         self.coordinator = coordinator
@@ -50,8 +50,7 @@ final class HomeViewModel: BaseViewModel {
         input.cameraDetectedSometing
             .distinctUntilChanged()
             .subscribe { [weak self] qrStirngValue in
-                guard let uuid = try? KeyChainManager.get() else {return}
-                FBRealTimeDB().enter(.user(id: uuid, data: nil), .room(id: qrStirngValue, data: nil))
+                self?.useCase.enterRoom(roomID: qrStirngValue)
                 self?.coordinator?.connectMultiGameFlow(gameID: qrStirngValue)
             }
             .disposed(by: bag)

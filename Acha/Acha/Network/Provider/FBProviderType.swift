@@ -60,6 +60,10 @@ extension FBProviderType {
         }
     }
     
+    var data: [String: Any]? {
+        return nil
+    }
+    
     var id: String {
         switch self {
         case .user(id: let id):
