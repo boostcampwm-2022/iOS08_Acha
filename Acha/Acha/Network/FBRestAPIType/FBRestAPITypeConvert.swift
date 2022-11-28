@@ -14,7 +14,7 @@ struct StringValue: Codable {
         self.value = value
     }
     
-    private enum Codingkeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case value = "stringValue"
     }
 }
@@ -22,11 +22,7 @@ struct StringValue: Codable {
 struct IntValue: Codable {
     let value: Int
     
-    init(value: Int) {
-        self.value = value
-    }
-    
-    private enum Codingkeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case value = "integerValue"
     }
 }
@@ -46,3 +42,21 @@ struct BoolValue: Codable {
         case value = "booleanValue"
     }
 }
+
+struct ArrayValue<T: Codable>: Codable {
+    let arrayValue: [String: [T]]
+
+    private enum CodingKeys: String, CodingKey {
+        case arrayValue
+    }
+
+    init(values: [T]) {
+        self.arrayValue = ["values": values]
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.arrayValue = try container.decode([String: [T]].self, forKey: .arrayValue)
+    }
+}
+

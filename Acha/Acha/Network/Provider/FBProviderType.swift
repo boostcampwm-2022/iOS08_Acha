@@ -27,9 +27,9 @@ extension FBProviderType {
         case .room(let id):
             return rootUrl + "/Room/\(id)"
         case .newRoom(let data):
-            return rootUrl + "/Room/\(data.id)"
+            return rootUrl + "/Room?documentId=\(data.id)"
         case .newUser(let data):
-            return rootUrl + "/User"
+            return rootUrl + "/User?documentId=\(data.id.value)"
         }
     }
     
@@ -78,9 +78,11 @@ extension FBProviderType {
     func toURLRequest() -> URLRequest? {
         guard let url = toURL() else {return nil}
         var urlRequest = URLRequest(url: url)
-        urlRequest.allHTTPHeaderFields = httpHeader
+        httpHeader?.forEach({ header in
+            urlRequest.addValue(header.value, forHTTPHeaderField: header.key)
+        })
         urlRequest.httpMethod = httpMethod
-        urlRequest.httpBody = httpBody ?? nil
+        urlRequest.httpBody = httpBody
         return urlRequest
     }
     
