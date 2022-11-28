@@ -26,7 +26,6 @@ final class RecordCoordinator: RecordCoordinatorProtocol {
     }
     
     func showRecordPageViewController() {
-        print(#function)
         let recordRepository = DefaultRecordRepository(
             realtimeDatabaseNetworkService: DefaultRealtimeDatabaseNetworkService()
         )
@@ -37,10 +36,10 @@ final class RecordCoordinator: RecordCoordinatorProtocol {
         let mapUseCase = DefaultRecordMapViewUseCase(repository: recordRepository)
         let mapViewModel = RecordMapViewModel(useCase: mapUseCase)
         
-        let viewController = RecordPageViewController(mainViewModel: mainViewModel,
-                                                      mapViewModel: mapViewModel,
-                                                      recordMainViewController: RecordMainViewController(viewModel: mainViewModel),
-                                                      recordMapViewController: RecordMapViewController(viewModel: mapViewModel) )
+        let viewController = RecordPageViewController(
+            recordMainViewController: RecordMainViewController(viewModel: mainViewModel),
+            recordMapViewController: RecordMapViewController(viewModel: mapViewModel)
+        )
         navigationController.pushViewController(viewController, animated: true)
     }
 }

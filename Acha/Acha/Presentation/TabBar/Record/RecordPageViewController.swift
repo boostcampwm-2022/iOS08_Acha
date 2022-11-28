@@ -19,16 +19,10 @@ class RecordPageViewController: UIViewController {
     private lazy var viewList = [recordMainViewController, recordMapViewController]
     
     // MARK: - Properties
-    private let mainViewModel: RecordMainViewModel
-    private let mapViewModel: RecordMapViewModel
     
     // MARK: - Lifecycles
-    init(mainViewModel: RecordMainViewModel,
-         mapViewModel: RecordMapViewModel,
-         recordMainViewController: RecordMainViewController,
+    init(recordMainViewController: RecordMainViewController,
          recordMapViewController: RecordMapViewController) {
-        self.mainViewModel = mainViewModel
-        self.mapViewModel = mapViewModel
         self.recordMainViewController = recordMainViewController
         self.recordMapViewController = recordMapViewController
         super.init(nibName: nil, bundle: nil)
