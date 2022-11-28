@@ -137,12 +137,12 @@
 		F1E83D712934553F004C7992 /* HomeProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E83D702934553F004C7992 /* HomeProvider.swift */; };
 		F1E83D7729348591004C7992 /* CommunityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E83D7629348591004C7992 /* CommunityViewModel.swift */; };
 		F1E83D79293485A1004C7992 /* CommunityRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E83D78293485A1004C7992 /* CommunityRepository.swift */; };
-		F1E83D7B293485B0004C7992 /* CommunityDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E83D7A293485B0004C7992 /* CommunityDataSource.swift */; };
 		F1E83D7D293489E1004C7992 /* PostDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E83D7C293489E1004C7992 /* PostDTO.swift */; };
 		F1E83D7F29348A4A004C7992 /* CommentDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E83D7E29348A4A004C7992 /* CommentDTO.swift */; };
 		F1E83D8129348A87004C7992 /* CommunityDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E83D8029348A87004C7992 /* CommunityDTO.swift */; };
 		F1E83D8329348AE0004C7992 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E83D8229348AE0004C7992 /* Post.swift */; };
 		F1E83D8629348C59004C7992 /* CommunityCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E83D8529348C59004C7992 /* CommunityCollectionViewCell.swift */; };
+		F1E83D8B29351C69004C7992 /* CommunityViewUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E83D8A29351C69004C7992 /* CommunityViewUsecase.swift */; };
 		F1FCEE0E292B483E001A55D6 /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FCEE0D292B483E001A55D6 /* UITextField+Extension.swift */; };
 		F1FCEE11292B4C87001A55D6 /* AuthButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FCEE10292B4C87001A55D6 /* AuthButton.swift */; };
 		F1FCEE14292B4E9A001A55D6 /* AuthTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FCEE13292B4E9A001A55D6 /* AuthTitleView.swift */; };
@@ -312,12 +312,12 @@
 		F1E83D702934553F004C7992 /* HomeProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeProvider.swift; sourceTree = "<group>"; };
 		F1E83D7629348591004C7992 /* CommunityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityViewModel.swift; sourceTree = "<group>"; };
 		F1E83D78293485A1004C7992 /* CommunityRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityRepository.swift; sourceTree = "<group>"; };
-		F1E83D7A293485B0004C7992 /* CommunityDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityDataSource.swift; sourceTree = "<group>"; };
 		F1E83D7C293489E1004C7992 /* PostDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDTO.swift; sourceTree = "<group>"; };
 		F1E83D7E29348A4A004C7992 /* CommentDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentDTO.swift; sourceTree = "<group>"; };
 		F1E83D8029348A87004C7992 /* CommunityDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityDTO.swift; sourceTree = "<group>"; };
 		F1E83D8229348AE0004C7992 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		F1E83D8529348C59004C7992 /* CommunityCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityCollectionViewCell.swift; sourceTree = "<group>"; };
+		F1E83D8A29351C69004C7992 /* CommunityViewUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityViewUsecase.swift; sourceTree = "<group>"; };
 		F1FCEE0D292B483E001A55D6 /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 		F1FCEE10292B4C87001A55D6 /* AuthButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthButton.swift; sourceTree = "<group>"; };
 		F1FCEE13292B4E9A001A55D6 /* AuthTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthTitleView.swift; sourceTree = "<group>"; };
@@ -615,8 +615,8 @@
 		E5BE8BA529221C2D00E9CFE8 /* Community */ = {
 			isa = PBXGroup;
 			children = (
+				F1E83D8929351C54004C7992 /* Usecase */,
 				F1E83D8429348C40004C7992 /* Cell */,
-				F1E83D7529348576004C7992 /* DataSource */,
 				F1E83D742934856F004C7992 /* Repository */,
 				F1E83D732934856A004C7992 /* ViewModel */,
 				F1E83D7229348561004C7992 /* ViewController */,
@@ -1079,20 +1079,20 @@
 			path = Repository;
 			sourceTree = "<group>";
 		};
-		F1E83D7529348576004C7992 /* DataSource */ = {
-			isa = PBXGroup;
-			children = (
-				F1E83D7A293485B0004C7992 /* CommunityDataSource.swift */,
-			);
-			path = DataSource;
-			sourceTree = "<group>";
-		};
 		F1E83D8429348C40004C7992 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
 				F1E83D8529348C59004C7992 /* CommunityCollectionViewCell.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		F1E83D8929351C54004C7992 /* Usecase */ = {
+			isa = PBXGroup;
+			children = (
+				F1E83D8A29351C69004C7992 /* CommunityViewUsecase.swift */,
+			);
+			path = Usecase;
 			sourceTree = "<group>";
 		};
 		F1FCEE0F292B4C6B001A55D6 /* AuthButton */ = {
@@ -1340,6 +1340,7 @@
 				E5BE8BB12922200000E9CFE8 /* RecordViewController.swift in Sources */,
 				F1E83D492933723B004C7992 /* LoginUsecase.swift in Sources */,
 				E5BE8B91292218A500E9CFE8 /* Coordinator.swift in Sources */,
+				F1E83D8B29351C69004C7992 /* CommunityViewUsecase.swift in Sources */,
 				764AF29F292B6EF500D16DC9 /* InGameRecordViewModel.swift in Sources */,
 				F1FCEE14292B4E9A001A55D6 /* AuthTitleView.swift in Sources */,
 				F12210C2292D031800AE5F26 /* KeyChainManager.swift in Sources */,
@@ -1366,7 +1367,6 @@
 				E516A6BE2923941500CD6BDB /* RecordChartCell.swift in Sources */,
 				E5BE8BB32922200C00E9CFE8 /* MyPageViewController.swift in Sources */,
 				F1E83D5D29338A99004C7992 /* UserFireStoreDTO.swift in Sources */,
-				F1E83D7B293485B0004C7992 /* CommunityDataSource.swift in Sources */,
 				F1D202A42923C09300F3E87D /* InGameMenuCollectionViewCell.swift in Sources */,
 				F156F11C2923623C0053E807 /* PaddingLabel.swift in Sources */,
 				471863BD291E155700A35786 /* AppDelegate.swift in Sources */,
