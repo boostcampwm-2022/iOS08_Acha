@@ -13,16 +13,11 @@ class RecordMainViewModel: BaseViewModel {
     
     struct Input {
         var viewDidAppearEvent: Observable<Void>
-        var headerViewBindEvent: Observable<String>
-        var cellBindEvent: Observable<Int>
     }
     
     struct Output {
-        var allDates = PublishRelay<[String]>()
         var weekDatas = PublishRelay<[RecordViewChartData]>()
-        var headerRecord = PublishRelay<RecordViewHeaderRecord>()
-        var mapAtRecordId = PublishRelay<Map>()
-        var recordsAtDate = PublishRelay<[String: [Record]]>()
+        var recordSectionDatas = PublishRelay<([String], [String: DayTotalRecord], [String: [Record]], [Int: String])>()
     }
     
     var useCase: RecordMainViewUseCase!
@@ -38,41 +33,16 @@ class RecordMainViewModel: BaseViewModel {
         input.viewDidAppearEvent
             .subscribe(onNext: { [weak self] _ in
                 guard let self else { return }
-                self.useCase.getWeekDatas()
-                self.useCase.getAllDates()
-                self.useCase.getRecordsAtDate()
+                self.useCase.loadMapData()
+                self.useCase.loadRecordData()
             }).disposed(by: disposeBag)
-        
-        input.headerViewBindEvent
-            .subscribe(onNext: { [weak self] date in
-                guard let self else { return }
-                self.useCase.getHeaderRecord(date: date)
-            }).disposed(by: disposeBag)
-        
-        input.cellBindEvent
-            .subscribe(onNext: { [weak self] mapId in
-                guard let self else { return }
-                self.useCase.getRecordAtMapId(mapId: mapId)
-            }).disposed(by: disposeBag)
-        
-        useCase.allDates
-            .bind(to: output.allDates)
-            .disposed(by: disposeBag)
         
         useCase.weekDatas
             .bind(to: output.weekDatas)
             .disposed(by: disposeBag)
         
-        useCase.headerRecord
-            .bind(to: output.headerRecord)
-            .disposed(by: disposeBag)
-        
-        useCase.recordsAtDate
-            .bind(to: output.recordsAtDate)
-            .disposed(by: disposeBag)
-        
-        useCase.mapAtRecordId
-            .bind(to: output.mapAtRecordId)
+        useCase.recordSectionDatas
+            .bind(to: output.recordSectionDatas)
             .disposed(by: disposeBag)
         
         return output

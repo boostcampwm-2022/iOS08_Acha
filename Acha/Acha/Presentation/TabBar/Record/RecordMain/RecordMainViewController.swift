@@ -15,35 +15,31 @@ import RxCocoa
 class RecordMainViewController: UIViewController, UICollectionViewDelegate {
     enum RecordMainViewSections: Hashable {
         case chart
-        case record(String)
+        case record(RecordViewHeaderRecord)
         
-        var title: String {
+        var data: RecordViewHeaderRecord {
             switch self {
-            case .chart:
-                return "chart"
-            case .record(let title):
-                return title
+            case.chart:
+                return RecordViewHeaderRecord(date: "", distance: 0, kcal: 0)
+            case .record(let data):
+                return data
             }
         }
     }
 
     enum RecordMainViewItems: Hashable {
         case chart([RecordViewChartData])
-        case myRecord(Record)
+        case myRecord(Record, String)
     }
     
     // MARK: - UI properties
     private var collectionView: UICollectionView!
-    var headerView = RecordMainHeaderView()
-    var cell = RecordMainCell()
     
     // MARK: - Properties
     typealias DataSource = UICollectionViewDiffableDataSource<RecordMainViewSections, RecordMainViewItems>
     private var dataSource: DataSource!
     private let viewModel: RecordMainViewModel
     private let disposeBag = DisposeBag()
-    var headerViewBindEvent = PublishRelay<String>()
-    var cellBindEvent = PublishRelay<Int>()
     
     // MARK: - Lifecycles
     init(viewModel: RecordMainViewModel) {
@@ -68,9 +64,7 @@ class RecordMainViewController: UIViewController, UICollectionViewDelegate {
         let input = RecordMainViewModel.Input(
                         viewDidAppearEvent: rx.methodInvoked(#selector(viewDidAppear(_:)))
                 .map({ _ in })
-                .asObservable(),
-            headerViewBindEvent: self.headerViewBindEvent.asObservable(),
-            cellBindEvent: self.cellBindEvent.asObservable()
+                .asObservable()
         )
         
         let output = self.viewModel.transform(input: input)
@@ -81,36 +75,16 @@ class RecordMainViewController: UIViewController, UICollectionViewDelegate {
                 self.appendChartItem(weekDistances: weekDatas)
             }).disposed(by: disposeBag)
         
-        output.allDates.asDriver(onErrorJustReturn: [])
-            .drive(onNext: { [weak self] allDays in
+        output.recordSectionDatas.asDriver(onErrorJustReturn: ([], [:], [:], [:]))
+            .drive (onNext: { [weak self] (allDates,
+                                           totalDataAtDate,
+                                           recordsAtData,
+                                           mapNameAtMapId) in
                 guard let self else { return }
-                self.appendSections(dates: allDays)
-            }).disposed(by: disposeBag)
-        
-        output.headerRecord.asDriver(onErrorJustReturn: RecordViewHeaderRecord(date: "",
-                                                                               distance: 0,
-                                                                               kcal: 0))
-            .drive(onNext: { [weak self] headerRecord in
-                guard let self else { return }
-                self.headerView.bind(headerRecord: headerRecord)
-            }).disposed(by: disposeBag)
-        
-        output.recordsAtDate.asDriver(onErrorJustReturn: [:])
-            .drive(onNext: { [weak self] recordsAtDay in
-                guard let self else { return }
-                self.appendRecordItem(recordsAtDate: recordsAtDay)
-            }).disposed(by: disposeBag)
-        
-        output.mapAtRecordId.asDriver(onErrorJustReturn: Map(mapID: 0,
-                                                             name: "",
-                                                             centerCoordinate: Coordinate(latitude: 0, longitude: 0),
-                                                             coordinates: [],
-                                                             location: "",
-                                                             records: nil,
-                                                             image: nil))
-            .drive(onNext: { [weak self] map in
-                guard let self else { return }
-                self.cell.bind(mapName: map.name)
+                self.appendRecordItem(allDates: allDates,
+                                      totalDataAtData: totalDataAtDate,
+                                      recordsAtData: recordsAtData,
+                                      mapNameAtMapId: mapNameAtMapId)
             }).disposed(by: disposeBag)
     }
     
@@ -153,17 +127,12 @@ class RecordMainViewController: UIViewController, UICollectionViewDelegate {
                 cell.bind(recordViewChartDataArray: recordViewChartDataArray)
                 
                 return cell
-            case .myRecord(let record):
+            case .myRecord(let record, let mapName):
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecordMainCell.identifier,
                                                                     for: indexPath) as? RecordMainCell else {
                     return UICollectionViewCell()
                 }
-                self.cell = cell
-                cell.bindEvent
-                    .subscribe(onNext: {
-                        self.cellBindEvent.accept($0)
-                    }).disposed(by: self.disposeBag)
-                cell.bind(mapId: record.mapID, record: record)
+                cell.bind(mapName: mapName, record: record)
                 
                 return cell
             }
@@ -176,15 +145,9 @@ class RecordMainViewController: UIViewController, UICollectionViewDelegate {
                     withReuseIdentifier: RecordMainHeaderView.identifier,
                     for: indexPath) as? RecordMainHeaderView
                 else { return UICollectionReusableView() }
-                self.headerView = header
-                
-                header.bindEvent
-                    .subscribe(onNext: {
-                        self.headerViewBindEvent.accept($0)
-                    }).disposed(by: self.disposeBag)
                 
                 let section = self.dataSource.snapshot().sectionIdentifiers[indexPath.section]
-                header.bind(day: section.title)
+                header.bind(headerRecord: section.data)
                 
                 return header
             }
@@ -245,13 +208,23 @@ class RecordMainViewController: UIViewController, UICollectionViewDelegate {
         return section
     }
     
-    private func appendSections(dates: [String]) {
+    private func appendRecordItem(allDates: [String],
+                                  totalDataAtData: [String: DayTotalRecord],
+                                  recordsAtData: [String: [Record]],
+                                  mapNameAtMapId: [Int: String]) {
         var snapshot = dataSource.snapshot()
         let previousSections = snapshot.sectionIdentifiers.filter { $0 != .chart }
         snapshot.deleteSections(previousSections)
         
-        dates.forEach { dates in
-            snapshot.appendSections([.record(dates)])
+        allDates.forEach { date in
+            guard let totalData = totalDataAtData[date] else { return }
+            let headerRecord = RecordViewHeaderRecord(date: date, distance: totalData.distance, kcal: totalData.calorie)
+            snapshot.appendSections([.record(headerRecord)])
+            
+            recordsAtData[date]?.forEach({ record in
+                guard let mapName = mapNameAtMapId[record.mapID] else { return }
+                snapshot.appendItems([.myRecord(record, mapName)])
+            })
         }
         dataSource.apply(snapshot)
     }
@@ -263,17 +236,6 @@ class RecordMainViewController: UIViewController, UICollectionViewDelegate {
         
         snapshot.appendSections([.chart])
         snapshot.appendItems([.chart(weekDistances)], toSection: .chart)
-        dataSource.apply(snapshot)
-    }
-    
-    private func appendRecordItem(recordsAtDate: [String: [Record]]) {
-        var snapshot = dataSource.snapshot()
-        recordsAtDate.forEach {
-            let date = $0.key
-            $0.value.forEach {
-                snapshot.appendItems([.myRecord($0)], toSection: .record(date))
-            }
-        }
         dataSource.apply(snapshot)
     }
 }

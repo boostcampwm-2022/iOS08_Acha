@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct DayTotalRecord {
+struct DayTotalRecord: Hashable {
     var distance: Int
     var calorie: Int
 }

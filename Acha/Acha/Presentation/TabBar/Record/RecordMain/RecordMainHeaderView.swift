@@ -71,10 +71,6 @@ class RecordMainHeaderView: UICollectionReusableView {
         }
     }
     
-    func bind(day: String) {
-        self.bindEvent.accept(day)
-    }
-    
     func bind(headerRecord: RecordViewHeaderRecord) {
         dateLabel.text = headerRecord.date
         distanceLabel.text = "누적 거리: \(headerRecord.distance.convertToDecimal) m"
