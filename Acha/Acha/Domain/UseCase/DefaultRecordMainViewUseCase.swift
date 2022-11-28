@@ -12,13 +12,13 @@ final class DefaultRecordMainViewUseCase: RecordMainViewUseCase {
     private let repository: RecordRepository
     private let disposeBag = DisposeBag()
     
-    var recordDatas = BehaviorSubject<[RecordViewRecord]>(value: [])
+    var recordDatas = BehaviorSubject<[Record]>(value: [])
     var mapDatas = BehaviorSubject<[Map]>(value: [])
     var allDates = PublishSubject<[String]>()
     var weekDatas = PublishSubject<[RecordViewChartData]>()
     var headerRecord = PublishSubject<RecordViewHeaderRecord>()
     var mapAtRecordId = PublishSubject<Map>()
-    var recordsAtDate = PublishSubject<[String: [RecordViewRecord]]>()
+    var recordsAtDate = PublishSubject<[String: [Record]]>()
     
     init(repository: RecordRepository) {
         self.repository = repository
@@ -65,7 +65,7 @@ final class DefaultRecordMainViewUseCase: RecordMainViewUseCase {
     
     func getRecordsAtDate() {
         guard let records = try? self.recordDatas.value() else { return }
-        var recordsAtDate = [String: [RecordViewRecord]]()
+        var recordsAtDate = [String: [Record]]()
         records.forEach {
             recordsAtDate[$0.createdAt] = recordsAtDate[$0.createdAt] ?? [] + [$0]
         }

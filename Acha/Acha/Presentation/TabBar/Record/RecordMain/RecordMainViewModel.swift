@@ -22,7 +22,7 @@ class RecordMainViewModel: BaseViewModel {
         var weekDatas = PublishRelay<[RecordViewChartData]>()
         var headerRecord = PublishRelay<RecordViewHeaderRecord>()
         var mapAtRecordId = PublishRelay<Map>()
-        var recordsAtDate = PublishRelay<[String: [RecordViewRecord]]>()
+        var recordsAtDate = PublishRelay<[String: [Record]]>()
     }
     
     var useCase: RecordMainViewUseCase!

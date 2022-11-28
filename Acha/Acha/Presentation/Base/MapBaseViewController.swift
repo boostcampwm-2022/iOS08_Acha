@@ -11,8 +11,8 @@ import Then
 import MapKit
 
 protocol MapBaseViewProtocol {
-    var mapView: MKMapView { get set }
-    var locationManager: CLLocationManager { get set }
+    var mapView: MKMapView? { get set }
+    var locationManager: CLLocationManager? { get set }
     var focusButton: UIButton { get set }
     
     func configureMapViewUI()
@@ -24,12 +24,12 @@ protocol MapBaseViewProtocol {
 class MapBaseViewController: UIViewController, MapBaseViewProtocol {
     
     // MARK: - UI properties
-    lazy var mapView = MKMapView().then {
+    lazy var mapView: MKMapView? = MKMapView().then {
         $0.delegate = self
     }
     
     // MARK: - Properties
-    lazy var locationManager = CLLocationManager().then {
+    lazy var locationManager: CLLocationManager? = CLLocationManager().then {
         // desiredAccuracy는 위치의 정확도를 설정 (정확도 높으면 배터리 많이 닳음)
         $0.desiredAccuracy = kCLLocationAccuracyBest
         $0.startUpdatingLocation()
@@ -57,17 +57,36 @@ class MapBaseViewController: UIViewController, MapBaseViewProtocol {
         getLocationUsagePermission()
     }
     
-    // 뷰가 화면에서 사라질 때 locationManager가 위치 업데이트를 중단하도록 설정
     override func viewWillDisappear(_ animated: Bool) {
-        locationManager.stopUpdatingLocation()
+        super.viewWillDisappear(animated)
+        if let mapView {
+            mapView.removeAnnotations(mapView.annotations)
+        }
+        mapView?.removeFromSuperview()
+        mapView?.delegate = nil
+        mapView = nil
+        locationManager?.stopUpdatingLocation()
+        locationManager?.delegate = nil
+        locationManager = nil
     }
     
     // MARK: - Helpers
     func configureMapViewUI() {
+        guard let mapView else { return }
         view.addSubview(mapView)
         mapView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
+    }
+    
+    func setUpMapView() {
+        // 어플을 종료하고 다시 실행했을 때 MapKit이 발생할 수 있는 오류를 방지하기 위한 처리
+        if #available(iOS 16.0, *) {
+            mapView?.preferredConfiguration = MKStandardMapConfiguration()
+        } else {
+            mapView?.mapType = .standard
+        }
+        mapView?.showsCompass = false
     }
 }
 
@@ -77,44 +96,32 @@ extension MapBaseViewController {
     func focusMapLocation(center: CLLocationCoordinate2D, span: Double = 0.01) {
         let region = MKCoordinateRegion(center: center,
                                         span: MKCoordinateSpan(latitudeDelta: span, longitudeDelta: span))
-        mapView.setRegion(region, animated: true)
+        mapView?.setRegion(region, animated: true)
     }
     
     @objc func focusButtonDidClick(_ sender: UIButton) {
         focusUserLocation(useSpan: false)
     }
     
-    func setUpMapView() {
-        // 어플을 종료하고 다시 실행했을 때 MapKit이 발생할 수 있는 오류를 방지하기 위한 처리
-        if #available(iOS 16.0, *) {
-            mapView.preferredConfiguration = MKStandardMapConfiguration()
-        } else {
-            mapView.mapType = .standard
-        }
-        
-        mapView.showsCompass = false
-        mapView.isRotateEnabled = false
-    }
-    
     func setUpUserLocation() {
-        locationManager.startUpdatingLocation()
-        mapView.showsUserLocation = true
-        mapView.setUserTrackingMode(.followWithHeading, animated: true)
+        locationManager?.startUpdatingLocation()
+        mapView?.showsUserLocation = true
+        mapView?.setUserTrackingMode(.followWithHeading, animated: true)
         focusUserLocation(useSpan: true)
     }
     
     func getLocationUsagePermission() {
-        locationManager.requestWhenInUseAuthorization()
+        locationManager?.requestWhenInUseAuthorization()
     }
     
     func focusUserLocation(useSpan: Bool) {
-        guard let userLocation = locationManager.location else { return }
+        guard let userLocation = locationManager?.location else { return }
         let center = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude,
                                             longitude: userLocation.coordinate.longitude)
         if useSpan {
             focusMapLocation(center: center)
         } else {
-            mapView.setCenter(center, animated: true)
+            mapView?.setCenter(center, animated: true)
         }
     }
 }

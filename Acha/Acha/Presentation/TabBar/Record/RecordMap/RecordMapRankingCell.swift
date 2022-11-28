@@ -78,7 +78,7 @@ class RecordMapRankingCell: UICollectionViewCell {
            }
        }
        
-       func bind(ranking: Int, record: RecordViewRecord) {
+       func bind(ranking: Int, record: Record) {
            rankingLabel.text = String(ranking)
            if record.id < 0 { return }
            #warning("getUser() 해서 user nickname 가져와야 함")

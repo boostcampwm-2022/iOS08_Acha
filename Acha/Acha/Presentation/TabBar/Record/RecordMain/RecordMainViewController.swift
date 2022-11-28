@@ -29,7 +29,7 @@ class RecordMainViewController: UIViewController, UICollectionViewDelegate {
 
     enum RecordMainViewItems: Hashable {
         case chart([RecordViewChartData])
-        case myRecord(RecordViewRecord)
+        case myRecord(Record)
     }
     
     // MARK: - UI properties
@@ -104,8 +104,10 @@ class RecordMainViewController: UIViewController, UICollectionViewDelegate {
         output.mapAtRecordId.asDriver(onErrorJustReturn: Map(mapID: 0,
                                                              name: "",
                                                              centerCoordinate: Coordinate(latitude: 0, longitude: 0),
-                                                             coordinates: [], location: "",
-                                                             records: nil))
+                                                             coordinates: [],
+                                                             location: "",
+                                                             records: nil,
+                                                             image: nil))
             .drive(onNext: { [weak self] map in
                 guard let self else { return }
                 self.cell.bind(mapName: map.name)
@@ -151,7 +153,7 @@ class RecordMainViewController: UIViewController, UICollectionViewDelegate {
                 cell.bind(recordViewChartDataArray: recordViewChartDataArray)
                 
                 return cell
-            case .myRecord(let recordViewRecord):
+            case .myRecord(let record):
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecordMainCell.identifier,
                                                                     for: indexPath) as? RecordMainCell else {
                     return UICollectionViewCell()
@@ -161,7 +163,7 @@ class RecordMainViewController: UIViewController, UICollectionViewDelegate {
                     .subscribe(onNext: {
                         self.cellBindEvent.accept($0)
                     }).disposed(by: self.disposeBag)
-                cell.bind(mapId: recordViewRecord.mapID, recordViewRecord: recordViewRecord)
+                cell.bind(mapId: record.mapID, record: record)
                 
                 return cell
             }
@@ -264,7 +266,7 @@ class RecordMainViewController: UIViewController, UICollectionViewDelegate {
         dataSource.apply(snapshot)
     }
     
-    private func appendRecordItem(recordsAtDate: [String: [RecordViewRecord]]) {
+    private func appendRecordItem(recordsAtDate: [String: [Record]]) {
         var snapshot = dataSource.snapshot()
         recordsAtDate.forEach {
             let date = $0.key

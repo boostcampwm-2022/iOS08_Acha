@@ -28,7 +28,7 @@ class RecordMapViewController: UIViewController {
 
     enum RecordMapViewItems: Hashable {
         case category(String)
-        case ranking(Int, RecordViewRecord)
+        case ranking(Int, Record)
     }
     
     // MARK: - UI properties
@@ -245,7 +245,7 @@ class RecordMapViewController: UIViewController {
         return section
     }
     
-    func updateRankingSectionAndItems(mapName: String, records: [RecordViewRecord]) {
+    func updateRankingSectionAndItems(mapName: String, records: [Record]) {
         var snapshot = dataSource.snapshot()
         let previousSections = snapshot.sectionIdentifiers.filter { $0 != .category }
         snapshot.deleteSections(previousSections)

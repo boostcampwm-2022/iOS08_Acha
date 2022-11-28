@@ -22,9 +22,9 @@ final class DefaultRecordRepository: RecordRepository {
         }
     }
     
-    func fetchRecordData() -> Observable<[RecordViewRecord]> {
+    func fetchRecordData() -> Observable<[Record]> {
         return realtimeDatabaseNetworkService.fetchData(path: "record").map { data in
-            guard let records = try? JSONDecoder().decode([RecordViewRecord].self, from: data) else { return [] }
+            guard let records = try? JSONDecoder().decode([Record].self, from: data) else { return [] }
             return records
         }
     }

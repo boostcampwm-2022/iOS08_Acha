@@ -12,9 +12,9 @@ final class DefaultRecordMapViewUseCase: RecordMapViewUseCase {
     private let repository: RecordRepository
     private let disposeBag = DisposeBag()
     
-    var recordData = BehaviorSubject<[Int: RecordViewRecord]>(value: [:])
+    var recordData = BehaviorSubject<[Int: Record]>(value: [:])
     var dropDownMenus = BehaviorSubject<[Map]>(value: [])
-    var mapNameAndRecords = BehaviorSubject<(String, [RecordViewRecord])>(value: ("", []))
+    var mapNameAndRecords = BehaviorSubject<(String, [Record])>(value: ("", []))
     
     init(repository: RecordRepository) {
         self.repository = repository
@@ -30,7 +30,7 @@ final class DefaultRecordMapViewUseCase: RecordMapViewUseCase {
         }
     }
     
-    func loadRecordData() -> Observable<[RecordViewRecord]> {
+    func loadRecordData() -> Observable<[Record]> {
         return Observable.create { emitter in
             self.repository.fetchRecordData()
                 .subscribe(onNext: { records in
@@ -40,10 +40,10 @@ final class DefaultRecordMapViewUseCase: RecordMapViewUseCase {
         }
     }
     
-    func fetchRecordDataAtIndex() -> Observable<[Int: RecordViewRecord]> {
+    func fetchRecordDataAtIndex() -> Observable<[Int: Record]> {
         self.loadRecordData()
-            .flatMap { records -> Observable<[Int: RecordViewRecord]> in
-                var recordData = [Int: RecordViewRecord]()
+            .flatMap { records -> Observable<[Int: Record]> in
+                var recordData = [Int: Record]()
                 records.forEach {
                     recordData[$0.id] = $0
                 }
@@ -119,12 +119,12 @@ final class DefaultRecordMapViewUseCase: RecordMapViewUseCase {
             }.disposed(by: self.disposeBag)
     }
     
-    func getRecordsAtIndexes(indexes: [Int]) -> Observable<[RecordViewRecord]> {
+    func getRecordsAtIndexes(indexes: [Int]) -> Observable<[Record]> {
         return Observable.create { emitter in
             self.fetchRecordDataAtIndex()
                 .subscribe {
                     guard let recordAtIndex = $0.element else { return }
-                    var records = recordAtIndex
+                    let records = recordAtIndex
                                 .filter { indexes.contains($0.key) }
                                 .map { $0.value }
                                 .sorted { $0.time < $1.time }

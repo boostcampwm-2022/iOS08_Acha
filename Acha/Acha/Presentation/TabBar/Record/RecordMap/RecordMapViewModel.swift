@@ -20,7 +20,7 @@ final class RecordMapViewModel: BaseViewModel {
     
     struct Output {
         var dropDownMenus = BehaviorRelay<[Map]>(value: [])
-        var mapNameAndRecords = BehaviorRelay<(String, [RecordViewRecord])>(value: ("", []))
+        var mapNameAndRecords = BehaviorRelay<(String, [Record])>(value: ("", []))
     }
     
     private let useCase: RecordMapViewUseCase!
