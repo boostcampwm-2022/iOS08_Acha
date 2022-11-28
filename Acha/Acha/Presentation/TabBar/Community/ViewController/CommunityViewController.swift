@@ -15,7 +15,7 @@ final class CommunityViewController: UIViewController {
         case community
     }
     
-    private lazy var collectionView = UICollectionView(
+    private var collectionView = UICollectionView(
         frame: .zero,
         collectionViewLayout: UICollectionViewFlowLayout()
     )
@@ -31,14 +31,36 @@ final class CommunityViewController: UIViewController {
         view.backgroundColor = .white
         title = "커뮤니티"
         configureCollectionView()
-        registerCollectioView()
-        snapshotUpdate(datas: [Post(id: 12214,
-                                    userID: "watwho",
-                                    nickName: "test",
-                                    text: "안녕하세요반가워요\n테스트중입니다\n야호\nㅠㅠ",
+
+        snapshotUpdate(datas: [Post(id: 112321214,
+                                    userID: "watwㅇㄴㅁㄹㅇho",
+                                    nickName: "test0",
+                                    text: "안녕하세요반가워요\n",
+                                    image: nil,
+                                    createdAt: Date(),
+                                    commentCount: 23),
+                               Post(id: 121214,
+                                    userID: "waho",
+                                    nickName: "test1",
+                                    text: "안녕하세요반가워요\n테스트중입니다\nㅠㅠ",
+                                    image: nil,
+                                    createdAt: Date(),
+                                    commentCount: 23),
+                               Post(id: 1214,
+                                    userID: "이야호",
+                                    nickName: "test2",
+                                    text: "안녕하세요반가워요\n테스트중입니다\nㅠㅠ",
+                                    image: nil,
+                                    createdAt: Date(),
+                                    commentCount: 23),
+                               Post(id: 121214,
+                                    userID: "와오",
+                                    nickName: "test3",
+                                    text: "안녕하세요반가워요\n테스트중입니다\nㅠㅠ",
                                     image: nil,
                                     createdAt: Date(),
                                     commentCount: 23)])
+
     }
     
 }
@@ -53,7 +75,6 @@ extension CommunityViewController {
                 for: indexPath
             ) as? CommunityCollectionViewCell
             cell?.bindData(data: itemIdentifier)
-            cell?.backgroundColor = .white
             return cell
         }
         return dataSource
@@ -61,21 +82,22 @@ extension CommunityViewController {
     
     private func compositonLayout() -> UICollectionViewCompositionalLayout {
         let itemSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1.0),
-            heightDimension: .estimated(0.8)
+            widthDimension: .fractionalWidth(1),
+            heightDimension: .estimated(300)
         )
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
         let groupSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1.0),
-            heightDimension: .estimated(1.0)
+            widthDimension: .fractionalWidth(1),
+            heightDimension: .estimated(300)
         )
-        let group = NSCollectionLayoutGroup.horizontal(
+        let group = NSCollectionLayoutGroup.vertical(
             layoutSize: groupSize,
             subitems: [item]
         )
         
         let section = NSCollectionLayoutSection(group: group)
+        section.interGroupSpacing = 10
         let layout = UICollectionViewCompositionalLayout(section: section)
         
         return layout
@@ -93,7 +115,9 @@ extension CommunityViewController {
             frame: .zero,
             collectionViewLayout: compositonLayout()
         )
+        collectionView.dragInteractionEnabled = false
         collectionView.backgroundColor = .pointLight
+        registerCollectioView()
         view.addSubview(collectionView)
         collectionView.snp.makeConstraints {
             $0.top.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
@@ -107,4 +131,5 @@ extension CommunityViewController {
         communitySnapshot.appendItems(datas, toSection: .community)
         communitDataSource.apply(communitySnapshot, animatingDifferences: true)
     }
+    
 }
