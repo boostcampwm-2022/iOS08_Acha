@@ -14,4 +14,8 @@ extension CLLocationCoordinate2D {
         let to = CLLocation(latitude: to.latitude, longitude: to.longitude)
         return to.distance(from: from)
     }
+
+    static func from(coordiate: Coordinate) -> CLLocationCoordinate2D {
+        CLLocationCoordinate2DMake(coordiate.latitude, coordiate.longitude)
+    }
 }

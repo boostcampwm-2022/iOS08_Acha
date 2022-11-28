@@ -34,9 +34,19 @@ final class SingleGameCoordinator: SingleGameCoordinatorProtocol {
     }
     
     func showSingleGamePlayViewController(selectedMap: Map) {
-        let viewModel = SingleGameViewModel(coordinator: self, map: selectedMap)
+        let viewModel = SingleGameViewModel(
+            map: selectedMap,
+            coordinator: self,
+            singeGameUseCase: DefaultSingleGameUseCase(
+                map: selectedMap,
+                tapTimer: TimerService(),
+                runningTimer: TimerService(),
+                locationService: DefaultLocationService()
+            )
+        )
         let viewController = SingleGameViewController(viewModel: viewModel)
         navigationController.pushViewController(viewController, animated: true)
+//        navigationController.viewControllers.removeAll(where: { $0 is SelectMapViewController })
     }
     
     func showSingleGameOverViewController(record: Record, map: Map, isCompleted: Bool) {

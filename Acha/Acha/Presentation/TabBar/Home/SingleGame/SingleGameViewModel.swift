@@ -11,42 +11,33 @@ import RxSwift
 
 final class SingleGameViewModel {
     
-    // MARK: - Input
-    var currentCoordinate = PublishRelay<Coordinate>()
     struct Input {
         var gameOverButtonTapped: Observable<Void>
         var rankButtonTapped: Observable<Void>
         var recordButtonTapped: Observable<Void>
     }
-    
-    // MARK: - Output
-    var route = [Coordinate]()
     struct Output {
+        var currentLocation = PublishSubject<Coordinate>()
+        var runningTime = BehaviorSubject<Int>(value: 0)
+        var runningDistance = BehaviorSubject<Double>(value: 0)
         
+        var wentLocations = PublishSubject<[Coordinate]>()
+        var visitLocations = PublishSubject<[Coordinate]>()
     }
     
-    // 사용자가 이동한 두 점의 좌표 (과거좌표, 현재좌표)
-    let userMovedCoordinates = BehaviorRelay<(previous: Coordinate?, current: Coordinate?)>(value: (nil, nil))
-    // 방문한 땅의 좌표 (회색 중에서, 이전 방문과 현재 방문 좌표 )
-    let visitedMapCoordinates = BehaviorRelay<[Coordinate]>(value: [])
-    let time = BehaviorRelay<Int>(value: 0)
-    let movedDistance = BehaviorRelay<Double>(value: 0.0)
-    let isHideGameOverButton = BehaviorRelay<Bool>(value: true)
-    let tooFarFromMapEvent = PublishRelay<Void>()
-    var checkedMapIndex = Set<Int>()
-    
     // MARK: - Dependency
-    private let coordinator: SingleGameCoordinator
     let map: Map
+    private let coordinator: SingleGameCoordinator
+    private let useCase: SingleGameUseCase
     private let disposeBag = DisposeBag()
-    private var hideButtonTimer: DispatchSourceTimer?
-    
+  
     // MARK: - Lifecycle
-    init(coordinator: SingleGameCoordinator, map: Map) {
+    init(map: Map,
+         coordinator: SingleGameCoordinator,
+         singeGameUseCase: SingleGameUseCase) {
         self.map = map
         self.coordinator = coordinator
-        bind()
-        configureTimer()
+        self.useCase = singeGameUseCase
     }
     
     // MARK: - Helpers
@@ -66,104 +57,53 @@ final class SingleGameViewModel {
                 guard let self else { return }
                 self.coordinator.showInGameRecordViewController(mapID: self.map.mapID)
             }).disposed(by: disposeBag)
-        return Output()
-    }
-    private func bind() {
-        currentCoordinate
-            .subscribe(onNext: { [weak self] coordinate in
+        
+        let output = Output()
+        
+        useCase.startRunning()
+        
+        useCase.currentLocation
+            .bind(to: output.currentLocation)
+            .disposed(by: disposeBag)
+        useCase.runningTime
+            .bind(to: output.runningTime)
+            .disposed(by: disposeBag)
+        useCase.runningDistance
+            .bind(to: output.runningDistance)
+            .disposed(by: disposeBag)
+        useCase.wentLocations
+            .bind(to: output.wentLocations)
+            .disposed(by: disposeBag)
+        useCase.visitLocations
+            .bind(to: output.visitLocations)
+            .disposed(by: disposeBag)
+        
+        useCase.isGameOver
+            .subscribe(onNext: { [weak self] _ in
                 guard let self else { return }
-                self.userMoved(coordinate: coordinate)
+                self.gameOver(isCompleted: true)
             }).disposed(by: disposeBag)
         
-        isHideGameOverButton
-            .subscribe(onNext: { [weak self] isHide in
-                guard let self else { return }
-                if !isHide {
-                    self.isHideTimerStart()
-                }
-            }).disposed(by: disposeBag)
-    }
-    
-    func userMoved(coordinate current: Coordinate) {
-        route.append(current)
-        
-        // 첫 위치 등록의 경우 건너뜀, 빨간선 잇기 위해
-        guard let userMovedPrevious = userMovedCoordinates.value.current else {
-            userMovedCoordinates.accept((nil, current))
-            return
-        }
-        userMovedCoordinates.accept((userMovedCoordinates.value.current, current))
-        
-        // Distance 기록
-        let newDistance = movedDistance.value + meterDistance(
-            from: userMovedPrevious,
-            here: current
-        )
-        if !newDistance.isNaN {
-            movedDistance.accept(newDistance)
-        }
-        
-        let inBoundMapCoordinates = map.coordinates.enumerated().filter {
-            let distance = self.meterDistance(from: $1, here: current)
-            return distance < 5
-        }
-        
-        let nearestDistance = map.coordinates.map { self.meterDistance(from: $0, here: current) }.min() ?? 0
-        if nearestDistance > 10 {
-            tooFarFromMapEvent.accept(())
-        }
-        visitedMapCoordinates.accept(inBoundMapCoordinates.map { $0.element })
-        inBoundMapCoordinates.forEach { checkedMapIndex.insert($0.offset) }
-        
-        if checkedMapIndex.count >= Int(Double(map.coordinates.count) * 0.95) {
-            gameOver(isCompleted: true)
-        }
-    }
-    
-    private func meterDistance(from: Coordinate, here: Coordinate) -> Double {
-        let theta = from.longitude - here.longitude
-        let dist = sin(from.latitude.degreeToRadian()) *
-        sin(here.latitude.degreeToRadian()) +
-        cos(from.latitude.degreeToRadian()) *
-        cos(here.latitude.degreeToRadian()) *
-        cos(theta.degreeToRadian())
-        
-        return acos(dist).radianToDegree() * 60 * 1.853159616 * 1000
-    }
-    
-    private func configureTimer() {
-        startTimer()
-    }
-    
-    private func startTimer() {
-        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { _ in
-            self.time.accept(self.time.value + 1)
-        })
+        return output
     }
     
     private func gameOver(isCompleted: Bool) {
-        let kcal = Int(0.1128333333*Double(self.time.value))
+        let time = (try? useCase.runningTime.value()) ?? 0
+        let distance = (try? useCase.runningDistance.value()) ?? 0
+        let createdAt = Date().convertToStringFormat(format: "yyyy-MM-dd")
+        
+        let kcal = Int(0.1128333333*Double(time))
         let record = Record(mapID: self.map.mapID,
                             userID: "남석 배",
                             calorie: kcal,
-                            distance: Int(self.movedDistance.value),
-                            time: self.time.value,
+                            distance: Int(distance),
+                            time: time,
                             isSingleMode: true,
-                            createdAt: Date().convertToStringFormat(format: "yyyy-MM-dd"),
+                            createdAt: createdAt,
                             id: 0)
+        
         self.coordinator.showSingleGameOverViewController(record: record,
                                                           map: map,
                                                           isCompleted: isCompleted)
-    }
-    
-    private func isHideTimerStart() {
-        hideButtonTimer?.cancel()
-        hideButtonTimer = nil
-        hideButtonTimer = DispatchSource.makeTimerSource()
-        hideButtonTimer?.schedule(deadline: .now() + 3)
-        hideButtonTimer?.setEventHandler(handler: {
-            self.isHideGameOverButton.accept(true)
-        })
-        hideButtonTimer?.resume()
     }
 }

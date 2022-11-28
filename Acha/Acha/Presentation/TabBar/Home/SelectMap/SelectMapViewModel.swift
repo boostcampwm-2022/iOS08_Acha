@@ -92,7 +92,7 @@ class SelectMapViewModel: BaseViewModel {
     
     // MARK: - Dependency
     var disposeBag = DisposeBag()
-    var coordinator: SingleGameCoordinator
+    weak var coordinator: SingleGameCoordinator!
     
     // MARK: - Lifecycles
     init(coordinator: SingleGameCoordinator) {
@@ -106,7 +106,8 @@ class SelectMapViewModel: BaseViewModel {
     // MARK: - Helpers
     func fetchAllMaps() {
         self.ref.child("mapList").observeSingleEvent(of: .value,
-                                                with: { snapshot in
+                                                with: { [weak self] snapshot in
+            guard let self else { return }
             guard let snapData = snapshot.value as? [Any],
                   let data = try? JSONSerialization.data(withJSONObject: snapData),
                   let mapDatas = try? JSONDecoder().decode([Map].self, from: data)
@@ -118,7 +119,8 @@ class SelectMapViewModel: BaseViewModel {
             self.maps = mapDatas
             mapDatas.forEach { map in
                 self.fetchMapRecord(mapID: map.mapID)
-                    .subscribe {
+                    .subscribe { [weak self] in
+                        guard let self else { return }
                         self.rankings[map.mapID] = $0
                     }.disposed(by: self.disposeBag)
             }

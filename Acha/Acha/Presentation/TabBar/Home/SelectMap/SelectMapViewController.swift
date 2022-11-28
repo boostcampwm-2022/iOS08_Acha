@@ -321,6 +321,7 @@ extension SelectMapViewController: UICollectionViewDelegate {
     }
     
     private func makeSnapshot(rankings: [Record]) {
+        guard let dataSource else { return }
         var snapshot = dataSource.snapshot()
         snapshot.deleteAllItems()
         snapshot.appendSections(["Ranking"])
