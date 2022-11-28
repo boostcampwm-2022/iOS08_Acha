@@ -25,12 +25,12 @@ final class MultiGameRoomViewModel: BaseViewModel {
     }
     
     private weak var coordinator: MultiGameCoordinatorProtocol?
-    private let useCase: MultiGameRoomUseCase
+    private let useCase: MultiGameRoomUseCaseProtocol
     private let roomID: String
     
     init(
         coordinator: MultiGameCoordinatorProtocol,
-        useCase: MultiGameRoomUseCase,
+        useCase: MultiGameRoomUseCaseProtocol,
         roomID: String
     ) {
         self.coordinator = coordinator

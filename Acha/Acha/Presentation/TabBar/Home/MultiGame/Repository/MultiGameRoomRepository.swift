@@ -8,10 +8,16 @@
 import Foundation
 import RxSwift
 
-struct MultiGameRoomRepository {
+protocol MultiGameRoomRepositoryProtocol {
+    func make(roomID: String)
+    func get(roomID: String) -> Observable<[RoomUser]>
+    func leave(roomID: String)
+}
+
+struct MultiGameRoomRepository: MultiGameRoomRepositoryProtocol {
     private let disposebag = DisposeBag()
-    private let dataSource: MultiGameRoomDataSource
-    init(dataSource: MultiGameRoomDataSource) {
+    private let dataSource: MultiGameRoomDataSourceProtocol
+    init(dataSource: MultiGameRoomDataSourceProtocol) {
         self.dataSource = dataSource
     }
     func make(roomID: String) {

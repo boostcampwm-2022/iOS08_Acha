@@ -8,10 +8,16 @@
 import Foundation
 import RxSwift
 
-struct MultiGameRoomUseCase {
+protocol MultiGameRoomUseCaseProtocol {
+    func make(roomID: String)
+    func get(roomID: String) -> Observable<[RoomUser]>
+    func leave(roomID: String)
+}
 
-    private let repository: MultiGameRoomRepository
-    init(repository: MultiGameRoomRepository) {
+struct MultiGameRoomUseCase: MultiGameRoomUseCaseProtocol {
+
+    private let repository: MultiGameRoomRepositoryProtocol
+    init(repository: MultiGameRoomRepositoryProtocol) {
         self.repository = repository
     }
     
