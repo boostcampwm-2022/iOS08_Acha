@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		471863BD291E155700A35786 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471863BC291E155700A35786 /* AppDelegate.swift */; };
 		471863BF291E155700A35786 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471863BE291E155700A35786 /* SceneDelegate.swift */; };
-		471863C1291E155700A35786 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471863C0291E155700A35786 /* ViewController.swift */; };
 		471863C6291E155800A35786 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 471863C5291E155800A35786 /* Assets.xcassets */; };
 		471863C9291E155800A35786 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 471863C7291E155800A35786 /* LaunchScreen.storyboard */; };
 		471863D4291E155800A35786 /* AchaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471863D3291E155800A35786 /* AchaTests.swift */; };
@@ -28,7 +27,6 @@
 		47935E9F29238EB400481307 /* SelectMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47935E9E29238EB300481307 /* SelectMapViewModel.swift */; };
 		47A26DBC292B73850007FBBF /* Coordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A26DBB292B73850007FBBF /* Coordinate.swift */; };
 		47A26DBE292BB2970007FBBF /* MapRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A26DBD292BB2970007FBBF /* MapRegion.swift */; };
-
 		47A26DC0292C9F8A0007FBBF /* SelectMapRankingHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A26DBF292C9F8A0007FBBF /* SelectMapRankingHeaderView.swift */; };
 		764AF29D292B639200D16DC9 /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764AF29C292B639200D16DC9 /* UIViewController+.swift */; };
 		764AF29F292B6EF500D16DC9 /* InGameRecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764AF29E292B6EF500D16DC9 /* InGameRecordViewModel.swift */; };
@@ -137,6 +135,14 @@
 		F1E83D692933DEB6004C7992 /* MapFireStoreDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E83D682933DEB6004C7992 /* MapFireStoreDTO.swift */; };
 		F1E83D6E2934524B004C7992 /* UUIDGetable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E83D6D2934524B004C7992 /* UUIDGetable.swift */; };
 		F1E83D712934553F004C7992 /* HomeProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E83D702934553F004C7992 /* HomeProvider.swift */; };
+		F1E83D7729348591004C7992 /* CommunityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E83D7629348591004C7992 /* CommunityViewModel.swift */; };
+		F1E83D79293485A1004C7992 /* CommunityRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E83D78293485A1004C7992 /* CommunityRepository.swift */; };
+		F1E83D7B293485B0004C7992 /* CommunityDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E83D7A293485B0004C7992 /* CommunityDataSource.swift */; };
+		F1E83D7D293489E1004C7992 /* PostDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E83D7C293489E1004C7992 /* PostDTO.swift */; };
+		F1E83D7F29348A4A004C7992 /* CommentDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E83D7E29348A4A004C7992 /* CommentDTO.swift */; };
+		F1E83D8129348A87004C7992 /* CommunityDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E83D8029348A87004C7992 /* CommunityDTO.swift */; };
+		F1E83D8329348AE0004C7992 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E83D8229348AE0004C7992 /* Post.swift */; };
+		F1E83D8629348C59004C7992 /* CommunityCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E83D8529348C59004C7992 /* CommunityCollectionViewCell.swift */; };
 		F1FCEE0E292B483E001A55D6 /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FCEE0D292B483E001A55D6 /* UITextField+Extension.swift */; };
 		F1FCEE11292B4C87001A55D6 /* AuthButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FCEE10292B4C87001A55D6 /* AuthButton.swift */; };
 		F1FCEE14292B4E9A001A55D6 /* AuthTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FCEE13292B4E9A001A55D6 /* AuthTitleView.swift */; };
@@ -164,7 +170,6 @@
 		471863B9291E155700A35786 /* Acha.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Acha.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		471863BC291E155700A35786 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		471863BE291E155700A35786 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		471863C0291E155700A35786 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		471863C5291E155800A35786 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		471863C8291E155800A35786 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		471863CA291E155800A35786 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -187,17 +192,13 @@
 		47935E9E29238EB300481307 /* SelectMapViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectMapViewModel.swift; sourceTree = "<group>"; };
 		47A26DBB292B73850007FBBF /* Coordinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinate.swift; sourceTree = "<group>"; };
 		47A26DBD292BB2970007FBBF /* MapRegion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapRegion.swift; sourceTree = "<group>"; };
-
 		47A26DBF292C9F8A0007FBBF /* SelectMapRankingHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMapRankingHeaderView.swift; sourceTree = "<group>"; };
-
 		76213CBD292CEA6600895462 /* WorkSpace by 25km:h.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "WorkSpace by 25km:h.gpx"; sourceTree = "<group>"; };
 		76213CBE292CEA6600895462 /* WorkSpace by 6km:h.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "WorkSpace by 6km:h.gpx"; sourceTree = "<group>"; };
 		764AF29C292B639200D16DC9 /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
 		764AF29E292B6EF500D16DC9 /* InGameRecordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameRecordViewModel.swift; sourceTree = "<group>"; };
 		764AF2A0292B9C1F00D16DC9 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 		764AF2A2292B9D3600D16DC9 /* InGameRankingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameRankingViewModel.swift; sourceTree = "<group>"; };
-
-
 		7663E6B8292F6788007E1F09 /* 부평동초등학교 5MPH.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "부평동초등학교 5MPH.gpx"; sourceTree = "<group>"; };
 		7663E6B9292F6788007E1F09 /* 부원여중 12KMH.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "부원여중 12KMH.gpx"; sourceTree = "<group>"; };
 		7663E6BA292F6788007E1F09 /* 부평동초등학교 4MPH.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "부평동초등학교 4MPH.gpx"; sourceTree = "<group>"; };
@@ -205,7 +206,6 @@
 		7663E6BC292F6788007E1F09 /* 부평동초등학교 4.2MPH.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "부평동초등학교 4.2MPH.gpx"; sourceTree = "<group>"; };
 		7663E6BD292F696D007E1F09 /* 국민대 12KMH.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "국민대 12KMH.gpx"; sourceTree = "<group>"; };
 		7663E6BE292F6C85007E1F09 /* 국민대 30KMH.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "국민대 30KMH.gpx"; sourceTree = "<group>"; };
-
 		76A2E19F2923C5A7001E887A /* SingleGameViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleGameViewModel.swift; sourceTree = "<group>"; };
 		76A2E1A22923D94C001E887A /* CLLocationCoordinate2D+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationCoordinate2D+.swift"; sourceTree = "<group>"; };
 		76A2E1A429249099001E887A /* Double+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+.swift"; sourceTree = "<group>"; };
@@ -310,6 +310,14 @@
 		F1E83D682933DEB6004C7992 /* MapFireStoreDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapFireStoreDTO.swift; sourceTree = "<group>"; };
 		F1E83D6D2934524B004C7992 /* UUIDGetable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UUIDGetable.swift; sourceTree = "<group>"; };
 		F1E83D702934553F004C7992 /* HomeProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeProvider.swift; sourceTree = "<group>"; };
+		F1E83D7629348591004C7992 /* CommunityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityViewModel.swift; sourceTree = "<group>"; };
+		F1E83D78293485A1004C7992 /* CommunityRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityRepository.swift; sourceTree = "<group>"; };
+		F1E83D7A293485B0004C7992 /* CommunityDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityDataSource.swift; sourceTree = "<group>"; };
+		F1E83D7C293489E1004C7992 /* PostDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDTO.swift; sourceTree = "<group>"; };
+		F1E83D7E29348A4A004C7992 /* CommentDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentDTO.swift; sourceTree = "<group>"; };
+		F1E83D8029348A87004C7992 /* CommunityDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityDTO.swift; sourceTree = "<group>"; };
+		F1E83D8229348AE0004C7992 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		F1E83D8529348C59004C7992 /* CommunityCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityCollectionViewCell.swift; sourceTree = "<group>"; };
 		F1FCEE0D292B483E001A55D6 /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 		F1FCEE10292B4C87001A55D6 /* AuthButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthButton.swift; sourceTree = "<group>"; };
 		F1FCEE13292B4E9A001A55D6 /* AuthTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthTitleView.swift; sourceTree = "<group>"; };
@@ -386,7 +394,6 @@
 				E5BE8B8D292216B400E9CFE8 /* Util */,
 				471863BC291E155700A35786 /* AppDelegate.swift */,
 				471863BE291E155700A35786 /* SceneDelegate.swift */,
-				471863C0291E155700A35786 /* ViewController.swift */,
 				471863C5291E155800A35786 /* Assets.xcassets */,
 				471863C7291E155800A35786 /* LaunchScreen.storyboard */,
 				471863CA291E155800A35786 /* Info.plist */,
@@ -460,6 +467,7 @@
 				47A26DBB292B73850007FBBF /* Coordinate.swift */,
 				47A26DBD292BB2970007FBBF /* MapRegion.swift */,
 				F17A3FA0292F0BF200647AD0 /* RoomUser.swift */,
+				F1E83D8229348AE0004C7992 /* Post.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -607,7 +615,11 @@
 		E5BE8BA529221C2D00E9CFE8 /* Community */ = {
 			isa = PBXGroup;
 			children = (
-				E5BE8BAE29221FF800E9CFE8 /* CommunityViewController.swift */,
+				F1E83D8429348C40004C7992 /* Cell */,
+				F1E83D7529348576004C7992 /* DataSource */,
+				F1E83D742934856F004C7992 /* Repository */,
+				F1E83D732934856A004C7992 /* ViewModel */,
+				F1E83D7229348561004C7992 /* ViewController */,
 			);
 			path = Community;
 			sourceTree = "<group>";
@@ -881,6 +893,9 @@
 				F16B4538293330B2002429A2 /* InGameUserDataDTO.swift */,
 				F16B453A293330EC002429A2 /* MapDTO.swift */,
 				F16B453C293331C0002429A2 /* CoordinateDTO.swift */,
+				F1E83D8029348A87004C7992 /* CommunityDTO.swift */,
+				F1E83D7C293489E1004C7992 /* PostDTO.swift */,
+				F1E83D7E29348A4A004C7992 /* CommentDTO.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -1038,6 +1053,46 @@
 				F1E83D702934553F004C7992 /* HomeProvider.swift */,
 			);
 			path = Provider;
+			sourceTree = "<group>";
+		};
+		F1E83D7229348561004C7992 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				E5BE8BAE29221FF800E9CFE8 /* CommunityViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		F1E83D732934856A004C7992 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				F1E83D7629348591004C7992 /* CommunityViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		F1E83D742934856F004C7992 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				F1E83D78293485A1004C7992 /* CommunityRepository.swift */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
+		F1E83D7529348576004C7992 /* DataSource */ = {
+			isa = PBXGroup;
+			children = (
+				F1E83D7A293485B0004C7992 /* CommunityDataSource.swift */,
+			);
+			path = DataSource;
+			sourceTree = "<group>";
+		};
+		F1E83D8429348C40004C7992 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				F1E83D8529348C59004C7992 /* CommunityCollectionViewCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		F1FCEE0F292B4C6B001A55D6 /* AuthButton */ = {
@@ -1233,18 +1288,20 @@
 				F17A3FA1292F0BF200647AD0 /* RoomUser.swift in Sources */,
 				F1E83D5F2933D420004C7992 /* BadgeFireStoreDTO.swift in Sources */,
 				76B3BF5A292668780056ABFD /* GameOverViewModel.swift in Sources */,
+				F1E83D7D293489E1004C7992 /* PostDTO.swift in Sources */,
 				76A2E1A529249099001E887A /* Double+.swift in Sources */,
 				47935E9D29238E9E00481307 /* SelectMapViewController.swift in Sources */,
 				4738D76F2922756B003AE835 /* Map.swift in Sources */,
 				E5027D5E292686440021BF60 /* RecordViewDayTotalRecord.swift in Sources */,
 				E5027D58292670570021BF60 /* Record.swift in Sources */,
+				F1E83D79293485A1004C7992 /* CommunityRepository.swift in Sources */,
 				F1034B59292B37EB00BD8407 /* LoginViewModel.swift in Sources */,
 				E5027D58292670570021BF60 /* Record.swift in Sources */,
 				47A26DBC292B73850007FBBF /* Coordinate.swift in Sources */,
-
 				F18513D7292E422900C466E7 /* QRReaderViewController.swift in Sources */,
 				F1E83D632933D854004C7992 /* RoomFireStoreDTO.swift in Sources */,
 				47935E9F29238EB400481307 /* SelectMapViewModel.swift in Sources */,
+				F1E83D7F29348A4A004C7992 /* CommentDTO.swift in Sources */,
 				F14B1495292BA1D40010E966 /* KeyboardManager.swift in Sources */,
 				F1CCF912292DF8BE0082B250 /* HomeUseCase.swift in Sources */,
 				F13DB58F292B3C8D00323B28 /* AuthInputTextField.swift in Sources */,
@@ -1253,9 +1310,9 @@
 				F17A3FAD292F2EEB00647AD0 /* FBRealTimeDBType.swift in Sources */,
 				F1E83D5729337DE0004C7992 /* LogInData.swift in Sources */,
 				47935E97292366CD00481307 /* UIButton+.swift in Sources */,
-				471863C1291E155700A35786 /* ViewController.swift in Sources */,
 				76B3BF52292624DB0056ABFD /* Int+Extension.swift in Sources */,
 				F17A3F9F292F074E00647AD0 /* GameRoomCollectionViewCell.swift in Sources */,
+				F1E83D8329348AE0004C7992 /* Post.swift in Sources */,
 				477842F82923BFA300AAC3DB /* MapBaseViewController.swift in Sources */,
 				F1AC0391292B33F8008302F8 /* SignUpViewModel.swift in Sources */,
 				F1E83D652933DE04004C7992 /* InGameUserDataFireStoreDTO.swift in Sources */,
@@ -1263,12 +1320,11 @@
 				E5027D5C292670F30021BF60 /* RecordViewChartData.swift in Sources */,
 				4738D768292267BA003AE835 /* Errors.swift in Sources */,
 				E5BE8B9D29221AAF00E9CFE8 /* MyPageCoordinator.swift in Sources */,
-
 				F1E83D4B29337246004C7992 /* SignUpUsecase.swift in Sources */,
-
 				47A26DC0292C9F8A0007FBBF /* SelectMapRankingHeaderView.swift in Sources */,
 				76B3BF56292627A30056ABFD /* GamePlayMenuView.swift in Sources */,
 				764AF2A1292B9C1F00D16DC9 /* String+.swift in Sources */,
+				F1E83D8129348A87004C7992 /* CommunityDTO.swift in Sources */,
 				76B3BF462924D93C0056ABFD /* SingleGameCoordinator.swift in Sources */,
 				F1E83D4E2933729D004C7992 /* AuthProvider.swift in Sources */,
 				E5027D5A292670BC0021BF60 /* RecordViewHeaderRecord.swift in Sources */,
@@ -1277,6 +1333,7 @@
 				F17F86BF292E3F3000BDCE0F /* MultiGameRoomRepository.swift in Sources */,
 				76B3BF442924C7450056ABFD /* SingleGameViewController.swift in Sources */,
 				F17A3FB8292FA12E00647AD0 /* GameRoomCollectionViewHeader.swift in Sources */,
+				F1E83D8629348C59004C7992 /* CommunityCollectionViewCell.swift in Sources */,
 				F1E83D5329337431004C7992 /* LogInRepository.swift in Sources */,
 				F156F11A29235EC50053E807 /* ImageConstants.swift in Sources */,
 				F1B0D8AE292CCAAC00EBDD02 /* UserDTO.swift in Sources */,
@@ -1296,6 +1353,7 @@
 				E5BE8B9B29221A8A00E9CFE8 /* CommunityCoordinator.swift in Sources */,
 				76B3BF54292624E30056ABFD /* Date+Extension.swift in Sources */,
 				47935E9B29238DE400481307 /* HomeViewModel.swift in Sources */,
+				F1E83D7729348591004C7992 /* CommunityViewModel.swift in Sources */,
 				F16B4540293333CE002429A2 /* FBRestAPITypeConvert.swift in Sources */,
 				E5BE8B9F29221B2700E9CFE8 /* LoginCoordinator.swift in Sources */,
 				F16B453D293331C0002429A2 /* CoordinateDTO.swift in Sources */,
@@ -1308,6 +1366,7 @@
 				E516A6BE2923941500CD6BDB /* RecordChartCell.swift in Sources */,
 				E5BE8BB32922200C00E9CFE8 /* MyPageViewController.swift in Sources */,
 				F1E83D5D29338A99004C7992 /* UserFireStoreDTO.swift in Sources */,
+				F1E83D7B293485B0004C7992 /* CommunityDataSource.swift in Sources */,
 				F1D202A42923C09300F3E87D /* InGameMenuCollectionViewCell.swift in Sources */,
 				F156F11C2923623C0053E807 /* PaddingLabel.swift in Sources */,
 				471863BD291E155700A35786 /* AppDelegate.swift in Sources */,
@@ -1523,9 +1582,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-
 				DEVELOPMENT_TEAM = KD3GVSQ9P4;
-
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Acha/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "카메라 권한을 부여 하시겠습니까?";
