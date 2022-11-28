@@ -32,7 +32,9 @@ let package = Package(
                 .product(name: "FirebaseFirestore", package: "firebase-ios-sdk"),
                 .product(name: "RxCocoa", package: "RxSwift"),
                 .product(name: "RxRelay", package: "RxSwift"),
-                .product(name: "RxSwift", package: "RxSwift")
+                .product(name: "RxSwift", package: "RxSwift"),
+                .product(name: "Then", package: "Then"),
+                .product(name: "SnapKit", package: "SnapKit")
             ]),
         .testTarget(
             name: "AchaLibraryTests",
