@@ -15,8 +15,10 @@ final class SingleGameViewModel {
         var gameOverButtonTapped: Observable<Void>
         var rankButtonTapped: Observable<Void>
         var recordButtonTapped: Observable<Void>
+        var mapTapped: Observable<Void>
     }
     struct Output {
+        var ishideGameOverButton = BehaviorSubject<Bool>(value: true)
         var currentLocation = PublishSubject<Coordinate>()
         var runningTime = BehaviorSubject<Int>(value: 0)
         var runningDistance = BehaviorSubject<Double>(value: 0)
@@ -29,7 +31,7 @@ final class SingleGameViewModel {
     let map: Map
     private let coordinator: SingleGameCoordinator
     private let useCase: SingleGameUseCase
-    private let disposeBag = DisposeBag()
+    private var disposeBag = DisposeBag()
   
     // MARK: - Lifecycle
     init(map: Map,
@@ -44,18 +46,24 @@ final class SingleGameViewModel {
     func transform(input: Input) -> Output {
         input.gameOverButtonTapped
             .subscribe(onNext: { [weak self] _ in
-                guard let self else { return }
-                self.gameOver(isCompleted: false)
+                self?.gameOver(isCompleted: false)
             }).disposed(by: disposeBag)
+        
         input.rankButtonTapped
             .subscribe(onNext: { [weak self] in
                 guard let self else { return }
                 self.coordinator.showInGameRankViewController(map: self.map)
             }).disposed(by: disposeBag)
+        
         input.recordButtonTapped
             .subscribe(onNext: { [weak self] in
                 guard let self else { return }
                 self.coordinator.showInGameRecordViewController(mapID: self.map.mapID)
+            }).disposed(by: disposeBag)
+        
+        input.mapTapped
+            .subscribe(onNext: { [weak self] in
+                self?.useCase.startGameOverTimer()
             }).disposed(by: disposeBag)
         
         let output = Output()
@@ -77,6 +85,9 @@ final class SingleGameViewModel {
         useCase.visitLocations
             .bind(to: output.visitLocations)
             .disposed(by: disposeBag)
+        useCase.ishideGameOverButton
+            .bind(to: output.ishideGameOverButton)
+            .disposed(by: disposeBag)
         
         useCase.isGameOver
             .subscribe(onNext: { [weak self] _ in
@@ -93,17 +104,18 @@ final class SingleGameViewModel {
         let createdAt = Date().convertToStringFormat(format: "yyyy-MM-dd")
         
         let kcal = Int(0.1128333333*Double(time))
-        let record = Record(mapID: self.map.mapID,
-                            userID: "남석 배",
+        let record = Record(id: 0,
+                            mapID: self.map.mapID,
+                            userID: "마끼",
                             calorie: kcal,
                             distance: Int(distance),
                             time: time,
                             isSingleMode: true,
-                            createdAt: createdAt,
-                            id: 0)
+                            createdAt: createdAt)
         
         self.coordinator.showSingleGameOverViewController(record: record,
                                                           map: map,
                                                           isCompleted: isCompleted)
+        self.disposeBag = DisposeBag()
     }
 }

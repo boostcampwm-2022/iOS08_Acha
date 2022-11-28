@@ -15,6 +15,10 @@ extension CLLocationCoordinate2D {
         return to.distance(from: from)
     }
 
+    var achaCoordinate: Coordinate {
+        Coordinate(latitude: self.latitude, longitude: self.longitude)
+    }
+    
     static func from(coordiate: Coordinate) -> CLLocationCoordinate2D {
         CLLocationCoordinate2DMake(coordiate.latitude, coordiate.longitude)
     }

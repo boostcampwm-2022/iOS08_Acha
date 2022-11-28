@@ -29,7 +29,6 @@ final class HomeViewModel {
             .subscribe(onNext: { [weak self] in
                 print("multiGameTap")
                 #warning("TODO : 멀티모드")
-//                self.coordinator.showSelectViewController()
                 self?.coordinator?.connectSingleGameFlow()
             })
             .disposed(by: disposeBag)

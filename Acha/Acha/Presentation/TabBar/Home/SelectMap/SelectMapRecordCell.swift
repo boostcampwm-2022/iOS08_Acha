@@ -20,16 +20,19 @@ class SelectMapRecordCell: UICollectionViewCell {
     private lazy var pinImageView = UIImageView().then {
         $0.contentMode = .scaleAspectFit
         $0.clipsToBounds = true
+        $0.image = UIImage()
     }
     
     private lazy var idLabel = UILabel().then {
         $0.textColor = .pointLight
         $0.font = .title
+        $0.text = "아직 기록이 없습니다"
     }
     
     private lazy var timeLabel = UILabel().then {
         $0.textColor = .gray
         $0.font = .subBody
+        $0.text = "00:00:00"
     }
     
     static let identifier: String = "SelectMapRecordCell"
@@ -41,6 +44,13 @@ class SelectMapRecordCell: UICollectionViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        pinImageView.image = UIImage()
+        idLabel.text = "아직 기록이 없습니다"
+        timeLabel.text = "00:00:00"
     }
 
     func configureUI() {
@@ -76,6 +86,7 @@ class SelectMapRecordCell: UICollectionViewCell {
     
     func bind(ranking: Int, record: Record) {
         rankingLabel.text = String(ranking)
+        if record.id < 0 { return }
         #warning("getUser() 해서 user nickname 가져와야 함")
         idLabel.text = record.userID
         timeLabel.text = record.time.convertToDayHourMinueFormat()

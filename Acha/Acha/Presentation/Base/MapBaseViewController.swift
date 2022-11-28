@@ -4,22 +4,18 @@
 //
 //  Created by  sangyeon on 2022/11/15.
 //
-
 import UIKit
 import CoreLocation
 import Then
 import MapKit
-import RxSwift
-import RxRelay
 
 protocol MapBaseViewProtocol {
-    var mapView: MKMapView { get set }
-    var locationService: DefaultLocationService { get set }
-//    var locationManager: CLLocationManager { get set }
+    var mapView: MKMapView? { get set }
+    var locationManager: CLLocationManager? { get set }
     var focusButton: UIButton { get set }
     
     func configureMapViewUI()
-//    func getLocationUsagePermission()
+    func getLocationUsagePermission()
     func focusUserLocation(useSpan: Bool)
     func setUpMapView()
 }
@@ -27,21 +23,20 @@ protocol MapBaseViewProtocol {
 class MapBaseViewController: UIViewController, MapBaseViewProtocol {
     
     // MARK: - UI properties
-    lazy var mapView: MKMapView = MKMapView().then {
+    lazy var mapView: MKMapView? = MKMapView().then {
         $0.delegate = self
     }
     
     // MARK: - Properties
-    var locationService = DefaultLocationService()
-    //    lazy var locationManager = CLLocationManager().then {
-    //        // desiredAccuracy는 위치의 정확도를 설정 (정확도 높으면 배터리 많이 닳음)
-    //        $0.desiredAccuracy = kCLLocationAccuracyBest
-    //        $0.startUpdatingLocation()
-    //        $0.delegate = self
-    //
-    //        $0.showsBackgroundLocationIndicator = true
-    //        $0.allowsBackgroundLocationUpdates = true
-    //    }
+    lazy var locationManager: CLLocationManager? = CLLocationManager().then {
+        // desiredAccuracy는 위치의 정확도를 설정 (정확도 높으면 배터리 많이 닳음)
+        $0.desiredAccuracy = kCLLocationAccuracyBest
+        $0.startUpdatingLocation()
+        $0.delegate = self
+        
+        $0.showsBackgroundLocationIndicator = true
+        $0.allowsBackgroundLocationUpdates = true
+    }
     
     lazy var focusButton = UIButton().then {
         $0.setImage(SystemImageNameSpace.locationCircle.uiImage, for: .normal)
@@ -53,51 +48,30 @@ class MapBaseViewController: UIViewController, MapBaseViewProtocol {
         $0.setPreferredSymbolConfiguration(imageConfig, forImageIn: .normal)
     }
     
-    var disposeBags = DisposeBag()
-    let location = BehaviorRelay<CLLocation>(value: CLLocation(latitude: 37.0, longitude: 126.0))
-    
     // MARK: - Lifecycles
     override func viewDidLoad() {
         super.viewDidLoad()
         configureMapViewUI()
         setUpMapView()
-        locationService.start()
-        bindLocationService()
-        //        getLocationUsagePermission()
+        getLocationUsagePermission()
     }
     
-    // 뷰가 화면에서 사라질 때 locationManager가 위치 업데이트를 중단하도록 설정
     override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(true)
-        locationService.stop()
-        //        locationManager.stopUpdatingLocation()
-        mapView.delegate = nil
-        mapView.removeFromSuperview()
-        //        locationManager.delegate = nil
-    }
-    
-    func bindLocationService() {
-        locationService.authorizationStatus
-            .subscribe(onNext: { [weak self] authorizationStatus in
-                guard let self else { return }
-                if authorizationStatus {
-                    self.setUpUserLocation()
-                } else {
-                    self.showAlertToMoveSetting()
-                }
-            })
-            .disposed(by: disposeBags)
-        
-        locationService.observeLocation()
-            .subscribe(onNext: { [weak self] location in
-                guard let self else { return }
-                self.location.accept(location)
-            })
-            .disposed(by: disposeBags)
+        super.viewWillDisappear(animated)
+        if let mapView {
+            mapView.removeAnnotations(mapView.annotations)
+        }
+        mapView?.removeFromSuperview()
+        mapView?.delegate = nil
+        mapView = nil
+        locationManager?.stopUpdatingLocation()
+        locationManager?.delegate = nil
+        locationManager = nil
     }
     
     // MARK: - Helpers
     func configureMapViewUI() {
+        guard let mapView else { return }
         view.addSubview(mapView)
         mapView.snp.makeConstraints {
             $0.edges.equalToSuperview()
@@ -107,12 +81,11 @@ class MapBaseViewController: UIViewController, MapBaseViewProtocol {
     func setUpMapView() {
         // 어플을 종료하고 다시 실행했을 때 MapKit이 발생할 수 있는 오류를 방지하기 위한 처리
         if #available(iOS 16.0, *) {
-            mapView.preferredConfiguration = MKStandardMapConfiguration()
+            mapView?.preferredConfiguration = MKStandardMapConfiguration()
         } else {
-            mapView.mapType = .standard
+            mapView?.mapType = .standard
         }
-        
-        mapView.showsCompass = false
+        mapView?.showsCompass = false
     }
 }
 
@@ -122,7 +95,7 @@ extension MapBaseViewController {
     func focusMapLocation(center: CLLocationCoordinate2D, span: Double = 0.01) {
         let region = MKCoordinateRegion(center: center,
                                         span: MKCoordinateSpan(latitudeDelta: span, longitudeDelta: span))
-        mapView.setRegion(region, animated: true)
+        mapView?.setRegion(region, animated: true)
     }
     
     @objc func focusButtonDidClick(_ sender: UIButton) {
@@ -130,24 +103,47 @@ extension MapBaseViewController {
     }
     
     func setUpUserLocation() {
-//        locationManager.startUpdatingLocation()
-        print(#function)
-        mapView.showsUserLocation = true
-        mapView.setUserTrackingMode(.followWithHeading, animated: true)
+        locationManager?.startUpdatingLocation()
+        mapView?.showsUserLocation = true
+        mapView?.setUserTrackingMode(.followWithHeading, animated: true)
         focusUserLocation(useSpan: true)
     }
     
+    func getLocationUsagePermission() {
+        locationManager?.requestWhenInUseAuthorization()
+    }
     
     func focusUserLocation(useSpan: Bool) {
+        guard let userLocation = locationManager?.location else { return }
+        let center = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude,
+                                            longitude: userLocation.coordinate.longitude)
         if useSpan {
-            focusMapLocation(center: location.value.coordinate)
+            focusMapLocation(center: center)
         } else {
-            mapView.setCenter(location.value.coordinate, animated: true)
+            mapView?.setCenter(center, animated: true)
         }
     }
 }
 
-extension MapBaseViewController {
+extension MapBaseViewController: CLLocationManagerDelegate {
+    
+    /// GPS 권한 설정 여부에 따라 로직 분리
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        switch manager.authorizationStatus {
+        case .authorizedAlways, .authorizedWhenInUse:
+            print("GPS 권한 설정됨")
+            setUpUserLocation()
+        case .restricted, .notDetermined:
+            print("GPS 권한 설정되지 않음")
+            getLocationUsagePermission()
+        case .denied:
+            print("GPS 권한 요청 거부됨")
+            showAlertToMoveSetting()
+        default:
+            print("GPS: Default")
+        }
+    }
+    
     private func showAlertToMoveSetting() {
         let alert = UIAlertController(title: "위치 서비스를 사용할 수 없습니다. 기기의 '설정 > 개인정보 보호'에서 위치 서비스를 켜주세요.",
                                       message: nil,
@@ -166,7 +162,6 @@ extension MapBaseViewController {
 }
 
 // MARK: - MKMapViewDelegate
-
 extension MapBaseViewController: MKMapViewDelegate {
     
     /// mapView.addOverlay(lineDraw) 실행 시 호출되는 함수

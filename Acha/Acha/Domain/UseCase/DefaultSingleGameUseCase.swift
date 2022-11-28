@@ -42,18 +42,26 @@ class DefaultSingleGameUseCase: SingleGameUseCase {
     
     func startRunning() {
         startGameOverTimer()
+        startRunningTimer()
         locationService.start()
         
         locationService.observeLocation()
             .subscribe(onNext: { [weak self] location in
                 guard let self,
-                      let previousCoordinate = self.previousCoordinate,
                       let distance = try? self.runningDistance.value(),
-                      !distance.isNaN else { return }
+                      let previousCoordinate = self.previousCoordinate else {
+                    self?.previousCoordinate = Coordinate(latitude: location.coordinate.latitude,
+                                                         longitude: location.coordinate.longitude)
+                    return
+                }
+                
                 let currentCoordinate = Coordinate(latitude: location.coordinate.latitude,
                                                    longitude: location.coordinate.longitude)
                 
-                self.runningDistance.onNext(distance + previousCoordinate.distance(from: currentCoordinate))
+                let currentDistance = previousCoordinate.distance(from: currentCoordinate)
+                guard !currentDistance.isNaN else { return }
+                
+                self.runningDistance.onNext(distance + currentDistance)
                 self.wentLocations.onNext([previousCoordinate, currentCoordinate])
                 self.previousCoordinate = currentCoordinate
                 self.checkVisitLocation(currentCoordinate: currentCoordinate)

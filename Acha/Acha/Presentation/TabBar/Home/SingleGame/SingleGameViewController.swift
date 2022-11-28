@@ -45,7 +45,8 @@ class SingleGameViewController: MapBaseViewController, DistanceAndTimeBarLine {
     // MARK: - Properties
     private let viewModel: SingleGameViewModel!
     private let disposeBag = DisposeBag()
-    
+
+    let realGameOverButtonTappedEvent = PublishRelay<Void>()
     let rankButtonTappedEvent = PublishRelay<Void>()
     let recordButtonTappedEvent = PublishRelay<Void>()
     let mapTappedEvent = PublishRelay<Void>()
@@ -73,7 +74,6 @@ class SingleGameViewController: MapBaseViewController, DistanceAndTimeBarLine {
     
     deinit {
         presentedViewController?.dismiss(animated: true)
-        print("single", #function)
     }
     
     override func viewDidLayoutSubviews() {
@@ -111,6 +111,7 @@ extension SingleGameViewController {
         }
         gameOverButton.snp.makeConstraints {
             $0.bottom.equalTo(distanceAndTimeBar.snp.top).offset(-30)
+            guard let mapView else { return }
             $0.centerX.equalTo(mapView)
             $0.width.equalTo(100)
             $0.height.equalTo(40)
@@ -147,12 +148,12 @@ extension SingleGameViewController {
         
         let lineDraw = MKPolyline(coordinates: points, count: points.count)
         goLine = lineDraw
-        mapView.addOverlay(goLine ?? MKPolyline())
+        mapView?.addOverlay(goLine ?? MKPolyline())
     }
     
     func configureMapTapped() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(mapViewTapped(_:)))
-        mapView.addGestureRecognizer(tap)
+        mapView?.addGestureRecognizer(tap)
     }
     
     @objc func mapViewTapped(_ sender: UITapGestureRecognizer) {
@@ -161,9 +162,10 @@ extension SingleGameViewController {
     
     private func bind() {
         let input = SingleGameViewModel.Input(
-            gameOverButtonTapped: gameOverButton.rx.tap.asObservable(),
+            gameOverButtonTapped: realGameOverButtonTappedEvent.asObservable(),
             rankButtonTapped: rankButtonTappedEvent.asObservable(),
-            recordButtonTapped: recordButtonTappedEvent.asObservable()
+            recordButtonTapped: recordButtonTappedEvent.asObservable(),
+            mapTapped: mapTappedEvent.asObservable()
         )
         let output = viewModel.transform(input: input)
         
@@ -174,26 +176,32 @@ extension SingleGameViewController {
             })
             .disposed(by: disposeBag)
         output.runningTime
-            .asDriver(onErrorJustReturn: 0)
+            .asDriver(onErrorJustReturn: 1)
             .drive(onNext: { [weak self] time in
-                self?.distanceAndTimeBar.timeLabel.text = String(time)
-            })
-            .disposed(by: disposeBag)
+                self?.distanceAndTimeBar.timeLabel.text = "\(time)초"
+            }).disposed(by: disposeBag)
+        
         output.wentLocations
             .asDriver(onErrorJustReturn: [])
             .drive(onNext: { [weak self] coordinates in
                 self?.drawWentLine(coordiates: coordinates.map { CLLocationCoordinate2D.from(coordiate: $0) })
-            })
-            .disposed(by: disposeBag)
+            }).disposed(by: disposeBag)
+        
         output.visitLocations
             .asDriver(onErrorJustReturn: [])
             .drive(onNext: { [weak self] coordinates in
                 self?.drawVisitLine(coordiates: coordinates.map { CLLocationCoordinate2D.from(coordiate: $0)})
-            })
-            .disposed(by: disposeBag)
+            }).disposed(by: disposeBag)
+        
+        output.ishideGameOverButton
+            .asDriver(onErrorJustReturn: false)
+            .drive(onNext: { [weak self] isHide in
+                self?.gameOverButton.isHidden = isHide
+            }).disposed(by: disposeBag)
         
         bindButtons()
     }
+    
     private func bindButtons() {
         resetButton.rx.tap
             .subscribe(onNext: { [weak self] in
@@ -204,12 +212,12 @@ extension SingleGameViewController {
     
     func drawWentLine(coordiates: [CLLocationCoordinate2D]) {
         wentLine = MKPolyline(coordinates: coordiates, count: coordiates.count)
-        self.mapView.addOverlay(wentLine ?? MKPolyline())
+        mapView?.addOverlay(wentLine ?? MKPolyline())
     }
     
     func drawVisitLine(coordiates: [CLLocationCoordinate2D]) {
-        wentLine = MKPolyline(coordinates: coordiates, count: coordiates.count)
-        self.mapView.addOverlay(visitLine ?? MKPolyline())
+        visitLine = MKPolyline(coordinates: coordiates, count: coordiates.count)
+        mapView?.addOverlay(visitLine ?? MKPolyline())
     }
 }
 
