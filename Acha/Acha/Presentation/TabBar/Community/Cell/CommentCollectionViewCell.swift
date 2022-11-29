@@ -26,8 +26,8 @@ final class CommentCollectionViewCell: UICollectionViewCell {
         $0.font = .body
     }
     
-    init() {
-        super.init(frame: .zero)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         layout()
     }
     
@@ -64,20 +64,21 @@ extension CommentCollectionViewCell {
     
     private func addConstraints() {
         nickNameLabel.snp.makeConstraints {
-            $0.top.leading.equalToSuperview().inset(7)
+            $0.top.equalToSuperview()
+            $0.leading.equalToSuperview().inset(7)
             $0.width.equalTo(100)
             $0.height.equalTo(50)
         }
         
         timeLabel.snp.makeConstraints {
             $0.top.equalTo(nickNameLabel)
-            $0.leading.equalTo(nickNameLabel.snp.trailing).inset(20)
+            $0.leading.equalTo(nickNameLabel.snp.trailing).inset(-20)
             $0.height.equalTo(50)
-            $0.width.equalTo(100)
+            $0.width.equalTo(150)
         }
         
         contextLabel.snp.makeConstraints {
-            $0.top.equalTo(nickNameLabel).inset(30)
+            $0.top.equalTo(nickNameLabel.snp.bottom).inset(10)
             $0.leading.equalTo(nickNameLabel)
             $0.trailing.bottom.equalToSuperview()
         }

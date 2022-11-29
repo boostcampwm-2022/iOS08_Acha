@@ -32,11 +32,17 @@ final class CommunityDetailViewController: UIViewController {
                         text: "waetatwe\nwetwa\nwaeatw\n",
                         image: "atwwt", createdAt: Date(),
                         commentCount: 142)
+    let commentData = Comment(postID: 124,
+                              userID: "wataw",
+                              nickName: "awetawtatw",
+                              text: "테스트테스트\n테스트\n테스트테스트\n테스트\n테스트테스트\n테스트\n",
+                              createdAt: Date())
     
     override func viewDidLoad() {
         super.viewDidLoad()
         layout()
         makeSnapshot(datas: [postData], section: .post)
+        makeSnapshot(datas: [commentData], section: .comment)
     }
 
 }
