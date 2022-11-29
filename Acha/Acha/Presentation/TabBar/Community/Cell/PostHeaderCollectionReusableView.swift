@@ -72,7 +72,7 @@ extension PostHeaderCollectionReusableView {
         
         optionButton.snp.makeConstraints {
             $0.top.bottom.equalToSuperview()
-            $0.trailing.equalToSuperview().inset(20)
+            $0.trailing.equalToSuperview()
             $0.width.equalTo(100)
         }
     }

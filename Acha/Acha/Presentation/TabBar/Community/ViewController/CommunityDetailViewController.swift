@@ -19,6 +19,8 @@ final class CommunityDetailViewController: UIViewController {
         collectionViewLayout: UICollectionViewLayout()
     )
     
+    private lazy var commentView = CommentView()
+    
     typealias Datasource = UICollectionViewDiffableDataSource<Section, AnyHashable>
     typealias Snapshot = NSDiffableDataSourceSnapshot<Section, AnyHashable>
     
@@ -40,9 +42,15 @@ final class CommunityDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "게시글"
+        view.backgroundColor = .white
         layout()
         makeSnapshot(datas: [postData], section: .post)
         makeSnapshot(datas: [commentData], section: .comment)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
     }
 
 }
@@ -55,11 +63,15 @@ extension CommunityDetailViewController {
     }
     
     private func addViews() {
-        
+        view.addSubview(commentView)
     }
     
     private func addConstraints() {
-        
+        commentView.snp.makeConstraints {
+            $0.trailing.leading.equalToSuperview()
+            $0.bottom.equalTo(view.safeAreaLayoutGuide)
+            $0.height.equalTo(100)
+        }
     }
 
 }
@@ -76,7 +88,8 @@ extension CommunityDetailViewController {
         configureCollectionViewHeader()
         view.addSubview(collectionView)
         collectionView.snp.makeConstraints {
-            $0.top.leading.trailing.bottom.equalToSuperview()
+            $0.top.leading.trailing.equalTo(view.layoutMarginsGuide)
+            $0.bottom.equalTo(commentView.snp.top)
         }
     }
 
@@ -94,7 +107,6 @@ extension CommunityDetailViewController {
                     withReuseIdentifier: CommentCollectionViewCell.identifier,
                     for: indexPath
                 ) as? CommentCollectionViewCell else {return UICollectionViewCell()}
-                cell.backgroundColor = .gray
                 cell.bindData(data: comment)
                 return cell
             } else {
@@ -166,7 +178,7 @@ extension CommunityDetailViewController {
             switch sectionKind {
             case .post:
                 let itemSize = NSCollectionLayoutSize(
-                    widthDimension: .fractionalWidth(0.9),
+                    widthDimension: .fractionalWidth(1.0),
                     heightDimension: .estimated(300)
                 )
                 let item = NSCollectionLayoutItem(layoutSize: itemSize)
