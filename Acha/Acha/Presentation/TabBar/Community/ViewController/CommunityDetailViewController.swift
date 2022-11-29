@@ -40,17 +40,32 @@ final class CommunityDetailViewController: UIViewController {
                               text: "테스트테스트\n테스트\n테스트테스트\n테스트\n테스트테스트\n테스트\n",
                               createdAt: Date())
     
+    let commentData2 = Comment(postID: 14,
+                              userID: "wataw",
+                              nickName: "awetawtatw",
+                              text: "테스트테스트\n테스트\n테스트테스트\n테스트\n테스트테스트\n테스트\n",
+                              createdAt: Date())
+    
+    let commentData3 = Comment(postID: 123,
+                              userID: "wataw",
+                              nickName: "awetawtatw",
+                              text: "테스트테스트\n테스트\n테스트테스트\n테스트\n테스트테스트\n테스트\n",
+                              createdAt: Date())
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "게시글"
         view.backgroundColor = .white
         layout()
         makeSnapshot(datas: [postData], section: .post)
-        makeSnapshot(datas: [commentData], section: .comment)
+        makeSnapshot(datas: [commentData, commentData2, commentData3], section: .comment)
+        bindText()
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
+    private func bindText() {
+        KeyboardManager.keyboardWillHide(view: commentView, superView: view)
+        KeyboardManager.keyboardWillShow(view: commentView, superView: view)
+        hideKeyboardWhenTapped()
     }
 
 }
@@ -233,5 +248,20 @@ extension CommunityDetailViewController {
             at: IndexPath(row: 0, section: 0)
         ) as? PostHeaderCollectionReusableView else {return}
         header.bindData(data: data)
+    }
+}
+
+extension CommunityDetailViewController {
+    private func hideKeyboardWhenTapped() {
+        let tapGestureRecognizer = UITapGestureRecognizer(
+            target: self,
+            action: #selector(dismissKeyboard)
+        )
+        tapGestureRecognizer.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapGestureRecognizer)
+    }
+    
+    @objc private func dismissKeyboard() {
+        view.endEditing(true)
     }
 }
