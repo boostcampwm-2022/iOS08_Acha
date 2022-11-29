@@ -22,7 +22,8 @@ final class CommunityCoordinator: CommunityCoordinatorProtocol {
     }
     
     func start() {
-        showCommunityViewController()
+//        showCommunityViewController()
+        showCommunityPostViewController()
     }
     
     func showCommunityViewController() {
