@@ -96,6 +96,10 @@
 		F1D202A42923C09300F3E87D /* InGameMenuCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D202A32923C09300F3E87D /* InGameMenuCollectionViewCell.swift */; };
 		F1D202B72924C63F00F3E87D /* InGameMenuModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D202B62924C63F00F3E87D /* InGameMenuModelProtocol.swift */; };
 		F1DED3932935DF6800ABC047 /* CommunityCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED3922935DF6800ABC047 /* CommunityCollectionViewCell.swift */; };
+		F1DED3952935DF9C00ABC047 /* PostDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED3942935DF9C00ABC047 /* PostDTO.swift */; };
+		F1DED3972935DFB900ABC047 /* CommunityDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED3962935DFB900ABC047 /* CommunityDTO.swift */; };
+		F1DED3992935DFCC00ABC047 /* CommentDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED3982935DFCC00ABC047 /* CommentDTO.swift */; };
+		F1DED39B2935DFE400ABC047 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED39A2935DFE400ABC047 /* Post.swift */; };
 		F1FCEE0E292B483E001A55D6 /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FCEE0D292B483E001A55D6 /* UITextField+Extension.swift */; };
 		F1FCEE11292B4C87001A55D6 /* AuthButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FCEE10292B4C87001A55D6 /* AuthButton.swift */; };
 		F1FCEE14292B4E9A001A55D6 /* AuthTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FCEE13292B4E9A001A55D6 /* AuthTitleView.swift */; };
@@ -224,6 +228,10 @@
 		F1D202B42924C38B00F3E87D /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		F1D202B62924C63F00F3E87D /* InGameMenuModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameMenuModelProtocol.swift; sourceTree = "<group>"; };
 		F1DED3922935DF6800ABC047 /* CommunityCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityCollectionViewCell.swift; sourceTree = "<group>"; };
+		F1DED3942935DF9C00ABC047 /* PostDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDTO.swift; sourceTree = "<group>"; };
+		F1DED3962935DFB900ABC047 /* CommunityDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityDTO.swift; sourceTree = "<group>"; };
+		F1DED3982935DFCC00ABC047 /* CommentDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentDTO.swift; sourceTree = "<group>"; };
+		F1DED39A2935DFE400ABC047 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		F1FCEE0D292B483E001A55D6 /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 		F1FCEE10292B4C87001A55D6 /* AuthButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthButton.swift; sourceTree = "<group>"; };
 		F1FCEE13292B4E9A001A55D6 /* AuthTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthTitleView.swift; sourceTree = "<group>"; };
@@ -371,6 +379,7 @@
 				E5027D5D292686440021BF60 /* RecordViewDayTotalRecord.swift */,
 				47A26DBB292B73850007FBBF /* Coordinate.swift */,
 				47A26DBD292BB2970007FBBF /* MapRegion.swift */,
+				F1DED39A2935DFE400ABC047 /* Post.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -672,6 +681,9 @@
 				F1B0D8AD292CCAAC00EBDD02 /* UserDTO.swift */,
 				F1B0D8AF292CCABE00EBDD02 /* BadgeDTO.swift */,
 				F1B0D8B1292CCAD900EBDD02 /* RecordDTO.swift */,
+				F1DED3942935DF9C00ABC047 /* PostDTO.swift */,
+				F1DED3962935DFB900ABC047 /* CommunityDTO.swift */,
+				F1DED3982935DFCC00ABC047 /* CommentDTO.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -974,6 +986,7 @@
 				76B3BF442924C7450056ABFD /* SingleGameViewController.swift in Sources */,
 				F156F11A29235EC50053E807 /* ImageConstants.swift in Sources */,
 				F1B0D8AE292CCAAC00EBDD02 /* UserDTO.swift in Sources */,
+				F1DED3972935DFB900ABC047 /* CommunityDTO.swift in Sources */,
 				E5BE8BB12922200000E9CFE8 /* RecordViewController.swift in Sources */,
 				E5BE8B91292218A500E9CFE8 /* Coordinator.swift in Sources */,
 				764AF29F292B6EF500D16DC9 /* InGameRecordViewModel.swift in Sources */,
@@ -1001,6 +1014,7 @@
 				E5BE8B97292219D800E9CFE8 /* HomeCoordinator.swift in Sources */,
 				F1D202B72924C63F00F3E87D /* InGameMenuModelProtocol.swift in Sources */,
 				F1B0D8B2292CCAD900EBDD02 /* RecordDTO.swift in Sources */,
+				F1DED3992935DFCC00ABC047 /* CommentDTO.swift in Sources */,
 				F1D2029B2923B97400F3E87D /* InGameRecordViewController.swift in Sources */,
 				47935E99292375DC00481307 /* MapAnnotation.swift in Sources */,
 				E5027D5329263D620021BF60 /* UIColor+.swift in Sources */,
@@ -1016,8 +1030,10 @@
 				76B3BF50292624850056ABFD /* InGamePlayMenuViewController.swift in Sources */,
 				E5027D5229263D4F0021BF60 /* RecordHeaderView.swift in Sources */,
 				47A26DBE292BB2970007FBBF /* MapRegion.swift in Sources */,
+				F1DED3952935DF9C00ABC047 /* PostDTO.swift in Sources */,
 				F156F11E292365840053E807 /* CALayer+Extension.swift in Sources */,
 				F1FCEE0E292B483E001A55D6 /* UITextField+Extension.swift in Sources */,
+				F1DED39B2935DFE400ABC047 /* Post.swift in Sources */,
 				E5BE8B9929221A4C00E9CFE8 /* RecordCoordinator.swift in Sources */,
 				F1B0D8AC292CCA5200EBDD02 /* SignUpData.swift in Sources */,
 				E516A6BA2923929800CD6BDB /* RecordViewModel.swift in Sources */,
