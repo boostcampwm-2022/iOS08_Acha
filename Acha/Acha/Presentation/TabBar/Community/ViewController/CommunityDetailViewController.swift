@@ -106,9 +106,11 @@ extension CommunityDetailViewController {
             $0.top.leading.trailing.equalTo(view.layoutMarginsGuide)
             $0.bottom.equalTo(commentView.snp.top)
         }
+        collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     }
 
     private func makeDataSource() -> Datasource {
+ 
         let datasource = Datasource(collectionView: collectionView) { collectionView, indexPath, itemIdentifier in
             if let post = itemIdentifier as? Post {
                 guard let cell = collectionView.dequeueReusableCell(
@@ -123,6 +125,8 @@ extension CommunityDetailViewController {
                     for: indexPath
                 ) as? CommentCollectionViewCell else {return UICollectionViewCell()}
                 cell.bindData(data: comment)
+                cell.layer.borderWidth = 1
+                cell.layer.borderColor = UIColor.pointLight.cgColor
                 return cell
             } else {
                 fatalError("Unknown Cell Type")
@@ -234,6 +238,7 @@ extension CommunityDetailViewController {
                     alignment: .top
                 )
                 section = NSCollectionLayoutSection(group: group)
+                section.interGroupSpacing = 5
                 section.boundarySupplementaryItems = [header]
             }
             return section

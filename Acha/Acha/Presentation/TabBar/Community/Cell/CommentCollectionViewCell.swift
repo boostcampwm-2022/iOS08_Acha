@@ -65,7 +65,7 @@ extension CommentCollectionViewCell {
     private func addConstraints() {
         nickNameLabel.snp.makeConstraints {
             $0.top.equalToSuperview()
-            $0.leading.equalToSuperview().inset(7)
+            $0.leading.equalToSuperview()
             $0.width.equalTo(100)
             $0.height.equalTo(50)
         }
@@ -78,7 +78,7 @@ extension CommentCollectionViewCell {
         }
         
         contextLabel.snp.makeConstraints {
-            $0.top.equalTo(nickNameLabel.snp.bottom).inset(10)
+            $0.top.equalTo(nickNameLabel.snp.bottom)
             $0.leading.equalTo(nickNameLabel)
             $0.trailing.bottom.equalToSuperview()
         }
