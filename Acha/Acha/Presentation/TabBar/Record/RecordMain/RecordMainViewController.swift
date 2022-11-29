@@ -108,7 +108,8 @@ class RecordMainViewController: UIViewController, UICollectionViewDelegate {
         view.addSubview(collectionView)
         collectionView.snp.makeConstraints {
             $0.top.bottom.equalTo(view.safeAreaLayoutGuide)
-            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(15)
+            $0.leading.equalTo(view.safeAreaLayoutGuide).inset(15)
+            $0.trailing.equalTo(view.safeAreaLayoutGuide)
         }
         
         configureCollectionViewDataSource()
@@ -123,6 +124,22 @@ class RecordMainViewController: UIViewController, UICollectionViewDelegate {
                                                                     for: indexPath) as? RecordMainChartCell else {
                     return UICollectionViewCell()
                 }
+                
+                let distances = recordViewChartDataArray.map { CGFloat($0.distance) }
+                
+                let frame = CGRect(x: 0,
+                                   y: 0,
+                                   width: cell.frame.width - 50,
+                                   height: cell.frame.height - 45)
+                let view = LineGraphView(frame: frame, values: distances)
+                
+                cell.subviews.forEach {
+                    if $0 is LineGraphView {
+                        $0.removeFromSuperview()
+                    }
+                }
+                
+                cell.addSubview(view)
                 
                 cell.bind(recordViewChartDataArray: recordViewChartDataArray)
                 
@@ -190,7 +207,7 @@ class RecordMainViewController: UIViewController, UICollectionViewDelegate {
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                                heightDimension: .absolute(110))
-        let groupInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 0, trailing: 10)
+        let groupInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 0, trailing: 25)
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
                                                        subitems: [item])
         group.contentInsets = groupInsets

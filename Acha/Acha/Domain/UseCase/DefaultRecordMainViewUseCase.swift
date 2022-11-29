@@ -44,7 +44,7 @@ final class DefaultRecordMainViewUseCase: RecordMainViewUseCase {
                 var recordsAtDate = [String: [Record]]()
                 
                 records.forEach {
-                    recordsAtDate[$0.createdAt] = recordsAtDate[$0.createdAt] ?? [] + [$0]
+                    recordsAtDate[$0.createdAt] = (recordsAtDate[$0.createdAt] ?? []) + [$0]
                     
                     if !allDates.contains($0.createdAt) {
                         allDates.append($0.createdAt)

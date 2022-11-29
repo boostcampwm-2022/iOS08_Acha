@@ -7,92 +7,72 @@
 
 import UIKit
 
-enum Week: String, CaseIterable {
-    case sunday = "일"
-    case monday = "월"
-    case tuesday = "화"
-    case wednesday = "수"
-    case thursday = "목"
-    case friday = "금"
-    case saturday = "토"
-}
-
 class RecordMainChartCell: UICollectionViewCell {
+    enum Week: String, CaseIterable {
+        case sunday = "일"
+        case monday = "월"
+        case tuesday = "화"
+        case wednesday = "수"
+        case thursday = "목"
+        case friday = "금"
+        case saturday = "토"
+    }
+    
     // MARK: - UI properties
+    private lazy var largeStackView = UIStackView().then {
+        $0.distribution = .fill
+        $0.axis = .horizontal
+        $0.backgroundColor = .white
+    }
+    
     private lazy var chartsBackgroundStackView = UIStackView().then {
+        $0.backgroundColor = .lightGray
         $0.distribution = .fillEqually
         $0.spacing = 1
         $0.axis = .vertical
     }
     
-    private lazy var weekStackView = UIStackView().then {
-        $0.distribution = .fillEqually
-        $0.spacing = 10
-        $0.axis = .horizontal
+    private lazy var distanceStackView = UIStackView().then {
+        $0.backgroundColor = .white
+        $0.distribution = .equalSpacing
+        $0.spacing = -20
+        $0.axis = .vertical
     }
     
-    private lazy var firstView = UIView().then {
-        $0.backgroundColor = .clear
+    private let graphLayer = CAShapeLayer().then {
+        $0.fillColor = nil
+        $0.strokeColor = UIColor.pointLight.cgColor
+        $0.lineWidth = 2
     }
-    private lazy var secondView = UIView().then {
-        $0.backgroundColor = .clear
-    }
-    private lazy var thirdView = UIView().then {
-        $0.backgroundColor = .clear
-    }
-    private lazy var fourthView = UIView().then {
-        $0.backgroundColor = .clear
-    }
-    private lazy var fivethView = UIView().then {
-        $0.backgroundColor = .clear
-    }
-    private lazy var sixthView = UIView().then {
-        $0.backgroundColor = .clear
-    }
-    private lazy var seventhView = UIView().then {
-        $0.backgroundColor = .clear
-    }
-    private lazy var firstLabel = UILabel().then {
-        $0.font = .smallTitle
-        $0.textColor = .pointLight
-        $0.textAlignment = .center
-    }
-    private lazy var secondLabel = UILabel().then {
-        $0.font = .smallTitle
-        $0.textColor = .pointLight
-        $0.textAlignment = .center
-    }
-    private lazy var thirdLabel = UILabel().then {
-        $0.font = .smallTitle
-        $0.textColor = .pointLight
-        $0.textAlignment = .center
-    }
-    private lazy var fourthLabel = UILabel().then {
-        $0.font = .smallTitle
-        $0.textColor = .pointLight
-        $0.textAlignment = .center
-    }
-    private lazy var fivethLabel = UILabel().then {
-        $0.font = .smallTitle
-        $0.textColor = .pointLight
-        $0.textAlignment = .center
-    }
-    private lazy var sixthLabel = UILabel().then {
-        $0.font = .smallTitle
-        $0.textColor = .pointLight
-        $0.textAlignment = .center
-    }
-    private lazy var seventhLabel = UILabel().then {
-        $0.font = .smallTitle
-        $0.textColor = .pointLight
-        $0.textAlignment = .center
-    }
+    private lazy var firstDistanceLabel = UILabel()
+    private lazy var secondDistanceLabel = UILabel()
+    private lazy var thirdDistanceLabel = UILabel()
+    private lazy var fourthDistanceLabel = UILabel()
+    private lazy var fivethDistanceLabel = UILabel()
+    private lazy var sixthDistanceLabel = UILabel()
+    private lazy var seventhDistanceLabel = UILabel()
+    
+    private lazy var firstLabel = UILabel()
+    private lazy var secondLabel = UILabel()
+    private lazy var thirdLabel = UILabel()
+    private lazy var fourthLabel = UILabel()
+    private lazy var fivethLabel = UILabel()
+    private lazy var sixthLabel = UILabel()
+    private lazy var seventhLabel = UILabel()
+    
+    private lazy var labelList: [UILabel] = [firstLabel, secondLabel, thirdLabel, fourthLabel,
+                                             fivethLabel, sixthLabel, seventhLabel]
+    private lazy var distanceLabelList: [UILabel] = [firstDistanceLabel, secondDistanceLabel,
+                                                     thirdDistanceLabel, fourthDistanceLabel,
+                                                     fivethDistanceLabel, sixthDistanceLabel,
+                                                     seventhDistanceLabel]
     
     // MARK: - Properties
     static let identifier = "RecordChartCell"
     
     // MARK: - Lifecycles
     override init(frame: CGRect) {
+        print(#function)
         super.init(frame: frame)
         setUpSubviews()
     }
@@ -101,32 +81,46 @@ class RecordMainChartCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+    }
+    
     // MARK: - Helpers
     private func setUpSubviews() {
-        contentView.addSubview(chartsBackgroundStackView)
-        contentView.addSubview(weekStackView)
+        contentView.addSubview(largeStackView)
+        largeStackView.addArrangedSubview(chartsBackgroundStackView)
+        largeStackView.addArrangedSubview(distanceStackView)
         
-        (1...9).forEach { _ in
+        (1...8).forEach { _ in
             let backgrounView = UIView().then {
                 $0.backgroundColor = .white
             }
             chartsBackgroundStackView.addArrangedSubview(backgrounView)
         }
         
-        [firstView, secondView, thirdView, fourthView, fivethView, sixthView, seventhView]
-            .enumerated()
-            .forEach { (index, view) in
-                
-                let stackView = UIStackView().then {
-                    $0.axis = .vertical
-                }
-                
-                stackView.addArrangedSubview(view)
-                let label = [firstLabel, secondLabel, thirdLabel, fourthLabel, fivethLabel, sixthLabel, seventhLabel][index]
-                stackView.addArrangedSubview(label)
-                
-                weekStackView.addArrangedSubview(stackView)
+        let stackView = UIStackView().then {
+            $0.axis = .horizontal
+            $0.distribution = .fillEqually
+            $0.backgroundColor = .white
         }
+        
+        (1...7).forEach { index in
+            let label = labelList[index - 1]
+            stackView.addArrangedSubview(label)
+        }
+        chartsBackgroundStackView.addArrangedSubview(stackView)
+        
+        distanceLabelList.forEach { label in
+            distanceStackView.addArrangedSubview(label)
+        }
+        
+        let lastDistanceLabel = UILabel().then { label in
+            label.font = .smallTitle
+            label.textColor = .pointLight
+            label.textAlignment = .center
+            label.text = "0"
+        }
+        distanceStackView.addArrangedSubview(lastDistanceLabel)
         
         configureUI()
     }
@@ -134,51 +128,62 @@ class RecordMainChartCell: UICollectionViewCell {
     private func configureUI() {
         contentView.backgroundColor = .gray
         
+        largeStackView.snp.makeConstraints {
+            $0.top.bottom.leading.trailing.equalToSuperview()
+        }
+  
+        distanceStackView.snp.makeConstraints {
+            $0.trailing.equalToSuperview()
+            $0.top.equalToSuperview().offset(35)
+            $0.bottom.equalToSuperview().offset(-35)
+            $0.width.equalTo(50)
+        }
+        
         chartsBackgroundStackView.snp.makeConstraints {
-            $0.top.bottom.leading.trailing.equalToSuperview()
+            $0.top.bottom.leading.equalToSuperview()
         }
         
-        weekStackView.snp.makeConstraints {
-            $0.top.bottom.leading.trailing.equalToSuperview()
+        labelList.forEach { label in
+            label.font = .smallTitle
+            label.textColor = .pointLight
+            label.textAlignment = .center
         }
         
-        [firstLabel, secondLabel, thirdLabel, fourthLabel, fivethLabel, sixthLabel, seventhLabel]
-            .forEach { label in
-                label.snp.makeConstraints {
-                    $0.height.equalTo(45)
-                }
-            }
+        distanceLabelList.forEach { label in
+            label.font = .smallTitle
+            label.textColor = .pointLight
+            label.textAlignment = .center
+        }
     }
     
     func bind(recordViewChartDataArray: [RecordViewChartData]) {
         let days = Week.allCases
         
-        let maxDistance = recordViewChartDataArray.max { chartDataA, chartDataB in
-            return chartDataA.distance < chartDataB.distance
-        }.map { Double($0.distance) }
+        let distances = recordViewChartDataArray.map { $0.distance }
         
-        guard let maxDistance, maxDistance != 0 else { return }
+        guard let max = distances.max() else { return }
         
-        let chartHeight = 368.0
-        let heightPerMeter = chartHeight / maxDistance
+        let spacing = max / 8
+        
+        var current = 0
+        
+        distanceLabelList.reversed().forEach {
+            current += spacing
+            $0.text = "\(current)"
+        }
         
         recordViewChartDataArray.enumerated().forEach { index, element in
-            [firstLabel, secondLabel, thirdLabel, fourthLabel, fivethLabel, sixthLabel, seventhLabel][index].text = days[element.number - 1].rawValue
-            [firstView, secondView, thirdView, fourthView, fivethView, sixthView, seventhView][index].subviews.forEach {
-                $0.removeFromSuperview()
-            }
-            
-            let customView = UIView().then {
-                $0.backgroundColor = .pointLight
-            }
-            
-            [firstView, secondView, thirdView, fourthView, fivethView, sixthView, seventhView][index].addSubview(customView)
-            
-            customView.snp.makeConstraints {
-                $0.bottom.equalToSuperview()
-                $0.leading.trailing.equalToSuperview().inset(10)
-                $0.height.equalTo(heightPerMeter * Double(element.distance))
-            }
+            labelList[index].text = days[element.number - 1].rawValue
         }
     }
 }
+/*
+343 / 8
+ 
+약 43,
+ 스페이싱 - 20
+ 
+
+ 
+ 
+ */

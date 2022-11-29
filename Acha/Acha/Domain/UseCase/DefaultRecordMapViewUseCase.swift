@@ -120,18 +120,6 @@ final class DefaultRecordMapViewUseCase: RecordMapViewUseCase {
     }
     
     func getRecordsAtIndexes(indexes: [Int]) -> Observable<[Record]> {
-//        return Observable.create { emitter in
-//            self.fetchRecordDataAtIndex()
-//                .subscribe {
-//                    guard let recordAtIndex = $0.element else { return }
-//                    let records = recordAtIndex
-//                                .filter { indexes.contains($0.key) }
-//                                .map { $0.value }
-//                                .sorted { $0.time < $1.time }
-//                    emitter.onNext(records)
-//                }.disposed(by: self.disposeBag)
-//            return Disposables.create()
-//        }
         return fetchRecordDataAtIndex()
             .map { recordAtIndex in
                 let records = recordAtIndex
