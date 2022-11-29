@@ -22,7 +22,6 @@ final class DefaultRecordRepository: RecordRepository {
     }
     
     func uploadNewRecord(record: Record) {
-        print(#function)
         realTimeDatabaseNetworkService.fetch(path: FirebasePath.record)
             .map { (recordDTOs: [RecordDTO]) in
                 return recordDTOs.map { $0.toDomain() }

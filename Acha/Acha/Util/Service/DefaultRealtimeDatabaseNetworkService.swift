@@ -37,7 +37,6 @@ final class DefaultRealtimeDatabaseNetworkService: RealtimeDatabaseNetworkServic
     }
     
     func uploadNewRecord(index: Int, data: Record) {
-        print(#function)
         let childRefernce = self.childReference(path: FirebasePath.record.rawValue)
         guard let json = try? JSONEncoder().encode(data),
               let jsonSerail = try? JSONSerialization.jsonObject(with: json) as? [String: Any] ?? [:]
@@ -46,6 +45,5 @@ final class DefaultRealtimeDatabaseNetworkService: RealtimeDatabaseNetworkServic
             return
         }
         childRefernce.updateChildValues( ["\(index)": jsonSerail])
-        print(["\(index)": jsonSerail])
     }
 }
