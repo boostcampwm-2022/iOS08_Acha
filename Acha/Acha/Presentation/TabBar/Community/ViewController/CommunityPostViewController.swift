@@ -8,6 +8,9 @@
 import UIKit
 import Then
 import SnapKit
+import PhotosUI
+import RxSwift
+import RxCocoa
 
 final class CommunityPostViewController: UIViewController {
     
@@ -22,19 +25,56 @@ final class CommunityPostViewController: UIViewController {
     private let imageAddButton = UIButton().then {
         $0.setImage(.defaultSelectImage, for: .normal)
     }
-
+    
+    private let imagePicker: PHPickerViewController
+    private let imageObserver = PublishSubject<Data>()
+    
+    private let disposeBag = DisposeBag()
+    
+    init() {
+        var configuration = PHPickerConfiguration()
+        configuration.selectionLimit = 1
+        configuration.filter = .any(of: [.images])
+        imagePicker = PHPickerViewController(configuration: configuration)
+        super.init(nibName: nil, bundle: nil)
+        imagePicker.delegate = self
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         layout()
         title = "글 작성"
         bindKeyboard()
+        bindImageButton()
+        bind()
     }
     
     private func bindKeyboard() {
         KeyboardManager.keyboardWillShow(view: contentView)
         KeyboardManager.keyboardWillHide(view: contentView)
         hideKeyboardWhenTapped()
+    }
+    
+    private func bindImageButton() {
+        imageAddButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                guard let self = self else {return}
+                self.present(self.imagePicker, animated: true)
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func bind() {
+        imageObserver
+            .subscribe { data in
+                print(data)
+            }
+            .disposed(by: disposeBag)
     }
 
 }
@@ -112,4 +152,26 @@ extension CommunityPostViewController {
     @objc private func dismissKeyboard() {
         view.endEditing(true)
     }
+}
+
+extension CommunityPostViewController: PHPickerViewControllerDelegate {
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        picker.dismiss(animated: true)
+        
+        let itemProvider = results.first?.itemProvider
+        
+        if let itemProvider = itemProvider,
+           itemProvider.canLoadObject(ofClass: UIImage.self) {
+            itemProvider.loadObject(ofClass: UIImage.self) { [weak self] image, error in
+                guard error == nil else { return }
+                DispatchQueue.main.async {
+                    let image = image as? UIImage
+                    guard let imageData = image?.jpegData(compressionQuality: 0.5) as? Data else {return}
+                    self?.imageObserver.onNext(imageData)
+                    self?.imageAddButton.setImage(image, for: .normal)
+                }
+            }
+        }
+    }
+
 }
