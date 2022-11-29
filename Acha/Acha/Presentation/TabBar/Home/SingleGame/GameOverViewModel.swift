@@ -55,49 +55,49 @@ final class GameOverViewModel: BaseViewModel {
     }
     
     private func uploadRecord() {
-        ref.child("record").observeSingleEvent(
-            of: .value,
-            with: { [weak self] snapshot in
-                
-                guard let self,
-                      let snapData = snapshot.value as? [Any],
-                      let data = try? JSONSerialization.data(withJSONObject: snapData),
-                      let records = try? JSONDecoder().decode([Record].self, from: data)
-                else {
-                    print(Errors.decodeError, #function)
-                    return
-                }
-                
-                self.record.id = records.count
-                if self.isCompleted {
-                    self.uploadMapRecord(index: self.record.id)
-                }
-                guard let json = try? JSONEncoder().encode(self.record),
-                      let jsonSerial = try? JSONSerialization.jsonObject(with: json) as? [String: Any] ?? [:]
-                else { return }
-                
-                self.ref.child("record").updateChildValues(["\(records.count)": jsonSerial])
-            })
+//        ref.child("record").observeSingleEvent(
+//            of: .value,
+//            with: { [weak self] snapshot in
+//                
+//                guard let self,
+//                      let snapData = snapshot.value as? [Any],
+//                      let data = try? JSONSerialization.data(withJSONObject: snapData),
+//                      let records = try? JSONDecoder().decode([Record].self, from: data)
+//                else {
+//                    print(Errors.decodeError, #function)
+//                    return
+//                }
+//                
+//                self.record.id = records.count
+//                if self.isCompleted {
+//                    self.uploadMapRecord(index: self.record.id)
+//                }
+//                guard let json = try? JSONEncoder().encode(self.record),
+//                      let jsonSerial = try? JSONSerialization.jsonObject(with: json) as? [String: Any] ?? [:]
+//                else { return }
+//                
+//                self.ref.child("record").updateChildValues(["\(records.count)": jsonSerial])
+//            })
     }
     
     private func uploadMapRecord(index: Int) {
-        self.ref.child("mapList").child("\(self.map.mapID)").observeSingleEvent(
-            of: .value,
-            with: { [weak self] snapshot in
-                
-                guard let self,
-                      let snapData = snapshot.value,
-                      let data = try? JSONSerialization.data(withJSONObject: snapData),
-                      let mapData = try? JSONDecoder().decode(Map.self, from: data)
-                else {
-                    print(Errors.decodeError, #function)
-                    return
-                }
-                
-                let newRecord = (mapData.records ?? []) + [index]
-                self.ref
-                    .child("mapList/\(self.map.mapID)/records")
-                    .setValue(newRecord)
-            })
+//        self.ref.child("mapList").child("\(self.map.mapID)").observeSingleEvent(
+//            of: .value,
+//            with: { [weak self] snapshot in
+//                
+//                guard let self,
+//                      let snapData = snapshot.value,
+//                      let data = try? JSONSerialization.data(withJSONObject: snapData),
+//                      let mapData = try? JSONDecoder().decode(Map.self, from: data)
+//                else {
+//                    print(Errors.decodeError, #function)
+//                    return
+//                }
+//                
+//                let newRecord = (mapData.records ?? []) + [index]
+//                self.ref
+//                    .child("mapList/\(self.map.mapID)/records")
+//                    .setValue(newRecord)
+//            })
     }
 }

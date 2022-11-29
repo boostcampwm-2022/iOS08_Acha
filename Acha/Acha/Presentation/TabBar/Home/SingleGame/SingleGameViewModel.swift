@@ -9,7 +9,7 @@ import Foundation
 import RxRelay
 import RxSwift
 
-final class SingleGameViewModel {
+final class SingleGameViewModel: MapBaseViewModel {
     
     // MARK: - Input
     var currentCoordinate = PublishRelay<Coordinate>()
@@ -38,13 +38,14 @@ final class SingleGameViewModel {
     // MARK: - Dependency
     private let coordinator: SingleGameCoordinator
     let map: Map
-    private var disposeBag = DisposeBag()
+//    private var disposeBag = DisposeBag()
     private var hideButtonTimer: DispatchSourceTimer?
     
     // MARK: - Lifecycle
     init(coordinator: SingleGameCoordinator, map: Map) {
         self.map = map
         self.coordinator = coordinator
+        super.init(useCase: DefaultMapBaseUseCase(locationService: DefaultLocationService()))
         bind()
         configureTimer()
     }
