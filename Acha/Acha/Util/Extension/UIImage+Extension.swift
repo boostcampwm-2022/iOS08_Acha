@@ -10,4 +10,5 @@ import UIKit
 extension UIImage {
     static let authInvalidateImage: UIImage = UIImage(named: "invalidate")!
     static let commentImage: UIImage = UIImage(named: "commentImage")!
+    static let defaultSelectImage: UIImage = UIImage(named: "defaultSelectImage")!
 }
