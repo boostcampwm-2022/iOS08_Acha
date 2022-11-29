@@ -19,7 +19,7 @@ class TimerService: TimerServiceProtocol {
     
     func start(until: Int) -> Observable<Void> {
         Observable<Int>
-            .timer(.seconds(3), scheduler: MainScheduler.asyncInstance)
+            .timer(.seconds(until), scheduler: MainScheduler.asyncInstance)
             .map { _ in }
     }
     
