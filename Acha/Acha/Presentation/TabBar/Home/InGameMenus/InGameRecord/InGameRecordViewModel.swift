@@ -47,7 +47,7 @@ final class InGameRecordViewModel: BaseViewModel {
                 }
                 
                 let inGameRecord = records
-                    .filter { $0.mapID == self.mapID }
+                    .filter { $0.mapID == self.mapID && $0.isCompleted }
                     .map { InGameRecord(id: $0.id,
                                         time: $0.time,
                                         userName: $0.userID,

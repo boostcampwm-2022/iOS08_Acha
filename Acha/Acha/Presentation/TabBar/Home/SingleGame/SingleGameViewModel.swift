@@ -62,7 +62,7 @@ final class SingleGameViewModel {
         input.rankButtonTapped
             .subscribe(onNext: { [weak self] in
                 guard let self else { return }
-                self.coordinator.showInGameRankViewController(map: self.map)
+                self.coordinator.showInGameRankViewController(mapID: self.map.mapID)
             }).disposed(by: disposeBag)
         
         input.recordButtonTapped

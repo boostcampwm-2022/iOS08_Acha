@@ -62,8 +62,8 @@ final class SingleGameCoordinator: SingleGameCoordinatorProtocol {
         self.navigationController.viewControllers.last?.present(viewController, animated: true)
     }
     
-    func showInGameRankViewController(map: Map) {
-        let viewModel = InGameRankingViewModel(map: map)
+    func showInGameRankViewController(mapID: Int) {
+        let viewModel = InGameRankingViewModel(mapID: mapID)
         let viewController = InGameRankingViewController(viewModel: viewModel)
         viewController.modalPresentationStyle = .pageSheet
         self.navigationController.viewControllers.last?.present(viewController, animated: true)
