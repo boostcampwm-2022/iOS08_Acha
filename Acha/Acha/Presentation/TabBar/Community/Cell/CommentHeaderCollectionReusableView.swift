@@ -16,8 +16,8 @@ final class CommentHeaderCollectionReusableView: UICollectionReusableView {
         $0.font = .boldBody
     }
     
-    init() {
-        super.init(frame: .zero)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         configure()
     }
     

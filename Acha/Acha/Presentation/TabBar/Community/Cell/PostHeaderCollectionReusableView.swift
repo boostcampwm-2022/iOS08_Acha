@@ -24,8 +24,8 @@ final class PostHeaderCollectionReusableView: UICollectionReusableView {
         $0.setImage(.ellipsisImage, for: .normal)
     }
     
-    init() {
-        super.init(frame: .zero)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         layout()
     }
     

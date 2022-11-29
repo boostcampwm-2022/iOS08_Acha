@@ -11,7 +11,7 @@ import SnapKit
 
 final class PostCollectionViewCell: UICollectionViewCell {
     
-    static let identifier = "PostCollectionViewCell"
+    static let identifier = "PostDetailCollectionViewCell"
     
     private lazy var contextLabel = UILabel().then {
         $0.font = .body
@@ -19,8 +19,8 @@ final class PostCollectionViewCell: UICollectionViewCell {
         $0.numberOfLines = 0
     }
     
-    init() {
-        super.init(frame: .zero)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         layout()
     }
     
