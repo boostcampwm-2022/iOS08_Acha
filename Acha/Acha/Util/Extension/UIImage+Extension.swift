@@ -13,4 +13,9 @@ extension UIImage {
     static let magnyfingGlassImage: UIImage = UIImage(named: "magnifyingGlass")!
     static let exitImage: UIImage = UIImage(named: "exitImage")!
     static let commentImage: UIImage = UIImage(named: "commentImage")!
+    static let pencilImage: UIImage = UIImage(systemName: "pencil")!
+    static let pencilCircleFill: UIImage = UIImage(systemName: "pencil.circle.fill")!.withTintColor(
+        .pointDark,
+        renderingMode: .alwaysOriginal
+    )
 }

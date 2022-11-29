@@ -15,10 +15,16 @@ final class CommunityViewController: UIViewController {
         case community
     }
     
-    private var collectionView = UICollectionView(
+    private lazy var collectionView = UICollectionView(
         frame: .zero,
         collectionViewLayout: UICollectionViewFlowLayout()
     )
+    
+    private lazy var postWriteBarButton = UIButton().then {
+        $0.setImage(.pencilCircleFill, for: .normal)
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: 50)
+        $0.setPreferredSymbolConfiguration(imageConfig, forImageIn: .normal)
+    }
     
     typealias CommunityDatasource = UICollectionViewDiffableDataSource<Section, Post>
     typealias CommunitySnapShot = NSDiffableDataSourceSnapshot<Section, Post>
@@ -31,6 +37,7 @@ final class CommunityViewController: UIViewController {
         view.backgroundColor = .white
         title = "커뮤니티"
         configureCollectionView()
+        configurePostWriteButton()
 
         snapshotUpdate(datas: [Post(id: 112321214,
                                     userID: "watwㅇㄴㅁㄹㅇho",
@@ -132,4 +139,11 @@ extension CommunityViewController {
         communitDataSource.apply(communitySnapshot, animatingDifferences: true)
     }
     
+    private func configurePostWriteButton() {
+        view.addSubview(postWriteBarButton)
+        postWriteBarButton.snp.makeConstraints {
+            $0.bottom.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
+            $0.height.width.equalTo(50)
+        }
+    }
 }
