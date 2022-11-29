@@ -14,4 +14,12 @@ extension CLLocationCoordinate2D {
         let to = CLLocation(latitude: to.latitude, longitude: to.longitude)
         return to.distance(from: from)
     }
+    
+    var achaCoordinate: Coordinate {
+        Coordinate(latitude: self.latitude, longitude: self.longitude)
+    }
+    
+    static func from(coordinate: Coordinate) -> CLLocationCoordinate2D {
+        CLLocationCoordinate2D(latitude: coordinate.latitude, longitude: coordinate.longitude)
+    }
 }
