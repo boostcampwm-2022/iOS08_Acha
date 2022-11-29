@@ -11,8 +11,8 @@ import SnapKit
 
 final class CommunityPostViewController: UIViewController {
     
-    let scrollView = UIScrollView()
-    let contentView = UIStackView()
+    private let scrollView = UIScrollView()
+    private let contentView = UIStackView()
     
     private let postWriteTextView = TextCountView()
     private let postWriteView = UIView()
@@ -28,6 +28,13 @@ final class CommunityPostViewController: UIViewController {
         view.backgroundColor = .white
         layout()
         title = "글 작성"
+        bindKeyboard()
+    }
+    
+    private func bindKeyboard() {
+        KeyboardManager.keyboardWillShow(view: contentView)
+        KeyboardManager.keyboardWillHide(view: contentView)
+        hideKeyboardWhenTapped()
     }
 
 }
@@ -89,5 +96,20 @@ extension CommunityPostViewController {
         let rightItem = UIBarButtonItem(title: "등록")
         navigationItem.rightBarButtonItem = rightItem
         navigationItem.rightBarButtonItem?.tintColor = .pointLight
+    }
+}
+
+extension CommunityPostViewController {
+    private func hideKeyboardWhenTapped() {
+        let tapGestureRecognizer = UITapGestureRecognizer(
+            target: self,
+            action: #selector(dismissKeyboard)
+        )
+        tapGestureRecognizer.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapGestureRecognizer)
+    }
+    
+    @objc private func dismissKeyboard() {
+        view.endEditing(true)
     }
 }
