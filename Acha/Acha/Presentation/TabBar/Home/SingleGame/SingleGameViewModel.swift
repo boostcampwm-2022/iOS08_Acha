@@ -23,11 +23,11 @@ final class SingleGameViewModel {
         var currentLocation = PublishSubject<Coordinate>()
         var runningTime = BehaviorSubject<Int>(value: 0)
         var runningDistance = BehaviorSubject<Double>(value: 0)
-        var tooFarFromLocaiton = BehaviorSubject<Bool>(value: false)
+        var tooFarFromLocation = BehaviorSubject<Bool>(value: false)
         
         var wentLocations = PublishSubject<[Coordinate]>()
         var visitLocations = PublishSubject<[Coordinate]>()
-        var gameOver = PublishSubject<[Record]>()
+        var gameOverInformation = PublishSubject<(Record, String)>()
     }
     
     // MARK: - Dependency
@@ -56,7 +56,7 @@ final class SingleGameViewModel {
         input.gameOverButtonTapped
             .subscribe(onNext: { [weak self] _ in
                 guard let self else { return }
-                self.gameOver(isCompleted: false)
+                self.useCase.gameOverButtonTapped()
             }).disposed(by: disposeBag)
         
         input.rankButtonTapped
@@ -73,7 +73,14 @@ final class SingleGameViewModel {
         
         input.mapTapped
             .subscribe(onNext: { [weak self] in
-                self?.useCase.startGameOverTimer()
+                guard let self else { return }
+                self.useCase.startGameOverTimer()
+            }).disposed(by: disposeBag)
+        
+        input.gameOverOkButtonTapped
+            .subscribe(onNext: { [weak self] in
+                guard let self else { return }
+                self.coordinator.delegate?.didFinished(childCoordinator: self.coordinator)
             }).disposed(by: disposeBag)
     }
     
@@ -98,34 +105,12 @@ final class SingleGameViewModel {
             .bind(to: output.ishideGameOverButton)
             .disposed(by: disposeBag)
         useCase.tooFarFromLocaiton
-            .bind(to: output.tooFarFromLocaiton)
+            .bind(to: output.tooFarFromLocation)
             .disposed(by: disposeBag)
-        useCase.isGameOver
-            .subscribe(onNext: { [weak self] _ in
-                guard let self else { return }
-                self.gameOver(isCompleted: true)
-            }).disposed(by: disposeBag)
+        useCase.gameOverInformation
+            .bind(to: output.gameOverInformation)
+            .disposed(by: disposeBag)
+        
         return output
-    }
-    
-    private func gameOver(isCompleted: Bool) {
-        let time = (try? useCase.runningTime.value()) ?? 0
-        let distance = (try? useCase.runningDistance.value()) ?? 0
-        let createdAt = Date().convertToStringFormat(format: "yyyy-MM-dd")
-        
-        let kcal = Int(0.1128333333*Double(time))
-        let record = Record(id: 0,
-                            mapID: self.map.mapID,
-                            userID: "마끼",
-                            calorie: kcal,
-                            distance: Int(distance),
-                            time: time,
-                            isSingleMode: true,
-                            isCompleted: isCompleted,
-                            createdAt: createdAt)
-        
-        self.coordinator.showSingleGameOverViewController(record: record,
-                                                          map: map)
-        self.disposeBag = DisposeBag()
     }
 }

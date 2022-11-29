@@ -117,7 +117,6 @@ extension SingleGameViewController {
             $0.width.equalTo(100)
             $0.height.equalTo(40)
         }
-        
         rightMenuButtonSetting()
     }
     
@@ -206,7 +205,7 @@ extension SingleGameViewController {
                 self.gameOverButton.isHidden = isHide
             }).disposed(by: disposeBag)
         
-        output.tooFarFromLocaiton
+        output.tooFarFromLocation
             .asDriver(onErrorJustReturn: false)
             .drive(onNext: { [weak self] isFar in
                 guard let self,
@@ -214,6 +213,22 @@ extension SingleGameViewController {
                 self.showAlert(title: "멀어지고 있습니다.", message: "거기아니에요")
             }).disposed(by: disposeBag)
         
+        output.gameOverInformation
+            .subscribe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] (record, mapName) in
+                guard let self else { return }
+                print(mapName)
+                self.view.addSubview(self.gameOverView)
+                self.gameOverView.bind(mapName: mapName,
+                                  time: "\(record.time)초",
+                                  distance: "\(record.distance.convertToDecimal)m",
+                                  calorie: "\(record.calorie)kcal")
+                self.gameOverView.snp.makeConstraints {
+                    $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(142)
+                    $0.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom).offset(-220)
+                    $0.leading.trailing.equalTo(self.view.safeAreaLayoutGuide).inset(44)
+                }
+            }).disposed(by: disposeBag)
         bindButtons()
     }
     

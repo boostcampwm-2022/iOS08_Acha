@@ -27,7 +27,7 @@ class DefaultSingleGameUseCase: SingleGameUseCase {
     var visitLocations = PublishSubject<[Coordinate]>()
     var tooFarFromLocaiton = BehaviorSubject<Bool>(value: false)
     var visitedMapIndex = BehaviorSubject<Set<Int>>(value: [])
-    var isGameOver = PublishSubject<Void>()
+    var gameOverInformation = PublishSubject<(Record, String)>()
     
     init(map: Map,
          tapTimer: TimerServiceProtocol,
@@ -73,7 +73,7 @@ class DefaultSingleGameUseCase: SingleGameUseCase {
             .subscribe(onNext: { [weak self] index in
                 guard let self else { return }
                 if index.count > Int(Double(self.map.coordinates.count) * 0.95) {
-                    self.isGameOver.onNext(())
+                    self.emitGameOverInformation(isCompleted: true)
                 }
             }).disposed(by: disposeBag)
     }
@@ -117,6 +117,38 @@ class DefaultSingleGameUseCase: SingleGameUseCase {
     
     func stopRunningTimer() {
         runningTimer.stop()
+    }
+    
+    func gameOverButtonTapped() {
+        emitGameOverInformation(isCompleted: false)
+    }
+    
+    private func emitGameOverInformation(isCompleted: Bool) {
+        let observable = Observable
+            .combineLatest(runningTime,
+                           runningDistance,
+                           resultSelector: { [weak self] (time, distance) in
+                    guard let self else { return }
+                    let createdAt = Date().convertToStringFormat(format: "yyyy-MM-dd")
+                    
+                    let kcal = Int(0.1128333333*Double(time))
+                    let record = Record(id: 0,
+                                        mapID: self.map.mapID,
+                                        userID: "마끼",
+                                        calorie: kcal,
+                                        distance: Int(distance),
+                                        time: time,
+                                        isSingleMode: true,
+                                        isCompleted: isCompleted,
+                                        createdAt: createdAt)
+                self.gameOverInformation.onNext((record, self.map.name))
+            })
+        
+        var trashBag = DisposeBag()
+        observable
+            .subscribe(onNext: { })
+            .disposed(by: trashBag)
+        trashBag = DisposeBag()
     }
     
 }
