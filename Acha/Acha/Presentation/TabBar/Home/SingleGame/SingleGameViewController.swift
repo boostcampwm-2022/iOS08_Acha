@@ -42,6 +42,7 @@ class SingleGameViewController: MapBaseViewController, DistanceAndTimeBarLine {
         $0.backgroundColor = .pointLight
         $0.layer.cornerRadius = 10
     }
+    private lazy var gameOverView = GameOverView()
     // MARK: - Properties
     private let viewModel: SingleGameViewModel!
     private let disposeBag = DisposeBag()
@@ -165,38 +166,52 @@ extension SingleGameViewController {
             gameOverButtonTapped: realGameOverButtonTappedEvent.asObservable(),
             rankButtonTapped: rankButtonTappedEvent.asObservable(),
             recordButtonTapped: recordButtonTappedEvent.asObservable(),
-            mapTapped: mapTappedEvent.asObservable()
+            mapTapped: mapTappedEvent.asObservable(),
+            gameOverOkButtonTapped: gameOverView.okButtonTap.asObservable()
         )
         let output = viewModel.transform(input: input)
         
         output.runningDistance
             .asDriver(onErrorJustReturn: 0.0)
             .drive(onNext: { [weak self] distance in
-                self?.distanceAndTimeBar.distanceLabel.text = distance.meterToKmString
+                guard let self else { return }
+                self.distanceAndTimeBar.distanceLabel.text = distance.meterToKmString
             })
             .disposed(by: disposeBag)
         output.runningTime
             .asDriver(onErrorJustReturn: 1)
             .drive(onNext: { [weak self] time in
-                self?.distanceAndTimeBar.timeLabel.text = "\(time)초"
+                guard let self else { return }
+                self.distanceAndTimeBar.timeLabel.text = "\(time)초"
             }).disposed(by: disposeBag)
         
         output.wentLocations
             .asDriver(onErrorJustReturn: [])
             .drive(onNext: { [weak self] coordinates in
-                self?.drawWentLine(coordiates: coordinates.map { CLLocationCoordinate2D.from(coordiate: $0) })
+                guard let self else { return }
+                self.drawWentLine(coordiates: coordinates.map { CLLocationCoordinate2D.from(coordiate: $0) })
             }).disposed(by: disposeBag)
         
         output.visitLocations
             .asDriver(onErrorJustReturn: [])
             .drive(onNext: { [weak self] coordinates in
-                self?.drawVisitLine(coordiates: coordinates.map { CLLocationCoordinate2D.from(coordiate: $0)})
+                guard let self else { return }
+                self.drawVisitLine(coordiates: coordinates.map { CLLocationCoordinate2D.from(coordiate: $0)})
             }).disposed(by: disposeBag)
         
         output.ishideGameOverButton
             .asDriver(onErrorJustReturn: false)
             .drive(onNext: { [weak self] isHide in
-                self?.gameOverButton.isHidden = isHide
+                guard let self else { return }
+                self.gameOverButton.isHidden = isHide
+            }).disposed(by: disposeBag)
+        
+        output.tooFarFromLocaiton
+            .asDriver(onErrorJustReturn: false)
+            .drive(onNext: { [weak self] isFar in
+                guard let self,
+                      isFar else { return }
+                self.showAlert(title: "멀어지고 있습니다.", message: "거기아니에요")
             }).disposed(by: disposeBag)
         
         bindButtons()

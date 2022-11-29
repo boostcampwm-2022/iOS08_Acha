@@ -16,15 +16,18 @@ final class SingleGameViewModel {
         var rankButtonTapped: Observable<Void>
         var recordButtonTapped: Observable<Void>
         var mapTapped: Observable<Void>
+        var gameOverOkButtonTapped: Observable<Void>
     }
     struct Output {
         var ishideGameOverButton = BehaviorSubject<Bool>(value: true)
         var currentLocation = PublishSubject<Coordinate>()
         var runningTime = BehaviorSubject<Int>(value: 0)
         var runningDistance = BehaviorSubject<Double>(value: 0)
+        var tooFarFromLocaiton = BehaviorSubject<Bool>(value: false)
         
         var wentLocations = PublishSubject<[Coordinate]>()
         var visitLocations = PublishSubject<[Coordinate]>()
+        var gameOver = PublishSubject<[Record]>()
     }
     
     // MARK: - Dependency
@@ -44,9 +47,16 @@ final class SingleGameViewModel {
     
     // MARK: - Helpers
     func transform(input: Input) -> Output {
+        createInput(input: input)
+        useCase.startRunning()
+        return createOutput()
+    }
+    
+    private func createInput(input: Input) {
         input.gameOverButtonTapped
             .subscribe(onNext: { [weak self] _ in
-                self?.gameOver(isCompleted: false)
+                guard let self else { return }
+                self.gameOver(isCompleted: false)
             }).disposed(by: disposeBag)
         
         input.rankButtonTapped
@@ -65,11 +75,10 @@ final class SingleGameViewModel {
             .subscribe(onNext: { [weak self] in
                 self?.useCase.startGameOverTimer()
             }).disposed(by: disposeBag)
-        
+    }
+    
+    private func createOutput() -> Output {
         let output = Output()
-        
-        useCase.startRunning()
-        
         useCase.currentLocation
             .bind(to: output.currentLocation)
             .disposed(by: disposeBag)
@@ -88,13 +97,14 @@ final class SingleGameViewModel {
         useCase.ishideGameOverButton
             .bind(to: output.ishideGameOverButton)
             .disposed(by: disposeBag)
-        
+        useCase.tooFarFromLocaiton
+            .bind(to: output.tooFarFromLocaiton)
+            .disposed(by: disposeBag)
         useCase.isGameOver
             .subscribe(onNext: { [weak self] _ in
                 guard let self else { return }
                 self.gameOver(isCompleted: true)
             }).disposed(by: disposeBag)
-        
         return output
     }
     
