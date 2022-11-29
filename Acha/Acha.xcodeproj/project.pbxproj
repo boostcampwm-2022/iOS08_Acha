@@ -100,6 +100,7 @@
 		F1DED3972935DFB900ABC047 /* CommunityDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED3962935DFB900ABC047 /* CommunityDTO.swift */; };
 		F1DED3992935DFCC00ABC047 /* CommentDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED3982935DFCC00ABC047 /* CommentDTO.swift */; };
 		F1DED39B2935DFE400ABC047 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED39A2935DFE400ABC047 /* Post.swift */; };
+		F1DED39D2935E12F00ABC047 /* CommunityPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED39C2935E12F00ABC047 /* CommunityPostViewController.swift */; };
 		F1FCEE0E292B483E001A55D6 /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FCEE0D292B483E001A55D6 /* UITextField+Extension.swift */; };
 		F1FCEE11292B4C87001A55D6 /* AuthButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FCEE10292B4C87001A55D6 /* AuthButton.swift */; };
 		F1FCEE14292B4E9A001A55D6 /* AuthTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FCEE13292B4E9A001A55D6 /* AuthTitleView.swift */; };
@@ -232,6 +233,7 @@
 		F1DED3962935DFB900ABC047 /* CommunityDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityDTO.swift; sourceTree = "<group>"; };
 		F1DED3982935DFCC00ABC047 /* CommentDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentDTO.swift; sourceTree = "<group>"; };
 		F1DED39A2935DFE400ABC047 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		F1DED39C2935E12F00ABC047 /* CommunityPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityPostViewController.swift; sourceTree = "<group>"; };
 		F1FCEE0D292B483E001A55D6 /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 		F1FCEE10292B4C87001A55D6 /* AuthButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthButton.swift; sourceTree = "<group>"; };
 		F1FCEE13292B4E9A001A55D6 /* AuthTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthTitleView.swift; sourceTree = "<group>"; };
@@ -754,6 +756,7 @@
 			isa = PBXGroup;
 			children = (
 				E5BE8BAE29221FF800E9CFE8 /* CommunityViewController.swift */,
+				F1DED39C2935E12F00ABC047 /* CommunityPostViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -961,6 +964,7 @@
 				4738D76F2922756B003AE835 /* Map.swift in Sources */,
 				E5027D5E292686440021BF60 /* RecordViewDayTotalRecord.swift in Sources */,
 				E5027D58292670570021BF60 /* Record.swift in Sources */,
+				F1DED39D2935E12F00ABC047 /* CommunityPostViewController.swift in Sources */,
 				F1034B59292B37EB00BD8407 /* LoginViewModel.swift in Sources */,
 				E5027D58292670570021BF60 /* Record.swift in Sources */,
 				F1DED3932935DF6800ABC047 /* CommunityCollectionViewCell.swift in Sources */,
