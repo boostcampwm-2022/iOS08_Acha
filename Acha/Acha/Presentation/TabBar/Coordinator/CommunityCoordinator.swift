@@ -29,4 +29,9 @@ final class CommunityCoordinator: CommunityCoordinatorProtocol {
         let viewController = CommunityViewController()
         navigationController.pushViewController(viewController, animated: true)
     }
+    
+    func showCommunityPostViewController() {
+        let viewController = CommunityPostViewController()
+        navigationController.pushViewController(viewController, animated: true)
+    }
 }

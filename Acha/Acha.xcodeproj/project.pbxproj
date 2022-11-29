@@ -143,6 +143,7 @@
 		F1E83D8329348AE0004C7992 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E83D8229348AE0004C7992 /* Post.swift */; };
 		F1E83D8629348C59004C7992 /* CommunityCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E83D8529348C59004C7992 /* CommunityCollectionViewCell.swift */; };
 		F1E83D8B29351C69004C7992 /* CommunityViewUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E83D8A29351C69004C7992 /* CommunityViewUsecase.swift */; };
+		F1E83D95293594F4004C7992 /* CommunityPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E83D94293594F4004C7992 /* CommunityPostViewController.swift */; };
 		F1FCEE0E292B483E001A55D6 /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FCEE0D292B483E001A55D6 /* UITextField+Extension.swift */; };
 		F1FCEE11292B4C87001A55D6 /* AuthButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FCEE10292B4C87001A55D6 /* AuthButton.swift */; };
 		F1FCEE14292B4E9A001A55D6 /* AuthTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FCEE13292B4E9A001A55D6 /* AuthTitleView.swift */; };
@@ -318,6 +319,7 @@
 		F1E83D8229348AE0004C7992 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		F1E83D8529348C59004C7992 /* CommunityCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityCollectionViewCell.swift; sourceTree = "<group>"; };
 		F1E83D8A29351C69004C7992 /* CommunityViewUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityViewUsecase.swift; sourceTree = "<group>"; };
+		F1E83D94293594F4004C7992 /* CommunityPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityPostViewController.swift; sourceTree = "<group>"; };
 		F1FCEE0D292B483E001A55D6 /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 		F1FCEE10292B4C87001A55D6 /* AuthButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthButton.swift; sourceTree = "<group>"; };
 		F1FCEE13292B4E9A001A55D6 /* AuthTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthTitleView.swift; sourceTree = "<group>"; };
@@ -1059,6 +1061,7 @@
 			isa = PBXGroup;
 			children = (
 				E5BE8BAE29221FF800E9CFE8 /* CommunityViewController.swift */,
+				F1E83D94293594F4004C7992 /* CommunityPostViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -1281,6 +1284,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E5BE8BB52922201600E9CFE8 /* SignupViewController.swift in Sources */,
+				F1E83D95293594F4004C7992 /* CommunityPostViewController.swift in Sources */,
 				F1FCEE11292B4C87001A55D6 /* AuthButton.swift in Sources */,
 				E5BE8BBA2922217600E9CFE8 /* TabBarType.swift in Sources */,
 				76A2E1A12923C5A7001E887A /* SingleGameViewModel.swift in Sources */,
