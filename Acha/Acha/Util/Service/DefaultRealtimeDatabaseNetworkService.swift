@@ -16,10 +16,10 @@ final class DefaultRealtimeDatabaseNetworkService: RealtimeDatabaseNetworkServic
         return databaseReference.child(path)
     }
     
-    func fetch<T: Decodable>(path: String) -> Single<T> {
+    func fetch<T: Decodable>(path: FirebasePath) -> Single<T> {
         return Single.create { [weak self] single in
             guard let self else { return Disposables.create() }
-            let childReference = self.childReference(path: path)
+            let childReference = self.childReference(path: path.rawValue)
             childReference.observeSingleEvent(of: .value, with: { snapshot in
                 guard let snapData = snapshot.value as? [Any],
                       let jsonData = try? JSONSerialization.data(withJSONObject: snapData) else {

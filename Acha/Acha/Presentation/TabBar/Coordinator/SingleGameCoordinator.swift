@@ -48,22 +48,36 @@ final class SingleGameCoordinator: SingleGameCoordinatorProtocol {
         navigationController.pushViewController(viewController, animated: true)
     }
     
-    func showSingleGameOverViewController(record: Record, map: Map) {
-        let viewModel = GameOverViewModel(coordinator: self, record: record, map: map)
-        let viewController = GameOverViewController(viewModel: viewModel)
-        viewController.modalPresentationStyle = .overFullScreen
-        self.navigationController.viewControllers.last?.present(viewController, animated: true)
-    }
+//    func showSingleGameOverViewController(record: Record, map: Map) {
+//        let viewModel = GameOverViewModel(coordinator: self, record: record, map: map)
+//        let viewController = GameOverViewController(viewModel: viewModel)
+//        viewController.modalPresentationStyle = .overFullScreen
+//        self.navigationController.viewControllers.last?.present(viewController, animated: true)
+//    }
     
     func showInGameRecordViewController(mapID: Int) {
-        let viewModel = InGameRecordViewModel(mapID: mapID)
+        let viewModel = InGameRecordViewModel(
+            inGameUseCase: DefaultInGameUseCase(
+                mapID: mapID,
+                recordRepository: DefaultRecordRepository(
+                    realTimeDatabaseNetworkService: DefaultRealtimeDatabaseNetworkService()
+                )
+            )
+        )
         let viewController = InGameRecordViewController(viewModel: viewModel)
         viewController.modalPresentationStyle = .pageSheet
         self.navigationController.viewControllers.last?.present(viewController, animated: true)
     }
     
     func showInGameRankViewController(mapID: Int) {
-        let viewModel = InGameRankingViewModel(mapID: mapID)
+        let viewModel = InGameRankingViewModel(
+            inGameUseCase: DefaultInGameUseCase(
+                mapID: mapID,
+                recordRepository: DefaultRecordRepository(
+                    realTimeDatabaseNetworkService: DefaultRealtimeDatabaseNetworkService()
+                )
+            )
+        )
         let viewController = InGameRankingViewController(viewModel: viewModel)
         viewController.modalPresentationStyle = .pageSheet
         self.navigationController.viewControllers.last?.present(viewController, animated: true)

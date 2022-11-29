@@ -33,6 +33,11 @@
 		761C1C0B292E439F000C88D0 /* SingleGameUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761C1C0A292E439F000C88D0 /* SingleGameUseCase.swift */; };
 		761C1C0E292E4554000C88D0 /* TimerServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761C1C0D292E4554000C88D0 /* TimerServiceProtocol.swift */; };
 		761C1C10292E4562000C88D0 /* TimerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761C1C0F292E4562000C88D0 /* TimerService.swift */; };
+		761E5F072935EF4200E6CACC /* InGameUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761E5F062935EF4200E6CACC /* InGameUseCase.swift */; };
+		761E5F092935EFF400E6CACC /* DefaultInGameUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761E5F082935EFF400E6CACC /* DefaultInGameUseCase.swift */; };
+		761E5F0D2935F0C200E6CACC /* DefaultRecordRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761E5F0C2935F0C200E6CACC /* DefaultRecordRepository.swift */; };
+		761E5F0F2935F0C700E6CACC /* RecordRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761E5F0E2935F0C700E6CACC /* RecordRepository.swift */; };
+		761E5F112935F2DF00E6CACC /* FirebasePath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761E5F102935F2DE00E6CACC /* FirebasePath.swift */; };
 		764AF29D292B639200D16DC9 /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764AF29C292B639200D16DC9 /* UIViewController+.swift */; };
 		764AF29F292B6EF500D16DC9 /* InGameRecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764AF29E292B6EF500D16DC9 /* InGameRecordViewModel.swift */; };
 		764AF2A1292B9C1F00D16DC9 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764AF2A0292B9C1F00D16DC9 /* String+.swift */; };
@@ -158,6 +163,11 @@
 		761C1C0A292E439F000C88D0 /* SingleGameUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleGameUseCase.swift; sourceTree = "<group>"; };
 		761C1C0D292E4554000C88D0 /* TimerServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerServiceProtocol.swift; sourceTree = "<group>"; };
 		761C1C0F292E4562000C88D0 /* TimerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerService.swift; sourceTree = "<group>"; };
+		761E5F062935EF4200E6CACC /* InGameUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameUseCase.swift; sourceTree = "<group>"; };
+		761E5F082935EFF400E6CACC /* DefaultInGameUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultInGameUseCase.swift; sourceTree = "<group>"; };
+		761E5F0C2935F0C200E6CACC /* DefaultRecordRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultRecordRepository.swift; sourceTree = "<group>"; };
+		761E5F0E2935F0C700E6CACC /* RecordRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordRepository.swift; sourceTree = "<group>"; };
+		761E5F102935F2DE00E6CACC /* FirebasePath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebasePath.swift; sourceTree = "<group>"; };
 		76213CBD292CEA6600895462 /* WorkSpace by 25km:h.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "WorkSpace by 25km:h.gpx"; sourceTree = "<group>"; };
 		76213CBE292CEA6600895462 /* WorkSpace by 6km:h.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "WorkSpace by 6km:h.gpx"; sourceTree = "<group>"; };
 		764AF29C292B639200D16DC9 /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
@@ -421,6 +431,8 @@
 			isa = PBXGroup;
 			children = (
 				761C1C08292E437E000C88D0 /* DefaultSingleGameUseCase.swift */,
+				761E5F062935EF4200E6CACC /* InGameUseCase.swift */,
+				761E5F082935EFF400E6CACC /* DefaultInGameUseCase.swift */,
 				761C1C0A292E439F000C88D0 /* SingleGameUseCase.swift */,
 			);
 			path = UseCase;
@@ -437,6 +449,23 @@
 				76B505FE293366050087444D /* LocationService.swift */,
 			);
 			path = Service;
+			sourceTree = "<group>";
+		};
+		761E5F0A2935F09F00E6CACC /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				761E5F0C2935F0C200E6CACC /* DefaultRecordRepository.swift */,
+				761E5F0B2935F0B800E6CACC /* Protocol */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
+		761E5F0B2935F0B800E6CACC /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				761E5F0E2935F0C700E6CACC /* RecordRepository.swift */,
+			);
+			path = Protocol;
 			sourceTree = "<group>";
 		};
 		76B3BF4D292526680056ABFD /* SingleGame */ = {
@@ -623,6 +652,7 @@
 		E5BE8BB82922216500E9CFE8 /* Enums */ = {
 			isa = PBXGroup;
 			children = (
+				761E5F102935F2DE00E6CACC /* FirebasePath.swift */,
 				E5BE8BB92922217600E9CFE8 /* TabBarType.swift */,
 				4738D767292267BA003AE835 /* Errors.swift */,
 				47935E942923310700481307 /* SystemImageNameSpace.swift */,
@@ -706,6 +736,7 @@
 		F1B0D8A4292CC81A00EBDD02 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				761E5F0A2935F09F00E6CACC /* Repository */,
 				F1B0D8AD292CCAAC00EBDD02 /* UserDTO.swift */,
 				F1B0D8AF292CCABE00EBDD02 /* BadgeDTO.swift */,
 				F1B0D8B1292CCAD900EBDD02 /* RecordDTO.swift */,
@@ -963,6 +994,7 @@
 				E5BE8BB52922201600E9CFE8 /* SignupViewController.swift in Sources */,
 				761C1C09292E437E000C88D0 /* DefaultSingleGameUseCase.swift in Sources */,
 				F1FCEE11292B4C87001A55D6 /* AuthButton.swift in Sources */,
+				761E5F112935F2DF00E6CACC /* FirebasePath.swift in Sources */,
 				E5BE8BBA2922217600E9CFE8 /* TabBarType.swift in Sources */,
 				76A2E1A12923C5A7001E887A /* SingleGameViewModel.swift in Sources */,
 				76B3BF5A292668780056ABFD /* GameOverViewModel.swift in Sources */,
@@ -980,6 +1012,8 @@
 				F14B1495292BA1D40010E966 /* KeyboardManager.swift in Sources */,
 				761C1C0B292E439F000C88D0 /* SingleGameUseCase.swift in Sources */,
 				F13DB58F292B3C8D00323B28 /* AuthInputTextField.swift in Sources */,
+				761E5F0D2935F0C200E6CACC /* DefaultRecordRepository.swift in Sources */,
+				761E5F092935EFF400E6CACC /* DefaultInGameUseCase.swift in Sources */,
 				E5BE8B8F2922172400E9CFE8 /* AppCoordinator.swift in Sources */,
 				47935E97292366CD00481307 /* UIButton+.swift in Sources */,
 				471863C1291E155700A35786 /* ViewController.swift in Sources */,
@@ -1050,7 +1084,9 @@
 				F1B0D8AC292CCA5200EBDD02 /* SignUpData.swift in Sources */,
 				E516A6BA2923929800CD6BDB /* RecordViewModel.swift in Sources */,
 				76B3BF4A2924DDE70056ABFD /* BaseViewModel.swift in Sources */,
+				761E5F072935EF4200E6CACC /* InGameUseCase.swift in Sources */,
 				F156F1132923536A0053E807 /* DistanceAndTimeBar.swift in Sources */,
+				761E5F0F2935F0C700E6CACC /* RecordRepository.swift in Sources */,
 				F1D202992923AB3D00F3E87D /* InGameRankingViewController.swift in Sources */,
 				764AF2A3292B9D3600D16DC9 /* InGameRankingViewModel.swift in Sources */,
 				471863BF291E155700A35786 /* SceneDelegate.swift in Sources */,

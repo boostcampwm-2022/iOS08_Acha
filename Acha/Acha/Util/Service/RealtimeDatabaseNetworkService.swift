@@ -9,5 +9,5 @@ import Foundation
 import RxSwift
 
 protocol RealtimeDatabaseNetworkService {
-    func fetch<T: Decodable>(path: String) -> Single<T>
+    func fetch<T: Decodable>(path: FirebasePath) -> Single<T>
 }
