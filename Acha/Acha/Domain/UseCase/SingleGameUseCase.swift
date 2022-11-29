@@ -26,6 +26,6 @@ protocol SingleGameUseCase {
     func startRunning()
     func startGameOverTimer()
     func startRunningTimer()
-    func stopRunningTimer()
+    func stopRunning()
     func gameOverButtonTapped()
 }

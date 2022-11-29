@@ -10,4 +10,5 @@ import RxSwift
 
 protocol RealtimeDatabaseNetworkService {
     func fetch<T: Decodable>(path: FirebasePath) -> Single<T>
+    func uploadNewRecord(index: Int, data: Record)
 }

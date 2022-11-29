@@ -9,4 +9,5 @@ import RxSwift
 
 protocol RecordRepository {
     func fetchAllRecords() -> Single<[Record]>
+    func uploadNewRecord(record: Record)
 }

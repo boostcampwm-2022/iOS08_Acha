@@ -11,6 +11,7 @@ import CoreLocation
 
 class DefaultSingleGameUseCase: SingleGameUseCase {
     private let locationService: LocationService
+    private let recordRepository: RecordRepository
     private var disposeBag = DisposeBag()
     
     var tapTimer: TimerServiceProtocol
@@ -30,14 +31,16 @@ class DefaultSingleGameUseCase: SingleGameUseCase {
     var gameOverInformation = PublishSubject<(Record, String)>()
     
     init(map: Map,
+         locationService: LocationService,
+         recordRepository: RecordRepository,
          tapTimer: TimerServiceProtocol,
-         runningTimer: TimerServiceProtocol,
-         locationService: LocationService
+         runningTimer: TimerServiceProtocol
     ) {
+        self.map = map
+        self.locationService = locationService
+        self.recordRepository = recordRepository
         self.tapTimer = tapTimer
         self.runningTimer = runningTimer
-        self.locationService = locationService
-        self.map = map
     }
     
     func startRunning() {
@@ -51,7 +54,7 @@ class DefaultSingleGameUseCase: SingleGameUseCase {
                       let distance = try? self.runningDistance.value(),
                       let previousCoordinate = self.previousCoordinate else {
                     self?.previousCoordinate = Coordinate(latitude: location.coordinate.latitude,
-                                                         longitude: location.coordinate.longitude)
+                                                          longitude: location.coordinate.longitude)
                     return
                 }
                 
@@ -73,7 +76,7 @@ class DefaultSingleGameUseCase: SingleGameUseCase {
             .subscribe(onNext: { [weak self] index in
                 guard let self else { return }
                 if index.count > Int(Double(self.map.coordinates.count) * 0.95) {
-                    self.emitGameOverInformation(isCompleted: true)
+                    self.gameOver(isCompleted: true)
                 }
             }).disposed(by: disposeBag)
     }
@@ -115,40 +118,35 @@ class DefaultSingleGameUseCase: SingleGameUseCase {
             .disposed(by: runningTimer.disposeBag)
     }
     
-    func stopRunningTimer() {
+    func stopRunning() {
         runningTimer.stop()
+        disposeBag = DisposeBag()
+        runningTimer.disposeBag = DisposeBag()
+        tapTimer.disposeBag = DisposeBag()
+        locationService.stop()
     }
     
     func gameOverButtonTapped() {
-        emitGameOverInformation(isCompleted: false)
+        gameOver(isCompleted: false)
     }
     
-    private func emitGameOverInformation(isCompleted: Bool) {
-        let observable = Observable
-            .combineLatest(runningTime,
-                           runningDistance,
-                           resultSelector: { [weak self] (time, distance) in
-                    guard let self else { return }
-                    let createdAt = Date().convertToStringFormat(format: "yyyy-MM-dd")
-                    
-                    let kcal = Int(0.1128333333*Double(time))
-                    let record = Record(id: 0,
-                                        mapID: self.map.mapID,
-                                        userID: "마끼",
-                                        calorie: kcal,
-                                        distance: Int(distance),
-                                        time: time,
-                                        isSingleMode: true,
-                                        isCompleted: isCompleted,
-                                        createdAt: createdAt)
-                self.gameOverInformation.onNext((record, self.map.name))
-            })
+    private func gameOver(isCompleted: Bool) {
+        let runningTime = (try? runningTime.value()) ?? 0
+        let runningDistance = (try? runningDistance.value()) ?? 0
+        let createdAt = Date().convertToStringFormat(format: "yyyy-MM-dd")
+        let kcal = Int(0.1128333333*Double(runningTime))
+        let record = Record(id: 0,
+                            mapID: map.mapID,
+                            userID: "마끼",
+                            calorie: kcal,
+                            distance: Int(runningDistance),
+                            time: runningTime,
+                            isSingleMode: true,
+                            isCompleted: isCompleted,
+                            createdAt: createdAt)
         
-        var trashBag = DisposeBag()
-        observable
-            .subscribe(onNext: { })
-            .disposed(by: trashBag)
-        trashBag = DisposeBag()
+        recordRepository.uploadNewRecord(record: record)
+        gameOverInformation.onNext((record, self.map.name))
+        stopRunning()
     }
-    
 }

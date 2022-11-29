@@ -39,21 +39,17 @@ final class SingleGameCoordinator: SingleGameCoordinatorProtocol {
             coordinator: self,
             singeGameUseCase: DefaultSingleGameUseCase(
                 map: selectedMap,
+                locationService: DefaultLocationService(),
+                recordRepository: DefaultRecordRepository(
+                    realTimeDatabaseNetworkService: DefaultRealtimeDatabaseNetworkService()
+                ),
                 tapTimer: TimerService(),
-                runningTimer: TimerService(),
-                locationService: DefaultLocationService()
+                runningTimer: TimerService()
             )
         )
         let viewController = SingleGameViewController(viewModel: viewModel)
         navigationController.pushViewController(viewController, animated: true)
     }
-    
-//    func showSingleGameOverViewController(record: Record, map: Map) {
-//        let viewModel = GameOverViewModel(coordinator: self, record: record, map: map)
-//        let viewController = GameOverViewController(viewModel: viewModel)
-//        viewController.modalPresentationStyle = .overFullScreen
-//        self.navigationController.viewControllers.last?.present(viewController, animated: true)
-//    }
     
     func showInGameRecordViewController(mapID: Int) {
         let viewModel = InGameRecordViewModel(
