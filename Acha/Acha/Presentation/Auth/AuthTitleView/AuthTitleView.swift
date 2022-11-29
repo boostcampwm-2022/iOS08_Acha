@@ -7,6 +7,7 @@
 
 import UIKit
 
+// FIXME: Auth에 사용되는 컴포넌트의 경우 컴포넌트 그룹을 하나 만들어서 정리하는게 깔끔해보입니다.
 final class AuthTitleView: UIStackView {
     
     lazy var label = UILabel().then {

@@ -74,6 +74,7 @@ final class LoginViewModel: BaseViewModel {
             return Disposables.create()
         }
         
+       // FIXME: 오퍼레이터를 사용하여 각각 이벤트를 받은 후 조합을 통해 처리할 순 없을까요? 콜백지오오오오옥
         let loginResult = Observable<Bool>.create { observer in
             input.loginButtonDidTap
                 .subscribe { [weak self] _ in

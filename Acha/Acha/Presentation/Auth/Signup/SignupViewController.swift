@@ -79,6 +79,7 @@ final class SignupViewController: ScrollAbleViewController {
         
         outputs.signUpSuccesssed
             .asDriver(onErrorJustReturn: false)
+            // TODO: .filter { !$0 } 필터오퍼레이터를 이용하면 조건문을 없앨수 있을거 같아요
             .drive(onNext: { [weak self] result in
                 if !result {
                     self?.alertSignUpFailed()

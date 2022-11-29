@@ -86,6 +86,7 @@ final class InGameRecordViewController: InGamePlayMenuViewController {
     
 }
 
+// FIXME: 이 아이도 글로벌하게 사용되는지 내부에서만 사용되는지에 따라서 스코프 안에 선언할지 별도로 파일을 만들지 룰을 만들어주세요
 struct InGameRecord: Hashable, InGameMenuModelProtocol {
     var id: Int
     var time: Int

@@ -8,6 +8,7 @@
 import Foundation
 
 // MARK: - Map
+// FIXME: 네이밍이 너무 범용적입니다.
 struct Map: Decodable {
     let mapID: Int
     let name: String

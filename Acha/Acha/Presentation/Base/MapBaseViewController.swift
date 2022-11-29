@@ -15,7 +15,7 @@ protocol MapBaseViewProtocol {
     var locationManager: CLLocationManager? { get set }
     var focusButton: UIButton { get set }
     
-    func configureMapViewUI()
+  func configureMapViewUI()
     func getLocationUsagePermission()
     func focusUserLocation(useSpan: Bool)
     func setUpMapView()

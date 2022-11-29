@@ -47,9 +47,15 @@ final class SignUpViewModel {
         self.coordinator = coordinator
         self.repository = repository
     }
+  
+    // FIXME: 데이터 스트림이 남아 있어 메모리 누수가 발생할 수 있습니다. deinit 시점 초기화를 통해 메모리 누수를 방지하면 좋을거 같아요
+    deinit {
+      disposeBag = DisposeBag()
+    }
     
     func transform(input: Input) -> Output {
         
+        // 별도의 DisposeBag를 생성하고 disposeBag에 주입하는 이유가 있을까요?
         let bag = DisposeBag()
         let paswordValidate =  Observable<Bool>.create { observer in
             input.passwordUpdated

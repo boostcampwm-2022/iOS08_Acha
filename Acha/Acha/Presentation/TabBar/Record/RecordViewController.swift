@@ -50,6 +50,7 @@ class RecordViewController: UIViewController, UICollectionViewDelegate {
     private func bind() {
         viewModel.isFinishFetched
             .subscribe(onNext: { _ in
+                // FIXME: 메모리 누수~~~ 캡쳐리스트에서 [weak self] 선언하거나 rx 오퍼레이터 .withUnretained 사용해보시길 바랍니다.
                 self.configureCollectionViewDataSource()
                 self.makeSnapshot()
             }).disposed(by: disposeBag)

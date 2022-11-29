@@ -29,6 +29,7 @@ final class HomeViewController: UIViewController {
         $0.layer.cornerRadius = 10
         let cornerMask: CACornerMask = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         $0.layer.maskedCorners = cornerMask
+        // FIXME: 옵셔널 타입이 아니라 ?? 워닝 뜨는데 워닝은 전반적으로 제거해주세요!
         $0.layer.backgroundColor = (UIColor.pointLight ?? UIColor.red) .cgColor
         $0.numberOfLines = 0
         $0.font = .boldSystemFont(ofSize: 34)
@@ -50,6 +51,7 @@ final class HomeViewController: UIViewController {
     private lazy var multiGameImageView = UIImageView().then {
         $0.layer.cornerRadius = 10
         $0.image = UIImage(systemName: "person")
+        // FIXME: 반복 코드가 보이는데요 그림자 설정에 대한 메소드를 생성 또는 확장해서 적용하면 좋을거 같습니다.
         $0.layer.shadowOffset = CGSize(width: 0, height: 5)
         $0.layer.shadowColor = UIColor.gray.cgColor
         $0.layer.shadowOpacity = 1.0

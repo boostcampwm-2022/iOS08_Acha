@@ -30,6 +30,7 @@ struct Record: Hashable, Codable {
         case createdAt = "created_at"
     }
     
+    // FIXME: init 함수를 분리해서 초기값이 없는 상태 데이터 입력을 통한 초기화를 분리하는게 안전해 보입니다.
     init(id: Int = -1,
          mapID: Int = -1,
          userID: String = "",

@@ -9,6 +9,8 @@ import Foundation
 import RxSwift
 import RxRelay
 
+// FIXME: AuthRepository에 사용되는 것은 공통으로 프로토콜로 분리하고
+// AuthRepository를 상속하는 LoginReposity, SignUpRepository로 분리하는게 코드 관리 측면에서 좋아보입니다.
 protocol SignUpRepository {
     var emailRelay: BehaviorRelay<String> {get set}
     var passwordRelay: BehaviorRelay<String> {get set}

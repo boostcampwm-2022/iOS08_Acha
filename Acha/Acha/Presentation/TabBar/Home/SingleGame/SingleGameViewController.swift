@@ -25,6 +25,7 @@ class SingleGameViewController: MapBaseViewController, DistanceAndTimeBarLine {
             for: .normal
         )
     }
+    // FIXME: 내부에서만 호출하는 거 같은데요 접근지정자는 꼭 지켜주세요, 
     var distanceAndTimeBar = DistanceAndTimeBar()
     private lazy var rightMenuButton: UIButton = UIButton().then {
         $0.setImage(
