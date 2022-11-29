@@ -13,4 +13,5 @@ extension UIImage {
     static let magnyfingGlassImage: UIImage = UIImage(named: "magnifyingGlass")!
     static let exitImage: UIImage = UIImage(named: "exitImage")!
     static let commentImage: UIImage = UIImage(named: "commentImage")!
+    static let defaultSelectImage: UIImage = UIImage(named: "defaultSelectImage")!
 }

@@ -20,7 +20,7 @@ final class CommunityPostViewController: UIViewController {
     private let imageButtonView = UIView()
     
     private let imageAddButton = UIButton().then {
-        $0.backgroundColor = .green
+        $0.setImage(.defaultSelectImage, for: .normal)
     }
 
     override func viewDidLoad() {
