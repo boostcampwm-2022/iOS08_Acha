@@ -514,7 +514,7 @@
 		E5BE8BA529221C2D00E9CFE8 /* Community */ = {
 			isa = PBXGroup;
 			children = (
-				E5BE8BAE29221FF800E9CFE8 /* CommunityViewController.swift */,
+				F1DED3902935DF1400ABC047 /* ViewController */,
 			);
 			path = Community;
 			sourceTree = "<group>";
@@ -733,6 +733,14 @@
 				76B3BF4F292624850056ABFD /* InGamePlayMenuViewController.swift */,
 			);
 			path = InGameMenusParentViewController;
+			sourceTree = "<group>";
+		};
+		F1DED3902935DF1400ABC047 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				E5BE8BAE29221FF800E9CFE8 /* CommunityViewController.swift */,
+			);
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 		F1FCEE0F292B4C6B001A55D6 /* AuthButton */ = {
