@@ -25,18 +25,15 @@ final class GameOverViewModel: BaseViewModel {
     let ref: DatabaseReference!
     var record: Record
     let map: Map
-    let isCompleted: Bool
     
     init(coordinator: SingleGameCoordinator,
          record: Record,
-         map: Map,
-         isCompleted: Bool
+         map: Map
     ) {
         self.coordinator = coordinator
         self.record = record
         self.map = map
         self.ref = Database.database().reference()
-        self.isCompleted = isCompleted
     }
     
     func transform(input: Input) -> Output {
@@ -69,35 +66,12 @@ final class GameOverViewModel: BaseViewModel {
                 }
                 
                 self.record.id = records.count
-                if self.isCompleted {
-                    self.uploadMapRecord(index: self.record.id)
-                }
+
                 guard let json = try? JSONEncoder().encode(self.record),
                       let jsonSerial = try? JSONSerialization.jsonObject(with: json) as? [String: Any] ?? [:]
                 else { return }
                 
                 self.ref.child("record").updateChildValues(["\(records.count)": jsonSerial])
-            })
-    }
-    
-    private func uploadMapRecord(index: Int) {
-        self.ref.child("mapList").child("\(self.map.mapID)").observeSingleEvent(
-            of: .value,
-            with: { [weak self] snapshot in
-                
-                guard let self,
-                      let snapData = snapshot.value,
-                      let data = try? JSONSerialization.data(withJSONObject: snapData),
-                      let mapData = try? JSONDecoder().decode(Map.self, from: data)
-                else {
-                    print(Errors.decodeError, #function)
-                    return
-                }
-                
-                let newRecord = (mapData.records ?? []) + [index]
-                self.ref
-                    .child("mapList/\(self.map.mapID)/records")
-                    .setValue(newRecord)
             })
     }
 }

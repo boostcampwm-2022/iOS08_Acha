@@ -48,8 +48,8 @@ final class SingleGameCoordinator: SingleGameCoordinatorProtocol {
         navigationController.pushViewController(viewController, animated: true)
     }
     
-    func showSingleGameOverViewController(record: Record, map: Map, isCompleted: Bool) {
-        let viewModel = GameOverViewModel(coordinator: self, record: record, map: map, isCompleted: isCompleted)
+    func showSingleGameOverViewController(record: Record, map: Map) {
+        let viewModel = GameOverViewModel(coordinator: self, record: record, map: map)
         let viewController = GameOverViewController(viewModel: viewModel)
         viewController.modalPresentationStyle = .overFullScreen
         self.navigationController.viewControllers.last?.present(viewController, animated: true)

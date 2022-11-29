@@ -111,11 +111,11 @@ final class SingleGameViewModel {
                             distance: Int(distance),
                             time: time,
                             isSingleMode: true,
+                            isCompleted: isCompleted,
                             createdAt: createdAt)
         
         self.coordinator.showSingleGameOverViewController(record: record,
-                                                          map: map,
-                                                          isCompleted: isCompleted)
+                                                          map: map)
         self.disposeBag = DisposeBag()
     }
 }

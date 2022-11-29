@@ -16,5 +16,6 @@ struct RecordDTO: Codable {
     let time: Int
     let isSingleMode: Bool
     let isWin: Bool
+    let isCompleted: Bool
     let createdAt: Date
 }
