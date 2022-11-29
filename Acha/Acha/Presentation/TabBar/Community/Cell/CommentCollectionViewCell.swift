@@ -35,6 +35,19 @@ final class CommentCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func bindData(data: Comment) {
+        nickNameLabel.text = data.nickName
+        timeLabel.text = data.createdAt.convertToStringFormat(format: "YYYY-mm-dd")
+        contextLabel.text = data.text
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        nickNameLabel.text = ""
+        timeLabel.text = ""
+        contextLabel.text = ""
+    }
+    
 }
 
 extension CommentCollectionViewCell {

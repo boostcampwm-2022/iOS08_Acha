@@ -11,12 +11,12 @@ final class PostHeaderCollectionReusableView: UICollectionReusableView {
     static let identifier = "PostHeader"
     
     private lazy var nickNameLabel = UILabel().then {
-        $0.font = .smallTitle
+        $0.font = .boldBody
         $0.textColor = .black
     }
     
     private lazy var dateLabel = UILabel().then {
-        $0.font = .body
+        $0.font = .smallTitle
         $0.textColor = .gray
     }
     
@@ -32,13 +32,23 @@ final class PostHeaderCollectionReusableView: UICollectionReusableView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func bindData(data: Post) {
+        nickNameLabel.text = data.nickName
+        dateLabel.text = data.createdAt.convertToStringFormat(format: "YYYY-mm-dd")
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        nickNameLabel.text = ""
+        dateLabel.text = ""
+    }
 }
 
 extension PostHeaderCollectionReusableView {
     private func layout() {
         addViews()
         addConstraints()
-        self.layer.addBorder(directions: [.bottom, .top], color: .gray, width: 1)
     }
     
     private func addViews() {
@@ -57,12 +67,13 @@ extension PostHeaderCollectionReusableView {
         dateLabel.snp.makeConstraints {
             $0.top.bottom.equalToSuperview()
             $0.leading.equalTo(nickNameLabel.snp.trailing)
-            $0.width.equalTo(80)
+            $0.width.equalTo(150)
         }
         
         optionButton.snp.makeConstraints {
             $0.top.bottom.equalToSuperview()
             $0.trailing.equalToSuperview().inset(20)
+            $0.width.equalTo(100)
         }
     }
 }

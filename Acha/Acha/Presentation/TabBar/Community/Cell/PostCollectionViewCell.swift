@@ -27,6 +27,10 @@ final class PostCollectionViewCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func bindData(data: Post) {
+        contextLabel.text = data.text
+    }
 }
 
 extension PostCollectionViewCell {

@@ -25,12 +25,18 @@ final class CommunityDetailViewController: UIViewController {
     private lazy var dataSource = makeDataSource()
     private lazy var snapShot = Snapshot()
 
+    // 더미 데이터
+    let postData = Post(id: 123,
+                        userID: "q3qrw",
+                        nickName: "qwwqt",
+                        text: "waetatwe\nwetwa\nwaeatw\n",
+                        image: "atwwt", createdAt: Date(),
+                        commentCount: 142)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         layout()
-        collectionView.backgroundColor = .gray
-        
-        makeSnapshot(datas: [Post(id: 123, userID: "q3qrw", nickName: "qwwqt", text: "waetatwe", image: "atwwt", createdAt: Date(), commentCount: 142)], section: .post)
+        makeSnapshot(datas: [postData], section: .post)
     }
 
 }
@@ -75,7 +81,7 @@ extension CommunityDetailViewController {
                     withReuseIdentifier: PostCollectionViewCell.identifier,
                     for: indexPath
                 ) as? PostCollectionViewCell else {return UICollectionViewCell()}
-                cell.backgroundColor = .blue
+                cell.bindData(data: post)
                 return cell
             } else if let comment = itemIdentifier as? Comment {
                 guard let cell = collectionView.dequeueReusableCell(
@@ -83,6 +89,7 @@ extension CommunityDetailViewController {
                     for: indexPath
                 ) as? CommentCollectionViewCell else {return UICollectionViewCell()}
                 cell.backgroundColor = .gray
+                cell.bindData(data: comment)
                 return cell
             } else {
                 fatalError("Unknown Cell Type")
@@ -102,6 +109,7 @@ extension CommunityDetailViewController {
                     ofKind: elementKind,
                     withReuseIdentifier: PostHeaderCollectionReusableView.identifier,
                     for: indexPath) as? PostHeaderCollectionReusableView else { return UICollectionReusableView() }
+                header.bindData(data: self.postData)
                     return header
             case .comment:
                 guard let header = collectionView.dequeueReusableSupplementaryView(
@@ -163,7 +171,7 @@ extension CommunityDetailViewController {
                 let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
                 let headerSize = NSCollectionLayoutSize(
                     widthDimension: .fractionalWidth(1.0),
-                    heightDimension: .estimated(100)
+                    heightDimension: .estimated(200)
                 )
                 let header = NSCollectionLayoutBoundarySupplementaryItem(
                     layoutSize: headerSize,
@@ -199,5 +207,13 @@ extension CommunityDetailViewController {
         }
         
         return layout
+    }
+    
+    private func bindPostHeader(data: Post) {
+        guard let header = collectionView.supplementaryView(
+            forElementKind: UICollectionView.elementKindSectionHeader,
+            at: IndexPath(row: 0, section: 0)
+        ) as? PostHeaderCollectionReusableView else {return}
+        header.bindData(data: data)
     }
 }
