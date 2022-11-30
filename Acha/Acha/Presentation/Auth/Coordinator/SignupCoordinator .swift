@@ -31,24 +31,24 @@ final class SignupCoordinator: SignupCoordinatorProtocol, LoginCoordinatorProtoc
     }
     
     func showSignupViewController() {
-        let useCase = AuthUseCase()
-        let repository = AuthRepository()
+        let provider = AuthProvider()
+        let repository = SignUpRepository(provider: provider)
+        let useCase = SignUpUsecase(repository: repository)
         let viewModel = SignUpViewModel(
             coordinator: self,
-            useCase: useCase,
-            repository: repository
+            useCase: useCase
         )
         let viewController = SignupViewController(viewModel: viewModel)
         navigationController.pushViewController(viewController, animated: true)
     }
     
     func showLoginViewController() {
-        let useCase = AuthUseCase()
-        let repository = AuthRepository()
+        let provider = AuthProvider()
+        let repository = LogInRepository(provider: provider)
+        let useCase = LoginUseCase(repository: repository)
         let viewModel = LoginViewModel(
             coordinator: self,
-            useCase: useCase,
-            repository: repository
+            useCase: useCase
         )
         let viewController = LoginViewController(viewModel: viewModel)
         navigationController.pushViewController(viewController, animated: true)

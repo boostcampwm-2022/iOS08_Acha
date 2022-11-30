@@ -6,8 +6,22 @@
 //
 
 import Foundation
+import RxSwift
 
 struct KeyChainManager {
+    
+    func getUUID() -> RxSwift.Observable<String> {
+        return Observable<String>.create { observer in
+            do {
+                let id = try KeyChainManager.get()
+                observer.onNext(id)
+            } catch {
+                observer.onError(error)
+            }
+            return Disposables.create()
+        }
+    }
+    
     enum KeychainServiceError: Error {
         case notLogined
         case duplicateError
