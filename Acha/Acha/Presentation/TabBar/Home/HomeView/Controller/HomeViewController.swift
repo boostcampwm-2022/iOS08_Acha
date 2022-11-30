@@ -95,7 +95,7 @@ final class HomeViewController: UIViewController, UIViewControllerTransitioningD
         configureUI()
         setUpSubviews()
         bind()
-        
+    
     }
     
     // MARK: - Helpers
