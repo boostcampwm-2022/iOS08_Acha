@@ -20,7 +20,7 @@ final class RecordMapViewModel: BaseViewModel {
     
     struct Output {
         var dropDownMenus = BehaviorRelay<[Map]>(value: [])
-        var mapNameAndRecords = BehaviorRelay<(String, [Record])>(value: ("", []))
+        var mapNameAndRecordDatas = BehaviorRelay<(mapName: String, recordDatas: [Record])>(value: ("", []))
     }
     
     private let useCase: RecordMapViewUseCase!
@@ -37,7 +37,7 @@ final class RecordMapViewModel: BaseViewModel {
         input.viewDidAppearEvent
             .subscribe { [weak self] _ in
                 guard let self else { return }
-                self.useCase.getMapNameAndRecordsAtCategory(category: Locations.incheon.string)
+                self.useCase.loadMapData()
             }.disposed(by: disposeBag)
         
         input.sectionHeaderCreateEvent
@@ -49,21 +49,25 @@ final class RecordMapViewModel: BaseViewModel {
         input.dropDownMenuTapEvent
             .subscribe(onNext: { [weak self] mapName in
                 guard let self else { return }
-                self.useCase.getMapNameAndRecordsAtMapName(mapName: mapName)
+                self.useCase.getMapNameAndRecordDatasAtMapName(mapName: mapName)
+                    .subscribe { (mapName, recordDatas) in
+                        output.mapNameAndRecordDatas.accept((mapName: mapName,
+                                                             recordDatas: recordDatas))
+                    }.disposed(by: self.disposeBag)
             }).disposed(by: disposeBag)
         
         input.categoryCellTapEvent
             .subscribe(onNext: { [weak self] category in
                 guard let self else { return }
-                self.useCase.getMapNameAndRecordsAtCategory(category: category)
+                self.useCase.getMapNameAndRecordDatasAtCategory(category: category)
+                    .subscribe { (mapName, recordDatas) in
+                        output.mapNameAndRecordDatas.accept((mapName: mapName,
+                                                             recordDatas: recordDatas))
+                    }.disposed(by: self.disposeBag)
             }).disposed(by: disposeBag)
         
         useCase.dropDownMenus
             .bind(to: output.dropDownMenus)
-            .disposed(by: disposeBag)
-        
-        useCase.mapNameAndRecords
-            .bind(to: output.mapNameAndRecords)
             .disposed(by: disposeBag)
         
         return output

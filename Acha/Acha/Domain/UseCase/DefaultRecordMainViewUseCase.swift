@@ -14,10 +14,10 @@ final class DefaultRecordMainViewUseCase: RecordMainViewUseCase {
     
     var mapNameAtMapId = BehaviorSubject<[Int: String]>(value: [:])
     var weekDatas = PublishSubject<[RecordViewChartData]>()
-    var recordSectionDatas = PublishSubject<([String],
-                                             [String: DayTotalRecord],
-                                             [String: [Record]],
-                                             [Int: String])>()
+    var recordSectionDatas = PublishSubject<(allDates: [String],
+                                             totalRecordAtDate: [String: DayTotalRecord],
+                                             recordsAtDate: [String: [Record]],
+                                             mapNameAtMapId: [Int: String])>()
     
     init(repository: RecordRepository) {
         self.repository = repository
@@ -39,7 +39,7 @@ final class DefaultRecordMainViewUseCase: RecordMainViewUseCase {
             .subscribe(onNext: { records in
                 guard let mapNameAtMapId = try? self.mapNameAtMapId.value() else { return }
                 
-                var totalDataAtDay = [String: DayTotalRecord]()
+                var totalDataAtDate = [String: DayTotalRecord]()
                 var allDates = [String]()
                 var recordsAtDate = [String: [Record]]()
                 
@@ -50,11 +50,11 @@ final class DefaultRecordMainViewUseCase: RecordMainViewUseCase {
                         allDates.append($0.createdAt)
                     }
                     
-                    if totalDataAtDay[$0.createdAt] != nil {
-                        totalDataAtDay[$0.createdAt]?.distance += $0.distance
-                        totalDataAtDay[$0.createdAt]?.calorie += $0.calorie
+                    if totalDataAtDate[$0.createdAt] != nil {
+                        totalDataAtDate[$0.createdAt]?.distance += $0.distance
+                        totalDataAtDate[$0.createdAt]?.calorie += $0.calorie
                     } else {
-                        totalDataAtDay[$0.createdAt] = DayTotalRecord(distance: $0.distance,
+                        totalDataAtDate[$0.createdAt] = DayTotalRecord(distance: $0.distance,
                                                                       calorie: $0.calorie)
                     }
                 }
@@ -72,15 +72,15 @@ final class DefaultRecordMainViewUseCase: RecordMainViewUseCase {
                     guard let weekDayIndex = Int(day.convertToStringFormat(format: "e")) else { return }
                     weekDatas[index].number = weekDayIndex
                     
-                    if let totalData = totalDataAtDay[dayString] {
+                    if let totalData = totalDataAtDate[dayString] {
                         weekDatas[index].distance = totalData.distance
                     }
                 }
                 self.weekDatas.onNext(weekDatas)
-                self.recordSectionDatas.onNext((allDates,
-                                                totalDataAtDay,
-                                                recordsAtDate,
-                                                mapNameAtMapId))
+                self.recordSectionDatas.onNext((allDates: allDates,
+                                                totalRecordAtDate: totalDataAtDate,
+                                                recordsAtDate: recordsAtDate,
+                                                mapNameAtMapId: mapNameAtMapId))
             }).disposed(by: self.disposeBag)
     }
 }

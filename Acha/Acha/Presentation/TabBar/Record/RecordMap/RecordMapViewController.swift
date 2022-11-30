@@ -79,7 +79,7 @@ class RecordMapViewController: UIViewController {
                 self.sectionHeaderView.setDropDownMenus(maps: maps)
             }).disposed(by: disposeBag)
         
-        output.mapNameAndRecords.asDriver(onErrorJustReturn: ("", []))
+        output.mapNameAndRecordDatas.asDriver(onErrorJustReturn: ("", []))
             .drive(onNext: { [weak self] mapNameAndRecords in
                 guard let self else {return }
                 self.updateRankingSectionAndItems(mapName: mapNameAndRecords.0,

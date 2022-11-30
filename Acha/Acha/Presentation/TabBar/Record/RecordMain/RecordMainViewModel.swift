@@ -17,7 +17,10 @@ class RecordMainViewModel: BaseViewModel {
     
     struct Output {
         var weekDatas = PublishRelay<[RecordViewChartData]>()
-        var recordSectionDatas = PublishRelay<([String], [String: DayTotalRecord], [String: [Record]], [Int: String])>()
+        var recordSectionDatas = PublishRelay<(allDates: [String],
+                                               totalRecordAtDate: [String: DayTotalRecord],
+                                               recordsAtDate: [String: [Record]],
+                                               mapNameAtMapId: [Int: String])>()
     }
     
     var useCase: RecordMainViewUseCase!

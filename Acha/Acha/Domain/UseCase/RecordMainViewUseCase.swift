@@ -11,10 +11,10 @@ import RxSwift
 protocol RecordMainViewUseCase {
     var mapNameAtMapId: BehaviorSubject<[Int: String]> { get set }
     var weekDatas: PublishSubject<[RecordViewChartData]> { get set }
-    var recordSectionDatas: PublishSubject<([String],
-                                            [String: DayTotalRecord],
-                                            [String: [Record]],
-                                            [Int: String])> { get set }
+    var recordSectionDatas: PublishSubject<(allDates: [String],
+                                            totalRecordAtDate: [String: DayTotalRecord],
+                                            recordsAtDate: [String: [Record]],
+                                            mapNameAtMapId: [Int: String])> { get set }
     
     func loadMapData()
     func loadRecordData()

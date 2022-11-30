@@ -12,22 +12,20 @@ final class DefaultRecordMapViewUseCase: RecordMapViewUseCase {
     private let repository: RecordRepository
     private let disposeBag = DisposeBag()
     
-    var recordData = BehaviorSubject<[Int: Record]>(value: [:])
+    var mapDatas = BehaviorSubject<[Map]>(value: [])
     var dropDownMenus = BehaviorSubject<[Map]>(value: [])
-    var mapNameAndRecords = BehaviorSubject<(String, [Record])>(value: ("", []))
+    var mapDataAtMapName = BehaviorSubject<[String: Map]>(value: [:])
+    var mapDataAtCategory = BehaviorSubject<[String: [Map]]>(value: [:])
     
     init(repository: RecordRepository) {
         self.repository = repository
     }
     
-    func loadMapData() -> Observable<[Map]> {
-        return Observable.create { emitter in
-            self.repository.fetchMapData()
-                .subscribe { maps in
-                    emitter.onNext(maps)
-                }.disposed(by: self.disposeBag)
-            return Disposables.create()
-        }
+    func loadMapData() {
+        self.repository.fetchMapData()
+            .subscribe { maps in
+                self.mapDatas.onNext(maps)
+            }.disposed(by: self.disposeBag)
     }
     
     func loadRecordData() -> Observable<[Record]> {
@@ -40,127 +38,87 @@ final class DefaultRecordMapViewUseCase: RecordMapViewUseCase {
         }
     }
     
-    func fetchRecordDataAtIndex() -> Observable<[Int: Record]> {
+    func fetchRecordDatasAtMapId() -> Observable<[Int: [Record]]> {
         self.loadRecordData()
-            .flatMap { records -> Observable<[Int: Record]> in
-                var recordData = [Int: Record]()
+            .flatMap { records -> Observable<[Int: [Record]]> in
+                var recordDatasAtMapId = [Int: [Record]]()
                 records.forEach {
-                    recordData[$0.id] = $0
+                    recordDatasAtMapId[$0.mapID] = (recordDatasAtMapId[$0.mapID] ?? []) + [$0]
                 }
                 return Observable.create { emitter in
-                    emitter.onNext(recordData)
+                    emitter.onNext(recordDatasAtMapId)
                     
                     return Disposables.create()
                 }
             }
     }
      
-    func fetchMapDataAtMapName() -> Observable<[String: Map]> {
-        self.loadMapData()
-            .flatMap { maps -> Observable<[String: Map]> in
-                var mapDataAtMapName = [String: Map]()
-                maps.forEach {
-                    mapDataAtMapName[$0.name] = $0
-                }
-                return Observable.create { emitter in
-                    emitter.onNext(mapDataAtMapName)
-                    
-                    return Disposables.create()
-                }
-            }
+    func fetchMapDataAtMapName() {
+        guard let maps = try? mapDatas.value() else { return }
+        var mapDataAtMapName = [String: Map]()
+        maps.forEach {
+            mapDataAtMapName[$0.name] = $0
+        }
+        self.mapDataAtMapName.onNext(mapDataAtMapName)
     }
     
-    func fetchMapDataAtCategory() -> Observable<[String: [Map]]> {
-        self.loadMapData()
-            .flatMap { maps -> Observable<[String: [Map]]> in
-                var mapDataAtCategory = [String: [Map]]()
-                maps.forEach {
-                    mapDataAtCategory[$0.location] = (mapDataAtCategory[$0.location] ?? []) + [$0]
-                }
-                return Observable.create { emitter in
-                    emitter.onNext(mapDataAtCategory)
-                    
-                    return Disposables.create()
-                }
+    func fetchMapDatasAtCategory() {
+        guard let maps = try? mapDatas.value() else { return }
+        var mapDataAtCategory = [String: [Map]]()
+        maps.forEach {
+            mapDataAtCategory[$0.location] = (mapDataAtCategory[$0.location] ?? []) + [$0]
         }
-    }
-    
-    func getMapArrayAtCategory(category: String) -> Observable<[Map]> {
-        return Observable.create { emitter in
-            self.fetchMapDataAtCategory()
-                .subscribe { mapDataAtCategory in
-                    guard let maps = mapDataAtCategory[category] else { return }
-                    emitter.onNext(maps)
-                }.disposed(by: self.disposeBag)
-            return Disposables.create()
-        }
-    }
-    
-    func getMapAtMapName(mapName: String) -> Observable<Map> {
-        return Observable.create { emitter in
-            self.fetchMapDataAtMapName()
-                .subscribe { mapDataAtMapName in
-                    guard let map = mapDataAtMapName[mapName] else { return }
-                    emitter.onNext(map)
-                }.disposed(by: self.disposeBag)
-            return Disposables.create()
-        }
+        self.mapDataAtCategory.onNext(mapDataAtCategory)
     }
     
     func getDropDownMenus(mapName: String) {
-        self.getMapAtMapName(mapName: mapName)
-            .subscribe {
-                guard let map = $0.element else { return }
-                self.getMapArrayAtCategory(category: map.location)
-                    .subscribe {
-                        guard let maps = $0.element else { return }
-                        self.dropDownMenus.onNext(maps)
-                    }.disposed(by: self.disposeBag)
-            }.disposed(by: self.disposeBag)
+        guard let mapDataAtMapName = try? mapDataAtMapName.value(),
+              let mapData = mapDataAtMapName[mapName],
+              let mapDatasAtCategory = try? mapDataAtCategory.value(),
+              let mapDatas = mapDatasAtCategory[mapData.location] else { return }
+        
+        self.dropDownMenus.onNext(mapDatas)
     }
     
-    func getRecordsAtIndexes(indexes: [Int]) -> Observable<[Record]> {
-        return fetchRecordDataAtIndex()
-            .map { recordAtIndex in
-                let records = recordAtIndex
-                    .filter { indexes.contains($0.key) }
-                    .map { $0.value }
-                    .sorted { $0.time < $1.time }
-                return records
+    func getRecordDatasAtMapId(mapId: Int) -> Observable<[Record]> {
+        return fetchRecordDatasAtMapId()
+            .map { recordDatasAtMapId in
+                guard let records = recordDatasAtMapId[mapId] else { return [] }
+                return records.sorted { $0.time < $1.time }
             }
     }
     
-    func getMapNameAndRecordsAtCategory(category: String) {
-        self.getMapArrayAtCategory(category: category)
-            .subscribe {
-                guard let maps = $0.element else { return }
-                guard let recordIndex = maps[0].records else {
-                    self.mapNameAndRecords.onNext((maps[0].name, []))
-                    return
-                }
-                
-                self.getRecordsAtIndexes(indexes: recordIndex)
-                    .subscribe {
-                        guard let records = $0.element else { return }
-                        self.mapNameAndRecords.onNext((maps[0].name, records))
-                    }.disposed(by: self.disposeBag)
-            }.disposed(by: self.disposeBag)
+    func getMapNameAndRecordDatasAtCategory(category: String) -> Observable<(mapName: String, recordDatas: [Record])> {
+        return Observable.create { emitter in
+            self.loadRecordData()
+                .subscribe { recordDatas in
+                    guard let mapDatasAtCategory = try? self.mapDataAtCategory.value(),
+                          let mapDatas = mapDatasAtCategory[category],
+                          let recordDatas = recordDatas.element else { return }
+                          let mapData = mapDatas[0]
+                    
+                    let recordDatasAtMapId = recordDatas.filter { $0.mapID == mapData.mapID && $0.isCompleted ==  true }
+                    
+                    emitter.onNext((mapName: mapData.name, recordDatas: recordDatasAtMapId))
+                }.disposed(by: self.disposeBag)
+            
+            return Disposables.create()
+        }
     }
     
-    func getMapNameAndRecordsAtMapName(mapName: String) {
-        self.getMapAtMapName(mapName: mapName)
-            .subscribe {
-                guard let map = $0.element,
-                      let recordIndex = map.records else {
-                    self.mapNameAndRecords.onNext((mapName, []))
-                    return
-                }
-                
-                self.getRecordsAtIndexes(indexes: recordIndex)
-                    .subscribe {
-                        guard let records = $0.element else { return }
-                        self.mapNameAndRecords.onNext((mapName, records))
-                    }.disposed(by: self.disposeBag)
-            }.disposed(by: self.disposeBag)
+    func getMapNameAndRecordDatasAtMapName(mapName: String) -> Observable<(mapName: String, recordDatas: [Record])> {
+        return Observable.create { emitter in
+            self.loadRecordData()
+                .subscribe { recordDatas in
+                    guard let mapDataAtMapName = try? self.mapDataAtMapName.value(),
+                          let mapData = mapDataAtMapName[mapName],
+                          let recordDatas = recordDatas.element else { return }
+                    
+                    let recordDatasAtMapId = recordDatas.filter { $0.mapID == mapData.mapID && $0.isCompleted == true }
+                    
+                    emitter.onNext((mapName: mapData.name, recordDatas: recordDatasAtMapId))
+                }.disposed(by: self.disposeBag)
+            return Disposables.create()
+        }
     }
 }
