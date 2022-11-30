@@ -59,10 +59,6 @@ class RecordMainCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func prepareForReuse() {
-        super.prepareForReuse()
-    }
-    
     // MARK: - Helpers
     private func setUpSubviews() {
         [imageView, mapNameLabel, winLabel, timeLabel, modeLabel, distanceLabel, kcalLabel].forEach {

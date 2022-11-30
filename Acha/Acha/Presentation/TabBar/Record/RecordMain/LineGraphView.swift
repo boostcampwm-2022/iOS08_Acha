@@ -72,18 +72,18 @@ class LineGraphView: UIView {
         let oldPath = self.zeroPath.cgPath
         let newPath = self.graphPath.cgPath
             
-        let animation = CABasicAnimation(keyPath: "path")
+        let animation = CABasicAnimation(keyPath: AnimationKeyPath.path.string)
         animation.duration = 1
         animation.fromValue = oldPath
         animation.toValue = newPath
-        self.graphLayer.add(animation, forKey: "path")
+        self.graphLayer.add(animation, forKey: AnimationKeyPath.path.string)
         self.graphLayer.path = newPath
   
-        let dotAnimation = CABasicAnimation(keyPath: "opacity")
+        let dotAnimation = CABasicAnimation(keyPath: AnimationKeyPath.opacity.string)
         dotAnimation.duration = 1
         dotAnimation.fromValue = 0.0
         dotAnimation.toValue = 2.0
-        self.dotLayer.add(dotAnimation, forKey: "opacity")
+        self.dotLayer.add(dotAnimation, forKey: AnimationKeyPath.opacity.string)
         self.dotLayer.path = dotPath.cgPath
         
         self.layer.addSublayer(dotLayer)

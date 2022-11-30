@@ -48,7 +48,7 @@ class RecordMainChartCell: UICollectionViewCell {
     private lazy var secondDistanceLabel = UILabel()
     private lazy var thirdDistanceLabel = UILabel()
     private lazy var fourthDistanceLabel = UILabel()
-    private lazy var fivethDistanceLabel = UILabel()
+    private lazy var fifthDistanceLabel = UILabel()
     private lazy var sixthDistanceLabel = UILabel()
     private lazy var seventhDistanceLabel = UILabel()
     
@@ -56,15 +56,15 @@ class RecordMainChartCell: UICollectionViewCell {
     private lazy var secondLabel = UILabel()
     private lazy var thirdLabel = UILabel()
     private lazy var fourthLabel = UILabel()
-    private lazy var fivethLabel = UILabel()
+    private lazy var fifthLabel = UILabel()
     private lazy var sixthLabel = UILabel()
     private lazy var seventhLabel = UILabel()
     
     private lazy var labelList: [UILabel] = [firstLabel, secondLabel, thirdLabel, fourthLabel,
-                                             fivethLabel, sixthLabel, seventhLabel]
+                                             fifthLabel, sixthLabel, seventhLabel]
     private lazy var distanceLabelList: [UILabel] = [firstDistanceLabel, secondDistanceLabel,
                                                      thirdDistanceLabel, fourthDistanceLabel,
-                                                     fivethDistanceLabel, sixthDistanceLabel,
+                                                     fifthDistanceLabel, sixthDistanceLabel,
                                                      seventhDistanceLabel]
     
     // MARK: - Properties
@@ -79,10 +79,6 @@ class RecordMainChartCell: UICollectionViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
     }
     
     // MARK: - Helpers
@@ -104,9 +100,8 @@ class RecordMainChartCell: UICollectionViewCell {
             $0.backgroundColor = .white
         }
         
-        (1...7).forEach { index in
-            let label = labelList[index - 1]
-            stackView.addArrangedSubview(label)
+        labelList.forEach {
+            stackView.addArrangedSubview($0)
         }
         chartsBackgroundStackView.addArrangedSubview(stackView)
         
@@ -177,13 +172,3 @@ class RecordMainChartCell: UICollectionViewCell {
         }
     }
 }
-/*
-343 / 8
- 
-약 43,
- 스페이싱 - 20
- 
-
- 
- 
- */

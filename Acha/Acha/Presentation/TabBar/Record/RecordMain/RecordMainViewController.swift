@@ -12,14 +12,14 @@ import RxSwift
 import RxRelay
 import RxCocoa
 
-class RecordMainViewController: UIViewController, UICollectionViewDelegate {
+final class RecordMainViewController: UIViewController, UICollectionViewDelegate {
     enum RecordMainViewSections: Hashable {
         case chart
         case record(RecordViewHeaderRecord)
         
         var data: RecordViewHeaderRecord {
             switch self {
-            case.chart:
+            case .chart:
                 return RecordViewHeaderRecord(date: "", distance: 0, kcal: 0)
             case .record(let data):
                 return data
@@ -133,11 +133,7 @@ class RecordMainViewController: UIViewController, UICollectionViewDelegate {
                                    height: cell.frame.height - 45)
                 let view = LineGraphView(frame: frame, values: distances)
                 
-                cell.subviews.forEach {
-                    if $0 is LineGraphView {
-                        $0.removeFromSuperview()
-                    }
-                }
+                cell.subviews.filter { $0 is LineGraphView }.forEach { $0.removeFromSuperview() }
                 
                 cell.addSubview(view)
                 

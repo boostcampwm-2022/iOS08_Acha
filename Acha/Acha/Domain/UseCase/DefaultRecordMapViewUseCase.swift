@@ -75,7 +75,7 @@ final class DefaultRecordMapViewUseCase: RecordMapViewUseCase {
             .flatMap { maps -> Observable<[String: [Map]]> in
                 var mapDataAtCategory = [String: [Map]]()
                 maps.forEach {
-                    mapDataAtCategory[$0.location] = mapDataAtCategory[$0.location] ?? [] + [$0]
+                    mapDataAtCategory[$0.location] = (mapDataAtCategory[$0.location] ?? []) + [$0]
                 }
                 return Observable.create { emitter in
                     emitter.onNext(mapDataAtCategory)

@@ -60,10 +60,7 @@ final class DefaultRecordMainViewUseCase: RecordMainViewUseCase {
                 }
                 
                 allDates.sort {
-                    let firstCreateAt = $0.convertToDateFormat(format: "yyyy-MM-dd")
-                    let secondCreateAt = $1.convertToDateFormat(format: "yyyy-MM-dd")
-                    
-                    return firstCreateAt.compare(secondCreateAt) == .orderedDescending
+                    return $0.convertToDateFormat(format: "yyyy-MM-dd") > $1.convertToDateFormat(format: "yyyy-MM-dd")
                 }
                 
                 let startDay = Date(timeIntervalSinceNow: -(86400 * 6))
