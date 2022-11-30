@@ -38,6 +38,7 @@ final class RecordMapViewModel: BaseViewModel {
             .subscribe { [weak self] _ in
                 guard let self else { return }
                 self.useCase.loadMapData()
+                self.useCase.getMapNameAndRecordDatasAtCategory(category: Locations.incheon.string)
             }.disposed(by: disposeBag)
         
         input.sectionHeaderCreateEvent
@@ -50,24 +51,20 @@ final class RecordMapViewModel: BaseViewModel {
             .subscribe(onNext: { [weak self] mapName in
                 guard let self else { return }
                 self.useCase.getMapNameAndRecordDatasAtMapName(mapName: mapName)
-                    .subscribe { (mapName, recordDatas) in
-                        output.mapNameAndRecordDatas.accept((mapName: mapName,
-                                                             recordDatas: recordDatas))
-                    }.disposed(by: self.disposeBag)
             }).disposed(by: disposeBag)
         
         input.categoryCellTapEvent
             .subscribe(onNext: { [weak self] category in
                 guard let self else { return }
                 self.useCase.getMapNameAndRecordDatasAtCategory(category: category)
-                    .subscribe { (mapName, recordDatas) in
-                        output.mapNameAndRecordDatas.accept((mapName: mapName,
-                                                             recordDatas: recordDatas))
-                    }.disposed(by: self.disposeBag)
             }).disposed(by: disposeBag)
         
         useCase.dropDownMenus
             .bind(to: output.dropDownMenus)
+            .disposed(by: disposeBag)
+        
+        useCase.mapNameAndRecordDatas
+            .bind(to: output.mapNameAndRecordDatas)
             .disposed(by: disposeBag)
         
         return output

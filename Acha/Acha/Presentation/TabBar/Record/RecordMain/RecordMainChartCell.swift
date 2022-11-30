@@ -19,12 +19,6 @@ class RecordMainChartCell: UICollectionViewCell {
     }
     
     // MARK: - UI properties
-    private lazy var largeStackView = UIStackView().then {
-        $0.distribution = .fill
-        $0.axis = .horizontal
-        $0.backgroundColor = .white
-    }
-    
     private lazy var chartsBackgroundStackView = UIStackView().then {
         $0.backgroundColor = .lightGray
         $0.distribution = .fillEqually
@@ -72,7 +66,6 @@ class RecordMainChartCell: UICollectionViewCell {
     
     // MARK: - Lifecycles
     override init(frame: CGRect) {
-        print(#function)
         super.init(frame: frame)
         setUpSubviews()
     }
@@ -83,9 +76,8 @@ class RecordMainChartCell: UICollectionViewCell {
     
     // MARK: - Helpers
     private func setUpSubviews() {
-        contentView.addSubview(largeStackView)
-        largeStackView.addArrangedSubview(chartsBackgroundStackView)
-        largeStackView.addArrangedSubview(distanceStackView)
+        contentView.addSubview(chartsBackgroundStackView)
+        contentView.addSubview(distanceStackView)
         
         (1...8).forEach { _ in
             let backgrounView = UIView().then {
@@ -121,11 +113,7 @@ class RecordMainChartCell: UICollectionViewCell {
     }
     
     private func configureUI() {
-        contentView.backgroundColor = .gray
-        
-        largeStackView.snp.makeConstraints {
-            $0.top.bottom.leading.trailing.equalToSuperview()
-        }
+        contentView.backgroundColor = .white
   
         distanceStackView.snp.makeConstraints {
             $0.trailing.equalToSuperview()
@@ -136,6 +124,7 @@ class RecordMainChartCell: UICollectionViewCell {
         
         chartsBackgroundStackView.snp.makeConstraints {
             $0.top.bottom.leading.equalToSuperview()
+            $0.trailing.equalToSuperview().offset(-50)
         }
         
         labelList.forEach { label in
