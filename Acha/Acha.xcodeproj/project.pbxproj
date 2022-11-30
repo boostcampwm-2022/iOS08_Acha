@@ -28,13 +28,29 @@
 		47935E9F29238EB400481307 /* SelectMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47935E9E29238EB300481307 /* SelectMapViewModel.swift */; };
 		47A26DBC292B73850007FBBF /* Coordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A26DBB292B73850007FBBF /* Coordinate.swift */; };
 		47A26DBE292BB2970007FBBF /* MapRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A26DBD292BB2970007FBBF /* MapRegion.swift */; };
+
+		47A26DC0292C9F8A0007FBBF /* SelectMapRankingHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A26DBF292C9F8A0007FBBF /* SelectMapRankingHeaderView.swift */; };
+		761C1C09292E437E000C88D0 /* DefaultSingleGameUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761C1C08292E437E000C88D0 /* DefaultSingleGameUseCase.swift */; };
+		761C1C0B292E439F000C88D0 /* SingleGameUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761C1C0A292E439F000C88D0 /* SingleGameUseCase.swift */; };
+		761C1C0E292E4554000C88D0 /* TimerServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761C1C0D292E4554000C88D0 /* TimerServiceProtocol.swift */; };
+		761C1C10292E4562000C88D0 /* TimerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761C1C0F292E4562000C88D0 /* TimerService.swift */; };
+		761E5F072935EF4200E6CACC /* InGameUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761E5F062935EF4200E6CACC /* InGameUseCase.swift */; };
+		761E5F092935EFF400E6CACC /* DefaultInGameUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761E5F082935EFF400E6CACC /* DefaultInGameUseCase.swift */; };
+		761E5F0D2935F0C200E6CACC /* DefaultRecordRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761E5F0C2935F0C200E6CACC /* DefaultRecordRepository.swift */; };
+		761E5F0F2935F0C700E6CACC /* RecordRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761E5F0E2935F0C700E6CACC /* RecordRepository.swift */; };
+		761E5F112935F2DF00E6CACC /* FirebasePath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761E5F102935F2DE00E6CACC /* FirebasePath.swift */; };
+
 		764AF29D292B639200D16DC9 /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764AF29C292B639200D16DC9 /* UIViewController+.swift */; };
 		764AF29F292B6EF500D16DC9 /* InGameRecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764AF29E292B6EF500D16DC9 /* InGameRecordViewModel.swift */; };
 		764AF2A1292B9C1F00D16DC9 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764AF2A0292B9C1F00D16DC9 /* String+.swift */; };
 		764AF2A3292B9D3600D16DC9 /* InGameRankingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764AF2A2292B9D3600D16DC9 /* InGameRankingViewModel.swift */; };
+
+		769F1AAC2935A7A800A3BB47 /* GameOverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 769F1AAB2935A7A800A3BB47 /* GameOverView.swift */; };
+
 		76A2E1A12923C5A7001E887A /* SingleGameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A2E19F2923C5A7001E887A /* SingleGameViewModel.swift */; };
 		76A2E1A32923D94C001E887A /* CLLocationCoordinate2D+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A2E1A22923D94C001E887A /* CLLocationCoordinate2D+.swift */; };
 		76A2E1A529249099001E887A /* Double+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A2E1A429249099001E887A /* Double+.swift */; };
+		76AAEC95292F9E92006B64DB /* DefaultLocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AAEC94292F9E92006B64DB /* DefaultLocationService.swift */; };
 		76B3BF442924C7450056ABFD /* SingleGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B3BF432924C7450056ABFD /* SingleGameViewController.swift */; };
 		76B3BF462924D93C0056ABFD /* SingleGameCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B3BF452924D93C0056ABFD /* SingleGameCoordinator.swift */; };
 		76B3BF4A2924DDE70056ABFD /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B3BF492924DDE70056ABFD /* BaseViewModel.swift */; };
@@ -43,8 +59,9 @@
 		76B3BF52292624DB0056ABFD /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B3BF51292624DA0056ABFD /* Int+Extension.swift */; };
 		76B3BF54292624E30056ABFD /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B3BF53292624E30056ABFD /* Date+Extension.swift */; };
 		76B3BF56292627A30056ABFD /* GamePlayMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B3BF55292627A30056ABFD /* GamePlayMenuView.swift */; };
-		76B3BF58292634BD0056ABFD /* GameOverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B3BF57292634BD0056ABFD /* GameOverViewController.swift */; };
-		76B3BF5A292668780056ABFD /* GameOverViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B3BF59292668780056ABFD /* GameOverViewModel.swift */; };
+		76B505FB293351AB0087444D /* RealtimeDatabaseNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B505FA293351AB0087444D /* RealtimeDatabaseNetworkService.swift */; };
+		76B505FD293351CC0087444D /* DefaultRealtimeDatabaseNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B505FC293351CC0087444D /* DefaultRealtimeDatabaseNetworkService.swift */; };
+		76B505FF293366050087444D /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B505FE293366050087444D /* LocationService.swift */; };
 		E5027D5229263D4F0021BF60 /* RecordHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E516A6BB292393FA00CD6BDB /* RecordHeaderView.swift */; };
 		E5027D5329263D620021BF60 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4738D765292238C3003AE835 /* UIColor+.swift */; };
 		E5027D5629265D910021BF60 /* SelectMapRecordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5027D5529265D910021BF60 /* SelectMapRecordCell.swift */; };
@@ -185,15 +202,39 @@
 		47935E9E29238EB300481307 /* SelectMapViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectMapViewModel.swift; sourceTree = "<group>"; };
 		47A26DBB292B73850007FBBF /* Coordinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinate.swift; sourceTree = "<group>"; };
 		47A26DBD292BB2970007FBBF /* MapRegion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapRegion.swift; sourceTree = "<group>"; };
+
+
+		47A26DBF292C9F8A0007FBBF /* SelectMapRankingHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMapRankingHeaderView.swift; sourceTree = "<group>"; };
+		761C1C08292E437E000C88D0 /* DefaultSingleGameUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultSingleGameUseCase.swift; sourceTree = "<group>"; };
+		761C1C0A292E439F000C88D0 /* SingleGameUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleGameUseCase.swift; sourceTree = "<group>"; };
+		761C1C0D292E4554000C88D0 /* TimerServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerServiceProtocol.swift; sourceTree = "<group>"; };
+		761C1C0F292E4562000C88D0 /* TimerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerService.swift; sourceTree = "<group>"; };
+		761E5F062935EF4200E6CACC /* InGameUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameUseCase.swift; sourceTree = "<group>"; };
+		761E5F082935EFF400E6CACC /* DefaultInGameUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultInGameUseCase.swift; sourceTree = "<group>"; };
+		761E5F0C2935F0C200E6CACC /* DefaultRecordRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultRecordRepository.swift; sourceTree = "<group>"; };
+		761E5F0E2935F0C700E6CACC /* RecordRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordRepository.swift; sourceTree = "<group>"; };
+		761E5F102935F2DE00E6CACC /* FirebasePath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebasePath.swift; sourceTree = "<group>"; };
+
 		76213CBD292CEA6600895462 /* WorkSpace by 25km:h.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "WorkSpace by 25km:h.gpx"; sourceTree = "<group>"; };
 		76213CBE292CEA6600895462 /* WorkSpace by 6km:h.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "WorkSpace by 6km:h.gpx"; sourceTree = "<group>"; };
 		764AF29C292B639200D16DC9 /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
 		764AF29E292B6EF500D16DC9 /* InGameRecordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameRecordViewModel.swift; sourceTree = "<group>"; };
 		764AF2A0292B9C1F00D16DC9 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 		764AF2A2292B9D3600D16DC9 /* InGameRankingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameRankingViewModel.swift; sourceTree = "<group>"; };
+
+		7663E6B8292F6788007E1F09 /* 부평동초등학교 5MPH.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "부평동초등학교 5MPH.gpx"; sourceTree = "<group>"; };
+		7663E6B9292F6788007E1F09 /* 부원여중 12KMH.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "부원여중 12KMH.gpx"; sourceTree = "<group>"; };
+		7663E6BA292F6788007E1F09 /* 부평동초등학교 4MPH.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "부평동초등학교 4MPH.gpx"; sourceTree = "<group>"; };
+		7663E6BB292F6788007E1F09 /* 부원여중 5MPH.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "부원여중 5MPH.gpx"; sourceTree = "<group>"; };
+		7663E6BC292F6788007E1F09 /* 부평동초등학교 4.2MPH.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "부평동초등학교 4.2MPH.gpx"; sourceTree = "<group>"; };
+		7663E6BD292F696D007E1F09 /* 국민대 12KMH.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "국민대 12KMH.gpx"; sourceTree = "<group>"; };
+		7663E6BE292F6C85007E1F09 /* 국민대 30KMH.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "국민대 30KMH.gpx"; sourceTree = "<group>"; };
+		769F1AAB2935A7A800A3BB47 /* GameOverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverView.swift; sourceTree = "<group>"; };
+
 		76A2E19F2923C5A7001E887A /* SingleGameViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleGameViewModel.swift; sourceTree = "<group>"; };
 		76A2E1A22923D94C001E887A /* CLLocationCoordinate2D+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationCoordinate2D+.swift"; sourceTree = "<group>"; };
 		76A2E1A429249099001E887A /* Double+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+.swift"; sourceTree = "<group>"; };
+		76AAEC94292F9E92006B64DB /* DefaultLocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultLocationService.swift; sourceTree = "<group>"; };
 		76B3BF432924C7450056ABFD /* SingleGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleGameViewController.swift; sourceTree = "<group>"; };
 		76B3BF452924D93C0056ABFD /* SingleGameCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleGameCoordinator.swift; sourceTree = "<group>"; };
 		76B3BF492924DDE70056ABFD /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
@@ -202,8 +243,9 @@
 		76B3BF51292624DA0056ABFD /* Int+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
 		76B3BF53292624E30056ABFD /* Date+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		76B3BF55292627A30056ABFD /* GamePlayMenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GamePlayMenuView.swift; sourceTree = "<group>"; };
-		76B3BF57292634BD0056ABFD /* GameOverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverViewController.swift; sourceTree = "<group>"; };
-		76B3BF59292668780056ABFD /* GameOverViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverViewModel.swift; sourceTree = "<group>"; };
+		76B505FA293351AB0087444D /* RealtimeDatabaseNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealtimeDatabaseNetworkService.swift; sourceTree = "<group>"; };
+		76B505FC293351CC0087444D /* DefaultRealtimeDatabaseNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultRealtimeDatabaseNetworkService.swift; sourceTree = "<group>"; };
+		76B505FE293366050087444D /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		E5027D5529265D910021BF60 /* SelectMapRecordCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMapRecordCell.swift; sourceTree = "<group>"; };
 		E5027D57292670570021BF60 /* Record.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Record.swift; sourceTree = "<group>"; };
 		E5027D59292670BC0021BF60 /* RecordViewHeaderRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewHeaderRecord.swift; sourceTree = "<group>"; };
@@ -330,6 +372,13 @@
 		471863B0291E155700A35786 = {
 			isa = PBXGroup;
 			children = (
+				7663E6BE292F6C85007E1F09 /* 국민대 30KMH.gpx */,
+				7663E6BD292F696D007E1F09 /* 국민대 12KMH.gpx */,
+				7663E6BB292F6788007E1F09 /* 부원여중 5MPH.gpx */,
+				7663E6B9292F6788007E1F09 /* 부원여중 12KMH.gpx */,
+				7663E6BC292F6788007E1F09 /* 부평동초등학교 4.2MPH.gpx */,
+				7663E6BA292F6788007E1F09 /* 부평동초등학교 4MPH.gpx */,
+				7663E6B8292F6788007E1F09 /* 부평동초등학교 5MPH.gpx */,
 				76213CBE292CEA6600895462 /* WorkSpace by 6km:h.gpx */,
 				76213CBD292CEA6600895462 /* WorkSpace by 25km:h.gpx */,
 				4738D7602921D6E4003AE835 /* GoogleService-Info.plist */,
@@ -455,6 +504,7 @@
 			isa = PBXGroup;
 			children = (
 				47935E9C29238E9E00481307 /* SelectMapViewController.swift */,
+				47A26DBF292C9F8A0007FBBF /* SelectMapRankingHeaderView.swift */,
 				47935E9E29238EB300481307 /* SelectMapViewModel.swift */,
 				E5027D5529265D910021BF60 /* SelectMapRecordCell.swift */,
 			);
@@ -469,13 +519,53 @@
 			path = Map;
 			sourceTree = "<group>";
 		};
+		761C1C07292E436D000C88D0 /* UseCase */ = {
+			isa = PBXGroup;
+			children = (
+				761C1C08292E437E000C88D0 /* DefaultSingleGameUseCase.swift */,
+				761E5F062935EF4200E6CACC /* InGameUseCase.swift */,
+				761E5F082935EFF400E6CACC /* DefaultInGameUseCase.swift */,
+				761C1C0A292E439F000C88D0 /* SingleGameUseCase.swift */,
+			);
+			path = UseCase;
+			sourceTree = "<group>";
+		};
+		761C1C0C292E4546000C88D0 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				761C1C0D292E4554000C88D0 /* TimerServiceProtocol.swift */,
+				76AAEC94292F9E92006B64DB /* DefaultLocationService.swift */,
+				761C1C0F292E4562000C88D0 /* TimerService.swift */,
+				76B505FA293351AB0087444D /* RealtimeDatabaseNetworkService.swift */,
+				76B505FC293351CC0087444D /* DefaultRealtimeDatabaseNetworkService.swift */,
+				76B505FE293366050087444D /* LocationService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		761E5F0A2935F09F00E6CACC /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				761E5F0C2935F0C200E6CACC /* DefaultRecordRepository.swift */,
+				761E5F0B2935F0B800E6CACC /* Protocol */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
+		761E5F0B2935F0B800E6CACC /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				761E5F0E2935F0C700E6CACC /* RecordRepository.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
 		76B3BF4D292526680056ABFD /* SingleGame */ = {
 			isa = PBXGroup;
 			children = (
 				76B3BF432924C7450056ABFD /* SingleGameViewController.swift */,
 				76A2E19F2923C5A7001E887A /* SingleGameViewModel.swift */,
-				76B3BF57292634BD0056ABFD /* GameOverViewController.swift */,
-				76B3BF59292668780056ABFD /* GameOverViewModel.swift */,
+				769F1AAB2935A7A800A3BB47 /* GameOverView.swift */,
 			);
 			path = SingleGame;
 			sourceTree = "<group>";
@@ -509,6 +599,7 @@
 		E5BE8B8B2922169D00E9CFE8 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				761C1C07292E436D000C88D0 /* UseCase */,
 				4738D76D2922755B003AE835 /* Entity */,
 			);
 			path = Domain;
@@ -527,7 +618,9 @@
 		E5BE8B8D292216B400E9CFE8 /* Util */ = {
 			isa = PBXGroup;
 			children = (
-				F18513D8292E59AB00C466E7 /* RandomFactory */,
+
+				761C1C0C292E4546000C88D0 /* Service */,
+
 				F12210BE292CE81300AE5F26 /* KeyChainManager */,
 				F14B1493292BA1C10010E966 /* KeyboardManager */,
 				F156F1142923540C0053E807 /* Constants */,
@@ -654,6 +747,7 @@
 		E5BE8BB82922216500E9CFE8 /* Enums */ = {
 			isa = PBXGroup;
 			children = (
+				761E5F102935F2DE00E6CACC /* FirebasePath.swift */,
 				E5BE8BB92922217600E9CFE8 /* TabBarType.swift */,
 				4738D767292267BA003AE835 /* Errors.swift */,
 				47935E942923310700481307 /* SystemImageNameSpace.swift */,
@@ -850,7 +944,11 @@
 		F1B0D8A4292CC81A00EBDD02 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+
 				F1E83D5B29338A7D004C7992 /* FBStoreDTO */,
+
+				761E5F0A2935F09F00E6CACC /* Repository */,
+
 				F1B0D8AD292CCAAC00EBDD02 /* UserDTO.swift */,
 				F1B0D8AF292CCABE00EBDD02 /* BadgeDTO.swift */,
 				F1B0D8B1292CCAD900EBDD02 /* RecordDTO.swift */,
@@ -1203,27 +1301,41 @@
 			buildActionMask = 2147483647;
 			files = (
 				E5BE8BB52922201600E9CFE8 /* SignupViewController.swift in Sources */,
+				761C1C09292E437E000C88D0 /* DefaultSingleGameUseCase.swift in Sources */,
 				F1FCEE11292B4C87001A55D6 /* AuthButton.swift in Sources */,
+				761E5F112935F2DF00E6CACC /* FirebasePath.swift in Sources */,
 				E5BE8BBA2922217600E9CFE8 /* TabBarType.swift in Sources */,
 				76A2E1A12923C5A7001E887A /* SingleGameViewModel.swift in Sources */,
 				F18513DA292E59DD00C466E7 /* RandomFactory.swift in Sources */,
 				F17A3FA1292F0BF200647AD0 /* RoomUser.swift in Sources */,
 				F1E83D5F2933D420004C7992 /* BadgeFireStoreDTO.swift in Sources */,
 				76B3BF5A292668780056ABFD /* GameOverViewModel.swift in Sources */,
+
+
 				76A2E1A529249099001E887A /* Double+.swift in Sources */,
 				47935E9D29238E9E00481307 /* SelectMapViewController.swift in Sources */,
 				4738D76F2922756B003AE835 /* Map.swift in Sources */,
+				761C1C0E292E4554000C88D0 /* TimerServiceProtocol.swift in Sources */,
+				769F1AAC2935A7A800A3BB47 /* GameOverView.swift in Sources */,
 				E5027D5E292686440021BF60 /* RecordViewDayTotalRecord.swift in Sources */,
 				E5027D58292670570021BF60 /* Record.swift in Sources */,
 				F1034B59292B37EB00BD8407 /* LoginViewModel.swift in Sources */,
 				E5027D58292670570021BF60 /* Record.swift in Sources */,
 				47A26DBC292B73850007FBBF /* Coordinate.swift in Sources */,
+
 				F18513D7292E422900C466E7 /* QRReaderViewController.swift in Sources */,
 				F1E83D632933D854004C7992 /* RoomFireStoreDTO.swift in Sources */,
 				47935E9F29238EB400481307 /* SelectMapViewModel.swift in Sources */,
 				F14B1495292BA1D40010E966 /* KeyboardManager.swift in Sources */,
 				F1CCF912292DF8BE0082B250 /* HomeUseCase.swift in Sources */,
+
+				47935E9F29238EB400481307 /* SelectMapViewModel.swift in Sources */,
+				F14B1495292BA1D40010E966 /* KeyboardManager.swift in Sources */,
+				761C1C0B292E439F000C88D0 /* SingleGameUseCase.swift in Sources */,
+
 				F13DB58F292B3C8D00323B28 /* AuthInputTextField.swift in Sources */,
+				761E5F0D2935F0C200E6CACC /* DefaultRecordRepository.swift in Sources */,
+				761E5F092935EFF400E6CACC /* DefaultInGameUseCase.swift in Sources */,
 				E5BE8B8F2922172400E9CFE8 /* AppCoordinator.swift in Sources */,
 				F17F86B9292E28EF00BDCE0F /* MultiGameRoomViewModel.swift in Sources */,
 				F17A3FAD292F2EEB00647AD0 /* FBRealTimeDBType.swift in Sources */,
@@ -1239,15 +1351,21 @@
 				E5027D5C292670F30021BF60 /* RecordViewChartData.swift in Sources */,
 				4738D768292267BA003AE835 /* Errors.swift in Sources */,
 				E5BE8B9D29221AAF00E9CFE8 /* MyPageCoordinator.swift in Sources */,
+
 				F1E83D4B29337246004C7992 /* SignUpUsecase.swift in Sources */,
+
+				47A26DC0292C9F8A0007FBBF /* SelectMapRankingHeaderView.swift in Sources */,
+
 				76B3BF56292627A30056ABFD /* GamePlayMenuView.swift in Sources */,
 				764AF2A1292B9C1F00D16DC9 /* String+.swift in Sources */,
+				76B505FF293366050087444D /* LocationService.swift in Sources */,
 				76B3BF462924D93C0056ABFD /* SingleGameCoordinator.swift in Sources */,
 				F1E83D4E2933729D004C7992 /* AuthProvider.swift in Sources */,
 				E5027D5A292670BC0021BF60 /* RecordViewHeaderRecord.swift in Sources */,
 				E5BE8BB72922201F00E9CFE8 /* LoginViewController.swift in Sources */,
 				F17A3FB2292F3BE900647AD0 /* FBProvider.swift in Sources */,
 				F17F86BF292E3F3000BDCE0F /* MultiGameRoomRepository.swift in Sources */,
+				76B505FB293351AB0087444D /* RealtimeDatabaseNetworkService.swift in Sources */,
 				76B3BF442924C7450056ABFD /* SingleGameViewController.swift in Sources */,
 				F17A3FB8292FA12E00647AD0 /* GameRoomCollectionViewHeader.swift in Sources */,
 				F1E83D5329337431004C7992 /* LogInRepository.swift in Sources */,
@@ -1275,6 +1393,7 @@
 				F17F86BB292E29B200BDCE0F /* MultiGameCoordinator.swift in Sources */,
 				F17A3FB4292F3C1000647AD0 /* FBProviderType.swift in Sources */,
 				E5BE8BAF29221FF800E9CFE8 /* CommunityViewController.swift in Sources */,
+				76AAEC95292F9E92006B64DB /* DefaultLocationService.swift in Sources */,
 				F1B0D8AA292CCA0F00EBDD02 /* Encodable+Extension.swift in Sources */,
 				F16B4534293323B1002429A2 /* FBStoreDB.swift in Sources */,
 				F1E83D712934553F004C7992 /* HomeProvider.swift in Sources */,
@@ -1284,7 +1403,6 @@
 				F1D202A42923C09300F3E87D /* InGameMenuCollectionViewCell.swift in Sources */,
 				F156F11C2923623C0053E807 /* PaddingLabel.swift in Sources */,
 				471863BD291E155700A35786 /* AppDelegate.swift in Sources */,
-				76B3BF58292634BD0056ABFD /* GameOverViewController.swift in Sources */,
 				E5BE8BA129221B6D00E9CFE8 /* SignupCoordinator .swift in Sources */,
 				F16B453229326C16002429A2 /* MultiGameSelectViewController.swift in Sources */,
 				E5BE8B97292219D800E9CFE8 /* HomeCoordinator.swift in Sources */,
@@ -1303,6 +1421,7 @@
 				F17A3FA3292F2C1200647AD0 /* RxSwift+Extension.swift in Sources */,
 				F1FCEE1A292B52E4001A55D6 /* ScrollAbleViewController.swift in Sources */,
 				F18A7FD1292C5DA50054FADE /* UIImage+Extension.swift in Sources */,
+				76B505FD293351CC0087444D /* DefaultRealtimeDatabaseNetworkService.swift in Sources */,
 				76A2E1A32923D94C001E887A /* CLLocationCoordinate2D+.swift in Sources */,
 				F18513DC292E60F000C466E7 /* RoomDTO.swift in Sources */,
 				764AF29D292B639200D16DC9 /* UIViewController+.swift in Sources */,
@@ -1313,6 +1432,7 @@
 				F16B4537293325A2002429A2 /* ProvidableType.swift in Sources */,
 				47A26DBE292BB2970007FBBF /* MapRegion.swift in Sources */,
 				F156F11E292365840053E807 /* CALayer+Extension.swift in Sources */,
+				761C1C10292E4562000C88D0 /* TimerService.swift in Sources */,
 				F1FCEE0E292B483E001A55D6 /* UITextField+Extension.swift in Sources */,
 				F1E83D612933D561004C7992 /* RecordFireStoreDTO.swift in Sources */,
 				E5BE8B9929221A4C00E9CFE8 /* RecordCoordinator.swift in Sources */,
@@ -1320,8 +1440,13 @@
 				F1E83D6E2934524B004C7992 /* UUIDGetable.swift in Sources */,
 				E516A6BA2923929800CD6BDB /* RecordViewModel.swift in Sources */,
 				76B3BF4A2924DDE70056ABFD /* BaseViewModel.swift in Sources */,
+
 				F1E83D692933DEB6004C7992 /* MapFireStoreDTO.swift in Sources */,
+
+				761E5F072935EF4200E6CACC /* InGameUseCase.swift in Sources */,
+
 				F156F1132923536A0053E807 /* DistanceAndTimeBar.swift in Sources */,
+				761E5F0F2935F0C700E6CACC /* RecordRepository.swift in Sources */,
 				F1D202992923AB3D00F3E87D /* InGameRankingViewController.swift in Sources */,
 				F17F86B7292E27B500BDCE0F /* MultiGameRoomViewController.swift in Sources */,
 				F17A3FB6292F4F0700647AD0 /* MultiGameRoomDataSource.swift in Sources */,
@@ -1496,7 +1621,10 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = KD3GVSQ9P4;
+
+
+				DEVELOPMENT_TEAM = 5R9YHBW9BJ;
+
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Acha/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "카메라 권한을 부여 하시겠습니까?";
@@ -1528,7 +1656,9 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = KD3GVSQ9P4;
+
+				DEVELOPMENT_TEAM = 5R9YHBW9BJ;
+
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Acha/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "카메라 권한을 부여 하시겠습니까?";

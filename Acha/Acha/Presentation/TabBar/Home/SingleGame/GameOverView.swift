@@ -1,21 +1,18 @@
 //
-//  GameOverViewController.swift
+//  GameOverView.swift
 //  Acha
 //
-//  Created by 조승기 on 2022/11/15.
+//  Created by 조승기 on 2022/11/29.
 //
 
 import UIKit
-import SnapKit
 import Then
+import SnapKit
 import RxSwift
+import RxCocoa
 
-class GameOverViewController: UIViewController {
+class GameOverView: UIView {
     // MARK: - UI properties
-    private let resultBackground: UIView = UIView().then {
-        $0.backgroundColor = .gray.withAlphaComponent(0.5)
-        $0.layer.cornerRadius = 20
-    }
     private let gameOverLabel: UILabel = UILabel().then {
         $0.text = "게임 종료"
         $0.font = .largeTitle
@@ -61,54 +58,45 @@ class GameOverViewController: UIViewController {
     private let okButton: UIButton = UIButton().then {
         $0.setTitle("확인", for: .normal)
         $0.tintColor = .white
-        $0.backgroundColor = .lightGray
+        $0.backgroundColor = .pointLight
         $0.layer.cornerRadius = 10
     }
-    
     // MARK: - Properties
-    private let viewModel: GameOverViewModel
-    // MARK: - Lifecycles
-    init(viewModel: GameOverViewModel) {
-        self.viewModel = viewModel
-        super.init(nibName: nil, bundle: nil)
+    var okButtonTap: ControlEvent<Void> {
+        self.okButton.rx.tap
     }
+    
+    // MARK: - Lifecycles
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.backgroundColor = UIColor(red: 217/255, green: 217/255, blue: 217/255, alpha: 0.6)
+        self.layer.cornerRadius = 20
+        setupSubviews()
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .clear
-        tabBarController?.tabBar.isHidden = true
-        setupSubviews()
-        bind()
-    }
     
     // MARK: - Helpers
-    func setupSubviews() {
-        view.addSubview(resultBackground)
+    private func setupSubviews() {
         [gameOverLabel, mapNameLabel,
          timeLabel, timeValueLabel, distanceLabel, distanceValueLabel, kcalLabel, kcalValueLabel, okButton]
             .forEach {
-                resultBackground.addSubview($0)
+                addSubview($0)
             }
         
-        resultBackground.snp.makeConstraints {
-            $0.center.equalToSuperview()
-            $0.leading.trailing.equalToSuperview().inset(44)
-            $0.top.equalToSuperview().offset(140)
-            $0.bottom.equalToSuperview().offset(-270)
-        }
         gameOverLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(35)
-            $0.centerX.equalToSuperview()
+            $0.top.equalTo(self).offset(35)
+            $0.centerX.equalTo(self)
         }
         mapNameLabel.snp.makeConstraints {
             $0.top.equalTo(gameOverLabel.snp.bottom).offset(22)
-            $0.centerX.equalToSuperview()
+            $0.centerX.equalTo(self)
         }
         timeLabel.snp.makeConstraints {
             $0.top.equalTo(mapNameLabel.snp.bottom).offset(15)
-            $0.leading.equalToSuperview().inset(22)
+            $0.leading.equalTo(self).inset(22)
         }
         timeValueLabel.snp.makeConstraints {
             $0.centerY.equalTo(timeLabel)
@@ -131,22 +119,22 @@ class GameOverViewController: UIViewController {
             $0.leading.equalTo(kcalLabel.snp.trailing).offset(10)
         }
         okButton.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
+            $0.centerX.equalTo(self)
             $0.width.equalTo(102)
             $0.height.equalTo(63)
-            $0.bottom.equalToSuperview().offset(-32)
+            $0.top.equalTo(kcalValueLabel).offset(60)
         }
-        
     }
     
-    private func bind() {
-        let input = GameOverViewModel.Input(okButtonTapped: okButton.rx.tap.asObservable())
-        let output = viewModel.transform(input: input)
-        let record = output.record
-        
-        mapNameLabel.text = output.mapName
-        timeValueLabel.text = "\(record.time.convertToDayHourMinueFormat())"
-        distanceValueLabel.text = record.distance.convertToDecimal+"m"
-        kcalValueLabel.text = record.calorie.convertToDecimal+"kcal"
+    func bind(
+        mapName: String,
+        time: String,
+        distance: String,
+        calorie: String
+    ) {
+        mapNameLabel.text = mapName
+        timeValueLabel.text = time
+        distanceValueLabel.text = distance
+        kcalValueLabel.text = calorie
     }
 }
