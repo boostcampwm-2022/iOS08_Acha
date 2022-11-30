@@ -7,7 +7,7 @@
 
 import Foundation
  
-struct Record: Hashable, Decodable {
+struct Record: Hashable, Codable {
     var id: Int
     var mapID: Int
     var userID: String
@@ -18,6 +18,19 @@ struct Record: Hashable, Decodable {
     var isWin: Bool?
     var isCompleted: Bool
     var createdAt: String
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case mapID = "map_id"
+        case userID = "user_id"
+        case calorie
+        case distance
+        case time
+        case isSingleMode
+        case isWin
+        case isCompleted
+        case createdAt = "created_at"
+    }
     
     init(id: Int = -1,
          mapID: Int = -1,

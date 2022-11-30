@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Errors {
+enum Errors: Error {
     case decodeError
     case cannotDrawPolyLine
     
@@ -19,4 +19,9 @@ enum Errors {
             return "땅의 경계선(PolyLine)을 그릴 수 없습니다."
         }
     }
+}
+
+enum NetworkError: Error {
+    case dataError
+    case decodeError
 }

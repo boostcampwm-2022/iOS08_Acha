@@ -9,6 +9,7 @@ import RxSwift
 import Firebase
 
 final class DefaultRealtimeDatabaseNetworkService: RealtimeDatabaseNetworkService {
+
     private let databaseReference: DatabaseReference = Database.database().reference()
     
     enum FirebaseRealtimeError: Error {
@@ -35,6 +36,17 @@ final class DefaultRealtimeDatabaseNetworkService: RealtimeDatabaseNetworkServic
             })
             return Disposables.create()
         }
+    }
+    
+    func uploadNewRecord(index: Int, data: Record) {
+        let childReference = self.databaseReference.child(FirebaseRealtimeType.record(id: nil).path)
+        guard let json = try? JSONEncoder().encode(data),
+              let jsonSerial = try? JSONSerialization.jsonObject(with: json) as? [String: Any] ?? [:]
+        else {
+            print(FirebaseRealtimeError.encodeError)
+            return
+        }
+        childReference.updateChildValues(["\(index)": jsonSerial])
     }
     
     func upload<T: Encodable>(type: FirebaseRealtimeType, data: T) {
