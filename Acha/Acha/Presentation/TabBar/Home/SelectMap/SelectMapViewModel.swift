@@ -81,7 +81,7 @@ class SelectMapViewModel: BaseViewModel {
         input.mapSelected
             .subscribe(onNext: { [weak self] selectedMap in
                 guard let self else { return }
-                let records = selectedMap.records ?? []
+                let records = [Int]()
                 self.selectedMap = selectedMap
                 self.fetchMapRecord(indexes: records)
                     .asObservable()

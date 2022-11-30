@@ -42,7 +42,7 @@ final class HomeCoordinator: HomeCoordinatorProtocol {
     
     func connectSingleGameFlow() {
         tabBarController?.tabBar.isHidden = true
-        
+
         let coordinator = SingleGameCoordinator(navigationController: navigationController)
         coordinator.delegate = self
         appendChildCoordinator(coordinator: coordinator)
@@ -52,7 +52,6 @@ final class HomeCoordinator: HomeCoordinatorProtocol {
 
 extension HomeCoordinator: CoordinatorDelegate {
     func didFinished(childCoordinator: Coordinator) {
-        navigationController.viewControllers.last?.dismiss(animated: true)
         removeChildCoordinator(coordinator: childCoordinator)
         navigationController.viewControllers.removeAll(where: { !($0 is HomeViewController) })
         tabBarController?.tabBar.isHidden = false
