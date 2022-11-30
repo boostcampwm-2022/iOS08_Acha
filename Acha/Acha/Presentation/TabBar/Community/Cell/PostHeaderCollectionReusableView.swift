@@ -22,6 +22,8 @@ final class PostHeaderCollectionReusableView: UICollectionReusableView {
     
     private lazy var optionButton = UIButton().then {
         $0.setImage(.ellipsisImage, for: .normal)
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: 30)
+        $0.setPreferredSymbolConfiguration(imageConfig, forImageIn: .normal)
     }
     
     override init(frame: CGRect) {
@@ -72,7 +74,7 @@ extension PostHeaderCollectionReusableView {
         
         optionButton.snp.makeConstraints {
             $0.top.bottom.equalToSuperview()
-            $0.trailing.equalToSuperview()
+            $0.trailing.equalToSuperview().inset(-20)
             $0.width.equalTo(100)
         }
     }
