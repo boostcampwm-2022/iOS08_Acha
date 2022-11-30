@@ -18,28 +18,55 @@ final class KeyboardManager {
     static let keyboardWillHide = NotificationCenter.default.rx.notification(UIResponder.keyboardWillHideNotification)
     static var disposeBag = DisposeBag()
     
-    static func keyboardWillShow(view: UIView) {
-
-        keyboardWillShow
-            .compactMap { $0.userInfo }
-            .map { userInfo -> CGFloat in
-                return (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.height ?? 0
-            }
-            .subscribe(onNext: { height in
-                view.snp.updateConstraints {
-                    $0.bottom.equalToSuperview().offset(-height)
+    static func keyboardWillShow(view: UIView, superView: UIView? = nil) {
+        
+        if let superView = superView {
+            keyboardWillShow
+                .compactMap { $0.userInfo }
+                .map { userInfo -> CGFloat in
+                    return (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.height ?? 0
                 }
-            })
-            .disposed(by: disposeBag)
+                .subscribe(onNext: { height in
+                    view.snp.updateConstraints {
+                        $0.bottom.equalTo(superView.safeAreaLayoutGuide).offset(-height+view.frame.height-12)
+                    }
+                })
+                .disposed(by: disposeBag)
+        } else {
+            keyboardWillShow
+                .compactMap { $0.userInfo }
+                .map { userInfo -> CGFloat in
+                    return (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.height ?? 0
+                }
+                .subscribe(onNext: { height in
+                    view.snp.updateConstraints {
+                        $0.bottom.equalToSuperview().offset(-height)
+                    }
+                })
+                .disposed(by: disposeBag)
+        }
+
     }
     
-    static func keyboardWillHide(view: UIView) {
-        keyboardWillHide
-            .subscribe { _ in
-                view.snp.updateConstraints {
-                    $0.bottom.equalToSuperview()
+    static func keyboardWillHide(view: UIView, superView: UIView? = nil) {
+        
+        if let superView = superView {
+            keyboardWillHide
+                .subscribe { _ in
+                    view.snp.updateConstraints {
+                        $0.bottom.equalTo(superView.safeAreaLayoutGuide)
+                    }
                 }
-            }
-            .disposed(by: disposeBag)
+                .disposed(by: disposeBag)
+        } else {
+            keyboardWillHide
+                .subscribe { _ in
+                    view.snp.updateConstraints {
+                        $0.bottom.equalToSuperview()
+                    }
+                }
+                .disposed(by: disposeBag)
+        }
+
     }
 }
