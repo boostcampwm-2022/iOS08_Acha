@@ -1,30 +1,29 @@
 //
-//  LocationService.swift
-//  Acha
+// LocationService.swift
+// Acha
 //
-//  Created by 조승기 on 2022/11/24.
+// Created by 조승기 on 2022/11/24.
 //
 
 import Foundation
 import RxSwift
 import CoreLocation
 
-class DefaultLocationService: NSObject, LocationService {
+final class DefaultLocationService: NSObject, LocationService {
     private let locationManager: CLLocationManager
     private var disposeBag = DisposeBag()
+    
     var authorizationStatus = PublishSubject<Bool>()
+    var userLocation = BehaviorSubject<CLLocation>(value: CLLocation(latitude: 37.0, longitude: 126.0))
     
     override init() {
         self.locationManager = CLLocationManager()
         super.init()
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.showsBackgroundLocationIndicator = true
-        locationManager.allowsBackgroundLocationUpdates = true
+        setUp()
     }
     
     func start() {
-        getLocationUsagePermission()
+        observeLocation()
     }
     
     func stop() {
@@ -32,30 +31,38 @@ class DefaultLocationService: NSObject, LocationService {
         locationManager.delegate = nil
     }
     
-    func observeLocation() -> Observable<CLLocation> {
-        return PublishSubject<CLLocation>.create({ observer in
-            self.rx.methodInvoked(#selector(CLLocationManagerDelegate.locationManager(_:didUpdateLocations:)))
-                .subscribe(onNext: { locations in
-                    guard let locations = locations[1] as? [CLLocation],
-                          let currentLocation = locations.last else { return }
-                    observer.onNext(currentLocation)
-                }).disposed(by: self.disposeBag)
-            return Disposables.create()
-        })
+    private func setUp() {
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.showsBackgroundLocationIndicator = true
+        locationManager.allowsBackgroundLocationUpdates = true
     }
     
-    func getLocationUsagePermission() {
+    private func observeLocation() {
+        self.rx.methodInvoked(#selector(CLLocationManagerDelegate.locationManager(_:didUpdateLocations:)))
+            .subscribe(onNext: { [weak self] locations in
+                guard let self,
+                      let locations = locations[1] as? [CLLocation],
+                      let currentLocation = locations.last else { return }
+                self.userLocation.onNext(currentLocation)
+            }).disposed(by: self.disposeBag)
+    }
+    
+    private func getLocationUsagePermission() {
         locationManager.requestWhenInUseAuthorization()
     }
 }
 
 extension DefaultLocationService: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) { }
-
+    
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         switch manager.authorizationStatus {
         case .authorizedAlways, .authorizedWhenInUse:
             manager.startUpdatingLocation()
+            if let location = locationManager.location {
+                userLocation.onNext(location)
+            }
             authorizationStatus.onNext(true)
         case .restricted, .notDetermined:
             getLocationUsagePermission()

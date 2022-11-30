@@ -48,7 +48,7 @@ class DefaultSingleGameUseCase: SingleGameUseCase {
         startRunningTimer()
         locationService.start()
         
-        locationService.observeLocation()
+        locationService.userLocation
             .subscribe(onNext: { [weak self] location in
                 guard let self,
                       let distance = try? self.runningDistance.value(),

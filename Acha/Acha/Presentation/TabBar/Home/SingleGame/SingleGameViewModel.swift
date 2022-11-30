@@ -9,7 +9,7 @@ import Foundation
 import RxRelay
 import RxSwift
 
-final class SingleGameViewModel {
+final class SingleGameViewModel: MapBaseViewModel {
     
     struct Input {
         var gameOverButtonTapped: Observable<Void>
@@ -34,8 +34,8 @@ final class SingleGameViewModel {
     let map: Map
     private let coordinator: SingleGameCoordinator
     private let useCase: SingleGameUseCase
-    private var disposeBag = DisposeBag()
-  
+    private var hideButtonTimer: DispatchSourceTimer?
+    
     // MARK: - Lifecycle
     init(map: Map,
          coordinator: SingleGameCoordinator,
@@ -43,6 +43,7 @@ final class SingleGameViewModel {
         self.map = map
         self.coordinator = coordinator
         self.useCase = singeGameUseCase
+        super.init(useCase: DefaultMapBaseUseCase(locationService: DefaultLocationService()))
     }
     
     // MARK: - Helpers

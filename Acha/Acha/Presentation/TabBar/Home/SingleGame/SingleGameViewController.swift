@@ -45,7 +45,6 @@ class SingleGameViewController: MapBaseViewController, DistanceAndTimeBarLine {
     private lazy var gameOverView = GameOverView()
     // MARK: - Properties
     private let viewModel: SingleGameViewModel!
-    private let disposeBag = DisposeBag()
     
     let realGameOverButtonTappedEvent = PublishRelay<Void>()
     let rankButtonTappedEvent = PublishRelay<Void>()
@@ -59,7 +58,8 @@ class SingleGameViewController: MapBaseViewController, DistanceAndTimeBarLine {
     // MARK: - Lifecycles
     init(viewModel: SingleGameViewModel) {
         self.viewModel = viewModel
-        super.init(nibName: nil, bundle: nil)
+//        super.init(nibName: nil, bundle: nil)
+        super.init(viewModel: viewModel)
     }
     
     required init?(coder: NSCoder) {
@@ -236,7 +236,7 @@ extension SingleGameViewController {
         resetButton.rx.tap
             .subscribe(onNext: { [weak self] in
                 guard let self else { return }
-                self.focusUserLocation(useSpan: false)
+//                self.focusUserLocation(useSpan: false)
             }).disposed(by: disposeBag)
         gameOverButton.rx.tap
             .subscribe(onNext: { [weak self] in

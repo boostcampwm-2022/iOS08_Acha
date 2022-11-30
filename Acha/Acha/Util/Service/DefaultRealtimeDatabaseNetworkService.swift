@@ -2,32 +2,34 @@
 //  DefaultRealtimeDatabaseNetworkService.swift
 //  Acha
 //
-//  Created by 조승기 on 2022/11/27.
+//  Created by  sangyeon on 2022/11/27.
 //
 
-import Foundation
-import Firebase
 import RxSwift
+import Firebase
 
 final class DefaultRealtimeDatabaseNetworkService: RealtimeDatabaseNetworkService {
+
     private let databaseReference: DatabaseReference = Database.database().reference()
     
-    private func childReference(path: String) -> DatabaseReference {
-        return databaseReference.child(path)
+    enum FirebaseRealtimeError: Error {
+        case dataError
+        case decodeError
+        case encodeError
     }
     
-    func fetch<T: Decodable>(path: FirebasePath) -> Single<T> {
+    func fetch<T: Decodable>(type: FirebaseRealtimeType) -> Single<T> {
         return Single.create { [weak self] single in
             guard let self else { return Disposables.create() }
-            let childReference = self.childReference(path: path.rawValue)
+            let childReference = self.databaseReference.child(type.path)
             childReference.observeSingleEvent(of: .value, with: { snapshot in
-                guard let snapData = snapshot.value as? [Any],
+                guard let snapData = snapshot.value,
                       let jsonData = try? JSONSerialization.data(withJSONObject: snapData) else {
-                    single(.failure(NetworkError.dataError))
+                    single(.failure(FirebaseRealtimeError.dataError))
                     return
                 }
                 guard let data = try? JSONDecoder().decode(T.self, from: jsonData) else {
-                    single(.failure(NetworkError.decodeError))
+                    single(.failure(FirebaseRealtimeError.decodeError))
                     return
                 }
                 single(.success(data))
@@ -37,13 +39,25 @@ final class DefaultRealtimeDatabaseNetworkService: RealtimeDatabaseNetworkServic
     }
     
     func uploadNewRecord(index: Int, data: Record) {
-        let childRefernce = self.childReference(path: FirebasePath.record.rawValue)
+        let childReference = self.databaseReference.child(FirebaseRealtimeType.record(id: nil).path)
         guard let json = try? JSONEncoder().encode(data),
-              let jsonSerail = try? JSONSerialization.jsonObject(with: json) as? [String: Any] ?? [:]
+              let jsonSerial = try? JSONSerialization.jsonObject(with: json) as? [String: Any] ?? [:]
         else {
-            print(Errors.decodeError)
+            print(FirebaseRealtimeError.encodeError)
             return
         }
-        childRefernce.updateChildValues( ["\(index)": jsonSerail])
+        childReference.updateChildValues(["\(index)": jsonSerial])
     }
+    
+    func upload<T: Encodable>(type: FirebaseRealtimeType, data: T) {
+        let childReference = self.databaseReference.child(type.path)
+        guard let json = try? JSONEncoder().encode(data),
+              let jsonSerial = try? JSONSerialization.jsonObject(with: json) as? [String: Any] ?? [:]
+        else {
+            print(FirebaseRealtimeError.encodeError)
+            return
+        }
+        childReference.setValue(jsonSerial)
+    }
+
 }

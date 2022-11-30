@@ -15,14 +15,14 @@ final class DefaultRecordRepository: RecordRepository {
     }
     
     func fetchAllRecords() -> Single<[Record]> {
-        realTimeDatabaseNetworkService.fetch(path: FirebasePath.record)
+        realTimeDatabaseNetworkService.fetch(type: FirebaseRealtimeType.record(id: nil))
             .map { (recordDTOs: [RecordDTO]) in
                 return recordDTOs.map { $0.toDomain() }
             }
     }
     
     func uploadNewRecord(record: Record) {
-        realTimeDatabaseNetworkService.fetch(path: FirebasePath.record)
+        realTimeDatabaseNetworkService.fetch(type: FirebaseRealtimeType.record(id: nil))
             .map { (recordDTOs: [RecordDTO]) in
                 return recordDTOs.map { $0.toDomain() }
             }.subscribe(onSuccess: { [weak self] records in
