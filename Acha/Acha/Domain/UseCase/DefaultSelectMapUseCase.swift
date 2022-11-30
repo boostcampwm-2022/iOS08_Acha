@@ -8,7 +8,7 @@
 import Foundation
 import RxSwift
 
-class DefaultSelectMapUseCase: DefaultMapBaseUseCase, SelectMapUseCase {
+final class DefaultSelectMapUseCase: DefaultMapBaseUseCase, SelectMapUseCase {
     
     private let mapRepository: MapRepository
     private let recordRepository: RecordRepository

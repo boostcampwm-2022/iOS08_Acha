@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 import CoreLocation
 
-class DefaultLocationService: NSObject, LocationService {
+final class DefaultLocationService: NSObject, LocationService {
     private let locationManager: CLLocationManager
     private var disposeBag = DisposeBag()
     
@@ -19,10 +19,7 @@ class DefaultLocationService: NSObject, LocationService {
     override init() {
         self.locationManager = CLLocationManager()
         super.init()
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.showsBackgroundLocationIndicator = true
-        locationManager.allowsBackgroundLocationUpdates = true
+        setUp()
     }
     
     func start() {
@@ -32,6 +29,13 @@ class DefaultLocationService: NSObject, LocationService {
     func stop() {
         locationManager.stopUpdatingLocation()
         locationManager.delegate = nil
+    }
+    
+    private func setUp() {
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.showsBackgroundLocationIndicator = true
+        locationManager.allowsBackgroundLocationUpdates = true
     }
     
     private func observeLocation() {
