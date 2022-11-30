@@ -15,6 +15,6 @@ final class DefaultMapRepository: MapRepository {
     }
     
     func fetchAllMaps() -> Single<[Map]> {
-        realTimeDatabaseNetworkService.fetch(path: FirebasePath.mapList)
+        realTimeDatabaseNetworkService.fetch(type: FirebaseRealtimeType.mapList(id: nil))
     }
 }

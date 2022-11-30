@@ -33,7 +33,7 @@
 		47D5773D293389AC0014D171 /* DefaultMapRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D5773C293389AC0014D171 /* DefaultMapRepository.swift */; };
 		47D57741293389D00014D171 /* SelectMapUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D57740293389D00014D171 /* SelectMapUseCase.swift */; };
 		47D57743293389EB0014D171 /* DefaultSelectMapUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D57742293389EB0014D171 /* DefaultSelectMapUseCase.swift */; };
-		47D5774529338A040014D171 /* FirebasePath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D5774429338A040014D171 /* FirebasePath.swift */; };
+		47D5774529338A040014D171 /* FirebaseRealtimeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D5774429338A040014D171 /* FirebaseRealtimeType.swift */; };
 		47D5774929338A2F0014D171 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D5774829338A2F0014D171 /* LocationService.swift */; };
 		47D5774B29338A4A0014D171 /* RealtimeDatabaseNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D5774A29338A4A0014D171 /* RealtimeDatabaseNetworkService.swift */; };
 		47D5774D29338A5C0014D171 /* DefaultLocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D5774C29338A5C0014D171 /* DefaultLocationService.swift */; };
@@ -164,7 +164,7 @@
 		47D5773C293389AC0014D171 /* DefaultMapRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMapRepository.swift; sourceTree = "<group>"; };
 		47D57740293389D00014D171 /* SelectMapUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMapUseCase.swift; sourceTree = "<group>"; };
 		47D57742293389EB0014D171 /* DefaultSelectMapUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultSelectMapUseCase.swift; sourceTree = "<group>"; };
-		47D5774429338A040014D171 /* FirebasePath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebasePath.swift; sourceTree = "<group>"; };
+		47D5774429338A040014D171 /* FirebaseRealtimeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseRealtimeType.swift; sourceTree = "<group>"; };
 		47D5774829338A2F0014D171 /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		47D5774A29338A4A0014D171 /* RealtimeDatabaseNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealtimeDatabaseNetworkService.swift; sourceTree = "<group>"; };
 		47D5774C29338A5C0014D171 /* DefaultLocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultLocationService.swift; sourceTree = "<group>"; };
@@ -682,7 +682,7 @@
 				E5BE8BB92922217600E9CFE8 /* TabBarType.swift */,
 				4738D767292267BA003AE835 /* Errors.swift */,
 				47935E942923310700481307 /* SystemImageNameSpace.swift */,
-				47D5774429338A040014D171 /* FirebasePath.swift */,
+				47D5774429338A040014D171 /* FirebaseRealtimeType.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -1042,7 +1042,7 @@
 				47D5775429338FFF0014D171 /* DefaultRecordRepository.swift in Sources */,
 				76B3BF52292624DB0056ABFD /* Int+Extension.swift in Sources */,
 				477842F82923BFA300AAC3DB /* MapBaseViewController.swift in Sources */,
-				47D5774529338A040014D171 /* FirebasePath.swift in Sources */,
+				47D5774529338A040014D171 /* FirebaseRealtimeType.swift in Sources */,
 				F1AC0391292B33F8008302F8 /* SignUpViewModel.swift in Sources */,
 				E5027D5C292670F30021BF60 /* RecordViewChartData.swift in Sources */,
 				4738D768292267BA003AE835 /* Errors.swift in Sources */,
