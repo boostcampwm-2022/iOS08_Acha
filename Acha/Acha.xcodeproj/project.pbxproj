@@ -455,6 +455,7 @@
 		477842F62923BF9800AAC3DB /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				47D577552934A9DE0014D171 /* MapBase */,
 				76B3BF492924DDE70056ABFD /* BaseViewModel.swift */,
 			);
 			path = Base;
@@ -463,10 +464,9 @@
 		477842F92923C2D400AAC3DB /* SelectMap */ = {
 			isa = PBXGroup;
 			children = (
-				47935E9C29238E9E00481307 /* SelectMapViewController.swift */,
-				47A26DBF292C9F8A0007FBBF /* SelectMapRankingHeaderView.swift */,
-				47935E9E29238EB300481307 /* SelectMapViewModel.swift */,
-				E5027D5529265D910021BF60 /* SelectMapRecordCell.swift */,
+				76AA55AE293778CA00498441 /* View */,
+				76AA55AD293778C600498441 /* ViewModel */,
+				76AA55AC293778BB00498441 /* ViewController */,
 			);
 			path = SelectMap;
 			sourceTree = "<group>";
@@ -503,6 +503,8 @@
 			children = (
 				47D5773F293389C50014D171 /* Protocol */,
 				47D57742293389EB0014D171 /* DefaultSelectMapUseCase.swift */,
+				761E5F082935EFF400E6CACC /* DefaultInGameUseCase.swift */,
+				761C1C08292E437E000C88D0 /* DefaultSingleGameUseCase.swift */,
 				47D5775C2934AB9B0014D171 /* DefaultMapBaseUseCase.swift */,
 			);
 			path = UseCase;
@@ -511,6 +513,8 @@
 		47D5773F293389C50014D171 /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
+				761E5F062935EF4200E6CACC /* InGameUseCase.swift */,
+				761C1C0A292E439F000C88D0 /* SingleGameUseCase.swift */,
 				47D57740293389D00014D171 /* SelectMapUseCase.swift */,
 				47D5775A2934AB8A0014D171 /* MapBaseUseCase.swift */,
 			);
@@ -547,38 +551,87 @@
 			path = MapBase;
 			sourceTree = "<group>";
 		};
-		761C1C07292E436D000C88D0 /* UseCase */ = {
+		76AA55A92937784D00498441 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				761C1C08292E437E000C88D0 /* DefaultSingleGameUseCase.swift */,
-				761E5F062935EF4200E6CACC /* InGameUseCase.swift */,
-				761E5F082935EFF400E6CACC /* DefaultInGameUseCase.swift */,
-				761C1C0A292E439F000C88D0 /* SingleGameUseCase.swift */,
+				76AA55A72937765F00498441 /* BadgeViewModel.swift */,
 			);
-			path = UseCase;
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
-		761E5F0A2935F09F00E6CACC /* Repository */ = {
+		76AA55AA2937785F00498441 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				761E5F0B2935F0B800E6CACC /* Protocol */,
+				76AA55A52937762800498441 /* BadgeViewController.swift */,
+				E5BE8BB22922200C00E9CFE8 /* MyPageViewController.swift */,
 			);
-			path = Repository;
+			path = ViewController;
 			sourceTree = "<group>";
 		};
-		761E5F0B2935F0B800E6CACC /* Protocol */ = {
+		76AA55AB2937786400498441 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				76AA55A32937760B00498441 /* BadgeCell.swift */,
+				76AA55A1293775F200498441 /* MyPageHeaderView.swift */,
 			);
-			path = Protocol;
+			path = View;
+			sourceTree = "<group>";
+		};
+		76AA55AC293778BB00498441 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				47935E9C29238E9E00481307 /* SelectMapViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		76AA55AD293778C600498441 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				47935E9E29238EB300481307 /* SelectMapViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		76AA55AE293778CA00498441 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				47A26DBF292C9F8A0007FBBF /* SelectMapRankingHeaderView.swift */,
+				E5027D5529265D910021BF60 /* SelectMapRecordCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		76AA55AF293778D800498441 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				76B3BF432924C7450056ABFD /* SingleGameViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		76AA55B0293778DC00498441 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				76A2E19F2923C5A7001E887A /* SingleGameViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		76AA55B1293778E000498441 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				769F1AAB2935A7A800A3BB47 /* GameOverView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		76B3BF4D292526680056ABFD /* SingleGame */ = {
 			isa = PBXGroup;
 			children = (
-				76B3BF432924C7450056ABFD /* SingleGameViewController.swift */,
-				76A2E19F2923C5A7001E887A /* SingleGameViewModel.swift */,
-				769F1AAB2935A7A800A3BB47 /* GameOverView.swift */,
+				76AA55B1293778E000498441 /* View */,
+				76AA55B0293778DC00498441 /* ViewModel */,
+				76AA55AF293778D800498441 /* ViewController */,
 			);
 			path = SingleGame;
 			sourceTree = "<group>";
@@ -613,7 +666,6 @@
 			isa = PBXGroup;
 			children = (
 				47D5773E293389B80014D171 /* UseCase */,
-				761C1C07292E436D000C88D0 /* UseCase */,
 				4738D76D2922755B003AE835 /* Entity */,
 			);
 			path = Domain;
@@ -622,7 +674,6 @@
 		E5BE8B8C292216A600E9CFE8 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				47D577552934A9DE0014D171 /* MapBase */,
 				477842F62923BF9800AAC3DB /* Base */,
 				E5BE8BA329221C1000E9CFE8 /* TabBar */,
 				E5BE8BA229221C0A00E9CFE8 /* Auth */,
@@ -711,11 +762,9 @@
 		E5BE8BA729221C3B00E9CFE8 /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
-				E5BE8BB22922200C00E9CFE8 /* MyPageViewController.swift */,
-				76AA55A1293775F200498441 /* MyPageHeaderView.swift */,
-				76AA55A32937760B00498441 /* BadgeCell.swift */,
-				76AA55A52937762800498441 /* BadgeViewController.swift */,
-				76AA55A72937765F00498441 /* BadgeViewModel.swift */,
+				76AA55AB2937786400498441 /* View */,
+				76AA55A92937784D00498441 /* ViewModel */,
+				76AA55AA2937785F00498441 /* ViewController */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -850,7 +899,6 @@
 			isa = PBXGroup;
 			children = (
 				47D57738293389790014D171 /* Repository */,
-				761E5F0A2935F09F00E6CACC /* Repository */,
 				F1B0D8AD292CCAAC00EBDD02 /* UserDTO.swift */,
 				F1B0D8AF292CCABE00EBDD02 /* BadgeDTO.swift */,
 				F1B0D8B1292CCAD900EBDD02 /* RecordDTO.swift */,
