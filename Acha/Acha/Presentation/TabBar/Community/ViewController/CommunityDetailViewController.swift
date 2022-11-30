@@ -107,17 +107,20 @@ extension CommunityDetailViewController {
             $0.bottom.equalTo(commentView.snp.top)
         }
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        collectionView.backgroundColor = .pointDark
     }
 
     private func makeDataSource() -> Datasource {
  
         let datasource = Datasource(collectionView: collectionView) { collectionView, indexPath, itemIdentifier in
+            guard let section = Section(rawValue: indexPath.section) else {return UICollectionViewCell()}
             if let post = itemIdentifier as? Post {
                 guard let cell = collectionView.dequeueReusableCell(
                     withReuseIdentifier: PostCollectionViewCell.identifier,
                     for: indexPath
                 ) as? PostCollectionViewCell else {return UICollectionViewCell()}
                 cell.bindData(data: post)
+                self.cellLayoutAdjust(section: section, cell: cell, indexPath: indexPath)
                 return cell
             } else if let comment = itemIdentifier as? Comment {
                 guard let cell = collectionView.dequeueReusableCell(
@@ -125,14 +128,29 @@ extension CommunityDetailViewController {
                     for: indexPath
                 ) as? CommentCollectionViewCell else {return UICollectionViewCell()}
                 cell.bindData(data: comment)
-                cell.layer.borderWidth = 1
-                cell.layer.borderColor = UIColor.pointLight.cgColor
+                self.cellLayoutAdjust(section: section, cell: cell, indexPath: indexPath)
                 return cell
             } else {
                 fatalError("Unknown Cell Type")
             }
         }
         return datasource
+    }
+    
+    private func cellLayoutAdjust(section: Section, cell: UICollectionViewCell, indexPath: IndexPath) {
+        cell.backgroundColor = .white
+        switch section {
+        case .post:
+            if indexPath.row == 0 {
+                cell.layer.addBorder(directions: [.top], color: .pointLight, width: 1)
+            }
+            cell.backgroundColor = .white
+        case .comment:
+            cell.layer.borderWidth = 1
+            cell.layer.borderColor = UIColor.pointLight.cgColor
+            cell.backgroundColor = .white
+            cell.layer.cornerRadius = 5
+        }
     }
     
     private func configureCollectionViewHeader() {
@@ -147,12 +165,15 @@ extension CommunityDetailViewController {
                     withReuseIdentifier: PostHeaderCollectionReusableView.identifier,
                     for: indexPath) as? PostHeaderCollectionReusableView else { return UICollectionReusableView() }
                 header.bindData(data: self.postData)
+                header.layer.addBorder(directions: [.top], color: .pointLight, width: 1)
+                header.backgroundColor = .white
                     return header
             case .comment:
                 guard let header = collectionView.dequeueReusableSupplementaryView(
                     ofKind: elementKind,
                     withReuseIdentifier: CommentHeaderCollectionReusableView.identifier,
                     for: indexPath) as? CommentHeaderCollectionReusableView else { return UICollectionReusableView() }
+                header.backgroundColor = .white
                     return header
             }
         }
@@ -208,7 +229,7 @@ extension CommunityDetailViewController {
                 let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
                 let headerSize = NSCollectionLayoutSize(
                     widthDimension: .fractionalWidth(1.0),
-                    heightDimension: .estimated(200)
+                    heightDimension: .absolute(50)
                 )
                 let header = NSCollectionLayoutBoundarySupplementaryItem(
                     layoutSize: headerSize,
@@ -219,10 +240,11 @@ extension CommunityDetailViewController {
                 section.boundarySupplementaryItems = [header]
             case .comment:
                 let itemSize = NSCollectionLayoutSize(
-                    widthDimension: .fractionalWidth(0.9),
+                    widthDimension: .fractionalWidth(1.0),
                     heightDimension: .estimated(300)
                 )
                 let item = NSCollectionLayoutItem(layoutSize: itemSize)
+                item.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 5, bottom: 5, trailing: 5)
                 let groupSize = NSCollectionLayoutSize(
                     widthDimension: .fractionalWidth(1.0),
                     heightDimension: .estimated(300)
