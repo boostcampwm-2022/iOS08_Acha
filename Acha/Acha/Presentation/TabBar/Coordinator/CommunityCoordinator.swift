@@ -8,7 +8,7 @@
 import UIKit
 
 protocol CommunityCoordinatorProtocol: Coordinator {
-    func showCommunityViewController()
+    func showCommunityMainViewController()
 }
 
 final class CommunityCoordinator: CommunityCoordinatorProtocol {
@@ -22,13 +22,16 @@ final class CommunityCoordinator: CommunityCoordinatorProtocol {
     }
     
     func start() {
-//        showCommunityViewController()
+        showCommunityMainViewController()
 //        showCommunityPostViewController()
-        showCommunityDetailViewController()
+//        showCommunityDetailViewController()
     }
     
-    func showCommunityViewController() {
-        let viewController = CommunityViewController()
+    func showCommunityMainViewController() {
+        let repository = DefaultCommunityRepository(realTimeDatabaseNetworkService: DefaultRealtimeDatabaseNetworkService())
+        let useCase = DefaultCommunityMainUseCase(repository: repository)
+        let viewModel = CommunityMainViewModel(useCase: useCase)
+        let viewController = CommunityMainViewController(viewModel: viewModel)
         navigationController.pushViewController(viewController, animated: true)
     }
     

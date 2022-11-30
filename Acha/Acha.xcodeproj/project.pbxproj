@@ -77,6 +77,11 @@
 		E516A6BA2923929800CD6BDB /* RecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E516A6B92923929800CD6BDB /* RecordViewModel.swift */; };
 		E516A6BE2923941500CD6BDB /* RecordChartCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E516A6BD2923941500CD6BDB /* RecordChartCell.swift */; };
 		E516A6C02923942500CD6BDB /* RecordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E516A6BF2923942500CD6BDB /* RecordCell.swift */; };
+		E576465029377DC400BADF18 /* DefaultCommunityMainUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E576464F29377DC400BADF18 /* DefaultCommunityMainUseCase.swift */; };
+		E576465229377DD600BADF18 /* CommunityMainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E576465129377DD600BADF18 /* CommunityMainViewModel.swift */; };
+		E576465429377E0700BADF18 /* DefaultCommunityRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E576465329377E0700BADF18 /* DefaultCommunityRepository.swift */; };
+		E576465629377F2300BADF18 /* CommunityMainUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E576465529377F2300BADF18 /* CommunityMainUseCase.swift */; };
+		E576465829377FA900BADF18 /* CommunityRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E576465729377FA900BADF18 /* CommunityRepository.swift */; };
 		E5BE8B8F2922172400E9CFE8 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8B8E2922172400E9CFE8 /* AppCoordinator.swift */; };
 		E5BE8B91292218A500E9CFE8 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8B90292218A500E9CFE8 /* Coordinator.swift */; };
 		E5BE8B93292218F100E9CFE8 /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8B92292218F100E9CFE8 /* AuthCoordinator.swift */; };
@@ -88,7 +93,7 @@
 		E5BE8B9F29221B2700E9CFE8 /* LoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8B9E29221B2700E9CFE8 /* LoginCoordinator.swift */; };
 		E5BE8BA129221B6D00E9CFE8 /* SignupCoordinator .swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8BA029221B6D00E9CFE8 /* SignupCoordinator .swift */; };
 		E5BE8BAD29221FE500E9CFE8 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8BAC29221FE400E9CFE8 /* HomeViewController.swift */; };
-		E5BE8BAF29221FF800E9CFE8 /* CommunityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8BAE29221FF800E9CFE8 /* CommunityViewController.swift */; };
+		E5BE8BAF29221FF800E9CFE8 /* CommunityMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8BAE29221FF800E9CFE8 /* CommunityMainViewController.swift */; };
 		E5BE8BB12922200000E9CFE8 /* RecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8BB02922200000E9CFE8 /* RecordViewController.swift */; };
 		E5BE8BB32922200C00E9CFE8 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8BB22922200C00E9CFE8 /* MyPageViewController.swift */; };
 		E5BE8BB52922201600E9CFE8 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8BB42922201600E9CFE8 /* SignupViewController.swift */; };
@@ -116,7 +121,7 @@
 		F1D2029B2923B97400F3E87D /* InGameRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D2029A2923B97400F3E87D /* InGameRecordViewController.swift */; };
 		F1D202A42923C09300F3E87D /* InGameMenuCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D202A32923C09300F3E87D /* InGameMenuCollectionViewCell.swift */; };
 		F1D202B72924C63F00F3E87D /* InGameMenuModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D202B62924C63F00F3E87D /* InGameMenuModelProtocol.swift */; };
-		F1DED3932935DF6800ABC047 /* CommunityCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED3922935DF6800ABC047 /* CommunityCollectionViewCell.swift */; };
+		F1DED3932935DF6800ABC047 /* CommunityMainCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED3922935DF6800ABC047 /* CommunityMainCell.swift */; };
 		F1DED3952935DF9C00ABC047 /* PostDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED3942935DF9C00ABC047 /* PostDTO.swift */; };
 		F1DED3972935DFB900ABC047 /* CommunityDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED3962935DFB900ABC047 /* CommunityDTO.swift */; };
 		F1DED3992935DFCC00ABC047 /* CommentDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED3982935DFCC00ABC047 /* CommentDTO.swift */; };
@@ -236,6 +241,11 @@
 		E516A6BB292393FA00CD6BDB /* RecordHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordHeaderView.swift; sourceTree = "<group>"; };
 		E516A6BD2923941500CD6BDB /* RecordChartCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordChartCell.swift; sourceTree = "<group>"; };
 		E516A6BF2923942500CD6BDB /* RecordCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordCell.swift; sourceTree = "<group>"; };
+		E576464F29377DC400BADF18 /* DefaultCommunityMainUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCommunityMainUseCase.swift; sourceTree = "<group>"; };
+		E576465129377DD600BADF18 /* CommunityMainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityMainViewModel.swift; sourceTree = "<group>"; };
+		E576465329377E0700BADF18 /* DefaultCommunityRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCommunityRepository.swift; sourceTree = "<group>"; };
+		E576465529377F2300BADF18 /* CommunityMainUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityMainUseCase.swift; sourceTree = "<group>"; };
+		E576465729377FA900BADF18 /* CommunityRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityRepository.swift; sourceTree = "<group>"; };
 		E5BE8B8E2922172400E9CFE8 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		E5BE8B90292218A500E9CFE8 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		E5BE8B92292218F100E9CFE8 /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
@@ -247,7 +257,7 @@
 		E5BE8B9E29221B2700E9CFE8 /* LoginCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCoordinator.swift; sourceTree = "<group>"; };
 		E5BE8BA029221B6D00E9CFE8 /* SignupCoordinator .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SignupCoordinator .swift"; sourceTree = "<group>"; };
 		E5BE8BAC29221FE400E9CFE8 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
-		E5BE8BAE29221FF800E9CFE8 /* CommunityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityViewController.swift; sourceTree = "<group>"; };
+		E5BE8BAE29221FF800E9CFE8 /* CommunityMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityMainViewController.swift; sourceTree = "<group>"; };
 		E5BE8BB02922200000E9CFE8 /* RecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewController.swift; sourceTree = "<group>"; };
 		E5BE8BB22922200C00E9CFE8 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		E5BE8BB42922201600E9CFE8 /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
@@ -277,7 +287,7 @@
 		F1D202A7292463B200F3E87D /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
 		F1D202B42924C38B00F3E87D /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		F1D202B62924C63F00F3E87D /* InGameMenuModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameMenuModelProtocol.swift; sourceTree = "<group>"; };
-		F1DED3922935DF6800ABC047 /* CommunityCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityCollectionViewCell.swift; sourceTree = "<group>"; };
+		F1DED3922935DF6800ABC047 /* CommunityMainCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityMainCell.swift; sourceTree = "<group>"; };
 		F1DED3942935DF9C00ABC047 /* PostDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDTO.swift; sourceTree = "<group>"; };
 		F1DED3962935DFB900ABC047 /* CommunityDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityDTO.swift; sourceTree = "<group>"; };
 		F1DED3982935DFCC00ABC047 /* CommentDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentDTO.swift; sourceTree = "<group>"; };
@@ -584,6 +594,14 @@
 			name = "Recovered References";
 			sourceTree = "<group>";
 		};
+		E576464E29377DAE00BADF18 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				E576465129377DD600BADF18 /* CommunityMainViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		E5BE8B882922164400E9CFE8 /* App */ = {
 			isa = PBXGroup;
 			children = (
@@ -681,9 +699,14 @@
 		E5BE8BA529221C2D00E9CFE8 /* Community */ = {
 			isa = PBXGroup;
 			children = (
+				E576465329377E0700BADF18 /* DefaultCommunityRepository.swift */,
+				E576464F29377DC400BADF18 /* DefaultCommunityMainUseCase.swift */,
+				E576464E29377DAE00BADF18 /* ViewModel */,
 				F1DED3AD2936706500ABC047 /* Common */,
 				F1DED3912935DF4800ABC047 /* Cell */,
 				F1DED3902935DF1400ABC047 /* ViewController */,
+				E576465529377F2300BADF18 /* CommunityMainUseCase.swift */,
+				E576465729377FA900BADF18 /* CommunityRepository.swift */,
 			);
 			path = Community;
 			sourceTree = "<group>";
@@ -914,7 +937,7 @@
 		F1DED3902935DF1400ABC047 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				E5BE8BAE29221FF800E9CFE8 /* CommunityViewController.swift */,
+				E5BE8BAE29221FF800E9CFE8 /* CommunityMainViewController.swift */,
 				F1DED39C2935E12F00ABC047 /* CommunityPostViewController.swift */,
 				F1DED3A12935EBA600ABC047 /* CommunityDetailViewController.swift */,
 			);
@@ -924,7 +947,7 @@
 		F1DED3912935DF4800ABC047 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				F1DED3922935DF6800ABC047 /* CommunityCollectionViewCell.swift */,
+				F1DED3922935DF6800ABC047 /* CommunityMainCell.swift */,
 				F1DED3A52935F0A400ABC047 /* CommentCollectionViewCell.swift */,
 				F1DED3A72935F0AE00ABC047 /* PostCollectionViewCell.swift */,
 				F1DED3A92935F16A00ABC047 /* PostHeaderCollectionReusableView.swift */,
@@ -1127,6 +1150,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E576465629377F2300BADF18 /* CommunityMainUseCase.swift in Sources */,
 				E5BE8BB52922201600E9CFE8 /* SignupViewController.swift in Sources */,
 				761C1C09292E437E000C88D0 /* DefaultSingleGameUseCase.swift in Sources */,
 				F1FCEE11292B4C87001A55D6 /* AuthButton.swift in Sources */,
@@ -1145,17 +1169,15 @@
 				F1DED39D2935E12F00ABC047 /* CommunityPostViewController.swift in Sources */,
 				F1034B59292B37EB00BD8407 /* LoginViewModel.swift in Sources */,
 				E5027D58292670570021BF60 /* Record.swift in Sources */,
-				F1DED3932935DF6800ABC047 /* CommunityCollectionViewCell.swift in Sources */,
+				F1DED3932935DF6800ABC047 /* CommunityMainCell.swift in Sources */,
 				F1DED3AC2935F17700ABC047 /* CommentHeaderCollectionReusableView.swift in Sources */,
 				47A26DBC292B73850007FBBF /* Coordinate.swift in Sources */,
 				47935E9F29238EB400481307 /* SelectMapViewModel.swift in Sources */,
 				F14B1495292BA1D40010E966 /* KeyboardManager.swift in Sources */,
-
 				F1DED3AF2936708500ABC047 /* CommentView.swift in Sources */,
-
 				761C1C0B292E439F000C88D0 /* SingleGameUseCase.swift in Sources */,
-
 				F13DB58F292B3C8D00323B28 /* AuthInputTextField.swift in Sources */,
+				E576465229377DD600BADF18 /* CommunityMainViewModel.swift in Sources */,
 				761E5F092935EFF400E6CACC /* DefaultInGameUseCase.swift in Sources */,
 				E5BE8B8F2922172400E9CFE8 /* AppCoordinator.swift in Sources */,
 				47935E97292366CD00481307 /* UIButton+.swift in Sources */,
@@ -1168,6 +1190,7 @@
 				F1AC0391292B33F8008302F8 /* SignUpViewModel.swift in Sources */,
 				E5027D5C292670F30021BF60 /* RecordViewChartData.swift in Sources */,
 				4738D768292267BA003AE835 /* Errors.swift in Sources */,
+				E576465029377DC400BADF18 /* DefaultCommunityMainUseCase.swift in Sources */,
 				E5BE8B9D29221AAF00E9CFE8 /* MyPageCoordinator.swift in Sources */,
 				47A26DC0292C9F8A0007FBBF /* SelectMapRankingHeaderView.swift in Sources */,
 				76B3BF56292627A30056ABFD /* GamePlayMenuView.swift in Sources */,
@@ -1182,6 +1205,7 @@
 				F1DED3A42935ED0100ABC047 /* Comment.swift in Sources */,
 				F1B0D8AE292CCAAC00EBDD02 /* UserDTO.swift in Sources */,
 				F1DED3972935DFB900ABC047 /* CommunityDTO.swift in Sources */,
+				E576465829377FA900BADF18 /* CommunityRepository.swift in Sources */,
 				E5BE8BB12922200000E9CFE8 /* RecordViewController.swift in Sources */,
 				E5BE8B91292218A500E9CFE8 /* Coordinator.swift in Sources */,
 				764AF29F292B6EF500D16DC9 /* InGameRecordViewModel.swift in Sources */,
@@ -1202,7 +1226,7 @@
 				F1DED3A62935F0A400ABC047 /* CommentCollectionViewCell.swift in Sources */,
 				E5BE8B9F29221B2700E9CFE8 /* LoginCoordinator.swift in Sources */,
 				F1DED3A22935EBA600ABC047 /* CommunityDetailViewController.swift in Sources */,
-				E5BE8BAF29221FF800E9CFE8 /* CommunityViewController.swift in Sources */,
+				E5BE8BAF29221FF800E9CFE8 /* CommunityMainViewController.swift in Sources */,
 				F1B0D8AA292CCA0F00EBDD02 /* Encodable+Extension.swift in Sources */,
 				E516A6BE2923941500CD6BDB /* RecordChartCell.swift in Sources */,
 				E5BE8BB32922200C00E9CFE8 /* MyPageViewController.swift in Sources */,
@@ -1210,10 +1234,7 @@
 				F156F11C2923623C0053E807 /* PaddingLabel.swift in Sources */,
 				4795F04829374DC800B174D6 /* LocationService.swift in Sources */,
 				471863BD291E155700A35786 /* AppDelegate.swift in Sources */,
-
 				F1DED3AA2935F16A00ABC047 /* PostHeaderCollectionReusableView.swift in Sources */,
-				76B3BF58292634BD0056ABFD /* GameOverViewController.swift in Sources */,
-
 				E5BE8BA129221B6D00E9CFE8 /* SignupCoordinator .swift in Sources */,
 				E5BE8B97292219D800E9CFE8 /* HomeCoordinator.swift in Sources */,
 				F1D202B72924C63F00F3E87D /* InGameMenuModelProtocol.swift in Sources */,
@@ -1232,6 +1253,7 @@
 				76A2E1A32923D94C001E887A /* CLLocationCoordinate2D+.swift in Sources */,
 				764AF29D292B639200D16DC9 /* UIViewController+.swift in Sources */,
 				F18A7FCF292BE75A0054FADE /* String+Extension.swift in Sources */,
+				E576465429377E0700BADF18 /* DefaultCommunityRepository.swift in Sources */,
 				76B3BF50292624850056ABFD /* InGamePlayMenuViewController.swift in Sources */,
 				47D5775229338FB60014D171 /* RecordRepository.swift in Sources */,
 				F1DED3A02935E19100ABC047 /* TextCountView.swift in Sources */,

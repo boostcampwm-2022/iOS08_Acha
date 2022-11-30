@@ -23,7 +23,8 @@ final class CommunityPostViewController: UIViewController {
     private let imageButtonView = UIView()
     
     private let imageAddButton = UIButton().then {
-        $0.setImage(.defaultSelectImage, for: .normal)
+//        $0.setImage(.defaultSelectImage, for: .normal)
+        $0.setImage(UIImage(systemName: "house"), for: .normal)
     }
     
     private let imagePicker: PHPickerViewController

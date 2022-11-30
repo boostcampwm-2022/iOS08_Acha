@@ -12,5 +12,13 @@ struct CommentDTO: Codable {
     let userID: String
     let postID: Int
     let text: String
-    let createdAt: Date
+    let createdAt: String
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case userID = "user_id"
+        case postID = "post_id"
+        case text
+        case createdAt = "created_at"
+    }
 }

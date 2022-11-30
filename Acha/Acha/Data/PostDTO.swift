@@ -12,7 +12,15 @@ struct PostDTO: Codable {
     let userID: String
     let text: String
     let image: String?
-    let createdAt: Date
+    let createdAt: String
     let comments: [CommentDTO]?
 
+    enum CodingKeys: String, CodingKey {
+        case id
+        case userID = "user_id"
+        case text
+        case image
+        case createdAt = "created_at"
+        case comments
+    }
 }
