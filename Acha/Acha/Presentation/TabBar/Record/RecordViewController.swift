@@ -80,6 +80,7 @@ class RecordViewController: UIViewController, UICollectionViewDelegate {
             $0.top.bottom.equalTo(view.safeAreaLayoutGuide)
             $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(15)
         }
+        collectionView.backgroundColor = .pointLight
     }
     
     private func configureCollectionViewDataSource() {
