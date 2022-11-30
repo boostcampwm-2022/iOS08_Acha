@@ -37,7 +37,7 @@ final class PostHeaderCollectionReusableView: UICollectionReusableView {
     
     func bindData(data: Post) {
         nickNameLabel.text = data.nickName
-        dateLabel.text = data.createdAt.convertToStringFormat(format: "YYYY-mm-dd")
+        dateLabel.text = data.createdAt.convertToStringFormat(format: "YYYY-MM-dd")
     }
     
     override func prepareForReuse() {

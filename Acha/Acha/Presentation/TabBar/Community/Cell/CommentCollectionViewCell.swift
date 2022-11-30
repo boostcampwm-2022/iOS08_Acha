@@ -37,7 +37,7 @@ final class CommentCollectionViewCell: UICollectionViewCell {
     
     func bindData(data: Comment) {
         nickNameLabel.text = data.nickName
-        timeLabel.text = data.createdAt.convertToStringFormat(format: "YYYY-mm-dd")
+        timeLabel.text = data.createdAt.convertToStringFormat(format: "YYYY-MM-dd")
         contextLabel.text = data.text
     }
     
