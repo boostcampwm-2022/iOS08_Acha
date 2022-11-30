@@ -1,13 +1,13 @@
 //
-//  BadgeDTO.swift
+//  Badge.swift
 //  Acha
 //
-//  Created by hong on 2022/11/22.
+//  Created by  sangyeon on 2022/11/30.
 //
 
 import Foundation
 
-struct BadgeDTO: Decodable {
+struct Badge {
     let id: Int
     let name: String
     let image: String
