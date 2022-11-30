@@ -42,13 +42,15 @@ class SingleGameViewController: MapBaseViewController, DistanceAndTimeBarLine {
         $0.backgroundColor = .pointLight
         $0.layer.cornerRadius = 10
     }
+    private lazy var gameOverView = GameOverView()
     // MARK: - Properties
     private let viewModel: SingleGameViewModel!
     private let disposeBag = DisposeBag()
     
+    let realGameOverButtonTappedEvent = PublishRelay<Void>()
     let rankButtonTappedEvent = PublishRelay<Void>()
     let recordButtonTappedEvent = PublishRelay<Void>()
-    let realGameOverButtonTappedEvent = PublishRelay<Void>()
+    let mapTappedEvent = PublishRelay<Void>()
     
     var goLine: MKPolyline?
     var wentLine: MKPolyline?
@@ -69,6 +71,10 @@ class SingleGameViewController: MapBaseViewController, DistanceAndTimeBarLine {
         setupSubviews()
         configureMap()
         bind()
+    }
+    
+    deinit {
+        presentedViewController?.dismiss(animated: true)
     }
     
     override func viewDidLayoutSubviews() {
@@ -111,7 +117,6 @@ extension SingleGameViewController {
             $0.width.equalTo(100)
             $0.height.equalTo(40)
         }
-        
         rightMenuButtonSetting()
     }
     
@@ -148,69 +153,82 @@ extension SingleGameViewController {
     
     func configureMapTapped() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(mapViewTapped(_:)))
-        let pan = UIPanGestureRecognizer(target: self, action: #selector(mapViewTapped(_:)))
         mapView?.addGestureRecognizer(tap)
-        mapView?.addGestureRecognizer(pan)
     }
     
     @objc func mapViewTapped(_ sender: UITapGestureRecognizer) {
-        viewModel.isHideGameOverButton.accept(false)
+        mapTappedEvent.accept(())
     }
     
     private func bind() {
-        viewModel.visitedMapCoordinates
-            .subscribe(onNext: { [weak self] visitedCoordinates in
-                guard let self,
-                      visitedCoordinates.count >= 2 else { return }
-                let coordinates = visitedCoordinates.map { CLLocationCoordinate2DMake($0.latitude, $0.longitude) }
-                self.visitLine = MKPolyline(coordinates: coordinates, count: 2)
-                self.mapView?.addOverlay(self.visitLine ?? MKPolyline())
-            }).disposed(by: disposeBag)
+        let input = SingleGameViewModel.Input(
+            gameOverButtonTapped: realGameOverButtonTappedEvent.asObservable(),
+            rankButtonTapped: rankButtonTappedEvent.asObservable(),
+            recordButtonTapped: recordButtonTappedEvent.asObservable(),
+            mapTapped: mapTappedEvent.asObservable(),
+            gameOverOkButtonTapped: gameOverView.okButtonTap.asObservable()
+        )
+        let output = viewModel.transform(input: input)
         
-        viewModel.time
-            .subscribe(onNext: { [weak self] time in
+        output.runningDistance
+            .asDriver(onErrorJustReturn: 0.0)
+            .drive(onNext: { [weak self] distance in
+                guard let self else { return }
+                self.distanceAndTimeBar.distanceLabel.text = distance.meterToKmString
+            })
+            .disposed(by: disposeBag)
+        output.runningTime
+            .asDriver(onErrorJustReturn: 1)
+            .drive(onNext: { [weak self] time in
                 guard let self else { return }
                 self.distanceAndTimeBar.timeLabel.text = "\(time)초"
             }).disposed(by: disposeBag)
         
-        viewModel.movedDistance
-            .subscribe(onNext: { [weak self] distance in
+        output.wentLocations
+            .asDriver(onErrorJustReturn: [])
+            .drive(onNext: { [weak self] coordinates in
                 guard let self else { return }
-                self.distanceAndTimeBar.distanceLabel.text = distance.meterToKmString
+                self.drawWentLine(coordiates: coordinates.map { CLLocationCoordinate2D.from(coordiate: $0) })
             }).disposed(by: disposeBag)
         
-        viewModel.userMovedCoordinates
-            .subscribe(onNext: { [weak self] (previous, current) in
-                guard let self,
-                      let previous,
-                      let current else { return }
-                
-                let previousCoordinate = CLLocationCoordinate2DMake(previous.latitude, previous.longitude)
-                let currentCoordinate = CLLocationCoordinate2DMake(current.latitude, current.longitude)
-                self.wentLine = MKPolyline(coordinates: [previousCoordinate, currentCoordinate], count: 2)
-                self.mapView?.addOverlay(self.wentLine ?? MKPolyline())
+        output.visitLocations
+            .asDriver(onErrorJustReturn: [])
+            .drive(onNext: { [weak self] coordinates in
+                guard let self else { return }
+                self.drawVisitLine(coordiates: coordinates.map { CLLocationCoordinate2D.from(coordiate: $0)})
             }).disposed(by: disposeBag)
         
-        viewModel.isHideGameOverButton
-            .asDriver()
+        output.ishideGameOverButton
+            .asDriver(onErrorJustReturn: false)
             .drive(onNext: { [weak self] isHide in
                 guard let self else { return }
                 self.gameOverButton.isHidden = isHide
             }).disposed(by: disposeBag)
         
-        viewModel.tooFarFromMapEvent
-            .asDriver(onErrorJustReturn: ())
-            .drive(onNext: { [weak self] in
-                guard let self else { return }
+        output.tooFarFromLocation
+            .asDriver(onErrorJustReturn: false)
+            .drive(onNext: { [weak self] isFar in
+                guard let self,
+                      isFar else { return }
                 self.showAlert(title: "멀어지고 있습니다.", message: "거기아니에요")
             }).disposed(by: disposeBag)
         
-        let input = SingleGameViewModel.Input(
-            gameOverButtonTapped: realGameOverButtonTappedEvent.asObservable(),
-            rankButtonTapped: rankButtonTappedEvent.asObservable(),
-            recordButtonTapped: recordButtonTappedEvent.asObservable()
-        )
-        _ = viewModel.transform(input: input)
+        output.gameOverInformation
+            .subscribe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] (record, mapName) in
+                guard let self else { return }
+                print(mapName)
+                self.view.addSubview(self.gameOverView)
+                self.gameOverView.bind(mapName: mapName,
+                                  time: "\(record.time)초",
+                                  distance: "\(record.distance.convertToDecimal)m",
+                                  calorie: "\(record.calorie)kcal")
+                self.gameOverView.snp.makeConstraints {
+                    $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(142)
+                    $0.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom).offset(-220)
+                    $0.leading.trailing.equalTo(self.view.safeAreaLayoutGuide).inset(44)
+                }
+            }).disposed(by: disposeBag)
         bindButtons()
     }
     
@@ -233,30 +251,15 @@ extension SingleGameViewController {
                 )
             }).disposed(by: disposeBag)
     }
-}
-
-// MARK: - CLLocationManagerDelegate
-extension SingleGameViewController {
-    func locationManager( _ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let location = locations.last else { return }
-        
-        viewModel.currentCoordinate.accept(
-            Coordinate(
-                latitude: location.coordinate.latitude,
-                longitude: location.coordinate.longitude
-            )
-        )
+    
+    func drawWentLine(coordiates: [CLLocationCoordinate2D]) {
+        wentLine = MKPolyline(coordinates: coordiates, count: coordiates.count)
+        mapView?.addOverlay(wentLine ?? MKPolyline())
     }
     
-    func setMapRegion(toCoordinate coordinate: CLLocationCoordinate2D) {
-        let span = MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
-        let region = MKCoordinateRegion(center: coordinate, span: span)
-        mapView?.setRegion(region, animated: true)
-    }
-    
-    func drawWentLine(from: CLLocationCoordinate2D, here: CLLocationCoordinate2D) {
-        wentLine = MKPolyline(coordinates: [from, here], count: 2)
-        self.mapView?.addOverlay(wentLine ?? MKPolyline())
+    func drawVisitLine(coordiates: [CLLocationCoordinate2D]) {
+        visitLine = MKPolyline(coordinates: coordiates, count: coordiates.count)
+        mapView?.addOverlay(visitLine ?? MKPolyline())
     }
 }
 

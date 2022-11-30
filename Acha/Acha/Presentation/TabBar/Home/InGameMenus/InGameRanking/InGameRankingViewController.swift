@@ -23,9 +23,9 @@ final class InGameRankingViewController: InGamePlayMenuViewController {
     
     let viewModel: InGameRankingViewModel
     let disposeBag = DisposeBag()
+    
     // MARK: - Lifecycles
-
-    init(viewModel: InGameRankingViewModel){
+    init(viewModel: InGameRankingViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
