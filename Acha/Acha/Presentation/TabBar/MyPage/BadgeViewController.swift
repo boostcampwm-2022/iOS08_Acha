@@ -9,13 +9,6 @@ import UIKit
 import Then
 import SnapKit
 
-struct Badge {
-    let id: Int
-    let name: String
-    let image: String
-    let isHidden: String
-}
-
 class BadgeViewController: UIViewController {
     // MARK: - UI properties
     private var collectionView: UICollectionView!
@@ -59,18 +52,18 @@ class BadgeViewController: UIViewController {
     }
     
     private func configureCollectionViewLayout() -> UICollectionViewLayout {
-        UICollectionViewCompositionalLayout { [weak self] (sectionIndex: Int, _ ) -> NSCollectionLayoutSection? in
-            guard let self else { return }
-            let itemSize = NSCollectionLayoutSize(widthDimension: 1.0,
-                                                  heightDimension: 1.0)
+        UICollectionViewCompositionalLayout { (sectionIndex: Int, _ ) -> NSCollectionLayoutSection in
+            let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                                  heightDimension: .fractionalHeight(1.0))
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
-            let groupSize = NSCollectionLayoutSize(widthDimension: 0.3,
+            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.3),
                                                    heightDimension: .absolute(120))
             let groupInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
             let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
             group.contentInsets = groupInsets
             
-            let headerSize = NSCollectionLayoutSize(widthDimension: 1.0, heightDimension: .absolute(50))
+            let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                                    heightDimension: .absolute(50))
             let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize,
                                                                      elementKind: UICollectionView.elementKindSectionHeader,
                                                                      alignment: .top)
@@ -88,8 +81,11 @@ extension BadgeViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         3
     }
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath
+    ) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BadgeCell.identifer, for: indexPath)
                 as? BadgeCell else { return UICollectionViewCell() }
+        return cell
     }
 }
