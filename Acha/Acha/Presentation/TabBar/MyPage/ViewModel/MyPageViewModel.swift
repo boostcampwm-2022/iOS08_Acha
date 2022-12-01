@@ -83,6 +83,9 @@ final class MyPageViewModel: BaseViewModel {
             .disposed(by: disposeBag)
         
         useCase.ownedBadges
+            .map { ownedBadges in
+                return ownedBadges.count > 6 ? ownedBadges.suffix(6) : ownedBadges
+            }
             .bind(to: output.badges)
             .disposed(by: disposeBag)
         
