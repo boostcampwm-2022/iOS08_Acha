@@ -17,10 +17,10 @@ final class DefaultMyPageUseCase: MyPageUseCase {
     
     // MARK: - Dependencies
     private let userRepository: UserRepository
-    private let badgeRepository: BadgeRepository2
+    private let badgeRepository: BadgeRepository
     
     // MARK: - LifeCycles
-    init(userRepository: UserRepository, badgeRepository: BadgeRepository2) {
+    init(userRepository: UserRepository, badgeRepository: BadgeRepository) {
         self.userRepository = userRepository
         self.badgeRepository = badgeRepository
     }

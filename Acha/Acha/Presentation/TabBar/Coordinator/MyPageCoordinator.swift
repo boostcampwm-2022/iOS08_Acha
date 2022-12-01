@@ -28,7 +28,7 @@ final class MyPageCoordinator: Coordinator {
     func showMyPageViewController() {
         let networkService = DefaultRealtimeDatabaseNetworkService()
         let userRepository = DefaultUserRepository(realTimeDatabaseNetworkService: networkService)
-        let badgeRepository = DefaultBadgeRepository2(realTimeDatabaseNetworkService: networkService)
+        let badgeRepository = DefaultBadgeRepository(realTimeDatabaseNetworkService: networkService)
         let useCase = DefaultMyPageUseCase(userRepository: userRepository, badgeRepository: badgeRepository)
         let viewModel = MyPageViewModel(coordinator: self, useCase: useCase)
         let viewController = MyPageViewController(viewModel: viewModel)
