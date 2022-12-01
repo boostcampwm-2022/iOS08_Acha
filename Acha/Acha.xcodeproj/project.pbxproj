@@ -159,6 +159,8 @@
 		F1DED41E293919FF00ABC047 /* DefaultKeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED41D293919FF00ABC047 /* DefaultKeychainService.swift */; };
 		F1DED42029391A1800ABC047 /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED41F29391A1800ABC047 /* KeychainService.swift */; };
 		F1DED42229391A6400ABC047 /* DefaultUserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED42129391A6400ABC047 /* DefaultUserRepository.swift */; };
+		F1DED42429391AAB00ABC047 /* DefaultAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED42329391AAB00ABC047 /* DefaultAuthService.swift */; };
+		F1DED42629391ABD00ABC047 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED42529391ABD00ABC047 /* AuthService.swift */; };
 		F1E83D7729348591004C7992 /* CommunityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E83D7629348591004C7992 /* CommunityViewModel.swift */; };
 		F1E83D79293485A1004C7992 /* CommunityRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E83D78293485A1004C7992 /* CommunityRepository.swift */; };
 		F1E83D7D293489E1004C7992 /* PostDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E83D7C293489E1004C7992 /* PostDTO.swift */; };
@@ -358,6 +360,8 @@
 		F1DED41D293919FF00ABC047 /* DefaultKeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultKeychainService.swift; sourceTree = "<group>"; };
 		F1DED41F29391A1800ABC047 /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
 		F1DED42129391A6400ABC047 /* DefaultUserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultUserRepository.swift; sourceTree = "<group>"; };
+		F1DED42329391AAB00ABC047 /* DefaultAuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultAuthService.swift; sourceTree = "<group>"; };
+		F1DED42529391ABD00ABC047 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		F1E83D7629348591004C7992 /* CommunityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityViewModel.swift; sourceTree = "<group>"; };
 		F1E83D78293485A1004C7992 /* CommunityRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityRepository.swift; sourceTree = "<group>"; };
 		F1E83D7C293489E1004C7992 /* PostDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDTO.swift; sourceTree = "<group>"; };
@@ -598,6 +602,7 @@
 				761C1C0F292E4562000C88D0 /* TimerService.swift */,
 				4795F04929374DD300B174D6 /* DefaultLocationService.swift */,
 				F1DED41D293919FF00ABC047 /* DefaultKeychainService.swift */,
+				F1DED42329391AAB00ABC047 /* DefaultAuthService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -609,6 +614,7 @@
 				761C1C0D292E4554000C88D0 /* TimerServiceProtocol.swift */,
 				4795F04729374DC800B174D6 /* LocationService.swift */,
 				F1DED41F29391A1800ABC047 /* KeychainService.swift */,
+				F1DED42529391ABD00ABC047 /* AuthService.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -1421,6 +1427,7 @@
 				E5BE8BB52922201600E9CFE8 /* SignupViewController.swift in Sources */,
 				F1E83D95293594F4004C7992 /* CommunityPostViewController.swift in Sources */,
 				761C1C09292E437E000C88D0 /* DefaultSingleGameUseCase.swift in Sources */,
+				F1DED42429391AAB00ABC047 /* DefaultAuthService.swift in Sources */,
 				76AA55FC2937AD8900498441 /* MultiGameRoomDataSource.swift in Sources */,
 				76AA55CE2937AC3500498441 /* UUIDGetable.swift in Sources */,
 				F1FCEE11292B4C87001A55D6 /* AuthButton.swift in Sources */,
@@ -1438,6 +1445,7 @@
 				4738D76F2922756B003AE835 /* Map.swift in Sources */,
 				4795F04A29374DD300B174D6 /* DefaultLocationService.swift in Sources */,
 				47D5775B2934AB8A0014D171 /* MapBaseUseCase.swift in Sources */,
+				F1DED42629391ABD00ABC047 /* AuthService.swift in Sources */,
 				761C1C0E292E4554000C88D0 /* TimerServiceProtocol.swift in Sources */,
 				76AA55FE2937AD8900498441 /* GameRoomCollectionViewHeader.swift in Sources */,
 				76AA560D2937ADD400498441 /* LoginUsecase.swift in Sources */,

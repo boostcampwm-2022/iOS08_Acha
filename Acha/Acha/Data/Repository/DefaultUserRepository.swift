@@ -12,14 +12,17 @@ struct DefaultUserRepository {
     
     private let realtimeDataBaseService: RealtimeDatabaseNetworkService
     private let keychainService: KeychainService
+    private let authService: AuthService
     private let disposeBag = DisposeBag()
     
     init(
         realtimeDataBaseService: RealtimeDatabaseNetworkService,
-        keychainService: KeychainService
+        keychainService: KeychainService,
+        authService: AuthService
     ) {
         self.realtimeDataBaseService = realtimeDataBaseService
         self.keychainService = keychainService
+        self.authService = authService
     }
     
     func getUUID() -> String? {
@@ -39,6 +42,14 @@ struct DefaultUserRepository {
                 .disposed(by: disposeBag)
             return Disposables.create()
         }
+    }
+    
+    func signUp(data: SignUpData) -> Single<UserDTO> {
+        return authService.signUp(data: data)
+    }
+    
+    func logIn(data: LoginData) -> Single<String> {
+        return authService.logIn(data: data)
     }
     
     private func getUserDataFromRealTimeDataBaseService(uuid: String) -> Single<UserDTO> {
