@@ -163,7 +163,11 @@ class CommunityMainCell: UICollectionViewCell {
             postImageView.isHidden = true
         }
         
-        commentCountLabel.text = "\(post.comments == nil ? 0 : post.comments?.count)"
+        if let comments = post.comments {
+            commentCountLabel.text = "\(comments.count)"
+        } else {
+            commentCountLabel.text = "0"
+        }
     }
     
     func getId() -> Int {
