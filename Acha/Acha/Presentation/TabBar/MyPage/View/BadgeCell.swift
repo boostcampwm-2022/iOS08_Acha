@@ -8,8 +8,9 @@
 import UIKit
 import Then
 import SnapKit
+import RxSwift
 
-class BadgeCell: UICollectionViewCell {
+final class BadgeCell: UICollectionViewCell {
     // MARK: - UI properties
     private lazy var badgeLabel: UILabel = UILabel().then {
         $0.font = .subBody
@@ -49,8 +50,8 @@ class BadgeCell: UICollectionViewCell {
         }
     }
     
-    func bind(image: UIImage, badgeName: String) {
-        badgeImage.image = image
+    func bind(image: String, badgeName: String, disposeBag: DisposeBag) {
+//        badgeImage.setImage(url: image, disposeBag: disposeBag)
         badgeLabel.text = badgeName
     }
 }
