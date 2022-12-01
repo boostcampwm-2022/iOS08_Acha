@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		471039562937B7A700003CB5 /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471039552937B7A700003CB5 /* SettingCell.swift */; };
 		471863BD291E155700A35786 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471863BC291E155700A35786 /* AppDelegate.swift */; };
 		471863BF291E155700A35786 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471863BE291E155700A35786 /* SceneDelegate.swift */; };
 		471863C1291E155700A35786 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471863C0291E155700A35786 /* ViewController.swift */; };
@@ -19,6 +20,7 @@
 		4738D7612921D6E4003AE835 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4738D7602921D6E4003AE835 /* GoogleService-Info.plist */; };
 		4738D768292267BA003AE835 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4738D767292267BA003AE835 /* Errors.swift */; };
 		4738D76F2922756B003AE835 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4738D76E2922756B003AE835 /* Map.swift */; };
+		4768898F2937928900AF633B /* Badge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4768898E2937928900AF633B /* Badge.swift */; };
 		477842F82923BFA300AAC3DB /* MapBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 477842F72923BFA300AAC3DB /* MapBaseViewController.swift */; };
 		47935E952923310700481307 /* SystemImageNameSpace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47935E942923310700481307 /* SystemImageNameSpace.swift */; };
 		47935E97292366CD00481307 /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47935E96292366CD00481307 /* UIButton+.swift */; };
@@ -158,6 +160,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		471039552937B7A700003CB5 /* SettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
 		471863B9291E155700A35786 /* Acha.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Acha.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		471863BC291E155700A35786 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		471863BE291E155700A35786 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -175,6 +178,7 @@
 		4738D765292238C3003AE835 /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
 		4738D767292267BA003AE835 /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 		4738D76E2922756B003AE835 /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
+		4768898E2937928900AF633B /* Badge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Badge.swift; sourceTree = "<group>"; };
 		477842F72923BFA300AAC3DB /* MapBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapBaseViewController.swift; sourceTree = "<group>"; };
 		47935E942923310700481307 /* SystemImageNameSpace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemImageNameSpace.swift; sourceTree = "<group>"; };
 		47935E96292366CD00481307 /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
@@ -448,6 +452,7 @@
 				47A26DBD292BB2970007FBBF /* MapRegion.swift */,
 				F1DED39A2935DFE400ABC047 /* Post.swift */,
 				F1DED3A32935ED0100ABC047 /* Comment.swift */,
+				4768898E2937928900AF633B /* Badge.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -573,6 +578,7 @@
 			children = (
 				76AA55A32937760B00498441 /* BadgeCell.swift */,
 				76AA55A1293775F200498441 /* MyPageHeaderView.swift */,
+				471039552937B7A700003CB5 /* SettingCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1194,6 +1200,7 @@
 				761E5F112935F2DF00E6CACC /* FirebasePath.swift in Sources */,
 				E5BE8BBA2922217600E9CFE8 /* TabBarType.swift in Sources */,
 				76A2E1A12923C5A7001E887A /* SingleGameViewModel.swift in Sources */,
+				4768898F2937928900AF633B /* Badge.swift in Sources */,
 				76A2E1A529249099001E887A /* Double+.swift in Sources */,
 				47935E9D29238E9E00481307 /* SelectMapViewController.swift in Sources */,
 				4738D76F2922756B003AE835 /* Map.swift in Sources */,
@@ -1291,6 +1298,7 @@
 				764AF29D292B639200D16DC9 /* UIViewController+.swift in Sources */,
 				F18A7FCF292BE75A0054FADE /* String+Extension.swift in Sources */,
 				76B3BF50292624850056ABFD /* InGamePlayMenuViewController.swift in Sources */,
+				471039562937B7A700003CB5 /* SettingCell.swift in Sources */,
 				47D5775229338FB60014D171 /* RecordRepository.swift in Sources */,
 				F1DED3A02935E19100ABC047 /* TextCountView.swift in Sources */,
 				E5027D5229263D4F0021BF60 /* RecordHeaderView.swift in Sources */,
