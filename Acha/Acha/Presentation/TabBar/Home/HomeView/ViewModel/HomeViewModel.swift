@@ -89,7 +89,7 @@ final class HomeViewModel: BaseViewModel {
         return Output(
             multiGameModeTapped: didMultiGameModeDidTap,
             uuidDidPass: uuidDidPass,
-            roomEnterBehavior: input.enterOtherRoomButtonDidTap, 
+            roomEnterBehavior: input.enterOtherRoomButtonDidTap,
             qrInformationDetectedByCamera: uuidDidPass
         )
     }
