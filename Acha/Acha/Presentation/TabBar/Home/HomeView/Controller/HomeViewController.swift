@@ -95,9 +95,32 @@ final class HomeViewController: UIViewController, UIViewControllerTransitioningD
         configureUI()
         setUpSubviews()
         bind()
-    
+        
+        let server = DefaultRealtimeDatabaseNetworkService()
+
+        DefaultCommunityRepository(service: server).getPost(id: 555)
+            .subscribe { post in
+                print(post)
+            }
+            .disposed(by: disposeBag)
+        
+        DefaultCommunityRepository(service: server).makePost(
+            data: Post(id: 555,
+                       userId: "AWetaew",
+                       nickName: "waettwe",
+                       text: "weattwe",
+                       image: "waetwe",
+                       comments: [
+                        Comment(id: 124,
+                                postId: 214,
+                                userId: "Awetw",
+                                nickName: "WAet",
+                                text: "AWetwtetwe")
+                       ])
+        )
+            
     }
-    
+//
     // MARK: - Helpers
     private func configureUI() {
         view.backgroundColor = .white

@@ -8,5 +8,9 @@
 import Foundation
 
 struct CommunityDTO: Codable {
-    let posts: [PostDTO]
+    var postList: [PostDTO]?
+    
+    mutating func addPost(post: PostDTO) {
+        postList?.append(post)
+    }
 }

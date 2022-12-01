@@ -8,30 +8,73 @@
 import Foundation
 import RxSwift
 
-struct DefaultCommunityRepository: CommunityRepository {
+struct DefaultCommunityRepository {
     
     private let service: RealtimeDatabaseNetworkService
-    private let userRepository: UserRepository
+    private let disposeBag = DisposeBag()
     
     init(
-        service: RealtimeDatabaseNetworkService,
-        userRepository: UserRepository
+        service: RealtimeDatabaseNetworkService
     ) {
         self.service = service
     }
     
-    func getAllPost() -> Single<[Post]> {
+    private func getCommunity() -> Single<[PostDTO]> {
         return service.fetch(type: .postList)
-            .map { (postDTOS: [PostDTO]) in
-                postDTOS.map { $0.toDomain() }
+            .map { (communityDTO: CommunityDTO) in
+                return communityDTO.postList ?? []
             }
     }
     
-    func getPost(id: Int) -> Single<Post> {
-        return service.fetch(type: .post(id: id))
-            .map { (postDTO: PostDTO) in
-                return postDTO.toDomain()
-            }
+    func getAllPost() -> Single<[Post]> {
+        return getCommunity()
+            .map { $0.map { $0.toDomain() } }
     }
-
+    
+    func getPost(id: Int) -> Single<Post> {
+        return getAllPost()
+            .map { $0.filter { $0.id == id } }
+            .map { $0[0] }
+    }
+    
+    func getPostComments(id: Int) -> Single<[Comment]> {
+        return getPost(id: id)
+            .map { $0.comments ?? [] }
+    }
+    
+    func makePost(data: Post) {
+        let data = PostDTO(data: data)
+        
+        getCommunity()
+            .map {
+                var community = CommunityDTO(postList: $0)
+                community.addPost(post: data)
+                service.upload(type: .postList, data: community)
+            }
+            .subscribe()
+            .disposed(by: disposeBag)
+    }
+    
+    func makeComment(data: Comment) {
+        getPost(id: data.postId)
+            .map {
+                var post = $0
+                post.addComment(data: data)
+                makePost(data: post)
+            }
+            .subscribe()
+            .disposed(by: disposeBag)
+    }
+    
+    func deletePost(id: Int) {
+        getCommunity()
+            .map { $0.filter { $0.id != id } }
+            .map {
+                let community = CommunityDTO(postList: $0)
+                service.upload(type: .postList, data: community)
+            }
+            .subscribe()
+            .disposed(by: disposeBag)
+    }
+    
 }

@@ -32,35 +32,6 @@ final class CommunityViewController: UIViewController {
         title = "커뮤니티"
         configureCollectionView()
 
-        snapshotUpdate(datas: [Post(id: 112321214,
-                                    userID: "watwㅇㄴㅁㄹㅇho",
-                                    nickName: "test0",
-                                    text: "안녕하세요반가워요\n",
-                                    image: nil,
-                                    createdAt: Date(),
-                                    commentCount: 23),
-                               Post(id: 121214,
-                                    userID: "waho",
-                                    nickName: "test1",
-                                    text: "안녕하세요반가워요\n테스트중입니다\nㅠㅠ",
-                                    image: nil,
-                                    createdAt: Date(),
-                                    commentCount: 23),
-                               Post(id: 1214,
-                                    userID: "이야호",
-                                    nickName: "test2",
-                                    text: "안녕하세요반가워요\n테스트중입니다\nㅠㅠ",
-                                    image: nil,
-                                    createdAt: Date(),
-                                    commentCount: 23),
-                               Post(id: 121214,
-                                    userID: "와오",
-                                    nickName: "test3",
-                                    text: "안녕하세요반가워요\n테스트중입니다\nㅠㅠ",
-                                    image: nil,
-                                    createdAt: Date(),
-                                    commentCount: 23)])
-
     }
 
 }

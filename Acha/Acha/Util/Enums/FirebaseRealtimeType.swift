@@ -26,9 +26,9 @@ enum FirebaseRealtimeType {
         case .room(let id):
             return "Room/\(id)"
         case .post(let id):
-            return "community/postList/post\(id)"
+            return "community"
         case .postList:
-            return "community/postList"
+            return "community"
         }
     }
 }
