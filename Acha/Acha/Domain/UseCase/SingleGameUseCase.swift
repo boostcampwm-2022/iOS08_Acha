@@ -28,4 +28,6 @@ protocol SingleGameUseCase {
     func startRunningTimer()
     func stopRunning()
     func gameOverButtonTapped()
+    
+    func healthKitWrite() -> Observable<Void>
 }

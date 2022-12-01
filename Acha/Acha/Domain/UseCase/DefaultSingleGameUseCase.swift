@@ -146,7 +146,24 @@ class DefaultSingleGameUseCase: SingleGameUseCase {
                             createdAt: createdAt)
         
         recordRepository.uploadNewRecord(record: record)
+
         gameOverInformation.onNext((record, self.map.name))
         stopRunning()
+    }
+    
+    private func healthKitWriteData() -> HealthKitWriteData {
+        let runningTime = (try? runningTime.value()) ?? 0
+        let runningDistance = (try? runningDistance.value()) ?? 0
+        let kcal = Int(0.1128333333*Double(runningTime))
+        return HealthKitWriteData(
+            distance: runningDistance,
+            diatanceTime: runningTime,
+            calorie: kcal,
+            calorieTime: runningTime
+        )
+    }
+    
+    func healthKitWrite() -> Observable<Void> {
+        return recordRepository.healthKitWrite(healthKitWriteData())
     }
 }
