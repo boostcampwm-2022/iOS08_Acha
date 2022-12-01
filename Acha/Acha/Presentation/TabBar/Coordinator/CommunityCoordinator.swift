@@ -23,7 +23,8 @@ final class CommunityCoordinator: CommunityCoordinatorProtocol {
     
     func start() {
 //        showCommunityViewController()
-        showCommunityPostViewController()
+//        showCommunityPostViewController()
+        showCommunityDetailViewController()
     }
     
     func showCommunityViewController() {
@@ -32,7 +33,12 @@ final class CommunityCoordinator: CommunityCoordinatorProtocol {
     }
     
     func showCommunityPostViewController() {
-        let viewController = CommunityPostViewController()
+          let viewController = CommunityPostViewController()
+          navigationController.pushViewController(viewController, animated: true)
+      }
+    
+    func showCommunityDetailViewController() {
+        let viewController = CommunityDetailViewController()
         navigationController.pushViewController(viewController, animated: true)
     }
 }

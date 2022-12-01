@@ -10,7 +10,6 @@ import UIKit
 protocol HomeCoordinatorProtocol: Coordinator {
     func showHomeViewController()
     func connectSingleGameFlow()
-    func connectMultiGameFlow(gameID: String)
 }
 
 final class HomeCoordinator: HomeCoordinatorProtocol {
@@ -35,13 +34,7 @@ final class HomeCoordinator: HomeCoordinatorProtocol {
     }
     
     func showHomeViewController() {
-        let provider = HomeProvider()
-        let repository = HomeRepository(provider: provider)
-        let useCase = HomeUseCase(repository: repository)
-        let viewModel = HomeViewModel(
-            coordinator: self,
-            useCase: useCase
-        )
+        let viewModel = HomeViewModel(coordinator: self)
         let viewController = HomeViewController(viewModel: viewModel)
         navigationController.navigationBar.isHidden = false
         navigationController.pushViewController(viewController, animated: true)
@@ -49,26 +42,19 @@ final class HomeCoordinator: HomeCoordinatorProtocol {
     
     func connectSingleGameFlow() {
         tabBarController?.tabBar.isHidden = true
-        
+        navigationController.interactivePopGestureRecognizer?.isEnabled = false
         let coordinator = SingleGameCoordinator(navigationController: navigationController)
         coordinator.delegate = self
         appendChildCoordinator(coordinator: coordinator)
         coordinator.start()
     }
-    
-    func connectMultiGameFlow(gameID: String) {
-        let coordinator = MultiGameCoordinator(navigationController: navigationController)
-        coordinator.delegate = self
-        appendChildCoordinator(coordinator: coordinator)
-        coordinator.start(gameID: gameID)
-    }
 }
 
 extension HomeCoordinator: CoordinatorDelegate {
     func didFinished(childCoordinator: Coordinator) {
-        navigationController.viewControllers.last?.dismiss(animated: true)
         removeChildCoordinator(coordinator: childCoordinator)
         navigationController.viewControllers.removeAll(where: { !($0 is HomeViewController) })
         tabBarController?.tabBar.isHidden = false
+        navigationController.navigationBar.isHidden = false
     }
 }

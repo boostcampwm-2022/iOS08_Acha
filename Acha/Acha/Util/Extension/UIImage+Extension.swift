@@ -14,4 +14,6 @@ extension UIImage {
     static let exitImage: UIImage = UIImage(named: "exitImage")!
     static let commentImage: UIImage = UIImage(named: "commentImage")!
     static let defaultSelectImage: UIImage = UIImage(named: "defaultSelectImage") ?? UIImage()
+    static let ellipsisImage: UIImage = UIImage(systemName: "ellipsis")!
+        .withTintColor(.pointDark, renderingMode: .alwaysOriginal)
 }

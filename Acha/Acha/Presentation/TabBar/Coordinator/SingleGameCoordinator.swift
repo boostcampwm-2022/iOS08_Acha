@@ -27,35 +27,59 @@ final class SingleGameCoordinator: SingleGameCoordinatorProtocol {
     }
     
     func showSelectMapViewController() {
-        let viewModel = SelectMapViewModel(coordinator: self)
+        let networkService = DefaultRealtimeDatabaseNetworkService()
+        let mapRepository = DefaultMapRepository(realTimeDatabaseNetworkService: networkService)
+        let recordRepository = DefaultRecordRepository(realTimeDatabaseNetworkService: networkService)
+        let useCase = DefaultSelectMapUseCase(locationService: DefaultLocationService(),
+                                              mapRepository: mapRepository,
+                                              recordRepository: recordRepository)
+        let viewModel = SelectMapViewModel(coordinator: self, selectMapUseCase: useCase)
         let viewController = SelectMapViewController(viewModel: viewModel)
         navigationController.navigationBar.isHidden = true
         navigationController.pushViewController(viewController, animated: true)
     }
     
     func showSingleGamePlayViewController(selectedMap: Map) {
-        let viewModel = SingleGameViewModel(coordinator: self, map: selectedMap)
+        let viewModel = SingleGameViewModel(
+            map: selectedMap,
+            coordinator: self,
+            singeGameUseCase: DefaultSingleGameUseCase(
+                map: selectedMap,
+                locationService: DefaultLocationService(),
+                recordRepository: DefaultRecordRepository(
+                    realTimeDatabaseNetworkService: DefaultRealtimeDatabaseNetworkService()
+                ),
+                tapTimer: TimerService(),
+                runningTimer: TimerService()
+            )
+        )
         let viewController = SingleGameViewController(viewModel: viewModel)
         navigationController.pushViewController(viewController, animated: true)
     }
     
-    func showSingleGameOverViewController(record: Record, map: Map, isCompleted: Bool) {
-        let viewModel = GameOverViewModel(coordinator: self, record: record, map: map, isCompleted: isCompleted)
-        let viewController = GameOverViewController(viewModel: viewModel)
-//        navigationController.pushViewController(viewController, animated: true)
-        viewController.modalPresentationStyle = .overFullScreen
-        self.navigationController.viewControllers.last?.present(viewController, animated: true)
-    }
-    
     func showInGameRecordViewController(mapID: Int) {
-        let viewModel = InGameRecordViewModel(mapID: mapID)
+        let viewModel = InGameRecordViewModel(
+            inGameUseCase: DefaultInGameUseCase(
+                mapID: mapID,
+                recordRepository: DefaultRecordRepository(
+                    realTimeDatabaseNetworkService: DefaultRealtimeDatabaseNetworkService()
+                )
+            )
+        )
         let viewController = InGameRecordViewController(viewModel: viewModel)
         viewController.modalPresentationStyle = .pageSheet
         self.navigationController.viewControllers.last?.present(viewController, animated: true)
     }
     
-    func showInGameRankViewController(map: Map) {
-        let viewModel = InGameRankingViewModel(map: map)
+    func showInGameRankViewController(mapID: Int) {
+        let viewModel = InGameRankingViewModel(
+            inGameUseCase: DefaultInGameUseCase(
+                mapID: mapID,
+                recordRepository: DefaultRecordRepository(
+                    realTimeDatabaseNetworkService: DefaultRealtimeDatabaseNetworkService()
+                )
+            )
+        )
         let viewController = InGameRankingViewController(viewModel: viewModel)
         viewController.modalPresentationStyle = .pageSheet
         self.navigationController.viewControllers.last?.present(viewController, animated: true)

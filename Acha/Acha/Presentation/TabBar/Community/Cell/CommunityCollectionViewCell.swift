@@ -9,7 +9,7 @@ import UIKit
 import Then
 import SnapKit
 
-class CommunityCollectionViewCell: UICollectionViewCell {
+final class CommunityCollectionViewCell: UICollectionViewCell {
     
     static let identifier = "CommunityCollectinoViewCell"
     

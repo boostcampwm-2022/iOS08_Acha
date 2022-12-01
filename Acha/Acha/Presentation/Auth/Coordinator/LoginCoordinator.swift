@@ -28,12 +28,12 @@ final class LoginCoordinator: LoginCoordinatorProtocol {
         showLoginViewController()
     }
     func showLoginViewController() {
-        let provider = AuthProvider()
-        let repository = LogInRepository(provider: provider)
-        let useCase = LoginUseCase(repository: repository)
+        let useCase = AuthUseCase()
+        let repository = AuthRepository()
         let viewModel = LoginViewModel(
             coordinator: self,
-            useCase: useCase
+            useCase: useCase,
+            repository: repository
         )
         let viewController = LoginViewController(viewModel: viewModel)
         navigationController.pushViewController(viewController, animated: true)
