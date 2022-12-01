@@ -69,12 +69,13 @@ final class MyPageViewModel: BaseViewModel {
             .subscribe(onNext: { [weak self] in
                 guard let self,
                       let coordinator = self.coordinator else { return }
+                #warning("탈퇴, 로그아웃 로직 추가")
                 coordinator.delegate?.didFinished(childCoordinator: coordinator)
             }).disposed(by: disposeBag)
         
         input.openSourceTapped
             .subscribe(onNext: {
-                print("오픈소스 노션 safari로 오픈")
+                #warning("오픈소스 노션 safari로 오픈")
             }).disposed(by: disposeBag)
         
         useCase.nickName

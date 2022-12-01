@@ -226,8 +226,7 @@ extension MyPageViewController {
                     for: indexPath) as? BadgeCell else {
                     return BadgeCell()
                 }
-                #warning("image Data(contentsOf:)로 받아오기")
-                cell.bind(image: "", badgeName: badge.name, disposeBag: self.disposeBag)
+                cell.bind(image: badge.imageURL, badgeName: badge.name, disposeBag: self.disposeBag)
                 return cell 
             case .setting(let type):
                 guard let cell = collectionView.dequeueReusableCell(
@@ -243,11 +242,23 @@ extension MyPageViewController {
                     }
                 case .logout:
                     cell.bind(title: type.title) { [weak self] in
-                        self?.logoutTapped.onNext(())
+                        guard let self else { return }
+                        self.showAlert(title: "로그아웃 하시겠습니까?",
+                                       message: "",
+                                       actionTitle: "확인",
+                                       actionHandler: {
+                            self.logoutTapped.onNext(())
+                        })
                     }
                 case .withDrawal:
                     cell.bind(title: type.title) { [weak self] in
-                        self?.withDrawalTapped.onNext(())
+                        guard let self else { return }
+                        self.showAlert(title: "정말 탈퇴하시겠습니까?",
+                                       message: "",
+                                       actionTitle: "확인",
+                                       actionHandler: {
+                            self.withDrawalTapped.onNext(())
+                        })
                     }
                 case .openSource:
                     cell.bind(title: type.title) { [weak self] in
