@@ -42,6 +42,12 @@ struct DefaultCommunityRepository {
             .map { $0.comments ?? [] }
     }
     
+    func getPostComment(id: Int) -> Single<Comment?> {
+        return getPostComments(id: id)
+            .map { return $0.filter { $0.id != id } }
+            .map { $0.first }
+    }
+    
     func makePost(data: Post) {
         let data = PostDTO(data: data)
         
@@ -60,7 +66,7 @@ struct DefaultCommunityRepository {
             .map {
                 var post = $0
                 post.addComment(data: data)
-                makePost(data: post)
+                changePost(data: post)
             }
             .subscribe()
             .disposed(by: disposeBag)
@@ -75,6 +81,27 @@ struct DefaultCommunityRepository {
             }
             .subscribe()
             .disposed(by: disposeBag)
+    }
+    
+    func deleteComment(data: Comment) {
+        getPost(id: data.postId)
+            .map {
+                var post = $0
+                post.comments = post.comments?.filter { $0.id != data.id }
+                changePost(data: post)
+            }
+            .subscribe()
+            .disposed(by: disposeBag)
+    }
+
+    func changePost(data: Post) {
+        deletePost(id: data.id)
+        makePost(data: data)
+    }
+    
+    func changeComment(data: Comment) {
+        deleteComment(data: data)
+        makeComment(data: data)
     }
     
 }
