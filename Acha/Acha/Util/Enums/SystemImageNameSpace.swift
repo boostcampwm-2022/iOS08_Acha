@@ -15,6 +15,6 @@ enum SystemImageNameSpace: String {
     var uiImage: UIImage { UIImage(systemName: self.rawValue) ?? UIImage() }
     
     func systemImageColorChange(color: UIColor) -> UIImage {
-        return (self.uiImage ?? UIImage()).withTintColor(color, renderingMode: .alwaysOriginal)
+        return self.uiImage.withTintColor(color, renderingMode: .alwaysOriginal)
     }
 }
