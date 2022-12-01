@@ -161,6 +161,7 @@
 		F1DED42229391A6400ABC047 /* DefaultUserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED42129391A6400ABC047 /* DefaultUserRepository.swift */; };
 		F1DED42429391AAB00ABC047 /* DefaultAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED42329391AAB00ABC047 /* DefaultAuthService.swift */; };
 		F1DED42629391ABD00ABC047 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED42529391ABD00ABC047 /* AuthService.swift */; };
+		F1DED42829391B0100ABC047 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED42729391B0100ABC047 /* UserRepository.swift */; };
 		F1E83D7729348591004C7992 /* CommunityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E83D7629348591004C7992 /* CommunityViewModel.swift */; };
 		F1E83D79293485A1004C7992 /* CommunityRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E83D78293485A1004C7992 /* CommunityRepository.swift */; };
 		F1E83D7D293489E1004C7992 /* PostDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E83D7C293489E1004C7992 /* PostDTO.swift */; };
@@ -362,6 +363,7 @@
 		F1DED42129391A6400ABC047 /* DefaultUserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultUserRepository.swift; sourceTree = "<group>"; };
 		F1DED42329391AAB00ABC047 /* DefaultAuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultAuthService.swift; sourceTree = "<group>"; };
 		F1DED42529391ABD00ABC047 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		F1DED42729391B0100ABC047 /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
 		F1E83D7629348591004C7992 /* CommunityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityViewModel.swift; sourceTree = "<group>"; };
 		F1E83D78293485A1004C7992 /* CommunityRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityRepository.swift; sourceTree = "<group>"; };
 		F1E83D7C293489E1004C7992 /* PostDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDTO.swift; sourceTree = "<group>"; };
@@ -571,6 +573,7 @@
 			children = (
 				47D5773A293389940014D171 /* MapRepository.swift */,
 				47D5775129338FB60014D171 /* RecordRepository.swift */,
+				F1DED42729391B0100ABC047 /* UserRepository.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -1462,6 +1465,7 @@
 				47A26DBC292B73850007FBBF /* Coordinate.swift in Sources */,
 				47935E9F29238EB400481307 /* SelectMapViewModel.swift in Sources */,
 				F1E83D7F29348A4A004C7992 /* CommentDTO.swift in Sources */,
+				F1DED42829391B0100ABC047 /* UserRepository.swift in Sources */,
 				F14B1495292BA1D40010E966 /* KeyboardManager.swift in Sources */,
 				F1DED3AF2936708500ABC047 /* CommentView.swift in Sources */,
 				761C1C0B292E439F000C88D0 /* SingleGameUseCase.swift in Sources */,
