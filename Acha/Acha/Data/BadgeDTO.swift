@@ -7,9 +7,16 @@
 
 import Foundation
 
-struct BadgeDTO: Decodable {
+struct BadgeDTO: Codable {
     let id: Int
     let name: String
-    let image: String
+    let imageURL: String
     let isHidden: Bool
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case name
+        case imageURL = "image"
+        case isHidden
+    }
 }

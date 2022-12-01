@@ -7,9 +7,10 @@
 
 import Foundation
 
-struct Badge {
+struct Badge: Hashable {
     let id: Int
     let name: String
-    let image: String
+    let image: Data
     let isHidden: Bool
+    var isOwn: Bool = false
 }
