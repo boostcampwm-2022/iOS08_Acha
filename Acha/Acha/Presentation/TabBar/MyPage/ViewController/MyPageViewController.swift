@@ -7,8 +7,9 @@
 
 import UIKit
 import SnapKit
+import RxSwift
 
-class MyPageViewController: UIViewController {
+final class MyPageViewController: UIViewController {
     
     enum MyPageSection: Int {
         case badge
@@ -22,20 +23,27 @@ class MyPageViewController: UIViewController {
                 return "설정"
             }
         }
-        
-        var isHiddenMoreButton: Bool {
-            switch self {
-            case .badge:
-                return false
-            case .setting:
-                return true
-            }
-        }
     }
     
     enum MyPageItem: Hashable {
         case badge(badge: Badge)
-        case setting(title: String)
+        case setting(type: SettingType)
+    }
+    
+    enum SettingType {
+        case editInfo
+        case logout
+        case withDrawal
+        case openSource
+        
+        var title: String {
+            switch self {
+            case .editInfo: return "내 정보 수정"
+            case .logout: return "로그아웃"
+            case .withDrawal: return "탈퇴하기"
+            case .openSource: return "오픈소스 라이선스"
+            }
+        }
     }
     
     // MARK: - UI properties
@@ -44,12 +52,30 @@ class MyPageViewController: UIViewController {
     // MARK: - Properties
     typealias DataSource = UICollectionViewDiffableDataSource<MyPageSection, MyPageItem>
     private var dataSource: DataSource?
+    private let viewModel: MyPageViewModel
+    private var disposeBag = DisposeBag()
+    
+    private var badgeMoreButtonTapped = PublishSubject<Void>()
+    private var editMyInfoTapped = PublishSubject<Void>()
+    private var logoutTapped = PublishSubject<Void>()
+    private var withDrawalTapped = PublishSubject<Void>()
+    private var openSourceTapped = PublishSubject<Void>()
     
     // MARK: - Lifecycles
+    init(viewModel: MyPageViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureCollectionView()
         configureUI()
+        bind()
     }
 }
 
@@ -69,8 +95,7 @@ extension MyPageViewController {
     private func configureNavigationTitle() {
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.largeTitleDisplayMode = .automatic
-        #warning("title 수정")
-        navigationItem.title = "옹이님, 안녕하세요!"
+        navigationItem.title = "회원님, 안녕하세요!"
         navigationController?.navigationBar.largeTitleTextAttributes = [
             .foregroundColor: UIColor.pointLight
         ]
@@ -89,6 +114,29 @@ extension MyPageViewController {
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                                 withReuseIdentifier: MyPageHeaderView.identifer)
         configureDataSource()
+    }
+    
+    private func bind() {
+        let input = MyPageViewModel.Input(viewWillAppearEvent: rx.methodInvoked(#selector(UIViewController.viewWillAppear(_:))).map { _ in },
+                                          badgeMoreButtonTapped: badgeMoreButtonTapped,
+                                          editMyInfoTapped: editMyInfoTapped,
+                                          logoutTapped: logoutTapped,
+                                          withDrawalTapped: withDrawalTapped,
+                                          openSourceTapped: openSourceTapped)
+        let output = viewModel.transform(input: input)
+        
+        output.nickName
+            .asDriver(onErrorJustReturn: "")
+            .drive(onNext: { [weak self] nickName in
+                guard let self else { return }
+                self.navigationItem.title = "\(nickName)님, 안녕하세요!"
+            }).disposed(by: disposeBag)
+        
+        output.badges
+            .subscribe(onNext: { [weak self] badges in
+                guard let self else { return }
+                self.makeBadgeSnapshot(badges: badges)
+            }).disposed(by: disposeBag)
     }
 }
 
@@ -165,7 +213,7 @@ extension MyPageViewController {
     private func configureDataSource() {
         configureItemDataSource()
         configureHeaderDataSource()
-        makeSnapshot()
+        makeDefaultSnapshot()
     }
     
     private func configureItemDataSource() {
@@ -179,16 +227,33 @@ extension MyPageViewController {
                     return BadgeCell()
                 }
                 #warning("image Data(contentsOf:)로 받아오기")
-                let badgeImage = UIImage.penguinImage
-                cell.bind(image: badgeImage, badgeName: badge.name)
+                cell.bind(image: "", badgeName: badge.name, disposeBag: self.disposeBag)
                 return cell 
-            case .setting(let title):
+            case .setting(let type):
                 guard let cell = collectionView.dequeueReusableCell(
                     withReuseIdentifier: SettingCell.identifer,
                     for: indexPath) as? SettingCell else {
                     return SettingCell()
                 }
-                cell.bind(title: title)
+                
+                switch type {
+                case .editInfo:
+                    cell.bind(title: type.title) { [weak self] in
+                        self?.editMyInfoTapped.onNext(())
+                    }
+                case .logout:
+                    cell.bind(title: type.title) { [weak self] in
+                        self?.logoutTapped.onNext(())
+                    }
+                case .withDrawal:
+                    cell.bind(title: type.title) { [weak self] in
+                        self?.withDrawalTapped.onNext(())
+                    }
+                case .openSource:
+                    cell.bind(title: type.title) { [weak self] in
+                        self?.openSourceTapped.onNext(())
+                    }
+                }
                 return cell
             }
         })
@@ -204,24 +269,36 @@ extension MyPageViewController {
             else { return UICollectionReusableView() }
             
             guard let sectionType = MyPageSection(rawValue: indexPath.section) else { return header }
-            header.bind(title: sectionType.title, isHiddenMoreButton: sectionType.isHiddenMoreButton)
+            switch sectionType {
+            case .badge:
+                header.bind(title: sectionType.title, moreButtonHandler: { [weak self] in
+                    guard let self else { return }
+                    self.badgeMoreButtonTapped.onNext(())
+                })
+            case .setting:
+                header.bind(title: sectionType.title, moreButtonHandler: nil)
+            }
             return header
         }
     }
     
-    private func makeSnapshot() {
+    private func makeDefaultSnapshot() {
         guard let dataSource else { return }
         var snapshot = dataSource.snapshot()
         snapshot.appendSections([.badge, .setting])
-        let badges: [MyPageItem] = [.badge(badge: Badge(id: 0, name: "너짱", image: Data(), isHidden: false)),
-                                    .badge(badge: Badge(id: 1, name: "달리기왕", image: Data(), isHidden: false)),
-                                    .badge(badge: Badge(id: 2, name: "55등", image: Data(), isHidden: true))]
-        snapshot.appendItems(badges, toSection: .badge)
-        let settings: [MyPageItem] = [.setting(title: "내 정보 수정"),
-                                      .setting(title: "로그아웃"),
-                                      .setting(title: "탈퇴하기"),
-                                      .setting(title: "오픈소스 라이선스")]
+        let settings: [MyPageItem] = [.setting(type: .editInfo),
+                                      .setting(type: .logout),
+                                      .setting(type: .withDrawal),
+                                      .setting(type: .openSource)]
         snapshot.appendItems(settings, toSection: .setting)
+        dataSource.apply(snapshot)
+    }
+    
+    private func makeBadgeSnapshot(badges: [Badge]) {
+        guard let dataSource else { return }
+        var snapshot = dataSource.snapshot()
+        let badgeItems = badges.map { MyPageItem.badge(badge: $0) }
+        snapshot.appendItems(badgeItems, toSection: .badge)
         dataSource.apply(snapshot)
     }
 
