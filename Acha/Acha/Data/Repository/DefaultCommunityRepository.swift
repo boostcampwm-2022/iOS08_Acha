@@ -34,7 +34,7 @@ struct DefaultCommunityRepository {
     func getPost(id: Int) -> Single<Post> {
         return getAllPost()
             .map { $0.filter { $0.id == id } }
-            .map { $0[0] }
+            .map { return $0.first { $0.id == id }! }
     }
     
     func getPostComments(id: Int) -> Single<[Comment]> {
@@ -44,8 +44,7 @@ struct DefaultCommunityRepository {
     
     func getPostComment(id: Int) -> Single<Comment?> {
         return getPostComments(id: id)
-            .map { return $0.filter { $0.id != id } }
-            .map { $0.first }
+            .map { return $0.first { $0.id == id }! }
     }
     
     func makePost(data: Post) {
@@ -76,8 +75,7 @@ struct DefaultCommunityRepository {
         getCommunity()
             .map { $0.filter { $0.id != id } }
             .map {
-                let community = CommunityDTO(postList: $0)
-                service.upload(type: .postList, data: community)
+                updateCommunity(data: $0)
             }
             .subscribe()
             .disposed(by: disposeBag)
@@ -95,13 +93,37 @@ struct DefaultCommunityRepository {
     }
 
     func changePost(data: Post) {
-        deletePost(id: data.id)
-        makePost(data: data)
+        getCommunity()
+            .subscribe { result in
+                switch result {
+                case .success(var posts):
+                    let index = posts.firstIndex { $0.id == data.id }!
+                    let newPost = PostDTO(data: data)
+                    posts[index] = newPost
+                    updateCommunity(data: posts)
+                default:
+                    break
+                }
+            }
+            .disposed(by: disposeBag)
     }
     
     func changeComment(data: Comment) {
-        deleteComment(data: data)
-        makeComment(data: data)
+        getPost(id: data.postId)
+            .map {
+                var post = $0
+                var comments = post.comments ?? []
+                let index = comments.firstIndex { $0.id == data.id }!
+                comments[index] = data
+                changePost(data: post)
+            }
+            .subscribe()
+            .disposed(by: disposeBag)
+    }
+    
+    private func updateCommunity(data: [PostDTO]) {
+        let community = CommunityDTO(postList: data)
+        service.upload(type: .postList, data: community)
     }
     
 }
