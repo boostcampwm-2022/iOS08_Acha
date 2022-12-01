@@ -1756,6 +1756,9 @@
 				DEVELOPMENT_TEAM = KD3GVSQ9P4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Acha/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "건강 데이터를 써도 되겠습니까?";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "건강 데이터를 사용해도 되겠습니까?";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1788,6 +1791,9 @@
 				DEVELOPMENT_TEAM = KD3GVSQ9P4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Acha/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "건강 데이터를 써도 되겠습니까?";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "건강 데이터를 사용해도 되겠습니까?";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

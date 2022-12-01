@@ -30,4 +30,5 @@ protocol SingleGameUseCase {
     func gameOverButtonTapped()
     
     func healthKitWrite() -> Observable<Void>
+    func healthKitAuthorization() -> Observable<Void>
 }

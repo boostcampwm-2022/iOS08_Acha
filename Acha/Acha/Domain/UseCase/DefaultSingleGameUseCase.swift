@@ -166,4 +166,8 @@ class DefaultSingleGameUseCase: SingleGameUseCase {
     func healthKitWrite() -> Observable<Void> {
         return recordRepository.healthKitWrite(healthKitWriteData())
     }
+    
+    func healthKitAuthorization() -> Observable<Void> {
+        return recordRepository.healthKitAuthorization()
+    }
 }

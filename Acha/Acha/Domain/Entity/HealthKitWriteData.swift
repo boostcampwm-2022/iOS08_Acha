@@ -15,7 +15,7 @@ struct HealthKitWriteData {
     let calorieTime: Int64
     
     init(distance: Double, diatanceTime: Int, calorie: Int, calorieTime: Int) {
-        self.distance = Int(distance * 1000)
+        self.distance = Int(distance)
         self.diatanceTime = Int64(diatanceTime)
         self.calorie = calorie
         self.calorieTime = Int64(calorieTime)
