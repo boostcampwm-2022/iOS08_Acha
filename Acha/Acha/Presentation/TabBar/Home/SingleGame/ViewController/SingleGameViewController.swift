@@ -291,7 +291,7 @@ extension SingleGameViewController {
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if annotation.isEqual(mapView.userLocation) {
             let penguinView = MKAnnotationView(annotation: annotation, reuseIdentifier: "userLocation")
-            penguinView.image = UIImage(named: "penguin")
+            penguinView.image = .penguinImage
             return penguinView
         }
         return nil

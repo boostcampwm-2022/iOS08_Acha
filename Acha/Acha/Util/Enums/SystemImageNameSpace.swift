@@ -12,7 +12,7 @@ enum SystemImageNameSpace: String {
     case ellipsis = "ellipsis"
     case xmark = "xmark"
     
-    var uiImage: UIImage? { UIImage(systemName: self.rawValue) }
+    var uiImage: UIImage { UIImage(systemName: self.rawValue) ?? UIImage() }
     
     func systemImageColorChange(color: UIColor) -> UIImage {
         return (self.uiImage ?? UIImage()).withTintColor(color, renderingMode: .alwaysOriginal)
