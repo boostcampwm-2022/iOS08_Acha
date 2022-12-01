@@ -14,5 +14,5 @@ struct Post: Hashable {
     let text: String
     let image: String?
     let createdAt: Date
-    let commentCount: Int
+    let comments: [Comment]
 }

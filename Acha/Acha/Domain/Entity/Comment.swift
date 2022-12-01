@@ -9,6 +9,7 @@ import Foundation
 
 struct Comment: Hashable {
     let postID: Int
+    let commentID: Int
     let userID: String
     let nickName: String
     let text: String

@@ -156,6 +156,10 @@
 		F1DED3AA2935F16A00ABC047 /* PostHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED3A92935F16A00ABC047 /* PostHeaderCollectionReusableView.swift */; };
 		F1DED3AC2935F17700ABC047 /* CommentHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED3AB2935F17700ABC047 /* CommentHeaderCollectionReusableView.swift */; };
 		F1DED3AF2936708500ABC047 /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED3AE2936708500ABC047 /* CommentView.swift */; };
+		F1DED402293880CB00ABC047 /* DefaultCommunityRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED401293880CB00ABC047 /* DefaultCommunityRepository.swift */; };
+		F1DED404293888AD00ABC047 /* DefaultUserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED403293888AD00ABC047 /* DefaultUserRepository.swift */; };
+		F1DED40629388A3700ABC047 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED40529388A3700ABC047 /* UserRepository.swift */; };
+		F1DED40829388A4000ABC047 /* CommunityRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED40729388A4000ABC047 /* CommunityRepository.swift */; };
 		F1E83D7729348591004C7992 /* CommunityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E83D7629348591004C7992 /* CommunityViewModel.swift */; };
 		F1E83D79293485A1004C7992 /* CommunityRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E83D78293485A1004C7992 /* CommunityRepository.swift */; };
 		F1E83D7D293489E1004C7992 /* PostDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E83D7C293489E1004C7992 /* PostDTO.swift */; };
@@ -352,6 +356,10 @@
 		F1DED3A92935F16A00ABC047 /* PostHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		F1DED3AB2935F17700ABC047 /* CommentHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		F1DED3AE2936708500ABC047 /* CommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
+		F1DED401293880CB00ABC047 /* DefaultCommunityRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCommunityRepository.swift; sourceTree = "<group>"; };
+		F1DED403293888AD00ABC047 /* DefaultUserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultUserRepository.swift; sourceTree = "<group>"; };
+		F1DED40529388A3700ABC047 /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
+		F1DED40729388A4000ABC047 /* CommunityRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityRepository.swift; sourceTree = "<group>"; };
 		F1E83D7629348591004C7992 /* CommunityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityViewModel.swift; sourceTree = "<group>"; };
 		F1E83D78293485A1004C7992 /* CommunityRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityRepository.swift; sourceTree = "<group>"; };
 		F1E83D7C293489E1004C7992 /* PostDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDTO.swift; sourceTree = "<group>"; };
@@ -551,6 +559,8 @@
 				47D57739293389850014D171 /* Protocol */,
 				47D5773C293389AC0014D171 /* DefaultMapRepository.swift */,
 				47D5775329338FFF0014D171 /* DefaultRecordRepository.swift */,
+				F1DED401293880CB00ABC047 /* DefaultCommunityRepository.swift */,
+				F1DED403293888AD00ABC047 /* DefaultUserRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -560,6 +570,8 @@
 			children = (
 				47D5773A293389940014D171 /* MapRepository.swift */,
 				47D5775129338FB60014D171 /* RecordRepository.swift */,
+				F1DED40529388A3700ABC047 /* UserRepository.swift */,
+				F1DED40729388A4000ABC047 /* CommunityRepository.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -1485,7 +1497,9 @@
 				47D577592934A9FE0014D171 /* MapBaseViewModel.swift in Sources */,
 				F1DED3A42935ED0100ABC047 /* Comment.swift in Sources */,
 				F1B0D8AE292CCAAC00EBDD02 /* UserDTO.swift in Sources */,
+				F1DED402293880CB00ABC047 /* DefaultCommunityRepository.swift in Sources */,
 				E5BE8BB12922200000E9CFE8 /* RecordViewController.swift in Sources */,
+				F1DED40629388A3700ABC047 /* UserRepository.swift in Sources */,
 				E5BE8B91292218A500E9CFE8 /* Coordinator.swift in Sources */,
 				F1E83D8B29351C69004C7992 /* CommunityViewUsecase.swift in Sources */,
 				764AF29F292B6EF500D16DC9 /* InGameRecordViewModel.swift in Sources */,
@@ -1539,6 +1553,7 @@
 				E5BE8B93292218F100E9CFE8 /* AuthCoordinator.swift in Sources */,
 				76AA56002937AD8900498441 /* MultiGameSelectViewController.swift in Sources */,
 				76B3BF4C29250C190056ABFD /* UIFont+.swift in Sources */,
+				F1DED40829388A4000ABC047 /* CommunityRepository.swift in Sources */,
 				F1FCEE1A292B52E4001A55D6 /* ScrollAbleViewController.swift in Sources */,
 				F1DED3A82935F0AE00ABC047 /* PostCollectionViewCell.swift in Sources */,
 				F18A7FD1292C5DA50054FADE /* UIImage+Extension.swift in Sources */,
@@ -1558,6 +1573,7 @@
 				47D5773D293389AC0014D171 /* DefaultMapRepository.swift in Sources */,
 				F1B0D8AC292CCA5200EBDD02 /* SignUpData.swift in Sources */,
 				E516A6BA2923929800CD6BDB /* RecordViewModel.swift in Sources */,
+				F1DED404293888AD00ABC047 /* DefaultUserRepository.swift in Sources */,
 				76B3BF4A2924DDE70056ABFD /* BaseViewModel.swift in Sources */,
 				76AA55C82937AB5500498441 /* MapDTO.swift in Sources */,
 				761E5F072935EF4200E6CACC /* InGameUseCase.swift in Sources */,
@@ -1734,7 +1750,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 5R9YHBW9BJ;
+				DEVELOPMENT_TEAM = KD3GVSQ9P4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Acha/Info.plist;
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "";
@@ -1750,7 +1766,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = coco.boostcamp.Acha;
+				PRODUCT_BUNDLE_IDENTIFIER = coo.boostcamp.Acha;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1765,7 +1781,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 5R9YHBW9BJ;
+				DEVELOPMENT_TEAM = KD3GVSQ9P4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Acha/Info.plist;
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "";
@@ -1781,7 +1797,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = coco.boostcamp.Acha;
+				PRODUCT_BUNDLE_IDENTIFIER = coo.boostcamp.Acha;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
