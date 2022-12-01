@@ -34,4 +34,3 @@ struct Post: Hashable {
         self.comments = comments
     }
 }
-

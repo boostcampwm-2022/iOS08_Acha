@@ -77,7 +77,7 @@ final class SignupViewController: ScrollAbleViewController {
             })
             .disposed(by: disposeBag)
         
-        outputs.signUpSuccesssed
+        outputs.signUpFailed
             .asDriver(onErrorJustReturn: false)
             .drive(onNext: { [weak self] result in
                 if !result {
