@@ -115,6 +115,7 @@ struct DefaultCommunityRepository {
                 var comments = post.comments ?? []
                 let index = comments.firstIndex { $0.id == data.id }!
                 comments[index] = data
+                post.comments = comments
                 changePost(data: post)
             }
             .subscribe()

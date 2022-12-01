@@ -97,27 +97,16 @@ final class HomeViewController: UIViewController, UIViewControllerTransitioningD
         bind()
         
         let server = DefaultRealtimeDatabaseNetworkService()
+        let repo =  DefaultCommunityRepository(service: server)
+        let comment = Comment(id: 231,
+                              postId: 1242,
+                              userId: "테스트입",
+                              nickName: "꺄꺆꺄", text: "AEWt")
 
-        DefaultCommunityRepository(service: server).getPost(id: 555)
-            .subscribe { post in
-                print(post)
-            }
-            .disposed(by: disposeBag)
+//        repo.makePost(data: Post(id: 30, userId: "Waetew", nickName: "AEwt", text: "awet", image: "awet", comments: [comment]))
+//        repo.deleteComment(data: comment)
+        repo.changeComment(data: comment)
         
-        DefaultCommunityRepository(service: server).makePost(
-            data: Post(id: 555,
-                       userId: "AWetaew",
-                       nickName: "waettwe",
-                       text: "weattwe",
-                       image: "waetwe",
-                       comments: [
-                        Comment(id: 124,
-                                postId: 214,
-                                userId: "Awetw",
-                                nickName: "WAet",
-                                text: "AWetwtetwe")
-                       ])
-        )
             
     }
 //
