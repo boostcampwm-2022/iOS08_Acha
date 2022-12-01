@@ -46,10 +46,22 @@ struct DefaultUserRepository {
     
     func signUp(data: SignUpData) -> Single<UserDTO> {
         return authService.signUp(data: data)
+            .map { userDTO in
+                uploadUserData(data: userDTO)
+                return userDTO
+            }
     }
     
     func logIn(data: LoginData) -> Single<String> {
         return authService.logIn(data: data)
+            .map { uuid in
+                keychainService.save(uuid: uuid)
+                return uuid
+            }
+    }
+    
+    private func uploadUserData(data: UserDTO) {
+        realtimeDataBaseService.upload(type: .user(id: data.id), data: data)
     }
     
     private func getUserDataFromRealTimeDataBaseService(uuid: String) -> Single<UserDTO> {
