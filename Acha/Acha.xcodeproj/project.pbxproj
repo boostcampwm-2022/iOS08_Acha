@@ -156,6 +156,8 @@
 		F1DED3AA2935F16A00ABC047 /* PostHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED3A92935F16A00ABC047 /* PostHeaderCollectionReusableView.swift */; };
 		F1DED3AC2935F17700ABC047 /* CommentHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED3AB2935F17700ABC047 /* CommentHeaderCollectionReusableView.swift */; };
 		F1DED3AF2936708500ABC047 /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED3AE2936708500ABC047 /* CommentView.swift */; };
+		F1DED41E293919FF00ABC047 /* DefaultKeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED41D293919FF00ABC047 /* DefaultKeychainService.swift */; };
+		F1DED42029391A1800ABC047 /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED41F29391A1800ABC047 /* KeychainService.swift */; };
 		F1E83D7729348591004C7992 /* CommunityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E83D7629348591004C7992 /* CommunityViewModel.swift */; };
 		F1E83D79293485A1004C7992 /* CommunityRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E83D78293485A1004C7992 /* CommunityRepository.swift */; };
 		F1E83D7D293489E1004C7992 /* PostDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E83D7C293489E1004C7992 /* PostDTO.swift */; };
@@ -352,6 +354,8 @@
 		F1DED3A92935F16A00ABC047 /* PostHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		F1DED3AB2935F17700ABC047 /* CommentHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		F1DED3AE2936708500ABC047 /* CommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
+		F1DED41D293919FF00ABC047 /* DefaultKeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultKeychainService.swift; sourceTree = "<group>"; };
+		F1DED41F29391A1800ABC047 /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
 		F1E83D7629348591004C7992 /* CommunityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityViewModel.swift; sourceTree = "<group>"; };
 		F1E83D78293485A1004C7992 /* CommunityRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityRepository.swift; sourceTree = "<group>"; };
 		F1E83D7C293489E1004C7992 /* PostDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDTO.swift; sourceTree = "<group>"; };
@@ -590,6 +594,7 @@
 				47D5774E29338A7A0014D171 /* DefaultRealtimeDatabaseNetworkService.swift */,
 				761C1C0F292E4562000C88D0 /* TimerService.swift */,
 				4795F04929374DD300B174D6 /* DefaultLocationService.swift */,
+				F1DED41D293919FF00ABC047 /* DefaultKeychainService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -600,6 +605,7 @@
 				47D5774A29338A4A0014D171 /* RealtimeDatabaseNetworkService.swift */,
 				761C1C0D292E4554000C88D0 /* TimerServiceProtocol.swift */,
 				4795F04729374DC800B174D6 /* LocationService.swift */,
+				F1DED41F29391A1800ABC047 /* KeychainService.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -1423,6 +1429,7 @@
 				F17A3FA1292F0BF200647AD0 /* RoomUser.swift in Sources */,
 				F1E83D7D293489E1004C7992 /* PostDTO.swift in Sources */,
 				76AA55E92937AD7A00498441 /* HomeViewController.swift in Sources */,
+				F1DED42029391A1800ABC047 /* KeychainService.swift in Sources */,
 				76A2E1A529249099001E887A /* Double+.swift in Sources */,
 				47935E9D29238E9E00481307 /* SelectMapViewController.swift in Sources */,
 				4738D76F2922756B003AE835 /* Map.swift in Sources */,
@@ -1436,6 +1443,7 @@
 				76AA55E52937AD7A00498441 /* HomeViewModel.swift in Sources */,
 				E5027D58292670570021BF60 /* Record.swift in Sources */,
 				F1E83D79293485A1004C7992 /* CommunityRepository.swift in Sources */,
+				F1DED41E293919FF00ABC047 /* DefaultKeychainService.swift in Sources */,
 				F1034B59292B37EB00BD8407 /* LoginViewModel.swift in Sources */,
 				E5027D58292670570021BF60 /* Record.swift in Sources */,
 				F1DED3AC2935F17700ABC047 /* CommentHeaderCollectionReusableView.swift in Sources */,
