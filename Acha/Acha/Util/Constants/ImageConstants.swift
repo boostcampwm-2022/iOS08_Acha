@@ -41,6 +41,6 @@ struct ImageConstants {
     }
     
     static func authNickNameImage() -> UIImage {
-        return UIImage(named: "nickName")!
+        return UIImage(named: "nickName") ?? UIImage()
     }    
 }
