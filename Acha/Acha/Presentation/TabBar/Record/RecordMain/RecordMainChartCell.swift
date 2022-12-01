@@ -119,12 +119,12 @@ class RecordMainChartCell: UICollectionViewCell {
             $0.trailing.equalToSuperview()
             $0.top.equalToSuperview().offset(35)
             $0.bottom.equalToSuperview().offset(-35)
-            $0.width.equalTo(50)
+            $0.width.equalTo(70)
         }
         
         chartsBackgroundStackView.snp.makeConstraints {
             $0.top.bottom.leading.equalToSuperview()
-            $0.trailing.equalToSuperview().offset(-50)
+            $0.trailing.equalToSuperview().offset(-70)
         }
         
         labelList.forEach { label in

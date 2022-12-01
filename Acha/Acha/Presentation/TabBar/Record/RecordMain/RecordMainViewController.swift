@@ -129,7 +129,7 @@ final class RecordMainViewController: UIViewController, UICollectionViewDelegate
                 
                 let frame = CGRect(x: 0,
                                    y: 0,
-                                   width: cell.frame.width - 50,
+                                   width: cell.frame.width - 70,
                                    height: cell.frame.height - 45)
                 let view = LineGraphView(frame: frame, values: distances)
                 

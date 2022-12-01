@@ -25,7 +25,6 @@ final class RecordMapViewModel: BaseViewModel {
     
     private let useCase: RecordMapViewUseCase!
     var disposeBag = DisposeBag()
-    var isFetched: Bool = false
     
     init(useCase: DefaultRecordMapViewUseCase) {
         self.useCase = useCase

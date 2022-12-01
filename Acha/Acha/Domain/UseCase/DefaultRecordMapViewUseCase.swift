@@ -15,7 +15,8 @@ final class DefaultRecordMapViewUseCase: RecordMapViewUseCase {
     var dropDownMenus = BehaviorSubject<[Map]>(value: [])
     var mapDataAtMapName = BehaviorSubject<[String: Map]>(value: [:])
     var mapDataAtCategory = BehaviorSubject<[String: [Map]]>(value: [:])
-    var mapNameAndRecordDatas = BehaviorSubject<(mapName: String, recordDatas: [Record])>(value: (mapName: "", recordDatas: []))
+    var mapNameAndRecordDatas = BehaviorSubject<(mapName: String,
+                                                 recordDatas: [Record])>(value: (mapName: "", recordDatas: []))
     
     init(repository: RecordRepository) {
         self.repository = repository
