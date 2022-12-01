@@ -9,7 +9,7 @@ import UIKit
 import Then
 import SnapKit
 
-class MyPageHeaderView: UICollectionReusableView {
+final class MyPageHeaderView: UICollectionReusableView {
     // MARK: - UI properties
     private lazy var titleLabel: UILabel = UILabel().then {
         $0.font = .smallTitle
@@ -24,11 +24,13 @@ class MyPageHeaderView: UICollectionReusableView {
     
     // MARK: - Properties
     static let identifer = "MyPageHeaderView"
+    private var moreButtonHandler: () -> Void = {}
     
     // MARK: - Lifecycles
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureUI()
+        setUpMoreButton()
     }
     
     required init?(coder: NSCoder) {
@@ -52,8 +54,21 @@ class MyPageHeaderView: UICollectionReusableView {
         }
     }
     
-    func bind(title: String, isHiddenMoreButton: Bool = true) {
+    private func setUpMoreButton() {
+        moreButton.addTarget(self,
+                             action: #selector(moreButtonDidClick),
+                             for: .touchUpInside)
+    }
+    
+    @objc func moreButtonDidClick() {
+        moreButtonHandler()
+    }
+    
+    func bind(title: String, moreButtonHandler: (() -> Void)?) {
         titleLabel.text = title
-        moreButton.isHidden = isHiddenMoreButton
+        if let handler = moreButtonHandler {
+            moreButton.isHidden = false
+            self.moreButtonHandler = handler
+        }
     }
 }
