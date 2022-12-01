@@ -15,6 +15,10 @@ struct DefaultUserRepository {
     private let authService: AuthService
     private let disposeBag = DisposeBag()
     
+    enum UserError: Error {
+        case signOutError
+    }
+    
     init(
         realtimeDataBaseService: RealtimeDatabaseNetworkService,
         keychainService: KeychainService,
@@ -58,6 +62,23 @@ struct DefaultUserRepository {
                 keychainService.save(uuid: uuid)
                 return uuid
             }
+    }
+    
+    func signOut() -> Observable<Void> {
+        
+        return Observable<Void>.create { observer in
+            do {
+                try authService.signOut()
+                guard getUUID() == nil else {
+                    observer.onError(UserError.signOutError)
+                    return
+                }
+                keychainService.delete()
+            } catch {
+                observer.onError(UserError.signOutError)
+            }
+        }
+    
     }
     
     private func uploadUserData(data: UserDTO) {

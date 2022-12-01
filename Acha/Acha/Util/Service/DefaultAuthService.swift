@@ -16,6 +16,7 @@ struct DefaultAuthService: AuthService {
          case signUpError
          case logInError
          case uidError
+         case signOutError
      }
     
     private let auth = FirebaseAuth.Auth.auth()
@@ -63,4 +64,9 @@ struct DefaultAuthService: AuthService {
             }
             return Disposables.create()
         }
-    }}
+    }
+    
+    public func signOut() throws {
+        try auth.signOut()
+    }
+}
