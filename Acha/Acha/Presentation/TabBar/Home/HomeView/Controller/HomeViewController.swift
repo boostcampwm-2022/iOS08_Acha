@@ -29,7 +29,7 @@ final class HomeViewController: UIViewController, UIViewControllerTransitioningD
         $0.layer.cornerRadius = 10
         let cornerMask: CACornerMask = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         $0.layer.maskedCorners = cornerMask
-        $0.layer.backgroundColor = (UIColor.pointLight ?? UIColor.red).cgColor
+        $0.layer.backgroundColor = UIColor.pointLight.cgColor
         $0.numberOfLines = 0
         $0.font = .boldSystemFont(ofSize: 34)
         $0.textColor = .white
@@ -57,19 +57,29 @@ final class HomeViewController: UIViewController, UIViewControllerTransitioningD
         $0.layer.shadowRadius = 6
     }
     private lazy var startSingleGameButton = UIButton().then {
-        $0.layer.backgroundColor = UIColor(named: "PointDarkColor")?.cgColor
+        $0.layer.backgroundColor = UIColor.pointLight.cgColor
         $0.setTitle("혼자 하기", for: .normal)
         $0.titleLabel?.font = .boldSystemFont(ofSize: 30)
         $0.tintColor = .white
         $0.layer.cornerRadius = 10
+        $0.layer.shadowOffset = CGSize(width: 0, height: 5)
+        $0.layer.shadowColor = UIColor.gray.cgColor
+        $0.layer.shadowOpacity = 1.0
+        $0.layer.shadowOffset = CGSize.zero
+        $0.layer.shadowRadius = 6
     }
     
     private lazy var startMultiGameButton = UIButton().then {
-        $0.layer.backgroundColor = UIColor(named: "PointDarkColor")?.cgColor
+        $0.layer.backgroundColor = UIColor.pointLight.cgColor
         $0.setTitle("같이 하기", for: .normal)
         $0.titleLabel?.font = .boldSystemFont(ofSize: 30)
         $0.tintColor = .white
         $0.layer.cornerRadius = 10
+        $0.layer.shadowOffset = CGSize(width: 0, height: 5)
+        $0.layer.shadowColor = UIColor.gray.cgColor
+        $0.layer.shadowOpacity = 1.0
+        $0.layer.shadowOffset = CGSize.zero
+        $0.layer.shadowRadius = 6
     }
     
     private lazy var multiGameEnterView = MultiGameEnterViewController()

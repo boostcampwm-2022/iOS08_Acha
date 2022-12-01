@@ -24,7 +24,6 @@ final class CommunityCoordinator: CommunityCoordinatorProtocol {
     func start() {
         showCommunityMainViewController()
 //        showCommunityPostViewController()
-//        showCommunityDetailViewController()
     }
     
     func showCommunityMainViewController() {
@@ -39,9 +38,4 @@ final class CommunityCoordinator: CommunityCoordinatorProtocol {
           let viewController = CommunityPostViewController()
           navigationController.pushViewController(viewController, animated: true)
       }
-    
-    func showCommunityDetailViewController() {
-        let viewController = CommunityDetailViewController()
-        navigationController.pushViewController(viewController, animated: true)
-    }
 }

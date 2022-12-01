@@ -87,6 +87,34 @@
 		E576465229377DD600BADF18 /* CommunityMainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E576465129377DD600BADF18 /* CommunityMainViewModel.swift */; };
 		E576465629377F2300BADF18 /* CommunityMainUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E576465529377F2300BADF18 /* CommunityMainUseCase.swift */; };
 		E576465A2938C12C00BADF18 /* DefaultCommunityRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57646592938C12C00BADF18 /* DefaultCommunityRepository.swift */; };
+		E576466A2938DD8000BADF18 /* MultiGameRoomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E576465D2938DD8000BADF18 /* MultiGameRoomViewModel.swift */; };
+		E576466B2938DD8000BADF18 /* MultiGameRoomDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E576465F2938DD8000BADF18 /* MultiGameRoomDataSource.swift */; };
+		E576466C2938DD8000BADF18 /* MultiGameRoomRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57646612938DD8000BADF18 /* MultiGameRoomRepository.swift */; };
+		E576466D2938DD8000BADF18 /* GameRoomCollectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57646632938DD8000BADF18 /* GameRoomCollectionViewHeader.swift */; };
+		E576466E2938DD8000BADF18 /* GameRoomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57646642938DD8000BADF18 /* GameRoomCollectionViewCell.swift */; };
+		E576466F2938DD8000BADF18 /* MultiGameSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57646662938DD8000BADF18 /* MultiGameSelectViewController.swift */; };
+		E57646702938DD8000BADF18 /* MultiGameRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57646672938DD8000BADF18 /* MultiGameRoomViewController.swift */; };
+		E57646712938DD8000BADF18 /* MultiGameRoomUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57646692938DD8000BADF18 /* MultiGameRoomUseCase.swift */; };
+		E57646772938DDB600BADF18 /* FBRealTimeDBType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57646732938DDB600BADF18 /* FBRealTimeDBType.swift */; };
+		E57646782938DDB600BADF18 /* ProvidableType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57646742938DDB600BADF18 /* ProvidableType.swift */; };
+		E57646792938DDB600BADF18 /* UUIDGetable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57646752938DDB600BADF18 /* UUIDGetable.swift */; };
+		E576467A2938DDB600BADF18 /* FBRealTimeDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57646762938DDB600BADF18 /* FBRealTimeDB.swift */; };
+		E576467B2938DE0100BADF18 /* CommunityPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED39C2935E12F00ABC047 /* CommunityPostViewController.swift */; };
+		E576468D2938E28300BADF18 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57646822938E28200BADF18 /* HomeViewModel.swift */; };
+		E576468E2938E28300BADF18 /* HomeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57646842938E28200BADF18 /* HomeRepository.swift */; };
+		E576468F2938E28300BADF18 /* HomeProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57646862938E28200BADF18 /* HomeProvider.swift */; };
+		E57646902938E28300BADF18 /* MultiGameEnterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57646882938E28200BADF18 /* MultiGameEnterViewController.swift */; };
+		E57646912938E28300BADF18 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57646892938E28200BADF18 /* HomeViewController.swift */; };
+		E57646922938E28300BADF18 /* QRReaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E576468A2938E28200BADF18 /* QRReaderViewController.swift */; };
+		E57646932938E28300BADF18 /* HomeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E576468C2938E28200BADF18 /* HomeUseCase.swift */; };
+		E57646962938E2CA00BADF18 /* AuthProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57646952938E2C900BADF18 /* AuthProvider.swift */; };
+		E57646982938E46B00BADF18 /* RoomDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57646972938E46B00BADF18 /* RoomDTO.swift */; };
+		E57646992938E48E00BADF18 /* PostDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED3942935DF9C00ABC047 /* PostDTO.swift */; };
+		E576469A2938E49F00BADF18 /* CommentDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED3982935DFCC00ABC047 /* CommentDTO.swift */; };
+		E576469C2938E4C100BADF18 /* InGameUserDataDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E576469B2938E4C100BADF18 /* InGameUserDataDTO.swift */; };
+		E576469F2938E4E700BADF18 /* MapDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E576469D2938E4E700BADF18 /* MapDTO.swift */; };
+		E57646A02938E4E700BADF18 /* CoordinateDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E576469E2938E4E700BADF18 /* CoordinateDTO.swift */; };
+		E57646A32938E5A900BADF18 /* RandomFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57646A22938E5A800BADF18 /* RandomFactory.swift */; };
 		E5BE8B8F2922172400E9CFE8 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8B8E2922172400E9CFE8 /* AppCoordinator.swift */; };
 		E5BE8B91292218A500E9CFE8 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8B90292218A500E9CFE8 /* Coordinator.swift */; };
 		E5BE8B93292218F100E9CFE8 /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8B92292218F100E9CFE8 /* AuthCoordinator.swift */; };
@@ -248,6 +276,31 @@
 		E576465129377DD600BADF18 /* CommunityMainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityMainViewModel.swift; sourceTree = "<group>"; };
 		E576465529377F2300BADF18 /* CommunityMainUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityMainUseCase.swift; sourceTree = "<group>"; };
 		E57646592938C12C00BADF18 /* DefaultCommunityRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCommunityRepository.swift; sourceTree = "<group>"; };
+		E576465D2938DD8000BADF18 /* MultiGameRoomViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiGameRoomViewModel.swift; sourceTree = "<group>"; };
+		E576465F2938DD8000BADF18 /* MultiGameRoomDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiGameRoomDataSource.swift; sourceTree = "<group>"; };
+		E57646612938DD8000BADF18 /* MultiGameRoomRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiGameRoomRepository.swift; sourceTree = "<group>"; };
+		E57646632938DD8000BADF18 /* GameRoomCollectionViewHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameRoomCollectionViewHeader.swift; sourceTree = "<group>"; };
+		E57646642938DD8000BADF18 /* GameRoomCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameRoomCollectionViewCell.swift; sourceTree = "<group>"; };
+		E57646662938DD8000BADF18 /* MultiGameSelectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiGameSelectViewController.swift; sourceTree = "<group>"; };
+		E57646672938DD8000BADF18 /* MultiGameRoomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiGameRoomViewController.swift; sourceTree = "<group>"; };
+		E57646692938DD8000BADF18 /* MultiGameRoomUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiGameRoomUseCase.swift; sourceTree = "<group>"; };
+		E57646732938DDB600BADF18 /* FBRealTimeDBType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FBRealTimeDBType.swift; sourceTree = "<group>"; };
+		E57646742938DDB600BADF18 /* ProvidableType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProvidableType.swift; sourceTree = "<group>"; };
+		E57646752938DDB600BADF18 /* UUIDGetable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UUIDGetable.swift; sourceTree = "<group>"; };
+		E57646762938DDB600BADF18 /* FBRealTimeDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FBRealTimeDB.swift; sourceTree = "<group>"; };
+		E57646822938E28200BADF18 /* HomeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		E57646842938E28200BADF18 /* HomeRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeRepository.swift; sourceTree = "<group>"; };
+		E57646862938E28200BADF18 /* HomeProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeProvider.swift; sourceTree = "<group>"; };
+		E57646882938E28200BADF18 /* MultiGameEnterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiGameEnterViewController.swift; sourceTree = "<group>"; };
+		E57646892938E28200BADF18 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		E576468A2938E28200BADF18 /* QRReaderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRReaderViewController.swift; sourceTree = "<group>"; };
+		E576468C2938E28200BADF18 /* HomeUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeUseCase.swift; sourceTree = "<group>"; };
+		E57646952938E2C900BADF18 /* AuthProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthProvider.swift; sourceTree = "<group>"; };
+		E57646972938E46B00BADF18 /* RoomDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RoomDTO.swift; path = Acha/Data/RoomDTO.swift; sourceTree = SOURCE_ROOT; };
+		E576469B2938E4C100BADF18 /* InGameUserDataDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InGameUserDataDTO.swift; sourceTree = "<group>"; };
+		E576469D2938E4E700BADF18 /* MapDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapDTO.swift; sourceTree = "<group>"; };
+		E576469E2938E4E700BADF18 /* CoordinateDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoordinateDTO.swift; sourceTree = "<group>"; };
+		E57646A22938E5A800BADF18 /* RandomFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RandomFactory.swift; sourceTree = "<group>"; };
 		E5BE8B8E2922172400E9CFE8 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		E5BE8B90292218A500E9CFE8 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		E5BE8B92292218F100E9CFE8 /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
@@ -286,7 +339,6 @@
 		F1D202B62924C63F00F3E87D /* InGameMenuModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameMenuModelProtocol.swift; sourceTree = "<group>"; };
 		F1DED3922935DF6800ABC047 /* CommunityMainCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityMainCell.swift; sourceTree = "<group>"; };
 		F1DED3942935DF9C00ABC047 /* PostDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDTO.swift; sourceTree = "<group>"; };
-		F1DED3962935DFB900ABC047 /* CommunityDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityDTO.swift; sourceTree = "<group>"; };
 		F1DED3982935DFCC00ABC047 /* CommentDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentDTO.swift; sourceTree = "<group>"; };
 		F1DED39C2935E12F00ABC047 /* CommunityPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityPostViewController.swift; sourceTree = "<group>"; };
 		F1DED3A32935ED0100ABC047 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
@@ -524,6 +576,7 @@
 		47D5774629338A170014D171 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				E57646722938DDB600BADF18 /* Network */,
 				47D5774729338A1F0014D171 /* Protocol */,
 				47D5774E29338A7A0014D171 /* DefaultRealtimeDatabaseNetworkService.swift */,
 				761C1C0F292E4562000C88D0 /* TimerService.swift */,
@@ -569,6 +622,151 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		E576465B2938DD8000BADF18 /* MultiGame */ = {
+			isa = PBXGroup;
+			children = (
+				E576465C2938DD8000BADF18 /* ViewModel */,
+				E576465E2938DD8000BADF18 /* DataSource */,
+				E57646602938DD8000BADF18 /* Repository */,
+				E57646622938DD8000BADF18 /* Cell */,
+				E57646652938DD8000BADF18 /* ViewController */,
+				E57646682938DD8000BADF18 /* UseCase */,
+			);
+			path = MultiGame;
+			sourceTree = "<group>";
+		};
+		E576465C2938DD8000BADF18 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				E576465D2938DD8000BADF18 /* MultiGameRoomViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		E576465E2938DD8000BADF18 /* DataSource */ = {
+			isa = PBXGroup;
+			children = (
+				E576465F2938DD8000BADF18 /* MultiGameRoomDataSource.swift */,
+			);
+			path = DataSource;
+			sourceTree = "<group>";
+		};
+		E57646602938DD8000BADF18 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				E57646612938DD8000BADF18 /* MultiGameRoomRepository.swift */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
+		E57646622938DD8000BADF18 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				E57646632938DD8000BADF18 /* GameRoomCollectionViewHeader.swift */,
+				E57646642938DD8000BADF18 /* GameRoomCollectionViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		E57646652938DD8000BADF18 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				E57646662938DD8000BADF18 /* MultiGameSelectViewController.swift */,
+				E57646672938DD8000BADF18 /* MultiGameRoomViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		E57646682938DD8000BADF18 /* UseCase */ = {
+			isa = PBXGroup;
+			children = (
+				E57646692938DD8000BADF18 /* MultiGameRoomUseCase.swift */,
+			);
+			path = UseCase;
+			sourceTree = "<group>";
+		};
+		E57646722938DDB600BADF18 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				E57646732938DDB600BADF18 /* FBRealTimeDBType.swift */,
+				E57646742938DDB600BADF18 /* ProvidableType.swift */,
+				E57646752938DDB600BADF18 /* UUIDGetable.swift */,
+				E57646762938DDB600BADF18 /* FBRealTimeDB.swift */,
+			);
+			name = Network;
+			path = Acha/Network;
+			sourceTree = SOURCE_ROOT;
+		};
+		E57646802938E28200BADF18 /* HomeView */ = {
+			isa = PBXGroup;
+			children = (
+				E57646812938E28200BADF18 /* ViewModel */,
+				E57646832938E28200BADF18 /* Repository */,
+				E57646852938E28200BADF18 /* Provider */,
+				E57646872938E28200BADF18 /* Controller */,
+				E576468B2938E28200BADF18 /* UseCase */,
+			);
+			path = HomeView;
+			sourceTree = "<group>";
+		};
+		E57646812938E28200BADF18 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				E57646822938E28200BADF18 /* HomeViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		E57646832938E28200BADF18 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				E57646842938E28200BADF18 /* HomeRepository.swift */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
+		E57646852938E28200BADF18 /* Provider */ = {
+			isa = PBXGroup;
+			children = (
+				E57646862938E28200BADF18 /* HomeProvider.swift */,
+			);
+			path = Provider;
+			sourceTree = "<group>";
+		};
+		E57646872938E28200BADF18 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				E57646882938E28200BADF18 /* MultiGameEnterViewController.swift */,
+				E57646892938E28200BADF18 /* HomeViewController.swift */,
+				E576468A2938E28200BADF18 /* QRReaderViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		E576468B2938E28200BADF18 /* UseCase */ = {
+			isa = PBXGroup;
+			children = (
+				E576468C2938E28200BADF18 /* HomeUseCase.swift */,
+			);
+			path = UseCase;
+			sourceTree = "<group>";
+		};
+		E57646942938E2C900BADF18 /* Provider */ = {
+			isa = PBXGroup;
+			children = (
+				E57646952938E2C900BADF18 /* AuthProvider.swift */,
+			);
+			path = Provider;
+			sourceTree = "<group>";
+		};
+		E57646A12938E5A800BADF18 /* RandomFactory */ = {
+			isa = PBXGroup;
+			children = (
+				E57646A22938E5A800BADF18 /* RandomFactory.swift */,
+			);
+			path = RandomFactory;
+			sourceTree = "<group>";
+		};
 		E5BE8B882922164400E9CFE8 /* App */ = {
 			isa = PBXGroup;
 			children = (
@@ -609,6 +807,7 @@
 		E5BE8B8D292216B400E9CFE8 /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				E57646A12938E5A800BADF18 /* RandomFactory */,
 				47D5774629338A170014D171 /* Service */,
 				F12210BE292CE81300AE5F26 /* KeyChainManager */,
 				F14B1493292BA1C10010E966 /* KeyboardManager */,
@@ -623,6 +822,7 @@
 		E5BE8BA229221C0A00E9CFE8 /* Auth */ = {
 			isa = PBXGroup;
 			children = (
+				E57646942938E2C900BADF18 /* Provider */,
 				F1140B3B292B5C7200B8285A /* Repositories */,
 				F1140B3A292B5C6900B8285A /* UseCase */,
 				F1FCEE18292B52C1001A55D6 /* ScrollAbleViewController */,
@@ -651,8 +851,10 @@
 		E5BE8BA429221C2800E9CFE8 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				E57646802938E28200BADF18 /* HomeView */,
 				F1D2029C2923BF0800F3E87D /* InGameMenus */,
 				76B3BF4D292526680056ABFD /* SingleGame */,
+				E576465B2938DD8000BADF18 /* MultiGame */,
 				F156F1112923534B0053E807 /* RecordAndsTimeBar */,
 				477842F92923C2D400AAC3DB /* SelectMap */,
 				76B3BF55292627A30056ABFD /* GamePlayMenuView.swift */,
@@ -825,12 +1027,15 @@
 			isa = PBXGroup;
 			children = (
 				47D57738293389790014D171 /* Repository */,
+				E57646972938E46B00BADF18 /* RoomDTO.swift */,
 				F1B0D8AD292CCAAC00EBDD02 /* UserDTO.swift */,
 				F1B0D8AF292CCABE00EBDD02 /* BadgeDTO.swift */,
 				F1B0D8B1292CCAD900EBDD02 /* RecordDTO.swift */,
 				F1DED3942935DF9C00ABC047 /* PostDTO.swift */,
 				F1DED3982935DFCC00ABC047 /* CommentDTO.swift */,
-				F1DED3962935DFB900ABC047 /* CommunityDTO.swift */,
+				E576469E2938E4E700BADF18 /* CoordinateDTO.swift */,
+				E576469D2938E4E700BADF18 /* MapDTO.swift */,
+				E576469B2938E4C100BADF18 /* InGameUserDataDTO.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -1114,14 +1319,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				E576465629377F2300BADF18 /* CommunityMainUseCase.swift in Sources */,
+				E57646792938DDB600BADF18 /* UUIDGetable.swift in Sources */,
+				E57646702938DD8000BADF18 /* MultiGameRoomViewController.swift in Sources */,
 				E5BE8BB52922201600E9CFE8 /* SignupViewController.swift in Sources */,
 				761C1C09292E437E000C88D0 /* DefaultSingleGameUseCase.swift in Sources */,
 				F1FCEE11292B4C87001A55D6 /* AuthButton.swift in Sources */,
 				76AA560F2937ADD400498441 /* AuthUseCaseProtocol.swift in Sources */,
 				761E5F112935F2DF00E6CACC /* FirebasePath.swift in Sources */,
+				E576466B2938DD8000BADF18 /* MultiGameRoomDataSource.swift in Sources */,
+				E57646772938DDB600BADF18 /* FBRealTimeDBType.swift in Sources */,
 				E5BE8BBA2922217600E9CFE8 /* TabBarType.swift in Sources */,
 				76A2E1A12923C5A7001E887A /* SingleGameViewModel.swift in Sources */,
 				F17A3FA1292F0BF200647AD0 /* RoomUser.swift in Sources */,
+				E57646A32938E5A900BADF18 /* RandomFactory.swift in Sources */,
 				76A2E1A529249099001E887A /* Double+.swift in Sources */,
 				47935E9D29238E9E00481307 /* SelectMapViewController.swift in Sources */,
 				4738D76F2922756B003AE835 /* Map.swift in Sources */,
@@ -1140,26 +1350,33 @@
 				47935E9F29238EB400481307 /* SelectMapViewModel.swift in Sources */,
 				E576465A2938C12C00BADF18 /* DefaultCommunityRepository.swift in Sources */,
 				F14B1495292BA1D40010E966 /* KeyboardManager.swift in Sources */,
+				E576467A2938DDB600BADF18 /* FBRealTimeDB.swift in Sources */,
 				F1DED3AF2936708500ABC047 /* CommentView.swift in Sources */,
 				761C1C0B292E439F000C88D0 /* SingleGameUseCase.swift in Sources */,
 				F13DB58F292B3C8D00323B28 /* AuthInputTextField.swift in Sources */,
+				E57646962938E2CA00BADF18 /* AuthProvider.swift in Sources */,
 				E576465229377DD600BADF18 /* CommunityMainViewModel.swift in Sources */,
 				F1E83D992935C727004C7992 /* TextCountView.swift in Sources */,
+				E576466D2938DD8000BADF18 /* GameRoomCollectionViewHeader.swift in Sources */,
 				761E5F092935EFF400E6CACC /* DefaultInGameUseCase.swift in Sources */,
 				E5BE8B8F2922172400E9CFE8 /* AppCoordinator.swift in Sources */,
 				47935E97292366CD00481307 /* UIButton+.swift in Sources */,
+				E576469A2938E49F00BADF18 /* CommentDTO.swift in Sources */,
 				47D5775D2934AB9B0014D171 /* DefaultMapBaseUseCase.swift in Sources */,
 				47D5775429338FFF0014D171 /* DefaultRecordRepository.swift in Sources */,
 				76B3BF52292624DB0056ABFD /* Int+.swift in Sources */,
 				F1E83D8329348AE0004C7992 /* Post.swift in Sources */,
 				477842F82923BFA300AAC3DB /* MapBaseViewController.swift in Sources */,
 				47D5774529338A040014D171 /* FirebaseRealtimeType.swift in Sources */,
+				E576466C2938DD8000BADF18 /* MultiGameRoomRepository.swift in Sources */,
 				F1AC0391292B33F8008302F8 /* SignUpViewModel.swift in Sources */,
 				76AA56092937ADBB00498441 /* SignUpRepository.swift in Sources */,
+				E576467B2938DE0100BADF18 /* CommunityPostViewController.swift in Sources */,
 				E5027D5C292670F30021BF60 /* RecordViewChartData.swift in Sources */,
 				4738D768292267BA003AE835 /* Errors.swift in Sources */,
 				E576465029377DC400BADF18 /* DefaultCommunityMainUseCase.swift in Sources */,
 				E5BE8B9D29221AAF00E9CFE8 /* MyPageCoordinator.swift in Sources */,
+				E57646A02938E4E700BADF18 /* CoordinateDTO.swift in Sources */,
 				47A26DC0292C9F8A0007FBBF /* SelectMapRankingHeaderView.swift in Sources */,
 				76B3BF56292627A30056ABFD /* GamePlayMenuView.swift in Sources */,
 				764AF2A1292B9C1F00D16DC9 /* String+.swift in Sources */,
@@ -1173,9 +1390,11 @@
 				47D577592934A9FE0014D171 /* MapBaseViewModel.swift in Sources */,
 				F1DED3A42935ED0100ABC047 /* Comment.swift in Sources */,
 				F1B0D8AE292CCAAC00EBDD02 /* UserDTO.swift in Sources */,
+				E57646982938E46B00BADF18 /* RoomDTO.swift in Sources */,
 				E5BE8BB12922200000E9CFE8 /* RecordViewController.swift in Sources */,
 				E5BE8B91292218A500E9CFE8 /* Coordinator.swift in Sources */,
 				764AF29F292B6EF500D16DC9 /* InGameRecordViewModel.swift in Sources */,
+				E576466F2938DD8000BADF18 /* MultiGameSelectViewController.swift in Sources */,
 				76AA56082937ADBB00498441 /* LogInRepository.swift in Sources */,
 				F1FCEE14292B4E9A001A55D6 /* AuthTitleView.swift in Sources */,
 				F12210C2292D031800AE5F26 /* KeyChainManager.swift in Sources */,
@@ -1187,18 +1406,27 @@
 				E516A6C02923942500CD6BDB /* RecordCell.swift in Sources */,
 				47935E952923310700481307 /* SystemImageNameSpace.swift in Sources */,
 				F1B0D8B0292CCABE00EBDD02 /* BadgeDTO.swift in Sources */,
+				E57646782938DDB600BADF18 /* ProvidableType.swift in Sources */,
 				E5BE8B9B29221A8A00E9CFE8 /* CommunityCoordinator.swift in Sources */,
 				76AA55D52937ACB900498441 /* MultiGameCoordinator.swift in Sources */,
 				47D5773B293389940014D171 /* MapRepository.swift in Sources */,
+				E57646932938E28300BADF18 /* HomeUseCase.swift in Sources */,
 				76B3BF54292624E30056ABFD /* Date+.swift in Sources */,
+				E576468F2938E28300BADF18 /* HomeProvider.swift in Sources */,
 				F1DED3A62935F0A400ABC047 /* CommentCollectionViewCell.swift in Sources */,
+				E57646922938E28300BADF18 /* QRReaderViewController.swift in Sources */,
+				E57646712938DD8000BADF18 /* MultiGameRoomUseCase.swift in Sources */,
 				E5BE8B9F29221B2700E9CFE8 /* LoginCoordinator.swift in Sources */,
 				E5BE8BAF29221FF800E9CFE8 /* CommunityMainViewController.swift in Sources */,
 				F1B0D8AA292CCA0F00EBDD02 /* Encodable+.swift in Sources */,
+				E576469C2938E4C100BADF18 /* InGameUserDataDTO.swift in Sources */,
+				E576469F2938E4E700BADF18 /* MapDTO.swift in Sources */,
 				E516A6BE2923941500CD6BDB /* RecordChartCell.swift in Sources */,
+				E576468D2938E28300BADF18 /* HomeViewModel.swift in Sources */,
 				E5BE8BB32922200C00E9CFE8 /* MyPageViewController.swift in Sources */,
 				F1D202A42923C09300F3E87D /* InGameMenuCollectionViewCell.swift in Sources */,
 				F156F11C2923623C0053E807 /* PaddingLabel.swift in Sources */,
+				E57646992938E48E00BADF18 /* PostDTO.swift in Sources */,
 				4795F04829374DC800B174D6 /* LocationService.swift in Sources */,
 				471863BD291E155700A35786 /* AppDelegate.swift in Sources */,
 				F1DED3AA2935F16A00ABC047 /* PostHeaderCollectionReusableView.swift in Sources */,
@@ -1219,10 +1447,15 @@
 				76B3BF50292624850056ABFD /* InGamePlayMenuViewController.swift in Sources */,
 				47D5775229338FB60014D171 /* RecordRepository.swift in Sources */,
 				E5027D5229263D4F0021BF60 /* RecordHeaderView.swift in Sources */,
+				E576468E2938E28300BADF18 /* HomeRepository.swift in Sources */,
 				47A26DBE292BB2970007FBBF /* MapRegion.swift in Sources */,
+				E57646902938E28300BADF18 /* MultiGameEnterViewController.swift in Sources */,
 				47D57741293389D00014D171 /* SelectMapUseCase.swift in Sources */,
 				F156F11E292365840053E807 /* CALayer+.swift in Sources */,
+				E576466A2938DD8000BADF18 /* MultiGameRoomViewModel.swift in Sources */,
 				761C1C10292E4562000C88D0 /* TimerService.swift in Sources */,
+				E57646912938E28300BADF18 /* HomeViewController.swift in Sources */,
+				E576466E2938DD8000BADF18 /* GameRoomCollectionViewCell.swift in Sources */,
 				F1FCEE0E292B483E001A55D6 /* UITextField+.swift in Sources */,
 				47D5774F29338A7A0014D171 /* DefaultRealtimeDatabaseNetworkService.swift in Sources */,
 				E5BE8B9929221A4C00E9CFE8 /* RecordCoordinator.swift in Sources */,
