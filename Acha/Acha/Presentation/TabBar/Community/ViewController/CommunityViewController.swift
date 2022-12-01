@@ -1,4 +1,4 @@
-//
+
 //  CommunityViewController.swift
 //  Acha
 //
@@ -10,19 +10,19 @@ import Then
 import SnapKit
 
 final class CommunityViewController: UIViewController {
-    
+
     enum Section {
         case community
     }
-    
+
     private var collectionView = UICollectionView(
         frame: .zero,
         collectionViewLayout: UICollectionViewFlowLayout()
     )
-    
+
     typealias CommunityDatasource = UICollectionViewDiffableDataSource<Section, Post>
     typealias CommunitySnapShot = NSDiffableDataSourceSnapshot<Section, Post>
-    
+
     private lazy var communitDataSource = makeDataSource()
     private lazy var communitySnapshot = CommunitySnapShot()
 
@@ -62,7 +62,7 @@ final class CommunityViewController: UIViewController {
                                     commentCount: 23)])
 
     }
-    
+
 }
 
 extension CommunityViewController {
@@ -79,14 +79,14 @@ extension CommunityViewController {
         }
         return dataSource
     }
-    
+
     private func compositonLayout() -> UICollectionViewCompositionalLayout {
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1),
             heightDimension: .estimated(300)
         )
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        
+
         let groupSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1),
             heightDimension: .estimated(300)
@@ -95,21 +95,21 @@ extension CommunityViewController {
             layoutSize: groupSize,
             subitems: [item]
         )
-        
+
         let section = NSCollectionLayoutSection(group: group)
         section.interGroupSpacing = 10
         let layout = UICollectionViewCompositionalLayout(section: section)
-        
+
         return layout
     }
-    
+
     private func registerCollectioView() {
         collectionView.register(
             CommunityCollectionViewCell.self,
             forCellWithReuseIdentifier: CommunityCollectionViewCell.identifier
         )
     }
-    
+
     private func configureCollectionView() {
         collectionView = UICollectionView(
             frame: .zero,
@@ -124,12 +124,12 @@ extension CommunityViewController {
         }
         communitySnapshot.appendSections([.community])
     }
-    
+
     private func snapshotUpdate(datas: [Post]) {
         let oldItems = communitySnapshot.itemIdentifiers(inSection: .community)
         communitySnapshot.deleteItems(oldItems)
         communitySnapshot.appendItems(datas, toSection: .community)
         communitDataSource.apply(communitySnapshot, animatingDifferences: true)
     }
-    
+
 }

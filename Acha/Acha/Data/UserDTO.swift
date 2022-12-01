@@ -15,4 +15,8 @@ struct UserDTO: Codable {
     let records: [RecordDTO]
     let pinCharacter: String?
     let friends: [UserDTO]
+    
+    func toRoomUser() -> RoomUser {
+        return RoomUser(id: id, nickName: nickname)
+    }
 }
