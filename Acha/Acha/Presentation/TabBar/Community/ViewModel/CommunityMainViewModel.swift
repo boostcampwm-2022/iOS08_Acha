@@ -17,7 +17,7 @@ final class CommunityMainViewModel: BaseViewModel {
     
     // MARK: - Output
     struct Output {
-        
+        var posts = BehaviorRelay<[Post]>(value: [])
     }
     
     // MARK: - Dependency
@@ -25,7 +25,7 @@ final class CommunityMainViewModel: BaseViewModel {
     private let useCase: CommunityMainUseCase!
     
     // MARK: - Lifecycles
-    init(useCase: DefaultCommunityMainUseCase) {
+    init(useCase: CommunityMainUseCase) {
         self.useCase = useCase
     }
     
@@ -37,8 +37,12 @@ final class CommunityMainViewModel: BaseViewModel {
         input.viewDidAppearEvent
             .subscribe(onNext: { [weak self] _ in
                 guard let self else { return }
-                
+                self.useCase.loadPostData()
             }).disposed(by: disposeBag)
+        
+        useCase.posts
+            .bind(to: output.posts)
+            .disposed(by: disposeBag)
         
         return output
     }

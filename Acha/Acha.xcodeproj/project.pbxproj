@@ -79,9 +79,8 @@
 		E516A6C02923942500CD6BDB /* RecordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E516A6BF2923942500CD6BDB /* RecordCell.swift */; };
 		E576465029377DC400BADF18 /* DefaultCommunityMainUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E576464F29377DC400BADF18 /* DefaultCommunityMainUseCase.swift */; };
 		E576465229377DD600BADF18 /* CommunityMainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E576465129377DD600BADF18 /* CommunityMainViewModel.swift */; };
-		E576465429377E0700BADF18 /* DefaultCommunityRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E576465329377E0700BADF18 /* DefaultCommunityRepository.swift */; };
 		E576465629377F2300BADF18 /* CommunityMainUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E576465529377F2300BADF18 /* CommunityMainUseCase.swift */; };
-		E576465829377FA900BADF18 /* CommunityRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E576465729377FA900BADF18 /* CommunityRepository.swift */; };
+		E576465A2938C12C00BADF18 /* DefaultCommunityRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57646592938C12C00BADF18 /* DefaultCommunityRepository.swift */; };
 		E5BE8B8F2922172400E9CFE8 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8B8E2922172400E9CFE8 /* AppCoordinator.swift */; };
 		E5BE8B91292218A500E9CFE8 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8B90292218A500E9CFE8 /* Coordinator.swift */; };
 		E5BE8B93292218F100E9CFE8 /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8B92292218F100E9CFE8 /* AuthCoordinator.swift */; };
@@ -126,9 +125,7 @@
 		F1DED3972935DFB900ABC047 /* CommunityDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED3962935DFB900ABC047 /* CommunityDTO.swift */; };
 		F1DED3992935DFCC00ABC047 /* CommentDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED3982935DFCC00ABC047 /* CommentDTO.swift */; };
 		F1DED39B2935DFE400ABC047 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED39A2935DFE400ABC047 /* Post.swift */; };
-		F1DED39D2935E12F00ABC047 /* CommunityPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED39C2935E12F00ABC047 /* CommunityPostViewController.swift */; };
 		F1DED3A02935E19100ABC047 /* TextCountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED39F2935E19100ABC047 /* TextCountView.swift */; };
-		F1DED3A22935EBA600ABC047 /* CommunityDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED3A12935EBA600ABC047 /* CommunityDetailViewController.swift */; };
 		F1DED3A42935ED0100ABC047 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED3A32935ED0100ABC047 /* Comment.swift */; };
 		F1DED3A62935F0A400ABC047 /* CommentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED3A52935F0A400ABC047 /* CommentCollectionViewCell.swift */; };
 		F1DED3A82935F0AE00ABC047 /* PostCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED3A72935F0AE00ABC047 /* PostCollectionViewCell.swift */; };
@@ -243,9 +240,8 @@
 		E516A6BF2923942500CD6BDB /* RecordCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordCell.swift; sourceTree = "<group>"; };
 		E576464F29377DC400BADF18 /* DefaultCommunityMainUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCommunityMainUseCase.swift; sourceTree = "<group>"; };
 		E576465129377DD600BADF18 /* CommunityMainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityMainViewModel.swift; sourceTree = "<group>"; };
-		E576465329377E0700BADF18 /* DefaultCommunityRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCommunityRepository.swift; sourceTree = "<group>"; };
 		E576465529377F2300BADF18 /* CommunityMainUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityMainUseCase.swift; sourceTree = "<group>"; };
-		E576465729377FA900BADF18 /* CommunityRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityRepository.swift; sourceTree = "<group>"; };
+		E57646592938C12C00BADF18 /* DefaultCommunityRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCommunityRepository.swift; sourceTree = "<group>"; };
 		E5BE8B8E2922172400E9CFE8 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		E5BE8B90292218A500E9CFE8 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		E5BE8B92292218F100E9CFE8 /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
@@ -487,6 +483,7 @@
 				47D57739293389850014D171 /* Protocol */,
 				47D5773C293389AC0014D171 /* DefaultMapRepository.swift */,
 				47D5775329338FFF0014D171 /* DefaultRecordRepository.swift */,
+				E57646592938C12C00BADF18 /* DefaultCommunityRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -504,8 +501,11 @@
 			isa = PBXGroup;
 			children = (
 				47D5773F293389C50014D171 /* Protocol */,
-				47D57742293389EB0014D171 /* DefaultSelectMapUseCase.swift */,
 				47D5775C2934AB9B0014D171 /* DefaultMapBaseUseCase.swift */,
+				47D57742293389EB0014D171 /* DefaultSelectMapUseCase.swift */,
+				761C1C08292E437E000C88D0 /* DefaultSingleGameUseCase.swift */,
+				761E5F082935EFF400E6CACC /* DefaultInGameUseCase.swift */,
+				E576464F29377DC400BADF18 /* DefaultCommunityMainUseCase.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -513,8 +513,11 @@
 		47D5773F293389C50014D171 /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
-				47D57740293389D00014D171 /* SelectMapUseCase.swift */,
 				47D5775A2934AB8A0014D171 /* MapBaseUseCase.swift */,
+				47D57740293389D00014D171 /* SelectMapUseCase.swift */,
+				761C1C0A292E439F000C88D0 /* SingleGameUseCase.swift */,
+				761E5F062935EF4200E6CACC /* InGameUseCase.swift */,
+				E576465529377F2300BADF18 /* CommunityMainUseCase.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -547,32 +550,6 @@
 				47D577582934A9FE0014D171 /* MapBaseViewModel.swift */,
 			);
 			path = MapBase;
-			sourceTree = "<group>";
-		};
-		761C1C07292E436D000C88D0 /* UseCase */ = {
-			isa = PBXGroup;
-			children = (
-				761C1C08292E437E000C88D0 /* DefaultSingleGameUseCase.swift */,
-				761E5F062935EF4200E6CACC /* InGameUseCase.swift */,
-				761E5F082935EFF400E6CACC /* DefaultInGameUseCase.swift */,
-				761C1C0A292E439F000C88D0 /* SingleGameUseCase.swift */,
-			);
-			path = UseCase;
-			sourceTree = "<group>";
-		};
-		761E5F0A2935F09F00E6CACC /* Repository */ = {
-			isa = PBXGroup;
-			children = (
-				761E5F0B2935F0B800E6CACC /* Protocol */,
-			);
-			path = Repository;
-			sourceTree = "<group>";
-		};
-		761E5F0B2935F0B800E6CACC /* Protocol */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Protocol;
 			sourceTree = "<group>";
 		};
 		76B3BF4D292526680056ABFD /* SingleGame */ = {
@@ -623,7 +600,6 @@
 			isa = PBXGroup;
 			children = (
 				47D5773E293389B80014D171 /* UseCase */,
-				761C1C07292E436D000C88D0 /* UseCase */,
 				4738D76D2922755B003AE835 /* Entity */,
 			);
 			path = Domain;
@@ -699,14 +675,10 @@
 		E5BE8BA529221C2D00E9CFE8 /* Community */ = {
 			isa = PBXGroup;
 			children = (
-				E576465329377E0700BADF18 /* DefaultCommunityRepository.swift */,
-				E576464F29377DC400BADF18 /* DefaultCommunityMainUseCase.swift */,
-				E576464E29377DAE00BADF18 /* ViewModel */,
 				F1DED3AD2936706500ABC047 /* Common */,
 				F1DED3912935DF4800ABC047 /* Cell */,
+				E576464E29377DAE00BADF18 /* ViewModel */,
 				F1DED3902935DF1400ABC047 /* ViewController */,
-				E576465529377F2300BADF18 /* CommunityMainUseCase.swift */,
-				E576465729377FA900BADF18 /* CommunityRepository.swift */,
 			);
 			path = Community;
 			sourceTree = "<group>";
@@ -861,13 +833,12 @@
 			isa = PBXGroup;
 			children = (
 				47D57738293389790014D171 /* Repository */,
-				761E5F0A2935F09F00E6CACC /* Repository */,
 				F1B0D8AD292CCAAC00EBDD02 /* UserDTO.swift */,
 				F1B0D8AF292CCABE00EBDD02 /* BadgeDTO.swift */,
 				F1B0D8B1292CCAD900EBDD02 /* RecordDTO.swift */,
 				F1DED3942935DF9C00ABC047 /* PostDTO.swift */,
-				F1DED3962935DFB900ABC047 /* CommunityDTO.swift */,
 				F1DED3982935DFCC00ABC047 /* CommentDTO.swift */,
+				F1DED3962935DFB900ABC047 /* CommunityDTO.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -1166,13 +1137,13 @@
 				769F1AAC2935A7A800A3BB47 /* GameOverView.swift in Sources */,
 				E5027D5E292686440021BF60 /* RecordViewDayTotalRecord.swift in Sources */,
 				E5027D58292670570021BF60 /* Record.swift in Sources */,
-				F1DED39D2935E12F00ABC047 /* CommunityPostViewController.swift in Sources */,
 				F1034B59292B37EB00BD8407 /* LoginViewModel.swift in Sources */,
 				E5027D58292670570021BF60 /* Record.swift in Sources */,
 				F1DED3932935DF6800ABC047 /* CommunityMainCell.swift in Sources */,
 				F1DED3AC2935F17700ABC047 /* CommentHeaderCollectionReusableView.swift in Sources */,
 				47A26DBC292B73850007FBBF /* Coordinate.swift in Sources */,
 				47935E9F29238EB400481307 /* SelectMapViewModel.swift in Sources */,
+				E576465A2938C12C00BADF18 /* DefaultCommunityRepository.swift in Sources */,
 				F14B1495292BA1D40010E966 /* KeyboardManager.swift in Sources */,
 				F1DED3AF2936708500ABC047 /* CommentView.swift in Sources */,
 				761C1C0B292E439F000C88D0 /* SingleGameUseCase.swift in Sources */,
@@ -1205,7 +1176,6 @@
 				F1DED3A42935ED0100ABC047 /* Comment.swift in Sources */,
 				F1B0D8AE292CCAAC00EBDD02 /* UserDTO.swift in Sources */,
 				F1DED3972935DFB900ABC047 /* CommunityDTO.swift in Sources */,
-				E576465829377FA900BADF18 /* CommunityRepository.swift in Sources */,
 				E5BE8BB12922200000E9CFE8 /* RecordViewController.swift in Sources */,
 				E5BE8B91292218A500E9CFE8 /* Coordinator.swift in Sources */,
 				764AF29F292B6EF500D16DC9 /* InGameRecordViewModel.swift in Sources */,
@@ -1225,7 +1195,6 @@
 				47935E9B29238DE400481307 /* HomeViewModel.swift in Sources */,
 				F1DED3A62935F0A400ABC047 /* CommentCollectionViewCell.swift in Sources */,
 				E5BE8B9F29221B2700E9CFE8 /* LoginCoordinator.swift in Sources */,
-				F1DED3A22935EBA600ABC047 /* CommunityDetailViewController.swift in Sources */,
 				E5BE8BAF29221FF800E9CFE8 /* CommunityMainViewController.swift in Sources */,
 				F1B0D8AA292CCA0F00EBDD02 /* Encodable+Extension.swift in Sources */,
 				E516A6BE2923941500CD6BDB /* RecordChartCell.swift in Sources */,
@@ -1253,7 +1222,6 @@
 				76A2E1A32923D94C001E887A /* CLLocationCoordinate2D+.swift in Sources */,
 				764AF29D292B639200D16DC9 /* UIViewController+.swift in Sources */,
 				F18A7FCF292BE75A0054FADE /* String+Extension.swift in Sources */,
-				E576465429377E0700BADF18 /* DefaultCommunityRepository.swift in Sources */,
 				76B3BF50292624850056ABFD /* InGamePlayMenuViewController.swift in Sources */,
 				47D5775229338FB60014D171 /* RecordRepository.swift in Sources */,
 				F1DED3A02935E19100ABC047 /* TextCountView.swift in Sources */,

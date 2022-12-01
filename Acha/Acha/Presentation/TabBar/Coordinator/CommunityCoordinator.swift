@@ -28,20 +28,20 @@ final class CommunityCoordinator: CommunityCoordinatorProtocol {
     }
     
     func showCommunityMainViewController() {
-        let repository = DefaultCommunityRepository(realTimeDatabaseNetworkService: DefaultRealtimeDatabaseNetworkService())
+        let repository = DefaultCommunityRepository(service: DefaultRealtimeDatabaseNetworkService())
         let useCase = DefaultCommunityMainUseCase(repository: repository)
         let viewModel = CommunityMainViewModel(useCase: useCase)
         let viewController = CommunityMainViewController(viewModel: viewModel)
         navigationController.pushViewController(viewController, animated: true)
     }
     
-    func showCommunityPostViewController() {
-          let viewController = CommunityPostViewController()
-          navigationController.pushViewController(viewController, animated: true)
-      }
-    
-    func showCommunityDetailViewController() {
-        let viewController = CommunityDetailViewController()
-        navigationController.pushViewController(viewController, animated: true)
-    }
+//    func showCommunityPostViewController() {
+//          let viewController = CommunityPostViewController()
+//          navigationController.pushViewController(viewController, animated: true)
+//      }
+//    
+//    func showCommunityDetailViewController() {
+//        let viewController = CommunityDetailViewController()
+//        navigationController.pushViewController(viewController, animated: true)
+//    }
 }
