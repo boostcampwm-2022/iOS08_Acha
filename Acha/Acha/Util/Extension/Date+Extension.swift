@@ -14,4 +14,16 @@ extension Date {
         dateFormatter.locale = Locale(identifier: "ko_kr")
         return dateFormatter.string(from: self)
     }
+    
+    var secondsSince1970: Int64 {
+        Int64((self.timeIntervalSince1970).rounded())
+    }
+    
+    init(seconds: Int64) {
+        self = Date(timeIntervalSince1970: TimeInterval(seconds))
+    }
+    
+    func since(_ from: Int64) -> Date {
+        return Date(seconds: self.secondsSince1970 - from)
+    }
 }

@@ -162,6 +162,7 @@ extension SingleGameViewController {
     
     private func bind() {
         let input = SingleGameViewModel.Input(
+            viewDidAppear: rx.viewDidAppear.asObservable(),
             gameOverButtonTapped: realGameOverButtonTappedEvent.asObservable(),
             rankButtonTapped: rankButtonTappedEvent.asObservable(),
             recordButtonTapped: recordButtonTappedEvent.asObservable(),

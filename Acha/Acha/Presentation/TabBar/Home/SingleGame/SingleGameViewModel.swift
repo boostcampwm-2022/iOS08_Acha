@@ -12,6 +12,7 @@ import RxSwift
 final class SingleGameViewModel: MapBaseViewModel {
     
     struct Input {
+        var viewDidAppear: Observable<Void>
         var gameOverButtonTapped: Observable<Void>
         var rankButtonTapped: Observable<Void>
         var recordButtonTapped: Observable<Void>
@@ -54,6 +55,15 @@ final class SingleGameViewModel: MapBaseViewModel {
     }
     
     private func createInput(input: Input) {
+        input.viewDidAppear
+            .withUnretained(self)
+            .subscribe(onNext: { _ in
+                self.useCase.healthKitAuthorization()
+                    .subscribe()
+                    .disposed(by: self.disposeBag)
+            })
+            .disposed(by: disposeBag)
+        
         input.gameOverButtonTapped
             .subscribe(onNext: { [weak self] _ in
                 guard let self else { return }
@@ -81,6 +91,9 @@ final class SingleGameViewModel: MapBaseViewModel {
         input.gameOverOkButtonTapped
             .subscribe(onNext: { [weak self] in
                 guard let self else { return }
+                self.useCase.healthKitWrite()
+                    .subscribe()
+                    .disposed(by: self.disposeBag)
                 self.coordinator.delegate?.didFinished(childCoordinator: self.coordinator)
             }).disposed(by: disposeBag)
     }

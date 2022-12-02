@@ -156,6 +156,10 @@
 		F1DED3AA2935F16A00ABC047 /* PostHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED3A92935F16A00ABC047 /* PostHeaderCollectionReusableView.swift */; };
 		F1DED3AC2935F17700ABC047 /* CommentHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED3AB2935F17700ABC047 /* CommentHeaderCollectionReusableView.swift */; };
 		F1DED3AF2936708500ABC047 /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED3AE2936708500ABC047 /* CommentView.swift */; };
+		F1DED3FA29386ED500ABC047 /* DefaultHealthKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED3F929386ED500ABC047 /* DefaultHealthKitService.swift */; };
+		F1DED3FC29386EF000ABC047 /* HealthKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED3FB29386EF000ABC047 /* HealthKitService.swift */; };
+		F1DED3FE29386F7400ABC047 /* HealthKitReadData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED3FD29386F7400ABC047 /* HealthKitReadData.swift */; };
+		F1DED40029386F8500ABC047 /* HealthKitWriteData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED3FF29386F8500ABC047 /* HealthKitWriteData.swift */; };
 		F1E83D7729348591004C7992 /* CommunityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E83D7629348591004C7992 /* CommunityViewModel.swift */; };
 		F1E83D79293485A1004C7992 /* CommunityRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E83D78293485A1004C7992 /* CommunityRepository.swift */; };
 		F1E83D7D293489E1004C7992 /* PostDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E83D7C293489E1004C7992 /* PostDTO.swift */; };
@@ -352,6 +356,11 @@
 		F1DED3A92935F16A00ABC047 /* PostHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		F1DED3AB2935F17700ABC047 /* CommentHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		F1DED3AE2936708500ABC047 /* CommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
+		F1DED3F829386DDA00ABC047 /* Acha.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Acha.entitlements; sourceTree = "<group>"; };
+		F1DED3F929386ED500ABC047 /* DefaultHealthKitService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultHealthKitService.swift; sourceTree = "<group>"; };
+		F1DED3FB29386EF000ABC047 /* HealthKitService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitService.swift; sourceTree = "<group>"; };
+		F1DED3FD29386F7400ABC047 /* HealthKitReadData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitReadData.swift; sourceTree = "<group>"; };
+		F1DED3FF29386F8500ABC047 /* HealthKitWriteData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitWriteData.swift; sourceTree = "<group>"; };
 		F1E83D7629348591004C7992 /* CommunityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityViewModel.swift; sourceTree = "<group>"; };
 		F1E83D78293485A1004C7992 /* CommunityRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityRepository.swift; sourceTree = "<group>"; };
 		F1E83D7C293489E1004C7992 /* PostDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDTO.swift; sourceTree = "<group>"; };
@@ -430,6 +439,7 @@
 		471863BB291E155700A35786 /* Acha */ = {
 			isa = PBXGroup;
 			children = (
+				F1DED3F829386DDA00ABC047 /* Acha.entitlements */,
 				76AA55C92937AC2500498441 /* Network */,
 				F1B0D8A4292CC81A00EBDD02 /* Data */,
 				E5BE8B882922164400E9CFE8 /* App */,
@@ -514,6 +524,8 @@
 				76AA55D02937AC6300498441 /* RoomUser.swift */,
 				F1E83D8229348AE0004C7992 /* Post.swift */,
 				F1DED3A32935ED0100ABC047 /* Comment.swift */,
+				F1DED3FD29386F7400ABC047 /* HealthKitReadData.swift */,
+				F1DED3FF29386F8500ABC047 /* HealthKitWriteData.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -590,6 +602,7 @@
 				47D5774E29338A7A0014D171 /* DefaultRealtimeDatabaseNetworkService.swift */,
 				761C1C0F292E4562000C88D0 /* TimerService.swift */,
 				4795F04929374DD300B174D6 /* DefaultLocationService.swift */,
+				F1DED3F929386ED500ABC047 /* DefaultHealthKitService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -600,6 +613,7 @@
 				47D5774A29338A4A0014D171 /* RealtimeDatabaseNetworkService.swift */,
 				761C1C0D292E4554000C88D0 /* TimerServiceProtocol.swift */,
 				4795F04729374DC800B174D6 /* LocationService.swift */,
+				F1DED3FB29386EF000ABC047 /* HealthKitService.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -1436,6 +1450,7 @@
 				76AA55E52937AD7A00498441 /* HomeViewModel.swift in Sources */,
 				E5027D58292670570021BF60 /* Record.swift in Sources */,
 				F1E83D79293485A1004C7992 /* CommunityRepository.swift in Sources */,
+				F1DED40029386F8500ABC047 /* HealthKitWriteData.swift in Sources */,
 				F1034B59292B37EB00BD8407 /* LoginViewModel.swift in Sources */,
 				E5027D58292670570021BF60 /* Record.swift in Sources */,
 				F1DED3AC2935F17700ABC047 /* CommentHeaderCollectionReusableView.swift in Sources */,
@@ -1503,6 +1518,7 @@
 				E516A6C02923942500CD6BDB /* RecordCell.swift in Sources */,
 				47935E952923310700481307 /* SystemImageNameSpace.swift in Sources */,
 				F1B0D8B0292CCABE00EBDD02 /* BadgeDTO.swift in Sources */,
+				F1DED3FA29386ED500ABC047 /* DefaultHealthKitService.swift in Sources */,
 				E5BE8B9B29221A8A00E9CFE8 /* CommunityCoordinator.swift in Sources */,
 				76AA55E72937AD7A00498441 /* HomeProvider.swift in Sources */,
 				76AA55D52937ACB900498441 /* MultiGameCoordinator.swift in Sources */,
@@ -1510,8 +1526,10 @@
 				47D5773B293389940014D171 /* MapRepository.swift in Sources */,
 				76B3BF54292624E30056ABFD /* Date+Extension.swift in Sources */,
 				F1E83D7729348591004C7992 /* CommunityViewModel.swift in Sources */,
+				F1DED3FE29386F7400ABC047 /* HealthKitReadData.swift in Sources */,
 				76AA55FF2937AD8900498441 /* GameRoomCollectionViewCell.swift in Sources */,
 				F1DED3A62935F0A400ABC047 /* CommentCollectionViewCell.swift in Sources */,
+				F1DED3FC29386EF000ABC047 /* HealthKitService.swift in Sources */,
 				E5BE8B9F29221B2700E9CFE8 /* LoginCoordinator.swift in Sources */,
 				76AA55C62937AB4F00498441 /* CoordinateDTO.swift in Sources */,
 				F16B453D293331C0002429A2 /* CoordinateDTO.swift in Sources */,
@@ -1732,11 +1750,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Acha/Acha.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 5R9YHBW9BJ;
+				DEVELOPMENT_TEAM = KD3GVSQ9P4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Acha/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "건강 데이터를 써도 되겠습니까?";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "건강 데이터를 사용해도 되겠습니까?";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1750,7 +1772,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = coco.boostcamp.Acha;
+				PRODUCT_BUNDLE_IDENTIFIER = coo.boostcamp.Acha;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1763,11 +1785,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Acha/Acha.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 5R9YHBW9BJ;
+				DEVELOPMENT_TEAM = KD3GVSQ9P4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Acha/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "건강 데이터를 써도 되겠습니까?";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "건강 데이터를 사용해도 되겠습니까?";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1781,7 +1807,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = coco.boostcamp.Acha;
+				PRODUCT_BUNDLE_IDENTIFIER = coo.boostcamp.Acha;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
