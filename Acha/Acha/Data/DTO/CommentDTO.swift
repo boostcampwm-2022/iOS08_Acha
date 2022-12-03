@@ -8,7 +8,7 @@
 import Foundation
 
 struct CommentDTO: Codable {
-    let commentId: Int
+    let id: Int
     let postId: Int
     let nickName: String
     let userId: String
@@ -17,7 +17,7 @@ struct CommentDTO: Codable {
     
     func toDomain() -> Comment {
         return Comment(
-            id: commentId,
+            id: id,
             postId: postId,
             userId: userId,
             nickName: nickName,
@@ -27,7 +27,7 @@ struct CommentDTO: Codable {
     }
     
     init(data: Comment) {
-        self.commentId = data.id
+        self.id = data.id
         self.postId = data.postId
         self.nickName = data.nickName
         self.userId = data.userId
