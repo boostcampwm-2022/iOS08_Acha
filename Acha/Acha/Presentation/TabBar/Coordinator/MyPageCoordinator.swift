@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SafariServices
 
 protocol MyPageCoordinatorProtocol: Coordinator {
     func showMyPageViewController()
