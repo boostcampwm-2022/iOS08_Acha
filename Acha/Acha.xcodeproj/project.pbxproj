@@ -145,7 +145,7 @@
 		F1B514E9293B3FA300F653F3 /* DefaultKeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B514E8293B3FA300F653F3 /* DefaultKeychainService.swift */; };
 		F1B514EB293B3FDD00F653F3 /* DefaultAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B514EA293B3FDD00F653F3 /* DefaultAuthService.swift */; };
 		F1B514ED293B3FEC00F653F3 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B514EC293B3FEC00F653F3 /* AuthService.swift */; };
-		F1B514EF293B405400F653F3 /* DefaultUserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B514EE293B405400F653F3 /* DefaultUserRepository.swift */; };
+		F1B514F1293B414F00F653F3 /* DefaultUserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B514F0293B414F00F653F3 /* DefaultUserRepository.swift */; };
 		F1D202992923AB3D00F3E87D /* InGameRankingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D202982923AB3D00F3E87D /* InGameRankingViewController.swift */; };
 		F1D2029B2923B97400F3E87D /* InGameRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D2029A2923B97400F3E87D /* InGameRecordViewController.swift */; };
 		F1D202A42923C09300F3E87D /* InGameMenuCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D202A32923C09300F3E87D /* InGameMenuCollectionViewCell.swift */; };
@@ -345,7 +345,7 @@
 		F1B514E8293B3FA300F653F3 /* DefaultKeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultKeychainService.swift; sourceTree = "<group>"; };
 		F1B514EA293B3FDD00F653F3 /* DefaultAuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultAuthService.swift; sourceTree = "<group>"; };
 		F1B514EC293B3FEC00F653F3 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
-		F1B514EE293B405400F653F3 /* DefaultUserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultUserRepository.swift; sourceTree = "<group>"; };
+		F1B514F0293B414F00F653F3 /* DefaultUserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultUserRepository.swift; sourceTree = "<group>"; };
 		F1D202982923AB3D00F3E87D /* InGameRankingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameRankingViewController.swift; sourceTree = "<group>"; };
 		F1D2029A2923B97400F3E87D /* InGameRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameRecordViewController.swift; sourceTree = "<group>"; };
 		F1D202A32923C09300F3E87D /* InGameMenuCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameMenuCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -566,7 +566,7 @@
 				76AA55F22937AD8900498441 /* MultiGameRoomRepository.swift */,
 				76AA55DC2937AD7A00498441 /* HomeRepository.swift */,
 				F1DED401293880CB00ABC047 /* DefaultCommunityRepository.swift */,
-				F1B514EE293B405400F653F3 /* DefaultUserRepository.swift */,
+				F1B514F0293B414F00F653F3 /* DefaultUserRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -1362,7 +1362,7 @@
 				47D57743293389EB0014D171 /* DefaultSelectMapUseCase.swift in Sources */,
 				F156F11A29235EC50053E807 /* ImageConstants.swift in Sources */,
 				76AA55EA2937AD7A00498441 /* QRReaderViewController.swift in Sources */,
-				F1B514EF293B405400F653F3 /* DefaultUserRepository.swift in Sources */,
+				F1B514F1293B414F00F653F3 /* DefaultUserRepository.swift in Sources */,
 				47D577592934A9FE0014D171 /* MapBaseViewModel.swift in Sources */,
 				F1DED3A42935ED0100ABC047 /* Comment.swift in Sources */,
 				F1B0D8AE292CCAAC00EBDD02 /* UserDTO.swift in Sources */,

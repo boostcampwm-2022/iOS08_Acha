@@ -7,7 +7,7 @@
 import Foundation
 import RxSwift
 
-struct DefaultUserRepository {
+struct DefaultUserRepository: UserRepository {
     
     private let realtimeDataBaseService: RealtimeDatabaseNetworkService
     private let keychainService: KeychainService
@@ -70,12 +70,14 @@ struct DefaultUserRepository {
                 try authService.signOut()
                 guard getUUID() == nil else {
                     observer.onError(UserError.signOutError)
-                    return
+                    return Disposables.create()
                 }
                 keychainService.delete()
             } catch {
                 observer.onError(UserError.signOutError)
             }
+            
+            return Disposables.create()
         }
     
     }
