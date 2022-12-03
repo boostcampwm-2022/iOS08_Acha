@@ -143,6 +143,8 @@
 		F1B514E3293B26C500F653F3 /* CommunityDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B514E2293B26C500F653F3 /* CommunityDTO.swift */; };
 		F1B514E7293B3F6500F653F3 /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B514E6293B3F6500F653F3 /* KeychainService.swift */; };
 		F1B514E9293B3FA300F653F3 /* DefaultKeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B514E8293B3FA300F653F3 /* DefaultKeychainService.swift */; };
+		F1B514EB293B3FDD00F653F3 /* DefaultAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B514EA293B3FDD00F653F3 /* DefaultAuthService.swift */; };
+		F1B514ED293B3FEC00F653F3 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B514EC293B3FEC00F653F3 /* AuthService.swift */; };
 		F1D202992923AB3D00F3E87D /* InGameRankingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D202982923AB3D00F3E87D /* InGameRankingViewController.swift */; };
 		F1D2029B2923B97400F3E87D /* InGameRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D2029A2923B97400F3E87D /* InGameRecordViewController.swift */; };
 		F1D202A42923C09300F3E87D /* InGameMenuCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D202A32923C09300F3E87D /* InGameMenuCollectionViewCell.swift */; };
@@ -340,6 +342,8 @@
 		F1B514E2293B26C500F653F3 /* CommunityDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityDTO.swift; sourceTree = "<group>"; };
 		F1B514E6293B3F6500F653F3 /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
 		F1B514E8293B3FA300F653F3 /* DefaultKeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultKeychainService.swift; sourceTree = "<group>"; };
+		F1B514EA293B3FDD00F653F3 /* DefaultAuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultAuthService.swift; sourceTree = "<group>"; };
+		F1B514EC293B3FEC00F653F3 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		F1D202982923AB3D00F3E87D /* InGameRankingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameRankingViewController.swift; sourceTree = "<group>"; };
 		F1D2029A2923B97400F3E87D /* InGameRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameRecordViewController.swift; sourceTree = "<group>"; };
 		F1D202A32923C09300F3E87D /* InGameMenuCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameMenuCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -611,6 +615,7 @@
 				4795F04929374DD300B174D6 /* DefaultLocationService.swift */,
 				F1DED3F929386ED500ABC047 /* DefaultHealthKitService.swift */,
 				F1B514E8293B3FA300F653F3 /* DefaultKeychainService.swift */,
+				F1B514EA293B3FDD00F653F3 /* DefaultAuthService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -623,6 +628,7 @@
 				4795F04729374DC800B174D6 /* LocationService.swift */,
 				F1DED3FB29386EF000ABC047 /* HealthKitService.swift */,
 				F1B514E6293B3F6500F653F3 /* KeychainService.swift */,
+				F1B514EC293B3FEC00F653F3 /* AuthService.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -1306,6 +1312,7 @@
 				E5027D58292670570021BF60 /* Record.swift in Sources */,
 				F1E83D79293485A1004C7992 /* CommunityRepository.swift in Sources */,
 				F1DED40029386F8500ABC047 /* HealthKitWriteData.swift in Sources */,
+				F1B514EB293B3FDD00F653F3 /* DefaultAuthService.swift in Sources */,
 				F1034B59292B37EB00BD8407 /* LoginViewModel.swift in Sources */,
 				E5027D58292670570021BF60 /* Record.swift in Sources */,
 				F1DED3AC2935F17700ABC047 /* CommentHeaderCollectionReusableView.swift in Sources */,
@@ -1417,6 +1424,7 @@
 				F1DED3A82935F0AE00ABC047 /* PostCollectionViewCell.swift in Sources */,
 				F18A7FD1292C5DA50054FADE /* UIImage+.swift in Sources */,
 				76A2E1A32923D94C001E887A /* CLLocationCoordinate2D+.swift in Sources */,
+				F1B514ED293B3FEC00F653F3 /* AuthService.swift in Sources */,
 				764AF29D292B639200D16DC9 /* UIViewController+.swift in Sources */,
 				76B3BF50292624850056ABFD /* InGamePlayMenuViewController.swift in Sources */,
 				47D5775229338FB60014D171 /* RecordRepository.swift in Sources */,
