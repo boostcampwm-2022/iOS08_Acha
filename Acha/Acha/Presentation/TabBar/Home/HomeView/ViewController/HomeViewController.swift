@@ -95,18 +95,6 @@ final class HomeViewController: UIViewController, UIViewControllerTransitioningD
         configureUI()
         setUpSubviews()
         bind()
-        
-        let server = DefaultRealtimeDatabaseNetworkService()
-        let repo =  DefaultCommunityRepository(service: server)
-        let comment = Comment(id: 231,
-                              postId: 1242,
-                              userId: "테스트입",
-                              nickName: "꺄꺆꺄", text: "AEWt")
-
-//        repo.makePost(data: Post(id: 30, userId: "Waetew", nickName: "AEwt", text: "awet", image: "awet", comments: [comment]))
-//        repo.deleteComment(data: comment)
-        repo.changeComment(data: comment)
-        
             
     }
 //

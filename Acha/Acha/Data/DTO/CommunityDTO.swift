@@ -2,7 +2,7 @@
 //  CommunityDTO.swift
 //  Acha
 //
-//  Created by hong on 2022/11/28.
+//  Created by hong on 2022/12/03.
 //
 
 import Foundation
