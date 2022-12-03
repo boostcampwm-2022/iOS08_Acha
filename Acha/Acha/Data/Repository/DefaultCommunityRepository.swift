@@ -97,9 +97,10 @@ struct DefaultCommunityRepository {
             .subscribe { result in
                 switch result {
                 case .success(var posts):
-                    let index = posts.firstIndex { $0.id == data.id }!
+                    let index = posts.firstIndex { $0.id == data.id }
+                    guard let postIndex = index else {return}
                     let newPost = PostDTO(data: data)
-                    posts[index] = newPost
+                    posts[postIndex] = newPost
                     updateCommunity(data: posts)
                 default:
                     break
@@ -113,8 +114,9 @@ struct DefaultCommunityRepository {
             .map {
                 guard var post = $0 else { return }
                 var comments = post.comments ?? []
-                let index = comments.firstIndex { $0.id == data.id }!
-                comments[index] = data
+                let index = comments.firstIndex { $0.id == data.id }
+                guard let commentIndex = index else {return}
+                comments[commentIndex] = data
                 post.comments = comments
                 changePost(data: post)
             }
