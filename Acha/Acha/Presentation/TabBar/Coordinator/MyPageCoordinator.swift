@@ -9,9 +9,12 @@ import UIKit
 
 protocol MyPageCoordinatorProtocol: Coordinator {
     func showMyPageViewController()
+    func showBadgeViewController(allBadges: [Badge], ownedBadges: [Badge])
+    func showMyInfoEditViewController()
+    func showSafariViewController(stringURL: String)
 }
 
-final class MyPageCoordinator: Coordinator {
+final class MyPageCoordinator: MyPageCoordinatorProtocol {
     var navigationController: UINavigationController
     var childCoordinators: [Coordinator] = []
     weak var delegate: CoordinatorDelegate?
@@ -44,5 +47,13 @@ final class MyPageCoordinator: Coordinator {
     func showMyInfoEditViewController() {
         let viewController = MyInfoEditViewController()
         navigationController.pushViewController(viewController, animated: true)
+    }
+    
+    #warning("여기서 사파리 뷰컨 띄워주는게 맞겠죠?")
+    func showSafariViewController(stringURL: String) {
+        guard let url = URL(string: stringURL)
+        else { return }
+        let safariVC = SFSafariViewController(url: url)
+        navigationController.present(safariVC, animated: true)
     }
 }
