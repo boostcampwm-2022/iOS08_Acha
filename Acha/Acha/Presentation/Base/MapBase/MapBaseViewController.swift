@@ -16,6 +16,7 @@ protocol MapBaseViewProtocol {
     var disposeBag: DisposeBag { get set }
     
     func setUpMapView()
+    func focusMapLocation(center: CLLocationCoordinate2D, span: Double)
     func focusUserLocation(location: Coordinate, useSpan: Bool)
 }
 
@@ -78,12 +79,12 @@ class MapBaseViewController: UIViewController, MapBaseViewProtocol {
     }
     
     private func bind() {
-        let input = MapBaseViewModel.Input(viewWillDisappearEvent: rx.methodInvoked(#selector(UIViewController.viewWillDisappear)).map { _ in },
-                                           focusButtonTapped: focusButton.rx.tap.asObservable())
+        let input = MapBaseViewModel.Input(
+            viewWillDisappearEvent: rx.methodInvoked(#selector(UIViewController.viewWillDisappear)).map { _ in },
+            focusButtonTapped: focusButton.rx.tap.asObservable())
         let output = mapBaseViewModel.transform(input: input)
         
         output.focusUserEvent.subscribe(onNext: { [weak self] userLocation in
-            // userCoordinate -> CLLocation으로 변환해서 focusUserLocation
             guard let self else { return }
             self.focusUserLocation(location: userLocation, useSpan: false)
         })
@@ -105,17 +106,17 @@ class MapBaseViewController: UIViewController, MapBaseViewProtocol {
 
 extension MapBaseViewController {
     
+    private func setUpUserLocation(_ location: Coordinate) {
+        mapView?.showsUserLocation = true
+        mapView?.setUserTrackingMode(.followWithHeading, animated: true)
+        focusUserLocation(location: location, useSpan: true)
+    }
+    
     /// center 좌표에 span 0.01 수준으로 지도 포커스
     func focusMapLocation(center: CLLocationCoordinate2D, span: Double = 0.01) {
         let region = MKCoordinateRegion(center: center,
                                         span: MKCoordinateSpan(latitudeDelta: span, longitudeDelta: span))
         mapView?.setRegion(region, animated: true)
-    }
-
-    func setUpUserLocation(_ location: Coordinate) {
-        mapView?.showsUserLocation = true
-        mapView?.setUserTrackingMode(.followWithHeading, animated: true)
-        focusUserLocation(location: location, useSpan: true)
     }
     
     func focusUserLocation(location: Coordinate, useSpan: Bool) {
@@ -129,6 +130,7 @@ extension MapBaseViewController {
 }
 
 extension MapBaseViewController {
+    #warning("showAlert으로 고치려고 했는데 showAlert에는 취소 액션이 없네여 추가하고 그거 쓰면 좋을 듯합니다")
     private func showAlertToMoveSetting() {
         let alert = UIAlertController(title: "위치 서비스를 사용할 수 없습니다. 기기의 '설정 > 개인정보 보호'에서 위치 서비스를 켜주세요.",
                                       message: nil,
