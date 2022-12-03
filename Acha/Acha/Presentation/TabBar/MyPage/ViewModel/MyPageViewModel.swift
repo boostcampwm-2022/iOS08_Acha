@@ -74,8 +74,9 @@ final class MyPageViewModel: BaseViewModel {
             }).disposed(by: disposeBag)
         
         input.openSourceTapped
-            .subscribe(onNext: {
-                coordinator?.showSafariViewController(
+            .subscribe(onNext: { [weak self] in
+                guard let self else { return }
+                self.coordinator?.showSafariViewController(
                     stringURL: "https://aluminum-beech-1e1.notion.site/c2027d575eae4b1297778f6f8295aa4e")
             }).disposed(by: disposeBag)
         
