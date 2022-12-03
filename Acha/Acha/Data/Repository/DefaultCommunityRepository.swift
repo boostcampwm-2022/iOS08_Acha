@@ -31,20 +31,20 @@ struct DefaultCommunityRepository {
             .map { $0.map { $0.toDomain() } }
     }
     
-    func getPost(id: Int) -> Single<Post> {
+    func getPost(id: Int) -> Single<Post?> {
         return getAllPost()
             .map { $0.filter { $0.id == id } }
-            .map { return $0.first { $0.id == id }! }
+            .map { return $0.first { $0.id == id } }
     }
     
     func getPostComments(id: Int) -> Single<[Comment]> {
         return getPost(id: id)
-            .map { $0.comments ?? [] }
+            .map { $0?.comments ?? [] }
     }
     
     func getPostComment(id: Int) -> Single<Comment?> {
         return getPostComments(id: id)
-            .map { return $0.first { $0.id == id }! }
+            .map { return $0.first { $0.id == id } }
     }
     
     func makePost(data: Post) {
@@ -63,7 +63,7 @@ struct DefaultCommunityRepository {
     func makeComment(data: Comment) {
         getPost(id: data.postId)
             .map {
-                var post = $0
+                guard var post = $0 else { return }
                 post.addComment(data: data)
                 changePost(data: post)
             }
@@ -84,7 +84,7 @@ struct DefaultCommunityRepository {
     func deleteComment(data: Comment) {
         getPost(id: data.postId)
             .map {
-                var post = $0
+                guard var post = $0 else { return }
                 post.comments = post.comments?.filter { $0.id != data.id }
                 changePost(data: post)
             }
@@ -111,7 +111,7 @@ struct DefaultCommunityRepository {
     func changeComment(data: Comment) {
         getPost(id: data.postId)
             .map {
-                var post = $0
+                guard var post = $0 else { return }
                 var comments = post.comments ?? []
                 let index = comments.firstIndex { $0.id == data.id }!
                 comments[index] = data
