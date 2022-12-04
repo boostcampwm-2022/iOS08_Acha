@@ -53,7 +53,6 @@ final class RecordMainViewController: UIViewController, UICollectionViewDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         configureUI()
         bind()
     }

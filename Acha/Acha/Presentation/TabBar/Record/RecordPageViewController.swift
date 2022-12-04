@@ -18,8 +18,6 @@ class RecordPageViewController: UIViewController {
     
     private lazy var viewList = [recordMainViewController, recordMapViewController]
     
-    // MARK: - Properties
-    
     // MARK: - Lifecycles
     init(recordMainViewController: RecordMainViewController,
          recordMapViewController: RecordMapViewController) {
@@ -66,6 +64,13 @@ extension RecordPageViewController: UIPageViewControllerDelegate, UIPageViewCont
     func pageViewController(_ pageViewController: UIPageViewController,
                             viewControllerBefore viewController: UIViewController) -> UIViewController? {
         guard let index = viewList.firstIndex(of: viewController) else {return nil}
+        
+        if viewList[index] is RecordMapViewController {
+            navigationItem.title = "맵 랭킹"
+        } else if viewList[index] is RecordMainViewController {
+            navigationItem.title = "개인 기록"
+        }
+        
         let previousIndex = index - 1
         if previousIndex < 0 { return nil}
         
@@ -75,9 +80,16 @@ extension RecordPageViewController: UIPageViewControllerDelegate, UIPageViewCont
     func pageViewController(_ pageViewController: UIPageViewController,
                             viewControllerAfter viewController: UIViewController) -> UIViewController? {
         guard let index = viewList.firstIndex(of: viewController) else {return nil}
+
+        if viewList[index] is RecordMapViewController {
+            navigationItem.title = "맵 랭킹"
+        } else if viewList[index] is RecordMainViewController {
+            navigationItem.title = "개인 기록"
+        }
+        
        let nextIndex = index + 1
        if nextIndex == viewList.count { return nil}
-             
+        
        return viewList[nextIndex]
     }
 }

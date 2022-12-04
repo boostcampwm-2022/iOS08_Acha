@@ -38,7 +38,6 @@ final class DefaultRecordMainViewUseCase: RecordMainViewUseCase {
         self.repository.fetchRecordData()
             .subscribe(onNext: { records in
                 guard let mapNameAtMapId = try? self.mapNameAtMapId.value() else { return }
-                
                 var totalDataAtDate = [String: DayTotalRecord]()
                 var allDates = [String]()
                 var recordsAtDate = [String: [Record]]()

@@ -102,7 +102,7 @@ class RecordMainChartCell: UICollectionViewCell {
         }
         
         let lastDistanceLabel = UILabel().then { label in
-            label.font = .smallTitle
+            label.font = .subBody
             label.textColor = .pointLight
             label.textAlignment = .center
             label.text = "0"
@@ -119,12 +119,12 @@ class RecordMainChartCell: UICollectionViewCell {
             $0.trailing.equalToSuperview()
             $0.top.equalToSuperview().offset(35)
             $0.bottom.equalToSuperview().offset(-35)
-            $0.width.equalTo(70)
+            $0.width.equalTo(75)
         }
         
         chartsBackgroundStackView.snp.makeConstraints {
             $0.top.bottom.leading.equalToSuperview()
-            $0.trailing.equalToSuperview().offset(-70)
+            $0.trailing.equalToSuperview().offset(-75)
         }
         
         labelList.forEach { label in
@@ -134,7 +134,7 @@ class RecordMainChartCell: UICollectionViewCell {
         }
         
         distanceLabelList.forEach { label in
-            label.font = .smallTitle
+            label.font = .subBody
             label.textColor = .pointLight
             label.textAlignment = .center
         }
@@ -153,7 +153,7 @@ class RecordMainChartCell: UICollectionViewCell {
         
         distanceLabelList.reversed().forEach {
             current += spacing
-            $0.text = "\(current)"
+            $0.text = current.convertToDecimal + " m"
         }
         
         recordViewChartDataArray.enumerated().forEach { index, element in
