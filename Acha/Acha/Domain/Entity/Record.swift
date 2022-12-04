@@ -15,8 +15,8 @@ struct Record: Hashable, Codable {
     var distance: Int
     var time: Int
     var isSingleMode: Bool
-    var isCompleted: Bool
     var isWin: Bool?
+    var isCompleted: Bool
     var createdAt: String
     
     enum CodingKeys: String, CodingKey {
@@ -27,8 +27,8 @@ struct Record: Hashable, Codable {
         case distance
         case time
         case isSingleMode
-        case isCompleted
         case isWin
+        case isCompleted
         case createdAt = "created_at"
     }
     
@@ -39,8 +39,8 @@ struct Record: Hashable, Codable {
          distance: Int = -1,
          time: Int = Int.max,
          isSingleMode: Bool = true,
-         isCompleted: Bool = false,
          isWin: Bool? = nil,
+         isCompleted: Bool = false,
          createdAt: String = "") {
         self.id = id
         self.mapID = mapID
@@ -49,8 +49,8 @@ struct Record: Hashable, Codable {
         self.distance = distance
         self.time = time
         self.isSingleMode = isSingleMode
-        self.isCompleted = isCompleted
         self.isWin = isWin
+        self.isCompleted = isCompleted
         self.createdAt = createdAt
     }
 }

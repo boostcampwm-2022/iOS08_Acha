@@ -9,7 +9,7 @@ import UIKit
 import Then
 import SnapKit
 
-class SelectMapRecordCell: UICollectionViewCell {
+final class SelectMapRecordCell: UICollectionViewCell {
     
     private lazy var rankingLabel = UILabel().then {
         $0.textColor = .pointLight

@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 
 final class DefaultRecordMainViewUseCase: RecordMainViewUseCase {
-    private let repository: RecordRepository
+    private let repository: TempRepository
     private let disposeBag = DisposeBag()
     
     var mapNameAtMapId = BehaviorSubject<[Int: String]>(value: [:])
@@ -19,7 +19,7 @@ final class DefaultRecordMainViewUseCase: RecordMainViewUseCase {
                                              recordsAtDate: [String: [Record]],
                                              mapNameAtMapId: [Int: String])>()
     
-    init(repository: RecordRepository) {
+    init(repository: TempRepository) {
         self.repository = repository
     }
     

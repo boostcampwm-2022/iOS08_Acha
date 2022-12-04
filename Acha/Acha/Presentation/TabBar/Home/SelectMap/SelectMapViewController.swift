@@ -1,4 +1,3 @@
-//
 //  SelectMapViewController.swift
 //  Acha
 //
@@ -6,13 +5,10 @@
 //
 
 import UIKit
-import CoreLocation
 import MapKit
 import Then
 import SnapKit
-import Firebase
 import RxSwift
-import RxCocoa
 
 final class SelectMapViewController: MapBaseViewController {
     
@@ -50,10 +46,8 @@ final class SelectMapViewController: MapBaseViewController {
     
     // MARK: - Properties
     private let viewModel: SelectMapViewModel
-    private var disposeBag = DisposeBag()
     private let regionDidChanged = PublishSubject<MapRegion>()
     private let mapSelectedEvent = PublishSubject<Map>()
-    private let locationDidChanged = PublishSubject<Coordinate>()
     
     typealias DataSource = UICollectionViewDiffableDataSource<String, Record>
     private var dataSource: DataSource?
@@ -61,7 +55,7 @@ final class SelectMapViewController: MapBaseViewController {
     // MARK: - Lifecycles
     init(viewModel: SelectMapViewModel) {
         self.viewModel = viewModel
-        super.init(nibName: nil, bundle: nil)
+        super.init(viewModel: viewModel)
     }
     
     required init?(coder: NSCoder) {
@@ -79,13 +73,12 @@ final class SelectMapViewController: MapBaseViewController {
         super.setUpMapView()
         mapView?.isRotateEnabled = false
     }
-
 }
 
 extension SelectMapViewController {
     
     // MARK: - Helpers
-    func configureUI() {        
+    func configureUI() {
         view.addSubview(guideLabel)
         guideLabel.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide).offset(50)
@@ -94,7 +87,6 @@ extension SelectMapViewController {
         }
         
         guard let mapView else { return }
-        
         view.addSubview(focusButton)
         focusButton.snp.makeConstraints {
             $0.top.equalTo(mapView.snp.top).offset(50)
@@ -130,7 +122,6 @@ extension SelectMapViewController {
             viewWillAppearEvent: rx.methodInvoked(#selector(UIViewController.viewWillAppear)).map { _ in },
             mapSelected: mapSelectedEvent,
             regionDidChanged: regionDidChanged,
-            locationDidChanged: locationDidChanged,
             startButtonTapped: startButton.rx.tap.asObservable(),
             backButtonTapped: backButton.rx.tap.asObservable())
         let output = viewModel.transform(input: input)
@@ -138,17 +129,7 @@ extension SelectMapViewController {
         output.visibleMaps
             .subscribe { [weak self] maps in
                 maps.forEach { mapElement in
-                    let coordinates = mapElement.coordinates.map {
-                        CLLocationCoordinate2D(latitude: $0.latitude, longitude: $0.longitude)
-                    }
-                    
-                    // 테두리 선
-                    let lineDraw = MKPolyline(coordinates: coordinates, count: coordinates.count)
-                    self?.mapView?.addOverlay(lineDraw)
-                    
-                    // pin
-                    let annotation = MapAnnotation(map: mapElement, polyLine: lineDraw)
-                    self?.mapView?.addAnnotation(annotation)
+                    self?.displayMap(mapElement)
                 }
             }.disposed(by: disposeBag)
         
@@ -160,20 +141,28 @@ extension SelectMapViewController {
         
         output.cannotStart
             .subscribe { [weak self] _ in
-                #warning("showAlert으로 변경")
-                let alert = UIAlertController(title: "선택한 땅과의 거리가 너무 멀어요",
-                                  message: "가까이 가서 다시 시작해주세요",
-                                  preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "확인", style: .default)
-                alert.addAction(okAction)
-                self?.present(alert, animated: true)
+                self?.showAlert(title: "선택한 땅과의 거리가 너무 멀어요",
+                                message: "가까이 가서 다시 시작해주세요")
             }.disposed(by: disposeBag)
+    }
+    
+    private func displayMap(_ map: Map) {
+        let coordinates = map.coordinates.map {
+            CLLocationCoordinate2D(latitude: $0.latitude, longitude: $0.longitude)
+        }
+        // 테두리 선
+        let lineDraw = MKPolyline(coordinates: coordinates, count: coordinates.count)
+        mapView?.addOverlay(lineDraw)
+        // pin
+        let annotation = MapAnnotation(map: map, polyLine: lineDraw)
+        mapView?.addAnnotation(annotation)
     }
 }
 
 // MARK: - MKMapViewDelegate
 extension SelectMapViewController {
     
+    #warning("rx로변경")
     /// annotation (=pin) 클릭 시 액션
     func mapView(_ mapView: MKMapView, didSelect annotation: MKAnnotation) {
         if annotation is MKUserLocation { return }
@@ -214,16 +203,6 @@ extension SelectMapViewController {
         regionDidChanged.onNext(region)
     }
 
-}
-
-// MARK: - CLLocationManagerDelegate
-extension SelectMapViewController {
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let userLocation = locations.last else { return }
-        let newLocation = Coordinate(latitude: userLocation.coordinate.latitude,
-                                     longitude: userLocation.coordinate.longitude)
-        locationDidChanged.onNext(newLocation)
-    }
 }
 
 // MARK: - UICollectionViewDelegate

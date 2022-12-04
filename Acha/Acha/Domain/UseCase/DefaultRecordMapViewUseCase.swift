@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 
 final class DefaultRecordMapViewUseCase: RecordMapViewUseCase {
-    private let repository: RecordRepository
+    private let repository: TempRepository
     private let disposeBag = DisposeBag()
     
     var dropDownMenus = BehaviorSubject<[Map]>(value: [])
@@ -18,7 +18,7 @@ final class DefaultRecordMapViewUseCase: RecordMapViewUseCase {
     var mapNameAndRecordDatas = BehaviorSubject<(mapName: String,
                                                  recordDatas: [Record])>(value: (mapName: "", recordDatas: []))
     
-    init(repository: RecordRepository) {
+    init(repository: TempRepository) {
         self.repository = repository
     }
     
