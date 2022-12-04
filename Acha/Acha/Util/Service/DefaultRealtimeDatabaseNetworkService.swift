@@ -7,7 +7,6 @@
 
 import RxSwift
 import Firebase
-import FirebaseDatabase
 
 final class DefaultRealtimeDatabaseNetworkService: RealtimeDatabaseNetworkService {
 
