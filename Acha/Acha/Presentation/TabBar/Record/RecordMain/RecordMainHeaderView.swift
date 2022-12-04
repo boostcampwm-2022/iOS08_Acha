@@ -6,8 +6,10 @@
 //
 
 import UIKit
+import RxSwift
+import RxRelay
 
-class RecordHeaderView: UICollectionReusableView {
+class RecordMainHeaderView: UICollectionReusableView {
     // MARK: - UI properties
     private lazy var dateLabel = UILabel().then {
         $0.font = .largeTitle
@@ -29,6 +31,7 @@ class RecordHeaderView: UICollectionReusableView {
     
     // MARK: - Properties
     static let identifier = "RecordHeaderView"
+    var bindEvent = PublishRelay<String>()
     
     // MARK: - Lifecycles
     override init(frame: CGRect) {
