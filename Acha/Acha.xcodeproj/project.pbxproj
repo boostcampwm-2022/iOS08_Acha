@@ -280,8 +280,6 @@
 		F1D202982923AB3D00F3E87D /* InGameRankingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameRankingViewController.swift; sourceTree = "<group>"; };
 		F1D2029A2923B97400F3E87D /* InGameRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameRecordViewController.swift; sourceTree = "<group>"; };
 		F1D202A32923C09300F3E87D /* InGameMenuCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameMenuCollectionViewCell.swift; sourceTree = "<group>"; };
-		F1D202A7292463B200F3E87D /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
-		F1D202B42924C38B00F3E87D /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		F1D202B62924C63F00F3E87D /* InGameMenuModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameMenuModelProtocol.swift; sourceTree = "<group>"; };
 		F1DED3922935DF6800ABC047 /* CommunityMainCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityMainCell.swift; sourceTree = "<group>"; };
 		F1DED3942935DF9C00ABC047 /* PostDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDTO.swift; sourceTree = "<group>"; };
@@ -348,7 +346,6 @@
 				471863DC291E155800A35786 /* AchaUITests */,
 				471863BA291E155700A35786 /* Products */,
 				4738D75D2921D3E7003AE835 /* Frameworks */,
-				76B3BF4E2926240D0056ABFD /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -560,15 +557,6 @@
 				769F1AAB2935A7A800A3BB47 /* GameOverView.swift */,
 			);
 			path = SingleGame;
-			sourceTree = "<group>";
-		};
-		76B3BF4E2926240D0056ABFD /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-				F1D202B42924C38B00F3E87D /* Date+Extension.swift */,
-				F1D202A7292463B200F3E87D /* Int+Extension.swift */,
-			);
-			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 		E576464E29377DAE00BADF18 /* ViewModel */ = {

@@ -22,7 +22,7 @@ final class CommunityMainViewModel: BaseViewModel {
     
     // MARK: - Dependency
     var disposeBag = DisposeBag()
-    private let useCase: CommunityMainUseCase!
+    private let useCase: CommunityMainUseCase
     
     // MARK: - Lifecycles
     init(useCase: CommunityMainUseCase) {

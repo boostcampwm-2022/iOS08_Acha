@@ -112,7 +112,7 @@ class CommunityMainCell: UICollectionViewCell {
     
     private func configureUI() {
         largeStackView.snp.makeConstraints {
-            $0.top.leading.trailing.bottom.equalToSuperview()
+            $0.edges.equalToSuperview()
         }
         
         titleStackView.snp.makeConstraints {

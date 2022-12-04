@@ -17,10 +17,9 @@ final class CommunityMainViewController: UIViewController {
     }
     
     // MARK: - UI properties
-    private var collectionView = UICollectionView(
-        frame: .zero,
-        collectionViewLayout: UICollectionViewFlowLayout()
-    )
+    private lazy var collectionView = UICollectionView(frame: .zero,
+                                                  collectionViewLayout: collectionViewLayout())
+    
     // MARK: - Properties
     typealias DataSource = UICollectionViewDiffableDataSource<Section, Post>
     private var dataSource: DataSource!
@@ -70,10 +69,6 @@ final class CommunityMainViewController: UIViewController {
     }
     
     private func configureCollectionView() {
-        collectionView = UICollectionView(
-            frame: .zero,
-            collectionViewLayout: collectionViewLayout()
-        )
         collectionView.contentInsetAdjustmentBehavior = .never
         collectionView.delegate = self
         collectionView.register(CommunityMainCell.self,
