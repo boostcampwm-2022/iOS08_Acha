@@ -25,4 +25,11 @@ struct DiContainerManager {
             authService: DefaultAuthService()
         )
     }
+    
+    static func makeDefaultHomeUseCase() -> DefaultHomeUseCase {
+        return DefaultHomeUseCase(
+            gameRoomRepository: makeDefaultGameRoomRepository(),
+            userRepository: makeDefaultUserRepository()
+        )
+    }
 }

@@ -1855,6 +1855,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Acha/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSCameraUsageDescription = "카메라를 사용해도 되겠습니까?";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "건강 데이터를 써도 되겠습니까?";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "건강 데이터를 사용해도 되겠습니까?";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "";
@@ -1890,6 +1891,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Acha/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSCameraUsageDescription = "카메라를 사용해도 되겠습니까?";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "건강 데이터를 써도 되겠습니까?";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "건강 데이터를 사용해도 되겠습니까?";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "";
