@@ -12,23 +12,21 @@ struct DefaultGameRoomRepository {
     
     enum RoomError: Error {
         case roomFullError
+        case noUserData
     }
     
     private let firebaseRealTimeDatabase: RealtimeDatabaseNetworkService
     private let keychainService: KeychainService
-    private let userRepository: UserRepository
     private let randomService: RandomService
     
     private let disposeBag = DisposeBag()
     init(
         fireBaesRealTimeDatabase: RealtimeDatabaseNetworkService,
         keychainService: KeychainService,
-        userRepository: UserRepository,
         randomService: RandomService
     ) {
         self.firebaseRealTimeDatabase = fireBaesRealTimeDatabase
         self.keychainService = keychainService
-        self.userRepository = userRepository
         self.randomService = randomService
     }
     
@@ -51,7 +49,7 @@ struct DefaultGameRoomRepository {
             .flatMap { roomDTO in
                 var roomDTO = roomDTO
                 if roomDTO.user.count <= 3 {
-                    userRepository.getUserData()
+                    getUserDataFromRealTimeDataBaseService()
                         .subscribe { userDTO in
                             roomDTO.enterRoom(user: userDTO)
                             firebaseRealTimeDatabase.upload(type: .room(id: id), data: roomDTO)
@@ -66,7 +64,7 @@ struct DefaultGameRoomRepository {
     
     func makeRoom() -> Observable<String> {
         return Observable<String>.create { observer in
-            userRepository.getUserData()
+            getUserDataFromRealTimeDataBaseService()
                 .map {
                     let roomId = randomService.make()
                     let roomDTO = RoomDTO(id: roomId, user: [$0])
@@ -106,6 +104,13 @@ struct DefaultGameRoomRepository {
             .map { (roomDTO: RoomDTO) in
                 return roomDTO
             }
+    }
+    
+    private func getUserDataFromRealTimeDataBaseService() -> Single<UserDTO> {
+        guard let uuid = keychainService.get() else {
+            return Single<UserDTO>.error(RoomError.noUserData)
+        }
+        return firebaseRealTimeDatabase.fetch(type: .user(id: uuid))
     }
     
 }
