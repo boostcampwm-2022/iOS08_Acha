@@ -11,7 +11,7 @@ import RxSwift
 struct DefaultGameRoomRepository {
     
     enum RoomError: Error {
-        case RoomFullError
+        case roomFullError
     }
     
     private let firebaseRealTimeDatabase: RealtimeDatabaseNetworkService
@@ -47,24 +47,36 @@ struct DefaultGameRoomRepository {
     func enterRoom(id: String) -> Single<[RoomUser]> {
         return fetchRoomUserData(id: id)
             .flatMap { roomUsers in
-                if roomUsers.count > 4 {
-                    return Single<[RoomUser]>.error(RoomError.RoomFullError)
+                if roomUsers.count > 3 {
+                    return Single<[RoomUser]>.error(RoomError.roomFullError)
                 } else {
                     var roomUsers: [RoomUser] = []
                     firebaseRealTimeDatabase.fetch(type: .room(id: id))
                         .map { (roomDTO: RoomDTO) in
                             var roomDTO = roomDTO
                             userRepository.getUserData()
-                                .map { roomDTO.user.append($0) }
+                                .map { roomDTO.enterRoom(user: $0) }
                                 .subscribe()
                                 .disposed(by: disposeBag)
                             roomUsers = roomDTO.toRoomUsers()
+                            firebaseRealTimeDatabase.upload(type: .room(id: id), data: roomDTO)
+                            return
                         }
                         .subscribe()
                         .disposed(by: disposeBag)
                     return Single<[RoomUser]>.just(roomUsers)
                 }
             }
+    }
+    
+    func makeRoom(id: String) {
+        userRepository.getUserData()
+            .map {
+                let roomDTO = RoomDTO(id: id, user: [$0])
+                firebaseRealTimeDatabase.upload(type: .room(id: id), data: roomDTO)
+            }
+            .subscribe()
+            .disposed(by: disposeBag)
     }
     
     func leaveRoom(id: String) {
