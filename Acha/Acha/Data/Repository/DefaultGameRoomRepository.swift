@@ -93,4 +93,11 @@ struct DefaultGameRoomRepository {
         firebaseRealTimeDatabase.delete(type: .room(id: id))
     }
     
+    func observingRoom(id: String) -> Observable<RoomDTO> {
+        return firebaseRealTimeDatabase.observing(type: .room(id: id))
+            .map { (roomDTO: RoomDTO) in
+                return roomDTO
+            }
+    }
+    
 }

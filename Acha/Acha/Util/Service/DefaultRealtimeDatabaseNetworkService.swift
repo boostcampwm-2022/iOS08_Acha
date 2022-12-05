@@ -64,4 +64,23 @@ final class DefaultRealtimeDatabaseNetworkService: RealtimeDatabaseNetworkServic
         let childReference = self.databaseReference.child(type.path)
         childReference.removeValue()
     }
+    
+    func observing<T: Decodable>(type: FirebaseRealtimeType) -> Observable<T> {
+        return Observable<T>.create { observer in
+            let childReference = self.databaseReference.child(type.path)
+            childReference.observe(.value) { snapshot in
+                guard let snapData = snapshot.value,
+                      let jsonData = try? JSONSerialization.data(withJSONObject: snapData) else {
+                    observer.onError(FirebaseRealtimeError.dataError)
+                    return
+                }
+                guard let data = try? JSONDecoder().decode(T.self, from: jsonData) else {
+                    observer.onError(FirebaseRealtimeError.decodeError)
+                    return
+                }
+                observer.onNext(data)
+            }
+            return Disposables.create()
+        }
+    }
 }
