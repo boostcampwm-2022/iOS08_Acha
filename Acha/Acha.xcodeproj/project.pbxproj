@@ -192,6 +192,7 @@
 		F1DED402293880CB00ABC047 /* DefaultCommunityRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED401293880CB00ABC047 /* DefaultCommunityRepository.swift */; };
 		F1DED40629388A3700ABC047 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED40529388A3700ABC047 /* UserRepository.swift */; };
 		F1E7B0AB293DB8B50088332E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E7B0AA293DB8B50088332E /* User.swift */; };
+		F1E7B0AD293DD01B0088332E /* DefaultGameRoomRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E7B0AC293DD01B0088332E /* DefaultGameRoomRepository.swift */; };
 		F1E83D7729348591004C7992 /* CommunityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E83D7629348591004C7992 /* CommunityViewModel.swift */; };
 		F1E83D79293485A1004C7992 /* CommunityRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E83D78293485A1004C7992 /* CommunityRepository.swift */; };
 		F1E83D7D293489E1004C7992 /* PostDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E83D7C293489E1004C7992 /* PostDTO.swift */; };
@@ -424,6 +425,7 @@
 		F1DED401293880CB00ABC047 /* DefaultCommunityRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCommunityRepository.swift; sourceTree = "<group>"; };
 		F1DED40529388A3700ABC047 /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
 		F1E7B0AA293DB8B50088332E /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		F1E7B0AC293DD01B0088332E /* DefaultGameRoomRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultGameRoomRepository.swift; sourceTree = "<group>"; };
 		F1E83D7629348591004C7992 /* CommunityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityViewModel.swift; sourceTree = "<group>"; };
 		F1E83D78293485A1004C7992 /* CommunityRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityRepository.swift; sourceTree = "<group>"; };
 		F1E83D7C293489E1004C7992 /* PostDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDTO.swift; sourceTree = "<group>"; };
@@ -674,6 +676,7 @@
 				474E2500293DC78100CFAC59 /* DefaultTempRepository.swift */,
 				F1DED401293880CB00ABC047 /* DefaultCommunityRepository.swift */,
 				F1B514F0293B414F00F653F3 /* DefaultUserRepository.swift */,
+				F1E7B0AC293DD01B0088332E /* DefaultGameRoomRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -1559,6 +1562,7 @@
 				47A26DC0292C9F8A0007FBBF /* SelectMapRankingHeaderView.swift in Sources */,
 				76B3BF56292627A30056ABFD /* GamePlayMenuView.swift in Sources */,
 				764AF2A1292B9C1F00D16DC9 /* String+.swift in Sources */,
+				F1E7B0AD293DD01B0088332E /* DefaultGameRoomRepository.swift in Sources */,
 				76B3BF462924D93C0056ABFD /* SingleGameCoordinator.swift in Sources */,
 				47653A302938C4AD00BDC8E3 /* DefaultMyPageUseCase.swift in Sources */,
 				E5027D5A292670BC0021BF60 /* RecordViewHeaderRecord.swift in Sources */,
