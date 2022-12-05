@@ -18,8 +18,8 @@ protocol GameRoomRepository {
     /// 방에 들어가는 메서드 입니다
     func enterRoom(id: String) -> Single<[RoomUser]>
     
-    /// 방을 만드는 메서드입니다. ( 입장 포함 )
-    func makeRoom(id: String)
+    /// 방을 만드는 메서드입니다. ( 입장 포함 ) ... 방 번호 리턴
+    func makeRoom(id: String) -> Observable<String>
     
     /// 방을 떠나는 메서드입니다.
     func leaveRoom(id: String)

@@ -64,15 +64,20 @@ struct DefaultGameRoomRepository {
             }
     }
     
-    func makeRoom() {
-        userRepository.getUserData()
-            .map {
-                let roomId = randomService.make()
-                let roomDTO = RoomDTO(id: roomId, user: [$0])
-                firebaseRealTimeDatabase.upload(type: .room(id: roomId), data: roomDTO)
+    func makeRoom() -> Observable<String> {
+        return Observable<String>.create { observer in
+            userRepository.getUserData()
+                .map {
+                    let roomId = randomService.make()
+                    let roomDTO = RoomDTO(id: roomId, user: [$0])
+                    firebaseRealTimeDatabase.upload(type: .room(id: roomId), data: roomDTO)
+                    observer.onNext(roomId)
+                }
+                .subscribe()
+                .disposed(by: disposeBag)
+            observer.onCompleted()
+            return Disposables.create()
             }
-            .subscribe()
-            .disposed(by: disposeBag)
     }
     
     func leaveRoom(id: String) {
