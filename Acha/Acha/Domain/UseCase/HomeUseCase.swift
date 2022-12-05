@@ -10,27 +10,44 @@ import RxSwift
 
 protocol HomeUseCaseProtocol {
     func getUUID() -> Observable<String>
-    func makeRoomID() -> String
-    func enterRoom(roomID: String)
+    func makeRoom() -> Observable<String>
+    func enterRoom(id: String) -> Single<[RoomUser]>
 }
 
 struct HomeUseCase: HomeUseCaseProtocol {
     
-    private let repository: HomeRepositoryProtocol
-    init(repository: HomeRepositoryProtocol) {
-        self.repository = repository
+    enum HomUseCaseError: Error {
+        case uuidNotFound
+    }
+    
+    private let gameRoomRepository: GameRoomRepository
+    private let userRepository: UserRepository
+    init(
+        gameRoomRepository: GameRoomRepository,
+        userRepository: UserRepository
+    ) {
+        self.gameRoomRepository = gameRoomRepository
+        self.userRepository = userRepository
     }
     
     func getUUID() -> Observable<String> {
-        return repository.getUUID()
+        return Observable<String>.create { observer in
+            guard let uuid = userRepository.getUUID() else {
+                observer.onError(HomeUseCase.HomUseCaseError.uuidNotFound)
+                return Disposables.create()
+            }
+            observer.onNext(uuid)
+            observer.onCompleted()
+            return Disposables.create()
+        }
     }
     
-    func makeRoomID() -> String {
-        return repository.makeRoomID()
+    func makeRoom() -> Observable<String> {
+        return gameRoomRepository.makeRoom()
     }
     
-    func enterRoom(roomID: String) {
-        repository.enterRoom(roomID: roomID)
+    func enterRoom(id: String) -> Single<[RoomUser]> {
+        return gameRoomRepository.enterRoom(id: id)
     }
     
 }

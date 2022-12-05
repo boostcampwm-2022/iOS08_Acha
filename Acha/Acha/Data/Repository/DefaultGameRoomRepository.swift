@@ -8,7 +8,7 @@
 import Foundation
 import RxSwift
 
-struct DefaultGameRoomRepository {
+struct DefaultGameRoomRepository: GameRoomRepository {
     
     enum RoomError: Error {
         case roomFullError
