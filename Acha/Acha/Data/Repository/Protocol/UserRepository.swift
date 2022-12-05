@@ -9,7 +9,7 @@ import RxSwift
 
 protocol UserRepository {
     func getUUID() -> String?
-    func getUserData() -> Single<UserDTO>
+    func getUserData() -> Single<User>
     func signUp(data: SignUpData) -> Single<UserDTO>
     func logIn(data: LoginData) -> Single<String>
     func signOut() -> Observable<Void>

@@ -162,6 +162,7 @@
 		F1DED40029386F8500ABC047 /* HealthKitWriteData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED3FF29386F8500ABC047 /* HealthKitWriteData.swift */; };
 		F1DED402293880CB00ABC047 /* DefaultCommunityRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED401293880CB00ABC047 /* DefaultCommunityRepository.swift */; };
 		F1DED40629388A3700ABC047 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED40529388A3700ABC047 /* UserRepository.swift */; };
+		F1E7B0AB293DB8B50088332E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E7B0AA293DB8B50088332E /* User.swift */; };
 		F1E83D7729348591004C7992 /* CommunityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E83D7629348591004C7992 /* CommunityViewModel.swift */; };
 		F1E83D79293485A1004C7992 /* CommunityRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E83D78293485A1004C7992 /* CommunityRepository.swift */; };
 		F1E83D7D293489E1004C7992 /* PostDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E83D7C293489E1004C7992 /* PostDTO.swift */; };
@@ -363,6 +364,7 @@
 		F1DED3FF29386F8500ABC047 /* HealthKitWriteData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitWriteData.swift; sourceTree = "<group>"; };
 		F1DED401293880CB00ABC047 /* DefaultCommunityRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCommunityRepository.swift; sourceTree = "<group>"; };
 		F1DED40529388A3700ABC047 /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
+		F1E7B0AA293DB8B50088332E /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		F1E83D7629348591004C7992 /* CommunityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityViewModel.swift; sourceTree = "<group>"; };
 		F1E83D78293485A1004C7992 /* CommunityRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityRepository.swift; sourceTree = "<group>"; };
 		F1E83D7C293489E1004C7992 /* PostDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDTO.swift; sourceTree = "<group>"; };
@@ -524,6 +526,7 @@
 				F1DED3A32935ED0100ABC047 /* Comment.swift */,
 				F1DED3FD29386F7400ABC047 /* HealthKitReadData.swift */,
 				F1DED3FF29386F8500ABC047 /* HealthKitWriteData.swift */,
+				F1E7B0AA293DB8B50088332E /* User.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -1346,6 +1349,7 @@
 				F16B453B293330EC002429A2 /* MapDTO.swift in Sources */,
 				76AA55FD2937AD8900498441 /* MultiGameRoomRepository.swift in Sources */,
 				E5027D5C292670F30021BF60 /* RecordViewChartData.swift in Sources */,
+				F1E7B0AB293DB8B50088332E /* User.swift in Sources */,
 				4738D768292267BA003AE835 /* Errors.swift in Sources */,
 				E5BE8B9D29221AAF00E9CFE8 /* MyPageCoordinator.swift in Sources */,
 				76AA55CF2937AC3500498441 /* ProvidableType.swift in Sources */,

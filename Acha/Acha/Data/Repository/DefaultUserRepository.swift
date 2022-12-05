@@ -32,15 +32,15 @@ struct DefaultUserRepository: UserRepository {
         return keychainService.get()
     }
     
-    func getUserData() -> Single<UserDTO> {
-        return Single<UserDTO>.create { single in
+    func fetchUserData() -> Single<User> {
+        return Single<User>.create { single in
             guard let uuid = getUUID() else {
                 single(.failure(KeyChainManager.KeychainServiceError.notLogined))
                 return Disposables.create()
             }
             getUserDataFromRealTimeDataBaseService(uuid: uuid)
                 .subscribe { userDTO in
-                    single(.success(userDTO))
+                    single(.success(userDTO.toDomain()))
                 }
                 .disposed(by: disposeBag)
             return Disposables.create()
