@@ -54,7 +54,7 @@ final class HomeViewModel: BaseViewModel {
                 self.useCase.enterRoom(id: qrStringValue)
                     .subscribe(onSuccess: { _ in
                         self.coordinator?.connectMultiGameFlow(gameID: qrStringValue)
-                    }, onError: { _ in
+                    }, onFailure: { _ in
                         print("입장실패")
                     })
                     .disposed(by: self.disposeBag)
