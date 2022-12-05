@@ -95,9 +95,9 @@ final class HomeViewController: UIViewController, UIViewControllerTransitioningD
         configureUI()
         setUpSubviews()
         bind()
-    
+            
     }
-    
+//
     // MARK: - Helpers
     private func configureUI() {
         view.backgroundColor = .white

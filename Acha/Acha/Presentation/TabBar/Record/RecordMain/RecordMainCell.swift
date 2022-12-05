@@ -6,8 +6,10 @@
 //
 
 import UIKit
+import RxSwift
+import RxRelay
 
-class RecordCell: UICollectionViewCell {
+class RecordMainCell: UICollectionViewCell {
     // MARK: - UI properties
     private lazy var imageView = UIImageView().then {
         $0.image = UIImage(systemName: "house")
@@ -45,6 +47,7 @@ class RecordCell: UICollectionViewCell {
     
     // MARK: - Properties
     static let identifier = "RecordCell"
+    var bindEvent = PublishRelay<Int>()
     
     // MARK: - Lifecycles
     override init(frame: CGRect) {
@@ -113,9 +116,9 @@ class RecordCell: UICollectionViewCell {
         }
     }
     
-    func bind(mapName: String, recordViewRecord: Record) {
+    func bind(mapName: String, record: Record) {
         imageView.image = UIImage(systemName: "house")
-        if let isWin = recordViewRecord.isWin {
+        if let isWin = record.isWin {
             winLabel.isHidden = false
             if isWin {
                 winLabel.text = "승"
@@ -127,10 +130,9 @@ class RecordCell: UICollectionViewCell {
         } else {
             winLabel.isHidden = true
         }
-        mapNameLabel.text = mapName
-        timeLabel.text = "시간: \(recordViewRecord.time.convertToDayHourMinueFormat())"
-        modeLabel.text = recordViewRecord.isSingleMode == true ? "모드: 혼자 하기" : "모드: 같이 하기"
-        distanceLabel.text = "거리: \(recordViewRecord.distance.convertToDecimal) m"
-        kcalLabel.text = "칼로리: \(recordViewRecord.calorie.convertToDecimal) kcal"
+        timeLabel.text = "시간: \(record.time.convertToDayHourMinueFormat())"
+        modeLabel.text = record.isSingleMode == true ? "모드: 혼자 하기" : "모드: 같이 하기"
+        distanceLabel.text = "거리: \(record.distance.convertToDecimal) m"
+        kcalLabel.text = "칼로리: \(record.calorie.convertToDecimal) kcal"
     }
 }
