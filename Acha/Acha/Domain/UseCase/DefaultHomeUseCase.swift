@@ -8,13 +8,13 @@
 import Foundation
 import RxSwift
 
-protocol HomeUseCaseProtocol {
+protocol HomeUseCase {
     func getUUID() -> Observable<String>
     func makeRoom() -> Observable<String>
     func enterRoom(id: String) -> Single<[RoomUser]>
 }
 
-struct HomeUseCase: HomeUseCaseProtocol {
+struct DefaultHomeUseCase: HomeUseCase {
     
     enum HomUseCaseError: Error {
         case uuidNotFound
@@ -33,7 +33,7 @@ struct HomeUseCase: HomeUseCaseProtocol {
     func getUUID() -> Observable<String> {
         return Observable<String>.create { observer in
             guard let uuid = userRepository.getUUID() else {
-                observer.onError(HomeUseCase.HomUseCaseError.uuidNotFound)
+                observer.onError(DefaultHomeUseCase.HomUseCaseError.uuidNotFound)
                 return Disposables.create()
             }
             observer.onNext(uuid)

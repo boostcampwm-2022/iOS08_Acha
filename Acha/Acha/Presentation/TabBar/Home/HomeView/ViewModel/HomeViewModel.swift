@@ -28,11 +28,11 @@ final class HomeViewModel: BaseViewModel {
     
     var disposeBag = DisposeBag()
     private weak var coordinator: HomeCoordinator?
-    private let useCase: HomeUseCaseProtocol
+    private let useCase: HomeUseCase
     
     init(
         coordinator: HomeCoordinator,
-        useCase: HomeUseCaseProtocol
+        useCase: HomeUseCase
     ) {
         self.useCase = useCase
         self.coordinator = coordinator
