@@ -45,26 +45,19 @@ struct DefaultGameRoomRepository {
     }
     
     func enterRoom(id: String) -> Single<[RoomUser]> {
-        return fetchRoomUserData(id: id)
-            .flatMap { roomUsers in
-                if roomUsers.count > 3 {
-                    return Single<[RoomUser]>.error(RoomError.roomFullError)
-                } else {
-                    var roomUsers: [RoomUser] = []
-                    firebaseRealTimeDatabase.fetch(type: .room(id: id))
-                        .map { (roomDTO: RoomDTO) in
-                            var roomDTO = roomDTO
-                            userRepository.getUserData()
-                                .map { roomDTO.enterRoom(user: $0) }
-                                .subscribe()
-                                .disposed(by: disposeBag)
-                            roomUsers = roomDTO.toRoomUsers()
+        return fetchRoomData(id: id)
+            .flatMap { roomDTO in
+                var roomDTO = roomDTO
+                if roomDTO.user.count <= 3 {
+                    userRepository.getUserData()
+                        .subscribe { userDTO in
+                            roomDTO.enterRoom(user: userDTO)
                             firebaseRealTimeDatabase.upload(type: .room(id: id), data: roomDTO)
-                            return
                         }
-                        .subscribe()
                         .disposed(by: disposeBag)
-                    return Single<[RoomUser]>.just(roomUsers)
+                    return fetchRoomUserData(id: id)
+                } else {
+                    return Single<[RoomUser]>.error(RoomError.roomFullError)
                 }
             }
     }

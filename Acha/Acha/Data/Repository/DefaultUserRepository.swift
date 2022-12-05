@@ -58,6 +58,7 @@ struct DefaultUserRepository: UserRepository {
     func logIn(data: LoginData) -> Single<String> {
         return authService.logIn(data: data)
             .map { uuid in
+                keychainService.delete()
                 keychainService.save(uuid: uuid)
                 return uuid
             }
