@@ -1,5 +1,5 @@
 //
-//  FirebasePath.swift
+//  FirebaseRealtimeType.swift
 //  Acha
 //
 //  Created by  sangyeon on 2022/11/27.
@@ -14,6 +14,7 @@ enum FirebaseRealtimeType {
     case room(id: String)
     case postList
     case post(id: Int)
+    case badge
     
     var path: String {
         switch self {
@@ -29,6 +30,8 @@ enum FirebaseRealtimeType {
             return "community/postList"
         case .postList:
             return "community"
+        case .badge:
+            return "badge"
         }
     }
 }

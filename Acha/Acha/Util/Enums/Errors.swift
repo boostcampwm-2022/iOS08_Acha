@@ -20,8 +20,3 @@ enum Errors: Error {
         }
     }
 }
-
-enum NetworkError: Error {
-    case dataError
-    case decodeError
-}

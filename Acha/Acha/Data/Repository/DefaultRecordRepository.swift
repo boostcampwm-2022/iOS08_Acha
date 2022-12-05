@@ -37,6 +37,7 @@ final class DefaultRecordRepository: RecordRepository {
                 record.id = records.count
                 self.realTimeDatabaseNetworkService.uploadNewRecord(index: records.count, data: record)
             })
+            .disposed(by: disposeBag)
     }
     
     func healthKitAuthorization() -> Observable<Void> {

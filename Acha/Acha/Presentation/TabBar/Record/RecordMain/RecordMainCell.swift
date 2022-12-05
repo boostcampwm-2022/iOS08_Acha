@@ -117,6 +117,7 @@ class RecordMainCell: UICollectionViewCell {
     }
     
     func bind(mapName: String, record: Record) {
+        mapNameLabel.text = mapName
         imageView.image = UIImage(systemName: "house")
         if let isWin = record.isWin {
             winLabel.isHidden = false

@@ -54,7 +54,7 @@ final class LoginCoordinator: LoginCoordinatorProtocol {
         viewControllers.remove(at: viewControllers.count-2)
     }
 }
-
+#warning("didFinished 제거")
 extension LoginCoordinator: CoordinatorDelegate {
     func didFinished(childCoordinator: Coordinator) {
         showLoginViewController()
