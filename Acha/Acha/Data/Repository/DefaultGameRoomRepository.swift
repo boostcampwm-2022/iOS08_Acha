@@ -17,17 +17,19 @@ struct DefaultGameRoomRepository {
     private let firebaseRealTimeDatabase: RealtimeDatabaseNetworkService
     private let keychainService: KeychainService
     private let userRepository: UserRepository
+    private let randomService: RandomService
     
     private let disposeBag = DisposeBag()
     init(
         fireBaesRealTimeDatabase: RealtimeDatabaseNetworkService,
         keychainService: KeychainService,
-        userRepository: UserRepository
+        userRepository: UserRepository,
+        randomService: RandomService
     ) {
         self.firebaseRealTimeDatabase = fireBaesRealTimeDatabase
         self.keychainService = keychainService
         self.userRepository = userRepository
-        
+        self.randomService = randomService
     }
     
     func fetchRoomData(id: String) -> Single<RoomDTO> {
@@ -62,11 +64,12 @@ struct DefaultGameRoomRepository {
             }
     }
     
-    func makeRoom(id: String) {
+    func makeRoom() {
         userRepository.getUserData()
             .map {
-                let roomDTO = RoomDTO(id: id, user: [$0])
-                firebaseRealTimeDatabase.upload(type: .room(id: id), data: roomDTO)
+                let roomId = randomService.make()
+                let roomDTO = RoomDTO(id: roomId, user: [$0])
+                firebaseRealTimeDatabase.upload(type: .room(id: roomId), data: roomDTO)
             }
             .subscribe()
             .disposed(by: disposeBag)

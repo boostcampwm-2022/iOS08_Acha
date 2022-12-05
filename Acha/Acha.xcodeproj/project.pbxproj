@@ -194,6 +194,8 @@
 		F1E7B0AB293DB8B50088332E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E7B0AA293DB8B50088332E /* User.swift */; };
 		F1E7B0AD293DD01B0088332E /* DefaultGameRoomRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E7B0AC293DD01B0088332E /* DefaultGameRoomRepository.swift */; };
 		F1E7B0AF293DD1A50088332E /* GameRoomRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E7B0AE293DD1A50088332E /* GameRoomRepository.swift */; };
+		F1E7B0B1293DD1E80088332E /* DefaultRandomService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E7B0B0293DD1E80088332E /* DefaultRandomService.swift */; };
+		F1E7B0B3293DD1F80088332E /* RandomService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E7B0B2293DD1F80088332E /* RandomService.swift */; };
 		F1E83D7729348591004C7992 /* CommunityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E83D7629348591004C7992 /* CommunityViewModel.swift */; };
 		F1E83D79293485A1004C7992 /* CommunityRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E83D78293485A1004C7992 /* CommunityRepository.swift */; };
 		F1E83D7D293489E1004C7992 /* PostDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E83D7C293489E1004C7992 /* PostDTO.swift */; };
@@ -428,6 +430,8 @@
 		F1E7B0AA293DB8B50088332E /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		F1E7B0AC293DD01B0088332E /* DefaultGameRoomRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultGameRoomRepository.swift; sourceTree = "<group>"; };
 		F1E7B0AE293DD1A50088332E /* GameRoomRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRoomRepository.swift; sourceTree = "<group>"; };
+		F1E7B0B0293DD1E80088332E /* DefaultRandomService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultRandomService.swift; sourceTree = "<group>"; };
+		F1E7B0B2293DD1F80088332E /* RandomService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomService.swift; sourceTree = "<group>"; };
 		F1E83D7629348591004C7992 /* CommunityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityViewModel.swift; sourceTree = "<group>"; };
 		F1E83D78293485A1004C7992 /* CommunityRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityRepository.swift; sourceTree = "<group>"; };
 		F1E83D7C293489E1004C7992 /* PostDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDTO.swift; sourceTree = "<group>"; };
@@ -741,6 +745,7 @@
 				F1DED3F929386ED500ABC047 /* DefaultHealthKitService.swift */,
 				F1B514E8293B3FA300F653F3 /* DefaultKeychainService.swift */,
 				F1B514EA293B3FDD00F653F3 /* DefaultAuthService.swift */,
+				F1E7B0B0293DD1E80088332E /* DefaultRandomService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -755,6 +760,7 @@
 				F1DED3FB29386EF000ABC047 /* HealthKitService.swift */,
 				F1B514E6293B3F6500F653F3 /* KeychainService.swift */,
 				F1B514EC293B3FEC00F653F3 /* AuthService.swift */,
+				F1E7B0B2293DD1F80088332E /* RandomService.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -1632,6 +1638,7 @@
 				F156F11C2923623C0053E807 /* PaddingLabel.swift in Sources */,
 				4795F04829374DC800B174D6 /* LocationService.swift in Sources */,
 				471863BD291E155700A35786 /* AppDelegate.swift in Sources */,
+				F1E7B0B3293DD1F80088332E /* RandomService.swift in Sources */,
 				F1DED3AA2935F16A00ABC047 /* PostHeaderCollectionReusableView.swift in Sources */,
 				E5BE8BA129221B6D00E9CFE8 /* SignupCoordinator .swift in Sources */,
 				E5BE8B97292219D800E9CFE8 /* HomeCoordinator.swift in Sources */,
@@ -1662,6 +1669,7 @@
 				47653A2E2938C4A500BDC8E3 /* MyPageUseCase.swift in Sources */,
 				F156F11E292365840053E807 /* CALayer+.swift in Sources */,
 				761C1C10292E4562000C88D0 /* TimerService.swift in Sources */,
+				F1E7B0B1293DD1E80088332E /* DefaultRandomService.swift in Sources */,
 				F1FCEE0E292B483E001A55D6 /* UITextField+.swift in Sources */,
 				474E24F7293DC73200CFAC59 /* TempDBNetwork.swift in Sources */,
 				474E24E4293DC6B800CFAC59 /* LineGraphView.swift in Sources */,
