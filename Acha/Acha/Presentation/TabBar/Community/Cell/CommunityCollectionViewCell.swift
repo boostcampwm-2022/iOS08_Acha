@@ -71,7 +71,7 @@ final class CommunityCollectionViewCell: UICollectionViewCell {
         postTextLabel.text = data.text
         // 이미지 ???
 //        postImageView.image = .checkmark
-        commentCountLabel.text = "\(data.commentCount)"
+        commentCountLabel.text = "\(data.comments?.count)"
     }
     
     override init(frame: CGRect) {
