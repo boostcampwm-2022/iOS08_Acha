@@ -105,7 +105,6 @@
 		76AA55D32937AC8700498441 /* LogInData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AA55D22937AC8700498441 /* LogInData.swift */; };
 		76AA55D52937ACB900498441 /* MultiGameCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AA55D42937ACB900498441 /* MultiGameCoordinator.swift */; };
 		76AA55E52937AD7A00498441 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AA55DA2937AD7A00498441 /* HomeViewModel.swift */; };
-		76AA55E72937AD7A00498441 /* HomeProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AA55DE2937AD7A00498441 /* HomeProvider.swift */; };
 		76AA55E82937AD7A00498441 /* MultiGameEnterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AA55E02937AD7A00498441 /* MultiGameEnterViewController.swift */; };
 		76AA55E92937AD7A00498441 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AA55E12937AD7A00498441 /* HomeViewController.swift */; };
 		76AA55EA2937AD7A00498441 /* QRReaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AA55E22937AD7A00498441 /* QRReaderViewController.swift */; };
@@ -340,7 +339,6 @@
 		76AA55D22937AC8700498441 /* LogInData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogInData.swift; sourceTree = "<group>"; };
 		76AA55D42937ACB900498441 /* MultiGameCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiGameCoordinator.swift; sourceTree = "<group>"; };
 		76AA55DA2937AD7A00498441 /* HomeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
-		76AA55DE2937AD7A00498441 /* HomeProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeProvider.swift; sourceTree = "<group>"; };
 		76AA55E02937AD7A00498441 /* MultiGameEnterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiGameEnterViewController.swift; sourceTree = "<group>"; };
 		76AA55E12937AD7A00498441 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		76AA55E22937AD7A00498441 /* QRReaderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRReaderViewController.swift; sourceTree = "<group>"; };
@@ -948,7 +946,6 @@
 		E57646B32939C26C00BADF18 /* Provider */ = {
 			isa = PBXGroup;
 			children = (
-				76AA55DE2937AD7A00498441 /* HomeProvider.swift */,
 				76AA56042937AD9700498441 /* AuthProvider.swift */,
 			);
 			path = Provider;
@@ -1614,7 +1611,6 @@
 				470C7053293B191B00261250 /* SelectMapViewController.swift in Sources */,
 				F1DED3FA29386ED500ABC047 /* DefaultHealthKitService.swift in Sources */,
 				E5BE8B9B29221A8A00E9CFE8 /* CommunityCoordinator.swift in Sources */,
-				76AA55E72937AD7A00498441 /* HomeProvider.swift in Sources */,
 				76AA55D52937ACB900498441 /* MultiGameCoordinator.swift in Sources */,
 				76AA56122937AE2600498441 /* RandomFactory.swift in Sources */,
 				47D5773B293389940014D171 /* MapRepository.swift in Sources */,
