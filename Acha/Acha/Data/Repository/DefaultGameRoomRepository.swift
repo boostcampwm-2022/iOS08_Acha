@@ -73,16 +73,19 @@ struct DefaultGameRoomRepository {
             .map { (roomDTO: RoomDTO) in
                 var roomDTO = roomDTO
                 roomDTO.user = roomDTO.user.filter { $0.id != uuid }
+                if roomDTO.user.count == 0 {
+                    deleteRoom(id: id)
+                } else {
+                    firebaseRealTimeDatabase.upload(type: .room(id: id), data: roomDTO)
+                }
                 return roomDTO
             }
-            .subscribe { roomDTO in
-                firebaseRealTimeDatabase.upload(type: .room(id: id), data: roomDTO)
-            }
+            .subscribe()
             .disposed(by: disposeBag)
     }
     
     func deleteRoom(id: String) {
-        
+        firebaseRealTimeDatabase.delete(type: .room(id: id))
     }
     
 }
