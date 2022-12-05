@@ -10,7 +10,6 @@
 		470C70492938DBF400261250 /* MyInfoEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470C70482938DBF400261250 /* MyInfoEditViewController.swift */; };
 		470C704E293B18C000261250 /* BadgeDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470C704B293B18C000261250 /* BadgeDTO.swift */; };
 		470C704F293B18C000261250 /* RecordDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470C704C293B18C000261250 /* RecordDTO.swift */; };
-		470C7050293B18C000261250 /* UserDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470C704D293B18C000261250 /* UserDTO.swift */; };
 		470C7053293B191B00261250 /* SelectMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470C7052293B191B00261250 /* SelectMapViewController.swift */; };
 		470C7054293B5C2600261250 /* AuthProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AA56042937AD9700498441 /* AuthProvider.swift */; };
 		470C7055293B5C3E00261250 /* MyPageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AA55A1293775F200498441 /* MyPageHeaderView.swift */; };
@@ -22,6 +21,7 @@
 		471863D4291E155800A35786 /* AchaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471863D3291E155800A35786 /* AchaTests.swift */; };
 		471863DE291E155800A35786 /* AchaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471863DD291E155800A35786 /* AchaUITests.swift */; };
 		471863E0291E155800A35786 /* AchaUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471863DF291E155800A35786 /* AchaUITestsLaunchTests.swift */; };
+		471A6F3B293DCB7B0076DEE3 /* UserDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471A6F3A293DCB7B0076DEE3 /* UserDTO.swift */; };
 		4738D75F2921D3E7003AE835 /* AchaLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = 4738D75E2921D3E7003AE835 /* AchaLibrary */; };
 		4738D7612921D6E4003AE835 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4738D7602921D6E4003AE835 /* GoogleService-Info.plist */; };
 		4738D768292267BA003AE835 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4738D767292267BA003AE835 /* Errors.swift */; };
@@ -228,7 +228,6 @@
 		470C70482938DBF400261250 /* MyInfoEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoEditViewController.swift; sourceTree = "<group>"; };
 		470C704B293B18C000261250 /* BadgeDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BadgeDTO.swift; sourceTree = "<group>"; };
 		470C704C293B18C000261250 /* RecordDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordDTO.swift; sourceTree = "<group>"; };
-		470C704D293B18C000261250 /* UserDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDTO.swift; sourceTree = "<group>"; };
 		470C7052293B191B00261250 /* SelectMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectMapViewController.swift; sourceTree = "<group>"; };
 		471039552937B7A700003CB5 /* SettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
 		471863B9291E155700A35786 /* Acha.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Acha.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -242,6 +241,7 @@
 		471863D9291E155800A35786 /* AchaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AchaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		471863DD291E155800A35786 /* AchaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchaUITests.swift; sourceTree = "<group>"; };
 		471863DF291E155800A35786 /* AchaUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchaUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		471A6F3A293DCB7B0076DEE3 /* UserDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDTO.swift; sourceTree = "<group>"; };
 		4738D75C2921D398003AE835 /* AchaLibrary */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = AchaLibrary; path = ../AchaLibrary; sourceTree = "<group>"; };
 		4738D7602921D6E4003AE835 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4738D765292238C3003AE835 /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
@@ -671,9 +671,9 @@
 				76AA55F22937AD8900498441 /* MultiGameRoomRepository.swift */,
 				76AA55DC2937AD7A00498441 /* HomeRepository.swift */,
 				47653A392938D70500BDC8E3 /* DefaultBadgeRepository.swift */,
+				474E2500293DC78100CFAC59 /* DefaultTempRepository.swift */,
 				F1DED401293880CB00ABC047 /* DefaultCommunityRepository.swift */,
 				F1B514F0293B414F00F653F3 /* DefaultUserRepository.swift */,
-				474E2500293DC78100CFAC59 /* DefaultTempRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -950,11 +950,11 @@
 				F16B453A293330EC002429A2 /* MapDTO.swift */,
 				470C704B293B18C000261250 /* BadgeDTO.swift */,
 				470C704C293B18C000261250 /* RecordDTO.swift */,
-				470C704D293B18C000261250 /* UserDTO.swift */,
 				76AA55C52937AB4F00498441 /* CoordinateDTO.swift */,
 				F1E83D7C293489E1004C7992 /* PostDTO.swift */,
 				F1E83D7E29348A4A004C7992 /* CommentDTO.swift */,
 				F1B514E2293B26C500F653F3 /* CommunityDTO.swift */,
+				471A6F3A293DCB7B0076DEE3 /* UserDTO.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -1494,6 +1494,7 @@
 				E5BE8BBA2922217600E9CFE8 /* TabBarType.swift in Sources */,
 				76A2E1A12923C5A7001E887A /* SingleGameViewModel.swift in Sources */,
 				F1E83D7D293489E1004C7992 /* PostDTO.swift in Sources */,
+				471A6F3B293DCB7B0076DEE3 /* UserDTO.swift in Sources */,
 				76AA55E92937AD7A00498441 /* HomeViewController.swift in Sources */,
 				4768898F2937928900AF633B /* Badge.swift in Sources */,
 				76A2E1A529249099001E887A /* Double+.swift in Sources */,
@@ -1521,7 +1522,6 @@
 				76AA55E62937AD7A00498441 /* HomeRepository.swift in Sources */,
 				47A26DBC292B73850007FBBF /* Coordinate.swift in Sources */,
 				47935E9F29238EB400481307 /* SelectMapViewModel.swift in Sources */,
-				470C7050293B18C000261250 /* UserDTO.swift in Sources */,
 				F1B514E7293B3F6500F653F3 /* KeychainService.swift in Sources */,
 				F1E83D7F29348A4A004C7992 /* CommentDTO.swift in Sources */,
 				F14B1495292BA1D40010E966 /* KeyboardManager.swift in Sources */,
@@ -1577,6 +1577,8 @@
 				F1DED402293880CB00ABC047 /* DefaultCommunityRepository.swift in Sources */,
 				F1B514E3293B26C500F653F3 /* CommunityDTO.swift in Sources */,
 				474E24E6293DC6B800CFAC59 /* RecordMainHeaderView.swift in Sources */,
+				F1DED402293880CB00ABC047 /* DefaultCommunityRepository.swift in Sources */,
+				F1B514E3293B26C500F653F3 /* CommunityDTO.swift in Sources */,
 				F1DED40629388A3700ABC047 /* UserRepository.swift in Sources */,
 				E5BE8B91292218A500E9CFE8 /* Coordinator.swift in Sources */,
 				F1E83D8B29351C69004C7992 /* CommunityViewUsecase.swift in Sources */,
