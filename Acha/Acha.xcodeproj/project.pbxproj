@@ -193,6 +193,7 @@
 		F1DED40629388A3700ABC047 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED40529388A3700ABC047 /* UserRepository.swift */; };
 		F1E7B0AB293DB8B50088332E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E7B0AA293DB8B50088332E /* User.swift */; };
 		F1E7B0AD293DD01B0088332E /* DefaultGameRoomRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E7B0AC293DD01B0088332E /* DefaultGameRoomRepository.swift */; };
+		F1E7B0AF293DD1A50088332E /* GameRoomRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E7B0AE293DD1A50088332E /* GameRoomRepository.swift */; };
 		F1E83D7729348591004C7992 /* CommunityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E83D7629348591004C7992 /* CommunityViewModel.swift */; };
 		F1E83D79293485A1004C7992 /* CommunityRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E83D78293485A1004C7992 /* CommunityRepository.swift */; };
 		F1E83D7D293489E1004C7992 /* PostDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E83D7C293489E1004C7992 /* PostDTO.swift */; };
@@ -426,6 +427,7 @@
 		F1DED40529388A3700ABC047 /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
 		F1E7B0AA293DB8B50088332E /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		F1E7B0AC293DD01B0088332E /* DefaultGameRoomRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultGameRoomRepository.swift; sourceTree = "<group>"; };
+		F1E7B0AE293DD1A50088332E /* GameRoomRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRoomRepository.swift; sourceTree = "<group>"; };
 		F1E83D7629348591004C7992 /* CommunityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityViewModel.swift; sourceTree = "<group>"; };
 		F1E83D78293485A1004C7992 /* CommunityRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityRepository.swift; sourceTree = "<group>"; };
 		F1E83D7C293489E1004C7992 /* PostDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDTO.swift; sourceTree = "<group>"; };
@@ -689,6 +691,7 @@
 				47D5775129338FB60014D171 /* RecordRepository.swift */,
 				47653A372938D6EF00BDC8E3 /* BadgeRepository.swift */,
 				F1DED40529388A3700ABC047 /* UserRepository.swift */,
+				F1E7B0AE293DD1A50088332E /* GameRoomRepository.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -1665,6 +1668,7 @@
 				47D5774F29338A7A0014D171 /* DefaultRealtimeDatabaseNetworkService.swift in Sources */,
 				E5BE8B9929221A4C00E9CFE8 /* RecordCoordinator.swift in Sources */,
 				47D5773D293389AC0014D171 /* DefaultMapRepository.swift in Sources */,
+				F1E7B0AF293DD1A50088332E /* GameRoomRepository.swift in Sources */,
 				F1B0D8AC292CCA5200EBDD02 /* SignUpData.swift in Sources */,
 				76B3BF4A2924DDE70056ABFD /* BaseViewModel.swift in Sources */,
 				761E5F072935EF4200E6CACC /* InGameUseCase.swift in Sources */,
