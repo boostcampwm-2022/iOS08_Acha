@@ -53,6 +53,14 @@ final class MultiGameViewController: UIViewController, DistanceAndTimeBarLine {
         outputs.visitedLocation
             .drive(onNext: { [weak self] location in
                 self?.mapView.addOverlay(MKCircle(center: location.coordinate, radius: 10))
+                let annotation = PlayerAnnotation(player: MultiGamePlayerData(
+                    id: "aewtew",
+                    nickName: "AWettwe", currentLocation: Coordinate(latitude: location.coordinate.latitude,
+                                                                     longitude: location.coordinate.longitude),
+                    point: 30)
+                )
+                self?.removeAllAnnotations()
+                self?.mapView.addAnnotation(annotation)
             })
             .disposed(by: disposebag)
     }
@@ -102,4 +110,11 @@ extension MultiGameViewController: MKMapViewDelegate {
          circleRenderer.alpha = 0.2
          return circleRenderer
      }
+    
+    private func removeAllAnnotations() {
+        let annotations = mapView.annotations.filter {
+            $0 !== mapView.userLocation
+        }
+        mapView.removeAnnotations(annotations)
+    }
 }

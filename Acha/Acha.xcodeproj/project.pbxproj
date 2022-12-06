@@ -179,6 +179,8 @@
 		F1CC5145293F001000B9008D /* TimeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CC5144293F001000B9008D /* TimeRepository.swift */; };
 		F1CC5147293F01C700B9008D /* DefaultLocationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CC5146293F01C700B9008D /* DefaultLocationRepository.swift */; };
 		F1CC5149293F029100B9008D /* LocationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CC5148293F029100B9008D /* LocationRepository.swift */; };
+		F1CC514B293F237B00B9008D /* PlayerAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CC514A293F237B00B9008D /* PlayerAnnotation.swift */; };
+		F1CC514D293F24E500B9008D /* MultiGamePlayerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CC514C293F24E500B9008D /* MultiGamePlayerData.swift */; };
 		F1D202992923AB3D00F3E87D /* InGameRankingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D202982923AB3D00F3E87D /* InGameRankingViewController.swift */; };
 		F1D2029B2923B97400F3E87D /* InGameRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D2029A2923B97400F3E87D /* InGameRecordViewController.swift */; };
 		F1D202A42923C09300F3E87D /* InGameMenuCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D202A32923C09300F3E87D /* InGameMenuCollectionViewCell.swift */; };
@@ -419,6 +421,8 @@
 		F1CC5144293F001000B9008D /* TimeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeRepository.swift; sourceTree = "<group>"; };
 		F1CC5146293F01C700B9008D /* DefaultLocationRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultLocationRepository.swift; sourceTree = "<group>"; };
 		F1CC5148293F029100B9008D /* LocationRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationRepository.swift; sourceTree = "<group>"; };
+		F1CC514A293F237B00B9008D /* PlayerAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerAnnotation.swift; sourceTree = "<group>"; };
+		F1CC514C293F24E500B9008D /* MultiGamePlayerData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiGamePlayerData.swift; sourceTree = "<group>"; };
 		F1D202982923AB3D00F3E87D /* InGameRankingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameRankingViewController.swift; sourceTree = "<group>"; };
 		F1D2029A2923B97400F3E87D /* InGameRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameRecordViewController.swift; sourceTree = "<group>"; };
 		F1D202A32923C09300F3E87D /* InGameMenuCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameMenuCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -622,6 +626,7 @@
 				F1DED3FF29386F8500ABC047 /* HealthKitWriteData.swift */,
 				F1E7B0AA293DB8B50088332E /* User.swift */,
 				4768898E2937928900AF633B /* Badge.swift */,
+				F1CC514C293F24E500B9008D /* MultiGamePlayerData.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -1012,6 +1017,7 @@
 			children = (
 				76AA55F42937AD8900498441 /* GameRoomCollectionViewHeader.swift */,
 				76AA55F52937AD8900498441 /* GameRoomCollectionViewCell.swift */,
+				F1CC514A293F237B00B9008D /* PlayerAnnotation.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1588,6 +1594,7 @@
 				474E24FB293DC75F00CFAC59 /* DefaultRecordMapViewUseCase.swift in Sources */,
 				76B3BF442924C7450056ABFD /* SingleGameViewController.swift in Sources */,
 				F1E83D8629348C59004C7992 /* CommunityCollectionViewCell.swift in Sources */,
+				F1CC514B293F237B00B9008D /* PlayerAnnotation.swift in Sources */,
 				47D57743293389EB0014D171 /* DefaultSelectMapUseCase.swift in Sources */,
 				F156F11A29235EC50053E807 /* ImageConstants.swift in Sources */,
 				76AA55EA2937AD7A00498441 /* QRReaderViewController.swift in Sources */,
@@ -1653,6 +1660,7 @@
 				E5BE8BA129221B6D00E9CFE8 /* SignupCoordinator .swift in Sources */,
 				F1CC513D293EFAD800B9008D /* MultiGameViewModel.swift in Sources */,
 				E5BE8B97292219D800E9CFE8 /* HomeCoordinator.swift in Sources */,
+				F1CC514D293F24E500B9008D /* MultiGamePlayerData.swift in Sources */,
 				F1D202B72924C63F00F3E87D /* InGameMenuModelProtocol.swift in Sources */,
 				F1D2029B2923B97400F3E87D /* InGameRecordViewController.swift in Sources */,
 				47935E99292375DC00481307 /* MapAnnotation.swift in Sources */,
