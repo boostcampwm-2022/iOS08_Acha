@@ -9,6 +9,18 @@ import Foundation
 import RxSwift
 
 struct DefaultMultiGameRoomUseCase: MultiGameRoomUseCase {
+    
+    enum GameRoomError: Error, LocalizedError {
+        case notAvailiableUserNumber
+        
+        var errorDescription: String? {
+            switch self {
+            case .notAvailiableUserNumber:
+                return "2명 이상이여야 게임을 시작할 수 있습니다."
+            }
+        }
+    }
+    private let disposebag = DisposeBag()
 
     private let repository: GameRoomRepository
     init(repository: GameRoomRepository) {
@@ -29,5 +41,21 @@ struct DefaultMultiGameRoomUseCase: MultiGameRoomUseCase {
     
     func removeObserver(roomID: String) {
         repository.removeObserverRoom(id: roomID)
+    }
+    
+    func isGameAvailable(roomID: String) -> Observable<Void> {
+        return Observable<Void>.create { observer in
+            get(roomID: roomID)
+                .map { roomUsers in
+                    if 2...4 ~= roomUsers.count {
+                        observer.onNext(())
+                    } else {
+                        observer.onError(GameRoomError.notAvailiableUserNumber)
+                    }
+                }
+                .subscribe()
+                .disposed(by: disposebag)
+            return Disposables.create()
+        }
     }
 }

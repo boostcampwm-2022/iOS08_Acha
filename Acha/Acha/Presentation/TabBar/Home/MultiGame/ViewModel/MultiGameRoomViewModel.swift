@@ -54,7 +54,13 @@ final class MultiGameRoomViewModel: BaseViewModel {
         input.gameStartButtonTapped
             .subscribe { [weak self] _ in
                 guard let self = self else {return}
-                self.coordinator?.showMultiGameSelectViewController(roomID: self.roomID)
+                self.useCase.isGameAvailable(roomID: self.roomID)
+                    .subscribe { _ in
+                        self.coordinator?.showMultiGameSelectViewController(roomID: self.roomID)
+                    } onError: { error in
+                        print(error.localizedDescription)
+                    }
+                    .disposed(by: bag)
             }
             .disposed(by: bag)
             
