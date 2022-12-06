@@ -125,7 +125,7 @@ struct DefaultGameRoomRepository: GameRoomRepository {
             .subscribe(onSuccess: { roomDTO in
                 var roomDTO = roomDTO
                 roomDTO.gameInformation = roomDTO.user.map {
-                    MultiGamePlayerDTO(data: makeInitMultiGamePlayerData(data: $0), history: [])
+                    MultiGamePlayerDTO(data: makeInitMultiGamePlayerData(data: $0), history: [Coordinate]())
                 }
                 firebaseRealTimeDatabase.upload(type: .room(id: roomId), data: roomDTO)
             })
@@ -135,7 +135,7 @@ struct DefaultGameRoomRepository: GameRoomRepository {
     private func makeInitMultiGamePlayerData(data: UserDTO) -> MultiGamePlayerData {
         return MultiGamePlayerData(id: data.id,
                                    nickName: data.nickname,
-                                   currentLocation: .init(latitude: 0, longitude: 0),
+                                   currentLocation: nil,
                                    point: 0)
     }
     

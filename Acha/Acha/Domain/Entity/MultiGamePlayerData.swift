@@ -10,6 +10,6 @@ import Foundation
 struct MultiGamePlayerData {
     let id: String
     let nickName: String
-    let currentLocation: Coordinate
+    let currentLocation: Coordinate?
     let point: Int
 }

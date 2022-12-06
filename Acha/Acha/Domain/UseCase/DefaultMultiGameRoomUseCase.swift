@@ -27,8 +27,11 @@ struct DefaultMultiGameRoomUseCase: MultiGameRoomUseCase {
         self.repository = repository
     }
     
-    func observing(roomID: String) -> Observable<[RoomUser]> {
-        return repository.observingRoom(id: roomID).map { $0.toRoomUsers() }
+    func observing(roomID: String) -> Observable<[RoomUser]?> {
+        return repository.observingRoom(id: roomID)
+            .map {
+                return $0.gameInformation != nil ? nil : $0.toRoomUsers()
+            }
     }
     
     func get(roomID: String) -> Single<[RoomUser]> {
@@ -61,5 +64,6 @@ struct DefaultMultiGameRoomUseCase: MultiGameRoomUseCase {
     
     func startGame(roomID: String) {
         repository.startGame(roomId: roomID)
+        removeObserver(roomID: roomID)
     }
 }

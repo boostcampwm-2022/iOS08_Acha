@@ -41,8 +41,15 @@ final class MultiGameRoomViewModel: BaseViewModel {
         let bag = disposeBag
         let dataFetched = Observable<[RoomUser]>.create { observer in
             input.viewDidAppear.subscribe { [weak self] _ in
-                self?.useCase.observing(roomID: self?.roomID ?? "")
+                guard let self = self else {return}
+                self.useCase.observing(roomID: self.roomID)
                     .subscribe(onNext: { roomUsers in
+
+                        guard let roomUsers = roomUsers else {
+                            print("방 생성")
+                            self.coordinator?.showMultiGameViewController(roomID: self.roomID )
+                            return
+                        }
                         observer.onNext(roomUsers)
                     })
                     .disposed(by: bag)

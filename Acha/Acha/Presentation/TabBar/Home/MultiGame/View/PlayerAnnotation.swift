@@ -15,7 +15,10 @@ final class PlayerAnnotation: NSObject, MKAnnotation {
     var point: Int
     
     init(player: MultiGamePlayerData) {
-        self.coordinate = player.currentLocation.toCLLocationCoordinate2D()
+        self.coordinate = player.currentLocation == nil ? CLLocationCoordinate2D(
+            latitude: 0,
+            longitude: 0
+        )  : player.currentLocation!.toCLLocationCoordinate2D()
         self.nickName = player.nickName
         self.point = player.point
         super.init()
