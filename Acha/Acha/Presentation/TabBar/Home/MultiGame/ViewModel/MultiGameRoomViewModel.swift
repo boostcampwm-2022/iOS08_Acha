@@ -44,9 +44,8 @@ final class MultiGameRoomViewModel: BaseViewModel {
                 guard let self = self else {return}
                 self.useCase.observing(roomID: self.roomID)
                     .subscribe(onNext: { roomUsers in
-
                         guard let roomUsers = roomUsers else {
-                            print("방 생성")
+                            self.useCase.removeObserver(roomID: self.roomID)
                             self.coordinator?.showMultiGameViewController(roomID: self.roomID )
                             return
                         }

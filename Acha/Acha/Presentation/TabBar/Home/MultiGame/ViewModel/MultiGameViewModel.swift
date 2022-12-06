@@ -53,6 +53,7 @@ struct MultiGameViewModel: BaseViewModel {
                 useCase.getLocation()
                     .subscribe { location in
                         visitedLocation.onNext(location)
+                        useCase.updateData(roomId: roomId)
                     }
                     .disposed(by: disposeBag)
                     
