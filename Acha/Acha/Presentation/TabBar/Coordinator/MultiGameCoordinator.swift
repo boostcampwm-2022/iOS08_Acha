@@ -9,7 +9,7 @@ import UIKit
 
 protocol MultiGameCoordinatorProtocol: Coordinator {
     func showMultiGameRoomViewController(roomID: String)
-    func showMultiGameSelectViewController(roomID: String)
+    func showMultiGameViewController(roomID: String)
 }
 
 final class MultiGameCoordinator: MultiGameCoordinatorProtocol {
@@ -26,8 +26,8 @@ final class MultiGameCoordinator: MultiGameCoordinatorProtocol {
     }
     
     func start(gameID: String) {
-//        showMultiGameRoomViewController(roomID: gameID)
-        showMultiGameSelectViewController(roomID: "weat")
+        showMultiGameRoomViewController(roomID: gameID)
+//        showMultiGameViewController(roomID: "weat")
     }
     
     func showMultiGameRoomViewController(roomID: String) {
@@ -46,7 +46,7 @@ final class MultiGameCoordinator: MultiGameCoordinatorProtocol {
         navigationController.pushViewController(viewController, animated: true)
     }
     
-    func showMultiGameSelectViewController(roomID: String) {
+    func showMultiGameViewController(roomID: String) {
         
         let useCase = DiContainerManager.makeMultiGameUseCase()
         let viewModel = MultiGameViewModel(

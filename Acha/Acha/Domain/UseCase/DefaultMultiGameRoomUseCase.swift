@@ -58,4 +58,8 @@ struct DefaultMultiGameRoomUseCase: MultiGameRoomUseCase {
             return Disposables.create()
         }
     }
+    
+    func startGame(roomID: String) {
+        repository.startGame(roomId: roomID)
+    }
 }

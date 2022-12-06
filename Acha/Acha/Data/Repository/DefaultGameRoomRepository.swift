@@ -120,6 +120,25 @@ struct DefaultGameRoomRepository: GameRoomRepository {
             .map { $0.map { $0.toDamin() } }
     }
     
+    func startGame(roomId: String) {
+        fetchRoomData(id: roomId)
+            .subscribe(onSuccess: { roomDTO in
+                var roomDTO = roomDTO
+                roomDTO.gameInformation = roomDTO.user.map {
+                    MultiGamePlayerDTO(data: makeInitMultiGamePlayerData(data: $0), history: [])
+                }
+                firebaseRealTimeDatabase.upload(type: .room(id: roomId), data: roomDTO)
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func makeInitMultiGamePlayerData(data: UserDTO) -> MultiGamePlayerData {
+        return MultiGamePlayerData(id: data.id,
+                                   nickName: data.nickname,
+                                   currentLocation: .init(latitude: 0, longitude: 0),
+                                   point: 0)
+    }
+    
     func updateMultiGamePlayer(
         roomId: String,
         data: MultiGamePlayerData,
