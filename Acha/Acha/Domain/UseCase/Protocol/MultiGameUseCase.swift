@@ -14,7 +14,7 @@ protocol MultiGameUseCase {
     func timerStart() -> Observable<Int>
     func timerStop()
     
-    func getLocation() -> Observable<CLLocation>
+    func getLocation() -> Observable<Coordinate>
     func point() -> Observable<Int>
-    var visitedLocation: Set<CLLocation> {get set}
+    var visitedLocation: Set<Coordinate> {get set}
 }

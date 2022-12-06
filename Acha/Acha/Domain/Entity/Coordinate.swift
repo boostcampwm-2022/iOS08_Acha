@@ -9,7 +9,7 @@ import Foundation
 import MapKit
 
 // MARK: - Coordinate
-struct Coordinate: Decodable {
+struct Coordinate: Decodable, Hashable {
     let latitude, longitude: Double
     
     func distance(from: Coordinate) -> Double {

@@ -20,7 +20,7 @@ struct MultiGameViewModel: BaseViewModel {
     
     struct Output {
         let time: Driver<Int>
-        let visitedLocation: Driver<CLLocation>
+        let visitedLocation: Driver<Coordinate>
         let gamePoint: Driver<Int>
     }
     
@@ -40,7 +40,7 @@ struct MultiGameViewModel: BaseViewModel {
     
     func transform(input: Input) -> Output {
         let timeCount = PublishSubject<Int>()
-        let visitedLocation = PublishSubject<CLLocation>()
+        let visitedLocation = PublishSubject<Coordinate>()
         let gamePoint = PublishSubject<Int>()
         input.viewDidAppear
             .subscribe { _ in
@@ -71,7 +71,7 @@ struct MultiGameViewModel: BaseViewModel {
         
         return Output(
             time: timeCount.asDriver(onErrorJustReturn: -1),
-            visitedLocation: visitedLocation.asDriver(onErrorJustReturn: CLLocation(latitude: 0, longitude: 0)),
+            visitedLocation: visitedLocation.asDriver(onErrorJustReturn: Coordinate(latitude: 0, longitude: 0)),
             gamePoint: gamePoint.asDriver(onErrorJustReturn: 0)
         )
     }

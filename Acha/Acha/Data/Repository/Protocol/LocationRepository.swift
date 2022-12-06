@@ -12,7 +12,7 @@ import CoreLocation
 protocol LocationRepository {
     
     /// location 얻는 레포지토리
-    func getCurrentLocation() -> Observable<CLLocation>
+    func getCurrentLocation() -> Observable<Coordinate>
     /// CLLocation 스탑 
     func stopObservingLocation()
 }

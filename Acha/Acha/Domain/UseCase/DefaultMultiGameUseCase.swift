@@ -19,7 +19,7 @@ final class DefaultMultiGameUseCase: MultiGameUseCase {
     private let timeRepository: TimeRepository
     private let locationRepository: LocationRepository
     
-    var visitedLocation: Set<CLLocation> = []
+    var visitedLocation: Set<Coordinate> = []
     
     init(
         gameRoomRepository: GameRoomRepository,
@@ -43,7 +43,7 @@ final class DefaultMultiGameUseCase: MultiGameUseCase {
         timeRepository.stopTimer()
     }
     
-    func getLocation() -> Observable<CLLocation> {
+    func getLocation() -> Observable<Coordinate> {
         return locationRepository.getCurrentLocation()
             .map { [weak self] location in
                 self?.appendVisitedLocation(location)
@@ -58,7 +58,14 @@ final class DefaultMultiGameUseCase: MultiGameUseCase {
         }
     }
     
-    private func appendVisitedLocation(_ location: CLLocation) {
-        visitedLocation.insert(location)
+    private func appendVisitedLocation(_ location: Coordinate) {
+        var availiableToList = true
+        for position in visitedLocation {
+            if position.distance(from: location) < 3 {
+                availiableToList = false
+                break
+            }
+        }
+        if availiableToList { visitedLocation.insert(location) }
     }
 }

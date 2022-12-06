@@ -57,12 +57,11 @@ final class MultiGameViewController: UIViewController, DistanceAndTimeBarLine {
             .disposed(by: disposebag)
         
         outputs.visitedLocation
-            .drive(onNext: { [weak self] location in
-                self?.mapView.addOverlay(MKCircle(center: location.coordinate, radius: 0.1))
+            .drive(onNext: { [weak self]  location in
+                self?.mapView.addOverlay(MKCircle(center: location.toCLLocationCoordinate2D(), radius: 0.1))
                 let annotation = PlayerAnnotation(player: MultiGamePlayerData(
                     id: "aewtew",
-                    nickName: "AWettwe", currentLocation: Coordinate(latitude: location.coordinate.latitude,
-                                                                     longitude: location.coordinate.longitude),
+                    nickName: "AWettwe", currentLocation: location,
                     point: 30)
                 )
                 self?.removeAllAnnotations()
