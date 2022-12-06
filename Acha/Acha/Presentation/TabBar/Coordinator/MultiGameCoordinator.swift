@@ -26,7 +26,8 @@ final class MultiGameCoordinator: MultiGameCoordinatorProtocol {
     }
     
     func start(gameID: String) {
-        showMultiGameRoomViewController(roomID: gameID)
+//        showMultiGameRoomViewController(roomID: gameID)
+        showMultiGameSelectViewController(roomID: "weat")
     }
     
     func showMultiGameRoomViewController(roomID: String) {
@@ -55,5 +56,6 @@ final class MultiGameCoordinator: MultiGameCoordinatorProtocol {
         )
         let viewController = MultiGameViewController(viewModel: viewModel)
         navigationController.pushViewController(viewController, animated: true)
+        navigationController.tabBarController?.tabBar.isHidden = true
     }
 }
