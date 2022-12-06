@@ -13,6 +13,7 @@ struct RoomDTO: Codable {
     var user: [UserDTO]
     let mapID: [Int]?
     var inGameUserDatas: [InGameUserDataDTO]?
+    var gameInformation: [MultiGamePlayerDTO]?
     
     func toRoomUsers() -> [RoomUser] {
         return user.map { $0.toRoomUser() }
@@ -32,5 +33,6 @@ struct RoomDTO: Codable {
         self.createdAt = Date()
         self.mapID = nil
         self.inGameUserDatas = nil
+        self.gameInformation = nil
     }
 }
