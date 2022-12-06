@@ -6,8 +6,20 @@
 //
 
 import Foundation
+import RxSwift
+import RxCocoa
 
-struct MultiGameViewModel {
+struct MultiGameViewModel: BaseViewModel {
+    
+    var disposeBag: RxSwift.DisposeBag = .init()
+    
+    struct Input {
+        let viewDidAppear: Observable<Void>
+    }
+    
+    struct Output {
+        let time: Driver<Int>
+    }
     
     private let roomId: String
     private let useCase: MultiGameUseCase
@@ -21,5 +33,21 @@ struct MultiGameViewModel {
         self.roomId = roomId
         self.useCase = useCase
         self.coordinator = coordinator
+    }
+    
+    func transform(input: Input) -> Output {
+        let timeCount = PublishSubject<Int>()
+        input.viewDidAppear
+            .subscribe { _ in
+                useCase.timerStart()
+                    .subscribe { time in
+                        timeCount.onNext(time)
+                    }
+                    .disposed(by: disposeBag)
+                    
+            }
+            .disposed(by: disposeBag)
+        
+        return Output(time: timeCount.asDriver(onErrorJustReturn: -1))
     }
 }

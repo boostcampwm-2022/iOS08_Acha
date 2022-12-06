@@ -6,7 +6,10 @@
 //
 
 import Foundation
+import RxSwift
 
 protocol MultiGameUseCase {
     
+    func timerStart() -> Observable<Int>
+    func timerStop()
 }

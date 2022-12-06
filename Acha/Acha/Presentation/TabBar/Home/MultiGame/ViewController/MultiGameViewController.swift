@@ -8,6 +8,7 @@
 import UIKit
 import MapKit
 import SnapKit
+import RxSwift
 
 final class MultiGameViewController: UIViewController, DistanceAndTimeBarLine {
 
@@ -16,6 +17,7 @@ final class MultiGameViewController: UIViewController, DistanceAndTimeBarLine {
     private let mapView: MKMapView = .init()
     
     private let viewModel: MultiGameViewModel
+    private let disposebag = DisposeBag()
     
     init(viewModel: MultiGameViewModel) {
         self.viewModel = viewModel
@@ -31,6 +33,19 @@ final class MultiGameViewController: UIViewController, DistanceAndTimeBarLine {
         view.backgroundColor = .green
         
         layout()
+        bind()
+    }
+    
+    func bind() {
+        let inputs = MultiGameViewModel.Input(
+            viewDidAppear: rx.viewDidAppear.asObservable()
+        )
+        let outputs = viewModel.transform(input: inputs)
+        outputs.time
+            .drive(onNext: { [weak self] time in
+                self?.distanceAndTimeBar.timeLabel.text = "\(time)"
+            })
+            .disposed(by: disposebag)
     }
 
 }
