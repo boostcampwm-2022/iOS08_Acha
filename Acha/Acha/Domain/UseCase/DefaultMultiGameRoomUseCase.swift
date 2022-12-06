@@ -16,7 +16,7 @@ struct DefaultMultiGameRoomUseCase: MultiGameRoomUseCase {
         var errorDescription: String? {
             switch self {
             case .notAvailiableUserNumber:
-                return "2명 이상이여야 게임을 시작할 수 있습니다."
+                return "2명 이상이여야 게임을 시작할 수 있습니다 ✌️✌️✌️"
             }
         }
     }

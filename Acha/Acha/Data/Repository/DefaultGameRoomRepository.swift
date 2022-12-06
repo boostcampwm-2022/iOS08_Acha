@@ -10,9 +10,18 @@ import RxSwift
 
 struct DefaultGameRoomRepository: GameRoomRepository {
     
-    enum RoomError: Error {
+    enum RoomError: Error, LocalizedError {
         case roomFullError
         case noUserData
+            
+        var errorDescription: String? {
+            switch self {
+            case .noUserData:
+                return "유저 데이터가 없습니다🥲🥲😢"
+            case .roomFullError:
+                return "방이 꽉 찼습니다😭😭😭"
+            }
+        }
     }
     
     private let firebaseRealTimeDatabase: RealtimeDatabaseNetworkService
