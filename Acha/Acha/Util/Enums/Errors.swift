@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Errors {
+enum Errors: Error {
     case decodeError
     case cannotDrawPolyLine
     

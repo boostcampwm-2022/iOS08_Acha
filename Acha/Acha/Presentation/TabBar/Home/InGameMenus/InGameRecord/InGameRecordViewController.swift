@@ -67,7 +67,6 @@ final class InGameRecordViewController: InGamePlayMenuViewController {
                 withReuseIdentifier: InGameMenuCollectionViewCell.identifier,
                 for: indexPath
             ) as? InGameMenuCollectionViewCell else {return UICollectionViewCell()}
-            #warning("데이터 어떻게 보내줘야 할지 결정해야 함")
             cell.setData(
                 image: nil,
                 text: "\(itemIdentifier.date.convertToStringFormat(format: "yyyy년 MM월 dd일 EEE요일")) \(itemIdentifier.time.convertToDayHourMinueFormat())"

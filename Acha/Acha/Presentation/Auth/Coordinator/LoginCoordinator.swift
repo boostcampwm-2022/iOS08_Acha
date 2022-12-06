@@ -28,12 +28,12 @@ final class LoginCoordinator: LoginCoordinatorProtocol {
         showLoginViewController()
     }
     func showLoginViewController() {
-        let useCase = AuthUseCase()
-        let repository = AuthRepository()
+        let provider = AuthProvider()
+        let repository = LogInRepository(provider: provider)
+        let useCase = LoginUseCase(repository: repository)
         let viewModel = LoginViewModel(
             coordinator: self,
-            useCase: useCase,
-            repository: repository
+            useCase: useCase
         )
         let viewController = LoginViewController(viewModel: viewModel)
         navigationController.pushViewController(viewController, animated: true)
@@ -54,7 +54,7 @@ final class LoginCoordinator: LoginCoordinatorProtocol {
         viewControllers.remove(at: viewControllers.count-2)
     }
 }
-
+#warning("didFinished 제거")
 extension LoginCoordinator: CoordinatorDelegate {
     func didFinished(childCoordinator: Coordinator) {
         showLoginViewController()

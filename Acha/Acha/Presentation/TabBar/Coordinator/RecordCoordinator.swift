@@ -8,7 +8,7 @@
 import UIKit
 
 protocol RecordCoordinatorProtocol: Coordinator {
-    func showRecordViewController()
+    func showRecordPageViewController()
 }
 
 final class RecordCoordinator: RecordCoordinatorProtocol {
@@ -22,13 +22,22 @@ final class RecordCoordinator: RecordCoordinatorProtocol {
     }
     
     func start() {
-        showRecordViewController()
+        showRecordPageViewController()
     }
     
-    func showRecordViewController() {
-        let viewModel = RecordViewModel()
-        let viewController = RecordViewController(viewModel: viewModel)
+    func showRecordPageViewController() {
+        let repository = DefaultTempRepository(tempDBNetwork: DefaultTempDBNetwork())
+        
+        let mainUseCase = DefaultRecordMainViewUseCase(repository: repository)
+        let mainViewModel = RecordMainViewModel(useCase: mainUseCase)
+        
+        let mapUseCase = DefaultRecordMapViewUseCase(repository: repository)
+        let mapViewModel = RecordMapViewModel(useCase: mapUseCase)
+        
+        let viewController = RecordPageViewController(
+            recordMainViewController: RecordMainViewController(viewModel: mainViewModel),
+            recordMapViewController: RecordMapViewController(viewModel: mapViewModel)
+        )
         navigationController.pushViewController(viewController, animated: true)
     }
-    
 }

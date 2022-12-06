@@ -10,6 +10,7 @@ import UIKit
 protocol HomeCoordinatorProtocol: Coordinator {
     func showHomeViewController()
     func connectSingleGameFlow()
+    func connectMultiGameFlow(gameID: String)
 }
 
 final class HomeCoordinator: HomeCoordinatorProtocol {
@@ -34,7 +35,13 @@ final class HomeCoordinator: HomeCoordinatorProtocol {
     }
     
     func showHomeViewController() {
-        let viewModel = HomeViewModel(coordinator: self)
+        let provider = HomeProvider()
+        let repository = HomeRepository(provider: provider)
+        let useCase = HomeUseCase(repository: repository)
+        let viewModel = HomeViewModel(
+            coordinator: self,
+            useCase: useCase
+        )
         let viewController = HomeViewController(viewModel: viewModel)
         navigationController.navigationBar.isHidden = false
         navigationController.pushViewController(viewController, animated: true)
@@ -47,6 +54,13 @@ final class HomeCoordinator: HomeCoordinatorProtocol {
         coordinator.delegate = self
         appendChildCoordinator(coordinator: coordinator)
         coordinator.start()
+    }
+    
+    func connectMultiGameFlow(gameID: String) {
+        let coordinator = MultiGameCoordinator(navigationController: navigationController)
+        coordinator.delegate = self
+        appendChildCoordinator(coordinator: coordinator)
+        coordinator.start(gameID: gameID)
     }
 }
 

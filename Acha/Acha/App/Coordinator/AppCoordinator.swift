@@ -44,7 +44,7 @@ final class AppCoordinator: AppCoordinatorProtocol {
 }
 
 extension AppCoordinator: CoordinatorDelegate {
-    
+    #warning("append 제거")
     func didFinished(childCoordinator: Coordinator) {
         removeAllChildCoordinator()
         switch childCoordinator {
