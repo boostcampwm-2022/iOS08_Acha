@@ -12,4 +12,5 @@ protocol MultiGameRoomUseCase {
     func observing(roomID: String) -> Observable<[RoomUser]>
     func get(roomID: String) -> Single<[RoomUser]>
     func leave(roomID: String)
+    func removeObserver(roomID: String)
 }

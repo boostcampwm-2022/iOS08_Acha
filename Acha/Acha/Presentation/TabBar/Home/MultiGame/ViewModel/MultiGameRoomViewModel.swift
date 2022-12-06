@@ -62,6 +62,7 @@ final class MultiGameRoomViewModel: BaseViewModel {
             .subscribe { [weak self] _ in
                 guard let self = self else {return}
                 self.useCase.leave(roomID: self.roomID)
+                self.useCase.removeObserver(roomID: self.roomID)
                 self.coordinator?.popSelfFromNavigatonController()
             }
             .disposed(by: bag)

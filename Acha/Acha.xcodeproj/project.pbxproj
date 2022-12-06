@@ -114,7 +114,7 @@
 		76AA55FF2937AD8900498441 /* GameRoomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AA55F52937AD8900498441 /* GameRoomCollectionViewCell.swift */; };
 		76AA56002937AD8900498441 /* MultiGameSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AA55F72937AD8900498441 /* MultiGameSelectViewController.swift */; };
 		76AA56012937AD8900498441 /* MultiGameRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AA55F82937AD8900498441 /* MultiGameRoomViewController.swift */; };
-		76AA56022937AD8900498441 /* MultiGameRoomUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AA55FA2937AD8900498441 /* MultiGameRoomUseCase.swift */; };
+		76AA56022937AD8900498441 /* DefaultMultiGameRoomUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AA55FA2937AD8900498441 /* DefaultMultiGameRoomUseCase.swift */; };
 		76AA56082937ADBB00498441 /* LogInRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AA56062937ADBA00498441 /* LogInRepository.swift */; };
 		76AA56092937ADBB00498441 /* SignUpRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AA56072937ADBB00498441 /* SignUpRepository.swift */; };
 		76AA560D2937ADD400498441 /* LoginUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AA560A2937ADD400498441 /* LoginUsecase.swift */; };
@@ -347,7 +347,7 @@
 		76AA55F52937AD8900498441 /* GameRoomCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameRoomCollectionViewCell.swift; sourceTree = "<group>"; };
 		76AA55F72937AD8900498441 /* MultiGameSelectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiGameSelectViewController.swift; sourceTree = "<group>"; };
 		76AA55F82937AD8900498441 /* MultiGameRoomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiGameRoomViewController.swift; sourceTree = "<group>"; };
-		76AA55FA2937AD8900498441 /* MultiGameRoomUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiGameRoomUseCase.swift; sourceTree = "<group>"; };
+		76AA55FA2937AD8900498441 /* DefaultMultiGameRoomUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultMultiGameRoomUseCase.swift; sourceTree = "<group>"; };
 		76AA56042937AD9700498441 /* AuthProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthProvider.swift; sourceTree = "<group>"; };
 		76AA56062937ADBA00498441 /* LogInRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogInRepository.swift; sourceTree = "<group>"; };
 		76AA56072937ADBB00498441 /* SignUpRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpRepository.swift; sourceTree = "<group>"; };
@@ -705,7 +705,7 @@
 				761E5F082935EFF400E6CACC /* DefaultInGameUseCase.swift */,
 				76AA560A2937ADD400498441 /* LoginUsecase.swift */,
 				76AA560B2937ADD400498441 /* SignUpUsecase.swift */,
-				76AA55FA2937AD8900498441 /* MultiGameRoomUseCase.swift */,
+				76AA55FA2937AD8900498441 /* DefaultMultiGameRoomUseCase.swift */,
 				76AA55E42937AD7A00498441 /* DefaultHomeUseCase.swift */,
 				474E24F8293DC75F00CFAC59 /* DefaultRecordMainViewUseCase.swift */,
 				474E24F9293DC75F00CFAC59 /* DefaultRecordMapViewUseCase.swift */,
@@ -1634,7 +1634,7 @@
 				76AA55C22937AB3B00498441 /* RoomDTO.swift in Sources */,
 				474E24F1293DC70B00CFAC59 /* AnimationKeyPath.swift in Sources */,
 				76AA561A29383B9C00498441 /* CommunityViewController.swift in Sources */,
-				76AA56022937AD8900498441 /* MultiGameRoomUseCase.swift in Sources */,
+				76AA56022937AD8900498441 /* DefaultMultiGameRoomUseCase.swift in Sources */,
 				E5BE8B93292218F100E9CFE8 /* AuthCoordinator.swift in Sources */,
 				76AA56002937AD8900498441 /* MultiGameSelectViewController.swift in Sources */,
 				76B3BF4C29250C190056ABFD /* UIFont+.swift in Sources */,

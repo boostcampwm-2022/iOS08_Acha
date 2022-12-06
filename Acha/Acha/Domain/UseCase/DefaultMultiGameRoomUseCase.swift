@@ -26,4 +26,8 @@ struct DefaultMultiGameRoomUseCase: MultiGameRoomUseCase {
     func leave(roomID: String) {
         repository.leaveRoom(id: roomID)
     }
+    
+    func removeObserver(roomID: String) {
+        repository.removeObserverRoom(id: roomID)
+    }
 }

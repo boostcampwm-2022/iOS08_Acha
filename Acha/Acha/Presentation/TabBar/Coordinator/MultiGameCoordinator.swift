@@ -31,7 +31,7 @@ final class MultiGameCoordinator: MultiGameCoordinatorProtocol {
     
     func showMultiGameRoomViewController(roomID: String) {
         
-        let useCase = MultiGameRoomUseCase(repository: DiContainerManager.makeDefaultGameRoomRepository())
+        let useCase = DefaultMultiGameRoomUseCase(repository: DiContainerManager.makeDefaultGameRoomRepository())
         let viewModel = MultiGameRoomViewModel(
             coordinator: self,
             useCase: useCase,

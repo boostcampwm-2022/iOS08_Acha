@@ -109,6 +109,10 @@ struct DefaultGameRoomRepository: GameRoomRepository {
         return observingRoom(id: id).map { $0.toRoomUsers() }
     }
     
+    func removeObserverRoom(id: String) {
+        return firebaseRealTimeDatabase.removeObserver(type: .room(id: id))
+    }
+    
     private func getUserDataFromRealTimeDataBaseService() -> Single<UserDTO> {
         guard let uuid = keychainService.get() else {
             return Single<UserDTO>.error(RoomError.noUserData)
