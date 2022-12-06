@@ -20,4 +20,13 @@ struct CoordinateDTO: Codable {
     
         return acos(dist).radianToDegree() * 60 * 1.853159616 * 1000
     }
+    
+    func toDomain() -> Coordinate {
+        return Coordinate(latitude: latitude, longitude: longitude)
+    }
+    
+    init(data: Coordinate) {
+        self.latitude = data.latitude
+        self.longitude = data.longitude
+    }
 }

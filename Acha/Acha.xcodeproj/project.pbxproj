@@ -707,10 +707,10 @@
 		47D57739293389850014D171 /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
-				474E2502293DC78700CFAC59 /* TempRepository.swift */,
 				47D5773A293389940014D171 /* MapRepository.swift */,
 				47D5775129338FB60014D171 /* RecordRepository.swift */,
 				47653A372938D6EF00BDC8E3 /* BadgeRepository.swift */,
+				474E2502293DC78700CFAC59 /* TempRepository.swift */,
 				F1DED40529388A3700ABC047 /* UserRepository.swift */,
 				F1E7B0AE293DD1A50088332E /* GameRoomRepository.swift */,
 				F1CC5144293F001000B9008D /* TimeRepository.swift */,

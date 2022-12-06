@@ -13,4 +13,21 @@ struct MultiGamePlayerDTO: Codable {
     let currentLocation: CoordinateDTO
     let point: Int
     let locationHistory: [CoordinateDTO]
+    
+    func toDamin() -> MultiGamePlayerData {
+        return MultiGamePlayerData(
+            id: id,
+            nickName: nickName,
+            currentLocation: currentLocation.toDomain(),
+            point: point
+        )
+    }
+    
+    init(data: MultiGamePlayerData, history: [Coordinate]) {
+        self.id = data.id
+        self.nickName = data.nickName
+        self.currentLocation = CoordinateDTO(data: data.currentLocation)
+        self.point = data.point
+        self.locationHistory = history.map { CoordinateDTO(data: $0) }
+    }
 }

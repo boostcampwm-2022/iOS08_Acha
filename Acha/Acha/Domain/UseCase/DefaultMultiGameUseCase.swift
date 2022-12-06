@@ -65,6 +65,26 @@ final class DefaultMultiGameUseCase: MultiGameUseCase {
         }
     }
     
+    func updateData(roomId: String) {
+        userRepository.fetchUserData()
+            .subscribe(onSuccess: { [weak self] user in
+                guard let self = self else {return}
+                let playerData = MultiGamePlayerData(
+                    id: user.id,
+                    nickName: user.nickName,
+                    currentLocation: self.previousPosition,
+                    point: self.visitedLocation.count
+                )
+                let visitedLocation = self.visitedLocation.map { $0 }
+                self.gameRoomRepository.updateMultiGamePlayer(
+                    roomId: roomId,
+                    data: playerData,
+                    histroy: visitedLocation
+                )
+            })
+            .disposed(by: disposeBag)
+    }
+    
     func healthKitStore(time: Int) {
         recordRepository.healthKitWrite(
             .init(distance: movedDistance,
@@ -80,8 +100,8 @@ final class DefaultMultiGameUseCase: MultiGameUseCase {
         let distance = previousPosition.distance(from: current)
         if distance <= 100 {
             movedDistance += distance
-            previousPosition = current
         }
+        previousPosition = current
     }
     
     private func appendVisitedLocation(_ location: Coordinate) {

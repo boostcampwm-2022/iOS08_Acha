@@ -19,4 +19,5 @@ protocol MultiGameUseCase {
     var visitedLocation: Set<Coordinate> {get set}
     
     func healthKitStore(time: Int)
+    func updateData(roomId: String)
 }

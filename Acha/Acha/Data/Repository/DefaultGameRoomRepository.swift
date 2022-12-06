@@ -114,6 +114,31 @@ struct DefaultGameRoomRepository: GameRoomRepository {
             }
     }
     
+    func observingMultiGamePlayers(id: String) -> Observable<[MultiGamePlayerData]> {
+        return observingRoom(id: id)
+            .map { $0.gameInformation ?? [] }
+            .map { $0.map { $0.toDamin() } }
+    }
+    
+    func updateMultiGamePlayer(
+        roomId: String,
+        data: MultiGamePlayerData,
+        histroy: [Coordinate]
+    ) {
+        let multiGamePlayerDTO = MultiGamePlayerDTO(data: data, history: histroy)
+        
+        fetchRoomData(id: roomId)
+            .subscribe(onSuccess: { roomDTO in
+                var roomDTO = roomDTO
+                guard let index = roomDTO.gameInformation?.firstIndex(where: {
+                    $0.id == multiGamePlayerDTO.id
+                }) else {return}
+                roomDTO.gameInformation?[index] = multiGamePlayerDTO
+                firebaseRealTimeDatabase.upload(type: .room(id: roomId), data: roomDTO)
+            })
+            .disposed(by: disposeBag)
+    }
+    
     func observingRoomUser(id: String) -> Observable<[RoomUser]> {
         return observingRoom(id: id).map { $0.toRoomUsers() }
     }
