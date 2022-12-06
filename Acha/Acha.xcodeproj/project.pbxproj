@@ -175,6 +175,8 @@
 		F1CC513D293EFAD800B9008D /* MultiGameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CC513C293EFAD800B9008D /* MultiGameViewModel.swift */; };
 		F1CC513F293EFB9E00B9008D /* DefaultMultiGameUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CC513E293EFB9E00B9008D /* DefaultMultiGameUseCase.swift */; };
 		F1CC5141293EFBBC00B9008D /* MultiGameUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CC5140293EFBBC00B9008D /* MultiGameUseCase.swift */; };
+		F1CC5143293EFED500B9008D /* DefaultTimeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CC5142293EFED500B9008D /* DefaultTimeRepository.swift */; };
+		F1CC5145293F001000B9008D /* TimeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CC5144293F001000B9008D /* TimeRepository.swift */; };
 		F1D202992923AB3D00F3E87D /* InGameRankingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D202982923AB3D00F3E87D /* InGameRankingViewController.swift */; };
 		F1D2029B2923B97400F3E87D /* InGameRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D2029A2923B97400F3E87D /* InGameRecordViewController.swift */; };
 		F1D202A42923C09300F3E87D /* InGameMenuCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D202A32923C09300F3E87D /* InGameMenuCollectionViewCell.swift */; };
@@ -411,6 +413,8 @@
 		F1CC513C293EFAD800B9008D /* MultiGameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiGameViewModel.swift; sourceTree = "<group>"; };
 		F1CC513E293EFB9E00B9008D /* DefaultMultiGameUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMultiGameUseCase.swift; sourceTree = "<group>"; };
 		F1CC5140293EFBBC00B9008D /* MultiGameUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiGameUseCase.swift; sourceTree = "<group>"; };
+		F1CC5142293EFED500B9008D /* DefaultTimeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultTimeRepository.swift; sourceTree = "<group>"; };
+		F1CC5144293F001000B9008D /* TimeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeRepository.swift; sourceTree = "<group>"; };
 		F1D202982923AB3D00F3E87D /* InGameRankingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameRankingViewController.swift; sourceTree = "<group>"; };
 		F1D2029A2923B97400F3E87D /* InGameRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameRecordViewController.swift; sourceTree = "<group>"; };
 		F1D202A32923C09300F3E87D /* InGameMenuCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameMenuCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -683,6 +687,7 @@
 				F1DED401293880CB00ABC047 /* DefaultCommunityRepository.swift */,
 				F1B514F0293B414F00F653F3 /* DefaultUserRepository.swift */,
 				F1E7B0AC293DD01B0088332E /* DefaultGameRoomRepository.swift */,
+				F1CC5142293EFED500B9008D /* DefaultTimeRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -696,6 +701,7 @@
 				47653A372938D6EF00BDC8E3 /* BadgeRepository.swift */,
 				F1DED40529388A3700ABC047 /* UserRepository.swift */,
 				F1E7B0AE293DD1A50088332E /* GameRoomRepository.swift */,
+				F1CC5144293F001000B9008D /* TimeRepository.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -1547,6 +1553,7 @@
 				76B3BF52292624DB0056ABFD /* Int+.swift in Sources */,
 				76AA55FB2937AD8900498441 /* MultiGameRoomViewModel.swift in Sources */,
 				F1E83D8329348AE0004C7992 /* Post.swift in Sources */,
+				F1CC5145293F001000B9008D /* TimeRepository.swift in Sources */,
 				477842F82923BFA300AAC3DB /* MapBaseViewController.swift in Sources */,
 				47D5774529338A040014D171 /* FirebaseRealtimeType.swift in Sources */,
 				474E24EF293DC6B800CFAC59 /* RecordMapRankingCell.swift in Sources */,
@@ -1589,6 +1596,7 @@
 				F1DED40629388A3700ABC047 /* UserRepository.swift in Sources */,
 				E5BE8B91292218A500E9CFE8 /* Coordinator.swift in Sources */,
 				F1E83D8B29351C69004C7992 /* CommunityViewUsecase.swift in Sources */,
+				F1CC5143293EFED500B9008D /* DefaultTimeRepository.swift in Sources */,
 				764AF29F292B6EF500D16DC9 /* InGameRecordViewModel.swift in Sources */,
 				474E24E7293DC6B800CFAC59 /* RecordMainCell.swift in Sources */,
 				76AA56082937ADBB00498441 /* LogInRepository.swift in Sources */,
