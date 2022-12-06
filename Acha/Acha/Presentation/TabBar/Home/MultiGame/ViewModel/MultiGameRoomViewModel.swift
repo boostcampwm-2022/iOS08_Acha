@@ -58,7 +58,10 @@ final class MultiGameRoomViewModel: BaseViewModel {
                     .subscribe { _ in
                         self.coordinator?.showMultiGameSelectViewController(roomID: self.roomID)
                     } onError: { error in
-                        print(error.localizedDescription)
+                        self.coordinator?.navigationController.showAlert(
+                            title: "주의",
+                            message: error.localizedDescription
+                        )
                     }
                     .disposed(by: bag)
             }
