@@ -14,8 +14,7 @@ final class MultiGameRoomViewModel: BaseViewModel {
     var disposeBag: RxSwift.DisposeBag = .init()
 
     struct Input {
-        let viewWillAppear: Observable<Void>
-        let roomDataChanged: Observable<Void>
+        let viewDidAppear: Observable<Void>
         let exitButtonTapped: Observable<Void>
         let gameStartButtonTapped: Observable<Void>
     }
@@ -40,10 +39,17 @@ final class MultiGameRoomViewModel: BaseViewModel {
     
     func transform(input: Input) -> Output {
         let bag = disposeBag
-        input.viewWillAppear.subscribe { [weak self] _ in
-            self?.useCase.make(roomID: self?.roomID ?? "")
+        let dataFetched = Observable<[RoomUser]>.create { observer in
+            input.viewDidAppear.subscribe { [weak self] _ in
+                self?.useCase.observing(roomID: self?.roomID ?? "")
+                    .subscribe(onNext: { roomUsers in
+                        observer.onNext(roomUsers)
+                    })
+                    .disposed(by: bag)
+            }
+            .disposed(by: bag)
+            return Disposables.create()
         }
-        .disposed(by: disposeBag)
         
         input.gameStartButtonTapped
             .subscribe { [weak self] _ in
@@ -59,20 +65,6 @@ final class MultiGameRoomViewModel: BaseViewModel {
                 self.coordinator?.popSelfFromNavigatonController()
             }
             .disposed(by: bag)
-        
-        let dataFetched = Observable<[RoomUser]>.create { observer in
-            input.roomDataChanged
-                .subscribe { [weak self] _ in
-                    self?.useCase.get(roomID: self?.roomID ?? "")
-                        .subscribe(onNext: { roomUser in
-                            print(roomUser)
-                            observer.onNext(roomUser)
-                        })
-                        .disposed(by: bag)
-                }
-                .disposed(by: bag)
-            return Disposables.create()
-        }
         
         disposeBag = bag
         return Output(dataFetched: dataFetched)

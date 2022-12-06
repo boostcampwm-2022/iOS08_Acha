@@ -9,27 +9,27 @@ import Foundation
 import RxSwift
 
 protocol MultiGameRoomUseCaseProtocol {
-    func make(roomID: String)
-    func get(roomID: String) -> Observable<[RoomUser]>
+    func observing(roomID: String) -> Observable<[RoomUser]>
+    func get(roomID: String) -> Single<[RoomUser]>
     func leave(roomID: String)
 }
 
 struct MultiGameRoomUseCase: MultiGameRoomUseCaseProtocol {
 
-    private let repository: MultiGameRoomRepositoryProtocol
-    init(repository: MultiGameRoomRepositoryProtocol) {
+    private let repository: GameRoomRepository
+    init(repository: GameRoomRepository) {
         self.repository = repository
     }
     
-    func make(roomID: String) {
-        repository.make(roomID: roomID)
+    func observing(roomID: String) -> Observable<[RoomUser]> {
+        return repository.observingRoom(id: roomID).map { $0.toRoomUsers() }
     }
     
-    func get(roomID: String) -> Observable<[RoomUser]> {
-        return repository.get(roomID: roomID)
+    func get(roomID: String) -> Single<[RoomUser]> {
+        return repository.fetchRoomUserData(id: roomID)
     }
     
     func leave(roomID: String) {
-        repository.leave(roomID: roomID)
+        repository.leaveRoom(id: roomID)
     }
 }

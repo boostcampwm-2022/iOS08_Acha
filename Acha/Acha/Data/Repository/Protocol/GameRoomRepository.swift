@@ -29,4 +29,7 @@ protocol GameRoomRepository {
     
     /// 원하는 방의 상황을 옵저빙 할 수 있는 메서드입니다.
     func observingRoom(id: String) -> Observable<RoomDTO>
+    
+    /// [RoomUser] 형태로 변경 해주는 메서드입니다.
+    func observingRoomUser(id: String) -> Observable<[RoomUser]>
 }

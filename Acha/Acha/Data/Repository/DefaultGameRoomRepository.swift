@@ -105,6 +105,10 @@ struct DefaultGameRoomRepository: GameRoomRepository {
             }
     }
     
+    func observingRoomUser(id: String) -> Observable<[RoomUser]> {
+        return observingRoom(id: id).map { $0.toRoomUsers() }
+    }
+    
     private func getUserDataFromRealTimeDataBaseService() -> Single<UserDTO> {
         guard let uuid = keychainService.get() else {
             return Single<UserDTO>.error(RoomError.noUserData)
