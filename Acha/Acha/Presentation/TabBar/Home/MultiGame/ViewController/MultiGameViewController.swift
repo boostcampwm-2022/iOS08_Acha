@@ -51,8 +51,8 @@ final class MultiGameViewController: UIViewController, DistanceAndTimeBarLine {
             .disposed(by: disposebag)
         
         outputs.visitedLocation
-            .drive(onNext: { location in
-                print(location)
+            .drive(onNext: { [weak self] location in
+                self?.mapView.addOverlay(MKCircle(center: location.coordinate, radius: 10))
             })
             .disposed(by: disposebag)
     }
@@ -64,6 +64,7 @@ extension MultiGameViewController {
     private func layout() {
         addViews()
         addConstraints()
+        mapView.delegate = self
     }
     
     private func addViews() {
@@ -89,4 +90,16 @@ extension MultiGameViewController {
         }
     }
     
+}
+
+extension MultiGameViewController: MKMapViewDelegate {
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+         guard let circelOverLay = overlay as? MKCircle else {return MKOverlayRenderer()}
+
+         let circleRenderer = MKCircleRenderer(circle: circelOverLay)
+         circleRenderer.strokeColor = .blue
+         circleRenderer.fillColor = .blue
+         circleRenderer.alpha = 0.2
+         return circleRenderer
+     }
 }
