@@ -23,6 +23,7 @@ struct MultiGameViewModel: BaseViewModel {
         let visitedLocation: Driver<Coordinate>
         let gamePoint: Driver<Int>
         let movedDistance: Driver<Double>
+        let playerDataFetched: Driver<[MultiGamePlayerData]>
     }
     
     private let roomId: String
@@ -44,6 +45,7 @@ struct MultiGameViewModel: BaseViewModel {
         let visitedLocation = PublishSubject<Coordinate>()
         let gamePoint = PublishSubject<Int>()
         let movedDistance = PublishSubject<Double>()
+        let playerDataFetcehd = PublishSubject<[MultiGamePlayerData]>()
         input.viewDidAppear
             .subscribe { _ in
                 useCase.timerStart()
@@ -63,6 +65,10 @@ struct MultiGameViewModel: BaseViewModel {
                         movedDistance.onNext(useCase.movedDistance)
                     }
                     .disposed(by: disposeBag)
+                
+                useCase.observing(roomID: roomId)
+                    .subscribe { playerDataFetcehd.onNext($0) }
+                    .disposed(by: disposeBag)
                     
             }
             .disposed(by: disposeBag)
@@ -81,7 +87,8 @@ struct MultiGameViewModel: BaseViewModel {
             time: timeCount.asDriver(onErrorJustReturn: -1),
             visitedLocation: visitedLocation.asDriver(onErrorJustReturn: Coordinate(latitude: 0, longitude: 0)),
             gamePoint: gamePoint.asDriver(onErrorJustReturn: 0),
-            movedDistance: movedDistance.asDriver(onErrorJustReturn: 0)
+            movedDistance: movedDistance.asDriver(onErrorJustReturn: 0),
+            playerDataFetched: playerDataFetcehd.asDriver(onErrorJustReturn: [])
         )
     }
     

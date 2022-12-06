@@ -80,6 +80,12 @@ final class MultiGameViewController: UIViewController, DistanceAndTimeBarLine {
                 self?.distanceAndTimeBar.distanceLabel.text = "\(Int(distance)) m"
             })
             .disposed(by: disposebag)
+        
+        outputs.playerDataFetched
+            .drive(onNext: { [weak self] players in
+                print(players)
+            })
+            .disposed(by: disposebag)
     }
 
 }

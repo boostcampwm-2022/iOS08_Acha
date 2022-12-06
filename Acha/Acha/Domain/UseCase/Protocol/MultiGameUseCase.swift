@@ -23,4 +23,6 @@ protocol MultiGameUseCase {
     func updateData(roomId: String)
     
     func stopObserveLocation()
+    
+    func observing(roomID: String) -> Observable<[MultiGamePlayerData]>
 }

@@ -100,6 +100,10 @@ final class DefaultMultiGameUseCase: MultiGameUseCase {
         locationRepository.stopObservingLocation()
     }
     
+    func observing(roomID: String) -> Observable<[MultiGamePlayerData]> {
+        return gameRoomRepository.observingMultiGamePlayers(id: roomID)
+    }
+    
     private func distanceAppend(_ current: Coordinate) {
         let distance = previousPosition.distance(from: current)
         if distance <= 100 {
