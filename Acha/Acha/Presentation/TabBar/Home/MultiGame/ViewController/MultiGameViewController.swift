@@ -9,10 +9,16 @@ import UIKit
 import MapKit
 import SnapKit
 import RxSwift
+import Then
 
 final class MultiGameViewController: UIViewController, DistanceAndTimeBarLine {
 
     var distanceAndTimeBar: DistanceAndTimeBar = .init()
+    private lazy var pointLabel = UILabel().then {
+        $0.textAlignment = .center
+        $0.font = .largeTitle
+        $0.textColor = .black
+    }
     
     private let mapView: MKMapView = .init()
     
@@ -52,7 +58,7 @@ final class MultiGameViewController: UIViewController, DistanceAndTimeBarLine {
         
         outputs.visitedLocation
             .drive(onNext: { [weak self] location in
-                self?.mapView.addOverlay(MKCircle(center: location.coordinate, radius: 10))
+                self?.mapView.addOverlay(MKCircle(center: location.coordinate, radius: 0.1))
                 let annotation = PlayerAnnotation(player: MultiGamePlayerData(
                     id: "aewtew",
                     nickName: "AWettwe", currentLocation: Coordinate(latitude: location.coordinate.latitude,
@@ -61,6 +67,12 @@ final class MultiGameViewController: UIViewController, DistanceAndTimeBarLine {
                 )
                 self?.removeAllAnnotations()
                 self?.mapView.addAnnotation(annotation)
+            })
+            .disposed(by: disposebag)
+        
+        outputs.gamePoint
+            .drive(onNext: { point in
+                self.pointLabel.text = "\(point) 점"
             })
             .disposed(by: disposebag)
     }
@@ -79,6 +91,7 @@ extension MultiGameViewController {
         view.addSubview(distanceAndTimeBar)
         view.addSubview(mapView)
         view.addSubview(exitButton)
+        view.addSubview(pointLabel)
     }
     
     private func addConstraints() {
@@ -95,6 +108,12 @@ extension MultiGameViewController {
         exitButton.snp.makeConstraints {
             $0.leading.top.equalTo(view.safeAreaLayoutGuide).inset(10)
             $0.width.height.equalTo(40)
+        }
+        
+        pointLabel.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.top.equalToSuperview().inset(80)
+            $0.height.equalTo(80)
         }
     }
     

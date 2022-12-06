@@ -51,6 +51,13 @@ final class DefaultMultiGameUseCase: MultiGameUseCase {
             }
     }
     
+    func point() -> Observable<Int> {
+        return Observable<Int>.create { [weak self] observer in
+            observer.onNext(self?.visitedLocation.count ?? 0)
+            return Disposables.create()
+        }
+    }
+    
     private func appendVisitedLocation(_ location: CLLocation) {
         visitedLocation.insert(location)
     }

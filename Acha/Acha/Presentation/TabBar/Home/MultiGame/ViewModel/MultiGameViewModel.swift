@@ -21,6 +21,7 @@ struct MultiGameViewModel: BaseViewModel {
     struct Output {
         let time: Driver<Int>
         let visitedLocation: Driver<CLLocation>
+        let gamePoint: Driver<Int>
     }
     
     private let roomId: String
@@ -40,6 +41,7 @@ struct MultiGameViewModel: BaseViewModel {
     func transform(input: Input) -> Output {
         let timeCount = PublishSubject<Int>()
         let visitedLocation = PublishSubject<CLLocation>()
+        let gamePoint = PublishSubject<Int>()
         input.viewDidAppear
             .subscribe { _ in
                 useCase.timerStart()
@@ -57,9 +59,20 @@ struct MultiGameViewModel: BaseViewModel {
             }
             .disposed(by: disposeBag)
         
+        visitedLocation
+            .subscribe { _ in
+            useCase.point()
+                .subscribe { point in
+                    gamePoint.onNext(point)
+                }
+                .disposed(by: disposeBag)
+        }
+        .disposed(by: disposeBag)
+        
         return Output(
             time: timeCount.asDriver(onErrorJustReturn: -1),
-            visitedLocation: visitedLocation.asDriver(onErrorJustReturn: CLLocation(latitude: 0, longitude: 0))
+            visitedLocation: visitedLocation.asDriver(onErrorJustReturn: CLLocation(latitude: 0, longitude: 0)),
+            gamePoint: gamePoint.asDriver(onErrorJustReturn: 0)
         )
     }
 }
