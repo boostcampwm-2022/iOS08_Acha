@@ -18,7 +18,8 @@ struct DefaultLocationRepository: LocationRepository {
     }
     
     func getCurrentLocation() -> Observable<CLLocation> {
-        return locationService.userLocation.asObserver()
+        locationService.start()
+        return locationService.userLocation
     }
     
     func stopObservingLocation() {

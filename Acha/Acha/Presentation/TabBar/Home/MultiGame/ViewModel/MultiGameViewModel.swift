@@ -8,6 +8,7 @@
 import Foundation
 import RxSwift
 import RxCocoa
+import CoreLocation
 
 struct MultiGameViewModel: BaseViewModel {
     
@@ -19,6 +20,7 @@ struct MultiGameViewModel: BaseViewModel {
     
     struct Output {
         let time: Driver<Int>
+        let visitedLocation: Driver<CLLocation>
     }
     
     private let roomId: String
@@ -37,6 +39,7 @@ struct MultiGameViewModel: BaseViewModel {
     
     func transform(input: Input) -> Output {
         let timeCount = PublishSubject<Int>()
+        let visitedLocation = PublishSubject<CLLocation>()
         input.viewDidAppear
             .subscribe { _ in
                 useCase.timerStart()
@@ -44,10 +47,19 @@ struct MultiGameViewModel: BaseViewModel {
                         timeCount.onNext(time)
                     }
                     .disposed(by: disposeBag)
+                
+                useCase.getLocation()
+                    .subscribe { location in
+                        visitedLocation.onNext(location)
+                    }
+                    .disposed(by: disposeBag)
                     
             }
             .disposed(by: disposeBag)
         
-        return Output(time: timeCount.asDriver(onErrorJustReturn: -1))
+        return Output(
+            time: timeCount.asDriver(onErrorJustReturn: -1),
+            visitedLocation: visitedLocation.asDriver(onErrorJustReturn: CLLocation(latitude: 0, longitude: 0))
+        )
     }
 }

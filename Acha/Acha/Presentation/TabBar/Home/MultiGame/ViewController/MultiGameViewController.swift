@@ -18,6 +18,9 @@ final class MultiGameViewController: UIViewController, DistanceAndTimeBarLine {
     
     private let viewModel: MultiGameViewModel
     private let disposebag = DisposeBag()
+    private lazy var exitButton = UIButton().then {
+        $0.setImage(.exitImage, for: .normal)
+    }
     
     init(viewModel: MultiGameViewModel) {
         self.viewModel = viewModel
@@ -46,6 +49,12 @@ final class MultiGameViewController: UIViewController, DistanceAndTimeBarLine {
                 self?.distanceAndTimeBar.timeLabel.text = "\(time)"
             })
             .disposed(by: disposebag)
+        
+        outputs.visitedLocation
+            .drive(onNext: { location in
+                print(location)
+            })
+            .disposed(by: disposebag)
     }
 
 }
@@ -60,6 +69,7 @@ extension MultiGameViewController {
     private func addViews() {
         view.addSubview(distanceAndTimeBar)
         view.addSubview(mapView)
+        view.addSubview(exitButton)
     }
     
     private func addConstraints() {
@@ -71,6 +81,11 @@ extension MultiGameViewController {
         mapView.snp.makeConstraints {
             $0.top.leading.trailing.equalToSuperview()
             $0.bottom.equalTo(distanceAndTimeBar.snp.top)
+        }
+        
+        exitButton.snp.makeConstraints {
+            $0.leading.top.equalTo(view.safeAreaLayoutGuide).inset(10)
+            $0.width.height.equalTo(40)
         }
     }
     

@@ -7,9 +7,13 @@
 
 import Foundation
 import RxSwift
+import CoreLocation
 
 protocol MultiGameUseCase {
     
     func timerStart() -> Observable<Int>
     func timerStop()
+    
+    func getLocation() -> Observable<CLLocation>
+    var visitedLocation: Set<CLLocation> {get set}
 }
