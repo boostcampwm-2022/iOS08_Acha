@@ -21,4 +21,6 @@ protocol MultiGameUseCase {
     
     func healthKitStore(time: Int)
     func updateData(roomId: String)
+    
+    func stopObserveLocation()
 }

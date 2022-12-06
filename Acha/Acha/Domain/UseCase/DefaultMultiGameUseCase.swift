@@ -96,6 +96,10 @@ final class DefaultMultiGameUseCase: MultiGameUseCase {
         .disposed(by: disposeBag)
     }
     
+    func stopObserveLocation() {
+        locationRepository.stopObservingLocation()
+    }
+    
     private func distanceAppend(_ current: Coordinate) {
         let distance = previousPosition.distance(from: current)
         if distance <= 100 {
@@ -107,7 +111,7 @@ final class DefaultMultiGameUseCase: MultiGameUseCase {
     private func appendVisitedLocation(_ location: Coordinate) {
         var availiableToList = true
         for position in visitedLocation {
-            if position.distance(from: location) < 3 {
+            if position.distance(from: location) < 5 {
                 availiableToList = false
                 break
             }

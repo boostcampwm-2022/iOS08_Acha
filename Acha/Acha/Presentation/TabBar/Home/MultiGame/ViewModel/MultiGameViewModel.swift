@@ -48,7 +48,11 @@ struct MultiGameViewModel: BaseViewModel {
             .subscribe { _ in
                 useCase.timerStart()
                     .subscribe { time in
-                        timeCount.onNext(time)
+                        if time <= -1 {
+                            useCase.timerStop()
+                            gameOverAction(time: 60)
+                        }
+                        else { timeCount.onNext(time) }
                     }
                     .disposed(by: disposeBag)
                 
@@ -79,5 +83,12 @@ struct MultiGameViewModel: BaseViewModel {
             gamePoint: gamePoint.asDriver(onErrorJustReturn: 0),
             movedDistance: movedDistance.asDriver(onErrorJustReturn: 0)
         )
+    }
+    
+    private func gameOverAction(time: Int) {
+        useCase.healthKitStore(time: time)
+        useCase.stopObserveLocation()
+        self.coordinator?.navigationController.showAlert(title: "게임 종료", message: "종료 !!!")
+//        self.coordinator?.delegate?.didFinished(childCoordinator: self.coordinator!)
     }
 }
