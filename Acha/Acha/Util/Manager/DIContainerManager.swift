@@ -26,10 +26,25 @@ struct DiContainerManager {
         )
     }
     
+    static func makeRecordRepository() -> RecordRepository {
+        return DefaultRecordRepository(
+            realTimeDatabaseNetworkService: DefaultRealtimeDatabaseNetworkService(),
+            healthKitService: DefaultHealthKitService()
+        )
+    }
+    
     static func makeDefaultHomeUseCase() -> DefaultHomeUseCase {
         return DefaultHomeUseCase(
             gameRoomRepository: makeDefaultGameRoomRepository(),
             userRepository: makeDefaultUserRepository()
+        )
+    }
+    
+    static func makeMultiGameUseCase() -> MultiGameUseCase {
+        return DefaultMultiGameUseCase(
+            gameRoomRepository: makeDefaultGameRoomRepository(),
+            userRepository: makeDefaultUserRepository(),
+            recordRepository: makeRecordRepository()
         )
     }
 }

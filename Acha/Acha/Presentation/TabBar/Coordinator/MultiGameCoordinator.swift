@@ -46,7 +46,14 @@ final class MultiGameCoordinator: MultiGameCoordinatorProtocol {
     }
     
     func showMultiGameSelectViewController(roomID: String) {
-        let viewController = MultiGameSelectViewController()
+        
+        let useCase = DiContainerManager.makeMultiGameUseCase()
+        let viewModel = MultiGameViewModel(
+            coordinator: self,
+            useCase: useCase,
+            roomId: roomID
+        )
+        let viewController = MultiGameViewController(viewModel: viewModel)
         navigationController.pushViewController(viewController, animated: true)
     }
 }
