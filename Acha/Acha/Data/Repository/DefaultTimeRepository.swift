@@ -25,6 +25,7 @@ struct DefaultTimeRepository {
             .map {
                 let remainTime = time - $0
                 if remainTime <= 0 { stopTimer() }
+                return remainTime
             }
     }
     

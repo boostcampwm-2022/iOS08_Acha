@@ -177,6 +177,8 @@
 		F1CC5141293EFBBC00B9008D /* MultiGameUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CC5140293EFBBC00B9008D /* MultiGameUseCase.swift */; };
 		F1CC5143293EFED500B9008D /* DefaultTimeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CC5142293EFED500B9008D /* DefaultTimeRepository.swift */; };
 		F1CC5145293F001000B9008D /* TimeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CC5144293F001000B9008D /* TimeRepository.swift */; };
+		F1CC5147293F01C700B9008D /* DefaultLocationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CC5146293F01C700B9008D /* DefaultLocationRepository.swift */; };
+		F1CC5149293F029100B9008D /* LocationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CC5148293F029100B9008D /* LocationRepository.swift */; };
 		F1D202992923AB3D00F3E87D /* InGameRankingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D202982923AB3D00F3E87D /* InGameRankingViewController.swift */; };
 		F1D2029B2923B97400F3E87D /* InGameRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D2029A2923B97400F3E87D /* InGameRecordViewController.swift */; };
 		F1D202A42923C09300F3E87D /* InGameMenuCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D202A32923C09300F3E87D /* InGameMenuCollectionViewCell.swift */; };
@@ -415,6 +417,8 @@
 		F1CC5140293EFBBC00B9008D /* MultiGameUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiGameUseCase.swift; sourceTree = "<group>"; };
 		F1CC5142293EFED500B9008D /* DefaultTimeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultTimeRepository.swift; sourceTree = "<group>"; };
 		F1CC5144293F001000B9008D /* TimeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeRepository.swift; sourceTree = "<group>"; };
+		F1CC5146293F01C700B9008D /* DefaultLocationRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultLocationRepository.swift; sourceTree = "<group>"; };
+		F1CC5148293F029100B9008D /* LocationRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationRepository.swift; sourceTree = "<group>"; };
 		F1D202982923AB3D00F3E87D /* InGameRankingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameRankingViewController.swift; sourceTree = "<group>"; };
 		F1D2029A2923B97400F3E87D /* InGameRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameRecordViewController.swift; sourceTree = "<group>"; };
 		F1D202A32923C09300F3E87D /* InGameMenuCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameMenuCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -688,6 +692,7 @@
 				F1B514F0293B414F00F653F3 /* DefaultUserRepository.swift */,
 				F1E7B0AC293DD01B0088332E /* DefaultGameRoomRepository.swift */,
 				F1CC5142293EFED500B9008D /* DefaultTimeRepository.swift */,
+				F1CC5146293F01C700B9008D /* DefaultLocationRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -702,6 +707,7 @@
 				F1DED40529388A3700ABC047 /* UserRepository.swift */,
 				F1E7B0AE293DD1A50088332E /* GameRoomRepository.swift */,
 				F1CC5144293F001000B9008D /* TimeRepository.swift */,
+				F1CC5148293F029100B9008D /* LocationRepository.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -1565,6 +1571,7 @@
 				F1E7B0AB293DB8B50088332E /* User.swift in Sources */,
 				4738D768292267BA003AE835 /* Errors.swift in Sources */,
 				E5BE8B9D29221AAF00E9CFE8 /* MyPageCoordinator.swift in Sources */,
+				F1CC5147293F01C700B9008D /* DefaultLocationRepository.swift in Sources */,
 				76AA55CF2937AC3500498441 /* ProvidableType.swift in Sources */,
 				76AA56162937B1E000498441 /* FBRealTimeDB.swift in Sources */,
 				47A26DC0292C9F8A0007FBBF /* SelectMapRankingHeaderView.swift in Sources */,
@@ -1574,6 +1581,7 @@
 				76B3BF462924D93C0056ABFD /* SingleGameCoordinator.swift in Sources */,
 				47653A302938C4AD00BDC8E3 /* DefaultMyPageUseCase.swift in Sources */,
 				F1CC513F293EFB9E00B9008D /* DefaultMultiGameUseCase.swift in Sources */,
+				F1CC5149293F029100B9008D /* LocationRepository.swift in Sources */,
 				E5027D5A292670BC0021BF60 /* RecordViewHeaderRecord.swift in Sources */,
 				E5BE8BB72922201F00E9CFE8 /* LoginViewController.swift in Sources */,
 				76AA56142937AE7E00498441 /* RxSwift+.swift in Sources */,

@@ -12,7 +12,8 @@ final class MultiGameViewController: UIViewController {
     private let viewModel: MultiGameViewModel
     
     init(viewModel: MultiGameViewModel) {
-        self.
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
