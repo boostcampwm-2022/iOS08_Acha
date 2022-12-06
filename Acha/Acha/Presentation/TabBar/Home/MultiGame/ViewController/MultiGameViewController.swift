@@ -70,8 +70,14 @@ final class MultiGameViewController: UIViewController, DistanceAndTimeBarLine {
             .disposed(by: disposebag)
         
         outputs.gamePoint
-            .drive(onNext: { point in
-                self.pointLabel.text = "\(point) 점"
+            .drive(onNext: { [weak self] point in
+                self?.pointLabel.text = "\(point) 점"
+            })
+            .disposed(by: disposebag)
+        
+        outputs.movedDistance
+            .drive(onNext: { [weak self] distance in
+                self?.distanceAndTimeBar.distanceLabel.text = "\(Int(distance)) m"
             })
             .disposed(by: disposebag)
     }
