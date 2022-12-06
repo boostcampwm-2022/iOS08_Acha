@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 import CoreLocation
 
-struct DefaultLocationRepository {
+struct DefaultLocationRepository: LocationRepository {
     
     private let locationService: LocationService
     

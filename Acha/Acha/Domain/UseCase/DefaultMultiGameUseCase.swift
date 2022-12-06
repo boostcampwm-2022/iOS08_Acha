@@ -16,7 +16,9 @@ struct DefaultMultiGameUseCase: MultiGameUseCase {
     init(
         gameRoomRepository: GameRoomRepository,
         userRepository: UserRepository,
-        recordRepository: RecordRepository
+        recordRepository: RecordRepository,
+        timeRepository: TimeRepository,
+        locationRepository: LocationRepository
     ) {
         self.gameRoomRepository = gameRoomRepository
         self.userRepository = userRepository

@@ -33,6 +33,14 @@ struct DiContainerManager {
         )
     }
     
+    static func makeLocationRepository() -> LocationRepository {
+        return DefaultLocationRepository(locationService: DefaultLocationService())
+    }
+    
+    static func makeTimeRepository() -> TimeRepository {
+        return DefaultTimeRepository(timeService: TimerService())
+    }
+    
     static func makeDefaultHomeUseCase() -> DefaultHomeUseCase {
         return DefaultHomeUseCase(
             gameRoomRepository: makeDefaultGameRoomRepository(),
@@ -44,7 +52,9 @@ struct DiContainerManager {
         return DefaultMultiGameUseCase(
             gameRoomRepository: makeDefaultGameRoomRepository(),
             userRepository: makeDefaultUserRepository(),
-            recordRepository: makeRecordRepository()
+            recordRepository: makeRecordRepository(),
+            timeRepository: makeTimeRepository(),
+            locationRepository: makeLocationRepository()
         )
     }
 }

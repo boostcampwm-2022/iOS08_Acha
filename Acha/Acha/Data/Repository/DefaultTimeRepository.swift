@@ -8,7 +8,7 @@
 import Foundation
 import RxSwift
 
-struct DefaultTimeRepository {
+struct DefaultTimeRepository: TimeRepository {
     
     private let timerService: TimerServiceProtocol
     
