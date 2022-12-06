@@ -18,8 +18,14 @@ final class DefaultMultiGameUseCase: MultiGameUseCase {
     private let recordRepository: RecordRepository
     private let timeRepository: TimeRepository
     private let locationRepository: LocationRepository
+    private let disposeBag = DisposeBag()
     
     var visitedLocation: Set<Coordinate> = []
+    var previousPosition = Coordinate(latitude: 0, longitude: 0)
+    var movedDistance: Double = 0
+    var calorie: Int {
+        return Int(movedDistance/100)
+    }
     
     init(
         gameRoomRepository: GameRoomRepository,
@@ -47,6 +53,7 @@ final class DefaultMultiGameUseCase: MultiGameUseCase {
         return locationRepository.getCurrentLocation()
             .map { [weak self] location in
                 self?.appendVisitedLocation(location)
+                self?.distanceAppend(location)
                 return location
             }
     }
@@ -55,6 +62,25 @@ final class DefaultMultiGameUseCase: MultiGameUseCase {
         return Observable<Int>.create { [weak self] observer in
             observer.onNext(self?.visitedLocation.count ?? 0)
             return Disposables.create()
+        }
+    }
+    
+    func healthKitStore(time: Int) {
+        recordRepository.healthKitWrite(
+            .init(distance: movedDistance,
+                  diatanceTime: time,
+                  calorie: calorie,
+                  calorieTime: time)
+        )
+        .subscribe()
+        .disposed(by: disposeBag)
+    }
+    
+    private func distanceAppend(_ current: Coordinate) {
+        let distance = previousPosition.distance(from: current)
+        if distance <= 100 {
+            movedDistance += distance
+            previousPosition = current
         }
     }
     
