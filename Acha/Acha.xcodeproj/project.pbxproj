@@ -110,8 +110,6 @@
 		76AA55EA2937AD7A00498441 /* QRReaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AA55E22937AD7A00498441 /* QRReaderViewController.swift */; };
 		76AA55EB2937AD7A00498441 /* DefaultHomeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AA55E42937AD7A00498441 /* DefaultHomeUseCase.swift */; };
 		76AA55FB2937AD8900498441 /* MultiGameRoomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AA55EE2937AD8900498441 /* MultiGameRoomViewModel.swift */; };
-		76AA55FC2937AD8900498441 /* MultiGameRoomDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AA55F02937AD8900498441 /* MultiGameRoomDataSource.swift */; };
-		76AA55FD2937AD8900498441 /* MultiGameRoomRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AA55F22937AD8900498441 /* MultiGameRoomRepository.swift */; };
 		76AA55FE2937AD8900498441 /* GameRoomCollectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AA55F42937AD8900498441 /* GameRoomCollectionViewHeader.swift */; };
 		76AA55FF2937AD8900498441 /* GameRoomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AA55F52937AD8900498441 /* GameRoomCollectionViewCell.swift */; };
 		76AA56002937AD8900498441 /* MultiGameSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AA55F72937AD8900498441 /* MultiGameSelectViewController.swift */; };
@@ -345,8 +343,6 @@
 		76AA55E22937AD7A00498441 /* QRReaderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRReaderViewController.swift; sourceTree = "<group>"; };
 		76AA55E42937AD7A00498441 /* DefaultHomeUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultHomeUseCase.swift; sourceTree = "<group>"; };
 		76AA55EE2937AD8900498441 /* MultiGameRoomViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiGameRoomViewModel.swift; sourceTree = "<group>"; };
-		76AA55F02937AD8900498441 /* MultiGameRoomDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiGameRoomDataSource.swift; sourceTree = "<group>"; };
-		76AA55F22937AD8900498441 /* MultiGameRoomRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiGameRoomRepository.swift; sourceTree = "<group>"; };
 		76AA55F42937AD8900498441 /* GameRoomCollectionViewHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameRoomCollectionViewHeader.swift; sourceTree = "<group>"; };
 		76AA55F52937AD8900498441 /* GameRoomCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameRoomCollectionViewCell.swift; sourceTree = "<group>"; };
 		76AA55F72937AD8900498441 /* MultiGameSelectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiGameSelectViewController.swift; sourceTree = "<group>"; };
@@ -676,7 +672,6 @@
 				47D5775329338FFF0014D171 /* DefaultRecordRepository.swift */,
 				76AA56062937ADBA00498441 /* LogInRepository.swift */,
 				76AA56072937ADBB00498441 /* SignUpRepository.swift */,
-				76AA55F22937AD8900498441 /* MultiGameRoomRepository.swift */,
 				47653A392938D70500BDC8E3 /* DefaultBadgeRepository.swift */,
 				474E2500293DC78100CFAC59 /* DefaultTempRepository.swift */,
 				F1DED401293880CB00ABC047 /* DefaultCommunityRepository.swift */,
@@ -887,7 +882,6 @@
 			children = (
 				E57646B82939C39600BADF18 /* View */,
 				76AA55ED2937AD8900498441 /* ViewModel */,
-				76AA55EF2937AD8900498441 /* DataSource */,
 				76AA55F62937AD8900498441 /* ViewController */,
 			);
 			path = MultiGame;
@@ -899,14 +893,6 @@
 				76AA55EE2937AD8900498441 /* MultiGameRoomViewModel.swift */,
 			);
 			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		76AA55EF2937AD8900498441 /* DataSource */ = {
-			isa = PBXGroup;
-			children = (
-				76AA55F02937AD8900498441 /* MultiGameRoomDataSource.swift */,
-			);
-			path = DataSource;
 			sourceTree = "<group>";
 		};
 		76AA55F62937AD8900498441 /* ViewController */ = {
@@ -1495,7 +1481,6 @@
 				474E24FE293DC76800CFAC59 /* RecordMainViewUseCase.swift in Sources */,
 				761C1C09292E437E000C88D0 /* DefaultSingleGameUseCase.swift in Sources */,
 				474E24FA293DC75F00CFAC59 /* DefaultRecordMainViewUseCase.swift in Sources */,
-				76AA55FC2937AD8900498441 /* MultiGameRoomDataSource.swift in Sources */,
 				76AA55CE2937AC3500498441 /* UUIDGetable.swift in Sources */,
 				76AA55A82937765F00498441 /* BadgeViewModel.swift in Sources */,
 				F1FCEE11292B4C87001A55D6 /* AuthButton.swift in Sources */,
@@ -1560,7 +1545,6 @@
 				76AA55CD2937AC3500498441 /* FBRealTimeDBType.swift in Sources */,
 				76AA56092937ADBB00498441 /* SignUpRepository.swift in Sources */,
 				F16B453B293330EC002429A2 /* MapDTO.swift in Sources */,
-				76AA55FD2937AD8900498441 /* MultiGameRoomRepository.swift in Sources */,
 				E5027D5C292670F30021BF60 /* RecordViewChartData.swift in Sources */,
 				F1E7B0AB293DB8B50088332E /* User.swift in Sources */,
 				4738D768292267BA003AE835 /* Errors.swift in Sources */,
