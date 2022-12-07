@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import FirebaseAuth
 
 protocol AppCoordinatorProtocol: Coordinator {
     func connectAuth()
@@ -24,10 +23,10 @@ final class AppCoordinator: AppCoordinatorProtocol {
     }
     
     func start() {
-        if Auth.auth().currentUser != nil {
-            connectTabBar()
-        } else {
+        if (try? KeyChainManager.get()) == nil {
             connectAuth()
+        } else {
+            connectTabBar()
         }
     }
     
