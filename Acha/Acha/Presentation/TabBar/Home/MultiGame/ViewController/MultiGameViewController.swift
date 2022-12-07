@@ -38,6 +38,15 @@ final class MultiGameViewController: UIViewController, DistanceAndTimeBarLine {
         )
     }
     
+    private lazy var viewOthersLocationButton: UIButton = UIButton().then {
+        $0.setImage(
+            .systemEyeCircle?.withTintColor(
+                .pointLight,
+                renderingMode: .alwaysOriginal
+            ), for: .normal
+        )
+    }
+    
     private lazy var pointBoard = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
 
     typealias GameDataDatasource = UICollectionViewDiffableDataSource<Section, MultiGamePlayerData>
@@ -163,6 +172,7 @@ extension MultiGameViewController {
         view.addSubview(exitButton)
         view.addSubview(pointLabel)
         view.addSubview(resetButton)
+        view.addSubview(viewOthersLocationButton)
     }
     
     private func addConstraints() {
@@ -191,6 +201,12 @@ extension MultiGameViewController {
             $0.bottom.equalTo(distanceAndTimeBar.snp.top).inset(-10)
             $0.trailing.equalToSuperview().inset(10)
             $0.width.height.equalTo(60)
+        }
+        
+        viewOthersLocationButton.snp.makeConstraints {
+            $0.bottom.equalTo(resetButton.snp.top).inset(-10)
+            $0.trailing.equalTo(resetButton)
+            $0.width.height.equalTo(resetButton)
         }
     }
     

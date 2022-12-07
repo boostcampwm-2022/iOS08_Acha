@@ -21,7 +21,14 @@ extension UIImage {
     static let secondAnnotation = UIImage(named: "secondAnnotation") ?? UIImage()
     static let thirdAnnotation = UIImage(named: "thirdAnnotation") ?? UIImage()
     static let fourthAnnotation = UIImage(named: "fourthAnnotation") ?? UIImage()
-    
+    static let systemEyeCircle = UIImage(
+        systemName: "eye.circle",
+        withConfiguration: UIImage.SymbolConfiguration(
+            pointSize: 30,
+            weight: .bold,
+            scale: .large
+        )
+    )
     
     func imageWith(newSize: CGSize) -> UIImage {
         let image = UIGraphicsImageRenderer(size: newSize).image { _ in
