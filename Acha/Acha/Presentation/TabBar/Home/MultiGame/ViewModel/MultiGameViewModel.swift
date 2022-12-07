@@ -16,6 +16,7 @@ struct MultiGameViewModel: BaseViewModel {
     
     struct Input {
         let viewDidAppear: Observable<Void>
+        let resetButtonTapped: Observable<Void>
     }
     
     struct Output {
@@ -24,6 +25,7 @@ struct MultiGameViewModel: BaseViewModel {
         let gamePoint: Driver<Int>
         let movedDistance: Driver<Double>
         let playerDataFetched: Driver<[MultiGamePlayerData]>
+        let currentLocation: Driver<Coordinate>
     }
     
     private let roomId: String
@@ -46,6 +48,7 @@ struct MultiGameViewModel: BaseViewModel {
         let gamePoint = PublishSubject<Int>()
         let movedDistance = PublishSubject<Double>()
         let playerDataFetcehd = PublishSubject<[MultiGamePlayerData]>()
+        let currentLocation = PublishSubject<Coordinate>()
         input.viewDidAppear
             .subscribe { _ in
                 useCase.timerStart()
@@ -73,6 +76,17 @@ struct MultiGameViewModel: BaseViewModel {
             }
             .disposed(by: disposeBag)
         
+        input.resetButtonTapped
+            .subscribe(onNext: {
+                useCase.getLocation()
+                    .subscribe(onNext: { position in
+                        currentLocation.onNext(position)
+                        useCase.stopObserveLocation()
+                    })
+                    .disposed(by: disposeBag)
+            })
+            .disposed(by: disposeBag)
+        
         visitedLocation
             .subscribe { _ in
             useCase.point()
@@ -82,13 +96,14 @@ struct MultiGameViewModel: BaseViewModel {
                 .disposed(by: disposeBag)
         }
         .disposed(by: disposeBag)
-        
+    
         return Output(
             time: timeCount.asDriver(onErrorJustReturn: -1),
             visitedLocation: visitedLocation.asDriver(onErrorJustReturn: Coordinate(latitude: 0, longitude: 0)),
             gamePoint: gamePoint.asDriver(onErrorJustReturn: 0),
             movedDistance: movedDistance.asDriver(onErrorJustReturn: 0),
-            playerDataFetched: playerDataFetcehd.asDriver(onErrorJustReturn: [])
+            playerDataFetched: playerDataFetcehd.asDriver(onErrorJustReturn: []),
+            currentLocation: currentLocation.asDriver(onErrorJustReturn: Coordinate(latitude: 0, longitude: 0))
         )
     }
     

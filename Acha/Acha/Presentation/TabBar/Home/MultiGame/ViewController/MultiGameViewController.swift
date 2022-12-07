@@ -27,6 +27,17 @@ final class MultiGameViewController: UIViewController, DistanceAndTimeBarLine {
         $0.setImage(.exitImage, for: .normal)
     }
     
+    private lazy var resetButton: UIButton = UIButton().then {
+        $0.setImage(
+            ImageConstants
+                .arrowPositionResetImage?
+                .withTintColor(
+                    .pointLight,
+                    renderingMode: .alwaysOriginal),
+            for: .normal
+        )
+    }
+    
     private lazy var pointBoard = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
 
     typealias GameDataDatasource = UICollectionViewDiffableDataSource<Section, MultiGamePlayerData>
@@ -59,7 +70,8 @@ final class MultiGameViewController: UIViewController, DistanceAndTimeBarLine {
     
     func bind() {
         let inputs = MultiGameViewModel.Input(
-            viewDidAppear: rx.viewDidAppear.asObservable()
+            viewDidAppear: rx.viewDidAppear.asObservable(),
+            resetButtonTapped: resetButton.rx.tap.asObservable()
         )
         let outputs = viewModel.transform(input: inputs)
         outputs.time
@@ -99,6 +111,13 @@ final class MultiGameViewController: UIViewController, DistanceAndTimeBarLine {
                 self?.pointBoard.reloadData()
             })
             .disposed(by: disposebag)
+        
+        outputs.currentLocation
+            .drive(onNext: { [weak self] currentLocation in
+                print(currentLocation)
+                self?.setCamera(data: currentLocation)
+            })
+            .disposed(by: disposebag)
     }
 
 }
@@ -117,6 +136,7 @@ extension MultiGameViewController {
         view.addSubview(mapView)
         view.addSubview(exitButton)
         view.addSubview(pointLabel)
+        view.addSubview(resetButton)
     }
     
     private func addConstraints() {
@@ -139,6 +159,12 @@ extension MultiGameViewController {
             $0.centerX.equalToSuperview()
             $0.top.equalToSuperview().inset(80)
             $0.height.equalTo(80)
+        }
+        
+        resetButton.snp.makeConstraints {
+            $0.bottom.equalTo(distanceAndTimeBar.snp.top).inset(-10)
+            $0.trailing.equalToSuperview().inset(10)
+            $0.width.height.equalTo(60)
         }
     }
     
@@ -222,5 +248,18 @@ extension MultiGameViewController {
         let section = NSCollectionLayoutSection(group: group)
         let layout = UICollectionViewCompositionalLayout(section: section)
         return layout
+    }
+}
+
+extension MultiGameViewController {
+    private func setCamera(data: Coordinate) {
+        let initialLocation = CLLocation(latitude: data.latitude, longitude: data.longitude)
+        let region = MKCoordinateRegion(
+            center: initialLocation.coordinate,
+            latitudinalMeters: 150,
+            longitudinalMeters: 150
+        )
+        mapView.setCenter(initialLocation.coordinate, animated: true)
+        mapView.setRegion(region, animated: true)
     }
 }
