@@ -49,7 +49,7 @@ final class HomeCoordinator: HomeCoordinatorProtocol {
     
     func connectSingleGameFlow() {
         tabBarController?.tabBar.isHidden = true
-        
+        navigationController.interactivePopGestureRecognizer?.isEnabled = false
         let coordinator = SingleGameCoordinator(navigationController: navigationController)
         coordinator.delegate = self
         appendChildCoordinator(coordinator: coordinator)
