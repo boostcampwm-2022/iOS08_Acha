@@ -130,7 +130,13 @@ final class MultiGameViewController: UIViewController, DistanceAndTimeBarLine {
     
     private func makeOverlays(data: [MultiGamePlayerData]) -> [MKOverlay] {
         let nothing = CLLocationCoordinate2D()
-        return data.map { MKCircle(center: ($0.currentLocation?.toCLLocationCoordinate2D()) ?? nothing, radius: 0.2) }
+        let annotations = data.enumerated().map { index, data in
+            let circle = MKCircle(center: data.currentLocation?.toCLLocationCoordinate2D() ?? nothing, radius: 0.2)
+            guard let type = MKCircle.CircleType(rawValue: index) else {return MKCircle()}
+            circle.type = type
+            return circle
+        }
+        return annotations
     }
 
 }
@@ -185,14 +191,14 @@ extension MultiGameViewController {
 
 extension MultiGameViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-         guard let circelOverLay = overlay as? MKCircle else {return MKOverlayRenderer()}
+        guard let circleOverLay = overlay as? MKCircle else {return MKOverlayRenderer()}
         
-         let circleRenderer = MKCircleRenderer(circle: circelOverLay)
-         circleRenderer.strokeColor = .blue
-         circleRenderer.fillColor = .blue
-         circleRenderer.alpha = 0.2
-         return circleRenderer
-     }
+        let circleRenderer = MKCircleRenderer(circle: circleOverLay)
+        circleRenderer.strokeColor = circleOverLay.overLayColor
+        circleRenderer.fillColor = circleOverLay.overLayColor
+        circleRenderer.alpha = 0.5
+        return circleRenderer
+    }
     
     private func removeAllAnnotations() {
 //        let annotations = mapView.annotations.filter {
