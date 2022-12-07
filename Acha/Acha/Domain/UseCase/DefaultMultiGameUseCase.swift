@@ -102,9 +102,6 @@ final class DefaultMultiGameUseCase: MultiGameUseCase {
     
     func observing(roomID: String) -> Observable<[MultiGamePlayerData]> {
         return gameRoomRepository.observingMultiGamePlayers(id: roomID)
-            .map { $0.sorted { player1, player2 in
-                player1.point > player2.point
-            } }
     }
     
     private func distanceAppend(_ current: Coordinate) {

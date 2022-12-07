@@ -131,8 +131,8 @@ final class MultiGameViewController: UIViewController, DistanceAndTimeBarLine {
     private func makeOverlays(data: [MultiGamePlayerData]) -> [MKOverlay] {
         let nothing = CLLocationCoordinate2D()
         let annotations = data.enumerated().map { index, data in
-            let circle = MKCircle(center: data.currentLocation?.toCLLocationCoordinate2D() ?? nothing, radius: 0.2)
             guard let type = MKCircle.CircleType(rawValue: index) else {return MKCircle()}
+            let circle = PlayerCircle(center: data.currentLocation?.toCLLocationCoordinate2D() ?? nothing, radius: 0.3)
             circle.type = type
             return circle
         }
@@ -191,11 +191,10 @@ extension MultiGameViewController {
 
 extension MultiGameViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        guard let circleOverLay = overlay as? MKCircle else {return MKOverlayRenderer()}
-        
+        guard let circleOverLay = overlay as? PlayerCircle else {return MKOverlayRenderer()}
         let circleRenderer = MKCircleRenderer(circle: circleOverLay)
-        circleRenderer.strokeColor = circleOverLay.overLayColor
-        circleRenderer.fillColor = circleOverLay.overLayColor
+        circleRenderer.strokeColor = circleOverLay.overlayColor()
+        circleRenderer.fillColor = circleOverLay.overlayColor()
         circleRenderer.alpha = 0.5
         return circleRenderer
     }
@@ -224,8 +223,15 @@ extension MultiGameViewController {
     private func makeSnapShot(data: [MultiGamePlayerData]) {
         let oldItems = gameSnapShot.itemIdentifiers(inSection: .ranking)
         gameSnapShot.deleteItems(oldItems)
+        let data = sortData(data: data)
         gameSnapShot.appendItems(data, toSection: .ranking)
         gameDataSource.apply(gameSnapShot, animatingDifferences: true)
+    }
+    
+    private func sortData(data: [MultiGamePlayerData]) -> [MultiGamePlayerData] {
+        return data.sorted { player1, player2 in
+            return player1.point > player2.point
+        }
     }
     
     private func registerCollectionView() {

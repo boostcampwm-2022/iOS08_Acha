@@ -184,6 +184,7 @@
 		F1CC514F293F37BC00B9008D /* MultiGamePlayerDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CC514E293F37BC00B9008D /* MultiGamePlayerDTO.swift */; };
 		F1CC5151293FAED600B9008D /* GameRankCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CC5150293FAED500B9008D /* GameRankCollectionViewCell.swift */; };
 		F1CC5153294069C200B9008D /* MKCircle+.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CC5152294069C200B9008D /* MKCircle+.swift */; };
+		F1CC51552940785900B9008D /* PlayerCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CC51542940785900B9008D /* PlayerCircle.swift */; };
 		F1D202992923AB3D00F3E87D /* InGameRankingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D202982923AB3D00F3E87D /* InGameRankingViewController.swift */; };
 		F1D2029B2923B97400F3E87D /* InGameRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D2029A2923B97400F3E87D /* InGameRecordViewController.swift */; };
 		F1D202A42923C09300F3E87D /* InGameMenuCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D202A32923C09300F3E87D /* InGameMenuCollectionViewCell.swift */; };
@@ -429,6 +430,7 @@
 		F1CC514E293F37BC00B9008D /* MultiGamePlayerDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiGamePlayerDTO.swift; sourceTree = "<group>"; };
 		F1CC5150293FAED500B9008D /* GameRankCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRankCollectionViewCell.swift; sourceTree = "<group>"; };
 		F1CC5152294069C200B9008D /* MKCircle+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKCircle+.swift"; sourceTree = "<group>"; };
+		F1CC51542940785900B9008D /* PlayerCircle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCircle.swift; sourceTree = "<group>"; };
 		F1D202982923AB3D00F3E87D /* InGameRankingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameRankingViewController.swift; sourceTree = "<group>"; };
 		F1D2029A2923B97400F3E87D /* InGameRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameRecordViewController.swift; sourceTree = "<group>"; };
 		F1D202A32923C09300F3E87D /* InGameMenuCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameMenuCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -1027,6 +1029,7 @@
 				76AA55F52937AD8900498441 /* GameRoomCollectionViewCell.swift */,
 				F1CC514A293F237B00B9008D /* PlayerAnnotation.swift */,
 				F1CC5150293FAED500B9008D /* GameRankCollectionViewCell.swift */,
+				F1CC51542940785900B9008D /* PlayerCircle.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1629,6 +1632,7 @@
 				F12210C2292D031800AE5F26 /* KeyChainManager.swift in Sources */,
 				474E24EC293DC6B800CFAC59 /* RecordMapHeaderView.swift in Sources */,
 				76AA55D12937AC6300498441 /* RoomUser.swift in Sources */,
+				F1CC51552940785900B9008D /* PlayerCircle.swift in Sources */,
 				47D5774B29338A4A0014D171 /* RealtimeDatabaseNetworkService.swift in Sources */,
 				E5BE8B952922196D00E9CFE8 /* TabBarCoordinator.swift in Sources */,
 				474E24FF293DC76800CFAC59 /* RecordMapViewUseCase.swift in Sources */,
