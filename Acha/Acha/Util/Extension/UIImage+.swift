@@ -21,5 +21,14 @@ extension UIImage {
     static let secondAnnotation = UIImage(named: "secondAnnotation") ?? UIImage()
     static let thirdAnnotation = UIImage(named: "thirdAnnotation") ?? UIImage()
     static let fourthAnnotation = UIImage(named: "fourthAnnotation") ?? UIImage()
+    
+    
+    func imageWith(newSize: CGSize) -> UIImage {
+        let image = UIGraphicsImageRenderer(size: newSize).image { _ in
+            draw(in: CGRect(origin: .zero, size: newSize))
+        }
+            
+        return image.withRenderingMode(renderingMode)
+    }
 
 }

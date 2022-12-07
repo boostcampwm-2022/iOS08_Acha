@@ -15,7 +15,7 @@ final class PlayerAnnotationView: MKAnnotationView {
     override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
         guard let playerAnnotation = self.annotation as? PlayerAnnotation else {return}
-        image = playerAnnotation.image()
+        image = playerAnnotation.image()?.imageWith(newSize: CGSize(width: 30, height: 30))
     }
     
     required init?(coder aDecoder: NSCoder) {
