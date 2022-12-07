@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct MultiGamePlayerData {
+struct MultiGamePlayerData: Hashable {
     let id: String
     let nickName: String
     let currentLocation: Coordinate?

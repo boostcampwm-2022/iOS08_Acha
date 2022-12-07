@@ -12,6 +12,10 @@ import RxSwift
 import Then
 
 final class MultiGameViewController: UIViewController, DistanceAndTimeBarLine {
+    
+    enum Section {
+        case ranking
+    }
 
     var distanceAndTimeBar: DistanceAndTimeBar = .init()
     private lazy var pointLabel = UILabel().then {
@@ -19,14 +23,22 @@ final class MultiGameViewController: UIViewController, DistanceAndTimeBarLine {
         $0.font = .largeTitle
         $0.textColor = .black
     }
+    private lazy var exitButton = UIButton().then {
+        $0.setImage(.exitImage, for: .normal)
+    }
+    
+    private lazy var pointBoard = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
+
+    typealias GameDataDatasource = UICollectionViewDiffableDataSource<Section, MultiGamePlayerData>
+    typealias GameDataSnapshot = NSDiffableDataSourceSnapshot<Section, MultiGamePlayerData>
+    
+    private lazy var gameDataSource = makeDataSource()
+    private lazy var gameSnapShot = GameDataSnapshot()
     
     private let mapView: MKMapView = .init()
     
     private let viewModel: MultiGameViewModel
     private let disposebag = DisposeBag()
-    private lazy var exitButton = UIButton().then {
-        $0.setImage(.exitImage, for: .normal)
-    }
     
     init(viewModel: MultiGameViewModel) {
         self.viewModel = viewModel
@@ -83,7 +95,7 @@ final class MultiGameViewController: UIViewController, DistanceAndTimeBarLine {
         
         outputs.playerDataFetched
             .drive(onNext: { [weak self] players in
-                print(players)
+                self?.makeSnapShot(data: players)
             })
             .disposed(by: disposebag)
     }
@@ -96,6 +108,7 @@ extension MultiGameViewController {
         addViews()
         addConstraints()
         mapView.delegate = self
+        configureCollectionView()
     }
     
     private func addViews() {
@@ -146,5 +159,67 @@ extension MultiGameViewController: MKMapViewDelegate {
             $0 !== mapView.userLocation
         }
         mapView.removeAnnotations(annotations)
+    }
+}
+
+extension MultiGameViewController {
+    private func makeDataSource() -> GameDataDatasource {
+        let dataSource = GameDataDatasource(collectionView: pointBoard) { collectionView, indexPath, itemIdentifier in
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: GameRankCollectionViewCell.identifier,
+                for: indexPath
+            ) as? GameRankCollectionViewCell else {return UICollectionViewCell()}
+            cell.bind(data: itemIdentifier, rank: indexPath.row+1)
+            return cell
+        }
+        return dataSource
+    }
+    
+    private func makeSnapShot(data: [MultiGamePlayerData]) {
+        let oldItems = gameSnapShot.itemIdentifiers(inSection: .ranking)
+        gameSnapShot.deleteItems(oldItems)
+        gameSnapShot.appendItems(data, toSection: .ranking)
+        gameDataSource.apply(gameSnapShot, animatingDifferences: true)
+    }
+    
+    private func registerCollectionView() {
+        pointBoard.register(
+            GameRankCollectionViewCell.self,
+            forCellWithReuseIdentifier: GameRankCollectionViewCell.identifier
+        )
+    }
+    
+    private func configureCollectionView() {
+        pointBoard = UICollectionView(frame: .zero, collectionViewLayout: makeCompositonLayout())
+        view.addSubview(pointBoard)
+        registerCollectionView()
+        pointBoard.backgroundColor = .gameRoomColor
+        pointBoard.alpha = 0.5
+        pointBoard.snp.makeConstraints {
+            $0.leading.equalToSuperview().inset(10)
+            $0.top.equalTo(exitButton.snp.bottom).inset(-10)
+            $0.height.equalTo(300)
+            $0.width.equalTo(200)
+        }
+        gameSnapShot.appendSections([.ranking])
+    }
+    
+    private func makeCompositonLayout() -> UICollectionViewCompositionalLayout {
+        let itemSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .estimated(50)
+        )
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        let groupSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .estimated(50)
+        )
+        let group = NSCollectionLayoutGroup.horizontal(
+            layoutSize: groupSize,
+            subitems: [item]
+        )
+        let section = NSCollectionLayoutSection(group: group)
+        let layout = UICollectionViewCompositionalLayout(section: section)
+        return layout
     }
 }
