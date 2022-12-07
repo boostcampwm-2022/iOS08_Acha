@@ -96,6 +96,7 @@ final class MultiGameViewController: UIViewController, DistanceAndTimeBarLine {
         outputs.playerDataFetched
             .drive(onNext: { [weak self] players in
                 self?.makeSnapShot(data: players)
+                self?.pointBoard.reloadData()
             })
             .disposed(by: disposebag)
     }
@@ -198,8 +199,8 @@ extension MultiGameViewController {
         pointBoard.snp.makeConstraints {
             $0.leading.equalToSuperview().inset(10)
             $0.top.equalTo(exitButton.snp.bottom).inset(-10)
-            $0.height.equalTo(300)
-            $0.width.equalTo(200)
+            $0.height.equalTo(200)
+            $0.width.equalTo(180)
         }
         gameSnapShot.appendSections([.ranking])
     }
