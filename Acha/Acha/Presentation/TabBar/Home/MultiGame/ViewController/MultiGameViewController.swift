@@ -82,14 +82,14 @@ final class MultiGameViewController: UIViewController, DistanceAndTimeBarLine {
         
         outputs.visitedLocation
             .drive(onNext: { [weak self]  location in
-                self?.mapView.addOverlay(MKCircle(center: location.toCLLocationCoordinate2D(), radius: 0.1))
-                let annotation = PlayerAnnotation(player: MultiGamePlayerData(
-                    id: "aewtew",
-                    nickName: "AWettwe", currentLocation: location,
-                    point: 30)
-                )
-                self?.removeAllAnnotations()
-                self?.mapView.addAnnotation(annotation)
+//                self?.mapView.addOverlay(MKCircle(center: location.toCLLocationCoordinate2D(), radius: 0.1))
+//                let annotation = PlayerAnnotation(player: MultiGamePlayerData(
+//                    id: "aewtew",
+//                    nickName: "AWettwe", currentLocation: location,
+//                    point: 30)
+//                )
+//                self?.removeAllAnnotations()
+//                self?.mapView.addAnnotation(annotation)
             })
             .disposed(by: disposebag)
         
@@ -107,8 +107,12 @@ final class MultiGameViewController: UIViewController, DistanceAndTimeBarLine {
         
         outputs.playerDataFetched
             .drive(onNext: { [weak self] players in
-                self?.makeSnapShot(data: players)
-                self?.pointBoard.reloadData()
+                guard let self = self else {return}
+                self.removeAllAnnotations()
+                self.mapView.addAnnotations(self.makeAnnotations(data: players))
+                self.mapView.addOverlays(self.makeOverlays(data: players))
+                self.makeSnapShot(data: players)
+                self.pointBoard.reloadData()
             })
             .disposed(by: disposebag)
         
@@ -118,6 +122,15 @@ final class MultiGameViewController: UIViewController, DistanceAndTimeBarLine {
                 self?.setCamera(data: currentLocation)
             })
             .disposed(by: disposebag)
+    }
+    
+    private func makeAnnotations(data: [MultiGamePlayerData]) -> [MKAnnotation] {
+        return data.map { PlayerAnnotation(player: $0) }
+    }
+    
+    private func makeOverlays(data: [MultiGamePlayerData]) -> [MKOverlay] {
+        let nothing = CLLocationCoordinate2D()
+        return data.map { MKCircle(center: ($0.currentLocation?.toCLLocationCoordinate2D()) ?? nothing, radius: 0.2) }
     }
 
 }
@@ -173,7 +186,7 @@ extension MultiGameViewController {
 extension MultiGameViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
          guard let circelOverLay = overlay as? MKCircle else {return MKOverlayRenderer()}
-
+        
          let circleRenderer = MKCircleRenderer(circle: circelOverLay)
          circleRenderer.strokeColor = .blue
          circleRenderer.fillColor = .blue
@@ -182,10 +195,10 @@ extension MultiGameViewController: MKMapViewDelegate {
      }
     
     private func removeAllAnnotations() {
-        let annotations = mapView.annotations.filter {
-            $0 !== mapView.userLocation
-        }
-        mapView.removeAnnotations(annotations)
+//        let annotations = mapView.annotations.filter {
+//            $0 !== mapView.userLocation
+//        }
+        mapView.removeAnnotations(mapView.annotations)
     }
 }
 
