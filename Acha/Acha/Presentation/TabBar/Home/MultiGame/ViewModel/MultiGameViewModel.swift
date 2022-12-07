@@ -17,6 +17,7 @@ struct MultiGameViewModel: BaseViewModel {
     struct Input {
         let viewDidAppear: Observable<Void>
         let resetButtonTapped: Observable<Void>
+        let watchOthersLocationButtonTapped: Observable<Void>
     }
     
     struct Output {
@@ -26,6 +27,7 @@ struct MultiGameViewModel: BaseViewModel {
         let movedDistance: Driver<Double>
         let playerDataFetched: Driver<[MultiGamePlayerData]>
         let currentLocation: Driver<Coordinate>
+        let otherLocation: Driver<Coordinate>
     }
     
     private let roomId: String
@@ -49,6 +51,7 @@ struct MultiGameViewModel: BaseViewModel {
         let movedDistance = PublishSubject<Double>()
         let playerDataFetcehd = PublishSubject<[MultiGamePlayerData]>()
         let currentLocation = PublishSubject<Coordinate>()
+        let otherLocation = PublishSubject<Coordinate>()
         input.viewDidAppear
             .subscribe { _ in
                 useCase.timerStart()
@@ -87,6 +90,16 @@ struct MultiGameViewModel: BaseViewModel {
             })
             .disposed(by: disposeBag)
         
+        input.watchOthersLocationButtonTapped
+            .subscribe { _ in
+                useCase.watchOthersLocation(roomID: roomId)
+                    .subscribe(onSuccess: { coordinate in
+                        otherLocation.onNext(coordinate)
+                    })
+                    .disposed(by: disposeBag)
+            }
+            .disposed(by: disposeBag)
+        
         visitedLocation
             .subscribe { _ in
             useCase.point()
@@ -103,7 +116,8 @@ struct MultiGameViewModel: BaseViewModel {
             gamePoint: gamePoint.asDriver(onErrorJustReturn: 0),
             movedDistance: movedDistance.asDriver(onErrorJustReturn: 0),
             playerDataFetched: playerDataFetcehd.asDriver(onErrorJustReturn: []),
-            currentLocation: currentLocation.asDriver(onErrorJustReturn: Coordinate(latitude: 0, longitude: 0))
+            currentLocation: currentLocation.asDriver(onErrorJustReturn: Coordinate(latitude: 0, longitude: 0)),
+            otherLocation: otherLocation.asDriver(onErrorJustReturn: Coordinate(latitude: 0, longitude: 0))
         )
     }
     

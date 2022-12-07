@@ -935,8 +935,8 @@
 		76AA55F62937AD8900498441 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				76AA55F72937AD8900498441 /* MultiGameViewController.swift */,
 				76AA55F82937AD8900498441 /* MultiGameRoomViewController.swift */,
+				76AA55F72937AD8900498441 /* MultiGameViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";

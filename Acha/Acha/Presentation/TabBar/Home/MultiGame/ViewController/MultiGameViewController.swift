@@ -38,7 +38,7 @@ final class MultiGameViewController: UIViewController, DistanceAndTimeBarLine {
         )
     }
     
-    private lazy var viewOthersLocationButton: UIButton = UIButton().then {
+    private lazy var watchOthersLocationButton: UIButton = UIButton().then {
         $0.setImage(
             .systemEyeCircle?.withTintColor(
                 .pointLight,
@@ -80,7 +80,8 @@ final class MultiGameViewController: UIViewController, DistanceAndTimeBarLine {
     func bind() {
         let inputs = MultiGameViewModel.Input(
             viewDidAppear: rx.viewDidAppear.asObservable(),
-            resetButtonTapped: resetButton.rx.tap.asObservable()
+            resetButtonTapped: resetButton.rx.tap.asObservable(),
+            watchOthersLocationButtonTapped: watchOthersLocationButton.rx.tap.asObservable()
         )
         let outputs = viewModel.transform(input: inputs)
         outputs.time
@@ -127,8 +128,13 @@ final class MultiGameViewController: UIViewController, DistanceAndTimeBarLine {
         
         outputs.currentLocation
             .drive(onNext: { [weak self] currentLocation in
-                print(currentLocation)
                 self?.setCamera(data: currentLocation)
+            })
+            .disposed(by: disposebag)
+        
+        outputs.otherLocation
+            .drive(onNext: { [weak self] otherLocation in
+                self?.setCamera(data: otherLocation)
             })
             .disposed(by: disposebag)
     }
@@ -172,7 +178,7 @@ extension MultiGameViewController {
         view.addSubview(exitButton)
         view.addSubview(pointLabel)
         view.addSubview(resetButton)
-        view.addSubview(viewOthersLocationButton)
+        view.addSubview(watchOthersLocationButton)
     }
     
     private func addConstraints() {
@@ -203,7 +209,7 @@ extension MultiGameViewController {
             $0.width.height.equalTo(60)
         }
         
-        viewOthersLocationButton.snp.makeConstraints {
+        watchOthersLocationButton.snp.makeConstraints {
             $0.bottom.equalTo(resetButton.snp.top).inset(-10)
             $0.trailing.equalTo(resetButton)
             $0.width.height.equalTo(resetButton)
