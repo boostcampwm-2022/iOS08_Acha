@@ -60,4 +60,8 @@ final class DefaultRealtimeDatabaseNetworkService: RealtimeDatabaseNetworkServic
         childReference.setValue(jsonSerial)
     }
 
+    func delete(type: FirebaseRealtimeType) {
+        let childReference = self.databaseReference.child(type.path)
+        childReference.removeValue()
+    }
 }

@@ -24,6 +24,7 @@ final class MyPageViewModel: BaseViewModel {
     struct Output {
         var nickName = PublishSubject<String>()
         var badges = PublishSubject<[Badge]>()
+        var deleteFailure = PublishSubject<Void>()
     }
     
     // MARK: - Properties
@@ -75,6 +76,17 @@ final class MyPageViewModel: BaseViewModel {
                         print($0)
                     }).disposed(by: self.disposeBag)
             }).disposed(by: disposeBag)
+        
+        input.withDrawalTapped
+            .subscribe(onNext: { [weak self] in
+                guard let self,
+                      let coordinator = self.coordinator else { return }
+                self.useCase.deleteUser()
+                    .subscribe(onSuccess: {
+                        coordinator.delegate?.didFinished(childCoordinator: coordinator)
+                    }, onFailure: { _ in
+                        output.deleteFailure.onNext(())
+                    }).disposed(by: self.disposeBag)
             }).disposed(by: disposeBag)
         
         input.openSourceTapped
