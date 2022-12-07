@@ -64,13 +64,17 @@ final class MyPageViewModel: BaseViewModel {
                 self.coordinator?.showMyInfoEditViewController()
             }).disposed(by: disposeBag)
         
-        Observable.merge(input.logoutTapped, input.withDrawalTapped)
-            .debug()
+        input.logoutTapped
             .subscribe(onNext: { [weak self] in
                 guard let self,
                       let coordinator = self.coordinator else { return }
-                #warning("탈퇴, 로그아웃 로직 추가")
-                coordinator.delegate?.didFinished(childCoordinator: coordinator)
+                self.useCase.logout()
+                    .subscribe(onNext: {
+                        coordinator.delegate?.didFinished(childCoordinator: coordinator)
+                    }, onError: {
+                        print($0)
+                    }).disposed(by: self.disposeBag)
+            }).disposed(by: disposeBag)
             }).disposed(by: disposeBag)
         
         input.openSourceTapped

@@ -47,4 +47,8 @@ final class DefaultMyPageUseCase: MyPageUseCase {
             })
             .disposed(by: disposeBag)
     }
+    
+    func logout() -> Observable<Void> {
+        userRepository.signOut()
+    }
 }

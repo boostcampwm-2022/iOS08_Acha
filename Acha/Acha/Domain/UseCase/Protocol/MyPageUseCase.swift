@@ -13,4 +13,5 @@ protocol MyPageUseCase {
     var ownedBadges: BehaviorSubject<[Badge]> { get set }
     var allBadges: BehaviorSubject<[Badge]> { get set }
     func fetchMyPageData()
+    func logout() -> Observable<Void>
 }
