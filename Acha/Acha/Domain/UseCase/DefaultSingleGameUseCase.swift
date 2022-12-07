@@ -9,8 +9,7 @@ import Foundation
 import RxSwift
 import CoreLocation
 
-class DefaultSingleGameUseCase: SingleGameUseCase {
-    private let locationService: LocationService
+class DefaultSingleGameUseCase: DefaultMapBaseUseCase, SingleGameUseCase {
     private let recordRepository: RecordRepository
     private var disposeBag = DisposeBag()
     
@@ -20,7 +19,6 @@ class DefaultSingleGameUseCase: SingleGameUseCase {
     
     var ishideGameOverButton = BehaviorSubject<Bool>(value: true)
     var previousCoordinate: Coordinate?
-    var currentLocation = PublishSubject<Coordinate>()
     var runningTime = BehaviorSubject<Int>(value: 0)
     var runningDistance = BehaviorSubject<Double>(value: 0)
     
@@ -37,29 +35,26 @@ class DefaultSingleGameUseCase: SingleGameUseCase {
          runningTimer: TimerServiceProtocol
     ) {
         self.map = map
-        self.locationService = locationService
         self.recordRepository = recordRepository
         self.tapTimer = tapTimer
         self.runningTimer = runningTimer
+        super.init(locationService: locationService)
     }
     
-    func startRunning() {
+    override func start() {
+        super.start()
         startGameOverTimer()
         startRunningTimer()
-        locationService.start()
         
-        locationService.userLocation
-            .subscribe(onNext: { [weak self] location in
+        userLocation
+            .skip(1)
+            .subscribe(onNext: { [weak self] currentCoordinate in
                 guard let self,
                       let distance = try? self.runningDistance.value(),
                       let previousCoordinate = self.previousCoordinate else {
-                    self?.previousCoordinate = Coordinate(latitude: location.coordinate.latitude,
-                                                          longitude: location.coordinate.longitude)
+                    self?.previousCoordinate = currentCoordinate
                     return
                 }
-                
-                let currentCoordinate = Coordinate(latitude: location.coordinate.latitude,
-                                                   longitude: location.coordinate.longitude)
                 
                 let currentDistance = previousCoordinate.distance(from: currentCoordinate)
                 guard !currentDistance.isNaN else { return }
@@ -118,12 +113,12 @@ class DefaultSingleGameUseCase: SingleGameUseCase {
             .disposed(by: runningTimer.disposeBag)
     }
     
-    func stopRunning() {
+    override func stop() {
+        super.stop()
         runningTimer.stop()
         disposeBag = DisposeBag()
         runningTimer.disposeBag = DisposeBag()
         tapTimer.disposeBag = DisposeBag()
-        locationService.stop()
     }
     
     func gameOverButtonTapped() {
@@ -148,7 +143,7 @@ class DefaultSingleGameUseCase: SingleGameUseCase {
         recordRepository.uploadNewRecord(record: record)
 
         gameOverInformation.onNext((record, self.map.name))
-        stopRunning()
+        stop()
     }
     
     private func healthKitWriteData() -> HealthKitWriteData {

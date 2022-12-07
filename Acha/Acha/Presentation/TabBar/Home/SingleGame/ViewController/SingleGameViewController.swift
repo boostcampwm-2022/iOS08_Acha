@@ -15,16 +15,6 @@ import RxCocoa
 
 class SingleGameViewController: MapBaseViewController, DistanceAndTimeBarLine {
     // MARK: - UI properties
-    private lazy var resetButton: UIButton = UIButton().then {
-        $0.setImage(
-            ImageConstants
-                .arrowPositionResetImage?
-                .withTintColor(
-                    .pointLight,
-                    renderingMode: .alwaysOriginal),
-            for: .normal
-        )
-    }
     var distanceAndTimeBar = DistanceAndTimeBar()
     private lazy var rightMenuButton: UIButton = UIButton().then {
         $0.setImage(
@@ -58,7 +48,6 @@ class SingleGameViewController: MapBaseViewController, DistanceAndTimeBarLine {
     // MARK: - Lifecycles
     init(viewModel: SingleGameViewModel) {
         self.viewModel = viewModel
-//        super.init(nibName: nil, bundle: nil)
         super.init(viewModel: viewModel)
     }
     
@@ -105,14 +94,22 @@ extension SingleGameViewController {
             $0.height.equalTo(100)
             $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
-        resetButton.snp.makeConstraints {
+        mapView.snp.makeConstraints {
+            $0.top.leading.trailing.equalToSuperview()
+            $0.bottom.equalTo(distanceAndTimeBar.snp.top)
+        }
+        rightMenuButton.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            $0.height.width.equalTo(50)
+            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-10)
+        }
+        focusButton.snp.makeConstraints {
             $0.bottom.equalTo(distanceAndTimeBar.snp.top).offset(-10)
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-10)
             $0.width.height.equalTo(50)
         }
         gameOverButton.snp.makeConstraints {
             $0.bottom.equalTo(distanceAndTimeBar.snp.top).offset(-30)
-            guard let mapView else { return }
             $0.centerX.equalTo(mapView)
             $0.width.equalTo(100)
             $0.height.equalTo(40)
@@ -234,11 +231,6 @@ extension SingleGameViewController {
     }
     
     private func bindButtons() {
-        resetButton.rx.tap
-            .subscribe(onNext: { [weak self] in
-                guard let self else { return }
-//                self.focusUserLocation(useSpan: false)
-            }).disposed(by: disposeBag)
         gameOverButton.rx.tap
             .subscribe(onNext: { [weak self] in
                 guard let self else { return }
