@@ -81,25 +81,13 @@ final class MultiGameViewController: UIViewController, DistanceAndTimeBarLine {
         let inputs = MultiGameViewModel.Input(
             viewDidAppear: rx.viewDidAppear.asObservable(),
             resetButtonTapped: resetButton.rx.tap.asObservable(),
-            watchOthersLocationButtonTapped: watchOthersLocationButton.rx.tap.asObservable()
+            watchOthersLocationButtonTapped: watchOthersLocationButton.rx.tap.asObservable(),
+            exitButtonTapped: exitButton.rx.tap.asObservable()
         )
         let outputs = viewModel.transform(input: inputs)
         outputs.time
             .drive(onNext: { [weak self] time in
                 self?.distanceAndTimeBar.timeLabel.text = "\(time)"
-            })
-            .disposed(by: disposebag)
-        
-        outputs.visitedLocation
-            .drive(onNext: { [weak self]  location in
-//                self?.mapView.addOverlay(MKCircle(center: location.toCLLocationCoordinate2D(), radius: 0.1))
-//                let annotation = PlayerAnnotation(player: MultiGamePlayerData(
-//                    id: "aewtew",
-//                    nickName: "AWettwe", currentLocation: location,
-//                    point: 30)
-//                )
-//                self?.removeAllAnnotations()
-//                self?.mapView.addAnnotation(annotation)
             })
             .disposed(by: disposebag)
         
