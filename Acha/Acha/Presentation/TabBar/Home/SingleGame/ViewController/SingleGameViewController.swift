@@ -80,15 +80,11 @@ class SingleGameViewController: MapBaseViewController, DistanceAndTimeBarLine {
 // MARK: - Helpers
 extension SingleGameViewController {
     private func setupSubviews() {
-        [rightMenuButton, distanceAndTimeBar, resetButton, gameOverButton]
+        guard let mapView else { return }
+        [mapView, rightMenuButton, distanceAndTimeBar, focusButton, gameOverButton]
             .forEach {
                 view.addSubview($0)
             }
-        rightMenuButton.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-            $0.height.width.equalTo(50)
-            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-10)
-        }
         distanceAndTimeBar.snp.makeConstraints {
             $0.width.equalTo(view.snp.width)
             $0.height.equalTo(100)

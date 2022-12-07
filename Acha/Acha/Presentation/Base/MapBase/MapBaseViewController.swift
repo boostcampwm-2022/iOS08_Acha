@@ -63,19 +63,13 @@ class MapBaseViewController: UIViewController, MapBaseViewProtocol {
     
     // MARK: - Helpers
     func setUpMapView() {
-        if let mapView {
-            view.addSubview(mapView)
-            mapView.snp.makeConstraints {
-                $0.edges.equalToSuperview()
-            }
-        }
-    
+        guard let mapView else { return }
         if #available(iOS 16.0, *) {
-            mapView?.preferredConfiguration = MKStandardMapConfiguration()
+            mapView.preferredConfiguration = MKStandardMapConfiguration()
         } else {
-            mapView?.mapType = .standard
+            mapView.mapType = .standard
         }
-        mapView?.showsCompass = false
+        mapView.showsCompass = false
     }
     
     private func bind() {
