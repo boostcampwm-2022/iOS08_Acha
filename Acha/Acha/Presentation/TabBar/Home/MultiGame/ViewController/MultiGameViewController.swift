@@ -125,18 +125,25 @@ final class MultiGameViewController: UIViewController, DistanceAndTimeBarLine {
     }
     
     private func makeAnnotations(data: [MultiGamePlayerData]) -> [MKAnnotation] {
-        return data.map { PlayerAnnotation(player: $0) }
+        let annotations = data.enumerated().map { index, data in
+            guard let type = PlayerAnnotation.PlayerType(rawValue: index) else {
+                return PlayerAnnotation(player: data, type: .first)
+            }
+            let playerAnnoation = PlayerAnnotation(player: data, type: type)
+            return playerAnnoation
+        }
+        return annotations
     }
     
     private func makeOverlays(data: [MultiGamePlayerData]) -> [MKOverlay] {
         let nothing = CLLocationCoordinate2D()
-        let annotations = data.enumerated().map { index, data in
+        let overlays = data.enumerated().map { index, data in
             guard let type = MKCircle.CircleType(rawValue: index) else {return MKCircle()}
             let circle = PlayerCircle(center: data.currentLocation?.toCLLocationCoordinate2D() ?? nothing, radius: 0.3)
             circle.type = type
             return circle
         }
-        return annotations
+        return overlays
     }
 
 }
@@ -187,11 +194,20 @@ extension MultiGameViewController {
         }
     }
     
+    private func removeAllAnnotations() {
+        mapView.removeAnnotations(mapView.annotations)
+    }
+    
 }
 
 extension MultiGameViewController: MKMapViewDelegate {
-    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        guard let circleOverLay = overlay as? PlayerCircle else {return MKOverlayRenderer()}
+    func mapView(
+        _ mapView: MKMapView,
+        rendererFor overlay: MKOverlay
+    ) -> MKOverlayRenderer {
+        guard let circleOverLay = overlay as? PlayerCircle else {
+            return MKOverlayRenderer()
+        }
         let circleRenderer = MKCircleRenderer(circle: circleOverLay)
         circleRenderer.strokeColor = circleOverLay.overlayColor()
         circleRenderer.fillColor = circleOverLay.overlayColor()
@@ -199,12 +215,18 @@ extension MultiGameViewController: MKMapViewDelegate {
         return circleRenderer
     }
     
-    private func removeAllAnnotations() {
-//        let annotations = mapView.annotations.filter {
-//            $0 !== mapView.userLocation
-//        }
-        mapView.removeAnnotations(mapView.annotations)
+    func mapView(
+        _ mapView: MKMapView,
+        viewFor annotation: MKAnnotation
+    ) -> MKAnnotationView? {
+        let annotationView = PlayerAnnotationView(
+            annotation: annotation,
+            reuseIdentifier: PlayerAnnotationView.identifier
+        )
+        annotationView.canShowCallout = true
+        return annotationView
     }
+
 }
 
 extension MultiGameViewController {
