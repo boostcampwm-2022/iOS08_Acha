@@ -93,6 +93,7 @@ struct DefaultGameRoomRepository: GameRoomRepository {
                 var roomDTO = roomDTO
                 roomDTO.user = roomDTO.user.filter { $0.id != uuid }
                 if roomDTO.user.count == 0 {
+                    removeObserverRoom(id: id)
                     deleteRoom(id: id)
                 } else {
                     firebaseRealTimeDatabase.upload(type: .room(id: id), data: roomDTO)
