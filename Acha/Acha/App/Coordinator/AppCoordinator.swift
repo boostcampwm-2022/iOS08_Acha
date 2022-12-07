@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 protocol AppCoordinatorProtocol: Coordinator {
     func connectAuth()
@@ -23,9 +24,11 @@ final class AppCoordinator: AppCoordinatorProtocol {
     }
     
     func start() {
-        // 로그인 여부 따라 로직 분리
-//        connectTabBar()
-        connectAuth()
+        if Auth.auth().currentUser != nil {
+            connectTabBar()
+        } else {
+            connectAuth()
+        }
     }
     
     func connectAuth() {
