@@ -53,7 +53,7 @@ final class MyPageViewModel: BaseViewModel {
             .subscribe(onNext: { [weak self] in
                 guard let self,
                       let allBadges = try? self.useCase.allBadges.value(),
-                      let ownedBadges = try? self.useCase.ownedBadges.value() else { return }
+                      let ownedBadges = try? self.useCase.recentlyOwnedBadges.value() else { return }
                 self.coordinator?.showBadgeViewController(allBadges: allBadges,
                                                           ownedBadges: ownedBadges)
             }).disposed(by: disposeBag)
@@ -84,10 +84,7 @@ final class MyPageViewModel: BaseViewModel {
             .bind(to: output.nickName)
             .disposed(by: disposeBag)
         
-        useCase.ownedBadges
-            .map { ownedBadges in
-                return ownedBadges.count > 6 ? ownedBadges.suffix(6) : ownedBadges
-            }
+        useCase.recentlyOwnedBadges
             .bind(to: output.badges)
             .disposed(by: disposeBag)
         
