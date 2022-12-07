@@ -15,29 +15,28 @@ class BadgeViewModel: BaseViewModel {
     
     struct Output {
         var brandNewBadges = BehaviorSubject<[Badge]>(value: [])
-         var aquiredBadges = BehaviorSubject<[Badge]>(value: [])
-         var inaquiredBadges = BehaviorSubject<[Badge]>(value: [])
+        var aquiredBadges = BehaviorSubject<[Badge]>(value: [])
+        var inaquiredBadges = BehaviorSubject<[Badge]>(value: [])
     }
-    
     var disposeBag = DisposeBag()
     let allBadges: [Badge]
-         let ownedBadges: [Badge]
-
-         init(allBadges: [Badge],
-              ownedBadges: [Badge]
-         ) {
-             self.allBadges = allBadges
-             self.ownedBadges = ownedBadges
-         }
+    let ownedBadges: [Badge]
+    
+    init(allBadges: [Badge],
+         ownedBadges: [Badge]
+    ) {
+        self.allBadges = allBadges
+        self.ownedBadges = ownedBadges
+    }
     
     func transform(input: Input) -> Output {
         let output = Output()
-                 output.brandNewBadges
-                     .onNext(ownedBadges)
-                 output.aquiredBadges
-                     .onNext(allBadges.filter { $0.isOwn })
-                 output.inaquiredBadges
-                     .onNext(allBadges.filter { !$0.isOwn })
-                 return output
+        output.brandNewBadges
+            .onNext(ownedBadges)
+        output.aquiredBadges
+            .onNext(allBadges.filter { $0.isOwn })
+        output.inaquiredBadges
+            .onNext(allBadges.filter { !$0.isOwn })
+        return output
     }
 }

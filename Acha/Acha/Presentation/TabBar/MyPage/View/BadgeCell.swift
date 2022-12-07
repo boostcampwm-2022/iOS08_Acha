@@ -21,6 +21,7 @@ final class BadgeCell: UICollectionViewCell {
         $0.layer.cornerRadius = 50
         $0.layer.borderWidth = 3
         $0.layer.borderColor = UIColor.pointLight.cgColor
+        $0.clipsToBounds = true
     }
     // MARK: - Properties
     static let identifer = "BadgeCell"
@@ -51,7 +52,7 @@ final class BadgeCell: UICollectionViewCell {
     }
     
     func bind(image: String, badgeName: String, disposeBag: DisposeBag) {
-//        badgeImage.setImage(url: image, disposeBag: disposeBag)
+        badgeImage.setImage(url: image, disposeBag: disposeBag)
         badgeLabel.text = badgeName
     }
 }
