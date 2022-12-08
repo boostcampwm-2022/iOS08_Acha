@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 import CoreLocation
 
-class DefaultSingleGameUseCase: DefaultMapBaseUseCase, SingleGameUseCase {
+final class DefaultSingleGameUseCase: DefaultMapBaseUseCase, SingleGameUseCase {
     private let recordRepository: RecordRepository
     private var disposeBag = DisposeBag()
     

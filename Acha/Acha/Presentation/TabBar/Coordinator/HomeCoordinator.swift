@@ -35,9 +35,7 @@ final class HomeCoordinator: HomeCoordinatorProtocol {
     }
     
     func showHomeViewController() {
-        let provider = HomeProvider()
-        let repository = HomeRepository(provider: provider)
-        let useCase = HomeUseCase(repository: repository)
+        let useCase = DiContainerManager.makeDefaultHomeUseCase()
         let viewModel = HomeViewModel(
             coordinator: self,
             useCase: useCase

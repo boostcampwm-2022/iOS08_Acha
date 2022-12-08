@@ -9,7 +9,7 @@ import UIKit
 
 protocol MultiGameCoordinatorProtocol: Coordinator {
     func showMultiGameRoomViewController(roomID: String)
-    func showMultiGameSelectViewController(roomID: String)
+    func showMultiGameViewController(roomID: String)
 }
 
 final class MultiGameCoordinator: MultiGameCoordinatorProtocol {
@@ -27,13 +27,12 @@ final class MultiGameCoordinator: MultiGameCoordinatorProtocol {
     
     func start(gameID: String) {
         showMultiGameRoomViewController(roomID: gameID)
+//        showMultiGameViewController(roomID: "weat")
     }
     
     func showMultiGameRoomViewController(roomID: String) {
-        let provider = FBRealTimeDB()
-        let datasource = MultiGameRoomDataSource(provider: provider)
-        let repository = MultiGameRoomRepository(dataSource: datasource)
-        let useCase = MultiGameRoomUseCase(repository: repository)
+        
+        let useCase = DefaultMultiGameRoomUseCase(repository: DiContainerManager.makeDefaultGameRoomRepository())
         let viewModel = MultiGameRoomViewModel(
             coordinator: self,
             useCase: useCase,
@@ -47,8 +46,16 @@ final class MultiGameCoordinator: MultiGameCoordinatorProtocol {
         navigationController.pushViewController(viewController, animated: true)
     }
     
-    func showMultiGameSelectViewController(roomID: String) {
-        let viewController = MultiGameSelectViewController()
+    func showMultiGameViewController(roomID: String) {
+        
+        let useCase = DiContainerManager.makeMultiGameUseCase()
+        let viewModel = MultiGameViewModel(
+            coordinator: self,
+            useCase: useCase,
+            roomId: roomID
+        )
+        let viewController = MultiGameViewController(viewModel: viewModel)
         navigationController.pushViewController(viewController, animated: true)
+        navigationController.tabBarController?.tabBar.isHidden = true
     }
 }
