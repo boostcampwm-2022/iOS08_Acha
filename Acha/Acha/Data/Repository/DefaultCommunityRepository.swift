@@ -93,6 +93,22 @@ struct DefaultCommunityRepository: CommunityRepository {
             }).disposed(by: disposeBag)
     }
     
+    func updatePost(post: Post, image: Image?) {
+        if let image {
+            storageService?.upload(type: .category(image.name),
+                                   data: image.data,
+                                   completion: { url in
+                guard let url else { return }
+                var post = post
+                post.image = url.absoluteString
+                
+                realtimeService.uploadPost(data: PostDTO(data: post))
+            })
+        } else {
+            realtimeService.uploadPost(data: PostDTO(data: post))
+        }
+    }
+    
     func deletePost(id: Int) {
         realtimeService.delete(type: .post(id: id))
     }

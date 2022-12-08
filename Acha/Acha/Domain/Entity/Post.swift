@@ -11,7 +11,7 @@ struct Post: Hashable {
     var id: Int
     let userId: String
     let nickName: String
-    let text: String
+    var text: String
     var image: String?
     let createdAt: Date
     var comments: [Comment]?

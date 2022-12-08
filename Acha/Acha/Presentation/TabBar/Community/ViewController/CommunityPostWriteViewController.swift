@@ -130,6 +130,7 @@ final class CommunityPostWriteViewController: UIViewController {
                         }
                     }
                 }
+                
             }).disposed(by: disposebag)
     }
     

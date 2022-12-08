@@ -62,11 +62,13 @@ final class CommunityDetailViewController: UIViewController, UICollectionViewDel
                 .rx.tap
                 .map { [weak self] _ in
                     guard let self else { fatalError() }
+                    
+                    let comment = Comment(userId: "USER1",
+                                          nickName: "USER1",
+                                          text: self.commentView.commentTextView.text)
                     self.commentView.commentTextView.text = ""
                     
-                    return Comment(userId: "USER1",
-                            nickName: "USER1",
-                            text: self.commentView.commentTextView.text)
+                    return comment
                 }
                 .asObservable(),
             postModifyButtonTapEvent: postCellModifyButtonTapEvent.asObservable(),
@@ -140,8 +142,11 @@ final class CommunityDetailViewController: UIViewController, UICollectionViewDel
                 
                 cell.bind(post: post)
                 cell.modifyButtonTapEvent
-                    .subscribe(onNext: { post in
-                        self.postCellModifyButtonTapEvent.accept(post)
+                    .subscribe(onNext: { sendPost in
+                        var sendPost = sendPost
+                        sendPost.id = post.id
+                        sendPost.image = post.image
+                        self.postCellModifyButtonTapEvent.accept(sendPost)
                     })
                     .disposed(by: self.disposeBag)
                 cell.deleteButtonTapEvent

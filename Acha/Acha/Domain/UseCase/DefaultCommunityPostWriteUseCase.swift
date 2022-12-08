@@ -30,6 +30,12 @@ final class DefaultCommunityPostWriteUseCase: CommunityPostWriteUseCase {
     }
     
     func uploadPost(post: Post, image: Image?) {
-        repository.uploadPost(post: post, image: image)
+        if let selfPost = self.post {
+            var uploadPost = selfPost
+            uploadPost.text = post.text
+            repository.updatePost(post: uploadPost, image: image)
+        } else {
+            repository.uploadPost(post: post, image: image)
+        }
     }
 }

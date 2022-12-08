@@ -14,6 +14,7 @@ import RxCocoa
 final class CommentView: UIView {
 
     lazy var commentTextView = UITextView().then {
+        $0.isSelectable = true
         $0.layer.borderColor = UIColor.pointLight.cgColor
         $0.layer.borderWidth = 2
         $0.layer.cornerRadius = 5
