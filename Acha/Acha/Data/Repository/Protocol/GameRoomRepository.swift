@@ -48,4 +48,13 @@ protocol GameRoomRepository {
     
     /// 게임 시작시 인 게임 데이터 만들기 
     func startGame(roomId: String)
+    
+    /// 룸 챗 옵저빙 
+    func observingChats(id: String) -> Observable<[ChatDTO]>
+    
+    /// 읽은 정보 업데이트
+    func updateReads(roomID: String, reads: [[String]])
+    
+    /// 쳇 업데이트
+    func updateChats(roomID: String, chat: Chat)
 }

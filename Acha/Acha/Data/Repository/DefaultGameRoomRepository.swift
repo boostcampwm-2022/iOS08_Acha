@@ -120,6 +120,11 @@ struct DefaultGameRoomRepository: GameRoomRepository {
             .map { $0.map { $0.toDamin() } }
     }
     
+    func observingChats(id: String) -> Observable<[ChatDTO]> {
+        return observingRoom(id: id)
+            .map { $0.chats ?? [] }
+    }
+    
     func startGame(roomId: String) {
         fetchRoomData(id: roomId)
             .subscribe(onSuccess: { roomDTO in
@@ -156,6 +161,36 @@ struct DefaultGameRoomRepository: GameRoomRepository {
                 firebaseRealTimeDatabase.upload(type: .room(id: roomId), data: roomDTO)
             })
             .disposed(by: disposeBag)
+    }
+    
+    func updateReads(roomID: String, reads: [[String]]) {
+        fetchRoomData(id: roomID)
+            .subscribe(onSuccess: { roomDTO in
+                var roomDTO = roomDTO
+                guard var chats = roomDTO.chats else {return}
+                roomDTO.chats = chatsReadUpdate(chats: chats, reads: reads)
+                firebaseRealTimeDatabase.upload(type: .room(id: roomID), data: roomDTO)
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    func updateChats(roomID: String, chat: Chat) {
+        fetchRoomData(id: roomID)
+            .subscribe(onSuccess: { roomDTO in
+                var roomDTO = roomDTO
+                roomDTO.chats?.append(ChatDTO(data: chat))
+                firebaseRealTimeDatabase.upload(type: .room(id: roomID), data: roomDTO)
+            })
+            .disposed(by: disposeBag)
+                
+    }
+    
+    private func chatsReadUpdate(chats: [ChatDTO], reads: [[String]]) -> [ChatDTO] {
+        var chats = chats
+        for index in 0..<chats.count {
+            chats[index].read = reads[index]
+        }
+        return chats
     }
     
     func observingRoomUser(id: String) -> Observable<[RoomUser]> {

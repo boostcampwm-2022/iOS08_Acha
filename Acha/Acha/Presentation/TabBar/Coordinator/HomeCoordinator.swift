@@ -31,7 +31,8 @@ final class HomeCoordinator: HomeCoordinatorProtocol {
     }
     
     func start() {
-        showHomeViewController()
+//        showHomeViewController()
+        showChatViewController()
     }
     
     func showHomeViewController() {
@@ -41,6 +42,16 @@ final class HomeCoordinator: HomeCoordinatorProtocol {
             useCase: useCase
         )
         let viewController = HomeViewController(viewModel: viewModel)
+        navigationController.navigationBar.isHidden = false
+        navigationController.pushViewController(viewController, animated: true)
+    }
+    
+    func showChatViewController() {
+        let roomID = "12345678"
+        let useCase = DefaultMultiGameChatUseCase(roomRepository: DiContainerManager.makeDefaultGameRoomRepository(),
+                                                  userRepository: DiContainerManager.makeDefaultUserRepository())
+        let viewModel = MultiGameChatViewModel(roomID: roomID, useCase: useCase)
+        let viewController = MultiGameChatViewController(viewModel: viewModel, roomID: roomID)
         navigationController.navigationBar.isHidden = false
         navigationController.pushViewController(viewController, animated: true)
     }

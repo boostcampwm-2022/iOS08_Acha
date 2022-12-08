@@ -27,10 +27,28 @@ final class MultiGameChatViewController: UIViewController {
     private lazy var chatDataSource = makeDataSource()
     private lazy var chatSnapShot = ChatSnapShot()
     
+    private let viewModel: MultiGameChatViewModel
+    
+    init(viewModel: MultiGameChatViewModel, roomID: String) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureCollectionView()
         configureCommentView()
+        keyboardBind()
+    }
+    
+    private func keyboardBind() {
+        KeyboardManager.keyboardWillHide(view: commentView)
+        KeyboardManager.keyboardWillShow(view: commentView)
+        hideKeyboardWhenTapped()
     }
     
     private func configureCommentView() {
@@ -104,5 +122,20 @@ extension MultiGameChatViewController {
         let section = NSCollectionLayoutSection(group: group)
         let layout = UICollectionViewCompositionalLayout(section: section)
         return layout
+    }
+}
+
+extension MultiGameChatViewController {
+    private func hideKeyboardWhenTapped() {
+        let tapGestureRecognizer = UITapGestureRecognizer(
+            target: self,
+            action: #selector(dismissKeyboard)
+        )
+        tapGestureRecognizer.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapGestureRecognizer)
+    }
+    
+    @objc private func dismissKeyboard() {
+        view.endEditing(true)
     }
 }

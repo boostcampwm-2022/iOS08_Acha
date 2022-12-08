@@ -66,7 +66,8 @@ final class DefaultRealtimeDatabaseNetworkService: RealtimeDatabaseNetworkServic
     }
     
     func observing<T: Decodable>(type: FirebaseRealtimeType) -> Observable<T> {
-        return Observable<T>.create { observer in
+        return Observable<T>.create { [weak self] observer in
+            guard let self else { return Disposables.create() }
             let childReference = self.databaseReference.child(type.path)
             childReference.observe(.value) { snapshot in
                 guard let snapData = snapshot.value,
