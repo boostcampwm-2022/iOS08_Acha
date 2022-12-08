@@ -10,10 +10,10 @@ import RxSwift
 import RxCocoa
 import CoreLocation
 
-final class MultiGameViewModel {
+final class MultiGameViewModel: BaseViewModel {
 
     var disposeBag: RxSwift.DisposeBag = .init()
-    var timerBag = DisposeBag()
+    private var timerBag = DisposeBag()
     
     struct Input {
         let viewDidAppear: Observable<Void>
