@@ -64,7 +64,7 @@ final class MultiGameViewModel {
                     .subscribe { time in
                         if time <= -1 {
                             gameOver.onNext(())
-                            self.timerStop()
+                            self.gameOverAction(time: 60)
                         } else {
                             timeCount.onNext(time)
                         }
@@ -85,7 +85,7 @@ final class MultiGameViewModel {
                             playerDataFetcehd.onNext(players)
                         } else {
                             gameOver.onNext(())
-                            self.timerStop()
+                            self.gameOverAction(time: 60)
                         }
                     }
                     .disposed(by: self.disposeBag)
@@ -99,7 +99,6 @@ final class MultiGameViewModel {
                 self.useCase.getLocation()
                     .subscribe(onNext: { position in
                         currentLocation.onNext(position)
-                        self.useCase.stopObserveLocation()
                     })
                     .disposed(by: self.disposeBag)
             })
@@ -161,7 +160,7 @@ final class MultiGameViewModel {
     private func gameOverAction(time: Int) {
         useCase.healthKitStore(time: time)
         useCase.stopObserveLocation()
-        useCase.timerStop()
+        timerStop()
     }
     
     private func timerStop() {
