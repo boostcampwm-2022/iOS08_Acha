@@ -15,6 +15,7 @@ final class ChatCell: UICollectionViewCell {
     private lazy var textLabel = UILabel().then {
         $0.font = .commentBody
         $0.textColor = .black
+        $0.numberOfLines = 0
     }
     
     override init(frame: CGRect) {

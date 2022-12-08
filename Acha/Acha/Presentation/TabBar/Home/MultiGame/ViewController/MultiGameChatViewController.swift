@@ -134,12 +134,12 @@ extension MultiGameChatViewController {
     private func makeCompositonLayout() -> UICollectionViewCompositionalLayout {
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
-            heightDimension: .estimated(100)
+            heightDimension: .estimated(50)
         )
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         let groupSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
-            heightDimension: .estimated(100)
+            heightDimension: .estimated(50)
         )
         let group = NSCollectionLayoutGroup.horizontal(
             layoutSize: groupSize,
