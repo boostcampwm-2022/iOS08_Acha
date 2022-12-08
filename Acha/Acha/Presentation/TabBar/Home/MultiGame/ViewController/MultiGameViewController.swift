@@ -62,12 +62,11 @@ final class MultiGameViewController: UIViewController, DistanceAndTimeBarLine {
     }
     
     private lazy var toChatRoomButton: UIButton = UIButton().then {
-        $0.backgroundColor = .pointLight
+        $0.backgroundColor = .white
         $0.setTitleColor(.black, for: .normal)
         $0.layer.cornerRadius = 10
         $0.layer.masksToBounds = true
         $0.layer.shadowOffset = .init(width: 5, height: 5)
-        $0.layer.duration = .pi
     }
     
     private lazy var pointBoard = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())

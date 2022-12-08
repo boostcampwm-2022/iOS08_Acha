@@ -10,6 +10,7 @@ import UIKit
 protocol MultiGameCoordinatorProtocol: Coordinator {
     func showMultiGameRoomViewController(roomID: String)
     func showMultiGameViewController(roomID: String)
+    func showMultiGameChatViewController(roomID: String)
 }
 
 final class MultiGameCoordinator: MultiGameCoordinatorProtocol {
@@ -57,5 +58,22 @@ final class MultiGameCoordinator: MultiGameCoordinatorProtocol {
         let viewController = MultiGameViewController(viewModel: viewModel)
         navigationController.pushViewController(viewController, animated: true)
         navigationController.tabBarController?.tabBar.isHidden = true
+    }
+    
+    func showMultiGameChatViewController(roomID: String) {
+        let useCase = DiContainerManager.makeMultiGameChatUseCase()
+        let viewModel = MultiGameChatViewModel(
+            coordinator: self,
+            roomID: roomID,
+            useCase: useCase
+        )
+        let viewController = MultiGameChatViewController(viewModel: viewModel, roomID: roomID)
+        let transiton = CATransition()
+        transiton.type = CATransitionType.moveIn
+        transiton.subtype = CATransitionSubtype.fromRight
+        transiton.duration = 0.8
+        transiton.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        navigationController.view.layer.add(transiton, forKey: nil)
+        navigationController.pushViewController(viewController, animated: true)
     }
 }

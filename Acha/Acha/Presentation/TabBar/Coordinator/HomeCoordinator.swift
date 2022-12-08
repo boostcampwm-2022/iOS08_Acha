@@ -31,8 +31,7 @@ final class HomeCoordinator: HomeCoordinatorProtocol {
     }
     
     func start() {
-//        showHomeViewController()
-        showChatViewController()
+        showHomeViewController()
     }
     
     func showHomeViewController() {
@@ -46,22 +45,6 @@ final class HomeCoordinator: HomeCoordinatorProtocol {
         navigationController.pushViewController(viewController, animated: true)
     }
     
-    func showChatViewController() {
-        let roomID = "0099366606582541"
-        let useCase = DefaultMultiGameChatUseCase(roomRepository: DiContainerManager.makeDefaultGameRoomRepository(),
-                                                  userRepository: DiContainerManager.makeDefaultUserRepository())
-        let viewModel = MultiGameChatViewModel(roomID: roomID, useCase: useCase)
-        let viewController = MultiGameChatViewController(viewModel: viewModel, roomID: roomID)
-        navigationController.navigationBar.isHidden = false
-        
-        let transition = CATransition()
-        transition.duration = 0.8
-        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
-        transition.type = CATransitionType.moveIn
-        transition.subtype = CATransitionSubtype.fromRight
-        navigationController.view.layer.add(transition, forKey: nil)
-        navigationController.pushViewController(viewController, animated: true)
-    }
     
     func connectSingleGameFlow() {
         tabBarController?.tabBar.isHidden = true

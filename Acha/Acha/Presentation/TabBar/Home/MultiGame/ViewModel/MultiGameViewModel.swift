@@ -152,6 +152,13 @@ final class MultiGameViewModel: BaseViewModel {
                 .disposed(by: self.disposeBag)
         }
         .disposed(by: disposeBag)
+        
+        input.toRoomButtonTapped
+            .withUnretained(self)
+            .subscribe(onNext: { _ in
+                self.coordinator?.showMultiGameChatViewController(roomID: self.roomId)
+            })
+            .disposed(by: disposeBag)
     
         return Output(
             time: timeCount.asDriver(onErrorJustReturn: -1),

@@ -24,10 +24,16 @@ final class MultiGameChatViewModel: BaseViewModel {
     
     private let roomID: String
     private let useCase: MultiGameChatUseCase
+    private weak var coordinator: MultiGameCoordinatorProtocol?
     
-    init(roomID: String, useCase: MultiGameChatUseCase) {
+    init(
+        coordinator: MultiGameCoordinatorProtocol,
+        roomID: String,
+        useCase: MultiGameChatUseCase
+    ) {
         self.roomID = roomID
         self.useCase = useCase
+        self.coordinator = coordinator
     }
     
     func transform(input: Input) -> Output {

@@ -143,7 +143,7 @@ final class DefaultMultiGameUseCase: MultiGameUseCase {
         guard let uuid = userRepository.getUUID() else {return 0}
         var count = 0
         chats.forEach { chat in
-            if chat.contains(uuid) {
+            if !chat.contains(uuid) {
                 count += 1
             }
         }
