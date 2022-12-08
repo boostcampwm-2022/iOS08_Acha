@@ -581,9 +581,8 @@
 				F18A7FD0292C5DA50054FADE /* UIImage+.swift */,
 				F156F11D292365840053E807 /* CALayer+.swift */,
 				76A2E1A22923D94C001E887A /* CLLocationCoordinate2D+.swift */,
-				76AA56132937AE7E00498441 /* RxSwift+.swift */,
 				F1B0D8A9292CCA0F00EBDD02 /* Encodable+.swift */,
-				476A0E742941A9F400FAC471 /* MKMapView+Rx.swift */,
+				474952F72941E8D600098E7C /* Reactive */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -609,6 +608,15 @@
 				4768898E2937928900AF633B /* Badge.swift */,
 			);
 			path = Entity;
+			sourceTree = "<group>";
+		};
+		474952F72941E8D600098E7C /* Reactive */ = {
+			isa = PBXGroup;
+			children = (
+				76AA56132937AE7E00498441 /* RxSwift+.swift */,
+				476A0E742941A9F400FAC471 /* MKMapView+Rx.swift */,
+			);
+			path = Reactive;
 			sourceTree = "<group>";
 		};
 		474E24D6293DC6B800CFAC59 /* RecordMain */ = {
