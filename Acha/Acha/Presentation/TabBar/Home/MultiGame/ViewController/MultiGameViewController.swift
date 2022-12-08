@@ -192,6 +192,8 @@ final class MultiGameViewController: UIViewController, DistanceAndTimeBarLine {
             $0.leading.trailing.equalToSuperview().inset(50)
             $0.bottom.equalTo(gameOverButton.snp.bottom).offset(10)
         }
+        
+        pointBoard.alpha = 0.8
     }
 
 }
@@ -326,7 +328,7 @@ extension MultiGameViewController {
         pointBoard.alpha = 0.5
         pointBoard.snp.makeConstraints {
             $0.leading.equalToSuperview().inset(10)
-            $0.top.equalToSuperview().inset(80)
+            $0.top.equalTo(exitButton.snp.bottom).inset(-10)
             $0.height.equalTo(200)
             $0.width.equalTo(170)
         }
