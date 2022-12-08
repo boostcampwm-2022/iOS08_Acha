@@ -211,7 +211,6 @@ extension SingleGameViewController {
             .subscribe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] (record, mapName) in
                 guard let self else { return }
-                print(mapName)
                 self.view.addSubview(self.gameOverView)
                 self.gameOverView.bind(mapName: mapName,
                                   time: "\(record.time)초",
