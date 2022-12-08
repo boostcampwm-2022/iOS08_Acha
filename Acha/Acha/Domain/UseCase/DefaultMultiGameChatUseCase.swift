@@ -27,7 +27,6 @@ final class DefaultMultiGameChatUseCase: MultiGameChatUseCase {
     
     func chatWrite(text: String) {
         chats = text
-        print(text)
     }
     
     func chatUpdate(roomID: String) {

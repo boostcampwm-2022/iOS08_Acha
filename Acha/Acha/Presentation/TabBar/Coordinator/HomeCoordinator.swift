@@ -53,6 +53,13 @@ final class HomeCoordinator: HomeCoordinatorProtocol {
         let viewModel = MultiGameChatViewModel(roomID: roomID, useCase: useCase)
         let viewController = MultiGameChatViewController(viewModel: viewModel, roomID: roomID)
         navigationController.navigationBar.isHidden = false
+        
+        let transition = CATransition()
+        transition.duration = 0.8
+        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        transition.type = CATransitionType.moveIn
+        transition.subtype = CATransitionSubtype.fromRight
+        navigationController.view.layer.add(transition, forKey: nil)
         navigationController.pushViewController(viewController, animated: true)
     }
     
