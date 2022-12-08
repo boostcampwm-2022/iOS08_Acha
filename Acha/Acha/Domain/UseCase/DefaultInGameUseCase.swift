@@ -30,6 +30,7 @@ class DefaultInGameUseCase: InGameUseCase {
             }.sorted { $0.date > $1.date}
             }
         
+                        records.map { InGameRecord(id: $0.id,
     }
     
     func fetchRanking() -> Single<[InGameRanking]> {
