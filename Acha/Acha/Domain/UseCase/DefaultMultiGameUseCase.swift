@@ -123,7 +123,6 @@ final class DefaultMultiGameUseCase: MultiGameUseCase {
     }
     
     func leave(roomID: String) {
-        timeRepository.stopTimer()
         locationRepository.stopObservingLocation()
         gameRoomRepository.leaveRoom(id: roomID)
     }

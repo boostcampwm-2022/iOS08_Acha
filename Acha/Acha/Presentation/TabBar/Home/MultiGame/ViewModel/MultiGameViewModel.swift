@@ -10,9 +10,10 @@ import RxSwift
 import RxCocoa
 import CoreLocation
 
-struct MultiGameViewModel: BaseViewModel {
-    
+final class MultiGameViewModel {
+
     var disposeBag: RxSwift.DisposeBag = .init()
+    var timerBag = DisposeBag()
     
     struct Input {
         let viewDidAppear: Observable<Void>
@@ -57,81 +58,86 @@ struct MultiGameViewModel: BaseViewModel {
         let otherLocation = PublishSubject<Coordinate>()
         let gameOver = PublishSubject<Void>()
         input.viewDidAppear
-            .subscribe { _ in
-                useCase.timerStart()
+            .subscribe { [weak self] _ in
+                guard let self = self else {return}
+                self.useCase.timerStart()
                     .subscribe { time in
                         if time <= -1 {
                             gameOver.onNext(())
-                            useCase.timerStop()
-//                            gameOverAction(time: 60)
+                            self.timerStop()
                         } else {
                             timeCount.onNext(time)
                         }
                     }
-                    .disposed(by: disposeBag)
+                    .disposed(by: self.timerBag)
                 
-                useCase.getLocation()
+                self.useCase.getLocation()
                     .subscribe { location in
                         visitedLocation.onNext(location)
-                        useCase.updateData(roomId: roomId)
-                        movedDistance.onNext(useCase.movedDistance)
+                        self.useCase.updateData(roomId: self.roomId)
+                        movedDistance.onNext(self.useCase.movedDistance)
                     }
-                    .disposed(by: disposeBag)
+                    .disposed(by: self.disposeBag)
                 
-                useCase.observing(roomID: roomId)
-                    .subscribe {
-                        if $0.count >= 2 {
-                            playerDataFetcehd.onNext($0)
-//                            gameOverAction(time: 60)
+                self.useCase.observing(roomID: self.roomId)
+                    .subscribe { players in
+                        if players.count >= 2 {
+                            playerDataFetcehd.onNext(players)
                         } else {
                             gameOver.onNext(())
+                            self.timerStop()
                         }
                     }
-                    .disposed(by: disposeBag)
+                    .disposed(by: self.disposeBag)
                     
             }
             .disposed(by: disposeBag)
         
         input.resetButtonTapped
-            .subscribe(onNext: {
-                useCase.getLocation()
+            .subscribe(onNext: { [weak self] _ in
+                guard let self = self else {return}
+                self.useCase.getLocation()
                     .subscribe(onNext: { position in
                         currentLocation.onNext(position)
-                        useCase.stopObserveLocation()
+                        self.useCase.stopObserveLocation()
                     })
-                    .disposed(by: disposeBag)
+                    .disposed(by: self.disposeBag)
             })
             .disposed(by: disposeBag)
         
         input.watchOthersLocationButtonTapped
-            .subscribe { _ in
-                useCase.watchOthersLocation(roomID: roomId)
+            .subscribe { [weak self] _ in
+                guard let self = self else {return}
+                self.useCase.watchOthersLocation(roomID: self.roomId)
                     .subscribe(onSuccess: { coordinate in
                         otherLocation.onNext(coordinate)
                     })
-                    .disposed(by: disposeBag)
+                    .disposed(by: self.disposeBag)
             }
             .disposed(by: disposeBag)
         
         input.exitButtonTapped
+            .withUnretained(self)
             .subscribe { _ in
-                leaveRoom()
+                self.leaveRoom()
             }
             .disposed(by: disposeBag)
         
         input.gameOverButtonTapped
+            .withUnretained(self)
             .subscribe(onNext: { _ in
-                leaveRoom()
+                self.leaveRoom()
             })
             .disposed(by: disposeBag)
         
         visitedLocation
+            .withUnretained(self)
             .subscribe { _ in
-            useCase.point()
+                self.useCase.point()
                 .subscribe { point in
                     gamePoint.onNext(point)
                 }
-                .disposed(by: disposeBag)
+                .disposed(by: self.disposeBag)
         }
         .disposed(by: disposeBag)
     
@@ -157,5 +163,9 @@ struct MultiGameViewModel: BaseViewModel {
         useCase.stopObserveLocation()
         useCase.timerStop()
     }
-}
     
+    private func timerStop() {
+        useCase.timerStop()
+        timerBag = DisposeBag()
+    }
+}
