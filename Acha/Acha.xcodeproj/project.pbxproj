@@ -105,12 +105,10 @@
 		76AA55D32937AC8700498441 /* LogInData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AA55D22937AC8700498441 /* LogInData.swift */; };
 		76AA55D52937ACB900498441 /* MultiGameCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AA55D42937ACB900498441 /* MultiGameCoordinator.swift */; };
 		76AA55E52937AD7A00498441 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AA55DA2937AD7A00498441 /* HomeViewModel.swift */; };
-		76AA55E62937AD7A00498441 /* HomeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AA55DC2937AD7A00498441 /* HomeRepository.swift */; };
-		76AA55E72937AD7A00498441 /* HomeProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AA55DE2937AD7A00498441 /* HomeProvider.swift */; };
 		76AA55E82937AD7A00498441 /* MultiGameEnterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AA55E02937AD7A00498441 /* MultiGameEnterViewController.swift */; };
 		76AA55E92937AD7A00498441 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AA55E12937AD7A00498441 /* HomeViewController.swift */; };
 		76AA55EA2937AD7A00498441 /* QRReaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AA55E22937AD7A00498441 /* QRReaderViewController.swift */; };
-		76AA55EB2937AD7A00498441 /* HomeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AA55E42937AD7A00498441 /* HomeUseCase.swift */; };
+		76AA55EB2937AD7A00498441 /* DefaultHomeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AA55E42937AD7A00498441 /* DefaultHomeUseCase.swift */; };
 		76AA55FB2937AD8900498441 /* MultiGameRoomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AA55EE2937AD8900498441 /* MultiGameRoomViewModel.swift */; };
 		76AA55FC2937AD8900498441 /* MultiGameRoomDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AA55F02937AD8900498441 /* MultiGameRoomDataSource.swift */; };
 		76AA55FD2937AD8900498441 /* MultiGameRoomRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AA55F22937AD8900498441 /* MultiGameRoomRepository.swift */; };
@@ -341,12 +339,10 @@
 		76AA55D22937AC8700498441 /* LogInData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogInData.swift; sourceTree = "<group>"; };
 		76AA55D42937ACB900498441 /* MultiGameCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiGameCoordinator.swift; sourceTree = "<group>"; };
 		76AA55DA2937AD7A00498441 /* HomeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
-		76AA55DC2937AD7A00498441 /* HomeRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeRepository.swift; sourceTree = "<group>"; };
-		76AA55DE2937AD7A00498441 /* HomeProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeProvider.swift; sourceTree = "<group>"; };
 		76AA55E02937AD7A00498441 /* MultiGameEnterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiGameEnterViewController.swift; sourceTree = "<group>"; };
 		76AA55E12937AD7A00498441 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		76AA55E22937AD7A00498441 /* QRReaderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRReaderViewController.swift; sourceTree = "<group>"; };
-		76AA55E42937AD7A00498441 /* HomeUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeUseCase.swift; sourceTree = "<group>"; };
+		76AA55E42937AD7A00498441 /* DefaultHomeUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultHomeUseCase.swift; sourceTree = "<group>"; };
 		76AA55EE2937AD8900498441 /* MultiGameRoomViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiGameRoomViewModel.swift; sourceTree = "<group>"; };
 		76AA55F02937AD8900498441 /* MultiGameRoomDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiGameRoomDataSource.swift; sourceTree = "<group>"; };
 		76AA55F22937AD8900498441 /* MultiGameRoomRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiGameRoomRepository.swift; sourceTree = "<group>"; };
@@ -679,7 +675,6 @@
 				76AA56062937ADBA00498441 /* LogInRepository.swift */,
 				76AA56072937ADBB00498441 /* SignUpRepository.swift */,
 				76AA55F22937AD8900498441 /* MultiGameRoomRepository.swift */,
-				76AA55DC2937AD7A00498441 /* HomeRepository.swift */,
 				47653A392938D70500BDC8E3 /* DefaultBadgeRepository.swift */,
 				474E2500293DC78100CFAC59 /* DefaultTempRepository.swift */,
 				F1DED401293880CB00ABC047 /* DefaultCommunityRepository.swift */,
@@ -714,7 +709,7 @@
 				76AA560A2937ADD400498441 /* LoginUsecase.swift */,
 				76AA560B2937ADD400498441 /* SignUpUsecase.swift */,
 				76AA55FA2937AD8900498441 /* MultiGameRoomUseCase.swift */,
-				76AA55E42937AD7A00498441 /* HomeUseCase.swift */,
+				76AA55E42937AD7A00498441 /* DefaultHomeUseCase.swift */,
 				474E24F8293DC75F00CFAC59 /* DefaultRecordMainViewUseCase.swift */,
 				474E24F9293DC75F00CFAC59 /* DefaultRecordMapViewUseCase.swift */,
 			);
@@ -951,7 +946,6 @@
 		E57646B32939C26C00BADF18 /* Provider */ = {
 			isa = PBXGroup;
 			children = (
-				76AA55DE2937AD7A00498441 /* HomeProvider.swift */,
 				76AA56042937AD9700498441 /* AuthProvider.swift */,
 			);
 			path = Provider;
@@ -1505,7 +1499,7 @@
 				474E24E5293DC6B800CFAC59 /* RecordMainViewController.swift in Sources */,
 				76AA560F2937ADD400498441 /* AuthUseCaseProtocol.swift in Sources */,
 				761E5F112935F2DF00E6CACC /* FirebasePath.swift in Sources */,
-				76AA55EB2937AD7A00498441 /* HomeUseCase.swift in Sources */,
+				76AA55EB2937AD7A00498441 /* DefaultHomeUseCase.swift in Sources */,
 				E5BE8BBA2922217600E9CFE8 /* TabBarType.swift in Sources */,
 				76A2E1A12923C5A7001E887A /* SingleGameViewModel.swift in Sources */,
 				F1E83D7D293489E1004C7992 /* PostDTO.swift in Sources */,
@@ -1534,7 +1528,6 @@
 				E5027D58292670570021BF60 /* Record.swift in Sources */,
 				474E24EE293DC6B800CFAC59 /* RecordMapViewController.swift in Sources */,
 				F1DED3AC2935F17700ABC047 /* CommentHeaderCollectionReusableView.swift in Sources */,
-				76AA55E62937AD7A00498441 /* HomeRepository.swift in Sources */,
 				47A26DBC292B73850007FBBF /* Coordinate.swift in Sources */,
 				47935E9F29238EB400481307 /* SelectMapViewModel.swift in Sources */,
 				F1B514E7293B3F6500F653F3 /* KeychainService.swift in Sources */,
@@ -1618,7 +1611,6 @@
 				470C7053293B191B00261250 /* SelectMapViewController.swift in Sources */,
 				F1DED3FA29386ED500ABC047 /* DefaultHealthKitService.swift in Sources */,
 				E5BE8B9B29221A8A00E9CFE8 /* CommunityCoordinator.swift in Sources */,
-				76AA55E72937AD7A00498441 /* HomeProvider.swift in Sources */,
 				76AA55D52937ACB900498441 /* MultiGameCoordinator.swift in Sources */,
 				76AA56122937AE2600498441 /* RandomFactory.swift in Sources */,
 				47D5773B293389940014D171 /* MapRepository.swift in Sources */,
@@ -1863,6 +1855,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Acha/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSCameraUsageDescription = "카메라를 사용해도 되겠습니까?";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "건강 데이터를 써도 되겠습니까?";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "건강 데이터를 사용해도 되겠습니까?";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "";
@@ -1898,6 +1891,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Acha/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSCameraUsageDescription = "카메라를 사용해도 되겠습니까?";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "건강 데이터를 써도 되겠습니까?";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "건강 데이터를 사용해도 되겠습니까?";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "";

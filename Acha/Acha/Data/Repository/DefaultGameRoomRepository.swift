@@ -73,7 +73,6 @@ struct DefaultGameRoomRepository: GameRoomRepository {
                 }
                 .subscribe()
                 .disposed(by: disposeBag)
-            observer.onCompleted()
             return Disposables.create()
             }
     }
