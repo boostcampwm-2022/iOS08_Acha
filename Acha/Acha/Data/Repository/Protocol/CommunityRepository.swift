@@ -14,5 +14,6 @@ protocol CommunityRepository {
     func getAllPost() -> Single<[Post]>
     func getImage(urlString: String) -> Single<Image>
     func uploadPost(post: Post, image: Image?)
+    func deletePost(id: Int)
     func uploadComment(comment: Comment)
 }

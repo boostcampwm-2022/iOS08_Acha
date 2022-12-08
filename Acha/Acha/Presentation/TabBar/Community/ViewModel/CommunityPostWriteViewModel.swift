@@ -7,14 +7,16 @@
 
 import Foundation
 import RxSwift
+import RxRelay
 
 final class CommunityPostWriteViewModel: BaseViewModel {
     struct Input {
+        var viewWillAppearEvent: Observable<Void>
         var rightButtonTapped: Observable<(Post, Image?)>
     }
     
     struct Output {
-        
+        var post = PublishRelay<Post>()
     }
     
     // MARK: - Dependency
@@ -32,12 +34,25 @@ final class CommunityPostWriteViewModel: BaseViewModel {
     func transform(input: Input) -> Output {
         let output = Output()
         
+        input.viewWillAppearEvent
+            .subscribe(onNext: { [weak self] _ in
+                guard let self else { return }
+                self.useCase.confirmHavePost()
+                    .subscribe(onSuccess:  { post in
+                        if let post {
+                            output.post.accept(post)
+                        }
+                    }).disposed(by: self.disposeBag)
+            }).disposed(by: disposeBag)
+        
         input.rightButtonTapped
             .subscribe(onNext: { [weak self] (post, image) in
                 guard let self else { return }
                 self.useCase.uploadPost(post: post, image: image)
-                self.coordinator.navigationController.popViewController(animated: true)
+                self.coordinator.popLastViewController()
             }).disposed(by: disposeBag)
+        
+        
         
         return output
     }

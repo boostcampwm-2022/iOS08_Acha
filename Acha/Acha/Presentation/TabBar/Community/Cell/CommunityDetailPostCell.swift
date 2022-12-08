@@ -61,6 +61,7 @@ final class CommunityDetailPostCell: UICollectionViewCell {
         $0.font = .postBody
         $0.textColor = .black
         $0.isSelectable = false
+        $0.isScrollEnabled = false
     }
     
     private lazy var postImageView: UIImageView = UIImageView().then {
@@ -72,7 +73,7 @@ final class CommunityDetailPostCell: UICollectionViewCell {
     
     // MARK: - Properties
     static let identifier = "CommunityDetailPostCell"
-    var modifyButtonTapEvent = PublishRelay<Void>()
+    var modifyButtonTapEvent = PublishRelay<Post>()
     var deleteButtonTapEvent = PublishRelay<Void>()
     
     // MARK: - Lifecycles
@@ -119,11 +120,11 @@ final class CommunityDetailPostCell: UICollectionViewCell {
         }
 
         postTextView.snp.makeConstraints {
-            $0.height.greaterThanOrEqualTo(60)
+            $0.height.greaterThanOrEqualTo(60).priority(750)
         }
         
         postImageView.snp.makeConstraints {
-            $0.height.equalTo(300).priority(750)
+            $0.height.equalTo(300).priority(1000)
         }
         
         ellipsisButtonSetting()
@@ -134,8 +135,10 @@ final class CommunityDetailPostCell: UICollectionViewCell {
         [
             UIAction(title: "수정", handler: { [weak self] _ in
                 guard let self else { return }
-                print("수정")
-                self.modifyButtonTapEvent.accept(())
+                guard let nickName = self.nickNameLabel.text else { return }
+                self.modifyButtonTapEvent.accept(Post(userId: "몰라",
+                                                      nickName: nickName,
+                                                      text: self.postTextView.text))
             }),
             UIAction(title: "삭제", handler: { [weak self] _ in
                 guard let self else { return }

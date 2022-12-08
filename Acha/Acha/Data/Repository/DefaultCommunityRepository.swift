@@ -31,8 +31,8 @@ struct DefaultCommunityRepository: CommunityRepository {
     func getAllPost() -> Single<[Post]> {
         return Single.create { single in
             realtimeService.fetch(type: .postList)
-                .subscribe(onSuccess: { (postDTOs: [PostDTO]) in
-                    single(.success(postDTOs.map { $0.toDomain() })) 
+                .subscribe(onSuccess: { (postDTOs: [PostDTO?]) in
+                    single(.success(postDTOs.compactMap { $0 }.map { $0!.toDomain() }))
                 }, onFailure: { _ in
                     single(.success([]))
                 }).disposed(by: disposeBag)
@@ -56,8 +56,8 @@ struct DefaultCommunityRepository: CommunityRepository {
     func uploadPost(post: Post, image: Image?) {
             Single.create { single in
                 realtimeService.fetch(type: .postList)
-                    .subscribe(onSuccess: { (postDTOs: [PostDTO]) in
-                        single(.success(postDTOs.map { $0.toDomain() }))
+                    .subscribe(onSuccess: { (postDTOs: [PostDTO?]) in
+                        single(.success(postDTOs.compactMap { $0 }.map { $0.toDomain() }))
                     }, onFailure: { _ in
                         single(.success([]))
                     }).disposed(by: disposeBag)
@@ -72,17 +72,29 @@ struct DefaultCommunityRepository: CommunityRepository {
                         guard let url else { return }
                         var post = post
                         post.image = url.absoluteString
-                        post.id = posts.count
+                        let maxID = posts.max {
+                            $0.id < $1.id
+                        }?.id
+                        
+                        post.id = (maxID ?? -1) + 1
                         
                         realtimeService.uploadPost(data: PostDTO(data: post))
                     })
                 } else {
                     var post = post
-                    post.id = posts.count
+                    let maxID = posts.max {
+                        $0.id < $1.id
+                    }?.id
+                    
+                    post.id = (maxID ?? -1) + 1
                     
                     realtimeService.uploadPost(data: PostDTO(data: post))
                 }
             }).disposed(by: disposeBag)
+    }
+    
+    func deletePost(id: Int) {
+        realtimeService.delete(type: .post(id: id))
     }
     
     func uploadComment(comment: Comment) {
@@ -100,7 +112,11 @@ struct DefaultCommunityRepository: CommunityRepository {
         }
         .subscribe(onSuccess: { comments in
             var comment = comment
-            comment.id = comments.count
+            let maxID = comments.max {
+                $0.id < $1.id
+            }?.id
+            
+            comment.id = (maxID ?? -1) + 1
             
             realtimeService.uploadComment(data: CommentDTO(data: comment))
             
@@ -148,15 +164,7 @@ struct DefaultCommunityRepository: CommunityRepository {
 //            .disposed(by: disposeBag)
 //    }
 //
-//    func deletePost(id: Int) {
-//        getCommunity()
-//            .map { $0.filter { $0.id != id } }
-//            .map {
-//                updateCommunity(data: $0)
-//            }
-//            .subscribe()
-//            .disposed(by: disposeBag)
-//    }
+
 //
 //    func deleteComment(data: Comment) {
 //        getPost(id: data.postId)

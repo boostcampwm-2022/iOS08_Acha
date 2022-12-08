@@ -58,6 +58,7 @@ final class CommunityMainCell: UICollectionViewCell {
         $0.font = .postBody
         $0.textColor = .black
         $0.isSelectable = false
+        $0.isScrollEnabled = false
     }
     
     private lazy var postImageView: UIImageView = UIImageView().then {
@@ -116,7 +117,7 @@ final class CommunityMainCell: UICollectionViewCell {
             $0.leading.trailing.equalToSuperview()
         }
         contextStackView.snp.makeConstraints {
-            $0.trailing.leading.equalToSuperview()
+            $0.trailing.leading.equalToSuperview().priority(750)
         }
         
         createDateLabel.snp.makeConstraints {
@@ -152,7 +153,7 @@ final class CommunityMainCell: UICollectionViewCell {
         nickNameLabel.text = post.nickName
         createDateLabel.text = post.createdAt.convertToStringFormat(format: "YYYY-MM-dd")
         postTextView.text = post.text
-        // 이미지 ???
+        
         if let image = post.image {
             self.postImageView.isHidden = false
             let service = DefaultFirebaseStorageNetworkService()

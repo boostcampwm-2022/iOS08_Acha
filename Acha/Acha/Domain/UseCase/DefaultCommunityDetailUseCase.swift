@@ -41,4 +41,8 @@ final class DefaultCommunityDetailUseCase: CommunityDetailUseCase {
         comment.postId = postID
         repository.uploadComment(comment: comment)
     }
+    
+    func deletePost() {
+        repository.deletePost(id: postID)
+    }
 }

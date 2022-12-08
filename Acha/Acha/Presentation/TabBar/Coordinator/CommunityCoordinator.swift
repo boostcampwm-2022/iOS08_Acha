@@ -9,7 +9,7 @@ import UIKit
 
 protocol CommunityCoordinatorProtocol: Coordinator {
     func showCommunityMainViewController()
-    func showCommunityPostWriteViewController()
+    func showCommunityPostWriteViewController(post: Post?)
     func showCommunityDetailViewController(postID: Int)
 }
 
@@ -36,10 +36,10 @@ final class CommunityCoordinator: CommunityCoordinatorProtocol {
         navigationController.pushViewController(viewController, animated: true)
     }
     
-    func showCommunityPostWriteViewController() {
+    func showCommunityPostWriteViewController(post: Post? = nil) {
         let repository = DefaultCommunityRepository(realtimeService: DefaultRealtimeDatabaseNetworkService(),
                                                     storageService: DefaultFirebaseStorageNetworkService())
-        let useCase = DefaultCommunityPostWriteUseCase(repository: repository)
+        let useCase = DefaultCommunityPostWriteUseCase(repository: repository, post: post)
         let viewModel = CommunityPostWriteViewModel(useCase: useCase,
                                                     coordinator: self)
         let viewController = CommunityPostWriteViewController(viewModel: viewModel)
@@ -49,8 +49,13 @@ final class CommunityCoordinator: CommunityCoordinatorProtocol {
     func showCommunityDetailViewController(postID: Int) {
         let repository = DefaultCommunityRepository(realtimeService: DefaultRealtimeDatabaseNetworkService())
         let useCase = DefaultCommunityDetailUseCase(postID: postID, repository: repository)
-        let viewModel = CommunityDetailViewModel(useCase: useCase)
+        let viewModel = CommunityDetailViewModel(useCase: useCase,
+                                                 coordinator: self)
         let viewController = CommunityDetailViewController(viewModel: viewModel)
         navigationController.pushViewController(viewController, animated: true)
+    }
+    
+    func popLastViewController() {
+        navigationController.popViewController(animated: true)
     }
 }

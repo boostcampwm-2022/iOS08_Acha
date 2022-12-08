@@ -107,9 +107,30 @@ final class CommunityPostWriteViewController: UIViewController {
             }).disposed(by: disposebag)
         
         let input = CommunityPostWriteViewModel.Input(
+            viewWillAppearEvent: rx.methodInvoked(#selector(viewWillAppear(_:)))
+                .map { _ in}
+                .asObservable(),
             rightButtonTapped: rightButtonTapEvent.asObservable())
         
         let output = viewModel.transform(input: input)
+        
+        output.post
+            .asDriver(onErrorJustReturn: Post())
+            .drive(onNext: { [weak self] post in
+                guard let self else { return }
+                self.textView.text = post.text
+                self.textView.textColor = .black
+                if let image = post.image {
+                    let service = DefaultFirebaseStorageNetworkService()
+                    service.download(urlString: image) { data in
+                        guard let data else { return }
+                        DispatchQueue.main.async { [weak self] in
+                            guard let self else { return }
+                            self.imageAddButton.imageView?.image = UIImage(data: data)
+                        }
+                    }
+                }
+            }).disposed(by: disposebag)
     }
     
     private func setupViews() {

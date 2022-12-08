@@ -10,5 +10,6 @@ import RxSwift
 import RxRelay
 
 protocol CommunityPostWriteUseCase {
+    func confirmHavePost() -> Single<Post?>
     func uploadPost(post: Post, image: Image?)
 }

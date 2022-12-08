@@ -13,7 +13,7 @@ final class CommunityDetailViewModel: BaseViewModel {
     struct Input {
         var viewWillAppearEvent: Observable<Void>
         var commentRegisterButtonTapEvent: Observable<Comment>
-        var postModifyButtonTapEvent: Observable<Void>
+        var postModifyButtonTapEvent: Observable<Post>
         var postDeleteButtonTapEvent: Observable<Void>
     }
     
@@ -24,10 +24,13 @@ final class CommunityDetailViewModel: BaseViewModel {
     // MARK: - Dependency
     var disposeBag = DisposeBag()
     private let useCase: CommunityDetailUseCase
+    private weak var coordinator: CommunityCoordinator?
     
     // MARK: - Lifecycles
-    init(useCase: CommunityDetailUseCase) {
+    init(useCase: CommunityDetailUseCase,
+         coordinator: CommunityCoordinator) {
         self.useCase = useCase
+        self.coordinator = coordinator
     }
     
     // MARK: - Helpers
@@ -47,15 +50,16 @@ final class CommunityDetailViewModel: BaseViewModel {
             }).disposed(by: disposeBag)
         
         input.postModifyButtonTapEvent
-            .subscribe(onNext: { [weak self] _ in
+            .subscribe(onNext: { [weak self] post in
                 guard let self else { return }
-                print("modify")
+                self.coordinator?.showCommunityPostWriteViewController(post: post)
             }).disposed(by: disposeBag)
         
         input.postDeleteButtonTapEvent
             .subscribe(onNext: { [weak self] _ in
                 guard let self else { return }
-                print("delete")
+                self.useCase.deletePost()
+                self.coordinator?.popLastViewController()
             }).disposed(by: disposeBag)
         
         useCase.post

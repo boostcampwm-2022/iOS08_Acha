@@ -83,7 +83,6 @@
 		E516A6BA2923929800CD6BDB /* RecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E516A6B92923929800CD6BDB /* RecordViewModel.swift */; };
 		E516A6BE2923941500CD6BDB /* RecordChartCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E516A6BD2923941500CD6BDB /* RecordChartCell.swift */; };
 		E516A6C02923942500CD6BDB /* RecordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E516A6BF2923942500CD6BDB /* RecordCell.swift */; };
-		E52885C82942325800018B04 /* MultiGameRoomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52885BB2942325800018B04 /* MultiGameRoomViewModel.swift */; };
 		E52885C92942325800018B04 /* MultiGameRoomDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52885BD2942325800018B04 /* MultiGameRoomDataSource.swift */; };
 		E52885CA2942325800018B04 /* MultiGameRoomRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52885BF2942325800018B04 /* MultiGameRoomRepository.swift */; };
 		E52885CB2942325800018B04 /* GameRoomCollectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52885C12942325800018B04 /* GameRoomCollectionViewHeader.swift */; };
@@ -95,6 +94,7 @@
 		E52885D72942327A00018B04 /* CommunityPostWriteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52885D42942327A00018B04 /* CommunityPostWriteViewModel.swift */; };
 		E52885D82942327A00018B04 /* CommunityDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52885D52942327A00018B04 /* CommunityDetailViewModel.swift */; };
 		E52885E12942375300018B04 /* CommunityDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52885E02942375300018B04 /* CommunityDetailViewController.swift */; };
+		E52885E42942390200018B04 /* MultiGameRoomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52885E32942390200018B04 /* MultiGameRoomViewModel.swift */; };
 		E576465029377DC400BADF18 /* DefaultCommunityMainUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E576464F29377DC400BADF18 /* DefaultCommunityMainUseCase.swift */; };
 		E576465629377F2300BADF18 /* CommunityMainUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E576465529377F2300BADF18 /* CommunityMainUseCase.swift */; };
 		E576465A2938C12C00BADF18 /* DefaultCommunityRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57646592938C12C00BADF18 /* DefaultCommunityRepository.swift */; };
@@ -285,7 +285,6 @@
 		E516A6BB292393FA00CD6BDB /* RecordHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordHeaderView.swift; sourceTree = "<group>"; };
 		E516A6BD2923941500CD6BDB /* RecordChartCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordChartCell.swift; sourceTree = "<group>"; };
 		E516A6BF2923942500CD6BDB /* RecordCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordCell.swift; sourceTree = "<group>"; };
-		E52885BB2942325800018B04 /* MultiGameRoomViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiGameRoomViewModel.swift; sourceTree = "<group>"; };
 		E52885BD2942325800018B04 /* MultiGameRoomDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiGameRoomDataSource.swift; sourceTree = "<group>"; };
 		E52885BF2942325800018B04 /* MultiGameRoomRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiGameRoomRepository.swift; sourceTree = "<group>"; };
 		E52885C12942325800018B04 /* GameRoomCollectionViewHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameRoomCollectionViewHeader.swift; sourceTree = "<group>"; };
@@ -297,6 +296,7 @@
 		E52885D42942327A00018B04 /* CommunityPostWriteViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommunityPostWriteViewModel.swift; sourceTree = "<group>"; };
 		E52885D52942327A00018B04 /* CommunityDetailViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommunityDetailViewModel.swift; sourceTree = "<group>"; };
 		E52885E02942375300018B04 /* CommunityDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommunityDetailViewController.swift; sourceTree = "<group>"; };
+		E52885E32942390200018B04 /* MultiGameRoomViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiGameRoomViewModel.swift; sourceTree = "<group>"; };
 		E576464F29377DC400BADF18 /* DefaultCommunityMainUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCommunityMainUseCase.swift; sourceTree = "<group>"; };
 		E576465529377F2300BADF18 /* CommunityMainUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityMainUseCase.swift; sourceTree = "<group>"; };
 		E57646592938C12C00BADF18 /* DefaultCommunityRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCommunityRepository.swift; sourceTree = "<group>"; };
@@ -649,7 +649,7 @@
 		E52885B92942325800018B04 /* MultiGame */ = {
 			isa = PBXGroup;
 			children = (
-				E52885BA2942325800018B04 /* ViewModel */,
+				E52885E22942390200018B04 /* ViewModel */,
 				E52885BC2942325800018B04 /* DataSource */,
 				E52885BE2942325800018B04 /* Repository */,
 				E52885C02942325800018B04 /* Cell */,
@@ -657,14 +657,6 @@
 				E52885C62942325800018B04 /* UseCase */,
 			);
 			path = MultiGame;
-			sourceTree = "<group>";
-		};
-		E52885BA2942325800018B04 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				E52885BB2942325800018B04 /* MultiGameRoomViewModel.swift */,
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		E52885BC2942325800018B04 /* DataSource */ = {
@@ -713,8 +705,16 @@
 			isa = PBXGroup;
 			children = (
 				E52885D32942327A00018B04 /* CommunityMainViewModel.swift */,
-				E52885D42942327A00018B04 /* CommunityPostWriteViewModel.swift */,
 				E52885D52942327A00018B04 /* CommunityDetailViewModel.swift */,
+				E52885D42942327A00018B04 /* CommunityPostWriteViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		E52885E22942390200018B04 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				E52885E32942390200018B04 /* MultiGameRoomViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -900,8 +900,8 @@
 			isa = PBXGroup;
 			children = (
 				F1DED3AD2936706500ABC047 /* Common */,
-				E52885D22942327A00018B04 /* ViewModel */,
 				F1DED3912935DF4800ABC047 /* Cell */,
+				E52885D22942327A00018B04 /* ViewModel */,
 				F1DED3902935DF1400ABC047 /* ViewController */,
 			);
 			path = Community;
@@ -1141,8 +1141,8 @@
 		F1DED3902935DF1400ABC047 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				E52885E02942375300018B04 /* CommunityDetailViewController.swift */,
 				E5BE8BAE29221FF800E9CFE8 /* CommunityMainViewController.swift */,
+				E52885E02942375300018B04 /* CommunityDetailViewController.swift */,
 				E5AD6375293F3AD500EF088C /* CommunityPostWriteViewController.swift */,
 			);
 			path = ViewController;
@@ -1397,6 +1397,7 @@
 				F1E83D992935C727004C7992 /* TextCountView.swift in Sources */,
 				761E5F092935EFF400E6CACC /* DefaultInGameUseCase.swift in Sources */,
 				E5BE8B8F2922172400E9CFE8 /* AppCoordinator.swift in Sources */,
+				E52885E42942390200018B04 /* MultiGameRoomViewModel.swift in Sources */,
 				47935E97292366CD00481307 /* UIButton+.swift in Sources */,
 				E52885CA2942325800018B04 /* MultiGameRoomRepository.swift in Sources */,
 				E576469A2938E49F00BADF18 /* CommentDTO.swift in Sources */,
@@ -1504,7 +1505,6 @@
 				F1FCEE0E292B483E001A55D6 /* UITextField+.swift in Sources */,
 				47D5774F29338A7A0014D171 /* DefaultRealtimeDatabaseNetworkService.swift in Sources */,
 				E5BE8B9929221A4C00E9CFE8 /* RecordCoordinator.swift in Sources */,
-				E52885C82942325800018B04 /* MultiGameRoomViewModel.swift in Sources */,
 				47D5773D293389AC0014D171 /* DefaultMapRepository.swift in Sources */,
 				F1B0D8AC292CCA5200EBDD02 /* SignUpData.swift in Sources */,
 				E516A6BA2923929800CD6BDB /* RecordViewModel.swift in Sources */,

@@ -13,4 +13,5 @@ protocol CommunityDetailUseCase {
     
     func fetchPost()
     func uploadComment(comment: Comment)
+    func deletePost()
 }
