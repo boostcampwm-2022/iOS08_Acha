@@ -27,6 +27,7 @@ final class DefaultMultiGameChatUseCase: MultiGameChatUseCase {
     
     func chatWrite(text: String) {
         chats = text
+        print(text)
     }
     
     func chatUpdate(roomID: String) {
@@ -38,6 +39,7 @@ final class DefaultMultiGameChatUseCase: MultiGameChatUseCase {
                     created: Date(),
                     text: self?.chats ?? ""
                 )
+                print(newChat)
                 self?.roomRepository.updateChats(
                     roomID: roomID,
                     chat: newChat

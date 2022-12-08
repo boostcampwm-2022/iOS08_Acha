@@ -7,6 +7,7 @@
 
 import Foundation
 import RxSwift
+import RxCocoa
 
 final class MultiGameChatViewModel: BaseViewModel {
     
@@ -16,7 +17,7 @@ final class MultiGameChatViewModel: BaseViewModel {
         let textInput: Observable<String>
     }
     struct Output {
-        
+        let chatFetched: Driver<[Chat]>
     }
     var disposeBag: RxSwift.DisposeBag = .init()
     
@@ -29,6 +30,33 @@ final class MultiGameChatViewModel: BaseViewModel {
     }
     
     func transform(input: Input) -> Output {
-        return Output()
+        
+        let chatFetched = PublishSubject<[Chat]>()
+        
+        input.viewDidAppear
+            .withUnretained(self)
+            .subscribe { _ in
+                self.useCase.observeChats(roomID: self.roomID)
+                    .subscribe { chats in
+                        chatFetched.onNext(chats)
+                    }
+                    .disposed(by: self.disposeBag)
+            }
+            .disposed(by: disposeBag)
+        
+        input.textInput
+            .subscribe { [weak self] texts in
+                self?.useCase.chatWrite(text: texts)
+            }
+            .disposed(by: disposeBag)
+        
+        input.commentButtonTapped
+            .withUnretained(self)
+            .subscribe { _ in
+                self.useCase.chatUpdate(roomID: self.roomID)
+            }
+            .disposed(by: disposeBag)
+        
+        return Output(chatFetched: chatFetched.asDriver(onErrorJustReturn: []))
     }
 }

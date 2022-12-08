@@ -28,6 +28,14 @@ struct RoomDTO: Codable {
         self.user.append(user)
     }
     
+    mutating func appendChat(chat: ChatDTO) {
+        if self.chats == nil {
+            self.chats = [chat]
+        } else {
+            self.chats?.append(chat)
+        }
+    }
+    
     init(id: String, user: [UserDTO]) {
         self.id = id
         self.user = user

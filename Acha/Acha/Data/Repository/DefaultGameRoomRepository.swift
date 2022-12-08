@@ -167,7 +167,7 @@ struct DefaultGameRoomRepository: GameRoomRepository {
         fetchRoomData(id: roomID)
             .subscribe(onSuccess: { roomDTO in
                 var roomDTO = roomDTO
-                guard var chats = roomDTO.chats else {return}
+                guard let chats = roomDTO.chats else {return}
                 roomDTO.chats = chatsReadUpdate(chats: chats, reads: reads)
                 firebaseRealTimeDatabase.upload(type: .room(id: roomID), data: roomDTO)
             })
@@ -178,7 +178,9 @@ struct DefaultGameRoomRepository: GameRoomRepository {
         fetchRoomData(id: roomID)
             .subscribe(onSuccess: { roomDTO in
                 var roomDTO = roomDTO
-                roomDTO.chats?.append(ChatDTO(data: chat))
+                let newChat = ChatDTO(data: chat)
+                roomDTO.appendChat(chat: newChat)
+                print(roomDTO)
                 firebaseRealTimeDatabase.upload(type: .room(id: roomID), data: roomDTO)
             })
             .disposed(by: disposeBag)

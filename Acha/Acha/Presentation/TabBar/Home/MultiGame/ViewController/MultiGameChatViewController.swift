@@ -8,6 +8,7 @@
 import UIKit
 import Then
 import SnapKit
+import RxSwift
 
 final class MultiGameChatViewController: UIViewController {
     
@@ -28,6 +29,7 @@ final class MultiGameChatViewController: UIViewController {
     private lazy var chatSnapShot = ChatSnapShot()
     
     private let viewModel: MultiGameChatViewModel
+    private let disposeBag = DisposeBag()
     
     init(viewModel: MultiGameChatViewModel, roomID: String) {
         self.viewModel = viewModel
@@ -43,6 +45,23 @@ final class MultiGameChatViewController: UIViewController {
         configureCollectionView()
         configureCommentView()
         keyboardBind()
+        bind()
+    }
+    
+    private func bind() {
+        let inputs = MultiGameChatViewModel.Input(
+            viewDidAppear: rx.viewDidAppear.asObservable(),
+            commentButtonTapped: commentView.commentButton.rx.tap.asObservable(),
+            textInput: commentView.commentTextView.rx.text.orEmpty.asObservable()
+        )
+        
+        let outputs = viewModel.transform(input: inputs)
+        
+        outputs.chatFetched
+            .drive(onNext: { [weak self] chats in
+                self?.makeSnapShot(data: chats)
+            })
+            .disposed(by: disposeBag)
     }
     
     private func keyboardBind() {
@@ -108,12 +127,12 @@ extension MultiGameChatViewController {
     private func makeCompositonLayout() -> UICollectionViewCompositionalLayout {
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
-            heightDimension: .estimated(50)
+            heightDimension: .estimated(100)
         )
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         let groupSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
-            heightDimension: .estimated(50)
+            heightDimension: .estimated(100)
         )
         let group = NSCollectionLayoutGroup.horizontal(
             layoutSize: groupSize,

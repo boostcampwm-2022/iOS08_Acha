@@ -47,7 +47,7 @@ final class HomeCoordinator: HomeCoordinatorProtocol {
     }
     
     func showChatViewController() {
-        let roomID = "12345678"
+        let roomID = "0099366606582541"
         let useCase = DefaultMultiGameChatUseCase(roomRepository: DiContainerManager.makeDefaultGameRoomRepository(),
                                                   userRepository: DiContainerManager.makeDefaultUserRepository())
         let viewModel = MultiGameChatViewModel(roomID: roomID, useCase: useCase)
