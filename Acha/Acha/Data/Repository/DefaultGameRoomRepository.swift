@@ -125,6 +125,11 @@ struct DefaultGameRoomRepository: GameRoomRepository {
             .map { $0.chats ?? [] }
     }
     
+    func observingReads(id: String) -> Observable<[[String]]> {
+        return observingChats(id: id)
+            .map { $0.map { $0.read } }
+    }
+    
     func startGame(roomId: String) {
         fetchRoomData(id: roomId)
             .subscribe(onSuccess: { roomDTO in

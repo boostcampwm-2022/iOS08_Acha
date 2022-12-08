@@ -28,4 +28,6 @@ protocol MultiGameUseCase {
     func watchOthersLocation(roomID: String) -> Single<Coordinate>
     
     func leave(roomID: String)
+    
+    func unReadChatting(roomID: String) -> Observable<Int>
 }

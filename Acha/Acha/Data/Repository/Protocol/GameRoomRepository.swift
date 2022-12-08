@@ -57,4 +57,7 @@ protocol GameRoomRepository {
     
     /// 쳇 업데이트
     func updateChats(roomID: String, chat: Chat)
+    
+    /// 메시지들 읽은 사람들 리턴해주는 메서드 
+    func observingReads(id: String) -> Observable<[[String]]>
 }

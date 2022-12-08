@@ -32,6 +32,7 @@ final class MultiGameViewModel: BaseViewModel {
         let currentLocation: Driver<Coordinate>
         let otherLocation: Driver<Coordinate>
         let gameOver: Driver<Void>
+        let unReadChat: Driver<Int>
     }
     
     private let roomId: String
@@ -57,6 +58,7 @@ final class MultiGameViewModel: BaseViewModel {
         let currentLocation = PublishSubject<Coordinate>()
         let otherLocation = PublishSubject<Coordinate>()
         let gameOver = PublishSubject<Void>()
+        let unReadChat = PublishSubject<Int>()
         input.viewDidAppear
             .subscribe { [weak self] _ in
                 guard let self = self else {return}
@@ -92,6 +94,12 @@ final class MultiGameViewModel: BaseViewModel {
                 
                 self.useCase.healthKitAuthorization()
                     .subscribe()
+                    .disposed(by: self.disposeBag)
+                
+                self.useCase.unReadChatting(roomID: self.roomId)
+                    .subscribe { count in
+                        unReadChat.onNext(count)
+                    }
                     .disposed(by: self.disposeBag)
                     
             }
@@ -152,7 +160,8 @@ final class MultiGameViewModel: BaseViewModel {
             playerDataFetched: playerDataFetcehd.asDriver(onErrorJustReturn: []),
             currentLocation: currentLocation.asDriver(onErrorJustReturn: Coordinate(latitude: 0, longitude: 0)),
             otherLocation: otherLocation.asDriver(onErrorJustReturn: Coordinate(latitude: 0, longitude: 0)),
-            gameOver: gameOver.asDriver(onErrorJustReturn: ())
+            gameOver: gameOver.asDriver(onErrorJustReturn: ()),
+            unReadChat: unReadChat.asDriver(onErrorJustReturn: 0)
         )
     }
     

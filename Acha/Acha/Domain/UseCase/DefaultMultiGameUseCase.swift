@@ -126,9 +126,28 @@ final class DefaultMultiGameUseCase: MultiGameUseCase {
             }
     }
     
+    func unReadChatting(roomID: String) -> Observable<Int> {
+        return gameRoomRepository.observingReads(id: roomID)
+            .map { [weak self] reads in
+                guard let self = self else {return 0}
+                return self.checkDidIReadThatChat(chats: reads)
+            }
+    }
+    
     func leave(roomID: String) {
         locationRepository.stopObservingLocation()
         gameRoomRepository.leaveRoom(id: roomID)
+    }
+    
+    private func checkDidIReadThatChat(chats: [[String]]) -> Int {
+        guard let uuid = userRepository.getUUID() else {return 0}
+        var count = 0
+        chats.forEach { chat in
+            if chat.contains(uuid) {
+                count += 1
+            }
+        }
+        return count
     }
 
     private func distanceAppend(_ current: Coordinate) {
