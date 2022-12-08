@@ -37,6 +37,7 @@ final class CommunityDetailViewController: UIViewController, UICollectionViewDel
     init(viewModel: CommunityDetailViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
+        print(#function)
     }
     
     required init?(coder: NSCoder) {
@@ -47,6 +48,10 @@ final class CommunityDetailViewController: UIViewController, UICollectionViewDel
         super.viewDidLoad()
         configureUI()
         bind()
+    }
+    
+    deinit {
+        print(#function)
     }
     
     // MARK: - Helpers
@@ -132,7 +137,7 @@ final class CommunityDetailViewController: UIViewController, UICollectionViewDel
                                 cellProvider: { [weak self] collectionView, indexPath, itemIdentifier in
             guard let self else { return UICollectionViewCell() }
             
-            print(indexPath, itemIdentifier)
+            print("왜 너가 도니 데이터소스야")
             
             switch itemIdentifier {
             case .post(let post):
@@ -246,13 +251,13 @@ final class CommunityDetailViewController: UIViewController, UICollectionViewDel
     
     private func makeSnapshot(post: Post) {
         var snapshot = dataSource.snapshot()
-//        snapshot.deleteSections([.post, .comment])
+        snapshot.deleteSections([.post, .comment])
         
         snapshot.appendSections([.post, .comment])
         snapshot.appendItems([.post(post)], toSection: .post)
         
         guard let comments = post.comments else {
-//            dataSource.apply(snapshot)
+            dataSource.apply(snapshot)
             return
         }
         comments.forEach {
