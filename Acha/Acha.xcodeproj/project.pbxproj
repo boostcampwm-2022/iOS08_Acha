@@ -197,6 +197,7 @@
 		F1D85A4A2941F460005822B0 /* DefaultMultiGameChatUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D85A492941F460005822B0 /* DefaultMultiGameChatUseCase.swift */; };
 		F1D85A4C2941F469005822B0 /* MultiGameChatUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D85A4B2941F469005822B0 /* MultiGameChatUseCase.swift */; };
 		F1D85A4E2941F5D2005822B0 /* ChatDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D85A4D2941F5D2005822B0 /* ChatDTO.swift */; };
+		F1D85A5029427B00005822B0 /* UIApplication+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D85A4F29427B00005822B0 /* UIApplication+Rx.swift */; };
 		F1DED3A42935ED0100ABC047 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED3A32935ED0100ABC047 /* Comment.swift */; };
 		F1DED3A62935F0A400ABC047 /* CommentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED3A52935F0A400ABC047 /* CommentCollectionViewCell.swift */; };
 		F1DED3A82935F0AE00ABC047 /* PostCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED3A72935F0AE00ABC047 /* PostCollectionViewCell.swift */; };
@@ -451,6 +452,7 @@
 		F1D85A492941F460005822B0 /* DefaultMultiGameChatUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMultiGameChatUseCase.swift; sourceTree = "<group>"; };
 		F1D85A4B2941F469005822B0 /* MultiGameChatUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiGameChatUseCase.swift; sourceTree = "<group>"; };
 		F1D85A4D2941F5D2005822B0 /* ChatDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatDTO.swift; sourceTree = "<group>"; };
+		F1D85A4F29427B00005822B0 /* UIApplication+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Rx.swift"; sourceTree = "<group>"; };
 		F1DED3A32935ED0100ABC047 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		F1DED3A52935F0A400ABC047 /* CommentCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCollectionViewCell.swift; sourceTree = "<group>"; };
 		F1DED3A72935F0AE00ABC047 /* PostCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -628,6 +630,7 @@
 				76AA56132937AE7E00498441 /* RxSwift+.swift */,
 				F1B0D8A9292CCA0F00EBDD02 /* Encodable+.swift */,
 				F1CC5152294069C200B9008D /* MKCircle+.swift */,
+				F1D85A4F29427B00005822B0 /* UIApplication+Rx.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1553,6 +1556,7 @@
 				F1D85A422941E875005822B0 /* MultiGameChatViewController.swift in Sources */,
 				76AA55EB2937AD7A00498441 /* DefaultHomeUseCase.swift in Sources */,
 				E5BE8BBA2922217600E9CFE8 /* TabBarType.swift in Sources */,
+				F1D85A5029427B00005822B0 /* UIApplication+Rx.swift in Sources */,
 				F1D85A482941F32A005822B0 /* MultiGameChatViewModel.swift in Sources */,
 				76A2E1A12923C5A7001E887A /* SingleGameViewModel.swift in Sources */,
 				F1E83D7D293489E1004C7992 /* PostDTO.swift in Sources */,
