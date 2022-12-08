@@ -54,8 +54,11 @@ final class HomeViewModel: BaseViewModel {
                 self.useCase.enterRoom(id: qrStringValue)
                     .subscribe(onSuccess: { _ in
                         self.coordinator?.connectMultiGameFlow(gameID: qrStringValue)
-                    }, onFailure: { _ in
-                        print("입장실패")
+                    }, onFailure: { error in
+                        self.coordinator?.navigationController.showAlert(
+                            title: "주의",
+                            message: error.localizedDescription
+                        )
                     })
                     .disposed(by: self.disposeBag)
             }
@@ -68,7 +71,10 @@ final class HomeViewModel: BaseViewModel {
                     .subscribe(onNext: { roomID in
                         self.coordinator?.connectMultiGameFlow(gameID: roomID)
                     }, onError: { _ in
-                        print("룸 생성 실패")
+                        self.coordinator?.navigationController.showAlert(
+                            title: "주의",
+                            message: "방 생성에 실패했습니다 😭😭😭"
+                        )
                     })
                     .disposed(by: self.disposeBag)
             }

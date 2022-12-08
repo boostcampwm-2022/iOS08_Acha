@@ -83,4 +83,9 @@ final class DefaultRealtimeDatabaseNetworkService: RealtimeDatabaseNetworkServic
             return Disposables.create()
         }
     }
+    
+    func removeObserver(type: FirebaseRealtimeType) {
+        let childReference = self.databaseReference.child(type.path)
+        childReference.removeAllObservers()
+    }
 }

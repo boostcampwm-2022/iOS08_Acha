@@ -30,10 +30,8 @@ final class MultiGameCoordinator: MultiGameCoordinatorProtocol {
     }
     
     func showMultiGameRoomViewController(roomID: String) {
-        let provider = FBRealTimeDB()
-        let datasource = MultiGameRoomDataSource(provider: provider)
-        let repository = MultiGameRoomRepository(dataSource: datasource)
-        let useCase = MultiGameRoomUseCase(repository: repository)
+        
+        let useCase = DefaultMultiGameRoomUseCase(repository: DiContainerManager.makeDefaultGameRoomRepository())
         let viewModel = MultiGameRoomViewModel(
             coordinator: self,
             useCase: useCase,
