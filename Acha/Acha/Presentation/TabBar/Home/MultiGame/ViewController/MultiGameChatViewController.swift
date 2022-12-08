@@ -34,6 +34,7 @@ final class MultiGameChatViewController: UIViewController {
     init(viewModel: MultiGameChatViewModel, roomID: String) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
+        view.backgroundColor = .white
     }
     
     required init?(coder: NSCoder) {
@@ -42,17 +43,19 @@ final class MultiGameChatViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureCollectionView()
         configureCommentView()
+        configureCollectionView()
         keyboardBind()
         bind()
+        
     }
-    
+
     private func bind() {
         let inputs = MultiGameChatViewModel.Input(
             viewDidAppear: rx.viewDidAppear.asObservable(),
             commentButtonTapped: commentView.commentButton.rx.tap.asObservable(),
-            textInput: commentView.commentTextView.rx.text.orEmpty.asObservable()
+            textInput: commentView.commentTextView.rx.text.orEmpty.asObservable(),
+            viewWillDisappear: rx.viewWillDisappear.asObservable()
         )
         
         let outputs = viewModel.transform(input: inputs)
@@ -64,7 +67,7 @@ final class MultiGameChatViewController: UIViewController {
             .disposed(by: disposeBag)
         
         outputs.chatDelievered
-            .delay(.milliseconds(300))
+            .delay(.milliseconds(500))
             .drive(onNext: { [weak self] _ in
                 self?.commentView.commentTextView.text = ""
             })
@@ -72,15 +75,26 @@ final class MultiGameChatViewController: UIViewController {
     }
     
     private func keyboardBind() {
-        KeyboardManager.keyboardWillHide(view: commentView)
-        KeyboardManager.keyboardWillShow(view: commentView)
         hideKeyboardWhenTapped()
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillShow),
+            name: UIResponder.keyboardWillShowNotification, object: nil
+        )
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillHide),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil
+        )
     }
     
     private func configureCommentView() {
         view.addSubview(commentView)
         commentView.snp.makeConstraints {
-            $0.leading.equalTo(view.snp.centerX)
+            $0.leading.equalToSuperview()
             $0.trailing.equalToSuperview()
             $0.bottom.equalToSuperview()
             $0.height.equalTo(80)
@@ -123,10 +137,10 @@ extension MultiGameChatViewController {
         registerCollectionView()
         chatCollectionView.backgroundColor = .white
         chatCollectionView.snp.makeConstraints {
-            $0.leading.equalTo(view.snp.centerX)
+            $0.leading.equalToSuperview()
             $0.top.equalTo(view.safeAreaLayoutGuide)
             $0.trailing.equalToSuperview()
-            $0.bottom.equalToSuperview().inset(80)
+            $0.bottom.equalTo(commentView.snp.top)
         }
         chatSnapShot.appendSections([.chat])
     }
@@ -164,4 +178,16 @@ extension MultiGameChatViewController {
     @objc private func dismissKeyboard() {
         view.endEditing(true)
     }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
+            return
+        }
+        self.view.frame.origin.y = 0 - keyboardSize.height
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        self.view.frame.origin.y = 0
+    }
+    
 }

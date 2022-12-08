@@ -62,8 +62,9 @@ final class MultiGameViewController: UIViewController, DistanceAndTimeBarLine {
     }
     
     private lazy var toChatRoomButton: UIButton = UIButton().then {
-        $0.backgroundColor = .white
-        $0.setTitleColor(.black, for: .normal)
+        $0.backgroundColor = .pointLight
+        $0.setTitleColor(.white, for: .normal)
+        $0.titleLabel?.font = .boldBody
         $0.layer.cornerRadius = 10
         $0.layer.masksToBounds = true
         $0.layer.shadowOffset = .init(width: 5, height: 5)
@@ -268,7 +269,7 @@ extension MultiGameViewController {
         
         toChatRoomButton.snp.makeConstraints {
             $0.centerY.equalToSuperview()
-            $0.trailing.equalTo(view.safeAreaLayoutGuide)
+            $0.trailing.equalTo(view.safeAreaLayoutGuide).inset(10)
             $0.width.height.equalTo(70)
         }
     }

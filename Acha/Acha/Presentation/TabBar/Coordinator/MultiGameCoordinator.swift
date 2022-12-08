@@ -68,11 +68,13 @@ final class MultiGameCoordinator: MultiGameCoordinatorProtocol {
             useCase: useCase
         )
         let viewController = MultiGameChatViewController(viewModel: viewModel, roomID: roomID)
+        
         let transiton = CATransition()
         transiton.type = CATransitionType.moveIn
         transiton.subtype = CATransitionSubtype.fromRight
         transiton.duration = 0.8
         transiton.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        navigationController.isNavigationBarHidden = false
         navigationController.view.layer.add(transiton, forKey: nil)
         navigationController.pushViewController(viewController, animated: true)
     }

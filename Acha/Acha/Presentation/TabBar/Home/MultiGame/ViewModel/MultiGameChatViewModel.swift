@@ -5,9 +5,9 @@
 //  Created by hong on 2022/12/08.
 //
 
-import Foundation
 import RxSwift
 import RxCocoa
+import UIKit
 
 final class MultiGameChatViewModel: BaseViewModel {
     
@@ -15,6 +15,7 @@ final class MultiGameChatViewModel: BaseViewModel {
         let viewDidAppear: Observable<Void>
         let commentButtonTapped: Observable<Void>
         let textInput: Observable<String>
+        let viewWillDisappear: Observable<Void>
     }
     struct Output {
         let chatFetched: Driver<[Chat]>
@@ -44,6 +45,12 @@ final class MultiGameChatViewModel: BaseViewModel {
         input.viewDidAppear
             .withUnretained(self)
             .subscribe { _ in
+                
+                let roomName = self.roomID.stringLimit(8)
+                self.coordinator?.navigationController.navigationBar.backItem?.title = ""
+                self.coordinator?.navigationController.navigationBar.topItem?.title = "\(roomName)... 방 채팅"
+                self.coordinator?.navigationController.navigationBar.tintColor = .pointDark
+                
                 self.useCase.observeChats(roomID: self.roomID)
                     .subscribe { chats in
                         chatFetched.onNext(chats)
@@ -63,6 +70,14 @@ final class MultiGameChatViewModel: BaseViewModel {
             .subscribe { _ in
                 self.useCase.chatUpdate(roomID: self.roomID)
                 chatDelievered.onNext(())
+            }
+            .disposed(by: disposeBag)
+        
+        input.viewWillDisappear
+            .withUnretained(self)
+            .subscribe { _ in
+                self.useCase.leave(roomID: self.roomID)
+                self.coordinator?.navigationController.isNavigationBarHidden = true
             }
             .disposed(by: disposeBag)
         

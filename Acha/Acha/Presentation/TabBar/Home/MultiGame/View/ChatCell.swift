@@ -12,7 +12,7 @@ import Then
 final class ChatCell: UICollectionViewCell {
     static let identifier = String(describing: ChatCell.self)
     
-    private lazy var textLabel = UILabel().then {
+    private lazy var textLabel = PaddingLabel(topInset: 10, bottomInset: 10, leftInset: 20, rightInset: 20).then {
         $0.font = .commentBody
         $0.textColor = .black
         $0.numberOfLines = 0
