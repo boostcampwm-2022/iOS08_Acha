@@ -91,10 +91,10 @@
 		E52885CD2942325800018B04 /* MultiGameSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52885C42942325800018B04 /* MultiGameSelectViewController.swift */; };
 		E52885CE2942325800018B04 /* MultiGameRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52885C52942325800018B04 /* MultiGameRoomViewController.swift */; };
 		E52885CF2942325800018B04 /* MultiGameRoomUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52885C72942325800018B04 /* MultiGameRoomUseCase.swift */; };
-		E52885D12942326E00018B04 /* CommunityDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52885D02942326E00018B04 /* CommunityDetailViewController.swift */; };
 		E52885D62942327A00018B04 /* CommunityMainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52885D32942327A00018B04 /* CommunityMainViewModel.swift */; };
 		E52885D72942327A00018B04 /* CommunityPostWriteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52885D42942327A00018B04 /* CommunityPostWriteViewModel.swift */; };
 		E52885D82942327A00018B04 /* CommunityDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52885D52942327A00018B04 /* CommunityDetailViewModel.swift */; };
+		E52885E12942375300018B04 /* CommunityDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52885E02942375300018B04 /* CommunityDetailViewController.swift */; };
 		E576465029377DC400BADF18 /* DefaultCommunityMainUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E576464F29377DC400BADF18 /* DefaultCommunityMainUseCase.swift */; };
 		E576465629377F2300BADF18 /* CommunityMainUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E576465529377F2300BADF18 /* CommunityMainUseCase.swift */; };
 		E576465A2938C12C00BADF18 /* DefaultCommunityRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57646592938C12C00BADF18 /* DefaultCommunityRepository.swift */; };
@@ -293,10 +293,10 @@
 		E52885C42942325800018B04 /* MultiGameSelectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiGameSelectViewController.swift; sourceTree = "<group>"; };
 		E52885C52942325800018B04 /* MultiGameRoomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiGameRoomViewController.swift; sourceTree = "<group>"; };
 		E52885C72942325800018B04 /* MultiGameRoomUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiGameRoomUseCase.swift; sourceTree = "<group>"; };
-		E52885D02942326E00018B04 /* CommunityDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommunityDetailViewController.swift; sourceTree = "<group>"; };
 		E52885D32942327A00018B04 /* CommunityMainViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommunityMainViewModel.swift; sourceTree = "<group>"; };
 		E52885D42942327A00018B04 /* CommunityPostWriteViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommunityPostWriteViewModel.swift; sourceTree = "<group>"; };
 		E52885D52942327A00018B04 /* CommunityDetailViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommunityDetailViewModel.swift; sourceTree = "<group>"; };
+		E52885E02942375300018B04 /* CommunityDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommunityDetailViewController.swift; sourceTree = "<group>"; };
 		E576464F29377DC400BADF18 /* DefaultCommunityMainUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCommunityMainUseCase.swift; sourceTree = "<group>"; };
 		E576465529377F2300BADF18 /* CommunityMainUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityMainUseCase.swift; sourceTree = "<group>"; };
 		E57646592938C12C00BADF18 /* DefaultCommunityRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCommunityRepository.swift; sourceTree = "<group>"; };
@@ -1141,7 +1141,7 @@
 		F1DED3902935DF1400ABC047 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				E52885D02942326E00018B04 /* CommunityDetailViewController.swift */,
+				E52885E02942375300018B04 /* CommunityDetailViewController.swift */,
 				E5BE8BAE29221FF800E9CFE8 /* CommunityMainViewController.swift */,
 				E5AD6375293F3AD500EF088C /* CommunityPostWriteViewController.swift */,
 			);
@@ -1374,6 +1374,7 @@
 				47D5775B2934AB8A0014D171 /* MapBaseUseCase.swift in Sources */,
 				761C1C0E292E4554000C88D0 /* TimerServiceProtocol.swift in Sources */,
 				76AA560D2937ADD400498441 /* LoginUsecase.swift in Sources */,
+				E52885E12942375300018B04 /* CommunityDetailViewController.swift in Sources */,
 				769F1AAC2935A7A800A3BB47 /* GameOverView.swift in Sources */,
 				E5027D5E292686440021BF60 /* RecordViewDayTotalRecord.swift in Sources */,
 				E5027D58292670570021BF60 /* Record.swift in Sources */,
@@ -1447,7 +1448,6 @@
 				E5027D5629265D910021BF60 /* SelectMapRecordCell.swift in Sources */,
 				E516A6C02923942500CD6BDB /* RecordCell.swift in Sources */,
 				47935E952923310700481307 /* SystemImageNameSpace.swift in Sources */,
-				E52885D12942326E00018B04 /* CommunityDetailViewController.swift in Sources */,
 				E5AD6374293E175A00EF088C /* CommunityDetailCommentHeaderView.swift in Sources */,
 				F1B0D8B0292CCABE00EBDD02 /* BadgeDTO.swift in Sources */,
 				E57646782938DDB600BADF18 /* ProvidableType.swift in Sources */,
