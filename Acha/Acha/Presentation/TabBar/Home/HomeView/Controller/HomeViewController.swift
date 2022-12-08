@@ -11,7 +11,7 @@ import SnapKit
 import RxCocoa
 import RxSwift
 
-final class HomeViewController: UIViewController {
+final class HomeViewController: UIViewController, UIViewControllerTransitioningDelegate {
     
     // MARK: - UI properties
     private lazy var startGameContentView = UIView().then {
@@ -29,7 +29,7 @@ final class HomeViewController: UIViewController {
         $0.layer.cornerRadius = 10
         let cornerMask: CACornerMask = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         $0.layer.maskedCorners = cornerMask
-        $0.layer.backgroundColor = (UIColor.pointLight ?? UIColor.red) .cgColor
+        $0.layer.backgroundColor = UIColor.pointLight.cgColor
         $0.numberOfLines = 0
         $0.font = .boldSystemFont(ofSize: 34)
         $0.textColor = .white
@@ -39,7 +39,7 @@ final class HomeViewController: UIViewController {
     
     private lazy var singleGameImageView = UIImageView().then {
         $0.layer.cornerRadius = 10
-        $0.image = UIImage(systemName: "house")
+        $0.image = UIImage(named: "map_0")
         $0.layer.shadowOffset = CGSize(width: 0, height: 5)
         $0.layer.shadowColor = UIColor.gray.cgColor
         $0.layer.shadowOpacity = 1.0
@@ -49,7 +49,7 @@ final class HomeViewController: UIViewController {
     
     private lazy var multiGameImageView = UIImageView().then {
         $0.layer.cornerRadius = 10
-        $0.image = UIImage(systemName: "person")
+        $0.image = UIImage(named: "map_1")
         $0.layer.shadowOffset = CGSize(width: 0, height: 5)
         $0.layer.shadowColor = UIColor.gray.cgColor
         $0.layer.shadowOpacity = 1.0
@@ -57,20 +57,33 @@ final class HomeViewController: UIViewController {
         $0.layer.shadowRadius = 6
     }
     private lazy var startSingleGameButton = UIButton().then {
-        $0.layer.backgroundColor = UIColor(named: "PointDarkColor")?.cgColor
+        $0.layer.backgroundColor = UIColor.pointLight.cgColor
         $0.setTitle("혼자 하기", for: .normal)
         $0.titleLabel?.font = .boldSystemFont(ofSize: 30)
         $0.tintColor = .white
         $0.layer.cornerRadius = 10
+        $0.layer.shadowOffset = CGSize(width: 0, height: 5)
+        $0.layer.shadowColor = UIColor.gray.cgColor
+        $0.layer.shadowOpacity = 1.0
+        $0.layer.shadowOffset = CGSize.zero
+        $0.layer.shadowRadius = 6
     }
     
     private lazy var startMultiGameButton = UIButton().then {
-        $0.layer.backgroundColor = UIColor(named: "PointDarkColor")?.cgColor
+        $0.layer.backgroundColor = UIColor.pointLight.cgColor
         $0.setTitle("같이 하기", for: .normal)
         $0.titleLabel?.font = .boldSystemFont(ofSize: 30)
         $0.tintColor = .white
         $0.layer.cornerRadius = 10
+        $0.layer.shadowOffset = CGSize(width: 0, height: 5)
+        $0.layer.shadowColor = UIColor.gray.cgColor
+        $0.layer.shadowOpacity = 1.0
+        $0.layer.shadowOffset = CGSize.zero
+        $0.layer.shadowRadius = 6
     }
+    
+    private lazy var multiGameEnterView = MultiGameEnterViewController()
+    private lazy var qrReaderView = QRReaderViewController()
     
     // MARK: - Properties
     private let disposeBag: DisposeBag = DisposeBag()
@@ -80,17 +93,19 @@ final class HomeViewController: UIViewController {
     init(viewModel: HomeViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
+
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
         setUpSubviews()
         bind()
+    
     }
     
     // MARK: - Helpers
@@ -100,17 +115,40 @@ final class HomeViewController: UIViewController {
         navigationItem.largeTitleDisplayMode = .automatic
         navigationItem.title = "땅따먹기"
         navigationController?.navigationBar.largeTitleTextAttributes = [
-            .foregroundColor: UIColor.pointLight ?? .red
+            .foregroundColor: UIColor.pointLight
         ]
         navigationController?.navigationBar.shadowImage = UIImage()
     }
     
     private func bind() {
-        startSingleGameButton.rx.tap
-            .bind(to: viewModel.singleGameTap)
+        let inputs = HomeViewModel.Input(
+            singleGameModeDidTap: startSingleGameButton.rx.tap.asObservable(),
+            multiGameModeDidTap: startMultiGameButton.rx.tap.asObservable(),
+            makeRoomButtonDidTap: multiGameEnterView.makeRoomButton.rx.tap.asObservable(),
+            enterOtherRoomButtonDidTap: multiGameEnterView.enterRoomtButton.rx.tap.asObservable(),
+            cameraDetectedSometing: qrReaderView.roomIDInformation.asObservable()
+        )
+        
+        let outputs = viewModel.transform(input: inputs)
+        outputs.multiGameModeTapped
+            .subscribe { [weak self] _ in
+                guard let strongSelf = self else {return}
+                strongSelf.present(strongSelf.multiGameEnterView, animated: true)
+            }
             .disposed(by: disposeBag)
-        startMultiGameButton.rx.tap
-            .bind(to: viewModel.multiGameTap)
+
+        outputs.roomEnterBehavior
+            .subscribe { [weak self] _ in
+                guard let strongSelf = self else {return}
+                strongSelf.multiGameEnterView.dismiss(animated: true)
+                strongSelf.present(strongSelf.qrReaderView, animated: true)
+            }
+            .disposed(by: disposeBag)
+        
+        outputs.uuidDidPass
+            .subscribe { [weak self] _ in
+                self?.multiGameEnterView.dismiss(animated: true)
+            }
             .disposed(by: disposeBag)
     }
     

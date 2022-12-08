@@ -52,10 +52,6 @@ final class CommunityMainViewController: UIViewController {
         bind()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        print(#function)
-    }
-    
     // MARK: - Helpers
     private func bind() {
         let input = CommunityMainViewModel.Input(
