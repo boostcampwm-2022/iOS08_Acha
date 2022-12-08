@@ -46,7 +46,7 @@ final class SingleGameCoordinator: SingleGameCoordinatorProtocol {
         let viewModel = SingleGameViewModel(
             map: selectedMap,
             coordinator: self,
-            singeGameUseCase: DefaultSingleGameUseCase(
+            singleGameUseCase: DefaultSingleGameUseCase(
                 map: selectedMap,
                 locationService: DefaultLocationService(),
                 recordRepository: DefaultRecordRepository(
