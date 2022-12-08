@@ -19,6 +19,7 @@ struct MultiGameViewModel: BaseViewModel {
         let resetButtonTapped: Observable<Void>
         let watchOthersLocationButtonTapped: Observable<Void>
         let exitButtonTapped: Observable<Void>
+        let gameOverButtonTapped: Observable<Void>
     }
     
     struct Output {
@@ -29,6 +30,7 @@ struct MultiGameViewModel: BaseViewModel {
         let playerDataFetched: Driver<[MultiGamePlayerData]>
         let currentLocation: Driver<Coordinate>
         let otherLocation: Driver<Coordinate>
+        let gameOver: Driver<Void>
     }
     
     private let roomId: String
@@ -53,15 +55,18 @@ struct MultiGameViewModel: BaseViewModel {
         let playerDataFetcehd = PublishSubject<[MultiGamePlayerData]>()
         let currentLocation = PublishSubject<Coordinate>()
         let otherLocation = PublishSubject<Coordinate>()
+        let gameOver = PublishSubject<Void>()
         input.viewDidAppear
             .subscribe { _ in
                 useCase.timerStart()
                     .subscribe { time in
                         if time <= -1 {
+                            gameOver.onNext(())
                             useCase.timerStop()
                             gameOverAction(time: 60)
+                        } else {
+                            timeCount.onNext(time)
                         }
-                        else { timeCount.onNext(time) }
                     }
                     .disposed(by: disposeBag)
                 
@@ -74,7 +79,14 @@ struct MultiGameViewModel: BaseViewModel {
                     .disposed(by: disposeBag)
                 
                 useCase.observing(roomID: roomId)
-                    .subscribe { playerDataFetcehd.onNext($0) }
+                    .subscribe {
+                        if $0.count >= 2 {
+                            playerDataFetcehd.onNext($0)
+                            gameOverAction(time: 60)
+                        } else {
+                            gameOver.onNext(())
+                        }
+                    }
                     .disposed(by: disposeBag)
                     
             }
@@ -103,9 +115,14 @@ struct MultiGameViewModel: BaseViewModel {
         
         input.exitButtonTapped
             .subscribe { _ in
-                useCase.leave(roomID: roomId)
-                self.coordinator?.delegate?.didFinished(childCoordinator: self.coordinator!)
+                leaveRoom()
             }
+            .disposed(by: disposeBag)
+        
+        input.gameOverButtonTapped
+            .subscribe(onNext: { _ in
+                leaveRoom()
+            })
             .disposed(by: disposeBag)
         
         visitedLocation
@@ -125,14 +142,19 @@ struct MultiGameViewModel: BaseViewModel {
             movedDistance: movedDistance.asDriver(onErrorJustReturn: 0),
             playerDataFetched: playerDataFetcehd.asDriver(onErrorJustReturn: []),
             currentLocation: currentLocation.asDriver(onErrorJustReturn: Coordinate(latitude: 0, longitude: 0)),
-            otherLocation: otherLocation.asDriver(onErrorJustReturn: Coordinate(latitude: 0, longitude: 0))
+            otherLocation: otherLocation.asDriver(onErrorJustReturn: Coordinate(latitude: 0, longitude: 0)),
+            gameOver: gameOver.asDriver(onErrorJustReturn: ())
         )
+    }
+    
+    private func leaveRoom() {
+        useCase.leave(roomID: roomId)
+        coordinator?.delegate?.didFinished(childCoordinator: coordinator!)
     }
     
     private func gameOverAction(time: Int) {
         useCase.healthKitStore(time: time)
         useCase.stopObserveLocation()
-        self.coordinator?.navigationController.showAlert(title: "게임 종료", message: "종료 !!!")
-//        self.coordinator?.delegate?.didFinished(childCoordinator: self.coordinator!)
+        useCase.timerStop()
     }
 }

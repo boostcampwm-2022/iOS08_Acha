@@ -15,6 +15,7 @@ final class DefaultMultiGameUseCase: MultiGameUseCase {
     
     enum GameRoomError: Error {
         case dataNotFetched
+        case cantProceedThisGame
     }
     
     private let gameRoomRepository: GameRoomRepository
