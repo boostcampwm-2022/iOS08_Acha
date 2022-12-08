@@ -12,5 +12,5 @@ protocol MapBaseUseCase {
     
     func start()
     func stop()
-    func isAvailableLocationAuthorization() -> PublishSubject<Bool>
+    func isAvailableLocationAuthorization() -> Observable<(Bool, Coordinate?)>
 }

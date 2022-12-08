@@ -51,15 +51,6 @@ class MapBaseViewModel: BaseViewModel {
             .disposed(by: disposeBag)
         
         mapBaseUseCase.isAvailableLocationAuthorization()
-            .map { [weak self] available in
-                if let self,
-                   available,
-                   let userLocation = try? self.mapBaseUseCase.userLocation.value() {
-                    return (available, userLocation)
-                } else {
-                       return (available, nil)
-                   }
-            }
             .bind(to: output.isAvailableLocationAuthorization)
             .disposed(by: disposeBag)
         
