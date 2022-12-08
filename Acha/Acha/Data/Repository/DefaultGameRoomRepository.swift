@@ -193,7 +193,8 @@ struct DefaultGameRoomRepository: GameRoomRepository {
     
     private func chatsReadUpdate(chats: [ChatDTO], reads: [[String]]) -> [ChatDTO] {
         var chats = chats
-        for index in 0..<chats.count {
+        let limit = chats.count > reads.count ? reads.count : chats.count
+        for index in 0..<limit {
             chats[index].read = reads[index]
         }
         return chats

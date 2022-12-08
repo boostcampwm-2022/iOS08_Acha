@@ -7,6 +7,7 @@
 
 import Foundation
 import RxSwift
+import RxRelay
 import RxCocoa
 import CoreLocation
 
@@ -35,6 +36,7 @@ final class MultiGameViewModel: BaseViewModel {
         let gameOver: Driver<Void>
         let unReadChat: Driver<Int>
     }
+    let timerCount = BehaviorRelay(value: 60)
     
     private let roomId: String
     private let useCase: MultiGameUseCase
@@ -51,7 +53,6 @@ final class MultiGameViewModel: BaseViewModel {
     }
     
     func transform(input: Input) -> Output {
-        let timeCount = PublishSubject<Int>()
         let visitedLocation = PublishSubject<Coordinate>()
         let gamePoint = PublishSubject<Int>()
         let movedDistance = PublishSubject<Double>()
@@ -63,13 +64,16 @@ final class MultiGameViewModel: BaseViewModel {
         input.viewDidAppear
             .subscribe { [weak self] _ in
                 guard let self = self else {return}
+                if self.timerCount.value != 60 {
+                    return
+                }
                 self.useCase.timerStart()
                     .subscribe { time in
                         if time <= -1 {
                             gameOver.onNext(())
                             self.gameOverAction(time: 60)
                         } else {
-                            timeCount.onNext(time)
+                            self.timerCount.accept(time)
                         }
                     }
                     .disposed(by: self.timerBag)
@@ -161,7 +165,7 @@ final class MultiGameViewModel: BaseViewModel {
             .disposed(by: disposeBag)
     
         return Output(
-            time: timeCount.asDriver(onErrorJustReturn: -1),
+            time: timerCount.asDriver(onErrorJustReturn: -1),
             visitedLocation: visitedLocation.asDriver(onErrorJustReturn: Coordinate(latitude: 0, longitude: 0)),
             gamePoint: gamePoint.asDriver(onErrorJustReturn: 0),
             movedDistance: movedDistance.asDriver(onErrorJustReturn: 0),

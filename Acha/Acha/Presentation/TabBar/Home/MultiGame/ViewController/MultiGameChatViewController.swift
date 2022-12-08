@@ -183,11 +183,11 @@ extension MultiGameChatViewController {
         guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
             return
         }
-        self.view.frame.origin.y = 0 - keyboardSize.height
+        self.view.frame.origin.y = 25 - keyboardSize.height
     }
     
     @objc func keyboardWillHide(notification: NSNotification) {
-        self.view.frame.origin.y = 0
+        self.view.frame.origin.y = 25
     }
     
 }
