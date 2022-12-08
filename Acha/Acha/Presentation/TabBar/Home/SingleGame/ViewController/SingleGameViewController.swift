@@ -218,9 +218,9 @@ extension SingleGameViewController {
                                   distance: "\(record.distance.convertToDecimal)m",
                                   calorie: "\(record.calorie)kcal")
                 self.gameOverView.snp.makeConstraints {
-                    $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(142)
-                    $0.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom).offset(-220)
+                    $0.center.equalToSuperview()
                     $0.leading.trailing.equalTo(self.view.safeAreaLayoutGuide).inset(44)
+                    $0.height.equalTo(400)
                 }
             }).disposed(by: disposeBag)
         bindButtons()
