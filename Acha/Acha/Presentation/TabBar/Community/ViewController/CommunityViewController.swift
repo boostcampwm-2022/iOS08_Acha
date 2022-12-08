@@ -66,7 +66,6 @@ extension CommunityViewController {
             layoutSize: groupSize,
             subitems: [item]
         )
-
         let section = NSCollectionLayoutSection(group: group)
         section.interGroupSpacing = 10
         let layout = UICollectionViewCompositionalLayout(section: section)

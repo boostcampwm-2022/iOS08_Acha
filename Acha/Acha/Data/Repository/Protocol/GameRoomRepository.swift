@@ -35,4 +35,17 @@ protocol GameRoomRepository {
     
     /// observer 해제 ( observing 하고 안 할때 풀어줘야 합니다 )
     func removeObserverRoom(id: String)
+    
+    /// 게임 유저 데이터 불러 오기 ... observing 사용 ... 해제 필요 
+    func observingMultiGamePlayers(id: String) -> Observable<[MultiGamePlayerData]>
+    
+    /// 게임 룸 업데이트 메서드 
+    func updateMultiGamePlayer(
+        roomId: String,
+        data: MultiGamePlayerData,
+        histroy: [Coordinate]
+    )
+    
+    /// 게임 시작시 인 게임 데이터 만들기 
+    func startGame(roomId: String)
 }

@@ -9,9 +9,10 @@ import Foundation
 import RxSwift
 
 protocol MultiGameRoomUseCase {
-    func observing(roomID: String) -> Observable<[RoomUser]>
+    func observing(roomID: String) -> Observable<[RoomUser]?>
     func get(roomID: String) -> Single<[RoomUser]>
     func leave(roomID: String)
     func removeObserver(roomID: String)
     func isGameAvailable(roomID: String) -> Observable<Void>
+    func startGame(roomID: String)
 }

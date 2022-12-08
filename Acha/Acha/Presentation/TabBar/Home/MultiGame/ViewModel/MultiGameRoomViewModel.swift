@@ -41,8 +41,14 @@ final class MultiGameRoomViewModel: BaseViewModel {
         let bag = disposeBag
         let dataFetched = Observable<[RoomUser]>.create { observer in
             input.viewDidAppear.subscribe { [weak self] _ in
-                self?.useCase.observing(roomID: self?.roomID ?? "")
+                guard let self = self else {return}
+                self.useCase.observing(roomID: self.roomID)
                     .subscribe(onNext: { roomUsers in
+                        guard let roomUsers = roomUsers else {
+                            self.useCase.removeObserver(roomID: self.roomID)
+                            self.coordinator?.showMultiGameViewController(roomID: self.roomID )
+                            return
+                        }
                         observer.onNext(roomUsers)
                     })
                     .disposed(by: bag)
@@ -56,7 +62,8 @@ final class MultiGameRoomViewModel: BaseViewModel {
                 guard let self = self else {return}
                 self.useCase.isGameAvailable(roomID: self.roomID)
                     .subscribe { _ in
-                        self.coordinator?.showMultiGameSelectViewController(roomID: self.roomID)
+                        self.useCase.startGame(roomID: self.roomID)
+                        self.coordinator?.showMultiGameViewController(roomID: self.roomID)
                     } onError: { error in
                         self.coordinator?.navigationController.showAlert(
                             title: "주의",
