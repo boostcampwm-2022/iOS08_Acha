@@ -39,7 +39,6 @@ final class DefaultMultiGameChatUseCase: MultiGameChatUseCase {
                     created: Date(),
                     text: self?.chats ?? ""
                 )
-                print(newChat)
                 self?.roomRepository.updateChats(
                     roomID: roomID,
                     chat: newChat

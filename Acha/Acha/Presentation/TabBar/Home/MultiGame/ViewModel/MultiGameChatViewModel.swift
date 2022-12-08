@@ -18,6 +18,7 @@ final class MultiGameChatViewModel: BaseViewModel {
     }
     struct Output {
         let chatFetched: Driver<[Chat]>
+        let chatDelievered: Driver<Void>
     }
     var disposeBag: RxSwift.DisposeBag = .init()
     
@@ -32,6 +33,7 @@ final class MultiGameChatViewModel: BaseViewModel {
     func transform(input: Input) -> Output {
         
         let chatFetched = PublishSubject<[Chat]>()
+        let chatDelievered = PublishSubject<Void>()
         
         input.viewDidAppear
             .withUnretained(self)
@@ -54,9 +56,11 @@ final class MultiGameChatViewModel: BaseViewModel {
             .withUnretained(self)
             .subscribe { _ in
                 self.useCase.chatUpdate(roomID: self.roomID)
+                chatDelievered.onNext(())
             }
             .disposed(by: disposeBag)
         
-        return Output(chatFetched: chatFetched.asDriver(onErrorJustReturn: []))
+        return Output(chatFetched: chatFetched.asDriver(onErrorJustReturn: []),
+                      chatDelievered: chatDelievered.asDriver(onErrorJustReturn: ()))
     }
 }

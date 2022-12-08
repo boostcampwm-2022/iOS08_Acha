@@ -62,6 +62,13 @@ final class MultiGameChatViewController: UIViewController {
                 self?.makeSnapShot(data: chats)
             })
             .disposed(by: disposeBag)
+        
+        outputs.chatDelievered
+            .delay(.milliseconds(300))
+            .drive(onNext: { [weak self] _ in
+                self?.commentView.commentTextView.text = ""
+            })
+            .disposed(by: disposeBag)
     }
     
     private func keyboardBind() {

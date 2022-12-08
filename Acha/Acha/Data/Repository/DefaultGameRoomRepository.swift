@@ -180,7 +180,6 @@ struct DefaultGameRoomRepository: GameRoomRepository {
                 var roomDTO = roomDTO
                 let newChat = ChatDTO(data: chat)
                 roomDTO.appendChat(chat: newChat)
-                print(roomDTO)
                 firebaseRealTimeDatabase.upload(type: .room(id: roomID), data: roomDTO)
             })
             .disposed(by: disposeBag)
