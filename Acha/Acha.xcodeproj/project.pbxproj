@@ -192,6 +192,11 @@
 		F1DED402293880CB00ABC047 /* DefaultCommunityRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED401293880CB00ABC047 /* DefaultCommunityRepository.swift */; };
 		F1DED40629388A3700ABC047 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED40529388A3700ABC047 /* UserRepository.swift */; };
 		F1E7B0AB293DB8B50088332E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E7B0AA293DB8B50088332E /* User.swift */; };
+		F1E7B0AD293DD01B0088332E /* DefaultGameRoomRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E7B0AC293DD01B0088332E /* DefaultGameRoomRepository.swift */; };
+		F1E7B0AF293DD1A50088332E /* GameRoomRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E7B0AE293DD1A50088332E /* GameRoomRepository.swift */; };
+		F1E7B0B1293DD1E80088332E /* DefaultRandomService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E7B0B0293DD1E80088332E /* DefaultRandomService.swift */; };
+		F1E7B0B3293DD1F80088332E /* RandomService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E7B0B2293DD1F80088332E /* RandomService.swift */; };
+		F1E7B0B5293DD2AF0088332E /* DIContainerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E7B0B4293DD2AF0088332E /* DIContainerManager.swift */; };
 		F1E83D7729348591004C7992 /* CommunityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E83D7629348591004C7992 /* CommunityViewModel.swift */; };
 		F1E83D79293485A1004C7992 /* CommunityRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E83D78293485A1004C7992 /* CommunityRepository.swift */; };
 		F1E83D7D293489E1004C7992 /* PostDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E83D7C293489E1004C7992 /* PostDTO.swift */; };
@@ -424,6 +429,11 @@
 		F1DED401293880CB00ABC047 /* DefaultCommunityRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCommunityRepository.swift; sourceTree = "<group>"; };
 		F1DED40529388A3700ABC047 /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
 		F1E7B0AA293DB8B50088332E /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		F1E7B0AC293DD01B0088332E /* DefaultGameRoomRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultGameRoomRepository.swift; sourceTree = "<group>"; };
+		F1E7B0AE293DD1A50088332E /* GameRoomRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRoomRepository.swift; sourceTree = "<group>"; };
+		F1E7B0B0293DD1E80088332E /* DefaultRandomService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultRandomService.swift; sourceTree = "<group>"; };
+		F1E7B0B2293DD1F80088332E /* RandomService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomService.swift; sourceTree = "<group>"; };
+		F1E7B0B4293DD2AF0088332E /* DIContainerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContainerManager.swift; sourceTree = "<group>"; };
 		F1E83D7629348591004C7992 /* CommunityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityViewModel.swift; sourceTree = "<group>"; };
 		F1E83D78293485A1004C7992 /* CommunityRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityRepository.swift; sourceTree = "<group>"; };
 		F1E83D7C293489E1004C7992 /* PostDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDTO.swift; sourceTree = "<group>"; };
@@ -674,6 +684,7 @@
 				474E2500293DC78100CFAC59 /* DefaultTempRepository.swift */,
 				F1DED401293880CB00ABC047 /* DefaultCommunityRepository.swift */,
 				F1B514F0293B414F00F653F3 /* DefaultUserRepository.swift */,
+				F1E7B0AC293DD01B0088332E /* DefaultGameRoomRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -686,6 +697,7 @@
 				47D5775129338FB60014D171 /* RecordRepository.swift */,
 				47653A372938D6EF00BDC8E3 /* BadgeRepository.swift */,
 				F1DED40529388A3700ABC047 /* UserRepository.swift */,
+				F1E7B0AE293DD1A50088332E /* GameRoomRepository.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -735,6 +747,7 @@
 				F1DED3F929386ED500ABC047 /* DefaultHealthKitService.swift */,
 				F1B514E8293B3FA300F653F3 /* DefaultKeychainService.swift */,
 				F1B514EA293B3FDD00F653F3 /* DefaultAuthService.swift */,
+				F1E7B0B0293DD1E80088332E /* DefaultRandomService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -749,6 +762,7 @@
 				F1DED3FB29386EF000ABC047 /* HealthKitService.swift */,
 				F1B514E6293B3F6500F653F3 /* KeychainService.swift */,
 				F1B514EC293B3FEC00F653F3 /* AuthService.swift */,
+				F1E7B0B2293DD1F80088332E /* RandomService.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -929,6 +943,7 @@
 			children = (
 				F12210C1292D031800AE5F26 /* KeyChainManager.swift */,
 				F14B1494292BA1D40010E966 /* KeyboardManager.swift */,
+				F1E7B0B4293DD2AF0088332E /* DIContainerManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -1559,6 +1574,7 @@
 				47A26DC0292C9F8A0007FBBF /* SelectMapRankingHeaderView.swift in Sources */,
 				76B3BF56292627A30056ABFD /* GamePlayMenuView.swift in Sources */,
 				764AF2A1292B9C1F00D16DC9 /* String+.swift in Sources */,
+				F1E7B0AD293DD01B0088332E /* DefaultGameRoomRepository.swift in Sources */,
 				76B3BF462924D93C0056ABFD /* SingleGameCoordinator.swift in Sources */,
 				47653A302938C4AD00BDC8E3 /* DefaultMyPageUseCase.swift in Sources */,
 				E5027D5A292670BC0021BF60 /* RecordViewHeaderRecord.swift in Sources */,
@@ -1611,6 +1627,7 @@
 				F1DED3FE29386F7400ABC047 /* HealthKitReadData.swift in Sources */,
 				76AA55FF2937AD8900498441 /* GameRoomCollectionViewCell.swift in Sources */,
 				F1DED3A62935F0A400ABC047 /* CommentCollectionViewCell.swift in Sources */,
+				F1E7B0B5293DD2AF0088332E /* DIContainerManager.swift in Sources */,
 				474E2503293DC78700CFAC59 /* TempRepository.swift in Sources */,
 				470C7055293B5C3E00261250 /* MyPageHeaderView.swift in Sources */,
 				474E24E9293DC6B800CFAC59 /* RecordMainChartCell.swift in Sources */,
@@ -1625,6 +1642,7 @@
 				F156F11C2923623C0053E807 /* PaddingLabel.swift in Sources */,
 				4795F04829374DC800B174D6 /* LocationService.swift in Sources */,
 				471863BD291E155700A35786 /* AppDelegate.swift in Sources */,
+				F1E7B0B3293DD1F80088332E /* RandomService.swift in Sources */,
 				F1DED3AA2935F16A00ABC047 /* PostHeaderCollectionReusableView.swift in Sources */,
 				E5BE8BA129221B6D00E9CFE8 /* SignupCoordinator .swift in Sources */,
 				E5BE8B97292219D800E9CFE8 /* HomeCoordinator.swift in Sources */,
@@ -1655,12 +1673,14 @@
 				47653A2E2938C4A500BDC8E3 /* MyPageUseCase.swift in Sources */,
 				F156F11E292365840053E807 /* CALayer+.swift in Sources */,
 				761C1C10292E4562000C88D0 /* TimerService.swift in Sources */,
+				F1E7B0B1293DD1E80088332E /* DefaultRandomService.swift in Sources */,
 				F1FCEE0E292B483E001A55D6 /* UITextField+.swift in Sources */,
 				474E24F7293DC73200CFAC59 /* TempDBNetwork.swift in Sources */,
 				474E24E4293DC6B800CFAC59 /* LineGraphView.swift in Sources */,
 				47D5774F29338A7A0014D171 /* DefaultRealtimeDatabaseNetworkService.swift in Sources */,
 				E5BE8B9929221A4C00E9CFE8 /* RecordCoordinator.swift in Sources */,
 				47D5773D293389AC0014D171 /* DefaultMapRepository.swift in Sources */,
+				F1E7B0AF293DD1A50088332E /* GameRoomRepository.swift in Sources */,
 				F1B0D8AC292CCA5200EBDD02 /* SignUpData.swift in Sources */,
 				76B3BF4A2924DDE70056ABFD /* BaseViewModel.swift in Sources */,
 				761E5F072935EF4200E6CACC /* InGameUseCase.swift in Sources */,
