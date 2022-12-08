@@ -69,7 +69,7 @@ class BadgeViewController: UIViewController {
         
         view.addSubview(collectionView)
         collectionView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+            $0.edges.equalToSuperview() 
         }
         configureDataSource()
     }
@@ -82,8 +82,7 @@ class BadgeViewController: UIViewController {
                 for: indexPath) as? BadgeCell else {
                 return BadgeCell()
             }
-            cell.bind(image: item.imageURL,
-                      badgeName: item.name,
+            cell.bind(badge: item,
                       disposeBag: self.disposeBag)
             return cell
         })
@@ -106,7 +105,7 @@ class BadgeViewController: UIViewController {
     }
     
     private func configureCollectionViewLayout() -> UICollectionViewLayout {
-        UICollectionViewCompositionalLayout { (sectionIndex: Int, _ ) -> NSCollectionLayoutSection in
+        UICollectionViewCompositionalLayout { (_, _ ) -> NSCollectionLayoutSection in
             let itemSize = NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1/3),
                 heightDimension: .absolute(145))
