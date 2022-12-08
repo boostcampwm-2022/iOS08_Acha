@@ -120,7 +120,7 @@ extension SelectMapViewController {
     
     private func bind() {
         let input = SelectMapViewModel.Input(
-            viewWillAppearEvent: rx.methodInvoked(#selector(UIViewController.viewWillAppear)).map { _ in },
+            viewWillAppearEvent: rx.viewWillAppear.asObservable(),
             mapSelected: mapSelectedEvent,
             regionDidChanged: regionDidChanged,
             startButtonTapped: startButton.rx.tap.asObservable(),
