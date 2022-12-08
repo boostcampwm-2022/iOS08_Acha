@@ -63,7 +63,7 @@ struct MultiGameViewModel: BaseViewModel {
                         if time <= -1 {
                             gameOver.onNext(())
                             useCase.timerStop()
-                            gameOverAction(time: 60)
+//                            gameOverAction(time: 60)
                         } else {
                             timeCount.onNext(time)
                         }
@@ -82,7 +82,7 @@ struct MultiGameViewModel: BaseViewModel {
                     .subscribe {
                         if $0.count >= 2 {
                             playerDataFetcehd.onNext($0)
-                            gameOverAction(time: 60)
+//                            gameOverAction(time: 60)
                         } else {
                             gameOver.onNext(())
                         }
@@ -158,3 +158,4 @@ struct MultiGameViewModel: BaseViewModel {
         useCase.timerStop()
     }
 }
+    
