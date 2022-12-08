@@ -44,7 +44,9 @@ final class MyPageCoordinator: MyPageCoordinatorProtocol {
     }
     
     func showBadgeViewController(allBadges: [Badge], ownedBadges: [Badge]) {
-        let viewModel = BadgeViewModel()
+        let viewModel = BadgeViewModel(
+                     allBadges: allBadges,
+                     ownedBadges: ownedBadges)
         let viewController = BadgeViewController(viewModel: viewModel)
         navigationController.pushViewController(viewController, animated: true)
     }
