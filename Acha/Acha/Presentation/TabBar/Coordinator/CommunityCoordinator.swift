@@ -9,6 +9,8 @@ import UIKit
 
 protocol CommunityCoordinatorProtocol: Coordinator {
     func showCommunityMainViewController()
+    func showCommunityPostWriteViewController()
+    func showCommunityDetailViewController(postID: Int)
 }
 
 final class CommunityCoordinator: CommunityCoordinatorProtocol {
@@ -23,25 +25,32 @@ final class CommunityCoordinator: CommunityCoordinatorProtocol {
     
     func start() {
         showCommunityMainViewController()
-//        showCommunityPostViewController()
-//        showCommunityDetailViewController()
     }
     
     func showCommunityMainViewController() {
-        let repository = DefaultCommunityRepository(service: DefaultRealtimeDatabaseNetworkService())
+        let repository = DefaultCommunityRepository(realtimeService: DefaultRealtimeDatabaseNetworkService())
         let useCase = DefaultCommunityMainUseCase(repository: repository)
-        let viewModel = CommunityMainViewModel(useCase: useCase)
+        let viewModel = CommunityMainViewModel(useCase: useCase,
+                                               coordinator: self)
         let viewController = CommunityMainViewController(viewModel: viewModel)
         navigationController.pushViewController(viewController, animated: true)
     }
     
-//    func showCommunityPostViewController() {
-//          let viewController = CommunityPostViewController()
-//          navigationController.pushViewController(viewController, animated: true)
-//      }
-//    
-//    func showCommunityDetailViewController() {
-//        let viewController = CommunityDetailViewController()
-//        navigationController.pushViewController(viewController, animated: true)
-//    }
+    func showCommunityPostWriteViewController() {
+        let repository = DefaultCommunityRepository(realtimeService: DefaultRealtimeDatabaseNetworkService(),
+                                                    storageService: DefaultFirebaseStorageNetworkService())
+        let useCase = DefaultCommunityPostWriteUseCase(repository: repository)
+        let viewModel = CommunityPostWriteViewModel(useCase: useCase,
+                                                    coordinator: self)
+        let viewController = CommunityPostWriteViewController(viewModel: viewModel)
+        navigationController.pushViewController(viewController, animated: true)
+    }
+    
+    func showCommunityDetailViewController(postID: Int) {
+        let repository = DefaultCommunityRepository(realtimeService: DefaultRealtimeDatabaseNetworkService())
+        let useCase = DefaultCommunityDetailUseCase(postID: postID, repository: repository)
+        let viewModel = CommunityDetailViewModel(useCase: useCase)
+        let viewController = CommunityDetailViewController(viewModel: viewModel)
+        navigationController.pushViewController(viewController, animated: true)
+    }
 }

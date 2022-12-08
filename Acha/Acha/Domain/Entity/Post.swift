@@ -8,22 +8,32 @@
 import Foundation
 
 struct Post: Hashable {
-    let id: Int
+    var id: Int
     let userId: String
     let nickName: String
     let text: String
-    let image: String?
+    var image: String?
     let createdAt: Date
     var comments: [Comment]?
     
+    init() {
+        self.id = -1
+        self.userId = ""
+        self.nickName = ""
+        self.text = ""
+        self.image = nil
+        self.createdAt = Date()
+        self.comments = nil
+    }
+    
     init(
-        id: Int,
+        id: Int = -1,
         userId: String,
         nickName: String,
         text: String,
-        image: String?,
+        image: String? = nil,
         createdAt: Date = Date(),
-        comments: [Comment]?
+        comments: [Comment]? = nil
     ) {
         self.id = id
         self.userId = userId
@@ -33,5 +43,8 @@ struct Post: Hashable {
         self.createdAt = createdAt
         self.comments = comments
     }
+    
+    mutating func addComment(data: Comment) {
+        comments?.append(data)
+    }
 }
-

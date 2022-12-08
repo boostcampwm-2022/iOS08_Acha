@@ -17,8 +17,15 @@ final class CommunityMainViewController: UIViewController {
     }
     
     // MARK: - UI properties
-    private lazy var collectionView = UICollectionView(frame: .zero,
-                                                  collectionViewLayout: collectionViewLayout())
+    private var collectionView: UICollectionView!
+    private lazy var rightButton: UIBarButtonItem = UIBarButtonItem().then {
+        $0.title = "글 작성"
+        $0.style = .plain
+        $0.target = self
+        $0.action = #selector(rightButtonTapped)
+        $0.tintColor = .pointLight
+        $0.setTitleTextAttributes([.font: UIFont.defaultTitle ], for: .normal)
+    }
     
     // MARK: - Properties
     typealias DataSource = UICollectionViewDiffableDataSource<Section, Post>
@@ -26,7 +33,8 @@ final class CommunityMainViewController: UIViewController {
     private let viewModel: CommunityMainViewModel!
     private let disposeBag = DisposeBag()
     
-    private let cellTapEvent = PublishRelay<Int>()
+    private var cellTapEvent = PublishRelay<Int>()
+    private var rightButtonTapEvent = PublishRelay<Void>()
     
     // MARK: - Lifecycles
     init(viewModel: CommunityMainViewModel) {
@@ -44,11 +52,18 @@ final class CommunityMainViewController: UIViewController {
         bind()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        print(#function)
+    }
+    
     // MARK: - Helpers
     private func bind() {
-        let input = CommunityMainViewModel.Input(viewDidAppearEvent: rx.methodInvoked(#selector(viewDidAppear(_:)))
-            .map({ _ in })
-            .asObservable()
+        let input = CommunityMainViewModel.Input(
+            viewDidAppearEvent: rx.methodInvoked(#selector(viewDidAppear(_:)))
+                .map({ _ in })
+                .asObservable(),
+            cellTapEvent: self.cellTapEvent.asObservable(),
+            rightButtonTapEvent: self.rightButtonTapEvent.asObservable()
         )
         
         let output = viewModel.transform(input: input)
@@ -63,16 +78,21 @@ final class CommunityMainViewController: UIViewController {
     
     private func configureUI() {
         view.backgroundColor = .white
-        title = "커뮤니티"
+        navigationItem.title = "커뮤니티"
+        navigationItem.rightBarButtonItem = rightButton
+        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.pointLight]
         
         configureCollectionView()
     }
     
     private func configureCollectionView() {
+        collectionView = UICollectionView(frame: .zero,
+                                          collectionViewLayout: collectionViewLayout())
         collectionView.contentInsetAdjustmentBehavior = .never
         collectionView.delegate = self
         collectionView.register(CommunityMainCell.self,
                                 forCellWithReuseIdentifier: CommunityMainCell.identifier)
+        collectionView.backgroundColor = .white
         
         view.addSubview(collectionView)
         
@@ -92,7 +112,6 @@ final class CommunityMainViewController: UIViewController {
                 for: indexPath) as? CommunityMainCell else {
                 return UICollectionViewCell()
             }
-            
             cell.bind(post: itemIdentifier)
             
             return cell
@@ -102,13 +121,13 @@ final class CommunityMainViewController: UIViewController {
     private func collectionViewLayout() -> UICollectionViewCompositionalLayout {
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1),
-            heightDimension: .estimated(100)
+            heightDimension: .estimated(130)
         )
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
         let groupSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1),
-            heightDimension: .estimated(100)
+            heightDimension: .estimated(130)
         )
         let group = NSCollectionLayoutGroup.vertical(
             layoutSize: groupSize,
@@ -125,17 +144,26 @@ final class CommunityMainViewController: UIViewController {
     private func updateSnapshot(posts: [Post]) {
         var snapshot = dataSource.snapshot()
         snapshot.deleteSections([.community])
-        
+
         snapshot.appendSections([.community])
         snapshot.appendItems(posts, toSection: .community)
-        dataSource.apply(snapshot, animatingDifferences: true)
+        dataSource.apply(snapshot)
+    }
+    
+    private func deleteSnapshot() {
+        var snapshot = dataSource.snapshot()
+        snapshot.deleteSections([.community])
+        dataSource.apply(snapshot)
+    }
+    
+    @objc private func rightButtonTapped() {
+        self.rightButtonTapEvent.accept(())
     }
 }
 
-extension CommunityMainViewController: UICollectionViewDelegate{
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CommunityMainCell.identifier, for: indexPath) as? CommunityMainCell else { return }
-        
-        cellTapEvent.accept(cell.getId())
+extension CommunityMainViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView,
+                        didSelectItemAt indexPath: IndexPath) {
+        cellTapEvent.accept(indexPath.row)
     }
 }

@@ -1,19 +1,16 @@
 //
-//  CommunityCollectionViewCell.swift
+//  CommunityDetailPostCell.swift
 //  Acha
 //
-//  Created by hong on 2022/11/28.
+//  Created by 배남석 on 2022/12/05.
 //
 
 import UIKit
-import Then
-import SnapKit
 import RxSwift
+import RxRelay
 
-final class CommunityMainCell: UICollectionViewCell {
+final class CommunityDetailPostCell: UICollectionViewCell {
     // MARK: - UI properties
-    static let identifier = "CommunityMainCell"
-    
     private lazy var largeStackView: UIStackView = UIStackView().then {
         $0.backgroundColor = .pointLight
         $0.distribution = .fill
@@ -26,12 +23,12 @@ final class CommunityMainCell: UICollectionViewCell {
     private lazy var titleStackView = UIStackView().then {
         $0.distribution = .fill
         $0.axis = .horizontal
-        $0.spacing = 5
+        $0.spacing = 10
         $0.isLayoutMarginsRelativeArrangement = true
         $0.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     }
     
-    private lazy var contextStackView = UIStackView().then {
+    private lazy var contenxtStackView = UIStackView().then {
         $0.backgroundColor = .white
         $0.distribution = .fill
         $0.axis = .vertical
@@ -53,6 +50,12 @@ final class CommunityMainCell: UICollectionViewCell {
         $0.numberOfLines = 0
     }
     
+    private lazy var ellipsisButton: UIButton = UIButton().then {
+        $0.setImage(.ellipsisImage, for: .normal)
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: 30)
+        $0.setPreferredSymbolConfiguration(imageConfig, forImageIn: .normal)
+    }
+    
     private lazy var postTextView: UITextView = UITextView().then {
         $0.backgroundColor = .white
         $0.font = .postBody
@@ -67,18 +70,10 @@ final class CommunityMainCell: UICollectionViewCell {
         $0.isHidden = true
     }
     
-    private lazy var commentInfoView: UIView = UIView().then {
-        $0.backgroundColor = .white
-    }
-
-    private lazy var commentImageView: UIImageView = UIImageView().then {
-        $0.image = .commentImage
-    }
-    
-    private lazy var commentCountLabel: UILabel = UILabel().then {
-        $0.font = .commentBody
-        $0.textAlignment = .center
-    }
+    // MARK: - Properties
+    static let identifier = "CommunityDetailPostCell"
+    var modifyButtonTapEvent = PublishRelay<Void>()
+    var deleteButtonTapEvent = PublishRelay<Void>()
     
     // MARK: - Lifecycles
     override init(frame: CGRect) {
@@ -91,20 +86,16 @@ final class CommunityMainCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Properties
-    
-    // MARK: - Helper
+    // MARK: - Helpers
     private func setupViews() {
         contentView.addSubview(largeStackView)
         largeStackView.addArrangedSubview(titleStackView)
-        largeStackView.addArrangedSubview(contextStackView)
+        largeStackView.addArrangedSubview(contenxtStackView)
         titleStackView.addArrangedSubview(nickNameLabel)
         titleStackView.addArrangedSubview(createDateLabel)
-        contextStackView.addArrangedSubview(postTextView)
-        contextStackView.addArrangedSubview(postImageView)
-        contextStackView.addArrangedSubview(commentInfoView)
-        commentInfoView.addSubview(commentImageView)
-        commentInfoView.addSubview(commentCountLabel)
+        titleStackView.addArrangedSubview(ellipsisButton)
+        contenxtStackView.addArrangedSubview(postTextView)
+        contenxtStackView.addArrangedSubview(postImageView)
     }
     
     private func configureUI() {
@@ -115,44 +106,52 @@ final class CommunityMainCell: UICollectionViewCell {
         titleStackView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview()
         }
-        contextStackView.snp.makeConstraints {
+        contenxtStackView.snp.makeConstraints {
             $0.trailing.leading.equalToSuperview()
         }
-        
+
         createDateLabel.snp.makeConstraints {
             $0.width.equalTo(100)
         }
+        
+        ellipsisButton.snp.makeConstraints {
+            $0.width.equalTo(30)
+        }
 
         postTextView.snp.makeConstraints {
-            $0.height.greaterThanOrEqualTo(60).priority(750)
+            $0.height.greaterThanOrEqualTo(60)
         }
         
         postImageView.snp.makeConstraints {
-            $0.height.equalTo(300).priority(1000)
+            $0.height.equalTo(300).priority(750)
         }
-
-        commentInfoView.snp.makeConstraints {
-            $0.height.equalTo(50).priority(500)
-        }
-
-        commentImageView.snp.makeConstraints {
-            $0.leading.equalToSuperview()
-            $0.top.bottom.equalToSuperview().inset(15)
-            $0.width.equalTo(20)
-        }
-
-        commentCountLabel.snp.makeConstraints {
-            $0.leading.equalTo(commentImageView.snp.trailing).offset(5)
-            $0.width.lessThanOrEqualTo(50)
-            $0.top.bottom.equalToSuperview().inset(10)
-        }
+        
+        ellipsisButtonSetting()
+    }
+    
+    private func ellipsisButtonSetting() {
+        let menuItems: [UIAction] =
+        [
+            UIAction(title: "수정", handler: { [weak self] _ in
+                guard let self else { return }
+                print("수정")
+                self.modifyButtonTapEvent.accept(())
+            }),
+            UIAction(title: "삭제", handler: { [weak self] _ in
+                guard let self else { return }
+                self.deleteButtonTapEvent.accept(())
+            })
+        ]
+        let menu = UIMenu(title: "", children: menuItems)
+        ellipsisButton.menu = menu
+        ellipsisButton.showsMenuAsPrimaryAction = true
     }
     
     func bind(post: Post) {
         nickNameLabel.text = post.nickName
         createDateLabel.text = post.createdAt.convertToStringFormat(format: "YYYY-MM-dd")
         postTextView.text = post.text
-        // 이미지 ???
+
         if let image = post.image {
             self.postImageView.isHidden = false
             let service = DefaultFirebaseStorageNetworkService()
@@ -165,12 +164,6 @@ final class CommunityMainCell: UICollectionViewCell {
             }
         } else {
             postImageView.isHidden = true
-        }
-        
-        if let comments = post.comments {
-            commentCountLabel.text = "\(comments.count)"
-        } else {
-            commentCountLabel.text = "0"
         }
     }
 }

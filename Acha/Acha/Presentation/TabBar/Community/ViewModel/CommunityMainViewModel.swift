@@ -13,20 +13,25 @@ final class CommunityMainViewModel: BaseViewModel {
     // MARK: - Input
     struct Input {
         var viewDidAppearEvent: Observable<Void>
+        var cellTapEvent: Observable<Int>
+        var rightButtonTapEvent: Observable<Void>
     }
     
     // MARK: - Output
     struct Output {
-        var posts = BehaviorRelay<[Post]>(value: [])
+        var posts = PublishRelay<[Post]>()
     }
     
     // MARK: - Dependency
     var disposeBag = DisposeBag()
     private let useCase: CommunityMainUseCase
+    private weak var coordinator: CommunityCoordinator?
     
     // MARK: - Lifecycles
-    init(useCase: CommunityMainUseCase) {
+    init(useCase: CommunityMainUseCase,
+         coordinator: CommunityCoordinator) {
         self.useCase = useCase
+        self.coordinator = coordinator
     }
     
     // MARK: - Helpers
@@ -38,6 +43,18 @@ final class CommunityMainViewModel: BaseViewModel {
             .subscribe(onNext: { [weak self] _ in
                 guard let self else { return }
                 self.useCase.loadPostData()
+            }).disposed(by: disposeBag)
+        
+        input.cellTapEvent
+            .subscribe(onNext: { [weak self] postID in
+                guard let self else { return }
+                self.coordinator?.showCommunityDetailViewController(postID: postID)
+            }).disposed(by: disposeBag)
+        
+        input.rightButtonTapEvent
+            .subscribe(onNext: { [weak self] _ in
+                guard let self else { return }
+                self.coordinator?.showCommunityPostWriteViewController()
             }).disposed(by: disposeBag)
         
         useCase.posts

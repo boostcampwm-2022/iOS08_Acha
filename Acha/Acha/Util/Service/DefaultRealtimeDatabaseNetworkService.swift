@@ -9,7 +9,6 @@ import RxSwift
 import Firebase
 
 final class DefaultRealtimeDatabaseNetworkService: RealtimeDatabaseNetworkService {
-
     private let databaseReference: DatabaseReference = Database.database().reference()
     
     enum FirebaseRealtimeError: Error {
@@ -23,11 +22,17 @@ final class DefaultRealtimeDatabaseNetworkService: RealtimeDatabaseNetworkServic
             guard let self else { return Disposables.create() }
             let childReference = self.databaseReference.child(type.path)
             childReference.observeSingleEvent(of: .value, with: { snapshot in
-                guard let snapData = snapshot.value,
+                guard let snapData = snapshot.value else {
+                    single(.failure(FirebaseRealtimeError.dataError))
+                    return
+                }
+                
+                guard !(snapData is NSNull),
                       let jsonData = try? JSONSerialization.data(withJSONObject: snapData) else {
                     single(.failure(FirebaseRealtimeError.dataError))
                     return
                 }
+                
                 guard let data = try? JSONDecoder().decode(T.self, from: jsonData) else {
                     single(.failure(FirebaseRealtimeError.decodeError))
                     return
@@ -49,6 +54,28 @@ final class DefaultRealtimeDatabaseNetworkService: RealtimeDatabaseNetworkServic
         childReference.updateChildValues(["\(index)": jsonSerial])
     }
     
+    func uploadPost(data: PostDTO) {
+        let childReference = self.databaseReference.child(FirebaseRealtimeType.postList.path)
+        guard let json = try? JSONEncoder().encode(data),
+              let jsonSerial = try? JSONSerialization.jsonObject(with: json) as? [String: Any] ?? [:]
+        else {
+            print(FirebaseRealtimeError.encodeError)
+            return
+        }
+        childReference.updateChildValues(["\(data.id)": jsonSerial])
+    }
+    
+    func uploadComment(data: CommentDTO) {
+        let childReference = self.databaseReference.child(FirebaseRealtimeType.comment(id: data.postId).path)
+        guard let json = try? JSONEncoder().encode(data),
+              let jsonSerial = try? JSONSerialization.jsonObject(with: json) as? [String: Any] ?? [:]
+        else {
+            print(FirebaseRealtimeError.encodeError)
+            return
+        }
+        childReference.updateChildValues(["\(data.id)": jsonSerial])
+    }
+    
     func upload<T: Encodable>(type: FirebaseRealtimeType, data: T) {
         let childReference = self.databaseReference.child(type.path)
         guard let json = try? JSONEncoder().encode(data),
@@ -57,6 +84,7 @@ final class DefaultRealtimeDatabaseNetworkService: RealtimeDatabaseNetworkServic
             print(FirebaseRealtimeError.encodeError)
             return
         }
+        
         childReference.setValue(jsonSerial)
     }
 

@@ -10,10 +10,10 @@ import RxSwift
 import RxRelay
 
 final class DefaultCommunityMainUseCase: CommunityMainUseCase {
-    var repository: DefaultCommunityRepository
-    var disposeBag = DisposeBag()
+    private let repository: DefaultCommunityRepository
+    private let disposeBag = DisposeBag()
     
-    var posts = BehaviorSubject<[Post]>(value: [])
+    var posts = PublishSubject<[Post]>()
     
     init(repository: DefaultCommunityRepository) {
         self.repository = repository

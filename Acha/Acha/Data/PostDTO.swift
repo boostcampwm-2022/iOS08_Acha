@@ -4,7 +4,6 @@
 //
 //  Created by hong on 2022/11/29.
 //
-
 import Foundation
 
 struct PostDTO: Codable {
@@ -30,21 +29,13 @@ struct PostDTO: Codable {
         )
     }
     
-    init(
-        id: Int,
-        userId: String,
-        nickName: String,
-        text: String,
-        image: String?,
-        createdAt: Date = Date(),
-        comments: [CommentDTO]? = []
-    ) {
-        self.id = id
-        self.userId = userId
-        self.nickName = nickName
-        self.text = text
-        self.image = image
-        self.createdAt = createdAt
-        self.comments = comments
+    init(data: Post) {
+        self.id = data.id
+        self.userId = data.userId
+        self.nickName = data.nickName
+        self.text = data.text
+        self.image = data.image
+        self.createdAt = data.createdAt
+        self.comments = data.comments?.compactMap { CommentDTO(data: $0) }
     }
 }

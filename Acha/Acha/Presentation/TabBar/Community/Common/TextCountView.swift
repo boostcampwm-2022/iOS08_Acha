@@ -14,15 +14,15 @@ import RxCocoa
 final class TextCountView: UIView {
 
     private lazy var textView = UITextView().then {
-        $0.textContainerInset = UIEdgeInsets(top: 30, left: 30, bottom: 30, right: 30)
-        $0.font = .body
+        $0.textContainerInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        $0.font = .subBody
     }
     
     private lazy var textCountLabel = UILabel().then {
         $0.font = .subBody
         $0.textColor = .gray
         $0.textAlignment = .right
-        $0.text = "0/300"
+        $0.text = "0 / 300"
     }
     
     private let disposebag = DisposeBag()
@@ -42,7 +42,7 @@ final class TextCountView: UIView {
             .compactMap { $0 }
             .subscribe(onNext: { [weak self] text in
                 self?.textViewAdjust(texts: text)
-                self?.textCountLabel.text = "\(text.count)/300"
+                self?.textCountLabel.text = "\(text.count) / 300"
             })
             .disposed(by: disposebag)
     }
@@ -62,11 +62,11 @@ extension TextCountView {
         layer.cornerRadius = 10
         layer.borderColor = UIColor.pointDark.cgColor
         layer.borderWidth = 2
-        addViews()
+        setupViews()
         addConstraints()
     }
     
-    private func addViews() {
+    private func setupViews() {
         addSubview(textView)
         addSubview(textCountLabel)
     }

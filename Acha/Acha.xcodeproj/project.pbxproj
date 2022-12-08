@@ -81,6 +81,22 @@
 		E576465229377DD600BADF18 /* CommunityMainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E576465129377DD600BADF18 /* CommunityMainViewModel.swift */; };
 		E576465629377F2300BADF18 /* CommunityMainUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E576465529377F2300BADF18 /* CommunityMainUseCase.swift */; };
 		E576465A2938C12C00BADF18 /* DefaultCommunityRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57646592938C12C00BADF18 /* DefaultCommunityRepository.swift */; };
+		E57646D5293D9DE600BADF18 /* CommunityRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57646D4293D9DE600BADF18 /* CommunityRepository.swift */; };
+		E5764702293DC89300BADF18 /* CommunityDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED3A12935EBA600ABC047 /* CommunityDetailViewController.swift */; };
+		E5A6AC66294071D000F93B79 /* DefaultFirebaseStorageNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A6AC65294071D000F93B79 /* DefaultFirebaseStorageNetworkService.swift */; };
+		E5A6AC6829408F2200F93B79 /* FirebaseStorageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A6AC6729408F2200F93B79 /* FirebaseStorageType.swift */; };
+		E5A6AC6E2940B28400F93B79 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A6AC6D2940B28400F93B79 /* Image.swift */; };
+		E5A6AC702940B59C00F93B79 /* FirebaseStorageNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A6AC6F2940B59C00F93B79 /* FirebaseStorageNetworkService.swift */; };
+		E5AD6368293DD36F00EF088C /* CommunityDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AD6367293DD36F00EF088C /* CommunityDetailViewModel.swift */; };
+		E5AD636C293DD75A00EF088C /* DefaultCommunityDetailUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AD636B293DD75A00EF088C /* DefaultCommunityDetailUseCase.swift */; };
+		E5AD636E293DD77400EF088C /* CommunityDetailUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AD636D293DD77400EF088C /* CommunityDetailUseCase.swift */; };
+		E5AD6370293E14D800EF088C /* CommunityDetailPostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AD636F293E14D800EF088C /* CommunityDetailPostCell.swift */; };
+		E5AD6372293E154A00EF088C /* CommunityDetailCommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AD6371293E154A00EF088C /* CommunityDetailCommentCell.swift */; };
+		E5AD6374293E175A00EF088C /* CommunityDetailCommentHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AD6373293E175A00EF088C /* CommunityDetailCommentHeaderView.swift */; };
+		E5AD6376293F3AD500EF088C /* CommunityPostWriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AD6375293F3AD500EF088C /* CommunityPostWriteViewController.swift */; };
+		E5AD6378293F3F0700EF088C /* CommunityPostWriteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AD6377293F3F0700EF088C /* CommunityPostWriteViewModel.swift */; };
+		E5AD637A293F401000EF088C /* CommunityPostWriteUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AD6379293F401000EF088C /* CommunityPostWriteUseCase.swift */; };
+		E5AD637C293F402300EF088C /* DefaultCommunityPostWriteUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AD637B293F402300EF088C /* DefaultCommunityPostWriteUseCase.swift */; };
 		E5BE8B8F2922172400E9CFE8 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8B8E2922172400E9CFE8 /* AppCoordinator.swift */; };
 		E5BE8B91292218A500E9CFE8 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8B90292218A500E9CFE8 /* Coordinator.swift */; };
 		E5BE8B93292218F100E9CFE8 /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8B92292218F100E9CFE8 /* AuthCoordinator.swift */; };
@@ -127,10 +143,6 @@
 		F1DED39B2935DFE400ABC047 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED39A2935DFE400ABC047 /* Post.swift */; };
 		F1DED3A02935E19100ABC047 /* TextCountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED39F2935E19100ABC047 /* TextCountView.swift */; };
 		F1DED3A42935ED0100ABC047 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED3A32935ED0100ABC047 /* Comment.swift */; };
-		F1DED3A62935F0A400ABC047 /* CommentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED3A52935F0A400ABC047 /* CommentCollectionViewCell.swift */; };
-		F1DED3A82935F0AE00ABC047 /* PostCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED3A72935F0AE00ABC047 /* PostCollectionViewCell.swift */; };
-		F1DED3AA2935F16A00ABC047 /* PostHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED3A92935F16A00ABC047 /* PostHeaderCollectionReusableView.swift */; };
-		F1DED3AC2935F17700ABC047 /* CommentHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED3AB2935F17700ABC047 /* CommentHeaderCollectionReusableView.swift */; };
 		F1DED3AF2936708500ABC047 /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED3AE2936708500ABC047 /* CommentView.swift */; };
 		F1FCEE0E292B483E001A55D6 /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FCEE0D292B483E001A55D6 /* UITextField+Extension.swift */; };
 		F1FCEE11292B4C87001A55D6 /* AuthButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FCEE10292B4C87001A55D6 /* AuthButton.swift */; };
@@ -242,6 +254,21 @@
 		E576465129377DD600BADF18 /* CommunityMainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityMainViewModel.swift; sourceTree = "<group>"; };
 		E576465529377F2300BADF18 /* CommunityMainUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityMainUseCase.swift; sourceTree = "<group>"; };
 		E57646592938C12C00BADF18 /* DefaultCommunityRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCommunityRepository.swift; sourceTree = "<group>"; };
+		E57646D4293D9DE600BADF18 /* CommunityRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityRepository.swift; sourceTree = "<group>"; };
+		E5A6AC65294071D000F93B79 /* DefaultFirebaseStorageNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultFirebaseStorageNetworkService.swift; sourceTree = "<group>"; };
+		E5A6AC6729408F2200F93B79 /* FirebaseStorageType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseStorageType.swift; sourceTree = "<group>"; };
+		E5A6AC6D2940B28400F93B79 /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
+		E5A6AC6F2940B59C00F93B79 /* FirebaseStorageNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseStorageNetworkService.swift; sourceTree = "<group>"; };
+		E5AD6367293DD36F00EF088C /* CommunityDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityDetailViewModel.swift; sourceTree = "<group>"; };
+		E5AD636B293DD75A00EF088C /* DefaultCommunityDetailUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCommunityDetailUseCase.swift; sourceTree = "<group>"; };
+		E5AD636D293DD77400EF088C /* CommunityDetailUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityDetailUseCase.swift; sourceTree = "<group>"; };
+		E5AD636F293E14D800EF088C /* CommunityDetailPostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityDetailPostCell.swift; sourceTree = "<group>"; };
+		E5AD6371293E154A00EF088C /* CommunityDetailCommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityDetailCommentCell.swift; sourceTree = "<group>"; };
+		E5AD6373293E175A00EF088C /* CommunityDetailCommentHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityDetailCommentHeaderView.swift; sourceTree = "<group>"; };
+		E5AD6375293F3AD500EF088C /* CommunityPostWriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityPostWriteViewController.swift; sourceTree = "<group>"; };
+		E5AD6377293F3F0700EF088C /* CommunityPostWriteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityPostWriteViewModel.swift; sourceTree = "<group>"; };
+		E5AD6379293F401000EF088C /* CommunityPostWriteUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityPostWriteUseCase.swift; sourceTree = "<group>"; };
+		E5AD637B293F402300EF088C /* DefaultCommunityPostWriteUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCommunityPostWriteUseCase.swift; sourceTree = "<group>"; };
 		E5BE8B8E2922172400E9CFE8 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		E5BE8B90292218A500E9CFE8 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		E5BE8B92292218F100E9CFE8 /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
@@ -286,14 +313,9 @@
 		F1DED3962935DFB900ABC047 /* CommunityDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityDTO.swift; sourceTree = "<group>"; };
 		F1DED3982935DFCC00ABC047 /* CommentDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentDTO.swift; sourceTree = "<group>"; };
 		F1DED39A2935DFE400ABC047 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
-		F1DED39C2935E12F00ABC047 /* CommunityPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityPostViewController.swift; sourceTree = "<group>"; };
 		F1DED39F2935E19100ABC047 /* TextCountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextCountView.swift; sourceTree = "<group>"; };
 		F1DED3A12935EBA600ABC047 /* CommunityDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityDetailViewController.swift; sourceTree = "<group>"; };
 		F1DED3A32935ED0100ABC047 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
-		F1DED3A52935F0A400ABC047 /* CommentCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCollectionViewCell.swift; sourceTree = "<group>"; };
-		F1DED3A72935F0AE00ABC047 /* PostCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCollectionViewCell.swift; sourceTree = "<group>"; };
-		F1DED3A92935F16A00ABC047 /* PostHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
-		F1DED3AB2935F17700ABC047 /* CommentHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		F1DED3AE2936708500ABC047 /* CommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
 		F1FCEE0D292B483E001A55D6 /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 		F1FCEE10292B4C87001A55D6 /* AuthButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthButton.swift; sourceTree = "<group>"; };
@@ -443,6 +465,7 @@
 				47A26DBD292BB2970007FBBF /* MapRegion.swift */,
 				F1DED39A2935DFE400ABC047 /* Post.swift */,
 				F1DED3A32935ED0100ABC047 /* Comment.swift */,
+				E5A6AC6D2940B28400F93B79 /* Image.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -490,6 +513,7 @@
 			children = (
 				47D5773A293389940014D171 /* MapRepository.swift */,
 				47D5775129338FB60014D171 /* RecordRepository.swift */,
+				E57646D4293D9DE600BADF18 /* CommunityRepository.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -503,6 +527,8 @@
 				761C1C08292E437E000C88D0 /* DefaultSingleGameUseCase.swift */,
 				761E5F082935EFF400E6CACC /* DefaultInGameUseCase.swift */,
 				E576464F29377DC400BADF18 /* DefaultCommunityMainUseCase.swift */,
+				E5AD636B293DD75A00EF088C /* DefaultCommunityDetailUseCase.swift */,
+				E5AD637B293F402300EF088C /* DefaultCommunityPostWriteUseCase.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -515,6 +541,8 @@
 				761C1C0A292E439F000C88D0 /* SingleGameUseCase.swift */,
 				761E5F062935EF4200E6CACC /* InGameUseCase.swift */,
 				E576465529377F2300BADF18 /* CommunityMainUseCase.swift */,
+				E5AD636D293DD77400EF088C /* CommunityDetailUseCase.swift */,
+				E5AD6379293F401000EF088C /* CommunityPostWriteUseCase.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -524,6 +552,7 @@
 			children = (
 				47D5774729338A1F0014D171 /* Protocol */,
 				47D5774E29338A7A0014D171 /* DefaultRealtimeDatabaseNetworkService.swift */,
+				E5A6AC65294071D000F93B79 /* DefaultFirebaseStorageNetworkService.swift */,
 				761C1C0F292E4562000C88D0 /* TimerService.swift */,
 				4795F04929374DD300B174D6 /* DefaultLocationService.swift */,
 			);
@@ -533,6 +562,7 @@
 		47D5774729338A1F0014D171 /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
+				E5A6AC6F2940B59C00F93B79 /* FirebaseStorageNetworkService.swift */,
 				47D5774A29338A4A0014D171 /* RealtimeDatabaseNetworkService.swift */,
 				761C1C0D292E4554000C88D0 /* TimerServiceProtocol.swift */,
 				4795F04729374DC800B174D6 /* LocationService.swift */,
@@ -563,6 +593,8 @@
 			isa = PBXGroup;
 			children = (
 				E576465129377DD600BADF18 /* CommunityMainViewModel.swift */,
+				E5AD6367293DD36F00EF088C /* CommunityDetailViewModel.swift */,
+				E5AD6377293F3F0700EF088C /* CommunityPostWriteViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -740,6 +772,7 @@
 				4738D767292267BA003AE835 /* Errors.swift */,
 				47935E942923310700481307 /* SystemImageNameSpace.swift */,
 				47D5774429338A040014D171 /* FirebaseRealtimeType.swift */,
+				E5A6AC6729408F2200F93B79 /* FirebaseStorageType.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -897,8 +930,8 @@
 			isa = PBXGroup;
 			children = (
 				E5BE8BAE29221FF800E9CFE8 /* CommunityMainViewController.swift */,
-				F1DED39C2935E12F00ABC047 /* CommunityPostViewController.swift */,
 				F1DED3A12935EBA600ABC047 /* CommunityDetailViewController.swift */,
+				E5AD6375293F3AD500EF088C /* CommunityPostWriteViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -907,10 +940,9 @@
 			isa = PBXGroup;
 			children = (
 				F1DED3922935DF6800ABC047 /* CommunityMainCell.swift */,
-				F1DED3A52935F0A400ABC047 /* CommentCollectionViewCell.swift */,
-				F1DED3A72935F0AE00ABC047 /* PostCollectionViewCell.swift */,
-				F1DED3A92935F16A00ABC047 /* PostHeaderCollectionReusableView.swift */,
-				F1DED3AB2935F17700ABC047 /* CommentHeaderCollectionReusableView.swift */,
+				E5AD636F293E14D800EF088C /* CommunityDetailPostCell.swift */,
+				E5AD6371293E154A00EF088C /* CommunityDetailCommentCell.swift */,
+				E5AD6373293E175A00EF088C /* CommunityDetailCommentHeaderView.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -1128,13 +1160,16 @@
 				F1034B59292B37EB00BD8407 /* LoginViewModel.swift in Sources */,
 				E5027D58292670570021BF60 /* Record.swift in Sources */,
 				F1DED3932935DF6800ABC047 /* CommunityMainCell.swift in Sources */,
-				F1DED3AC2935F17700ABC047 /* CommentHeaderCollectionReusableView.swift in Sources */,
 				47A26DBC292B73850007FBBF /* Coordinate.swift in Sources */,
 				47935E9F29238EB400481307 /* SelectMapViewModel.swift in Sources */,
 				E576465A2938C12C00BADF18 /* DefaultCommunityRepository.swift in Sources */,
+				E5AD6378293F3F0700EF088C /* CommunityPostWriteViewModel.swift in Sources */,
+				E5AD6372293E154A00EF088C /* CommunityDetailCommentCell.swift in Sources */,
 				F14B1495292BA1D40010E966 /* KeyboardManager.swift in Sources */,
 				F1DED3AF2936708500ABC047 /* CommentView.swift in Sources */,
+				E5AD636E293DD77400EF088C /* CommunityDetailUseCase.swift in Sources */,
 				761C1C0B292E439F000C88D0 /* SingleGameUseCase.swift in Sources */,
+				E5AD6368293DD36F00EF088C /* CommunityDetailViewModel.swift in Sources */,
 				F13DB58F292B3C8D00323B28 /* AuthInputTextField.swift in Sources */,
 				E576465229377DD600BADF18 /* CommunityMainViewModel.swift in Sources */,
 				761E5F092935EFF400E6CACC /* DefaultInGameUseCase.swift in Sources */,
@@ -1144,6 +1179,9 @@
 				47D5775D2934AB9B0014D171 /* DefaultMapBaseUseCase.swift in Sources */,
 				47D5775429338FFF0014D171 /* DefaultRecordRepository.swift in Sources */,
 				76B3BF52292624DB0056ABFD /* Int+Extension.swift in Sources */,
+				E5AD636C293DD75A00EF088C /* DefaultCommunityDetailUseCase.swift in Sources */,
+				E5A6AC66294071D000F93B79 /* DefaultFirebaseStorageNetworkService.swift in Sources */,
+				E5A6AC702940B59C00F93B79 /* FirebaseStorageNetworkService.swift in Sources */,
 				477842F82923BFA300AAC3DB /* MapBaseViewController.swift in Sources */,
 				47D5774529338A040014D171 /* FirebaseRealtimeType.swift in Sources */,
 				F1AC0391292B33F8008302F8 /* SignUpViewModel.swift in Sources */,
@@ -1158,9 +1196,12 @@
 				E5027D5A292670BC0021BF60 /* RecordViewHeaderRecord.swift in Sources */,
 				E5BE8BB72922201F00E9CFE8 /* LoginViewController.swift in Sources */,
 				76B3BF442924C7450056ABFD /* SingleGameViewController.swift in Sources */,
+				E5764702293DC89300BADF18 /* CommunityDetailViewController.swift in Sources */,
 				47D57743293389EB0014D171 /* DefaultSelectMapUseCase.swift in Sources */,
 				F156F11A29235EC50053E807 /* ImageConstants.swift in Sources */,
+				E5AD637A293F401000EF088C /* CommunityPostWriteUseCase.swift in Sources */,
 				47D577592934A9FE0014D171 /* MapBaseViewModel.swift in Sources */,
+				E5A6AC6E2940B28400F93B79 /* Image.swift in Sources */,
 				F1DED3A42935ED0100ABC047 /* Comment.swift in Sources */,
 				F1B0D8AE292CCAAC00EBDD02 /* UserDTO.swift in Sources */,
 				F1DED3972935DFB900ABC047 /* CommunityDTO.swift in Sources */,
@@ -1176,12 +1217,12 @@
 				E5027D5629265D910021BF60 /* SelectMapRecordCell.swift in Sources */,
 				E516A6C02923942500CD6BDB /* RecordCell.swift in Sources */,
 				47935E952923310700481307 /* SystemImageNameSpace.swift in Sources */,
+				E5AD6374293E175A00EF088C /* CommunityDetailCommentHeaderView.swift in Sources */,
 				F1B0D8B0292CCABE00EBDD02 /* BadgeDTO.swift in Sources */,
 				E5BE8B9B29221A8A00E9CFE8 /* CommunityCoordinator.swift in Sources */,
 				47D5773B293389940014D171 /* MapRepository.swift in Sources */,
 				76B3BF54292624E30056ABFD /* Date+Extension.swift in Sources */,
 				47935E9B29238DE400481307 /* HomeViewModel.swift in Sources */,
-				F1DED3A62935F0A400ABC047 /* CommentCollectionViewCell.swift in Sources */,
 				E5BE8B9F29221B2700E9CFE8 /* LoginCoordinator.swift in Sources */,
 				E5BE8BAF29221FF800E9CFE8 /* CommunityMainViewController.swift in Sources */,
 				F1B0D8AA292CCA0F00EBDD02 /* Encodable+Extension.swift in Sources */,
@@ -1189,9 +1230,10 @@
 				E5BE8BB32922200C00E9CFE8 /* MyPageViewController.swift in Sources */,
 				F1D202A42923C09300F3E87D /* InGameMenuCollectionViewCell.swift in Sources */,
 				F156F11C2923623C0053E807 /* PaddingLabel.swift in Sources */,
+				E5AD6370293E14D800EF088C /* CommunityDetailPostCell.swift in Sources */,
+				E5AD6376293F3AD500EF088C /* CommunityPostWriteViewController.swift in Sources */,
 				4795F04829374DC800B174D6 /* LocationService.swift in Sources */,
 				471863BD291E155700A35786 /* AppDelegate.swift in Sources */,
-				F1DED3AA2935F16A00ABC047 /* PostHeaderCollectionReusableView.swift in Sources */,
 				E5BE8BA129221B6D00E9CFE8 /* SignupCoordinator .swift in Sources */,
 				E5BE8B97292219D800E9CFE8 /* HomeCoordinator.swift in Sources */,
 				F1D202B72924C63F00F3E87D /* InGameMenuModelProtocol.swift in Sources */,
@@ -1205,11 +1247,12 @@
 				76B3BF4C29250C190056ABFD /* UIFont+.swift in Sources */,
 				F1FCEE1A292B52E4001A55D6 /* ScrollAbleViewController.swift in Sources */,
 				F14B149A292BB5B00010E966 /* AuthRepository.swift in Sources */,
-				F1DED3A82935F0AE00ABC047 /* PostCollectionViewCell.swift in Sources */,
 				F18A7FD1292C5DA50054FADE /* UIImage+Extension.swift in Sources */,
+				E5AD637C293F402300EF088C /* DefaultCommunityPostWriteUseCase.swift in Sources */,
 				76A2E1A32923D94C001E887A /* CLLocationCoordinate2D+.swift in Sources */,
 				764AF29D292B639200D16DC9 /* UIViewController+.swift in Sources */,
 				F18A7FCF292BE75A0054FADE /* String+Extension.swift in Sources */,
+				E57646D5293D9DE600BADF18 /* CommunityRepository.swift in Sources */,
 				76B3BF50292624850056ABFD /* InGamePlayMenuViewController.swift in Sources */,
 				47D5775229338FB60014D171 /* RecordRepository.swift in Sources */,
 				F1DED3A02935E19100ABC047 /* TextCountView.swift in Sources */,
@@ -1219,6 +1262,7 @@
 				F1DED3952935DF9C00ABC047 /* PostDTO.swift in Sources */,
 				F156F11E292365840053E807 /* CALayer+Extension.swift in Sources */,
 				761C1C10292E4562000C88D0 /* TimerService.swift in Sources */,
+				E5A6AC6829408F2200F93B79 /* FirebaseStorageType.swift in Sources */,
 				F1FCEE0E292B483E001A55D6 /* UITextField+Extension.swift in Sources */,
 				47D5774F29338A7A0014D171 /* DefaultRealtimeDatabaseNetworkService.swift in Sources */,
 				F1DED39B2935DFE400ABC047 /* Post.swift in Sources */,

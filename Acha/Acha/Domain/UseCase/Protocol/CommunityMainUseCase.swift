@@ -9,7 +9,6 @@ import Foundation
 import RxSwift
 
 protocol CommunityMainUseCase {
-    var posts: BehaviorSubject<[Post]> { get set }
-    
+    var posts: PublishSubject<[Post]> { get set }
     func loadPostData()
 }

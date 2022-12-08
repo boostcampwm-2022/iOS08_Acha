@@ -2,11 +2,15 @@
 //  CommunityDTO.swift
 //  Acha
 //
-//  Created by hong on 2022/11/29.
+//  Created by hong on 2022/12/03.
 //
 
 import Foundation
 
 struct CommunityDTO: Codable {
-    let posts: [PostDTO]
+    var postList: [PostDTO]?
+    
+    mutating func addPost(post: PostDTO) {
+        postList?.append(post)
+    }
 }

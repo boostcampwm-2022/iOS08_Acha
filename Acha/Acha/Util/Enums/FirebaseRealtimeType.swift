@@ -14,6 +14,7 @@ enum FirebaseRealtimeType {
     case room(id: String)
     case postList
     case post(id: Int)
+    case comment(id: Int)
     
     var path: String {
         switch self {
@@ -29,6 +30,8 @@ enum FirebaseRealtimeType {
             return "community/postList/\(id)"
         case .postList:
             return "community/postList"
+        case .comment(let id):
+            return "community/postList/\(id)/comments"
         }
     }
 }
