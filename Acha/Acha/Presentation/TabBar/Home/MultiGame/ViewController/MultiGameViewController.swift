@@ -61,6 +61,15 @@ final class MultiGameViewController: UIViewController, DistanceAndTimeBarLine {
         )
     }
     
+    private lazy var toChatRoomButton: UIButton = UIButton().then {
+        $0.backgroundColor = .pointLight
+        $0.setTitleColor(.black, for: .normal)
+        $0.layer.cornerRadius = 10
+        $0.layer.masksToBounds = true
+        $0.layer.shadowOffset = .init(width: 5, height: 5)
+        $0.layer.duration = .pi
+    }
+    
     private lazy var pointBoard = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
 
     typealias GameDataDatasource = UICollectionViewDiffableDataSource<Section, MultiGamePlayerData>
@@ -97,7 +106,8 @@ final class MultiGameViewController: UIViewController, DistanceAndTimeBarLine {
             resetButtonTapped: resetButton.rx.tap.asObservable(),
             watchOthersLocationButtonTapped: watchOthersLocationButton.rx.tap.asObservable(),
             exitButtonTapped: exitButton.rx.tap.asObservable(),
-            gameOverButtonTapped: gameOverButton.rx.tap.asObservable()
+            gameOverButtonTapped: gameOverButton.rx.tap.asObservable(),
+            toRoomButtonTapped: toChatRoomButton.rx.tap.asObservable()
         )
         let outputs = viewModel.transform(input: inputs)
         outputs.time
@@ -144,6 +154,12 @@ final class MultiGameViewController: UIViewController, DistanceAndTimeBarLine {
         outputs.gameOver
             .drive(onNext: { [weak self] _ in
                 self?.configureGameOverUI()
+            })
+            .disposed(by: disposebag)
+        
+        outputs.unReadChat
+            .drive(onNext: { [weak self] unReadChatCount in
+                self?.toChatRoomButton.setTitle("\(unReadChatCount)", for: .normal)
             })
             .disposed(by: disposebag)
     }
@@ -214,6 +230,7 @@ extension MultiGameViewController {
         view.addSubview(pointLabel)
         view.addSubview(resetButton)
         view.addSubview(watchOthersLocationButton)
+        view.addSubview(toChatRoomButton)
     }
     
     private func addConstraints() {
@@ -248,6 +265,12 @@ extension MultiGameViewController {
             $0.bottom.equalTo(resetButton.snp.top).inset(-10)
             $0.trailing.equalTo(resetButton)
             $0.width.height.equalTo(resetButton)
+        }
+        
+        toChatRoomButton.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.trailing.equalTo(view.safeAreaLayoutGuide)
+            $0.width.height.equalTo(70)
         }
     }
     

@@ -21,6 +21,7 @@ final class MultiGameViewModel: BaseViewModel {
         let watchOthersLocationButtonTapped: Observable<Void>
         let exitButtonTapped: Observable<Void>
         let gameOverButtonTapped: Observable<Void>
+        let toRoomButtonTapped: Observable<Void>
     }
     
     struct Output {
