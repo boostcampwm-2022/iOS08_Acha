@@ -21,23 +21,24 @@ final class CommunityDetailViewController: UIViewController, UICollectionViewDel
     }
     
     // MARK: - UI properties
-    private var collectionView: UICollectionView!
+    private lazy var collectionView = UICollectionView(frame: .zero,
+                                                       collectionViewLayout: collectionViewLayout())
     private lazy var commentView = CommentView()
     
     // MARK: - Properties
     typealias DataSource = UICollectionViewDiffableDataSource<Section, Item>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Item>
     private var dataSource: DataSource!
     private let viewModel: CommunityDetailViewModel
     private let disposeBag = DisposeBag()
     
-    var postCellModifyButtonTapEvent = PublishRelay<Void>()
+    var postCellModifyButtonTapEvent = PublishRelay<Post>()
     var postCellDeleteButtonTapEvent = PublishRelay<Void>()
     
     // MARK: - Lifecycles
     init(viewModel: CommunityDetailViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
-        print(#function)
     }
     
     required init?(coder: NSCoder) {
@@ -48,10 +49,6 @@ final class CommunityDetailViewController: UIViewController, UICollectionViewDel
         super.viewDidLoad()
         configureUI()
         bind()
-    }
-    
-    deinit {
-        print(#function)
     }
     
     // MARK: - Helpers
@@ -107,8 +104,6 @@ final class CommunityDetailViewController: UIViewController, UICollectionViewDel
     }
     
     private func configureCollectionView() {
-        collectionView = UICollectionView(frame: .zero,
-                                          collectionViewLayout: collectionViewLayout())
         collectionView.contentInsetAdjustmentBehavior = .never
         collectionView.backgroundColor = .white
         collectionView.delegate = self
@@ -136,9 +131,6 @@ final class CommunityDetailViewController: UIViewController, UICollectionViewDel
         dataSource = DataSource(collectionView: collectionView,
                                 cellProvider: { [weak self] collectionView, indexPath, itemIdentifier in
             guard let self else { return UICollectionViewCell() }
-            
-            print("왜 너가 도니 데이터소스야")
-            
             switch itemIdentifier {
             case .post(let post):
                 guard let cell = collectionView.dequeueReusableCell(
@@ -148,14 +140,14 @@ final class CommunityDetailViewController: UIViewController, UICollectionViewDel
                 
                 cell.bind(post: post)
                 cell.modifyButtonTapEvent
-                    .asObservable()
-                    .debug()
-                    .bind(to: self.postCellModifyButtonTapEvent)
+                    .subscribe(onNext: { post in
+                        self.postCellModifyButtonTapEvent.accept(post)
+                    })
                     .disposed(by: self.disposeBag)
-//                cell.deleteButtonTapEvent
-//                    .subscribe(onNext: { _ in
-//                        self.postCellDeleteButtonTapEvent.accept(())
-//                    }).disposed(by: self.disposeBag)
+                cell.deleteButtonTapEvent
+                    .subscribe(onNext: { _ in
+                        self.postCellDeleteButtonTapEvent.accept(())
+                    }).disposed(by: self.disposeBag)
                 
                 return cell
             case .comment(let comment):
@@ -163,7 +155,6 @@ final class CommunityDetailViewController: UIViewController, UICollectionViewDel
                     withReuseIdentifier: CommunityDetailCommentCell.identifier,
                     for: indexPath) as? CommunityDetailCommentCell
                 else { return UICollectionViewCell() }
-                print("아무거나")
                 cell.bind(comment: comment)
                 
                 return cell
@@ -250,7 +241,7 @@ final class CommunityDetailViewController: UIViewController, UICollectionViewDel
     }
     
     private func makeSnapshot(post: Post) {
-        var snapshot = dataSource.snapshot()
+        var snapshot = Snapshot()
         snapshot.deleteSections([.post, .comment])
         
         snapshot.appendSections([.post, .comment])
@@ -264,7 +255,7 @@ final class CommunityDetailViewController: UIViewController, UICollectionViewDel
             snapshot.appendItems([.comment($0)], toSection: .comment)
         }
         
-        dataSource.apply(snapshot)
+        dataSource.apply(snapshot, animatingDifferences: true)
     }
 }
 
