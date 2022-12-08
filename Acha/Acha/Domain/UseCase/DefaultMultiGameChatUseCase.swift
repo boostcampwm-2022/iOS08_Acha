@@ -32,11 +32,15 @@ final class DefaultMultiGameChatUseCase: MultiGameChatUseCase {
     func chatUpdate(roomID: String) {
         userRepository.fetchUserData()
             .subscribe(onSuccess: { [weak self] user in
+                
+                guard let chat = self?.chats,
+                chat.count != 0 else { return }
+                
                 let newChat = Chat(
                     id: user.id,
                     nickName: user.nickName,
                     created: Date(),
-                    text: self?.chats ?? ""
+                    text: chat
                 )
                 self?.roomRepository.updateChats(
                     roomID: roomID,
