@@ -147,6 +147,18 @@ extension SelectMapViewController {
             }.disposed(by: disposeBag)
     }
     
+    private func displayMap(_ map: Map) {
+        let coordinates = map.coordinates.map {
+            CLLocationCoordinate2D(latitude: $0.latitude, longitude: $0.longitude)
+        }
+        // 테두리 선
+        let lineDraw = MKPolyline(coordinates: coordinates, count: coordinates.count)
+        mapView?.addOverlay(lineDraw)
+        // pin
+        let annotation = MapAnnotation(map: map, polyLine: lineDraw)
+        mapView?.addAnnotation(annotation)
+    }
+    
     private func configureMapViewDelegate() {
         guard let mapView else { return }
         mapView.rx.regionDidChange
@@ -186,18 +198,6 @@ extension SelectMapViewController {
                 self.startButton.isValid = false
                 self.changeLineColor(polyLine: annotation.polyLine, color: .gray)
             }).disposed(by: disposeBag)
-    }
-    
-    private func displayMap(_ map: Map) {
-        let coordinates = map.coordinates.map {
-            CLLocationCoordinate2D(latitude: $0.latitude, longitude: $0.longitude)
-        }
-        // 테두리 선
-        let lineDraw = MKPolyline(coordinates: coordinates, count: coordinates.count)
-        mapView?.addOverlay(lineDraw)
-        // pin
-        let annotation = MapAnnotation(map: map, polyLine: lineDraw)
-        mapView?.addAnnotation(annotation)
     }
     
     private func changeLineColor(polyLine: MKPolyline, color: UIColor) {
