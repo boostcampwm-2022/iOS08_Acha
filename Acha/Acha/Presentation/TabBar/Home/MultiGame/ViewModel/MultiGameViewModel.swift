@@ -89,6 +89,10 @@ final class MultiGameViewModel {
                         }
                     }
                     .disposed(by: self.disposeBag)
+                
+                self.useCase.healthKitAuthorization()
+                    .subscribe()
+                    .disposed(by: self.disposeBag)
                     
             }
             .disposed(by: disposeBag)

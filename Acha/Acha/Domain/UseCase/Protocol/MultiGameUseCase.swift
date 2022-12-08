@@ -19,6 +19,7 @@ protocol MultiGameUseCase {
     var movedDistance: Double {get set}
     
     func healthKitStore(time: Int)
+    func healthKitAuthorization() -> Observable<Void>
     func updateData(roomId: String)
     
     func stopObserveLocation()

@@ -91,6 +91,10 @@ final class DefaultMultiGameUseCase: MultiGameUseCase {
             .disposed(by: disposeBag)
     }
     
+    func healthKitAuthorization() -> Observable<Void> {
+        return recordRepository.healthKitAuthorization()
+    }
+    
     func healthKitStore(time: Int) {
         recordRepository.healthKitWrite(
             .init(distance: movedDistance,
