@@ -15,16 +15,6 @@ import RxCocoa
 
 class SingleGameViewController: MapBaseViewController, DistanceAndTimeBarLine {
     // MARK: - UI properties
-    private lazy var resetButton: UIButton = UIButton().then {
-        $0.setImage(
-            ImageConstants
-                .arrowPositionResetImage?
-                .withTintColor(
-                    .pointLight,
-                    renderingMode: .alwaysOriginal),
-            for: .normal
-        )
-    }
     var distanceAndTimeBar = DistanceAndTimeBar()
     private lazy var rightMenuButton: UIButton = UIButton().then {
         $0.setImage(
@@ -58,7 +48,6 @@ class SingleGameViewController: MapBaseViewController, DistanceAndTimeBarLine {
     // MARK: - Lifecycles
     init(viewModel: SingleGameViewModel) {
         self.viewModel = viewModel
-//        super.init(nibName: nil, bundle: nil)
         super.init(viewModel: viewModel)
     }
     
@@ -91,28 +80,32 @@ class SingleGameViewController: MapBaseViewController, DistanceAndTimeBarLine {
 // MARK: - Helpers
 extension SingleGameViewController {
     private func setupSubviews() {
-        [rightMenuButton, distanceAndTimeBar, resetButton, gameOverButton]
+        guard let mapView else { return }
+        [mapView, rightMenuButton, distanceAndTimeBar, focusButton, gameOverButton]
             .forEach {
                 view.addSubview($0)
             }
-        rightMenuButton.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-            $0.height.width.equalTo(50)
-            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-10)
-        }
         distanceAndTimeBar.snp.makeConstraints {
             $0.width.equalTo(view.snp.width)
             $0.height.equalTo(100)
             $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
-        resetButton.snp.makeConstraints {
+        mapView.snp.makeConstraints {
+            $0.top.leading.trailing.equalToSuperview()
+            $0.bottom.equalTo(distanceAndTimeBar.snp.top)
+        }
+        rightMenuButton.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            $0.height.width.equalTo(50)
+            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-10)
+        }
+        focusButton.snp.makeConstraints {
             $0.bottom.equalTo(distanceAndTimeBar.snp.top).offset(-10)
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-10)
             $0.width.height.equalTo(50)
         }
         gameOverButton.snp.makeConstraints {
             $0.bottom.equalTo(distanceAndTimeBar.snp.top).offset(-30)
-            guard let mapView else { return }
             $0.centerX.equalTo(mapView)
             $0.width.equalTo(100)
             $0.height.equalTo(40)
@@ -218,27 +211,21 @@ extension SingleGameViewController {
             .subscribe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] (record, mapName) in
                 guard let self else { return }
-                print(mapName)
                 self.view.addSubview(self.gameOverView)
                 self.gameOverView.bind(mapName: mapName,
                                   time: "\(record.time)초",
                                   distance: "\(record.distance.convertToDecimal)m",
                                   calorie: "\(record.calorie)kcal")
                 self.gameOverView.snp.makeConstraints {
-                    $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(142)
-                    $0.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom).offset(-220)
+                    $0.center.equalToSuperview()
                     $0.leading.trailing.equalTo(self.view.safeAreaLayoutGuide).inset(44)
+                    $0.height.equalTo(400)
                 }
             }).disposed(by: disposeBag)
         bindButtons()
     }
     
     private func bindButtons() {
-        resetButton.rx.tap
-            .subscribe(onNext: { [weak self] in
-                guard let self else { return }
-//                self.focusUserLocation(useSpan: false)
-            }).disposed(by: disposeBag)
         gameOverButton.rx.tap
             .subscribe(onNext: { [weak self] in
                 guard let self else { return }
