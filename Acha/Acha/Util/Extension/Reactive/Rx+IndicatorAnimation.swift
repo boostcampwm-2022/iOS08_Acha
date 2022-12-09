@@ -15,6 +15,7 @@ extension Reactive where Base: UIView {
         Binder(base) { base, indicator in
             
             let image = UIButton().then {
+                $0.center = base.center
                 $0.layer.borderColor = UIColor.black.cgColor
                 $0.layer.borderWidth = 4
                 $0.layer.cornerRadius = 10
@@ -24,7 +25,6 @@ extension Reactive where Base: UIView {
             
             if indicator {
                 base.addSubview(image)
-                image.center.y = base.center.y
                 image.layer.add(animationGroup, forKey: nil)
             } else {
                 base.subviews.forEach { if $0 is UIButton,
