@@ -59,4 +59,12 @@ final class DefaultMyPageUseCase: MyPageUseCase {
             })
             .disposed(by: disposeBag)
     }
+    
+    func logout() -> Observable<Void> {
+        userRepository.signOut()
+    }
+    
+    func deleteUser() -> Single<Void> {
+        userRepository.delete()
+    }
 }
