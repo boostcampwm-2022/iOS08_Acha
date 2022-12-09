@@ -117,7 +117,7 @@ extension MyPageViewController {
     }
     
     private func bind() {
-        let input = MyPageViewModel.Input(viewWillAppearEvent: rx.methodInvoked(#selector(UIViewController.viewWillAppear(_:))).map { _ in },
+        let input = MyPageViewModel.Input(viewWillAppearEvent: rx.viewWillAppear.asObservable(),
                                           badgeMoreButtonTapped: badgeMoreButtonTapped,
                                           editMyInfoTapped: editMyInfoTapped,
                                           logoutTapped: logoutTapped,
