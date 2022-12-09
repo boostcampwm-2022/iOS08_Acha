@@ -14,16 +14,15 @@ extension Reactive where Base: UIView {
     var indicator: Binder<Bool> {
         Binder(base) { base, indicator in
             
-            let image = UIButton().then {
-                $0.center = base.center
-                $0.layer.borderColor = UIColor.black.cgColor
-                $0.layer.borderWidth = 4
-                $0.layer.cornerRadius = 10
-                $0.frame.size = CGSize(width: 50, height: 50)
-                $0.tag = 444
-            }
-            
             if indicator {
+                let image = UIButton().then {
+                    $0.center = base.center
+                    $0.layer.borderColor = UIColor.black.cgColor
+                    $0.layer.borderWidth = 4
+                    $0.layer.cornerRadius = 10
+                    $0.frame.size = CGSize(width: 50, height: 50)
+                    $0.tag = 444
+                }
                 base.addSubview(image)
                 image.layer.add(animationGroup, forKey: nil)
             } else {
