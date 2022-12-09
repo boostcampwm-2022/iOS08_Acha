@@ -80,14 +80,19 @@ extension SelectMapViewController {
     
     // MARK: - Helpers
     func configureUI() {
+        guard let mapView else { return }
+        view.addSubview(mapView)
+        mapView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+        
         view.addSubview(guideLabel)
         guideLabel.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide).offset(50)
             $0.centerX.equalToSuperview()
             $0.height.equalTo(50)
         }
-        
-        guard let mapView else { return }
+    
         view.addSubview(focusButton)
         focusButton.snp.makeConstraints {
             $0.top.equalTo(mapView.snp.top).offset(50)

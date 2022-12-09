@@ -58,6 +58,7 @@ struct DefaultUserRepository: UserRepository {
     func logIn(data: LoginData) -> Single<String> {
         return authService.logIn(data: data)
             .map { uuid in
+                keychainService.delete()
                 keychainService.save(uuid: uuid)
                 return uuid
             }
@@ -68,11 +69,12 @@ struct DefaultUserRepository: UserRepository {
         return Observable<Void>.create { observer in
             do {
                 try authService.signOut()
+                keychainService.delete()
                 guard getUUID() == nil else {
                     observer.onError(UserError.signOutError)
                     return Disposables.create()
                 }
-                keychainService.delete()
+                observer.onNext(())
             } catch {
                 observer.onError(UserError.signOutError)
             }
@@ -80,6 +82,22 @@ struct DefaultUserRepository: UserRepository {
             return Disposables.create()
         }
     
+    }
+    
+    func delete() -> Single<Void> {
+        // auth에서 제거
+        authService.delete()
+            .map {
+                // 디비에서 제거
+                guard let uuid = getUUID() else { return }
+                realtimeDataBaseService.delete(type: .user(id: uuid))
+                
+                // 키체인에서 제거
+                keychainService.delete()
+                guard getUUID() == nil else {
+                    throw UserError.signOutError
+                }
+            }
     }
     
     private func uploadUserData(data: UserDTO) {
