@@ -8,7 +8,7 @@
 import Foundation
 import RxSwift
 
-class TimerService: TimerServiceProtocol {
+final class TimerService: TimerServiceProtocol {
     var disposeBag = DisposeBag()
     
     func start() -> Observable<Int> {

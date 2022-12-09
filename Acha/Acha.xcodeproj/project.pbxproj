@@ -17,166 +17,244 @@
 		4738D75F2921D3E7003AE835 /* AchaLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = 4738D75E2921D3E7003AE835 /* AchaLibrary */; };
 		4738D7612921D6E4003AE835 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4738D7602921D6E4003AE835 /* GoogleService-Info.plist */; };
 		4738D768292267BA003AE835 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4738D767292267BA003AE835 /* Errors.swift */; };
-		4738D76F2922756B003AE835 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4738D76E2922756B003AE835 /* Map.swift */; };
+		474E24E4293DC6B800CFAC59 /* LineGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 474E24D7293DC6B800CFAC59 /* LineGraphView.swift */; };
+		474E24E5293DC6B800CFAC59 /* RecordMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 474E24D8293DC6B800CFAC59 /* RecordMainViewController.swift */; };
+		474E24E6293DC6B800CFAC59 /* RecordMainHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 474E24D9293DC6B800CFAC59 /* RecordMainHeaderView.swift */; };
+		474E24E7293DC6B800CFAC59 /* RecordMainCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 474E24DA293DC6B800CFAC59 /* RecordMainCell.swift */; };
+		474E24E8293DC6B800CFAC59 /* RecordMainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 474E24DB293DC6B800CFAC59 /* RecordMainViewModel.swift */; };
+		474E24E9293DC6B800CFAC59 /* RecordMainChartCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 474E24DC293DC6B800CFAC59 /* RecordMainChartCell.swift */; };
+		474E24EA293DC6B800CFAC59 /* RecordPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 474E24DD293DC6B800CFAC59 /* RecordPageViewController.swift */; };
+		474E24EB293DC6B800CFAC59 /* RecordMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 474E24DF293DC6B800CFAC59 /* RecordMapViewModel.swift */; };
+		474E24EC293DC6B800CFAC59 /* RecordMapHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 474E24E0293DC6B800CFAC59 /* RecordMapHeaderView.swift */; };
+		474E24ED293DC6B800CFAC59 /* RecordMapCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 474E24E1293DC6B800CFAC59 /* RecordMapCategoryCell.swift */; };
+		474E24EE293DC6B800CFAC59 /* RecordMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 474E24E2293DC6B800CFAC59 /* RecordMapViewController.swift */; };
+		474E24EF293DC6B800CFAC59 /* RecordMapRankingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 474E24E3293DC6B800CFAC59 /* RecordMapRankingCell.swift */; };
+		474E24F1293DC70B00CFAC59 /* AnimationKeyPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 474E24F0293DC70B00CFAC59 /* AnimationKeyPath.swift */; };
 		477842F82923BFA300AAC3DB /* MapBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 477842F72923BFA300AAC3DB /* MapBaseViewController.swift */; };
 		47935E952923310700481307 /* SystemImageNameSpace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47935E942923310700481307 /* SystemImageNameSpace.swift */; };
-		47935E97292366CD00481307 /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47935E96292366CD00481307 /* UIButton+.swift */; };
 		47935E99292375DC00481307 /* MapAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47935E98292375DC00481307 /* MapAnnotation.swift */; };
-		47935E9D29238E9E00481307 /* SelectMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47935E9C29238E9E00481307 /* SelectMapViewController.swift */; };
-		47935E9F29238EB400481307 /* SelectMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47935E9E29238EB300481307 /* SelectMapViewModel.swift */; };
-		4795F04829374DC800B174D6 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4795F04729374DC800B174D6 /* LocationService.swift */; };
-		4795F04A29374DD300B174D6 /* DefaultLocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4795F04929374DD300B174D6 /* DefaultLocationService.swift */; };
-		47A26DBC292B73850007FBBF /* Coordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A26DBB292B73850007FBBF /* Coordinate.swift */; };
-		47A26DBE292BB2970007FBBF /* MapRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A26DBD292BB2970007FBBF /* MapRegion.swift */; };
-		47A26DC0292C9F8A0007FBBF /* SelectMapRankingHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A26DBF292C9F8A0007FBBF /* SelectMapRankingHeaderView.swift */; };
-		47D5773B293389940014D171 /* MapRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D5773A293389940014D171 /* MapRepository.swift */; };
-		47D5773D293389AC0014D171 /* DefaultMapRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D5773C293389AC0014D171 /* DefaultMapRepository.swift */; };
-		47D57741293389D00014D171 /* SelectMapUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D57740293389D00014D171 /* SelectMapUseCase.swift */; };
-		47D57743293389EB0014D171 /* DefaultSelectMapUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D57742293389EB0014D171 /* DefaultSelectMapUseCase.swift */; };
 		47D5774529338A040014D171 /* FirebaseRealtimeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D5774429338A040014D171 /* FirebaseRealtimeType.swift */; };
-		47D5774B29338A4A0014D171 /* RealtimeDatabaseNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D5774A29338A4A0014D171 /* RealtimeDatabaseNetworkService.swift */; };
-		47D5774F29338A7A0014D171 /* DefaultRealtimeDatabaseNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D5774E29338A7A0014D171 /* DefaultRealtimeDatabaseNetworkService.swift */; };
-		47D5775229338FB60014D171 /* RecordRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D5775129338FB60014D171 /* RecordRepository.swift */; };
-		47D5775429338FFF0014D171 /* DefaultRecordRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D5775329338FFF0014D171 /* DefaultRecordRepository.swift */; };
 		47D577592934A9FE0014D171 /* MapBaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D577582934A9FE0014D171 /* MapBaseViewModel.swift */; };
-		47D5775B2934AB8A0014D171 /* MapBaseUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D5775A2934AB8A0014D171 /* MapBaseUseCase.swift */; };
-		47D5775D2934AB9B0014D171 /* DefaultMapBaseUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D5775C2934AB9B0014D171 /* DefaultMapBaseUseCase.swift */; };
-		47D5775E2934C3500014D171 /* SingleGameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A2E19F2923C5A7001E887A /* SingleGameViewModel.swift */; };
-		761C1C09292E437E000C88D0 /* DefaultSingleGameUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761C1C08292E437E000C88D0 /* DefaultSingleGameUseCase.swift */; };
-		761C1C0B292E439F000C88D0 /* SingleGameUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761C1C0A292E439F000C88D0 /* SingleGameUseCase.swift */; };
-		761C1C0E292E4554000C88D0 /* TimerServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761C1C0D292E4554000C88D0 /* TimerServiceProtocol.swift */; };
-		761C1C10292E4562000C88D0 /* TimerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761C1C0F292E4562000C88D0 /* TimerService.swift */; };
-		761E5F072935EF4200E6CACC /* InGameUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761E5F062935EF4200E6CACC /* InGameUseCase.swift */; };
-		761E5F092935EFF400E6CACC /* DefaultInGameUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761E5F082935EFF400E6CACC /* DefaultInGameUseCase.swift */; };
 		761E5F112935F2DF00E6CACC /* FirebasePath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761E5F102935F2DE00E6CACC /* FirebasePath.swift */; };
-		764AF29D292B639200D16DC9 /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764AF29C292B639200D16DC9 /* UIViewController+.swift */; };
 		764AF29F292B6EF500D16DC9 /* InGameRecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764AF29E292B6EF500D16DC9 /* InGameRecordViewModel.swift */; };
-		764AF2A1292B9C1F00D16DC9 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764AF2A0292B9C1F00D16DC9 /* String+.swift */; };
 		764AF2A3292B9D3600D16DC9 /* InGameRankingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764AF2A2292B9D3600D16DC9 /* InGameRankingViewModel.swift */; };
-		769F1AAC2935A7A800A3BB47 /* GameOverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 769F1AAB2935A7A800A3BB47 /* GameOverView.swift */; };
-		76A2E1A12923C5A7001E887A /* SingleGameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A2E19F2923C5A7001E887A /* SingleGameViewModel.swift */; };
-		76A2E1A32923D94C001E887A /* CLLocationCoordinate2D+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A2E1A22923D94C001E887A /* CLLocationCoordinate2D+.swift */; };
-		76A2E1A529249099001E887A /* Double+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A2E1A429249099001E887A /* Double+.swift */; };
-		76AA55D32937AC8700498441 /* LogInData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AA55D22937AC8700498441 /* LogInData.swift */; };
-		76AA55D52937ACB900498441 /* MultiGameCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AA55D42937ACB900498441 /* MultiGameCoordinator.swift */; };
-		76AA56082937ADBB00498441 /* LogInRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AA56062937ADBA00498441 /* LogInRepository.swift */; };
-		76AA56092937ADBB00498441 /* SignUpRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AA56072937ADBB00498441 /* SignUpRepository.swift */; };
-		76AA560D2937ADD400498441 /* LoginUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AA560A2937ADD400498441 /* LoginUsecase.swift */; };
-		76AA560E2937ADD400498441 /* SignUpUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AA560B2937ADD400498441 /* SignUpUsecase.swift */; };
-		76AA560F2937ADD400498441 /* AuthUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AA560C2937ADD400498441 /* AuthUseCaseProtocol.swift */; };
-		76AA56142937AE7E00498441 /* RxSwift+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AA56132937AE7E00498441 /* RxSwift+.swift */; };
-		76B3BF442924C7450056ABFD /* SingleGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B3BF432924C7450056ABFD /* SingleGameViewController.swift */; };
-		76B3BF462924D93C0056ABFD /* SingleGameCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B3BF452924D93C0056ABFD /* SingleGameCoordinator.swift */; };
 		76B3BF4A2924DDE70056ABFD /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B3BF492924DDE70056ABFD /* BaseViewModel.swift */; };
-		76B3BF4C29250C190056ABFD /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B3BF4B29250C190056ABFD /* UIFont+.swift */; };
 		76B3BF50292624850056ABFD /* InGamePlayMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B3BF4F292624850056ABFD /* InGamePlayMenuViewController.swift */; };
-		76B3BF52292624DB0056ABFD /* Int+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B3BF51292624DA0056ABFD /* Int+.swift */; };
-		76B3BF54292624E30056ABFD /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B3BF53292624E30056ABFD /* Date+.swift */; };
 		76B3BF56292627A30056ABFD /* GamePlayMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B3BF55292627A30056ABFD /* GamePlayMenuView.swift */; };
-		E5027D5229263D4F0021BF60 /* RecordHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E516A6BB292393FA00CD6BDB /* RecordHeaderView.swift */; };
-		E5027D5329263D620021BF60 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4738D765292238C3003AE835 /* UIColor+.swift */; };
-		E5027D5629265D910021BF60 /* SelectMapRecordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5027D5529265D910021BF60 /* SelectMapRecordCell.swift */; };
-		E5027D58292670570021BF60 /* Record.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5027D57292670570021BF60 /* Record.swift */; };
-		E5027D5A292670BC0021BF60 /* RecordViewHeaderRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5027D59292670BC0021BF60 /* RecordViewHeaderRecord.swift */; };
-		E5027D5C292670F30021BF60 /* RecordViewChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5027D5B292670F30021BF60 /* RecordViewChartData.swift */; };
-		E5027D5E292686440021BF60 /* RecordViewDayTotalRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5027D5D292686440021BF60 /* RecordViewDayTotalRecord.swift */; };
-		E516A6BA2923929800CD6BDB /* RecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E516A6B92923929800CD6BDB /* RecordViewModel.swift */; };
-		E516A6BE2923941500CD6BDB /* RecordChartCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E516A6BD2923941500CD6BDB /* RecordChartCell.swift */; };
-		E516A6C02923942500CD6BDB /* RecordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E516A6BF2923942500CD6BDB /* RecordCell.swift */; };
-		E52885C92942325800018B04 /* MultiGameRoomDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52885BD2942325800018B04 /* MultiGameRoomDataSource.swift */; };
-		E52885CA2942325800018B04 /* MultiGameRoomRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52885BF2942325800018B04 /* MultiGameRoomRepository.swift */; };
-		E52885CB2942325800018B04 /* GameRoomCollectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52885C12942325800018B04 /* GameRoomCollectionViewHeader.swift */; };
-		E52885CC2942325800018B04 /* GameRoomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52885C22942325800018B04 /* GameRoomCollectionViewCell.swift */; };
-		E52885CD2942325800018B04 /* MultiGameSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52885C42942325800018B04 /* MultiGameSelectViewController.swift */; };
-		E52885CE2942325800018B04 /* MultiGameRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52885C52942325800018B04 /* MultiGameRoomViewController.swift */; };
-		E52885CF2942325800018B04 /* MultiGameRoomUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52885C72942325800018B04 /* MultiGameRoomUseCase.swift */; };
-		E52885D62942327A00018B04 /* CommunityMainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52885D32942327A00018B04 /* CommunityMainViewModel.swift */; };
-		E52885D72942327A00018B04 /* CommunityPostWriteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52885D42942327A00018B04 /* CommunityPostWriteViewModel.swift */; };
-		E52885D82942327A00018B04 /* CommunityDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52885D52942327A00018B04 /* CommunityDetailViewModel.swift */; };
+		E505DE342942FA6B006BF811 /* CommunityMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DE332942FA6B006BF811 /* CommunityMainViewController.swift */; };
+		E505DE3A2942FA76006BF811 /* CommunityMainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DE362942FA76006BF811 /* CommunityMainViewModel.swift */; };
+		E505DE3C2942FA76006BF811 /* CommunityPostWriteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DE382942FA76006BF811 /* CommunityPostWriteViewModel.swift */; };
+		E505DE3D2942FA76006BF811 /* CommunityDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DE392942FA76006BF811 /* CommunityDetailViewModel.swift */; };
+		E505DE4F2942FAC1006BF811 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DE402942FAC1006BF811 /* HomeViewModel.swift */; };
+		E505DE552942FAC1006BF811 /* MultiGameEnterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DE4A2942FAC1006BF811 /* MultiGameEnterViewController.swift */; };
+		E505DE562942FAC1006BF811 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DE4B2942FAC1006BF811 /* HomeViewController.swift */; };
+		E505DE572942FAC1006BF811 /* QRReaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DE4C2942FAC1006BF811 /* QRReaderViewController.swift */; };
+		E505DE652942FB1E006BF811 /* CommunityDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DE5A2942FB1E006BF811 /* CommunityDTO.swift */; };
+		E505DE662942FB1E006BF811 /* MapDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DE5B2942FB1E006BF811 /* MapDTO.swift */; };
+		E505DE672942FB1E006BF811 /* RoomDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DE5C2942FB1E006BF811 /* RoomDTO.swift */; };
+		E505DE682942FB1E006BF811 /* PostDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DE5D2942FB1E006BF811 /* PostDTO.swift */; };
+		E505DE692942FB1E006BF811 /* RecordDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DE5E2942FB1E006BF811 /* RecordDTO.swift */; };
+		E505DE6A2942FB1E006BF811 /* CommentDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DE5F2942FB1E006BF811 /* CommentDTO.swift */; };
+		E505DE6B2942FB1E006BF811 /* UserDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DE602942FB1E006BF811 /* UserDTO.swift */; };
+		E505DE6C2942FB1E006BF811 /* MultiGamePlayerDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DE612942FB1E006BF811 /* MultiGamePlayerDTO.swift */; };
+		E505DE6D2942FB1E006BF811 /* InGameUserDataDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DE622942FB1E006BF811 /* InGameUserDataDTO.swift */; };
+		E505DE6E2942FB1E006BF811 /* BadgeDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DE632942FB1E006BF811 /* BadgeDTO.swift */; };
+		E505DE6F2942FB1E006BF811 /* CoordinateDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DE642942FB1E006BF811 /* CoordinateDTO.swift */; };
+		E505DE9E2942FB9B006BF811 /* DefaultMapRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DE892942FB9B006BF811 /* DefaultMapRepository.swift */; };
+		E505DE9F2942FB9B006BF811 /* DefaultCommunityRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DE8A2942FB9B006BF811 /* DefaultCommunityRepository.swift */; };
+		E505DEA02942FB9B006BF811 /* DefaultRecordRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DE8B2942FB9B006BF811 /* DefaultRecordRepository.swift */; };
+		E505DEA12942FB9B006BF811 /* DefaultUserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DE8C2942FB9B006BF811 /* DefaultUserRepository.swift */; };
+		E505DEA22942FB9B006BF811 /* DefaultGameRoomRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DE8D2942FB9B006BF811 /* DefaultGameRoomRepository.swift */; };
+		E505DEA32942FB9B006BF811 /* DefaultTempRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DE8E2942FB9B006BF811 /* DefaultTempRepository.swift */; };
+		E505DEA42942FB9B006BF811 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DE902942FB9B006BF811 /* UserRepository.swift */; };
+		E505DEA52942FB9B006BF811 /* GameRoomRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DE912942FB9B006BF811 /* GameRoomRepository.swift */; };
+		E505DEA62942FB9B006BF811 /* TempRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DE922942FB9B006BF811 /* TempRepository.swift */; };
+		E505DEA72942FB9B006BF811 /* BadgeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DE932942FB9B006BF811 /* BadgeRepository.swift */; };
+		E505DEA82942FB9B006BF811 /* MapRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DE942942FB9B006BF811 /* MapRepository.swift */; };
+		E505DEA92942FB9B006BF811 /* RecordRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DE952942FB9B006BF811 /* RecordRepository.swift */; };
+		E505DEAA2942FB9B006BF811 /* CommunityRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DE962942FB9B006BF811 /* CommunityRepository.swift */; };
+		E505DEAB2942FB9B006BF811 /* TimeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DE972942FB9B006BF811 /* TimeRepository.swift */; };
+		E505DEAC2942FB9B006BF811 /* LocationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DE982942FB9B006BF811 /* LocationRepository.swift */; };
+		E505DEAD2942FB9B006BF811 /* DefaultTimeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DE992942FB9B006BF811 /* DefaultTimeRepository.swift */; };
+		E505DEAE2942FB9B006BF811 /* DefaultLocationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DE9A2942FB9B006BF811 /* DefaultLocationRepository.swift */; };
+		E505DEAF2942FB9B006BF811 /* SignUpRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DE9B2942FB9B006BF811 /* SignUpRepository.swift */; };
+		E505DEB02942FB9B006BF811 /* LogInRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DE9C2942FB9B006BF811 /* LogInRepository.swift */; };
+		E505DEB12942FB9B006BF811 /* DefaultBadgeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DE9D2942FB9B006BF811 /* DefaultBadgeRepository.swift */; };
+		E505DED02942FBC3006BF811 /* DefaultMyPageUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DEB32942FBC2006BF811 /* DefaultMyPageUseCase.swift */; };
+		E505DED12942FBC3006BF811 /* SignUpUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DEB42942FBC2006BF811 /* SignUpUsecase.swift */; };
+		E505DED22942FBC3006BF811 /* LoginUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DEB52942FBC2006BF811 /* LoginUsecase.swift */; };
+		E505DED32942FBC3006BF811 /* DefaultCommunityPostWriteUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DEB62942FBC2006BF811 /* DefaultCommunityPostWriteUseCase.swift */; };
+		E505DED42942FBC3006BF811 /* DefaultInGameUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DEB72942FBC2006BF811 /* DefaultInGameUseCase.swift */; };
+		E505DED52942FBC3006BF811 /* SelectMapUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DEB92942FBC2006BF811 /* SelectMapUseCase.swift */; };
+		E505DED62942FBC3006BF811 /* MultiGameUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DEBA2942FBC2006BF811 /* MultiGameUseCase.swift */; };
+		E505DED72942FBC3006BF811 /* CommunityDetailUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DEBB2942FBC2006BF811 /* CommunityDetailUseCase.swift */; };
+		E505DED82942FBC3006BF811 /* CommunityPostWriteUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DEBC2942FBC2006BF811 /* CommunityPostWriteUseCase.swift */; };
+		E505DED92942FBC3006BF811 /* RecordMainViewUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DEBD2942FBC2006BF811 /* RecordMainViewUseCase.swift */; };
+		E505DEDA2942FBC3006BF811 /* MyPageUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DEBE2942FBC2006BF811 /* MyPageUseCase.swift */; };
+		E505DEDB2942FBC3006BF811 /* AuthUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DEBF2942FBC2006BF811 /* AuthUseCaseProtocol.swift */; };
+		E505DEDC2942FBC3006BF811 /* MultiGameRoomUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DEC02942FBC2006BF811 /* MultiGameRoomUseCase.swift */; };
+		E505DEDD2942FBC3006BF811 /* SingleGameUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DEC12942FBC2006BF811 /* SingleGameUseCase.swift */; };
+		E505DEDE2942FBC3006BF811 /* RecordMapViewUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DEC22942FBC2006BF811 /* RecordMapViewUseCase.swift */; };
+		E505DEDF2942FBC3006BF811 /* MapBaseUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DEC32942FBC2006BF811 /* MapBaseUseCase.swift */; };
+		E505DEE02942FBC3006BF811 /* InGameUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DEC42942FBC2006BF811 /* InGameUseCase.swift */; };
+		E505DEE12942FBC3006BF811 /* CommunityMainUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DEC52942FBC2006BF811 /* CommunityMainUseCase.swift */; };
+		E505DEE22942FBC3006BF811 /* DefaultHomeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DEC62942FBC2006BF811 /* DefaultHomeUseCase.swift */; };
+		E505DEE32942FBC3006BF811 /* DefaultCommunityMainUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DEC72942FBC2006BF811 /* DefaultCommunityMainUseCase.swift */; };
+		E505DEE42942FBC3006BF811 /* DefaultCommunityDetailUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DEC82942FBC2006BF811 /* DefaultCommunityDetailUseCase.swift */; };
+		E505DEE52942FBC3006BF811 /* DefaultMultiGameUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DEC92942FBC2006BF811 /* DefaultMultiGameUseCase.swift */; };
+		E505DEE62942FBC3006BF811 /* DefaultSingleGameUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DECA2942FBC2006BF811 /* DefaultSingleGameUseCase.swift */; };
+		E505DEE72942FBC3006BF811 /* DefaultRecordMapViewUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DECB2942FBC2006BF811 /* DefaultRecordMapViewUseCase.swift */; };
+		E505DEE82942FBC3006BF811 /* DefaultMapBaseUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DECC2942FBC2006BF811 /* DefaultMapBaseUseCase.swift */; };
+		E505DEE92942FBC3006BF811 /* DefaultRecordMainViewUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DECD2942FBC2006BF811 /* DefaultRecordMainViewUseCase.swift */; };
+		E505DEEA2942FBC3006BF811 /* DefaultMultiGameRoomUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DECE2942FBC2006BF811 /* DefaultMultiGameRoomUseCase.swift */; };
+		E505DEEB2942FBC3006BF811 /* DefaultSelectMapUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DECF2942FBC2006BF811 /* DefaultSelectMapUseCase.swift */; };
+		E505DEFF2942FBDF006BF811 /* MapRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DEED2942FBDF006BF811 /* MapRegion.swift */; };
+		E505DF002942FBDF006BF811 /* RecordViewHeaderRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DEEE2942FBDF006BF811 /* RecordViewHeaderRecord.swift */; };
+		E505DF012942FBDF006BF811 /* HealthKitReadData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DEEF2942FBDF006BF811 /* HealthKitReadData.swift */; };
+		E505DF022942FBDF006BF811 /* MultiGamePlayerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DEF02942FBDF006BF811 /* MultiGamePlayerData.swift */; };
+		E505DF032942FBDF006BF811 /* RecordViewChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DEF12942FBDF006BF811 /* RecordViewChartData.swift */; };
+		E505DF042942FBDF006BF811 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DEF22942FBDF006BF811 /* Comment.swift */; };
+		E505DF052942FBDF006BF811 /* RoomUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DEF32942FBDF006BF811 /* RoomUser.swift */; };
+		E505DF062942FBDF006BF811 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DEF42942FBDF006BF811 /* Image.swift */; };
+		E505DF072942FBDF006BF811 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DEF52942FBDF006BF811 /* User.swift */; };
+		E505DF082942FBDF006BF811 /* Coordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DEF62942FBDF006BF811 /* Coordinate.swift */; };
+		E505DF092942FBDF006BF811 /* RecordViewDayTotalRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DEF72942FBDF006BF811 /* RecordViewDayTotalRecord.swift */; };
+		E505DF0A2942FBDF006BF811 /* LogInData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DEF82942FBDF006BF811 /* LogInData.swift */; };
+		E505DF0B2942FBDF006BF811 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DEF92942FBDF006BF811 /* Post.swift */; };
+		E505DF0C2942FBDF006BF811 /* Record.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DEFA2942FBDF006BF811 /* Record.swift */; };
+		E505DF0D2942FBDF006BF811 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DEFB2942FBDF006BF811 /* Map.swift */; };
+		E505DF0E2942FBDF006BF811 /* Badge.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DEFC2942FBDF006BF811 /* Badge.swift */; };
+		E505DF0F2942FBDF006BF811 /* SignUpData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DEFD2942FBDF006BF811 /* SignUpData.swift */; };
+		E505DF102942FBDF006BF811 /* HealthKitWriteData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DEFE2942FBDF006BF811 /* HealthKitWriteData.swift */; };
+		E505DF4A2942FC2C006BF811 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DF402942FC2C006BF811 /* SignupViewController.swift */; };
+		E505DF4B2942FC2C006BF811 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DF412942FC2C006BF811 /* LoginViewController.swift */; };
+		E505DF4C2942FC2C006BF811 /* AuthTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DF432942FC2C006BF811 /* AuthTitleView.swift */; };
+		E505DF4D2942FC2C006BF811 /* ScrollAbleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DF442942FC2C006BF811 /* ScrollAbleViewController.swift */; };
+		E505DF4E2942FC2C006BF811 /* AuthInputTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DF452942FC2C006BF811 /* AuthInputTextField.swift */; };
+		E505DF4F2942FC2C006BF811 /* AuthButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DF462942FC2C006BF811 /* AuthButton.swift */; };
+		E505DF502942FC2C006BF811 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DF482942FC2C006BF811 /* LoginViewModel.swift */; };
+		E505DF512942FC2C006BF811 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DF492942FC2C006BF811 /* SignUpViewModel.swift */; };
+		E505DF5A2942FC64006BF811 /* SingleGameCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DF532942FC64006BF811 /* SingleGameCoordinator.swift */; };
+		E505DF5B2942FC64006BF811 /* MyPageCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DF542942FC64006BF811 /* MyPageCoordinator.swift */; };
+		E505DF5C2942FC64006BF811 /* RecordCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DF552942FC64006BF811 /* RecordCoordinator.swift */; };
+		E505DF5D2942FC64006BF811 /* TabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DF562942FC64006BF811 /* TabBarCoordinator.swift */; };
+		E505DF5E2942FC64006BF811 /* MultiGameCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DF572942FC64006BF811 /* MultiGameCoordinator.swift */; };
+		E505DF5F2942FC64006BF811 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DF582942FC64006BF811 /* HomeCoordinator.swift */; };
+		E505DF602942FC64006BF811 /* CommunityCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DF592942FC64006BF811 /* CommunityCoordinator.swift */; };
+		E505DF6C2942FC77006BF811 /* BadgeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DF622942FC77006BF811 /* BadgeViewModel.swift */; };
+		E505DF6D2942FC77006BF811 /* MyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DF632942FC77006BF811 /* MyPageViewModel.swift */; };
+		E505DF6E2942FC77006BF811 /* BadgeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DF652942FC77006BF811 /* BadgeCell.swift */; };
+		E505DF6F2942FC77006BF811 /* MyPageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DF662942FC77006BF811 /* MyPageHeaderView.swift */; };
+		E505DF702942FC77006BF811 /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DF672942FC77006BF811 /* SettingCell.swift */; };
+		E505DF712942FC77006BF811 /* MyInfoEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DF692942FC77006BF811 /* MyInfoEditViewController.swift */; };
+		E505DF722942FC77006BF811 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DF6A2942FC77006BF811 /* MyPageViewController.swift */; };
+		E505DF732942FC77006BF811 /* BadgeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DF6B2942FC77006BF811 /* BadgeViewController.swift */; };
+		E505DF8A2942FCDA006BF811 /* MultiGameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DF762942FCDA006BF811 /* MultiGameViewModel.swift */; };
+		E505DF8B2942FCDA006BF811 /* MultiGameRoomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DF772942FCDA006BF811 /* MultiGameRoomViewModel.swift */; };
+		E505DF902942FCDA006BF811 /* GameRoomCollectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DF802942FCDA006BF811 /* GameRoomCollectionViewHeader.swift */; };
+		E505DF912942FCDA006BF811 /* PlayerAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DF812942FCDA006BF811 /* PlayerAnnotation.swift */; };
+		E505DF922942FCDA006BF811 /* GameRoomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DF822942FCDA006BF811 /* GameRoomCollectionViewCell.swift */; };
+		E505DF932942FCDA006BF811 /* GameRankCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DF832942FCDA006BF811 /* GameRankCollectionViewCell.swift */; };
+		E505DF952942FCDA006BF811 /* MultiGameRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DF862942FCDA006BF811 /* MultiGameRoomViewController.swift */; };
+		E505DF962942FCDA006BF811 /* MultiGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DF872942FCDA006BF811 /* MultiGameViewController.swift */; };
+		E505DF9F2942FD47006BF811 /* SelectMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DF992942FD47006BF811 /* SelectMapViewModel.swift */; };
+		E505DFA02942FD47006BF811 /* SelectMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DF9B2942FD47006BF811 /* SelectMapViewController.swift */; };
+		E505DFA12942FD47006BF811 /* SelectMapRankingHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DF9D2942FD47006BF811 /* SelectMapRankingHeaderView.swift */; };
+		E505DFA22942FD47006BF811 /* SelectMapRecordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DF9E2942FD47006BF811 /* SelectMapRecordCell.swift */; };
+		E505DFAC2942FD5B006BF811 /* SingleGameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DFA52942FD5B006BF811 /* SingleGameViewModel.swift */; };
+		E505DFAE2942FD5B006BF811 /* GameOverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DFA82942FD5B006BF811 /* GameOverView.swift */; };
+		E505DFB02942FD5B006BF811 /* SingleGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DFAB2942FD5B006BF811 /* SingleGameViewController.swift */; };
+		E505DFB32942FDAB006BF811 /* FirebaseServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505DFB22942FDAB006BF811 /* FirebaseServiceError.swift */; };
+		E505E0422942FDC0006BF811 /* CALayer+.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505E0332942FDC0006BF811 /* CALayer+.swift */; };
+		E505E0432942FDC0006BF811 /* Int+.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505E0342942FDC0006BF811 /* Int+.swift */; };
+		E505E0442942FDC0006BF811 /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505E0352942FDC0006BF811 /* UIFont+.swift */; };
+		E505E0452942FDC0006BF811 /* Encodable+.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505E0362942FDC0006BF811 /* Encodable+.swift */; };
+		E505E0462942FDC0006BF811 /* RxSwift+.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505E0372942FDC0006BF811 /* RxSwift+.swift */; };
+		E505E0472942FDC0006BF811 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505E0382942FDC0006BF811 /* String+.swift */; };
+		E505E0482942FDC0006BF811 /* UIImageView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505E0392942FDC0006BF811 /* UIImageView+.swift */; };
+		E505E0492942FDC0006BF811 /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505E03A2942FDC0006BF811 /* UIViewController+.swift */; };
+		E505E04A2942FDC0006BF811 /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505E03B2942FDC0006BF811 /* UIButton+.swift */; };
+		E505E04B2942FDC0006BF811 /* Double+.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505E03C2942FDC0006BF811 /* Double+.swift */; };
+		E505E04C2942FDC0006BF811 /* UITextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505E03D2942FDC0006BF811 /* UITextField+.swift */; };
+		E505E04D2942FDC0006BF811 /* CLLocationCoordinate2D+.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505E03E2942FDC0006BF811 /* CLLocationCoordinate2D+.swift */; };
+		E505E04E2942FDC0006BF811 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505E03F2942FDC0006BF811 /* Date+.swift */; };
+		E505E04F2942FDC0006BF811 /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505E0402942FDC0006BF811 /* UIImage+.swift */; };
+		E505E0502942FDC0006BF811 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505E0412942FDC0006BF811 /* UIColor+.swift */; };
+		E505E05B2942FDDB006BF811 /* KeyboardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505E0582942FDDA006BF811 /* KeyboardManager.swift */; };
+		E505E05C2942FDDB006BF811 /* KeyChainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505E0592942FDDA006BF811 /* KeyChainManager.swift */; };
+		E505E05D2942FDDB006BF811 /* DIContainerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505E05A2942FDDA006BF811 /* DIContainerManager.swift */; };
+		E505E0632942FDF3006BF811 /* FBRealTimeDBType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505E05F2942FDF3006BF811 /* FBRealTimeDBType.swift */; };
+		E505E0642942FDF3006BF811 /* ProvidableType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505E0602942FDF3006BF811 /* ProvidableType.swift */; };
+		E505E0652942FDF3006BF811 /* UUIDGetable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505E0612942FDF3006BF811 /* UUIDGetable.swift */; };
+		E505E0662942FDF3006BF811 /* FBRealTimeDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505E0622942FDF3006BF811 /* FBRealTimeDB.swift */; };
+		E505E0692942FE04006BF811 /* AuthProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505E0682942FE04006BF811 /* AuthProvider.swift */; };
+		E505E07F2942FF77006BF811 /* TimerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505E06B2942FF77006BF811 /* TimerService.swift */; };
+		E505E0802942FF77006BF811 /* DefaultRealtimeDatabaseNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505E06C2942FF77006BF811 /* DefaultRealtimeDatabaseNetworkService.swift */; };
+		E505E0812942FF77006BF811 /* DefaultAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505E06D2942FF77006BF811 /* DefaultAuthService.swift */; };
+		E505E0822942FF77006BF811 /* DefaultFirebaseStorageNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505E06E2942FF77006BF811 /* DefaultFirebaseStorageNetworkService.swift */; };
+		E505E0832942FF77006BF811 /* DefaultHealthKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505E06F2942FF77006BF811 /* DefaultHealthKitService.swift */; };
+		E505E0842942FF77006BF811 /* DefaultLocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505E0702942FF77006BF811 /* DefaultLocationService.swift */; };
+		E505E0852942FF77006BF811 /* RandomService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505E0722942FF77006BF811 /* RandomService.swift */; };
+		E505E0862942FF78006BF811 /* RealtimeDatabaseNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505E0732942FF77006BF811 /* RealtimeDatabaseNetworkService.swift */; };
+		E505E0872942FF78006BF811 /* TempDBNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505E0742942FF77006BF811 /* TempDBNetwork.swift */; };
+		E505E0882942FF78006BF811 /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505E0752942FF77006BF811 /* KeychainService.swift */; };
+		E505E0892942FF78006BF811 /* TimerServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505E0762942FF77006BF811 /* TimerServiceProtocol.swift */; };
+		E505E08A2942FF78006BF811 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505E0772942FF77006BF811 /* AuthService.swift */; };
+		E505E08B2942FF78006BF811 /* HealthKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505E0782942FF77006BF811 /* HealthKitService.swift */; };
+		E505E08C2942FF78006BF811 /* FirebaseStorageNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505E0792942FF77006BF811 /* FirebaseStorageNetworkService.swift */; };
+		E505E08D2942FF78006BF811 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505E07A2942FF77006BF811 /* LocationService.swift */; };
+		E505E08E2942FF78006BF811 /* DefaultRandomService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505E07B2942FF77006BF811 /* DefaultRandomService.swift */; };
+		E505E08F2942FF78006BF811 /* DefaultImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505E07C2942FF77006BF811 /* DefaultImageService.swift */; };
+		E505E0902942FF78006BF811 /* DefaultKeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505E07D2942FF77006BF811 /* DefaultKeychainService.swift */; };
+		E505E0912942FF78006BF811 /* DefaultTempDBNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505E07E2942FF77006BF811 /* DefaultTempDBNetwork.swift */; };
+		E505E09329430047006BF811 /* CommunityMainCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505E09229430047006BF811 /* CommunityMainCell.swift */; };
+		E505E094294300C1006BF811 /* Locations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 474E24F2293DC71000CFAC59 /* Locations.swift */; };
+		E505E097294301F3006BF811 /* RandomFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505E096294301F3006BF811 /* RandomFactory.swift */; };
 		E52885E12942375300018B04 /* CommunityDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52885E02942375300018B04 /* CommunityDetailViewController.swift */; };
-		E52885E42942390200018B04 /* MultiGameRoomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52885E32942390200018B04 /* MultiGameRoomViewModel.swift */; };
-		E576465029377DC400BADF18 /* DefaultCommunityMainUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E576464F29377DC400BADF18 /* DefaultCommunityMainUseCase.swift */; };
-		E576465629377F2300BADF18 /* CommunityMainUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E576465529377F2300BADF18 /* CommunityMainUseCase.swift */; };
-		E576465A2938C12C00BADF18 /* DefaultCommunityRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57646592938C12C00BADF18 /* DefaultCommunityRepository.swift */; };
-		E57646772938DDB600BADF18 /* FBRealTimeDBType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57646732938DDB600BADF18 /* FBRealTimeDBType.swift */; };
-		E57646782938DDB600BADF18 /* ProvidableType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57646742938DDB600BADF18 /* ProvidableType.swift */; };
-		E57646792938DDB600BADF18 /* UUIDGetable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57646752938DDB600BADF18 /* UUIDGetable.swift */; };
-		E576467A2938DDB600BADF18 /* FBRealTimeDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57646762938DDB600BADF18 /* FBRealTimeDB.swift */; };
 		E576467B2938DE0100BADF18 /* (null) in Sources */ = {isa = PBXBuildFile; };
-		E576468D2938E28300BADF18 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57646822938E28200BADF18 /* HomeViewModel.swift */; };
-		E576468E2938E28300BADF18 /* HomeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57646842938E28200BADF18 /* HomeRepository.swift */; };
-		E576468F2938E28300BADF18 /* HomeProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57646862938E28200BADF18 /* HomeProvider.swift */; };
-		E57646902938E28300BADF18 /* MultiGameEnterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57646882938E28200BADF18 /* MultiGameEnterViewController.swift */; };
-		E57646912938E28300BADF18 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57646892938E28200BADF18 /* HomeViewController.swift */; };
-		E57646922938E28300BADF18 /* QRReaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E576468A2938E28200BADF18 /* QRReaderViewController.swift */; };
-		E57646932938E28300BADF18 /* HomeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E576468C2938E28200BADF18 /* HomeUseCase.swift */; };
-		E57646962938E2CA00BADF18 /* AuthProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57646952938E2C900BADF18 /* AuthProvider.swift */; };
-		E57646982938E46B00BADF18 /* RoomDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57646972938E46B00BADF18 /* RoomDTO.swift */; };
-		E57646992938E48E00BADF18 /* PostDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED3942935DF9C00ABC047 /* PostDTO.swift */; };
-		E576469A2938E49F00BADF18 /* CommentDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED3982935DFCC00ABC047 /* CommentDTO.swift */; };
-		E576469C2938E4C100BADF18 /* InGameUserDataDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E576469B2938E4C100BADF18 /* InGameUserDataDTO.swift */; };
-		E576469F2938E4E700BADF18 /* MapDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E576469D2938E4E700BADF18 /* MapDTO.swift */; };
-		E57646A02938E4E700BADF18 /* CoordinateDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E576469E2938E4E700BADF18 /* CoordinateDTO.swift */; };
-		E57646A32938E5A900BADF18 /* RandomFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57646A22938E5A800BADF18 /* RandomFactory.swift */; };
-		E57646D5293D9DE600BADF18 /* CommunityRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57646D4293D9DE600BADF18 /* CommunityRepository.swift */; };
 		E5764702293DC89300BADF18 /* (null) in Sources */ = {isa = PBXBuildFile; };
-		E5A6AC66294071D000F93B79 /* DefaultFirebaseStorageNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A6AC65294071D000F93B79 /* DefaultFirebaseStorageNetworkService.swift */; };
 		E5A6AC6829408F2200F93B79 /* FirebaseStorageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A6AC6729408F2200F93B79 /* FirebaseStorageType.swift */; };
-		E5A6AC6E2940B28400F93B79 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A6AC6D2940B28400F93B79 /* Image.swift */; };
-		E5A6AC702940B59C00F93B79 /* FirebaseStorageNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A6AC6F2940B59C00F93B79 /* FirebaseStorageNetworkService.swift */; };
-		E5AD636C293DD75A00EF088C /* DefaultCommunityDetailUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AD636B293DD75A00EF088C /* DefaultCommunityDetailUseCase.swift */; };
-		E5AD636E293DD77400EF088C /* CommunityDetailUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AD636D293DD77400EF088C /* CommunityDetailUseCase.swift */; };
 		E5AD6370293E14D800EF088C /* CommunityDetailPostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AD636F293E14D800EF088C /* CommunityDetailPostCell.swift */; };
 		E5AD6372293E154A00EF088C /* CommunityDetailCommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AD6371293E154A00EF088C /* CommunityDetailCommentCell.swift */; };
 		E5AD6374293E175A00EF088C /* CommunityDetailCommentHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AD6373293E175A00EF088C /* CommunityDetailCommentHeaderView.swift */; };
 		E5AD6376293F3AD500EF088C /* CommunityPostWriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AD6375293F3AD500EF088C /* CommunityPostWriteViewController.swift */; };
-		E5AD637A293F401000EF088C /* CommunityPostWriteUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AD6379293F401000EF088C /* CommunityPostWriteUseCase.swift */; };
-		E5AD637C293F402300EF088C /* DefaultCommunityPostWriteUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AD637B293F402300EF088C /* DefaultCommunityPostWriteUseCase.swift */; };
 		E5BE8B8F2922172400E9CFE8 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8B8E2922172400E9CFE8 /* AppCoordinator.swift */; };
 		E5BE8B91292218A500E9CFE8 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8B90292218A500E9CFE8 /* Coordinator.swift */; };
 		E5BE8B93292218F100E9CFE8 /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8B92292218F100E9CFE8 /* AuthCoordinator.swift */; };
-		E5BE8B952922196D00E9CFE8 /* TabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8B942922196D00E9CFE8 /* TabBarCoordinator.swift */; };
-		E5BE8B97292219D800E9CFE8 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8B96292219D800E9CFE8 /* HomeCoordinator.swift */; };
-		E5BE8B9929221A4C00E9CFE8 /* RecordCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8B9829221A4C00E9CFE8 /* RecordCoordinator.swift */; };
-		E5BE8B9B29221A8A00E9CFE8 /* CommunityCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8B9A29221A8A00E9CFE8 /* CommunityCoordinator.swift */; };
-		E5BE8B9D29221AAF00E9CFE8 /* MyPageCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8B9C29221AAF00E9CFE8 /* MyPageCoordinator.swift */; };
 		E5BE8B9F29221B2700E9CFE8 /* LoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8B9E29221B2700E9CFE8 /* LoginCoordinator.swift */; };
 		E5BE8BA129221B6D00E9CFE8 /* SignupCoordinator .swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8BA029221B6D00E9CFE8 /* SignupCoordinator .swift */; };
-		E5BE8BAF29221FF800E9CFE8 /* CommunityMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8BAE29221FF800E9CFE8 /* CommunityMainViewController.swift */; };
-		E5BE8BB12922200000E9CFE8 /* RecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8BB02922200000E9CFE8 /* RecordViewController.swift */; };
-		E5BE8BB32922200C00E9CFE8 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8BB22922200C00E9CFE8 /* MyPageViewController.swift */; };
-		E5BE8BB52922201600E9CFE8 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8BB42922201600E9CFE8 /* SignupViewController.swift */; };
-		E5BE8BB72922201F00E9CFE8 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8BB62922201F00E9CFE8 /* LoginViewController.swift */; };
 		E5BE8BBA2922217600E9CFE8 /* TabBarType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8BB92922217600E9CFE8 /* TabBarType.swift */; };
-		F1034B59292B37EB00BD8407 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1034B58292B37EB00BD8407 /* LoginViewModel.swift */; };
-		F12210C2292D031800AE5F26 /* KeyChainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12210C1292D031800AE5F26 /* KeyChainManager.swift */; };
-		F13DB58F292B3C8D00323B28 /* AuthInputTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13DB58E292B3C8D00323B28 /* AuthInputTextField.swift */; };
-		F14B1495292BA1D40010E966 /* KeyboardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F14B1494292BA1D40010E966 /* KeyboardManager.swift */; };
 		F156F1132923536A0053E807 /* DistanceAndTimeBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F156F1122923536A0053E807 /* DistanceAndTimeBar.swift */; };
 		F156F11A29235EC50053E807 /* ImageConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F156F11929235EC50053E807 /* ImageConstants.swift */; };
 		F156F11C2923623C0053E807 /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F156F11B2923623C0053E807 /* PaddingLabel.swift */; };
-		F156F11E292365840053E807 /* CALayer+.swift in Sources */ = {isa = PBXBuildFile; fileRef = F156F11D292365840053E807 /* CALayer+.swift */; };
-		F17A3FA1292F0BF200647AD0 /* RoomUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17A3FA0292F0BF200647AD0 /* RoomUser.swift */; };
-		F18A7FD1292C5DA50054FADE /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18A7FD0292C5DA50054FADE /* UIImage+.swift */; };
-		F1AC0391292B33F8008302F8 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1AC0390292B33F8008302F8 /* SignUpViewModel.swift */; };
-		F1B0D8AA292CCA0F00EBDD02 /* Encodable+.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B0D8A9292CCA0F00EBDD02 /* Encodable+.swift */; };
-		F1B0D8AC292CCA5200EBDD02 /* SignUpData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B0D8AB292CCA5200EBDD02 /* SignUpData.swift */; };
-		F1B0D8AE292CCAAC00EBDD02 /* UserDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B0D8AD292CCAAC00EBDD02 /* UserDTO.swift */; };
-		F1B0D8B0292CCABE00EBDD02 /* BadgeDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B0D8AF292CCABE00EBDD02 /* BadgeDTO.swift */; };
-		F1B0D8B2292CCAD900EBDD02 /* RecordDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B0D8B1292CCAD900EBDD02 /* RecordDTO.swift */; };
+		F16B453B293330EC002429A2 /* (null) in Sources */ = {isa = PBXBuildFile; };
+		F17A3FA1292F0BF200647AD0 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		F1D202992923AB3D00F3E87D /* InGameRankingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D202982923AB3D00F3E87D /* InGameRankingViewController.swift */; };
 		F1D2029B2923B97400F3E87D /* InGameRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D2029A2923B97400F3E87D /* InGameRecordViewController.swift */; };
 		F1D202A42923C09300F3E87D /* InGameMenuCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D202A32923C09300F3E87D /* InGameMenuCollectionViewCell.swift */; };
 		F1D202B72924C63F00F3E87D /* InGameMenuModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D202B62924C63F00F3E87D /* InGameMenuModelProtocol.swift */; };
-		F1DED3932935DF6800ABC047 /* CommunityMainCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED3922935DF6800ABC047 /* CommunityMainCell.swift */; };
-		F1DED3A42935ED0100ABC047 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED3A32935ED0100ABC047 /* Comment.swift */; };
 		F1DED3AF2936708500ABC047 /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED3AE2936708500ABC047 /* CommentView.swift */; };
-		F1E83D8329348AE0004C7992 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E83D8229348AE0004C7992 /* Post.swift */; };
-		F1E83D992935C727004C7992 /* TextCountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E83D982935C727004C7992 /* TextCountView.swift */; };
-		F1FCEE0E292B483E001A55D6 /* UITextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FCEE0D292B483E001A55D6 /* UITextField+.swift */; };
-		F1FCEE11292B4C87001A55D6 /* AuthButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FCEE10292B4C87001A55D6 /* AuthButton.swift */; };
-		F1FCEE14292B4E9A001A55D6 /* AuthTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FCEE13292B4E9A001A55D6 /* AuthTitleView.swift */; };
-		F1FCEE1A292B52E4001A55D6 /* ScrollAbleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FCEE19292B52E4001A55D6 /* ScrollAbleViewController.swift */; };
+		F1DED3FA29386ED500ABC047 /* (null) in Sources */ = {isa = PBXBuildFile; };
+		F1DED3FC29386EF000ABC047 /* (null) in Sources */ = {isa = PBXBuildFile; };
+		F1DED3FE29386F7400ABC047 /* (null) in Sources */ = {isa = PBXBuildFile; };
+		F1DED40029386F8500ABC047 /* (null) in Sources */ = {isa = PBXBuildFile; };
+		F1DED402293880CB00ABC047 /* (null) in Sources */ = {isa = PBXBuildFile; };
+		F1DED40629388A3700ABC047 /* (null) in Sources */ = {isa = PBXBuildFile; };
+		F1E7B0AB293DB8B50088332E /* (null) in Sources */ = {isa = PBXBuildFile; };
+		F1E7B0AD293DD01B0088332E /* (null) in Sources */ = {isa = PBXBuildFile; };
+		F1E7B0AF293DD1A50088332E /* (null) in Sources */ = {isa = PBXBuildFile; };
+		F1E7B0B1293DD1E80088332E /* (null) in Sources */ = {isa = PBXBuildFile; };
+		F1E7B0B3293DD1F80088332E /* (null) in Sources */ = {isa = PBXBuildFile; };
+		F1E7B0B5293DD2AF0088332E /* (null) in Sources */ = {isa = PBXBuildFile; };
+		F1E83D7729348591004C7992 /* (null) in Sources */ = {isa = PBXBuildFile; };
+		F1E83D79293485A1004C7992 /* (null) in Sources */ = {isa = PBXBuildFile; };
+		F1E83D7D293489E1004C7992 /* (null) in Sources */ = {isa = PBXBuildFile; };
+		F1E83D7F29348A4A004C7992 /* (null) in Sources */ = {isa = PBXBuildFile; };
+		F1E83D8329348AE0004C7992 /* (null) in Sources */ = {isa = PBXBuildFile; };
+		F1E83D8629348C59004C7992 /* (null) in Sources */ = {isa = PBXBuildFile; };
+		F1E83D8B29351C69004C7992 /* (null) in Sources */ = {isa = PBXBuildFile; };
+		F1E83D95293594F4004C7992 /* (null) in Sources */ = {isa = PBXBuildFile; };
+		F1E83D992935C727004C7992 /* (null) in Sources */ = {isa = PBXBuildFile; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -197,57 +275,43 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		471863B9291E155700A35786 /* Acha.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Acha.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		471863B9291E155700A35786 /* Acha.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = Acha.app; path = "/Users/baenamseog/Desktop/community/Acha/build/Debug-iphoneos/Acha.app"; sourceTree = "<absolute>"; };
 		471863BC291E155700A35786 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		471863BE291E155700A35786 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		471863C5291E155800A35786 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		471863C8291E155800A35786 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		471863CA291E155800A35786 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		471863CF291E155800A35786 /* AchaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AchaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		471863CF291E155800A35786 /* AchaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = AchaTests.xctest; path = "/Users/baenamseog/Desktop/community/Acha/build/Debug-iphoneos/AchaTests.xctest"; sourceTree = "<absolute>"; };
 		471863D3291E155800A35786 /* AchaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchaTests.swift; sourceTree = "<group>"; };
-		471863D9291E155800A35786 /* AchaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AchaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		471863D9291E155800A35786 /* AchaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = AchaUITests.xctest; path = "/Users/baenamseog/Desktop/community/Acha/build/Debug-iphoneos/AchaUITests.xctest"; sourceTree = "<absolute>"; };
 		471863DD291E155800A35786 /* AchaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchaUITests.swift; sourceTree = "<group>"; };
 		471863DF291E155800A35786 /* AchaUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchaUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		4738D75C2921D398003AE835 /* AchaLibrary */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = AchaLibrary; path = ../AchaLibrary; sourceTree = "<group>"; };
 		4738D7602921D6E4003AE835 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../GoogleService-Info.plist"; sourceTree = "<group>"; };
-		4738D765292238C3003AE835 /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
 		4738D767292267BA003AE835 /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
-		4738D76E2922756B003AE835 /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
+		474E24D7293DC6B800CFAC59 /* LineGraphView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineGraphView.swift; sourceTree = "<group>"; };
+		474E24D8293DC6B800CFAC59 /* RecordMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordMainViewController.swift; sourceTree = "<group>"; };
+		474E24D9293DC6B800CFAC59 /* RecordMainHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordMainHeaderView.swift; sourceTree = "<group>"; };
+		474E24DA293DC6B800CFAC59 /* RecordMainCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordMainCell.swift; sourceTree = "<group>"; };
+		474E24DB293DC6B800CFAC59 /* RecordMainViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordMainViewModel.swift; sourceTree = "<group>"; };
+		474E24DC293DC6B800CFAC59 /* RecordMainChartCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordMainChartCell.swift; sourceTree = "<group>"; };
+		474E24DD293DC6B800CFAC59 /* RecordPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordPageViewController.swift; sourceTree = "<group>"; };
+		474E24DF293DC6B800CFAC59 /* RecordMapViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordMapViewModel.swift; sourceTree = "<group>"; };
+		474E24E0293DC6B800CFAC59 /* RecordMapHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordMapHeaderView.swift; sourceTree = "<group>"; };
+		474E24E1293DC6B800CFAC59 /* RecordMapCategoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordMapCategoryCell.swift; sourceTree = "<group>"; };
+		474E24E2293DC6B800CFAC59 /* RecordMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordMapViewController.swift; sourceTree = "<group>"; };
+		474E24E3293DC6B800CFAC59 /* RecordMapRankingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordMapRankingCell.swift; sourceTree = "<group>"; };
+		474E24F0293DC70B00CFAC59 /* AnimationKeyPath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationKeyPath.swift; sourceTree = "<group>"; };
+		474E24F2293DC71000CFAC59 /* Locations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Locations.swift; sourceTree = "<group>"; };
 		477842F72923BFA300AAC3DB /* MapBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapBaseViewController.swift; sourceTree = "<group>"; };
 		47935E942923310700481307 /* SystemImageNameSpace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemImageNameSpace.swift; sourceTree = "<group>"; };
-		47935E96292366CD00481307 /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		47935E98292375DC00481307 /* MapAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAnnotation.swift; sourceTree = "<group>"; };
-		47935E9C29238E9E00481307 /* SelectMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectMapViewController.swift; sourceTree = "<group>"; };
-		47935E9E29238EB300481307 /* SelectMapViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectMapViewModel.swift; sourceTree = "<group>"; };
-		4795F04729374DC800B174D6 /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
-		4795F04929374DD300B174D6 /* DefaultLocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultLocationService.swift; sourceTree = "<group>"; };
-		47A26DBB292B73850007FBBF /* Coordinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinate.swift; sourceTree = "<group>"; };
-		47A26DBD292BB2970007FBBF /* MapRegion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapRegion.swift; sourceTree = "<group>"; };
-		47A26DBF292C9F8A0007FBBF /* SelectMapRankingHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMapRankingHeaderView.swift; sourceTree = "<group>"; };
-		47D5773A293389940014D171 /* MapRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapRepository.swift; sourceTree = "<group>"; };
-		47D5773C293389AC0014D171 /* DefaultMapRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMapRepository.swift; sourceTree = "<group>"; };
-		47D57740293389D00014D171 /* SelectMapUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMapUseCase.swift; sourceTree = "<group>"; };
-		47D57742293389EB0014D171 /* DefaultSelectMapUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultSelectMapUseCase.swift; sourceTree = "<group>"; };
 		47D5774429338A040014D171 /* FirebaseRealtimeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseRealtimeType.swift; sourceTree = "<group>"; };
-		47D5774A29338A4A0014D171 /* RealtimeDatabaseNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealtimeDatabaseNetworkService.swift; sourceTree = "<group>"; };
-		47D5774E29338A7A0014D171 /* DefaultRealtimeDatabaseNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultRealtimeDatabaseNetworkService.swift; sourceTree = "<group>"; };
-		47D5775129338FB60014D171 /* RecordRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordRepository.swift; sourceTree = "<group>"; };
-		47D5775329338FFF0014D171 /* DefaultRecordRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultRecordRepository.swift; sourceTree = "<group>"; };
 		47D577582934A9FE0014D171 /* MapBaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapBaseViewModel.swift; sourceTree = "<group>"; };
-		47D5775A2934AB8A0014D171 /* MapBaseUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapBaseUseCase.swift; sourceTree = "<group>"; };
-		47D5775C2934AB9B0014D171 /* DefaultMapBaseUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMapBaseUseCase.swift; sourceTree = "<group>"; };
-		761C1C08292E437E000C88D0 /* DefaultSingleGameUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultSingleGameUseCase.swift; sourceTree = "<group>"; };
-		761C1C0A292E439F000C88D0 /* SingleGameUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleGameUseCase.swift; sourceTree = "<group>"; };
-		761C1C0D292E4554000C88D0 /* TimerServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerServiceProtocol.swift; sourceTree = "<group>"; };
-		761C1C0F292E4562000C88D0 /* TimerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerService.swift; sourceTree = "<group>"; };
-		761E5F062935EF4200E6CACC /* InGameUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameUseCase.swift; sourceTree = "<group>"; };
-		761E5F082935EFF400E6CACC /* DefaultInGameUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultInGameUseCase.swift; sourceTree = "<group>"; };
 		761E5F102935F2DE00E6CACC /* FirebasePath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebasePath.swift; sourceTree = "<group>"; };
 		76213CBD292CEA6600895462 /* WorkSpace by 25km:h.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "WorkSpace by 25km:h.gpx"; sourceTree = "<group>"; };
 		76213CBE292CEA6600895462 /* WorkSpace by 6km:h.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "WorkSpace by 6km:h.gpx"; sourceTree = "<group>"; };
-		764AF29C292B639200D16DC9 /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
 		764AF29E292B6EF500D16DC9 /* InGameRecordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameRecordViewModel.swift; sourceTree = "<group>"; };
-		764AF2A0292B9C1F00D16DC9 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 		764AF2A2292B9D3600D16DC9 /* InGameRankingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameRankingViewModel.swift; sourceTree = "<group>"; };
 		7663E6B8292F6788007E1F09 /* 부평동초등학교 5MPH.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "부평동초등학교 5MPH.gpx"; sourceTree = "<group>"; };
 		7663E6B9292F6788007E1F09 /* 부원여중 12KMH.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "부원여중 12KMH.gpx"; sourceTree = "<group>"; };
@@ -256,127 +320,197 @@
 		7663E6BC292F6788007E1F09 /* 부평동초등학교 4.2MPH.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "부평동초등학교 4.2MPH.gpx"; sourceTree = "<group>"; };
 		7663E6BD292F696D007E1F09 /* 국민대 12KMH.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "국민대 12KMH.gpx"; sourceTree = "<group>"; };
 		7663E6BE292F6C85007E1F09 /* 국민대 30KMH.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "국민대 30KMH.gpx"; sourceTree = "<group>"; };
-		769F1AAB2935A7A800A3BB47 /* GameOverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverView.swift; sourceTree = "<group>"; };
-		76A2E19F2923C5A7001E887A /* SingleGameViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleGameViewModel.swift; sourceTree = "<group>"; };
-		76A2E1A22923D94C001E887A /* CLLocationCoordinate2D+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationCoordinate2D+.swift"; sourceTree = "<group>"; };
-		76A2E1A429249099001E887A /* Double+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+.swift"; sourceTree = "<group>"; };
-		76AA55D22937AC8700498441 /* LogInData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogInData.swift; sourceTree = "<group>"; };
-		76AA55D42937ACB900498441 /* MultiGameCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiGameCoordinator.swift; sourceTree = "<group>"; };
-		76AA56062937ADBA00498441 /* LogInRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogInRepository.swift; sourceTree = "<group>"; };
-		76AA56072937ADBB00498441 /* SignUpRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpRepository.swift; sourceTree = "<group>"; };
-		76AA560A2937ADD400498441 /* LoginUsecase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginUsecase.swift; sourceTree = "<group>"; };
-		76AA560B2937ADD400498441 /* SignUpUsecase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpUsecase.swift; sourceTree = "<group>"; };
-		76AA560C2937ADD400498441 /* AuthUseCaseProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthUseCaseProtocol.swift; sourceTree = "<group>"; };
-		76AA56132937AE7E00498441 /* RxSwift+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RxSwift+.swift"; sourceTree = "<group>"; };
-		76B3BF432924C7450056ABFD /* SingleGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleGameViewController.swift; sourceTree = "<group>"; };
-		76B3BF452924D93C0056ABFD /* SingleGameCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleGameCoordinator.swift; sourceTree = "<group>"; };
 		76B3BF492924DDE70056ABFD /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
-		76B3BF4B29250C190056ABFD /* UIFont+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
 		76B3BF4F292624850056ABFD /* InGamePlayMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InGamePlayMenuViewController.swift; sourceTree = "<group>"; };
-		76B3BF51292624DA0056ABFD /* Int+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Int+.swift"; sourceTree = "<group>"; };
-		76B3BF53292624E30056ABFD /* Date+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
 		76B3BF55292627A30056ABFD /* GamePlayMenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GamePlayMenuView.swift; sourceTree = "<group>"; };
-		E5027D5529265D910021BF60 /* SelectMapRecordCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMapRecordCell.swift; sourceTree = "<group>"; };
-		E5027D57292670570021BF60 /* Record.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Record.swift; sourceTree = "<group>"; };
-		E5027D59292670BC0021BF60 /* RecordViewHeaderRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewHeaderRecord.swift; sourceTree = "<group>"; };
-		E5027D5B292670F30021BF60 /* RecordViewChartData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewChartData.swift; sourceTree = "<group>"; };
-		E5027D5D292686440021BF60 /* RecordViewDayTotalRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewDayTotalRecord.swift; sourceTree = "<group>"; };
-		E516A6B92923929800CD6BDB /* RecordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewModel.swift; sourceTree = "<group>"; };
-		E516A6BB292393FA00CD6BDB /* RecordHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordHeaderView.swift; sourceTree = "<group>"; };
-		E516A6BD2923941500CD6BDB /* RecordChartCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordChartCell.swift; sourceTree = "<group>"; };
-		E516A6BF2923942500CD6BDB /* RecordCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordCell.swift; sourceTree = "<group>"; };
-		E52885BD2942325800018B04 /* MultiGameRoomDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiGameRoomDataSource.swift; sourceTree = "<group>"; };
-		E52885BF2942325800018B04 /* MultiGameRoomRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiGameRoomRepository.swift; sourceTree = "<group>"; };
-		E52885C12942325800018B04 /* GameRoomCollectionViewHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameRoomCollectionViewHeader.swift; sourceTree = "<group>"; };
-		E52885C22942325800018B04 /* GameRoomCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameRoomCollectionViewCell.swift; sourceTree = "<group>"; };
-		E52885C42942325800018B04 /* MultiGameSelectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiGameSelectViewController.swift; sourceTree = "<group>"; };
-		E52885C52942325800018B04 /* MultiGameRoomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiGameRoomViewController.swift; sourceTree = "<group>"; };
-		E52885C72942325800018B04 /* MultiGameRoomUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiGameRoomUseCase.swift; sourceTree = "<group>"; };
-		E52885D32942327A00018B04 /* CommunityMainViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommunityMainViewModel.swift; sourceTree = "<group>"; };
-		E52885D42942327A00018B04 /* CommunityPostWriteViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommunityPostWriteViewModel.swift; sourceTree = "<group>"; };
-		E52885D52942327A00018B04 /* CommunityDetailViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommunityDetailViewModel.swift; sourceTree = "<group>"; };
+		E505DE332942FA6B006BF811 /* CommunityMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommunityMainViewController.swift; sourceTree = "<group>"; };
+		E505DE362942FA76006BF811 /* CommunityMainViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommunityMainViewModel.swift; sourceTree = "<group>"; };
+		E505DE382942FA76006BF811 /* CommunityPostWriteViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommunityPostWriteViewModel.swift; sourceTree = "<group>"; };
+		E505DE392942FA76006BF811 /* CommunityDetailViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommunityDetailViewModel.swift; sourceTree = "<group>"; };
+		E505DE402942FAC1006BF811 /* HomeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		E505DE4A2942FAC1006BF811 /* MultiGameEnterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiGameEnterViewController.swift; sourceTree = "<group>"; };
+		E505DE4B2942FAC1006BF811 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		E505DE4C2942FAC1006BF811 /* QRReaderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRReaderViewController.swift; sourceTree = "<group>"; };
+		E505DE5A2942FB1E006BF811 /* CommunityDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommunityDTO.swift; sourceTree = "<group>"; };
+		E505DE5B2942FB1E006BF811 /* MapDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapDTO.swift; sourceTree = "<group>"; };
+		E505DE5C2942FB1E006BF811 /* RoomDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomDTO.swift; sourceTree = "<group>"; };
+		E505DE5D2942FB1E006BF811 /* PostDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostDTO.swift; sourceTree = "<group>"; };
+		E505DE5E2942FB1E006BF811 /* RecordDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordDTO.swift; sourceTree = "<group>"; };
+		E505DE5F2942FB1E006BF811 /* CommentDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentDTO.swift; sourceTree = "<group>"; };
+		E505DE602942FB1E006BF811 /* UserDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDTO.swift; sourceTree = "<group>"; };
+		E505DE612942FB1E006BF811 /* MultiGamePlayerDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiGamePlayerDTO.swift; sourceTree = "<group>"; };
+		E505DE622942FB1E006BF811 /* InGameUserDataDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InGameUserDataDTO.swift; sourceTree = "<group>"; };
+		E505DE632942FB1E006BF811 /* BadgeDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BadgeDTO.swift; sourceTree = "<group>"; };
+		E505DE642942FB1E006BF811 /* CoordinateDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoordinateDTO.swift; sourceTree = "<group>"; };
+		E505DE892942FB9B006BF811 /* DefaultMapRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultMapRepository.swift; sourceTree = "<group>"; };
+		E505DE8A2942FB9B006BF811 /* DefaultCommunityRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultCommunityRepository.swift; sourceTree = "<group>"; };
+		E505DE8B2942FB9B006BF811 /* DefaultRecordRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultRecordRepository.swift; sourceTree = "<group>"; };
+		E505DE8C2942FB9B006BF811 /* DefaultUserRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultUserRepository.swift; sourceTree = "<group>"; };
+		E505DE8D2942FB9B006BF811 /* DefaultGameRoomRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultGameRoomRepository.swift; sourceTree = "<group>"; };
+		E505DE8E2942FB9B006BF811 /* DefaultTempRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultTempRepository.swift; sourceTree = "<group>"; };
+		E505DE902942FB9B006BF811 /* UserRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
+		E505DE912942FB9B006BF811 /* GameRoomRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameRoomRepository.swift; sourceTree = "<group>"; };
+		E505DE922942FB9B006BF811 /* TempRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TempRepository.swift; sourceTree = "<group>"; };
+		E505DE932942FB9B006BF811 /* BadgeRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BadgeRepository.swift; sourceTree = "<group>"; };
+		E505DE942942FB9B006BF811 /* MapRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapRepository.swift; sourceTree = "<group>"; };
+		E505DE952942FB9B006BF811 /* RecordRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordRepository.swift; sourceTree = "<group>"; };
+		E505DE962942FB9B006BF811 /* CommunityRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommunityRepository.swift; sourceTree = "<group>"; };
+		E505DE972942FB9B006BF811 /* TimeRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeRepository.swift; sourceTree = "<group>"; };
+		E505DE982942FB9B006BF811 /* LocationRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationRepository.swift; sourceTree = "<group>"; };
+		E505DE992942FB9B006BF811 /* DefaultTimeRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultTimeRepository.swift; sourceTree = "<group>"; };
+		E505DE9A2942FB9B006BF811 /* DefaultLocationRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultLocationRepository.swift; sourceTree = "<group>"; };
+		E505DE9B2942FB9B006BF811 /* SignUpRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpRepository.swift; sourceTree = "<group>"; };
+		E505DE9C2942FB9B006BF811 /* LogInRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogInRepository.swift; sourceTree = "<group>"; };
+		E505DE9D2942FB9B006BF811 /* DefaultBadgeRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultBadgeRepository.swift; sourceTree = "<group>"; };
+		E505DEB32942FBC2006BF811 /* DefaultMyPageUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultMyPageUseCase.swift; sourceTree = "<group>"; };
+		E505DEB42942FBC2006BF811 /* SignUpUsecase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpUsecase.swift; sourceTree = "<group>"; };
+		E505DEB52942FBC2006BF811 /* LoginUsecase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginUsecase.swift; sourceTree = "<group>"; };
+		E505DEB62942FBC2006BF811 /* DefaultCommunityPostWriteUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultCommunityPostWriteUseCase.swift; sourceTree = "<group>"; };
+		E505DEB72942FBC2006BF811 /* DefaultInGameUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultInGameUseCase.swift; sourceTree = "<group>"; };
+		E505DEB92942FBC2006BF811 /* SelectMapUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectMapUseCase.swift; sourceTree = "<group>"; };
+		E505DEBA2942FBC2006BF811 /* MultiGameUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiGameUseCase.swift; sourceTree = "<group>"; };
+		E505DEBB2942FBC2006BF811 /* CommunityDetailUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommunityDetailUseCase.swift; sourceTree = "<group>"; };
+		E505DEBC2942FBC2006BF811 /* CommunityPostWriteUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommunityPostWriteUseCase.swift; sourceTree = "<group>"; };
+		E505DEBD2942FBC2006BF811 /* RecordMainViewUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordMainViewUseCase.swift; sourceTree = "<group>"; };
+		E505DEBE2942FBC2006BF811 /* MyPageUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyPageUseCase.swift; sourceTree = "<group>"; };
+		E505DEBF2942FBC2006BF811 /* AuthUseCaseProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthUseCaseProtocol.swift; sourceTree = "<group>"; };
+		E505DEC02942FBC2006BF811 /* MultiGameRoomUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiGameRoomUseCase.swift; sourceTree = "<group>"; };
+		E505DEC12942FBC2006BF811 /* SingleGameUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleGameUseCase.swift; sourceTree = "<group>"; };
+		E505DEC22942FBC2006BF811 /* RecordMapViewUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordMapViewUseCase.swift; sourceTree = "<group>"; };
+		E505DEC32942FBC2006BF811 /* MapBaseUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapBaseUseCase.swift; sourceTree = "<group>"; };
+		E505DEC42942FBC2006BF811 /* InGameUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InGameUseCase.swift; sourceTree = "<group>"; };
+		E505DEC52942FBC2006BF811 /* CommunityMainUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommunityMainUseCase.swift; sourceTree = "<group>"; };
+		E505DEC62942FBC2006BF811 /* DefaultHomeUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultHomeUseCase.swift; sourceTree = "<group>"; };
+		E505DEC72942FBC2006BF811 /* DefaultCommunityMainUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultCommunityMainUseCase.swift; sourceTree = "<group>"; };
+		E505DEC82942FBC2006BF811 /* DefaultCommunityDetailUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultCommunityDetailUseCase.swift; sourceTree = "<group>"; };
+		E505DEC92942FBC2006BF811 /* DefaultMultiGameUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultMultiGameUseCase.swift; sourceTree = "<group>"; };
+		E505DECA2942FBC2006BF811 /* DefaultSingleGameUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultSingleGameUseCase.swift; sourceTree = "<group>"; };
+		E505DECB2942FBC2006BF811 /* DefaultRecordMapViewUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultRecordMapViewUseCase.swift; sourceTree = "<group>"; };
+		E505DECC2942FBC2006BF811 /* DefaultMapBaseUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultMapBaseUseCase.swift; sourceTree = "<group>"; };
+		E505DECD2942FBC2006BF811 /* DefaultRecordMainViewUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultRecordMainViewUseCase.swift; sourceTree = "<group>"; };
+		E505DECE2942FBC2006BF811 /* DefaultMultiGameRoomUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultMultiGameRoomUseCase.swift; sourceTree = "<group>"; };
+		E505DECF2942FBC2006BF811 /* DefaultSelectMapUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultSelectMapUseCase.swift; sourceTree = "<group>"; };
+		E505DEED2942FBDF006BF811 /* MapRegion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapRegion.swift; sourceTree = "<group>"; };
+		E505DEEE2942FBDF006BF811 /* RecordViewHeaderRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordViewHeaderRecord.swift; sourceTree = "<group>"; };
+		E505DEEF2942FBDF006BF811 /* HealthKitReadData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthKitReadData.swift; sourceTree = "<group>"; };
+		E505DEF02942FBDF006BF811 /* MultiGamePlayerData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiGamePlayerData.swift; sourceTree = "<group>"; };
+		E505DEF12942FBDF006BF811 /* RecordViewChartData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordViewChartData.swift; sourceTree = "<group>"; };
+		E505DEF22942FBDF006BF811 /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		E505DEF32942FBDF006BF811 /* RoomUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomUser.swift; sourceTree = "<group>"; };
+		E505DEF42942FBDF006BF811 /* Image.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
+		E505DEF52942FBDF006BF811 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		E505DEF62942FBDF006BF811 /* Coordinate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coordinate.swift; sourceTree = "<group>"; };
+		E505DEF72942FBDF006BF811 /* RecordViewDayTotalRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordViewDayTotalRecord.swift; sourceTree = "<group>"; };
+		E505DEF82942FBDF006BF811 /* LogInData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogInData.swift; sourceTree = "<group>"; };
+		E505DEF92942FBDF006BF811 /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		E505DEFA2942FBDF006BF811 /* Record.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Record.swift; sourceTree = "<group>"; };
+		E505DEFB2942FBDF006BF811 /* Map.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
+		E505DEFC2942FBDF006BF811 /* Badge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Badge.swift; sourceTree = "<group>"; };
+		E505DEFD2942FBDF006BF811 /* SignUpData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpData.swift; sourceTree = "<group>"; };
+		E505DEFE2942FBDF006BF811 /* HealthKitWriteData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthKitWriteData.swift; sourceTree = "<group>"; };
+		E505DF402942FC2C006BF811 /* SignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
+		E505DF412942FC2C006BF811 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		E505DF432942FC2C006BF811 /* AuthTitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthTitleView.swift; sourceTree = "<group>"; };
+		E505DF442942FC2C006BF811 /* ScrollAbleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollAbleViewController.swift; sourceTree = "<group>"; };
+		E505DF452942FC2C006BF811 /* AuthInputTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthInputTextField.swift; sourceTree = "<group>"; };
+		E505DF462942FC2C006BF811 /* AuthButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthButton.swift; sourceTree = "<group>"; };
+		E505DF482942FC2C006BF811 /* LoginViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		E505DF492942FC2C006BF811 /* SignUpViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
+		E505DF532942FC64006BF811 /* SingleGameCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleGameCoordinator.swift; sourceTree = "<group>"; };
+		E505DF542942FC64006BF811 /* MyPageCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyPageCoordinator.swift; sourceTree = "<group>"; };
+		E505DF552942FC64006BF811 /* RecordCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordCoordinator.swift; sourceTree = "<group>"; };
+		E505DF562942FC64006BF811 /* TabBarCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarCoordinator.swift; sourceTree = "<group>"; };
+		E505DF572942FC64006BF811 /* MultiGameCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiGameCoordinator.swift; sourceTree = "<group>"; };
+		E505DF582942FC64006BF811 /* HomeCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
+		E505DF592942FC64006BF811 /* CommunityCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommunityCoordinator.swift; sourceTree = "<group>"; };
+		E505DF622942FC77006BF811 /* BadgeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BadgeViewModel.swift; sourceTree = "<group>"; };
+		E505DF632942FC77006BF811 /* MyPageViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyPageViewModel.swift; sourceTree = "<group>"; };
+		E505DF652942FC77006BF811 /* BadgeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BadgeCell.swift; sourceTree = "<group>"; };
+		E505DF662942FC77006BF811 /* MyPageHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyPageHeaderView.swift; sourceTree = "<group>"; };
+		E505DF672942FC77006BF811 /* SettingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
+		E505DF692942FC77006BF811 /* MyInfoEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyInfoEditViewController.swift; sourceTree = "<group>"; };
+		E505DF6A2942FC77006BF811 /* MyPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
+		E505DF6B2942FC77006BF811 /* BadgeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BadgeViewController.swift; sourceTree = "<group>"; };
+		E505DF762942FCDA006BF811 /* MultiGameViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiGameViewModel.swift; sourceTree = "<group>"; };
+		E505DF772942FCDA006BF811 /* MultiGameRoomViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiGameRoomViewModel.swift; sourceTree = "<group>"; };
+		E505DF802942FCDA006BF811 /* GameRoomCollectionViewHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameRoomCollectionViewHeader.swift; sourceTree = "<group>"; };
+		E505DF812942FCDA006BF811 /* PlayerAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerAnnotation.swift; sourceTree = "<group>"; };
+		E505DF822942FCDA006BF811 /* GameRoomCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameRoomCollectionViewCell.swift; sourceTree = "<group>"; };
+		E505DF832942FCDA006BF811 /* GameRankCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameRankCollectionViewCell.swift; sourceTree = "<group>"; };
+		E505DF862942FCDA006BF811 /* MultiGameRoomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiGameRoomViewController.swift; sourceTree = "<group>"; };
+		E505DF872942FCDA006BF811 /* MultiGameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiGameViewController.swift; sourceTree = "<group>"; };
+		E505DF992942FD47006BF811 /* SelectMapViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectMapViewModel.swift; sourceTree = "<group>"; };
+		E505DF9B2942FD47006BF811 /* SelectMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectMapViewController.swift; sourceTree = "<group>"; };
+		E505DF9D2942FD47006BF811 /* SelectMapRankingHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectMapRankingHeaderView.swift; sourceTree = "<group>"; };
+		E505DF9E2942FD47006BF811 /* SelectMapRecordCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectMapRecordCell.swift; sourceTree = "<group>"; };
+		E505DFA52942FD5B006BF811 /* SingleGameViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleGameViewModel.swift; sourceTree = "<group>"; };
+		E505DFA82942FD5B006BF811 /* GameOverView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOverView.swift; sourceTree = "<group>"; };
+		E505DFAB2942FD5B006BF811 /* SingleGameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleGameViewController.swift; sourceTree = "<group>"; };
+		E505DFB22942FDAB006BF811 /* FirebaseServiceError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseServiceError.swift; sourceTree = "<group>"; };
+		E505E0332942FDC0006BF811 /* CALayer+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CALayer+.swift"; sourceTree = "<group>"; };
+		E505E0342942FDC0006BF811 /* Int+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Int+.swift"; sourceTree = "<group>"; };
+		E505E0352942FDC0006BF811 /* UIFont+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
+		E505E0362942FDC0006BF811 /* Encodable+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Encodable+.swift"; sourceTree = "<group>"; };
+		E505E0372942FDC0006BF811 /* RxSwift+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RxSwift+.swift"; sourceTree = "<group>"; };
+		E505E0382942FDC0006BF811 /* String+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
+		E505E0392942FDC0006BF811 /* UIImageView+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+.swift"; sourceTree = "<group>"; };
+		E505E03A2942FDC0006BF811 /* UIViewController+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
+		E505E03B2942FDC0006BF811 /* UIButton+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
+		E505E03C2942FDC0006BF811 /* Double+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Double+.swift"; sourceTree = "<group>"; };
+		E505E03D2942FDC0006BF811 /* UITextField+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextField+.swift"; sourceTree = "<group>"; };
+		E505E03E2942FDC0006BF811 /* CLLocationCoordinate2D+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CLLocationCoordinate2D+.swift"; sourceTree = "<group>"; };
+		E505E03F2942FDC0006BF811 /* Date+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
+		E505E0402942FDC0006BF811 /* UIImage+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+.swift"; sourceTree = "<group>"; };
+		E505E0412942FDC0006BF811 /* UIColor+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
+		E505E0582942FDDA006BF811 /* KeyboardManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardManager.swift; sourceTree = "<group>"; };
+		E505E0592942FDDA006BF811 /* KeyChainManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyChainManager.swift; sourceTree = "<group>"; };
+		E505E05A2942FDDA006BF811 /* DIContainerManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DIContainerManager.swift; sourceTree = "<group>"; };
+		E505E05F2942FDF3006BF811 /* FBRealTimeDBType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FBRealTimeDBType.swift; sourceTree = "<group>"; };
+		E505E0602942FDF3006BF811 /* ProvidableType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProvidableType.swift; sourceTree = "<group>"; };
+		E505E0612942FDF3006BF811 /* UUIDGetable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UUIDGetable.swift; sourceTree = "<group>"; };
+		E505E0622942FDF3006BF811 /* FBRealTimeDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FBRealTimeDB.swift; sourceTree = "<group>"; };
+		E505E0682942FE04006BF811 /* AuthProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthProvider.swift; sourceTree = "<group>"; };
+		E505E06B2942FF77006BF811 /* TimerService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerService.swift; sourceTree = "<group>"; };
+		E505E06C2942FF77006BF811 /* DefaultRealtimeDatabaseNetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultRealtimeDatabaseNetworkService.swift; sourceTree = "<group>"; };
+		E505E06D2942FF77006BF811 /* DefaultAuthService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultAuthService.swift; sourceTree = "<group>"; };
+		E505E06E2942FF77006BF811 /* DefaultFirebaseStorageNetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultFirebaseStorageNetworkService.swift; sourceTree = "<group>"; };
+		E505E06F2942FF77006BF811 /* DefaultHealthKitService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultHealthKitService.swift; sourceTree = "<group>"; };
+		E505E0702942FF77006BF811 /* DefaultLocationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultLocationService.swift; sourceTree = "<group>"; };
+		E505E0722942FF77006BF811 /* RandomService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RandomService.swift; sourceTree = "<group>"; };
+		E505E0732942FF77006BF811 /* RealtimeDatabaseNetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealtimeDatabaseNetworkService.swift; sourceTree = "<group>"; };
+		E505E0742942FF77006BF811 /* TempDBNetwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TempDBNetwork.swift; sourceTree = "<group>"; };
+		E505E0752942FF77006BF811 /* KeychainService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
+		E505E0762942FF77006BF811 /* TimerServiceProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerServiceProtocol.swift; sourceTree = "<group>"; };
+		E505E0772942FF77006BF811 /* AuthService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		E505E0782942FF77006BF811 /* HealthKitService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthKitService.swift; sourceTree = "<group>"; };
+		E505E0792942FF77006BF811 /* FirebaseStorageNetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseStorageNetworkService.swift; sourceTree = "<group>"; };
+		E505E07A2942FF77006BF811 /* LocationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
+		E505E07B2942FF77006BF811 /* DefaultRandomService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultRandomService.swift; sourceTree = "<group>"; };
+		E505E07C2942FF77006BF811 /* DefaultImageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultImageService.swift; sourceTree = "<group>"; };
+		E505E07D2942FF77006BF811 /* DefaultKeychainService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultKeychainService.swift; sourceTree = "<group>"; };
+		E505E07E2942FF77006BF811 /* DefaultTempDBNetwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultTempDBNetwork.swift; sourceTree = "<group>"; };
+		E505E09229430047006BF811 /* CommunityMainCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommunityMainCell.swift; sourceTree = "<group>"; };
+		E505E096294301F3006BF811 /* RandomFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RandomFactory.swift; sourceTree = "<group>"; };
 		E52885E02942375300018B04 /* CommunityDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommunityDetailViewController.swift; sourceTree = "<group>"; };
-		E52885E32942390200018B04 /* MultiGameRoomViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiGameRoomViewModel.swift; sourceTree = "<group>"; };
-		E576464F29377DC400BADF18 /* DefaultCommunityMainUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCommunityMainUseCase.swift; sourceTree = "<group>"; };
-		E576465529377F2300BADF18 /* CommunityMainUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityMainUseCase.swift; sourceTree = "<group>"; };
-		E57646592938C12C00BADF18 /* DefaultCommunityRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCommunityRepository.swift; sourceTree = "<group>"; };
-		E57646732938DDB600BADF18 /* FBRealTimeDBType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FBRealTimeDBType.swift; sourceTree = "<group>"; };
-		E57646742938DDB600BADF18 /* ProvidableType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProvidableType.swift; sourceTree = "<group>"; };
-		E57646752938DDB600BADF18 /* UUIDGetable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UUIDGetable.swift; sourceTree = "<group>"; };
-		E57646762938DDB600BADF18 /* FBRealTimeDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FBRealTimeDB.swift; sourceTree = "<group>"; };
-		E57646822938E28200BADF18 /* HomeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
-		E57646842938E28200BADF18 /* HomeRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeRepository.swift; sourceTree = "<group>"; };
-		E57646862938E28200BADF18 /* HomeProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeProvider.swift; sourceTree = "<group>"; };
-		E57646882938E28200BADF18 /* MultiGameEnterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiGameEnterViewController.swift; sourceTree = "<group>"; };
-		E57646892938E28200BADF18 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
-		E576468A2938E28200BADF18 /* QRReaderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRReaderViewController.swift; sourceTree = "<group>"; };
-		E576468C2938E28200BADF18 /* HomeUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeUseCase.swift; sourceTree = "<group>"; };
-		E57646952938E2C900BADF18 /* AuthProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthProvider.swift; sourceTree = "<group>"; };
-		E57646972938E46B00BADF18 /* RoomDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RoomDTO.swift; path = Acha/Data/RoomDTO.swift; sourceTree = SOURCE_ROOT; };
-		E576469B2938E4C100BADF18 /* InGameUserDataDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InGameUserDataDTO.swift; sourceTree = "<group>"; };
-		E576469D2938E4E700BADF18 /* MapDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapDTO.swift; sourceTree = "<group>"; };
-		E576469E2938E4E700BADF18 /* CoordinateDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoordinateDTO.swift; sourceTree = "<group>"; };
-		E57646A22938E5A800BADF18 /* RandomFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RandomFactory.swift; sourceTree = "<group>"; };
-		E57646D4293D9DE600BADF18 /* CommunityRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityRepository.swift; sourceTree = "<group>"; };
-		E5A6AC65294071D000F93B79 /* DefaultFirebaseStorageNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultFirebaseStorageNetworkService.swift; sourceTree = "<group>"; };
 		E5A6AC6729408F2200F93B79 /* FirebaseStorageType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseStorageType.swift; sourceTree = "<group>"; };
-		E5A6AC6D2940B28400F93B79 /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
-		E5A6AC6F2940B59C00F93B79 /* FirebaseStorageNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseStorageNetworkService.swift; sourceTree = "<group>"; };
-		E5AD636B293DD75A00EF088C /* DefaultCommunityDetailUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCommunityDetailUseCase.swift; sourceTree = "<group>"; };
-		E5AD636D293DD77400EF088C /* CommunityDetailUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityDetailUseCase.swift; sourceTree = "<group>"; };
 		E5AD636F293E14D800EF088C /* CommunityDetailPostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityDetailPostCell.swift; sourceTree = "<group>"; };
 		E5AD6371293E154A00EF088C /* CommunityDetailCommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityDetailCommentCell.swift; sourceTree = "<group>"; };
 		E5AD6373293E175A00EF088C /* CommunityDetailCommentHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityDetailCommentHeaderView.swift; sourceTree = "<group>"; };
 		E5AD6375293F3AD500EF088C /* CommunityPostWriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityPostWriteViewController.swift; sourceTree = "<group>"; };
-		E5AD6379293F401000EF088C /* CommunityPostWriteUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityPostWriteUseCase.swift; sourceTree = "<group>"; };
-		E5AD637B293F402300EF088C /* DefaultCommunityPostWriteUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCommunityPostWriteUseCase.swift; sourceTree = "<group>"; };
 		E5BE8B8E2922172400E9CFE8 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		E5BE8B90292218A500E9CFE8 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		E5BE8B92292218F100E9CFE8 /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
-		E5BE8B942922196D00E9CFE8 /* TabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarCoordinator.swift; sourceTree = "<group>"; };
-		E5BE8B96292219D800E9CFE8 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
-		E5BE8B9829221A4C00E9CFE8 /* RecordCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordCoordinator.swift; sourceTree = "<group>"; };
-		E5BE8B9A29221A8A00E9CFE8 /* CommunityCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityCoordinator.swift; sourceTree = "<group>"; };
-		E5BE8B9C29221AAF00E9CFE8 /* MyPageCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageCoordinator.swift; sourceTree = "<group>"; };
 		E5BE8B9E29221B2700E9CFE8 /* LoginCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCoordinator.swift; sourceTree = "<group>"; };
 		E5BE8BA029221B6D00E9CFE8 /* SignupCoordinator .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SignupCoordinator .swift"; sourceTree = "<group>"; };
-		E5BE8BAE29221FF800E9CFE8 /* CommunityMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityMainViewController.swift; sourceTree = "<group>"; };
-		E5BE8BB02922200000E9CFE8 /* RecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewController.swift; sourceTree = "<group>"; };
-		E5BE8BB22922200C00E9CFE8 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
-		E5BE8BB42922201600E9CFE8 /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
-		E5BE8BB62922201F00E9CFE8 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		E5BE8BB92922217600E9CFE8 /* TabBarType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarType.swift; sourceTree = "<group>"; };
-		F1034B58292B37EB00BD8407 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
-		F12210C1292D031800AE5F26 /* KeyChainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainManager.swift; sourceTree = "<group>"; };
-		F13DB58E292B3C8D00323B28 /* AuthInputTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthInputTextField.swift; sourceTree = "<group>"; };
-		F14B1494292BA1D40010E966 /* KeyboardManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardManager.swift; sourceTree = "<group>"; };
 		F156F1122923536A0053E807 /* DistanceAndTimeBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceAndTimeBar.swift; sourceTree = "<group>"; };
 		F156F11929235EC50053E807 /* ImageConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageConstants.swift; sourceTree = "<group>"; };
 		F156F11B2923623C0053E807 /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
-		F156F11D292365840053E807 /* CALayer+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+.swift"; sourceTree = "<group>"; };
-		F17A3FA0292F0BF200647AD0 /* RoomUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomUser.swift; sourceTree = "<group>"; };
-		F18A7FD0292C5DA50054FADE /* UIImage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+.swift"; sourceTree = "<group>"; };
-		F1AC0390292B33F8008302F8 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
-		F1B0D8A9292CCA0F00EBDD02 /* Encodable+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+.swift"; sourceTree = "<group>"; };
-		F1B0D8AB292CCA5200EBDD02 /* SignUpData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpData.swift; sourceTree = "<group>"; };
-		F1B0D8AD292CCAAC00EBDD02 /* UserDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDTO.swift; sourceTree = "<group>"; };
-		F1B0D8AF292CCABE00EBDD02 /* BadgeDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeDTO.swift; sourceTree = "<group>"; };
-		F1B0D8B1292CCAD900EBDD02 /* RecordDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordDTO.swift; sourceTree = "<group>"; };
 		F1D202982923AB3D00F3E87D /* InGameRankingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameRankingViewController.swift; sourceTree = "<group>"; };
 		F1D2029A2923B97400F3E87D /* InGameRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameRecordViewController.swift; sourceTree = "<group>"; };
 		F1D202A32923C09300F3E87D /* InGameMenuCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameMenuCollectionViewCell.swift; sourceTree = "<group>"; };
 		F1D202B62924C63F00F3E87D /* InGameMenuModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameMenuModelProtocol.swift; sourceTree = "<group>"; };
-		F1DED3922935DF6800ABC047 /* CommunityMainCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityMainCell.swift; sourceTree = "<group>"; };
-		F1DED3942935DF9C00ABC047 /* PostDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDTO.swift; sourceTree = "<group>"; };
-		F1DED3982935DFCC00ABC047 /* CommentDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentDTO.swift; sourceTree = "<group>"; };
-		F1DED3A32935ED0100ABC047 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		F1DED3AE2936708500ABC047 /* CommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
-		F1E83D8229348AE0004C7992 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
-		F1E83D982935C727004C7992 /* TextCountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TextCountView.swift; path = ../TextCountView/TextCountView.swift; sourceTree = "<group>"; };
-		F1FCEE0D292B483E001A55D6 /* UITextField+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+.swift"; sourceTree = "<group>"; };
-		F1FCEE10292B4C87001A55D6 /* AuthButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthButton.swift; sourceTree = "<group>"; };
-		F1FCEE13292B4E9A001A55D6 /* AuthTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthTitleView.swift; sourceTree = "<group>"; };
-		F1FCEE19292B52E4001A55D6 /* ScrollAbleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollAbleViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -422,19 +556,7 @@
 				471863BB291E155700A35786 /* Acha */,
 				471863D2291E155800A35786 /* AchaTests */,
 				471863DC291E155800A35786 /* AchaUITests */,
-				471863BA291E155700A35786 /* Products */,
-				4738D75D2921D3E7003AE835 /* Frameworks */,
 			);
-			sourceTree = "<group>";
-		};
-		471863BA291E155700A35786 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				471863B9291E155700A35786 /* Acha.app */,
-				471863CF291E155800A35786 /* AchaTests.xctest */,
-				471863D9291E155800A35786 /* AchaUITests.xctest */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		471863BB291E155700A35786 /* Acha */ = {
@@ -479,56 +601,35 @@
 			name = Packages;
 			sourceTree = "<group>";
 		};
-		4738D75D2921D3E7003AE835 /* Frameworks */ = {
+		474E24D6293DC6B800CFAC59 /* RecordMain */ = {
 			isa = PBXGroup;
 			children = (
+				474E24D7293DC6B800CFAC59 /* LineGraphView.swift */,
+				474E24D8293DC6B800CFAC59 /* RecordMainViewController.swift */,
+				474E24D9293DC6B800CFAC59 /* RecordMainHeaderView.swift */,
+				474E24DA293DC6B800CFAC59 /* RecordMainCell.swift */,
+				474E24DB293DC6B800CFAC59 /* RecordMainViewModel.swift */,
+				474E24DC293DC6B800CFAC59 /* RecordMainChartCell.swift */,
 			);
-			name = Frameworks;
+			path = RecordMain;
 			sourceTree = "<group>";
 		};
-		4738D764292238AD003AE835 /* Extension */ = {
+		474E24DE293DC6B800CFAC59 /* RecordMap */ = {
 			isa = PBXGroup;
 			children = (
-				76B3BF53292624E30056ABFD /* Date+.swift */,
-				764AF2A0292B9C1F00D16DC9 /* String+.swift */,
-				76B3BF51292624DA0056ABFD /* Int+.swift */,
-				76B3BF4B29250C190056ABFD /* UIFont+.swift */,
-				F156F11D292365840053E807 /* CALayer+.swift */,
-				4738D765292238C3003AE835 /* UIColor+.swift */,
-				76A2E1A22923D94C001E887A /* CLLocationCoordinate2D+.swift */,
-				47935E96292366CD00481307 /* UIButton+.swift */,
-				76A2E1A429249099001E887A /* Double+.swift */,
-				764AF29C292B639200D16DC9 /* UIViewController+.swift */,
-				F1FCEE0D292B483E001A55D6 /* UITextField+.swift */,
-				F18A7FD0292C5DA50054FADE /* UIImage+.swift */,
-				76AA56132937AE7E00498441 /* RxSwift+.swift */,
-				F1B0D8A9292CCA0F00EBDD02 /* Encodable+.swift */,
+				474E24DF293DC6B800CFAC59 /* RecordMapViewModel.swift */,
+				474E24E0293DC6B800CFAC59 /* RecordMapHeaderView.swift */,
+				474E24E1293DC6B800CFAC59 /* RecordMapCategoryCell.swift */,
+				474E24E2293DC6B800CFAC59 /* RecordMapViewController.swift */,
+				474E24E3293DC6B800CFAC59 /* RecordMapRankingCell.swift */,
 			);
-			path = Extension;
-			sourceTree = "<group>";
-		};
-		4738D76D2922755B003AE835 /* Entity */ = {
-			isa = PBXGroup;
-			children = (
-				F1B0D8A8292CC94000EBDD02 /* Auth */,
-				4738D76E2922756B003AE835 /* Map.swift */,
-				E5027D57292670570021BF60 /* Record.swift */,
-				E5027D59292670BC0021BF60 /* RecordViewHeaderRecord.swift */,
-				E5027D5B292670F30021BF60 /* RecordViewChartData.swift */,
-				E5027D5D292686440021BF60 /* RecordViewDayTotalRecord.swift */,
-				47A26DBB292B73850007FBBF /* Coordinate.swift */,
-				47A26DBD292BB2970007FBBF /* MapRegion.swift */,
-				F17A3FA0292F0BF200647AD0 /* RoomUser.swift */,
-				F1E83D8229348AE0004C7992 /* Post.swift */,
-				F1DED3A32935ED0100ABC047 /* Comment.swift */,
-				E5A6AC6D2940B28400F93B79 /* Image.swift */,
-			);
-			path = Entity;
+			path = RecordMap;
 			sourceTree = "<group>";
 		};
 		477842F62923BF9800AAC3DB /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				47D577552934A9DE0014D171 /* MapBase */,
 				76B3BF492924DDE70056ABFD /* BaseViewModel.swift */,
 			);
 			path = Base;
@@ -537,10 +638,9 @@
 		477842F92923C2D400AAC3DB /* SelectMap */ = {
 			isa = PBXGroup;
 			children = (
-				47935E9C29238E9E00481307 /* SelectMapViewController.swift */,
-				47A26DBF292C9F8A0007FBBF /* SelectMapRankingHeaderView.swift */,
-				47935E9E29238EB300481307 /* SelectMapViewModel.swift */,
-				E5027D5529265D910021BF60 /* SelectMapRecordCell.swift */,
+				E505DF9C2942FD47006BF811 /* View */,
+				E505DF9A2942FD47006BF811 /* ViewController */,
+				E505DF982942FD47006BF811 /* ViewModel */,
 			);
 			path = SelectMap;
 			sourceTree = "<group>";
@@ -553,80 +653,6 @@
 			path = Map;
 			sourceTree = "<group>";
 		};
-		47D57738293389790014D171 /* Repository */ = {
-			isa = PBXGroup;
-			children = (
-				47D57739293389850014D171 /* Protocol */,
-				47D5773C293389AC0014D171 /* DefaultMapRepository.swift */,
-				47D5775329338FFF0014D171 /* DefaultRecordRepository.swift */,
-				E57646592938C12C00BADF18 /* DefaultCommunityRepository.swift */,
-			);
-			path = Repository;
-			sourceTree = "<group>";
-		};
-		47D57739293389850014D171 /* Protocol */ = {
-			isa = PBXGroup;
-			children = (
-				47D5773A293389940014D171 /* MapRepository.swift */,
-				47D5775129338FB60014D171 /* RecordRepository.swift */,
-				E57646D4293D9DE600BADF18 /* CommunityRepository.swift */,
-			);
-			path = Protocol;
-			sourceTree = "<group>";
-		};
-		47D5773E293389B80014D171 /* UseCase */ = {
-			isa = PBXGroup;
-			children = (
-				47D5773F293389C50014D171 /* Protocol */,
-				47D5775C2934AB9B0014D171 /* DefaultMapBaseUseCase.swift */,
-				47D57742293389EB0014D171 /* DefaultSelectMapUseCase.swift */,
-				761C1C08292E437E000C88D0 /* DefaultSingleGameUseCase.swift */,
-				761E5F082935EFF400E6CACC /* DefaultInGameUseCase.swift */,
-				E576464F29377DC400BADF18 /* DefaultCommunityMainUseCase.swift */,
-				E5AD636B293DD75A00EF088C /* DefaultCommunityDetailUseCase.swift */,
-				E5AD637B293F402300EF088C /* DefaultCommunityPostWriteUseCase.swift */,
-			);
-			path = UseCase;
-			sourceTree = "<group>";
-		};
-		47D5773F293389C50014D171 /* Protocol */ = {
-			isa = PBXGroup;
-			children = (
-				47D5775A2934AB8A0014D171 /* MapBaseUseCase.swift */,
-				47D57740293389D00014D171 /* SelectMapUseCase.swift */,
-				761C1C0A292E439F000C88D0 /* SingleGameUseCase.swift */,
-				761E5F062935EF4200E6CACC /* InGameUseCase.swift */,
-				E576465529377F2300BADF18 /* CommunityMainUseCase.swift */,
-				E5AD636D293DD77400EF088C /* CommunityDetailUseCase.swift */,
-				E5AD6379293F401000EF088C /* CommunityPostWriteUseCase.swift */,
-			);
-			path = Protocol;
-			sourceTree = "<group>";
-		};
-		47D5774629338A170014D171 /* Service */ = {
-			isa = PBXGroup;
-			children = (
-				E57646722938DDB600BADF18 /* Network */,
-				47D5774729338A1F0014D171 /* Protocol */,
-				47D5774E29338A7A0014D171 /* DefaultRealtimeDatabaseNetworkService.swift */,
-				E5A6AC65294071D000F93B79 /* DefaultFirebaseStorageNetworkService.swift */,
-				761C1C0F292E4562000C88D0 /* TimerService.swift */,
-				4795F04929374DD300B174D6 /* DefaultLocationService.swift */,
-			);
-			path = Service;
-			sourceTree = "<group>";
-		};
-		47D5774729338A1F0014D171 /* Protocol */ = {
-			isa = PBXGroup;
-			children = (
-				E5A6AC6F2940B59C00F93B79 /* FirebaseStorageNetworkService.swift */,
-				47D5774A29338A4A0014D171 /* RealtimeDatabaseNetworkService.swift */,
-				761C1C0D292E4554000C88D0 /* TimerServiceProtocol.swift */,
-				4795F04729374DC800B174D6 /* LocationService.swift */,
-			);
-			path = Protocol;
-			sourceTree = "<group>";
-		};
 		47D577552934A9DE0014D171 /* MapBase */ = {
 			isa = PBXGroup;
 			children = (
@@ -636,167 +662,432 @@
 			path = MapBase;
 			sourceTree = "<group>";
 		};
-		76B3BF4D292526680056ABFD /* SingleGame */ = {
+		E505DE352942FA76006BF811 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				76B3BF432924C7450056ABFD /* SingleGameViewController.swift */,
-				76A2E19F2923C5A7001E887A /* SingleGameViewModel.swift */,
-				769F1AAB2935A7A800A3BB47 /* GameOverView.swift */,
-			);
-			path = SingleGame;
-			sourceTree = "<group>";
-		};
-		E52885B92942325800018B04 /* MultiGame */ = {
-			isa = PBXGroup;
-			children = (
-				E52885E22942390200018B04 /* ViewModel */,
-				E52885BC2942325800018B04 /* DataSource */,
-				E52885BE2942325800018B04 /* Repository */,
-				E52885C02942325800018B04 /* Cell */,
-				E52885C32942325800018B04 /* ViewController */,
-				E52885C62942325800018B04 /* UseCase */,
-			);
-			path = MultiGame;
-			sourceTree = "<group>";
-		};
-		E52885BC2942325800018B04 /* DataSource */ = {
-			isa = PBXGroup;
-			children = (
-				E52885BD2942325800018B04 /* MultiGameRoomDataSource.swift */,
-			);
-			path = DataSource;
-			sourceTree = "<group>";
-		};
-		E52885BE2942325800018B04 /* Repository */ = {
-			isa = PBXGroup;
-			children = (
-				E52885BF2942325800018B04 /* MultiGameRoomRepository.swift */,
-			);
-			path = Repository;
-			sourceTree = "<group>";
-		};
-		E52885C02942325800018B04 /* Cell */ = {
-			isa = PBXGroup;
-			children = (
-				E52885C12942325800018B04 /* GameRoomCollectionViewHeader.swift */,
-				E52885C22942325800018B04 /* GameRoomCollectionViewCell.swift */,
-			);
-			path = Cell;
-			sourceTree = "<group>";
-		};
-		E52885C32942325800018B04 /* ViewController */ = {
-			isa = PBXGroup;
-			children = (
-				E52885C42942325800018B04 /* MultiGameSelectViewController.swift */,
-				E52885C52942325800018B04 /* MultiGameRoomViewController.swift */,
-			);
-			path = ViewController;
-			sourceTree = "<group>";
-		};
-		E52885C62942325800018B04 /* UseCase */ = {
-			isa = PBXGroup;
-			children = (
-				E52885C72942325800018B04 /* MultiGameRoomUseCase.swift */,
-			);
-			path = UseCase;
-			sourceTree = "<group>";
-		};
-		E52885D22942327A00018B04 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				E52885D32942327A00018B04 /* CommunityMainViewModel.swift */,
-				E52885D52942327A00018B04 /* CommunityDetailViewModel.swift */,
-				E52885D42942327A00018B04 /* CommunityPostWriteViewModel.swift */,
+				E505DE362942FA76006BF811 /* CommunityMainViewModel.swift */,
+				E505DE382942FA76006BF811 /* CommunityPostWriteViewModel.swift */,
+				E505DE392942FA76006BF811 /* CommunityDetailViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
-		E52885E22942390200018B04 /* ViewModel */ = {
+		E505DE3E2942FAC1006BF811 /* HomeView */ = {
 			isa = PBXGroup;
 			children = (
-				E52885E32942390200018B04 /* MultiGameRoomViewModel.swift */,
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		E57646722938DDB600BADF18 /* Network */ = {
-			isa = PBXGroup;
-			children = (
-				E57646732938DDB600BADF18 /* FBRealTimeDBType.swift */,
-				E57646742938DDB600BADF18 /* ProvidableType.swift */,
-				E57646752938DDB600BADF18 /* UUIDGetable.swift */,
-				E57646762938DDB600BADF18 /* FBRealTimeDB.swift */,
-			);
-			name = Network;
-			path = Acha/Network;
-			sourceTree = SOURCE_ROOT;
-		};
-		E57646802938E28200BADF18 /* HomeView */ = {
-			isa = PBXGroup;
-			children = (
-				E57646812938E28200BADF18 /* ViewModel */,
-				E57646832938E28200BADF18 /* Repository */,
-				E57646852938E28200BADF18 /* Provider */,
-				E57646872938E28200BADF18 /* Controller */,
-				E576468B2938E28200BADF18 /* UseCase */,
+				E505DE3F2942FAC1006BF811 /* ViewModel */,
+				E505DE492942FAC1006BF811 /* ViewController */,
 			);
 			path = HomeView;
 			sourceTree = "<group>";
 		};
-		E57646812938E28200BADF18 /* ViewModel */ = {
+		E505DE3F2942FAC1006BF811 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				E57646822938E28200BADF18 /* HomeViewModel.swift */,
+				E505DE402942FAC1006BF811 /* HomeViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
-		E57646832938E28200BADF18 /* Repository */ = {
+		E505DE492942FAC1006BF811 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				E57646842938E28200BADF18 /* HomeRepository.swift */,
+				E505DE4A2942FAC1006BF811 /* MultiGameEnterViewController.swift */,
+				E505DE4B2942FAC1006BF811 /* HomeViewController.swift */,
+				E505DE4C2942FAC1006BF811 /* QRReaderViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		E505DE592942FB1E006BF811 /* DTO */ = {
+			isa = PBXGroup;
+			children = (
+				E505DE5A2942FB1E006BF811 /* CommunityDTO.swift */,
+				E505DE5B2942FB1E006BF811 /* MapDTO.swift */,
+				E505DE5C2942FB1E006BF811 /* RoomDTO.swift */,
+				E505DE5D2942FB1E006BF811 /* PostDTO.swift */,
+				E505DE5E2942FB1E006BF811 /* RecordDTO.swift */,
+				E505DE5F2942FB1E006BF811 /* CommentDTO.swift */,
+				E505DE602942FB1E006BF811 /* UserDTO.swift */,
+				E505DE612942FB1E006BF811 /* MultiGamePlayerDTO.swift */,
+				E505DE622942FB1E006BF811 /* InGameUserDataDTO.swift */,
+				E505DE632942FB1E006BF811 /* BadgeDTO.swift */,
+				E505DE642942FB1E006BF811 /* CoordinateDTO.swift */,
+			);
+			name = DTO;
+			path = Acha/Data/DTO;
+			sourceTree = SOURCE_ROOT;
+		};
+		E505DE882942FB9B006BF811 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				E505DE892942FB9B006BF811 /* DefaultMapRepository.swift */,
+				E505DE8A2942FB9B006BF811 /* DefaultCommunityRepository.swift */,
+				E505DE8B2942FB9B006BF811 /* DefaultRecordRepository.swift */,
+				E505DE8C2942FB9B006BF811 /* DefaultUserRepository.swift */,
+				E505DE8D2942FB9B006BF811 /* DefaultGameRoomRepository.swift */,
+				E505DE8E2942FB9B006BF811 /* DefaultTempRepository.swift */,
+				E505DE992942FB9B006BF811 /* DefaultTimeRepository.swift */,
+				E505DE9A2942FB9B006BF811 /* DefaultLocationRepository.swift */,
+				E505DE9B2942FB9B006BF811 /* SignUpRepository.swift */,
+				E505DE9C2942FB9B006BF811 /* LogInRepository.swift */,
+				E505DE9D2942FB9B006BF811 /* DefaultBadgeRepository.swift */,
+				E505DE8F2942FB9B006BF811 /* Protocol */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
 		};
-		E57646852938E28200BADF18 /* Provider */ = {
+		E505DE8F2942FB9B006BF811 /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
-				E57646862938E28200BADF18 /* HomeProvider.swift */,
+				E505DE902942FB9B006BF811 /* UserRepository.swift */,
+				E505DE912942FB9B006BF811 /* GameRoomRepository.swift */,
+				E505DE922942FB9B006BF811 /* TempRepository.swift */,
+				E505DE932942FB9B006BF811 /* BadgeRepository.swift */,
+				E505DE942942FB9B006BF811 /* MapRepository.swift */,
+				E505DE952942FB9B006BF811 /* RecordRepository.swift */,
+				E505DE962942FB9B006BF811 /* CommunityRepository.swift */,
+				E505DE972942FB9B006BF811 /* TimeRepository.swift */,
+				E505DE982942FB9B006BF811 /* LocationRepository.swift */,
 			);
-			path = Provider;
+			path = Protocol;
 			sourceTree = "<group>";
 		};
-		E57646872938E28200BADF18 /* Controller */ = {
+		E505DEB22942FBC2006BF811 /* UseCase */ = {
 			isa = PBXGroup;
 			children = (
-				E57646882938E28200BADF18 /* MultiGameEnterViewController.swift */,
-				E57646892938E28200BADF18 /* HomeViewController.swift */,
-				E576468A2938E28200BADF18 /* QRReaderViewController.swift */,
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		E576468B2938E28200BADF18 /* UseCase */ = {
-			isa = PBXGroup;
-			children = (
-				E576468C2938E28200BADF18 /* HomeUseCase.swift */,
+				E505DEB32942FBC2006BF811 /* DefaultMyPageUseCase.swift */,
+				E505DEB42942FBC2006BF811 /* SignUpUsecase.swift */,
+				E505DEB52942FBC2006BF811 /* LoginUsecase.swift */,
+				E505DEB62942FBC2006BF811 /* DefaultCommunityPostWriteUseCase.swift */,
+				E505DEB72942FBC2006BF811 /* DefaultInGameUseCase.swift */,
+				E505DEC62942FBC2006BF811 /* DefaultHomeUseCase.swift */,
+				E505DEC72942FBC2006BF811 /* DefaultCommunityMainUseCase.swift */,
+				E505DEC82942FBC2006BF811 /* DefaultCommunityDetailUseCase.swift */,
+				E505DEC92942FBC2006BF811 /* DefaultMultiGameUseCase.swift */,
+				E505DECA2942FBC2006BF811 /* DefaultSingleGameUseCase.swift */,
+				E505DECB2942FBC2006BF811 /* DefaultRecordMapViewUseCase.swift */,
+				E505DECC2942FBC2006BF811 /* DefaultMapBaseUseCase.swift */,
+				E505DECD2942FBC2006BF811 /* DefaultRecordMainViewUseCase.swift */,
+				E505DECE2942FBC2006BF811 /* DefaultMultiGameRoomUseCase.swift */,
+				E505DECF2942FBC2006BF811 /* DefaultSelectMapUseCase.swift */,
+				E505DEB82942FBC2006BF811 /* Protocol */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
 		};
-		E57646942938E2C900BADF18 /* Provider */ = {
+		E505DEB82942FBC2006BF811 /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
-				E57646952938E2C900BADF18 /* AuthProvider.swift */,
+				E505DEB92942FBC2006BF811 /* SelectMapUseCase.swift */,
+				E505DEBA2942FBC2006BF811 /* MultiGameUseCase.swift */,
+				E505DEBB2942FBC2006BF811 /* CommunityDetailUseCase.swift */,
+				E505DEBC2942FBC2006BF811 /* CommunityPostWriteUseCase.swift */,
+				E505DEBD2942FBC2006BF811 /* RecordMainViewUseCase.swift */,
+				E505DEBE2942FBC2006BF811 /* MyPageUseCase.swift */,
+				E505DEBF2942FBC2006BF811 /* AuthUseCaseProtocol.swift */,
+				E505DEC02942FBC2006BF811 /* MultiGameRoomUseCase.swift */,
+				E505DEC12942FBC2006BF811 /* SingleGameUseCase.swift */,
+				E505DEC22942FBC2006BF811 /* RecordMapViewUseCase.swift */,
+				E505DEC32942FBC2006BF811 /* MapBaseUseCase.swift */,
+				E505DEC42942FBC2006BF811 /* InGameUseCase.swift */,
+				E505DEC52942FBC2006BF811 /* CommunityMainUseCase.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		E505DEEC2942FBDF006BF811 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				E505DEED2942FBDF006BF811 /* MapRegion.swift */,
+				E505DEEE2942FBDF006BF811 /* RecordViewHeaderRecord.swift */,
+				E505DEEF2942FBDF006BF811 /* HealthKitReadData.swift */,
+				E505DEF02942FBDF006BF811 /* MultiGamePlayerData.swift */,
+				E505DEF12942FBDF006BF811 /* RecordViewChartData.swift */,
+				E505DEF22942FBDF006BF811 /* Comment.swift */,
+				E505DEF32942FBDF006BF811 /* RoomUser.swift */,
+				E505DEF42942FBDF006BF811 /* Image.swift */,
+				E505DEF52942FBDF006BF811 /* User.swift */,
+				E505DEF62942FBDF006BF811 /* Coordinate.swift */,
+				E505DEF72942FBDF006BF811 /* RecordViewDayTotalRecord.swift */,
+				E505DEF82942FBDF006BF811 /* LogInData.swift */,
+				E505DEF92942FBDF006BF811 /* Post.swift */,
+				E505DEFA2942FBDF006BF811 /* Record.swift */,
+				E505DEFB2942FBDF006BF811 /* Map.swift */,
+				E505DEFC2942FBDF006BF811 /* Badge.swift */,
+				E505DEFD2942FBDF006BF811 /* SignUpData.swift */,
+				E505DEFE2942FBDF006BF811 /* HealthKitWriteData.swift */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		E505DF3F2942FC2C006BF811 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				E505DF402942FC2C006BF811 /* SignupViewController.swift */,
+				E505DF412942FC2C006BF811 /* LoginViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		E505DF422942FC2C006BF811 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				E505DF432942FC2C006BF811 /* AuthTitleView.swift */,
+				E505DF442942FC2C006BF811 /* ScrollAbleViewController.swift */,
+				E505DF452942FC2C006BF811 /* AuthInputTextField.swift */,
+				E505DF462942FC2C006BF811 /* AuthButton.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		E505DF472942FC2C006BF811 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				E505DF482942FC2C006BF811 /* LoginViewModel.swift */,
+				E505DF492942FC2C006BF811 /* SignUpViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		E505DF522942FC64006BF811 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				E505DF532942FC64006BF811 /* SingleGameCoordinator.swift */,
+				E505DF542942FC64006BF811 /* MyPageCoordinator.swift */,
+				E505DF552942FC64006BF811 /* RecordCoordinator.swift */,
+				E505DF562942FC64006BF811 /* TabBarCoordinator.swift */,
+				E505DF572942FC64006BF811 /* MultiGameCoordinator.swift */,
+				E505DF582942FC64006BF811 /* HomeCoordinator.swift */,
+				E505DF592942FC64006BF811 /* CommunityCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		E505DF612942FC77006BF811 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				E505DF622942FC77006BF811 /* BadgeViewModel.swift */,
+				E505DF632942FC77006BF811 /* MyPageViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		E505DF642942FC77006BF811 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E505DF652942FC77006BF811 /* BadgeCell.swift */,
+				E505DF662942FC77006BF811 /* MyPageHeaderView.swift */,
+				E505DF672942FC77006BF811 /* SettingCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E505DF682942FC77006BF811 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				E505DF692942FC77006BF811 /* MyInfoEditViewController.swift */,
+				E505DF6A2942FC77006BF811 /* MyPageViewController.swift */,
+				E505DF6B2942FC77006BF811 /* BadgeViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		E505DF742942FCDA006BF811 /* MultiGame */ = {
+			isa = PBXGroup;
+			children = (
+				E505DF752942FCDA006BF811 /* ViewModel */,
+				E505DF7F2942FCDA006BF811 /* View */,
+				E505DF842942FCDA006BF811 /* ViewController */,
+			);
+			path = MultiGame;
+			sourceTree = "<group>";
+		};
+		E505DF752942FCDA006BF811 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				E505DF762942FCDA006BF811 /* MultiGameViewModel.swift */,
+				E505DF772942FCDA006BF811 /* MultiGameRoomViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		E505DF7F2942FCDA006BF811 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E505DF802942FCDA006BF811 /* GameRoomCollectionViewHeader.swift */,
+				E505DF812942FCDA006BF811 /* PlayerAnnotation.swift */,
+				E505DF822942FCDA006BF811 /* GameRoomCollectionViewCell.swift */,
+				E505DF832942FCDA006BF811 /* GameRankCollectionViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E505DF842942FCDA006BF811 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				E505DF862942FCDA006BF811 /* MultiGameRoomViewController.swift */,
+				E505DF872942FCDA006BF811 /* MultiGameViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		E505DF982942FD47006BF811 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				E505DF992942FD47006BF811 /* SelectMapViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		E505DF9A2942FD47006BF811 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				E505DF9B2942FD47006BF811 /* SelectMapViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		E505DF9C2942FD47006BF811 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E505DF9D2942FD47006BF811 /* SelectMapRankingHeaderView.swift */,
+				E505DF9E2942FD47006BF811 /* SelectMapRecordCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E505DFA32942FD5B006BF811 /* SingleGame */ = {
+			isa = PBXGroup;
+			children = (
+				E505DFA42942FD5B006BF811 /* ViewModel */,
+				E505DFA72942FD5B006BF811 /* View */,
+				E505DFAA2942FD5B006BF811 /* ViewController */,
+			);
+			path = SingleGame;
+			sourceTree = "<group>";
+		};
+		E505DFA42942FD5B006BF811 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				E505DFA52942FD5B006BF811 /* SingleGameViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		E505DFA72942FD5B006BF811 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E505DFA82942FD5B006BF811 /* GameOverView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E505DFAA2942FD5B006BF811 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				E505DFAB2942FD5B006BF811 /* SingleGameViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		E505DFB12942FDAB006BF811 /* Error */ = {
+			isa = PBXGroup;
+			children = (
+				E505DFB22942FDAB006BF811 /* FirebaseServiceError.swift */,
+			);
+			path = Error;
+			sourceTree = "<group>";
+		};
+		E505E0322942FDC0006BF811 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				E505E0332942FDC0006BF811 /* CALayer+.swift */,
+				E505E0342942FDC0006BF811 /* Int+.swift */,
+				E505E0352942FDC0006BF811 /* UIFont+.swift */,
+				E505E0362942FDC0006BF811 /* Encodable+.swift */,
+				E505E0372942FDC0006BF811 /* RxSwift+.swift */,
+				E505E0382942FDC0006BF811 /* String+.swift */,
+				E505E0392942FDC0006BF811 /* UIImageView+.swift */,
+				E505E03A2942FDC0006BF811 /* UIViewController+.swift */,
+				E505E03B2942FDC0006BF811 /* UIButton+.swift */,
+				E505E03C2942FDC0006BF811 /* Double+.swift */,
+				E505E03D2942FDC0006BF811 /* UITextField+.swift */,
+				E505E03E2942FDC0006BF811 /* CLLocationCoordinate2D+.swift */,
+				E505E03F2942FDC0006BF811 /* Date+.swift */,
+				E505E0402942FDC0006BF811 /* UIImage+.swift */,
+				E505E0412942FDC0006BF811 /* UIColor+.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		E505E0572942FDDA006BF811 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				E505E0582942FDDA006BF811 /* KeyboardManager.swift */,
+				E505E0592942FDDA006BF811 /* KeyChainManager.swift */,
+				E505E05A2942FDDA006BF811 /* DIContainerManager.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
+		E505E05E2942FDF3006BF811 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				E505E05F2942FDF3006BF811 /* FBRealTimeDBType.swift */,
+				E505E0602942FDF3006BF811 /* ProvidableType.swift */,
+				E505E0612942FDF3006BF811 /* UUIDGetable.swift */,
+				E505E0622942FDF3006BF811 /* FBRealTimeDB.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		E505E0672942FE04006BF811 /* Provider */ = {
+			isa = PBXGroup;
+			children = (
+				E505E0682942FE04006BF811 /* AuthProvider.swift */,
 			);
 			path = Provider;
 			sourceTree = "<group>";
 		};
-		E57646A12938E5A800BADF18 /* RandomFactory */ = {
+		E505E06A2942FF77006BF811 /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				E57646A22938E5A800BADF18 /* RandomFactory.swift */,
+				E505E06B2942FF77006BF811 /* TimerService.swift */,
+				E505E06C2942FF77006BF811 /* DefaultRealtimeDatabaseNetworkService.swift */,
+				E505E06D2942FF77006BF811 /* DefaultAuthService.swift */,
+				E505E06E2942FF77006BF811 /* DefaultFirebaseStorageNetworkService.swift */,
+				E505E06F2942FF77006BF811 /* DefaultHealthKitService.swift */,
+				E505E0702942FF77006BF811 /* DefaultLocationService.swift */,
+				E505E07B2942FF77006BF811 /* DefaultRandomService.swift */,
+				E505E07C2942FF77006BF811 /* DefaultImageService.swift */,
+				E505E07D2942FF77006BF811 /* DefaultKeychainService.swift */,
+				E505E07E2942FF77006BF811 /* DefaultTempDBNetwork.swift */,
+				E505E0712942FF77006BF811 /* Protocol */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		E505E0712942FF77006BF811 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				E505E0722942FF77006BF811 /* RandomService.swift */,
+				E505E0732942FF77006BF811 /* RealtimeDatabaseNetworkService.swift */,
+				E505E0742942FF77006BF811 /* TempDBNetwork.swift */,
+				E505E0752942FF77006BF811 /* KeychainService.swift */,
+				E505E0762942FF77006BF811 /* TimerServiceProtocol.swift */,
+				E505E0772942FF77006BF811 /* AuthService.swift */,
+				E505E0782942FF77006BF811 /* HealthKitService.swift */,
+				E505E0792942FF77006BF811 /* FirebaseStorageNetworkService.swift */,
+				E505E07A2942FF77006BF811 /* LocationService.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		E505E095294301F3006BF811 /* RandomFactory */ = {
+			isa = PBXGroup;
+			children = (
+				E505E096294301F3006BF811 /* RandomFactory.swift */,
 			);
 			path = RandomFactory;
 			sourceTree = "<group>";
@@ -821,8 +1112,8 @@
 		E5BE8B8B2922169D00E9CFE8 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
-				47D5773E293389B80014D171 /* UseCase */,
-				4738D76D2922755B003AE835 /* Entity */,
+				E505DEB22942FBC2006BF811 /* UseCase */,
+				E505DEEC2942FBDF006BF811 /* Entity */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -830,7 +1121,6 @@
 		E5BE8B8C292216A600E9CFE8 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				47D577552934A9DE0014D171 /* MapBase */,
 				477842F62923BF9800AAC3DB /* Base */,
 				E5BE8BA329221C1000E9CFE8 /* TabBar */,
 				E5BE8BA229221C0A00E9CFE8 /* Auth */,
@@ -841,13 +1131,15 @@
 		E5BE8B8D292216B400E9CFE8 /* Util */ = {
 			isa = PBXGroup;
 			children = (
-				E57646A12938E5A800BADF18 /* RandomFactory */,
-				47D5774629338A170014D171 /* Service */,
-				F12210BE292CE81300AE5F26 /* KeyChainManager */,
-				F14B1493292BA1C10010E966 /* KeyboardManager */,
+				E505E095294301F3006BF811 /* RandomFactory */,
+				E505E06A2942FF77006BF811 /* Service */,
+				E505E0672942FE04006BF811 /* Provider */,
+				E505E05E2942FDF3006BF811 /* Network */,
+				E505E0572942FDDA006BF811 /* Manager */,
+				E505E0322942FDC0006BF811 /* Extension */,
+				E505DFB12942FDAB006BF811 /* Error */,
 				F156F1142923540C0053E807 /* Constants */,
 				477842FA2923C30F00AAC3DB /* Map */,
-				4738D764292238AD003AE835 /* Extension */,
 				E5BE8BB82922216500E9CFE8 /* Enums */,
 			);
 			path = Util;
@@ -856,16 +1148,10 @@
 		E5BE8BA229221C0A00E9CFE8 /* Auth */ = {
 			isa = PBXGroup;
 			children = (
-				E57646942938E2C900BADF18 /* Provider */,
-				F1140B3B292B5C7200B8285A /* Repositories */,
-				F1140B3A292B5C6900B8285A /* UseCase */,
-				F1FCEE18292B52C1001A55D6 /* ScrollAbleViewController */,
-				F1FCEE12292B4E1E001A55D6 /* AuthTitleView */,
-				F1034B5A292B3A0A00BD8407 /* AuthInputTextField */,
-				F1FCEE0F292B4C6B001A55D6 /* AuthButton */,
+				E505DF422942FC2C006BF811 /* Common */,
 				E5BE8BAB29221F3100E9CFE8 /* Coordinator */,
-				E5BE8BA929221C5400E9CFE8 /* Signup */,
-				E5BE8BA829221C4F00E9CFE8 /* Login */,
+				E505DF472942FC2C006BF811 /* ViewModel */,
+				E505DF3F2942FC2C006BF811 /* ViewController */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -873,7 +1159,7 @@
 		E5BE8BA329221C1000E9CFE8 /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
-				E5BE8BAA29221F1600E9CFE8 /* Coordinator */,
+				E505DF522942FC64006BF811 /* Coordinator */,
 				E5BE8BA729221C3B00E9CFE8 /* MyPage */,
 				E5BE8BA629221C3200E9CFE8 /* Record */,
 				E5BE8BA529221C2D00E9CFE8 /* Community */,
@@ -885,12 +1171,12 @@
 		E5BE8BA429221C2800E9CFE8 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				E52885B92942325800018B04 /* MultiGame */,
-				E57646802938E28200BADF18 /* HomeView */,
+				E505DF742942FCDA006BF811 /* MultiGame */,
+				E505DE3E2942FAC1006BF811 /* HomeView */,
 				F1D2029C2923BF0800F3E87D /* InGameMenus */,
-				76B3BF4D292526680056ABFD /* SingleGame */,
 				F156F1112923534B0053E807 /* RecordAndsTimeBar */,
 				477842F92923C2D400AAC3DB /* SelectMap */,
+				E505DFA32942FD5B006BF811 /* SingleGame */,
 				76B3BF55292627A30056ABFD /* GamePlayMenuView.swift */,
 			);
 			path = Home;
@@ -901,7 +1187,7 @@
 			children = (
 				F1DED3AD2936706500ABC047 /* Common */,
 				F1DED3912935DF4800ABC047 /* Cell */,
-				E52885D22942327A00018B04 /* ViewModel */,
+				E505DE352942FA76006BF811 /* ViewModel */,
 				F1DED3902935DF1400ABC047 /* ViewController */,
 			);
 			path = Community;
@@ -910,11 +1196,9 @@
 		E5BE8BA629221C3200E9CFE8 /* Record */ = {
 			isa = PBXGroup;
 			children = (
-				E5BE8BB02922200000E9CFE8 /* RecordViewController.swift */,
-				E516A6B92923929800CD6BDB /* RecordViewModel.swift */,
-				E516A6BB292393FA00CD6BDB /* RecordHeaderView.swift */,
-				E516A6BD2923941500CD6BDB /* RecordChartCell.swift */,
-				E516A6BF2923942500CD6BDB /* RecordCell.swift */,
+				474E24D6293DC6B800CFAC59 /* RecordMain */,
+				474E24DE293DC6B800CFAC59 /* RecordMap */,
+				474E24DD293DC6B800CFAC59 /* RecordPageViewController.swift */,
 			);
 			path = Record;
 			sourceTree = "<group>";
@@ -922,41 +1206,11 @@
 		E5BE8BA729221C3B00E9CFE8 /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
-				E5BE8BB22922200C00E9CFE8 /* MyPageViewController.swift */,
+				E505DF642942FC77006BF811 /* View */,
+				E505DF612942FC77006BF811 /* ViewModel */,
+				E505DF682942FC77006BF811 /* ViewController */,
 			);
 			path = MyPage;
-			sourceTree = "<group>";
-		};
-		E5BE8BA829221C4F00E9CFE8 /* Login */ = {
-			isa = PBXGroup;
-			children = (
-				F1AC0392292B3457008302F8 /* ViewModel */,
-				E5BE8BB62922201F00E9CFE8 /* LoginViewController.swift */,
-			);
-			path = Login;
-			sourceTree = "<group>";
-		};
-		E5BE8BA929221C5400E9CFE8 /* Signup */ = {
-			isa = PBXGroup;
-			children = (
-				F1AC038F292B33E6008302F8 /* ViewModel */,
-				E5BE8BB42922201600E9CFE8 /* SignupViewController.swift */,
-			);
-			path = Signup;
-			sourceTree = "<group>";
-		};
-		E5BE8BAA29221F1600E9CFE8 /* Coordinator */ = {
-			isa = PBXGroup;
-			children = (
-				E5BE8B942922196D00E9CFE8 /* TabBarCoordinator.swift */,
-				E5BE8B96292219D800E9CFE8 /* HomeCoordinator.swift */,
-				E5BE8B9829221A4C00E9CFE8 /* RecordCoordinator.swift */,
-				E5BE8B9A29221A8A00E9CFE8 /* CommunityCoordinator.swift */,
-				76AA55D42937ACB900498441 /* MultiGameCoordinator.swift */,
-				E5BE8B9C29221AAF00E9CFE8 /* MyPageCoordinator.swift */,
-				76B3BF452924D93C0056ABFD /* SingleGameCoordinator.swift */,
-			);
-			path = Coordinator;
 			sourceTree = "<group>";
 		};
 		E5BE8BAB29221F3100E9CFE8 /* Coordinator */ = {
@@ -972,6 +1226,8 @@
 		E5BE8BB82922216500E9CFE8 /* Enums */ = {
 			isa = PBXGroup;
 			children = (
+				474E24F2293DC71000CFAC59 /* Locations.swift */,
+				474E24F0293DC70B00CFAC59 /* AnimationKeyPath.swift */,
 				761E5F102935F2DE00E6CACC /* FirebasePath.swift */,
 				E5BE8BB92922217600E9CFE8 /* TabBarType.swift */,
 				4738D767292267BA003AE835 /* Errors.swift */,
@@ -980,49 +1236,6 @@
 				E5A6AC6729408F2200F93B79 /* FirebaseStorageType.swift */,
 			);
 			path = Enums;
-			sourceTree = "<group>";
-		};
-		F1034B5A292B3A0A00BD8407 /* AuthInputTextField */ = {
-			isa = PBXGroup;
-			children = (
-				F13DB58E292B3C8D00323B28 /* AuthInputTextField.swift */,
-			);
-			path = AuthInputTextField;
-			sourceTree = "<group>";
-		};
-		F1140B3A292B5C6900B8285A /* UseCase */ = {
-			isa = PBXGroup;
-			children = (
-				76AA560C2937ADD400498441 /* AuthUseCaseProtocol.swift */,
-				76AA560A2937ADD400498441 /* LoginUsecase.swift */,
-				76AA560B2937ADD400498441 /* SignUpUsecase.swift */,
-			);
-			path = UseCase;
-			sourceTree = "<group>";
-		};
-		F1140B3B292B5C7200B8285A /* Repositories */ = {
-			isa = PBXGroup;
-			children = (
-				76AA56062937ADBA00498441 /* LogInRepository.swift */,
-				76AA56072937ADBB00498441 /* SignUpRepository.swift */,
-			);
-			path = Repositories;
-			sourceTree = "<group>";
-		};
-		F12210BE292CE81300AE5F26 /* KeyChainManager */ = {
-			isa = PBXGroup;
-			children = (
-				F12210C1292D031800AE5F26 /* KeyChainManager.swift */,
-			);
-			path = KeyChainManager;
-			sourceTree = "<group>";
-		};
-		F14B1493292BA1C10010E966 /* KeyboardManager */ = {
-			isa = PBXGroup;
-			children = (
-				F14B1494292BA1D40010E966 /* KeyboardManager.swift */,
-			);
-			path = KeyboardManager;
 			sourceTree = "<group>";
 		};
 		F156F1112923534B0053E807 /* RecordAndsTimeBar */ = {
@@ -1042,46 +1255,13 @@
 			path = Constants;
 			sourceTree = "<group>";
 		};
-		F1AC038F292B33E6008302F8 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				F1AC0390292B33F8008302F8 /* SignUpViewModel.swift */,
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		F1AC0392292B3457008302F8 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				F1034B58292B37EB00BD8407 /* LoginViewModel.swift */,
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
 		F1B0D8A4292CC81A00EBDD02 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				47D57738293389790014D171 /* Repository */,
-				E57646972938E46B00BADF18 /* RoomDTO.swift */,
-				F1B0D8AD292CCAAC00EBDD02 /* UserDTO.swift */,
-				F1B0D8AF292CCABE00EBDD02 /* BadgeDTO.swift */,
-				F1B0D8B1292CCAD900EBDD02 /* RecordDTO.swift */,
-				F1DED3942935DF9C00ABC047 /* PostDTO.swift */,
-				F1DED3982935DFCC00ABC047 /* CommentDTO.swift */,
-				E576469E2938E4E700BADF18 /* CoordinateDTO.swift */,
-				E576469D2938E4E700BADF18 /* MapDTO.swift */,
-				E576469B2938E4C100BADF18 /* InGameUserDataDTO.swift */,
+				E505DE882942FB9B006BF811 /* Repository */,
+				E505DE592942FB1E006BF811 /* DTO */,
 			);
 			path = Data;
-			sourceTree = "<group>";
-		};
-		F1B0D8A8292CC94000EBDD02 /* Auth */ = {
-			isa = PBXGroup;
-			children = (
-				F1B0D8AB292CCA5200EBDD02 /* SignUpData.swift */,
-				76AA55D22937AC8700498441 /* LogInData.swift */,
-			);
-			path = Auth;
 			sourceTree = "<group>";
 		};
 		F1D2029C2923BF0800F3E87D /* InGameMenus */ = {
@@ -1141,7 +1321,7 @@
 		F1DED3902935DF1400ABC047 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				E5BE8BAE29221FF800E9CFE8 /* CommunityMainViewController.swift */,
+				E505DE332942FA6B006BF811 /* CommunityMainViewController.swift */,
 				E52885E02942375300018B04 /* CommunityDetailViewController.swift */,
 				E5AD6375293F3AD500EF088C /* CommunityPostWriteViewController.swift */,
 			);
@@ -1151,7 +1331,7 @@
 		F1DED3912935DF4800ABC047 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				F1DED3922935DF6800ABC047 /* CommunityMainCell.swift */,
+				E505E09229430047006BF811 /* CommunityMainCell.swift */,
 				E5AD636F293E14D800EF088C /* CommunityDetailPostCell.swift */,
 				E5AD6371293E154A00EF088C /* CommunityDetailCommentCell.swift */,
 				E5AD6373293E175A00EF088C /* CommunityDetailCommentHeaderView.swift */,
@@ -1163,33 +1343,8 @@
 			isa = PBXGroup;
 			children = (
 				F1DED3AE2936708500ABC047 /* CommentView.swift */,
-				F1E83D982935C727004C7992 /* TextCountView.swift */,
 			);
 			path = Common;
-			sourceTree = "<group>";
-		};
-		F1FCEE0F292B4C6B001A55D6 /* AuthButton */ = {
-			isa = PBXGroup;
-			children = (
-				F1FCEE10292B4C87001A55D6 /* AuthButton.swift */,
-			);
-			path = AuthButton;
-			sourceTree = "<group>";
-		};
-		F1FCEE12292B4E1E001A55D6 /* AuthTitleView */ = {
-			isa = PBXGroup;
-			children = (
-				F1FCEE13292B4E9A001A55D6 /* AuthTitleView.swift */,
-			);
-			path = AuthTitleView;
-			sourceTree = "<group>";
-		};
-		F1FCEE18292B52C1001A55D6 /* ScrollAbleViewController */ = {
-			isa = PBXGroup;
-			children = (
-				F1FCEE19292B52E4001A55D6 /* ScrollAbleViewController.swift */,
-			);
-			path = ScrollAbleViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1288,7 +1443,7 @@
 				F1D202AB29247AC600F3E87D /* XCRemoteSwiftPackageReference "Then" */,
 				F1D202B12924815E00F3E87D /* XCRemoteSwiftPackageReference "SnapKit" */,
 			);
-			productRefGroup = 471863BA291E155700A35786 /* Products */;
+			productRefGroup = 471863B0291E155700A35786;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -1353,184 +1508,249 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E576465629377F2300BADF18 /* CommunityMainUseCase.swift in Sources */,
-				E57646792938DDB600BADF18 /* UUIDGetable.swift in Sources */,
-				E5BE8BB52922201600E9CFE8 /* SignupViewController.swift in Sources */,
-				E52885CF2942325800018B04 /* MultiGameRoomUseCase.swift in Sources */,
-				761C1C09292E437E000C88D0 /* DefaultSingleGameUseCase.swift in Sources */,
-				E52885CC2942325800018B04 /* GameRoomCollectionViewCell.swift in Sources */,
-				F1FCEE11292B4C87001A55D6 /* AuthButton.swift in Sources */,
-				76AA560F2937ADD400498441 /* AuthUseCaseProtocol.swift in Sources */,
-				76AA560F2937ADD400498441 /* AuthUseCaseProtocol.swift in Sources */,
+				E505DEAF2942FB9B006BF811 /* SignUpRepository.swift in Sources */,
+				E505DFB32942FDAB006BF811 /* FirebaseServiceError.swift in Sources */,
+				E505DF0A2942FBDF006BF811 /* LogInData.swift in Sources */,
+				E505DEE02942FBC3006BF811 /* InGameUseCase.swift in Sources */,
+				E505DF092942FBDF006BF811 /* RecordViewDayTotalRecord.swift in Sources */,
+				F1E83D95293594F4004C7992 /* (null) in Sources */,
+				474E24E8293DC6B800CFAC59 /* RecordMainViewModel.swift in Sources */,
+				E505DEAA2942FB9B006BF811 /* CommunityRepository.swift in Sources */,
+				E505DED32942FBC3006BF811 /* DefaultCommunityPostWriteUseCase.swift in Sources */,
+				474E24E5293DC6B800CFAC59 /* RecordMainViewController.swift in Sources */,
+				E505DF072942FBDF006BF811 /* User.swift in Sources */,
 				761E5F112935F2DF00E6CACC /* FirebasePath.swift in Sources */,
-				E57646772938DDB600BADF18 /* FBRealTimeDBType.swift in Sources */,
 				E5BE8BBA2922217600E9CFE8 /* TabBarType.swift in Sources */,
-				76A2E1A12923C5A7001E887A /* SingleGameViewModel.swift in Sources */,
-				F17A3FA1292F0BF200647AD0 /* RoomUser.swift in Sources */,
-				E57646A32938E5A900BADF18 /* RandomFactory.swift in Sources */,
-				F17A3FA1292F0BF200647AD0 /* RoomUser.swift in Sources */,
-				E57646A32938E5A900BADF18 /* RandomFactory.swift in Sources */,
-				76A2E1A529249099001E887A /* Double+.swift in Sources */,
-				47935E9D29238E9E00481307 /* SelectMapViewController.swift in Sources */,
-				4738D76F2922756B003AE835 /* Map.swift in Sources */,
-				4795F04A29374DD300B174D6 /* DefaultLocationService.swift in Sources */,
-				47D5775B2934AB8A0014D171 /* MapBaseUseCase.swift in Sources */,
-				761C1C0E292E4554000C88D0 /* TimerServiceProtocol.swift in Sources */,
-				76AA560D2937ADD400498441 /* LoginUsecase.swift in Sources */,
+				F17A3FA1292F0BF200647AD0 /* (null) in Sources */,
+				F17A3FA1292F0BF200647AD0 /* (null) in Sources */,
+				E505DEA52942FB9B006BF811 /* GameRoomRepository.swift in Sources */,
+				E505DF6D2942FC77006BF811 /* MyPageViewModel.swift in Sources */,
+				E505E0892942FF78006BF811 /* TimerServiceProtocol.swift in Sources */,
+				E505DF002942FBDF006BF811 /* RecordViewHeaderRecord.swift in Sources */,
+				E505DE682942FB1E006BF811 /* PostDTO.swift in Sources */,
+				F1E83D7D293489E1004C7992 /* (null) in Sources */,
+				E505DED42942FBC3006BF811 /* DefaultInGameUseCase.swift in Sources */,
+				E505E0442942FDC0006BF811 /* UIFont+.swift in Sources */,
+				E505DF012942FBDF006BF811 /* HealthKitReadData.swift in Sources */,
+				E505DF4E2942FC2C006BF811 /* AuthInputTextField.swift in Sources */,
 				E52885E12942375300018B04 /* CommunityDetailViewController.swift in Sources */,
-				769F1AAC2935A7A800A3BB47 /* GameOverView.swift in Sources */,
-				E5027D5E292686440021BF60 /* RecordViewDayTotalRecord.swift in Sources */,
-				E5027D58292670570021BF60 /* Record.swift in Sources */,
-				F1034B59292B37EB00BD8407 /* LoginViewModel.swift in Sources */,
-				E5027D58292670570021BF60 /* Record.swift in Sources */,
-				F1DED3932935DF6800ABC047 /* CommunityMainCell.swift in Sources */,
-				47A26DBC292B73850007FBBF /* Coordinate.swift in Sources */,
-				E52885CD2942325800018B04 /* MultiGameSelectViewController.swift in Sources */,
-				E52885C92942325800018B04 /* MultiGameRoomDataSource.swift in Sources */,
-				47935E9F29238EB400481307 /* SelectMapViewModel.swift in Sources */,
-				E576465A2938C12C00BADF18 /* DefaultCommunityRepository.swift in Sources */,
+				E505DF0C2942FBDF006BF811 /* Record.swift in Sources */,
+				E505DE9E2942FB9B006BF811 /* DefaultMapRepository.swift in Sources */,
+				E505DF8A2942FCDA006BF811 /* MultiGameViewModel.swift in Sources */,
+				E505E0832942FF77006BF811 /* DefaultHealthKitService.swift in Sources */,
+				E505DEA92942FB9B006BF811 /* RecordRepository.swift in Sources */,
+				E505DE652942FB1E006BF811 /* CommunityDTO.swift in Sources */,
+				E505E0882942FF78006BF811 /* KeychainService.swift in Sources */,
+				474E24EA293DC6B800CFAC59 /* RecordPageViewController.swift in Sources */,
+				F1E83D79293485A1004C7992 /* (null) in Sources */,
+				F1DED40029386F8500ABC047 /* (null) in Sources */,
+				E505DF062942FBDF006BF811 /* Image.swift in Sources */,
+				E505DFA02942FD47006BF811 /* SelectMapViewController.swift in Sources */,
+				E505DEE32942FBC3006BF811 /* DefaultCommunityMainUseCase.swift in Sources */,
+				E505DE552942FAC1006BF811 /* MultiGameEnterViewController.swift in Sources */,
+				E505DF4A2942FC2C006BF811 /* SignupViewController.swift in Sources */,
+				E505E0432942FDC0006BF811 /* Int+.swift in Sources */,
+				E505DF5D2942FC64006BF811 /* TabBarCoordinator.swift in Sources */,
+				474E24EE293DC6B800CFAC59 /* RecordMapViewController.swift in Sources */,
+				E505DEA22942FB9B006BF811 /* DefaultGameRoomRepository.swift in Sources */,
 				E5AD6372293E154A00EF088C /* CommunityDetailCommentCell.swift in Sources */,
-				F14B1495292BA1D40010E966 /* KeyboardManager.swift in Sources */,
-				E576467A2938DDB600BADF18 /* FBRealTimeDB.swift in Sources */,
-				E576467A2938DDB600BADF18 /* FBRealTimeDB.swift in Sources */,
+				E505DEB12942FB9B006BF811 /* DefaultBadgeRepository.swift in Sources */,
+				E505DF4C2942FC2C006BF811 /* AuthTitleView.swift in Sources */,
+				F1E83D7F29348A4A004C7992 /* (null) in Sources */,
+				E505DE572942FAC1006BF811 /* QRReaderViewController.swift in Sources */,
+				E505E0652942FDF3006BF811 /* UUIDGetable.swift in Sources */,
+				E505DEE92942FBC3006BF811 /* DefaultRecordMainViewUseCase.swift in Sources */,
+				E505E08A2942FF78006BF811 /* AuthService.swift in Sources */,
+				E505E0662942FDF3006BF811 /* FBRealTimeDB.swift in Sources */,
 				F1DED3AF2936708500ABC047 /* CommentView.swift in Sources */,
-				E5AD636E293DD77400EF088C /* CommunityDetailUseCase.swift in Sources */,
-				761C1C0B292E439F000C88D0 /* SingleGameUseCase.swift in Sources */,
-				F13DB58F292B3C8D00323B28 /* AuthInputTextField.swift in Sources */,
-				E57646962938E2CA00BADF18 /* AuthProvider.swift in Sources */,
-				F1E83D992935C727004C7992 /* TextCountView.swift in Sources */,
-				761E5F092935EFF400E6CACC /* DefaultInGameUseCase.swift in Sources */,
+				F1E83D992935C727004C7992 /* (null) in Sources */,
+				E505E04A2942FDC0006BF811 /* UIButton+.swift in Sources */,
+				E505E08E2942FF78006BF811 /* DefaultRandomService.swift in Sources */,
+				E505DFA22942FD47006BF811 /* SelectMapRecordCell.swift in Sources */,
+				E505E0912942FF78006BF811 /* DefaultTempDBNetwork.swift in Sources */,
+				F1E83D992935C727004C7992 /* (null) in Sources */,
+				E505E05C2942FDDB006BF811 /* KeyChainManager.swift in Sources */,
+				E505DF102942FBDF006BF811 /* HealthKitWriteData.swift in Sources */,
 				E5BE8B8F2922172400E9CFE8 /* AppCoordinator.swift in Sources */,
-				E52885E42942390200018B04 /* MultiGameRoomViewModel.swift in Sources */,
-				47935E97292366CD00481307 /* UIButton+.swift in Sources */,
-				E52885CA2942325800018B04 /* MultiGameRoomRepository.swift in Sources */,
-				E576469A2938E49F00BADF18 /* CommentDTO.swift in Sources */,
-				47D5775D2934AB9B0014D171 /* DefaultMapBaseUseCase.swift in Sources */,
-				47D5775429338FFF0014D171 /* DefaultRecordRepository.swift in Sources */,
-				76B3BF52292624DB0056ABFD /* Int+.swift in Sources */,
-				F1E83D8329348AE0004C7992 /* Post.swift in Sources */,
-				E5AD636C293DD75A00EF088C /* DefaultCommunityDetailUseCase.swift in Sources */,
-				E5A6AC66294071D000F93B79 /* DefaultFirebaseStorageNetworkService.swift in Sources */,
-				E5A6AC702940B59C00F93B79 /* FirebaseStorageNetworkService.swift in Sources */,
+				E505E0692942FE04006BF811 /* AuthProvider.swift in Sources */,
+				E505E04D2942FDC0006BF811 /* CLLocationCoordinate2D+.swift in Sources */,
+				E505DF712942FC77006BF811 /* MyInfoEditViewController.swift in Sources */,
+				E505E08D2942FF78006BF811 /* LocationService.swift in Sources */,
+				E505DEAE2942FB9B006BF811 /* DefaultLocationRepository.swift in Sources */,
+				E505DEDD2942FBC3006BF811 /* SingleGameUseCase.swift in Sources */,
+				E505DF5A2942FC64006BF811 /* SingleGameCoordinator.swift in Sources */,
+				E505E0872942FF78006BF811 /* TempDBNetwork.swift in Sources */,
+				E505DFB02942FD5B006BF811 /* SingleGameViewController.swift in Sources */,
+				E505DEDC2942FBC3006BF811 /* MultiGameRoomUseCase.swift in Sources */,
+				E505DEE62942FBC3006BF811 /* DefaultSingleGameUseCase.swift in Sources */,
+				F1E83D8329348AE0004C7992 /* (null) in Sources */,
+				E505E08B2942FF78006BF811 /* HealthKitService.swift in Sources */,
+				E505E09329430047006BF811 /* CommunityMainCell.swift in Sources */,
+				F1E83D8329348AE0004C7992 /* (null) in Sources */,
+				E505DF902942FCDA006BF811 /* GameRoomCollectionViewHeader.swift in Sources */,
 				477842F82923BFA300AAC3DB /* MapBaseViewController.swift in Sources */,
+				E505DE6F2942FB1E006BF811 /* CoordinateDTO.swift in Sources */,
 				47D5774529338A040014D171 /* FirebaseRealtimeType.swift in Sources */,
-				F1AC0391292B33F8008302F8 /* SignUpViewModel.swift in Sources */,
-				76AA56092937ADBB00498441 /* SignUpRepository.swift in Sources */,
+				E505DE342942FA6B006BF811 /* CommunityMainViewController.swift in Sources */,
+				E505DF6F2942FC77006BF811 /* MyPageHeaderView.swift in Sources */,
+				E505DEE22942FBC3006BF811 /* DefaultHomeUseCase.swift in Sources */,
+				474E24EF293DC6B800CFAC59 /* RecordMapRankingCell.swift in Sources */,
 				E576467B2938DE0100BADF18 /* (null) in Sources */,
-				E5027D5C292670F30021BF60 /* RecordViewChartData.swift in Sources */,
+				E505E0472942FDC0006BF811 /* String+.swift in Sources */,
+				E505E08F2942FF78006BF811 /* DefaultImageService.swift in Sources */,
+				E505DED82942FBC3006BF811 /* CommunityPostWriteUseCase.swift in Sources */,
+				F16B453B293330EC002429A2 /* (null) in Sources */,
+				E505DE6B2942FB1E006BF811 /* UserDTO.swift in Sources */,
+				F1E7B0AB293DB8B50088332E /* (null) in Sources */,
 				4738D768292267BA003AE835 /* Errors.swift in Sources */,
-				E576465029377DC400BADF18 /* DefaultCommunityMainUseCase.swift in Sources */,
-				E5BE8B9D29221AAF00E9CFE8 /* MyPageCoordinator.swift in Sources */,
-				E57646A02938E4E700BADF18 /* CoordinateDTO.swift in Sources */,
-				E57646A02938E4E700BADF18 /* CoordinateDTO.swift in Sources */,
-				47A26DC0292C9F8A0007FBBF /* SelectMapRankingHeaderView.swift in Sources */,
 				76B3BF56292627A30056ABFD /* GamePlayMenuView.swift in Sources */,
-				764AF2A1292B9C1F00D16DC9 /* String+.swift in Sources */,
-				76B3BF462924D93C0056ABFD /* SingleGameCoordinator.swift in Sources */,
-				E5027D5A292670BC0021BF60 /* RecordViewHeaderRecord.swift in Sources */,
-				E5BE8BB72922201F00E9CFE8 /* LoginViewController.swift in Sources */,
-				E52885D72942327A00018B04 /* CommunityPostWriteViewModel.swift in Sources */,
-				76AA56142937AE7E00498441 /* RxSwift+.swift in Sources */,
-				76B3BF442924C7450056ABFD /* SingleGameViewController.swift in Sources */,
+				E505DEA42942FB9B006BF811 /* UserRepository.swift in Sources */,
+				E505DEE72942FBC3006BF811 /* DefaultRecordMapViewUseCase.swift in Sources */,
+				E505DEFF2942FBDF006BF811 /* MapRegion.swift in Sources */,
+				F1E7B0AD293DD01B0088332E /* (null) in Sources */,
+				E505DF0D2942FBDF006BF811 /* Map.swift in Sources */,
+				E505DE6E2942FB1E006BF811 /* BadgeDTO.swift in Sources */,
+				E505DE3A2942FA76006BF811 /* CommunityMainViewModel.swift in Sources */,
+				E505DEA12942FB9B006BF811 /* DefaultUserRepository.swift in Sources */,
+				E505E0462942FDC0006BF811 /* RxSwift+.swift in Sources */,
+				E505DEA62942FB9B006BF811 /* TempRepository.swift in Sources */,
+				E505DED12942FBC3006BF811 /* SignUpUsecase.swift in Sources */,
+				E505E0632942FDF3006BF811 /* FBRealTimeDBType.swift in Sources */,
+				E505DF702942FC77006BF811 /* SettingCell.swift in Sources */,
+				E505DF4D2942FC2C006BF811 /* ScrollAbleViewController.swift in Sources */,
+				E505DFAE2942FD5B006BF811 /* GameOverView.swift in Sources */,
+				E505DEE82942FBC3006BF811 /* DefaultMapBaseUseCase.swift in Sources */,
 				E5764702293DC89300BADF18 /* (null) in Sources */,
-				47D57743293389EB0014D171 /* DefaultSelectMapUseCase.swift in Sources */,
+				F1E83D8629348C59004C7992 /* (null) in Sources */,
 				F156F11A29235EC50053E807 /* ImageConstants.swift in Sources */,
-				E5AD637A293F401000EF088C /* CommunityPostWriteUseCase.swift in Sources */,
+				E505DE4F2942FAC1006BF811 /* HomeViewModel.swift in Sources */,
+				E505E04F2942FDC0006BF811 /* UIImage+.swift in Sources */,
+				E505DF6C2942FC77006BF811 /* BadgeViewModel.swift in Sources */,
+				E505DEA32942FB9B006BF811 /* DefaultTempRepository.swift in Sources */,
 				47D577592934A9FE0014D171 /* MapBaseViewModel.swift in Sources */,
-				E5A6AC6E2940B28400F93B79 /* Image.swift in Sources */,
-				F1DED3A42935ED0100ABC047 /* Comment.swift in Sources */,
-				F1B0D8AE292CCAAC00EBDD02 /* UserDTO.swift in Sources */,
-				E57646982938E46B00BADF18 /* RoomDTO.swift in Sources */,
-				E57646982938E46B00BADF18 /* RoomDTO.swift in Sources */,
-				E5BE8BB12922200000E9CFE8 /* RecordViewController.swift in Sources */,
+				E505DE662942FB1E006BF811 /* MapDTO.swift in Sources */,
+				E505DF4F2942FC2C006BF811 /* AuthButton.swift in Sources */,
+				E505E0422942FDC0006BF811 /* CALayer+.swift in Sources */,
+				E505DEDA2942FBC3006BF811 /* MyPageUseCase.swift in Sources */,
+				E505E097294301F3006BF811 /* RandomFactory.swift in Sources */,
+				474E24ED293DC6B800CFAC59 /* RecordMapCategoryCell.swift in Sources */,
+				E505DF732942FC77006BF811 /* BadgeViewController.swift in Sources */,
+				E505DE3D2942FA76006BF811 /* CommunityDetailViewModel.swift in Sources */,
+				E505E0802942FF77006BF811 /* DefaultRealtimeDatabaseNetworkService.swift in Sources */,
+				E505DF032942FBDF006BF811 /* RecordViewChartData.swift in Sources */,
+				E505DEDE2942FBC3006BF811 /* RecordMapViewUseCase.swift in Sources */,
+				F1DED402293880CB00ABC047 /* (null) in Sources */,
+				E505E0492942FDC0006BF811 /* UIViewController+.swift in Sources */,
+				E505DF922942FCDA006BF811 /* GameRoomCollectionViewCell.swift in Sources */,
+				474E24E6293DC6B800CFAC59 /* RecordMainHeaderView.swift in Sources */,
+				E505DEEA2942FBC3006BF811 /* DefaultMultiGameRoomUseCase.swift in Sources */,
+				F1DED402293880CB00ABC047 /* (null) in Sources */,
+				E505DE6D2942FB1E006BF811 /* InGameUserDataDTO.swift in Sources */,
+				E505DF962942FCDA006BF811 /* MultiGameViewController.swift in Sources */,
+				E505E0862942FF78006BF811 /* RealtimeDatabaseNetworkService.swift in Sources */,
+				F1DED40629388A3700ABC047 /* (null) in Sources */,
+				E505DEE52942FBC3006BF811 /* DefaultMultiGameUseCase.swift in Sources */,
 				E5BE8B91292218A500E9CFE8 /* Coordinator.swift in Sources */,
+				E505DED92942FBC3006BF811 /* RecordMainViewUseCase.swift in Sources */,
+				F1E83D8B29351C69004C7992 /* (null) in Sources */,
+				E505E04B2942FDC0006BF811 /* Double+.swift in Sources */,
+				E505DE692942FB1E006BF811 /* RecordDTO.swift in Sources */,
+				E505DF9F2942FD47006BF811 /* SelectMapViewModel.swift in Sources */,
+				E505DF912942FCDA006BF811 /* PlayerAnnotation.swift in Sources */,
+				E505DED52942FBC3006BF811 /* SelectMapUseCase.swift in Sources */,
+				E505DEB02942FB9B006BF811 /* LogInRepository.swift in Sources */,
+				E505E05B2942FDDB006BF811 /* KeyboardManager.swift in Sources */,
 				764AF29F292B6EF500D16DC9 /* InGameRecordViewModel.swift in Sources */,
-				76AA56082937ADBB00498441 /* LogInRepository.swift in Sources */,
-				F1FCEE14292B4E9A001A55D6 /* AuthTitleView.swift in Sources */,
-				F12210C2292D031800AE5F26 /* KeyChainManager.swift in Sources */,
-				47D5774B29338A4A0014D171 /* RealtimeDatabaseNetworkService.swift in Sources */,
-				E5BE8B952922196D00E9CFE8 /* TabBarCoordinator.swift in Sources */,
-				47D5775E2934C3500014D171 /* SingleGameViewModel.swift in Sources */,
-				76AA55D32937AC8700498441 /* LogInData.swift in Sources */,
-				76AA55D32937AC8700498441 /* LogInData.swift in Sources */,
-				E5027D5629265D910021BF60 /* SelectMapRecordCell.swift in Sources */,
-				E516A6C02923942500CD6BDB /* RecordCell.swift in Sources */,
+				E505DF082942FBDF006BF811 /* Coordinate.swift in Sources */,
+				E505E0482942FDC0006BF811 /* UIImageView+.swift in Sources */,
+				E505E04E2942FDC0006BF811 /* Date+.swift in Sources */,
+				E505E094294300C1006BF811 /* Locations.swift in Sources */,
+				E505DEAD2942FB9B006BF811 /* DefaultTimeRepository.swift in Sources */,
+				E505DF722942FC77006BF811 /* MyPageViewController.swift in Sources */,
+				E505DF5B2942FC64006BF811 /* MyPageCoordinator.swift in Sources */,
+				474E24E7293DC6B800CFAC59 /* RecordMainCell.swift in Sources */,
+				474E24EC293DC6B800CFAC59 /* RecordMapHeaderView.swift in Sources */,
+				E505DEA72942FB9B006BF811 /* BadgeRepository.swift in Sources */,
+				E505E0842942FF77006BF811 /* DefaultLocationService.swift in Sources */,
+				E505DF042942FBDF006BF811 /* Comment.swift in Sources */,
+				474E24EB293DC6B800CFAC59 /* RecordMapViewModel.swift in Sources */,
+				E505DEE42942FBC3006BF811 /* DefaultCommunityDetailUseCase.swift in Sources */,
+				E505DF502942FC2C006BF811 /* LoginViewModel.swift in Sources */,
 				47935E952923310700481307 /* SystemImageNameSpace.swift in Sources */,
 				E5AD6374293E175A00EF088C /* CommunityDetailCommentHeaderView.swift in Sources */,
-				F1B0D8B0292CCABE00EBDD02 /* BadgeDTO.swift in Sources */,
-				E57646782938DDB600BADF18 /* ProvidableType.swift in Sources */,
-				E57646782938DDB600BADF18 /* ProvidableType.swift in Sources */,
-				E5BE8B9B29221A8A00E9CFE8 /* CommunityCoordinator.swift in Sources */,
-				76AA55D52937ACB900498441 /* MultiGameCoordinator.swift in Sources */,
-				76AA55D52937ACB900498441 /* MultiGameCoordinator.swift in Sources */,
-				47D5773B293389940014D171 /* MapRepository.swift in Sources */,
-				E57646932938E28300BADF18 /* HomeUseCase.swift in Sources */,
-				76B3BF54292624E30056ABFD /* Date+.swift in Sources */,
-				E576468F2938E28300BADF18 /* HomeProvider.swift in Sources */,
-				E57646922938E28300BADF18 /* QRReaderViewController.swift in Sources */,
+				F1DED3FA29386ED500ABC047 /* (null) in Sources */,
+				E505DF0E2942FBDF006BF811 /* Badge.swift in Sources */,
+				E505E07F2942FF77006BF811 /* TimerService.swift in Sources */,
+				E505DED72942FBC3006BF811 /* CommunityDetailUseCase.swift in Sources */,
+				E505E0902942FF78006BF811 /* DefaultKeychainService.swift in Sources */,
+				E505E0502942FDC0006BF811 /* UIColor+.swift in Sources */,
+				E505DF0F2942FBDF006BF811 /* SignUpData.swift in Sources */,
+				E505DF952942FCDA006BF811 /* MultiGameRoomViewController.swift in Sources */,
+				E505DF6E2942FC77006BF811 /* BadgeCell.swift in Sources */,
+				E505DF932942FCDA006BF811 /* GameRankCollectionViewCell.swift in Sources */,
+				E505DE3C2942FA76006BF811 /* CommunityPostWriteViewModel.swift in Sources */,
+				F1E83D7729348591004C7992 /* (null) in Sources */,
+				E505DEA82942FB9B006BF811 /* MapRepository.swift in Sources */,
+				F1DED3FE29386F7400ABC047 /* (null) in Sources */,
+				E505DE562942FAC1006BF811 /* HomeViewController.swift in Sources */,
+				F1E7B0B5293DD2AF0088332E /* (null) in Sources */,
+				474E24E9293DC6B800CFAC59 /* RecordMainChartCell.swift in Sources */,
+				F1DED3FC29386EF000ABC047 /* (null) in Sources */,
 				E5BE8B9F29221B2700E9CFE8 /* LoginCoordinator.swift in Sources */,
-				E5BE8BAF29221FF800E9CFE8 /* CommunityMainViewController.swift in Sources */,
-				F1B0D8AA292CCA0F00EBDD02 /* Encodable+.swift in Sources */,
-				E576469C2938E4C100BADF18 /* InGameUserDataDTO.swift in Sources */,
-				E576469F2938E4E700BADF18 /* MapDTO.swift in Sources */,
-				F1B0D8AA292CCA0F00EBDD02 /* Encodable+.swift in Sources */,
-				E576469C2938E4C100BADF18 /* InGameUserDataDTO.swift in Sources */,
-				E576469F2938E4E700BADF18 /* MapDTO.swift in Sources */,
-				E516A6BE2923941500CD6BDB /* RecordChartCell.swift in Sources */,
-				E576468D2938E28300BADF18 /* HomeViewModel.swift in Sources */,
-				E576468D2938E28300BADF18 /* HomeViewModel.swift in Sources */,
-				E5BE8BB32922200C00E9CFE8 /* MyPageViewController.swift in Sources */,
+				E505DF5C2942FC64006BF811 /* RecordCoordinator.swift in Sources */,
+				E505DEE12942FBC3006BF811 /* CommunityMainUseCase.swift in Sources */,
+				E505DE672942FB1E006BF811 /* RoomDTO.swift in Sources */,
+				E505DF602942FC64006BF811 /* CommunityCoordinator.swift in Sources */,
+				E505DEA02942FB9B006BF811 /* DefaultRecordRepository.swift in Sources */,
+				E505E0812942FF77006BF811 /* DefaultAuthService.swift in Sources */,
 				F1D202A42923C09300F3E87D /* InGameMenuCollectionViewCell.swift in Sources */,
+				E505DEDF2942FBC3006BF811 /* MapBaseUseCase.swift in Sources */,
+				E505DF0B2942FBDF006BF811 /* Post.swift in Sources */,
 				F156F11C2923623C0053E807 /* PaddingLabel.swift in Sources */,
 				E5AD6370293E14D800EF088C /* CommunityDetailPostCell.swift in Sources */,
+				E505DFAC2942FD5B006BF811 /* SingleGameViewModel.swift in Sources */,
+				E505DED22942FBC3006BF811 /* LoginUsecase.swift in Sources */,
 				E5AD6376293F3AD500EF088C /* CommunityPostWriteViewController.swift in Sources */,
-				E57646992938E48E00BADF18 /* PostDTO.swift in Sources */,
-				4795F04829374DC800B174D6 /* LocationService.swift in Sources */,
+				E505DF8B2942FCDA006BF811 /* MultiGameRoomViewModel.swift in Sources */,
+				E505E0822942FF77006BF811 /* DefaultFirebaseStorageNetworkService.swift in Sources */,
 				471863BD291E155700A35786 /* AppDelegate.swift in Sources */,
+				F1E7B0B3293DD1F80088332E /* (null) in Sources */,
 				E5BE8BA129221B6D00E9CFE8 /* SignupCoordinator .swift in Sources */,
-				E5BE8B97292219D800E9CFE8 /* HomeCoordinator.swift in Sources */,
 				F1D202B72924C63F00F3E87D /* InGameMenuModelProtocol.swift in Sources */,
-				F1B0D8B2292CCAD900EBDD02 /* RecordDTO.swift in Sources */,
+				E505DFA12942FD47006BF811 /* SelectMapRankingHeaderView.swift in Sources */,
 				F1D2029B2923B97400F3E87D /* InGameRecordViewController.swift in Sources */,
 				47935E99292375DC00481307 /* MapAnnotation.swift in Sources */,
-				E5027D5329263D620021BF60 /* UIColor+.swift in Sources */,
+				474E24F1293DC70B00CFAC59 /* AnimationKeyPath.swift in Sources */,
 				E5BE8B93292218F100E9CFE8 /* AuthCoordinator.swift in Sources */,
-				76B3BF4C29250C190056ABFD /* UIFont+.swift in Sources */,
-				F1FCEE1A292B52E4001A55D6 /* ScrollAbleViewController.swift in Sources */,
-				F18A7FD1292C5DA50054FADE /* UIImage+.swift in Sources */,
-				E5AD637C293F402300EF088C /* DefaultCommunityPostWriteUseCase.swift in Sources */,
-				76A2E1A32923D94C001E887A /* CLLocationCoordinate2D+.swift in Sources */,
-				764AF29D292B639200D16DC9 /* UIViewController+.swift in Sources */,
-				E57646D5293D9DE600BADF18 /* CommunityRepository.swift in Sources */,
+				E505DF5E2942FC64006BF811 /* MultiGameCoordinator.swift in Sources */,
+				E505DED02942FBC3006BF811 /* DefaultMyPageUseCase.swift in Sources */,
+				E505DEAB2942FB9B006BF811 /* TimeRepository.swift in Sources */,
+				E505E05D2942FDDB006BF811 /* DIContainerManager.swift in Sources */,
+				E505E0852942FF77006BF811 /* RandomService.swift in Sources */,
+				E505E04C2942FDC0006BF811 /* UITextField+.swift in Sources */,
 				76B3BF50292624850056ABFD /* InGamePlayMenuViewController.swift in Sources */,
-				47D5775229338FB60014D171 /* RecordRepository.swift in Sources */,
-				E5027D5229263D4F0021BF60 /* RecordHeaderView.swift in Sources */,
-				E576468E2938E28300BADF18 /* HomeRepository.swift in Sources */,
-				E576468E2938E28300BADF18 /* HomeRepository.swift in Sources */,
-				47A26DBE292BB2970007FBBF /* MapRegion.swift in Sources */,
-				E57646902938E28300BADF18 /* MultiGameEnterViewController.swift in Sources */,
-				E57646902938E28300BADF18 /* MultiGameEnterViewController.swift in Sources */,
-				47D57741293389D00014D171 /* SelectMapUseCase.swift in Sources */,
-				F156F11E292365840053E807 /* CALayer+.swift in Sources */,
-				761C1C10292E4562000C88D0 /* TimerService.swift in Sources */,
-				E52885D62942327A00018B04 /* CommunityMainViewModel.swift in Sources */,
-				E52885D82942327A00018B04 /* CommunityDetailViewModel.swift in Sources */,
+				E505DE6A2942FB1E006BF811 /* CommentDTO.swift in Sources */,
+				E505DF5F2942FC64006BF811 /* HomeCoordinator.swift in Sources */,
+				E505E0452942FDC0006BF811 /* Encodable+.swift in Sources */,
+				E505DEDB2942FBC3006BF811 /* AuthUseCaseProtocol.swift in Sources */,
+				E505DF022942FBDF006BF811 /* MultiGamePlayerData.swift in Sources */,
 				E5A6AC6829408F2200F93B79 /* FirebaseStorageType.swift in Sources */,
-				E57646912938E28300BADF18 /* HomeViewController.swift in Sources */,
-				F1FCEE0E292B483E001A55D6 /* UITextField+.swift in Sources */,
-				47D5774F29338A7A0014D171 /* DefaultRealtimeDatabaseNetworkService.swift in Sources */,
-				E5BE8B9929221A4C00E9CFE8 /* RecordCoordinator.swift in Sources */,
-				47D5773D293389AC0014D171 /* DefaultMapRepository.swift in Sources */,
-				F1B0D8AC292CCA5200EBDD02 /* SignUpData.swift in Sources */,
-				E516A6BA2923929800CD6BDB /* RecordViewModel.swift in Sources */,
-				E52885CE2942325800018B04 /* MultiGameRoomViewController.swift in Sources */,
+				F1E7B0B1293DD1E80088332E /* (null) in Sources */,
+				E505DE9F2942FB9B006BF811 /* DefaultCommunityRepository.swift in Sources */,
+				E505DEEB2942FBC3006BF811 /* DefaultSelectMapUseCase.swift in Sources */,
+				474E24E4293DC6B800CFAC59 /* LineGraphView.swift in Sources */,
+				E505DF4B2942FC2C006BF811 /* LoginViewController.swift in Sources */,
+				F1E7B0AF293DD1A50088332E /* (null) in Sources */,
+				E505E0642942FDF3006BF811 /* ProvidableType.swift in Sources */,
 				76B3BF4A2924DDE70056ABFD /* BaseViewModel.swift in Sources */,
-				761E5F072935EF4200E6CACC /* InGameUseCase.swift in Sources */,
-				E52885CB2942325800018B04 /* GameRoomCollectionViewHeader.swift in Sources */,
+				E505E08C2942FF78006BF811 /* FirebaseStorageNetworkService.swift in Sources */,
 				F156F1132923536A0053E807 /* DistanceAndTimeBar.swift in Sources */,
+				E505DF052942FBDF006BF811 /* RoomUser.swift in Sources */,
 				F1D202992923AB3D00F3E87D /* InGameRankingViewController.swift in Sources */,
-				76AA560E2937ADD400498441 /* SignUpUsecase.swift in Sources */,
-				76AA560E2937ADD400498441 /* SignUpUsecase.swift in Sources */,
+				E505DF512942FC2C006BF811 /* SignUpViewModel.swift in Sources */,
+				E505DE6C2942FB1E006BF811 /* MultiGamePlayerDTO.swift in Sources */,
+				E505DEAC2942FB9B006BF811 /* LocationRepository.swift in Sources */,
+				E505DED62942FBC3006BF811 /* MultiGameUseCase.swift in Sources */,
 				764AF2A3292B9D3600D16DC9 /* InGameRankingViewModel.swift in Sources */,
 				471863BF291E155700A35786 /* SceneDelegate.swift in Sources */,
 			);
@@ -1699,11 +1919,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Acha/Acha.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 4QG3GC35LA;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Acha/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSCameraUsageDescription = "카메라를 사용해도 되겠습니까?";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "건강 데이터를 써도 되겠습니까?";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "건강 데이터를 사용해도 되겠습니까?";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "사진 앨범 접근 권한 요청 드립니다.";
@@ -1731,11 +1956,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Acha/Acha.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 4QG3GC35LA;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Acha/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSCameraUsageDescription = "카메라를 사용해도 되겠습니까?";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "건강 데이터를 써도 되겠습니까?";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "건강 데이터를 사용해도 되겠습니까?";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "사진 앨범 접근 권한 요청 드립니다.";

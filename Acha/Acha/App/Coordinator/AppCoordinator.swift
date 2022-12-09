@@ -24,8 +24,8 @@ final class AppCoordinator: AppCoordinatorProtocol {
     
     func start() {
         // 로그인 여부 따라 로직 분리
-        connectTabBar()
-//        connectAuth()
+//        connectTabBar()
+        connectAuth()
     }
     
     func connectAuth() {
@@ -44,7 +44,7 @@ final class AppCoordinator: AppCoordinatorProtocol {
 }
 
 extension AppCoordinator: CoordinatorDelegate {
-    
+    #warning("append 제거")
     func didFinished(childCoordinator: Coordinator) {
         removeAllChildCoordinator()
         switch childCoordinator {

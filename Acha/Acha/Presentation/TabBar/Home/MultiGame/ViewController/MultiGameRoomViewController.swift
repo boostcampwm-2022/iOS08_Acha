@@ -35,7 +35,6 @@ final class MultiGameRoomViewController: UIViewController {
 
     private let viewModel: MultiGameRoomViewModel
     private let disposeBag = DisposeBag()
-    private let roomDataChanged = PublishSubject<Void>()
     
     enum Section {
         case gameRoom
@@ -54,7 +53,6 @@ final class MultiGameRoomViewController: UIViewController {
         self.qrCodeImageView.image = roomID.generateQRCode()
         self.roomIdLabel.text = "방코드 : " + roomID
         view.backgroundColor = .white
-        addRoomDataObserver(roomID: roomID)
     }
     
     required init?(coder: NSCoder) {
@@ -67,16 +65,10 @@ final class MultiGameRoomViewController: UIViewController {
         bind()
     }
     
-    private func addRoomDataObserver(roomID: String) {
-        FBRealTimeDB().ref.child("Room/\(roomID)").observe(.value) { [weak self] _ in
-            self?.roomDataChanged.onNext(())
-        }
-    }
     
     private func bind() {
         let inputs = MultiGameRoomViewModel.Input(
-            viewWillAppear: rx.viewWillAppear.asObservable(),
-            roomDataChanged: roomDataChanged.asObservable(),
+            viewDidAppear: rx.viewDidAppear.asObservable(),
             exitButtonTapped: exitButton.rx.tap.asObservable(),
             gameStartButtonTapped: startButton.rx.tap.asObservable()
         )

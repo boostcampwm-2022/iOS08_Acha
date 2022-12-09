@@ -18,4 +18,5 @@ extension UIImage {
         .withTintColor(.pointDark, renderingMode: .alwaysOriginal)
     static let plusImage: UIImage = UIImage(systemName: "plus")!
     static let xImage: UIImage = UIImage(named: "x.circle.fill")!
+    static let penguinImage = UIImage(named: "penguin") ?? UIImage()
 }

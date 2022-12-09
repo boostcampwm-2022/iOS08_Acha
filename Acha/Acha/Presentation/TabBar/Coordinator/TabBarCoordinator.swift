@@ -76,5 +76,6 @@ final class TabBarCoordinator: TabBarCoordinatorProtocol {
 extension TabBarCoordinator: CoordinatorDelegate {
     func didFinished(childCoordinator: Coordinator) {
         removeChildCoordinator(coordinator: childCoordinator)
+        delegate?.didFinished(childCoordinator: self)
     }
 }

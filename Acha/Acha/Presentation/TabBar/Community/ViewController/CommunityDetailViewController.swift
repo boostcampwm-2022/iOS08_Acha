@@ -91,11 +91,11 @@ final class CommunityDetailViewController: UIViewController, UICollectionViewDel
         navigationItem.title = "게시글"
         navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.pointLight]
         
-        KeyboardManager.keyboardWillHide(view: commentView, superView: view)
-        KeyboardManager.keyboardWillShow(view: commentView, superView: view)
-        hideKeyboardWhenTapped()
-    
         view.addSubview(commentView)
+        
+//        KeyboardManager.keyboardWillHide(view: commentView, superView: view)
+//        KeyboardManager.keyboardWillShow(view: commentView, superView: view)
+//        hideKeyboardWhenTapped()
         
         commentView.snp.makeConstraints {
             $0.trailing.leading.bottom.equalTo(view.safeAreaLayoutGuide)
@@ -197,13 +197,13 @@ final class CommunityDetailViewController: UIViewController, UICollectionViewDel
     private func commentLayout() -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1),
-            heightDimension: .estimated(50)
+            heightDimension: .estimated(100)
         )
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
         let groupSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1),
-            heightDimension: .estimated(50)
+            heightDimension: .estimated(100)
         )
         let group = NSCollectionLayoutGroup.vertical(
             layoutSize: groupSize,
@@ -227,13 +227,13 @@ final class CommunityDetailViewController: UIViewController, UICollectionViewDel
     private func postLayout() -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1),
-            heightDimension: .estimated(114)
+            heightDimension: .estimated(130)
         )
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
         let groupSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1),
-            heightDimension: .estimated(114)
+            heightDimension: .estimated(130)
         )
         let group = NSCollectionLayoutGroup.vertical(
             layoutSize: groupSize,

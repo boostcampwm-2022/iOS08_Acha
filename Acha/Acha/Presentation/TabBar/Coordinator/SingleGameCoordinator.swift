@@ -29,7 +29,10 @@ final class SingleGameCoordinator: SingleGameCoordinatorProtocol {
     func showSelectMapViewController() {
         let networkService = DefaultRealtimeDatabaseNetworkService()
         let mapRepository = DefaultMapRepository(realTimeDatabaseNetworkService: networkService)
-        let recordRepository = DefaultRecordRepository(realTimeDatabaseNetworkService: networkService)
+        let recordRepository = DefaultRecordRepository(
+            realTimeDatabaseNetworkService: networkService,
+            healthKitService: DefaultHealthKitService()
+        )
         let useCase = DefaultSelectMapUseCase(locationService: DefaultLocationService(),
                                               mapRepository: mapRepository,
                                               recordRepository: recordRepository)
@@ -43,11 +46,12 @@ final class SingleGameCoordinator: SingleGameCoordinatorProtocol {
         let viewModel = SingleGameViewModel(
             map: selectedMap,
             coordinator: self,
-            singeGameUseCase: DefaultSingleGameUseCase(
+            singleGameUseCase: DefaultSingleGameUseCase(
                 map: selectedMap,
                 locationService: DefaultLocationService(),
                 recordRepository: DefaultRecordRepository(
-                    realTimeDatabaseNetworkService: DefaultRealtimeDatabaseNetworkService()
+                    realTimeDatabaseNetworkService: DefaultRealtimeDatabaseNetworkService(),
+                    healthKitService: DefaultHealthKitService()
                 ),
                 tapTimer: TimerService(),
                 runningTimer: TimerService()
@@ -62,7 +66,8 @@ final class SingleGameCoordinator: SingleGameCoordinatorProtocol {
             inGameUseCase: DefaultInGameUseCase(
                 mapID: mapID,
                 recordRepository: DefaultRecordRepository(
-                    realTimeDatabaseNetworkService: DefaultRealtimeDatabaseNetworkService()
+                    realTimeDatabaseNetworkService: DefaultRealtimeDatabaseNetworkService(),
+                    healthKitService: DefaultHealthKitService()
                 )
             )
         )
@@ -76,7 +81,8 @@ final class SingleGameCoordinator: SingleGameCoordinatorProtocol {
             inGameUseCase: DefaultInGameUseCase(
                 mapID: mapID,
                 recordRepository: DefaultRecordRepository(
-                    realTimeDatabaseNetworkService: DefaultRealtimeDatabaseNetworkService()
+                    realTimeDatabaseNetworkService: DefaultRealtimeDatabaseNetworkService(),
+                    healthKitService: DefaultHealthKitService()
                 )
             )
         )
