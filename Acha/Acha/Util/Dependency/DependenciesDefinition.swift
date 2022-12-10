@@ -9,6 +9,9 @@ import Foundation
 
 final class DependenciesDefinition {
     
+    // 인스턴스를 저장할 장소
+    private let dependencies = DependenciesContainer.shared
+    
     func inject() {
         
         serviceInject()
@@ -17,12 +20,9 @@ final class DependenciesDefinition {
  
     }
     
+    // MARK: - Service
     private func serviceInject() {
-        // 인스턴스를 저장할 장소
-        let dependencies = DependenciesContainer.shared
-        
-        // MARK: - Service
-        
+
         dependencies.register(
             RealtimeDatabaseNetworkService.self,
             implement: DefaultRealtimeDatabaseNetworkService()
@@ -40,7 +40,12 @@ final class DependenciesDefinition {
         
         dependencies.register(
             KeychainService.self,
-            implement: DefaultHealthKitService()
+            implement: DefaultKeychainService()
+        )
+        
+        dependencies.register(
+            TimerService.self,
+            implement: TimerService()
         )
         
         dependencies.register(
@@ -59,12 +64,9 @@ final class DependenciesDefinition {
         )
     }
     
+    //MARK:- Repository
     private func repositoryInject() {
-        
-        // 인스턴스를 저장할 장소
-        let dependencies = DependenciesContainer.shared
-        
-        //MARK: - Repository
+
         dependencies.register(
             MapRepository.self,
             implement: DefaultMapRepository(
@@ -118,21 +120,17 @@ final class DependenciesDefinition {
                 timeService: dependencies.resolve(TimerService.self)
             )
         )
-        
+
         dependencies.register(
-            LocationService.self,
+            LocationRepository.self,
             implement: DefaultLocationRepository(
-                locationService: dependencies.resolve(DefaultLocationService.self)
+                locationService: dependencies.resolve(LocationService.self)
             )
         )
     }
     
+    //MARK: - UseCase
     private func useCaseInject() {
-        
-        // 인스턴스를 저장할 장소
-        let dependencies = DependenciesContainer.shared
-        
-        //MARK: - UseCase
         
         dependencies.register(
             SelectMapUseCase.self,
@@ -162,12 +160,8 @@ final class DependenciesDefinition {
         
         dependencies.register(
             MultiGameRoomUseCase.self,
-            implement: DefaultMultiGameUseCase(
-                gameRoomRepository: dependencies.resolve(GameRoomRepository.self),
-                userRepository: dependencies.resolve(UserRepository.self),
-                recordRepository: dependencies.resolve(RecordRepository.self),
-                timeRepository: dependencies.resolve(TimeRepository.self),
-                locationRepository: dependencies.resolve(LocationRepository.self)
+            implement: DefaultMultiGameRoomUseCase(
+                repository: dependencies.resolve(GameRoomRepository.self)
             )
         )
         
