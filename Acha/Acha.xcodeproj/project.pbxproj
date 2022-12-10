@@ -54,6 +54,7 @@
 		47653A382938D6EF00BDC8E3 /* BadgeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47653A372938D6EF00BDC8E3 /* BadgeRepository.swift */; };
 		47653A3A2938D70500BDC8E3 /* DefaultBadgeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47653A392938D70500BDC8E3 /* DefaultBadgeRepository.swift */; };
 		4768898F2937928900AF633B /* Badge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4768898E2937928900AF633B /* Badge.swift */; };
+		476A0E752941A9F400FAC471 /* MKMapView+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 476A0E742941A9F400FAC471 /* MKMapView+Rx.swift */; };
 		477842F82923BFA300AAC3DB /* MapBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 477842F72923BFA300AAC3DB /* MapBaseViewController.swift */; };
 		47935E952923310700481307 /* SystemImageNameSpace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47935E942923310700481307 /* SystemImageNameSpace.swift */; };
 		47935E97292366CD00481307 /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47935E96292366CD00481307 /* UIButton+.swift */; };
@@ -290,6 +291,7 @@
 		47653A372938D6EF00BDC8E3 /* BadgeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeRepository.swift; sourceTree = "<group>"; };
 		47653A392938D70500BDC8E3 /* DefaultBadgeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultBadgeRepository.swift; sourceTree = "<group>"; };
 		4768898E2937928900AF633B /* Badge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Badge.swift; sourceTree = "<group>"; };
+		476A0E742941A9F400FAC471 /* MKMapView+Rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MKMapView+Rx.swift"; sourceTree = "<group>"; };
 		477842F72923BFA300AAC3DB /* MapBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapBaseViewController.swift; sourceTree = "<group>"; };
 		47935E942923310700481307 /* SystemImageNameSpace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemImageNameSpace.swift; sourceTree = "<group>"; };
 		47935E96292366CD00481307 /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
@@ -609,8 +611,8 @@
 				F18A7FD0292C5DA50054FADE /* UIImage+.swift */,
 				F156F11D292365840053E807 /* CALayer+.swift */,
 				76A2E1A22923D94C001E887A /* CLLocationCoordinate2D+.swift */,
-				76AA56132937AE7E00498441 /* RxSwift+.swift */,
 				F1B0D8A9292CCA0F00EBDD02 /* Encodable+.swift */,
+				474952F72941E8D600098E7C /* Reactive */,
 				766978BE294087B7002128C7 /* UIImageView+.swift */,
 			);
 			path = Extension;
@@ -638,6 +640,15 @@
 				F1CC514C293F24E500B9008D /* MultiGamePlayerData.swift */,
 			);
 			path = Entity;
+			sourceTree = "<group>";
+		};
+		474952F72941E8D600098E7C /* Reactive */ = {
+			isa = PBXGroup;
+			children = (
+				76AA56132937AE7E00498441 /* RxSwift+.swift */,
+				476A0E742941A9F400FAC471 /* MKMapView+Rx.swift */,
+			);
+			path = Reactive;
 			sourceTree = "<group>";
 		};
 		474E24D6293DC6B800CFAC59 /* RecordMain */ = {
@@ -1517,6 +1528,7 @@
 				F1E83D95293594F4004C7992 /* CommunityPostViewController.swift in Sources */,
 				470C704F293B18C000261250 /* RecordDTO.swift in Sources */,
 				474E24E8293DC6B800CFAC59 /* RecordMainViewModel.swift in Sources */,
+				476A0E752941A9F400FAC471 /* MKMapView+Rx.swift in Sources */,
 				474E24FE293DC76800CFAC59 /* RecordMainViewUseCase.swift in Sources */,
 				761C1C09292E437E000C88D0 /* DefaultSingleGameUseCase.swift in Sources */,
 				474E24FA293DC75F00CFAC59 /* DefaultRecordMainViewUseCase.swift in Sources */,
