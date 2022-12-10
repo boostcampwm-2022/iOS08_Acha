@@ -15,7 +15,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         
         DependenciesDefinition().inject()
-        DIContainerDefinition().inject()
 
         return true
     }

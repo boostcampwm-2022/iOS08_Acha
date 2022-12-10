@@ -36,24 +36,13 @@ final class DependenciesContainer {
         }
     }
     
-}
-
-final class DependencyKey: Hashable, Equatable {
-    
-    private let type: Any.Type
-    private let name: String?
-    
-    init(type: Any.Type, name: String? = nil) {
-        self.type = type
-        self.name = name
+    func remove<T>(type: T.Type) {
+        let key = DependencyKey(type: type)
+        _ = dependencies.removeValue(forKey: key)
     }
     
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(ObjectIdentifier(type))
-        hasher.combine(name)
+    func reset() {
+        dependencies.removeAll()
     }
     
-    static func == (lhs: DependencyKey, rhs: DependencyKey) -> Bool {
-        return lhs.type == rhs.type && lhs.name == rhs.name
-    }
 }

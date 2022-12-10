@@ -169,7 +169,7 @@
 		F1AF99FD29445AA300A25752 /* DependenciesContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1AF99FC29445AA300A25752 /* DependenciesContainer.swift */; };
 		F1AF9A0029445ED900A25752 /* DependenciesDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1AF99FF29445ED900A25752 /* DependenciesDefinition.swift */; };
 		F1AF9A062944873D00A25752 /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1AF9A052944873D00A25752 /* DIContainer.swift */; };
-		F1AF9A0829448D0C00A25752 /* DIContainerDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1AF9A0729448D0C00A25752 /* DIContainerDefinition.swift */; };
+		F1AF9A0A2944B52000A25752 /* DependencyKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1AF9A092944B52000A25752 /* DependencyKey.swift */; };
 		F1B0D8AA292CCA0F00EBDD02 /* Encodable+.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B0D8A9292CCA0F00EBDD02 /* Encodable+.swift */; };
 		F1B0D8AC292CCA5200EBDD02 /* SignUpData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B0D8AB292CCA5200EBDD02 /* SignUpData.swift */; };
 		F1B514E3293B26C500F653F3 /* CommunityDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B514E2293B26C500F653F3 /* CommunityDTO.swift */; };
@@ -420,7 +420,7 @@
 		F1AF99FC29445AA300A25752 /* DependenciesContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependenciesContainer.swift; sourceTree = "<group>"; };
 		F1AF99FF29445ED900A25752 /* DependenciesDefinition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependenciesDefinition.swift; sourceTree = "<group>"; };
 		F1AF9A052944873D00A25752 /* DIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
-		F1AF9A0729448D0C00A25752 /* DIContainerDefinition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContainerDefinition.swift; sourceTree = "<group>"; };
+		F1AF9A092944B52000A25752 /* DependencyKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyKey.swift; sourceTree = "<group>"; };
 		F1B0D8A9292CCA0F00EBDD02 /* Encodable+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+.swift"; sourceTree = "<group>"; };
 		F1B0D8AB292CCA5200EBDD02 /* SignUpData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpData.swift; sourceTree = "<group>"; };
 		F1B514E2293B26C500F653F3 /* CommunityDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityDTO.swift; sourceTree = "<group>"; };
@@ -1240,7 +1240,7 @@
 				F1AF99FC29445AA300A25752 /* DependenciesContainer.swift */,
 				F1AF99FF29445ED900A25752 /* DependenciesDefinition.swift */,
 				F1AF9A052944873D00A25752 /* DIContainer.swift */,
-				F1AF9A0729448D0C00A25752 /* DIContainerDefinition.swift */,
+				F1AF9A092944B52000A25752 /* DependencyKey.swift */,
 			);
 			path = Dependency;
 			sourceTree = "<group>";
@@ -1709,7 +1709,6 @@
 				E5BE8BA129221B6D00E9CFE8 /* SignupCoordinator .swift in Sources */,
 				F1CC513D293EFAD800B9008D /* MultiGameViewModel.swift in Sources */,
 				E5BE8B97292219D800E9CFE8 /* HomeCoordinator.swift in Sources */,
-				F1AF9A0829448D0C00A25752 /* DIContainerDefinition.swift in Sources */,
 				F1CC514D293F24E500B9008D /* MultiGamePlayerData.swift in Sources */,
 				F1D202B72924C63F00F3E87D /* InGameMenuModelProtocol.swift in Sources */,
 				F1D2029B2923B97400F3E87D /* InGameRecordViewController.swift in Sources */,
@@ -1749,6 +1748,7 @@
 				F1E7B0AF293DD1A50088332E /* GameRoomRepository.swift in Sources */,
 				F1B0D8AC292CCA5200EBDD02 /* SignUpData.swift in Sources */,
 				76B3BF4A2924DDE70056ABFD /* BaseViewModel.swift in Sources */,
+				F1AF9A0A2944B52000A25752 /* DependencyKey.swift in Sources */,
 				761E5F072935EF4200E6CACC /* InGameUseCase.swift in Sources */,
 				F156F1132923536A0053E807 /* DistanceAndTimeBar.swift in Sources */,
 				F1CC5141293EFBBC00B9008D /* MultiGameUseCase.swift in Sources */,
