@@ -16,5 +16,7 @@ extension UIImage {
     static let defaultSelectImage: UIImage = UIImage(named: "defaultSelectImage") ?? UIImage()
     static let ellipsisImage: UIImage = UIImage(systemName: "ellipsis")!
         .withTintColor(.pointDark, renderingMode: .alwaysOriginal)
+    static let plusImage: UIImage = UIImage(systemName: "plus")!
     static let penguinImage = UIImage(named: "penguin") ?? UIImage()
+    static let xImage = UIImage(named: "x.circle.fill") ?? UIImage()
 }

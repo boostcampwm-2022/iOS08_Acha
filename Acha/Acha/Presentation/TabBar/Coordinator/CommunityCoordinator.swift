@@ -8,7 +8,9 @@
 import UIKit
 
 protocol CommunityCoordinatorProtocol: Coordinator {
-    func showCommunityViewController()
+    func showCommunityMainViewController()
+    func showCommunityPostWriteViewController(post: Post?)
+    func showCommunityDetailViewController(postID: Int)
 }
 
 final class CommunityCoordinator: CommunityCoordinatorProtocol {
@@ -22,17 +24,38 @@ final class CommunityCoordinator: CommunityCoordinatorProtocol {
     }
     
     func start() {
-//        showCommunityViewController()
-        showCommunityPostViewController()
+        showCommunityMainViewController()
     }
     
-    func showCommunityViewController() {
-        let viewController = CommunityViewController()
+    func showCommunityMainViewController() {
+        let repository = DefaultCommunityRepository(realtimeService: DefaultRealtimeDatabaseNetworkService())
+        let useCase = DefaultCommunityMainUseCase(repository: repository)
+        let viewModel = CommunityMainViewModel(useCase: useCase,
+                                               coordinator: self)
+        let viewController = CommunityMainViewController(viewModel: viewModel)
         navigationController.pushViewController(viewController, animated: true)
     }
     
-    func showCommunityPostViewController() {
-        let viewController = CommunityPostViewController()
+    func showCommunityPostWriteViewController(post: Post? = nil) {
+        let repository = DefaultCommunityRepository(realtimeService: DefaultRealtimeDatabaseNetworkService(),
+                                                    storageService: DefaultFirebaseStorageNetworkService())
+        let useCase = DefaultCommunityPostWriteUseCase(repository: repository, post: post)
+        let viewModel = CommunityPostWriteViewModel(useCase: useCase,
+                                                    coordinator: self)
+        let viewController = CommunityPostWriteViewController(viewModel: viewModel)
         navigationController.pushViewController(viewController, animated: true)
+    }
+    
+    func showCommunityDetailViewController(postID: Int) {
+        let repository = DefaultCommunityRepository(realtimeService: DefaultRealtimeDatabaseNetworkService())
+        let useCase = DefaultCommunityDetailUseCase(postID: postID, repository: repository)
+        let viewModel = CommunityDetailViewModel(useCase: useCase,
+                                                 coordinator: self)
+        let viewController = CommunityDetailViewController(viewModel: viewModel)
+        navigationController.pushViewController(viewController, animated: true)
+    }
+    
+    func popLastViewController() {
+        navigationController.popViewController(animated: true)
     }
 }
