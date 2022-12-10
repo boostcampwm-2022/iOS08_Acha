@@ -43,7 +43,7 @@ final class DependencyKey: Hashable, Equatable {
     private let type: Any.Type
     private let name: String?
     
-    init(type: Any.Type, name: String?) {
+    init(type: Any.Type, name: String? = nil) {
         self.type = type
         self.name = name
     }

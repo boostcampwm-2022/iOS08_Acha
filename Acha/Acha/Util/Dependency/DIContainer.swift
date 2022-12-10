@@ -7,16 +7,10 @@
 
 import Foundation
 
-enum Dependencies {
-    
-    struct Name: Equatable {
-        let value: String
-        static let `default` = Name(value: "default")
-        static func == (lhs: Name, rhs: Name) -> Bool { lhs.value == rhs.value }
-    }
+enum DIContainer {
     
     final class Container {
-        private var dependencies: [(key: Dependencies.Name, value: Any)] = [] {
+        private var dependencies: [DependencyKey: Any] = [:] {
             didSet {
                 // UnitTest 시 DI 콘테이너에 추가, 삭제 처리가 제대로 되었는 지 확인
 //                if isTesting() {
@@ -27,31 +21,26 @@ enum Dependencies {
         
         static let `default` = Container()
         
-        func register(key: Dependencies.Name = .default, dependency: Any) {
-            dependencies.append((key: key, value: dependency))
+        func register(type: Any.Type, implement: Any) {
+            let key = DependencyKey(type: type)
+            dependencies[key] = implement
         }
         
-        func resolve<T>(key: Dependencies.Name = .default) -> T {
+        func resolve<T>(type: T.Type) -> T {
             // 디버그용
             // dump(dependencies)
-            
-            let instanceObjectValue = dependencies
-                .first { dependency in
-                    dependency.key == key && dependency.value is T
-                }
-                .flatMap { (_, value) in
-                    value
-                }
-            
-            guard let instance = instanceObjectValue as? T else {
-                fatalError("기대 값으로 타입 캐스팅할 수 없습니다")
+            let key = DependencyKey(type: type)
+            if let dependency = dependencies[key] as? T {
+                return dependency
+            } else {
+                let protocolName = "\(type)".components(separatedBy: ".").last!
+                fatalError("\(protocolName) 의 의존성을 해결할 수 없습니다.")
             }
-            
-            return instance
         }
         
-        func remove(key: Dependencies.Name = .default) {
-            dependencies.removeAll(where: { $0.key == key })
+        func remove<T>(type: T.Type) {
+            let key = DependencyKey(type: type)
+            _ = dependencies.removeValue(forKey: key)
         }
         
         func reset() {
@@ -60,14 +49,14 @@ enum Dependencies {
     }
     
     @propertyWrapper
-    struct Inject<T> {
-        private let dependencyName: Name
+    struct Resolve<T> {
+        private let type: T.Type
         private let container: Container
         
-        var wrappedValue: T { container.resolve(key: dependencyName) }
+        var wrappedValue: T { container.resolve(type: type) }
         
-        init(_ dependencyName: Name, on container: Container) {
-            self.dependencyName = dependencyName
+        init(_ type: T.Type, on container: Container = .default) {
+            self.type = type
             self.container = container
         }
     }
