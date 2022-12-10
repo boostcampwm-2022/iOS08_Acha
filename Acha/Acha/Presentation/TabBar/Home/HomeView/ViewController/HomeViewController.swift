@@ -110,8 +110,8 @@ final class HomeViewController: UIViewController, UIViewControllerTransitioningD
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureUI()
         setupSubviews()
+        configureUI()
         bind()
             
     }
