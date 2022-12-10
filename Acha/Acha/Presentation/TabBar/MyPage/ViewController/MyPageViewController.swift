@@ -77,6 +77,11 @@ final class MyPageViewController: UIViewController {
         configureUI()
         bind()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.prefersLargeTitles = true
+    }
 }
 
 // MARK: - Helpers
@@ -93,7 +98,6 @@ extension MyPageViewController {
     }
     
     private func configureNavigationTitle() {
-        navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.largeTitleDisplayMode = .automatic
         navigationItem.title = "회원님, 안녕하세요!"
         navigationController?.navigationBar.largeTitleTextAttributes = [

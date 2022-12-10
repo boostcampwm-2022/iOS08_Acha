@@ -65,6 +65,7 @@
 		47A26DBC292B73850007FBBF /* Coordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A26DBB292B73850007FBBF /* Coordinate.swift */; };
 		47A26DBE292BB2970007FBBF /* MapRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A26DBD292BB2970007FBBF /* MapRegion.swift */; };
 		47A26DC0292C9F8A0007FBBF /* SelectMapRankingHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A26DBF292C9F8A0007FBBF /* SelectMapRankingHeaderView.swift */; };
+		47C557E42942153B00CE4F1B /* InfoTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C557E32942153B00CE4F1B /* InfoTextFieldView.swift */; };
 		47D5773B293389940014D171 /* MapRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D5773A293389940014D171 /* MapRepository.swift */; };
 		47D5773D293389AC0014D171 /* DefaultMapRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D5773C293389AC0014D171 /* DefaultMapRepository.swift */; };
 		47D57741293389D00014D171 /* SelectMapUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D57740293389D00014D171 /* SelectMapUseCase.swift */; };
@@ -303,6 +304,7 @@
 		47A26DBB292B73850007FBBF /* Coordinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinate.swift; sourceTree = "<group>"; };
 		47A26DBD292BB2970007FBBF /* MapRegion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapRegion.swift; sourceTree = "<group>"; };
 		47A26DBF292C9F8A0007FBBF /* SelectMapRankingHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMapRankingHeaderView.swift; sourceTree = "<group>"; };
+		47C557E32942153B00CE4F1B /* InfoTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoTextFieldView.swift; sourceTree = "<group>"; };
 		47D5773A293389940014D171 /* MapRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapRepository.swift; sourceTree = "<group>"; };
 		47D5773C293389AC0014D171 /* DefaultMapRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMapRepository.swift; sourceTree = "<group>"; };
 		47D57740293389D00014D171 /* SelectMapUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMapUseCase.swift; sourceTree = "<group>"; };
@@ -840,6 +842,7 @@
 				76AA55A32937760B00498441 /* BadgeCell.swift */,
 				76AA55A1293775F200498441 /* MyPageHeaderView.swift */,
 				471039552937B7A700003CB5 /* SettingCell.swift */,
+				47C557E32942153B00CE4F1B /* InfoTextFieldView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1717,6 +1720,7 @@
 				761C1C10292E4562000C88D0 /* TimerService.swift in Sources */,
 				F1E7B0B1293DD1E80088332E /* DefaultRandomService.swift in Sources */,
 				F1FCEE0E292B483E001A55D6 /* UITextField+.swift in Sources */,
+				47C557E42942153B00CE4F1B /* InfoTextFieldView.swift in Sources */,
 				474E24F7293DC73200CFAC59 /* TempDBNetwork.swift in Sources */,
 				474E24E4293DC6B800CFAC59 /* LineGraphView.swift in Sources */,
 				47D5774F29338A7A0014D171 /* DefaultRealtimeDatabaseNetworkService.swift in Sources */,
