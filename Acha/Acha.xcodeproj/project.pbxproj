@@ -167,6 +167,7 @@
 		F18A7FD1292C5DA50054FADE /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18A7FD0292C5DA50054FADE /* UIImage+.swift */; };
 		F1AC0391292B33F8008302F8 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1AC0390292B33F8008302F8 /* SignUpViewModel.swift */; };
 		F1AF99FD29445AA300A25752 /* DependenciesContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1AF99FC29445AA300A25752 /* DependenciesContainer.swift */; };
+		F1AF9A0029445ED900A25752 /* DependenciesDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1AF99FF29445ED900A25752 /* DependenciesDefinition.swift */; };
 		F1B0D8AA292CCA0F00EBDD02 /* Encodable+.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B0D8A9292CCA0F00EBDD02 /* Encodable+.swift */; };
 		F1B0D8AC292CCA5200EBDD02 /* SignUpData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B0D8AB292CCA5200EBDD02 /* SignUpData.swift */; };
 		F1B514E3293B26C500F653F3 /* CommunityDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B514E2293B26C500F653F3 /* CommunityDTO.swift */; };
@@ -415,6 +416,7 @@
 		F18A7FD0292C5DA50054FADE /* UIImage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+.swift"; sourceTree = "<group>"; };
 		F1AC0390292B33F8008302F8 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		F1AF99FC29445AA300A25752 /* DependenciesContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependenciesContainer.swift; sourceTree = "<group>"; };
+		F1AF99FF29445ED900A25752 /* DependenciesDefinition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependenciesDefinition.swift; sourceTree = "<group>"; };
 		F1B0D8A9292CCA0F00EBDD02 /* Encodable+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+.swift"; sourceTree = "<group>"; };
 		F1B0D8AB292CCA5200EBDD02 /* SignUpData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpData.swift; sourceTree = "<group>"; };
 		F1B514E2293B26C500F653F3 /* CommunityDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityDTO.swift; sourceTree = "<group>"; };
@@ -1232,6 +1234,7 @@
 			isa = PBXGroup;
 			children = (
 				F1AF99FC29445AA300A25752 /* DependenciesContainer.swift */,
+				F1AF99FF29445ED900A25752 /* DependenciesDefinition.swift */,
 			);
 			path = Dependency;
 			sourceTree = "<group>";
@@ -1582,6 +1585,7 @@
 				47A26DBC292B73850007FBBF /* Coordinate.swift in Sources */,
 				47935E9F29238EB400481307 /* SelectMapViewModel.swift in Sources */,
 				F1B514E7293B3F6500F653F3 /* KeychainService.swift in Sources */,
+				F1AF9A0029445ED900A25752 /* DependenciesDefinition.swift in Sources */,
 				F1E83D7F29348A4A004C7992 /* CommentDTO.swift in Sources */,
 				F14B1495292BA1D40010E966 /* KeyboardManager.swift in Sources */,
 				F1DED3AF2936708500ABC047 /* CommentView.swift in Sources */,
