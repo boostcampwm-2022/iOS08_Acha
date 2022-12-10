@@ -31,9 +31,8 @@ class DefaultInGameUseCase: InGameUseCase {
             .asObservable()
             .subscribe(onNext: { [weak self] (user: User) in
                 guard let self else { return }
-                print(user)
                 self.recordRepository.fetchAllRecords()
-                    .map { $0.filter { $0.mapID == self.mapID && $0.isCompleted && $0.userID == user.nickName } }
+                    .map { $0.filter { $0.mapID == self.mapID && $0.isCompleted && user.records.contains($0.id) } }
                     .map { records in
                         records.map { InGameRecord(id: $0.id,
                                                    time: $0.time,
