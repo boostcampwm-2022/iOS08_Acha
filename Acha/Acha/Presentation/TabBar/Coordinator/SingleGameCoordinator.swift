@@ -73,6 +73,11 @@ final class SingleGameCoordinator: SingleGameCoordinatorProtocol {
                 recordRepository: DefaultRecordRepository(
                     realTimeDatabaseNetworkService: DefaultRealtimeDatabaseNetworkService(),
                     healthKitService: DefaultHealthKitService()
+                ),
+                userRepository: DefaultUserRepository(
+                    realtimeDataBaseService: DefaultRealtimeDatabaseNetworkService(),
+                    keychainService: DefaultKeychainService(),
+                    authService: DefaultAuthService()
                 )
             )
         )
@@ -88,6 +93,11 @@ final class SingleGameCoordinator: SingleGameCoordinatorProtocol {
                 recordRepository: DefaultRecordRepository(
                     realTimeDatabaseNetworkService: DefaultRealtimeDatabaseNetworkService(),
                     healthKitService: DefaultHealthKitService()
+                ),
+                userRepository: DefaultUserRepository(
+                    realtimeDataBaseService: DefaultRealtimeDatabaseNetworkService(),
+                    keychainService: DefaultKeychainService(),
+                    authService: DefaultAuthService()
                 )
             )
         )
