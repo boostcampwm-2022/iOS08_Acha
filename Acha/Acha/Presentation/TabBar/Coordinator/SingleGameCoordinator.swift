@@ -54,7 +54,12 @@ final class SingleGameCoordinator: SingleGameCoordinatorProtocol {
                     healthKitService: DefaultHealthKitService()
                 ),
                 tapTimer: TimerService(),
-                runningTimer: TimerService()
+                runningTimer: TimerService(),
+                userRepository: DefaultUserRepository(
+                    realtimeDataBaseService: DefaultRealtimeDatabaseNetworkService(),
+                    keychainService: DefaultKeychainService(),
+                    authService: DefaultAuthService()
+                )
             )
         )
         let viewController = SingleGameViewController(viewModel: viewModel)
