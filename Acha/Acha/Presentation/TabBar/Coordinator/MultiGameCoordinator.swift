@@ -32,7 +32,9 @@ final class MultiGameCoordinator: MultiGameCoordinatorProtocol {
     
     func showMultiGameRoomViewController(roomID: String) {
         
-        let useCase = DependenciesContainer.shared.resolve(MultiGameRoomUseCase.self)
+        @DIContainer.Resolve(MultiGameRoomUseCase.self)
+        var useCase: MultiGameRoomUseCase
+//        let useCase = DependenciesContainer.shared.resolve(MultiGameRoomUseCase.self)
         let viewModel = MultiGameRoomViewModel(
             coordinator: self,
             useCase: useCase,
@@ -47,8 +49,9 @@ final class MultiGameCoordinator: MultiGameCoordinatorProtocol {
     }
     
     func showMultiGameViewController(roomID: String) {
-        
-        let useCase = DependenciesContainer.shared.resolve(MultiGameUseCase.self)
+        @DIContainer.Resolve(MultiGameUseCase.self)
+        var useCase: MultiGameUseCase
+//        let useCase = DependenciesContainer.shared.resolve(MultiGameUseCase.self)
         let viewModel = MultiGameViewModel(
             coordinator: self,
             useCase: useCase,
