@@ -6,3 +6,8 @@
 //
 
 import Foundation
+
+protocol ImageCacheService {
+    func load(imageURL: String) -> Data?
+    func write(imageURL: String, image: Data)
+}
