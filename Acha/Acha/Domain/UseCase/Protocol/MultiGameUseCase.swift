@@ -7,8 +7,13 @@
 
 import Foundation
 import RxSwift
+import RxRelay
 
 protocol MultiGameUseCase {
+    
+    var inGamePlayersData: BehaviorRelay<[MultiGamePlayerData]> {get set}
+    var unReadsCount: BehaviorRelay<Int> {get set}
+    var currentRoomPlayerData: BehaviorRelay<[RoomUser]> {get set}
     
     func timerStart() -> Observable<Int>
     func timerStop()
@@ -24,7 +29,7 @@ protocol MultiGameUseCase {
     
     func stopObserveLocation()
     
-    func observing(roomID: String) -> Observable<[MultiGamePlayerData]>
+    func observing(roomID: String)
     func watchOthersLocation(roomID: String) -> Single<Coordinate>
     
     func leave(roomID: String)

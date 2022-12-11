@@ -32,6 +32,9 @@ final class DefaultMultiGameUseCase: MultiGameUseCase {
         return Int(movedDistance/100)
     }
     private var watchOtherLocationIndex = 0
+    var inGamePlayersData = BehaviorRelay<[MultiGamePlayerData]>(value: [])
+    var unReadsCount = BehaviorRelay<Int>(value: 0)
+    var currentRoomPlayerData = BehaviorRelay<[RoomUser]>(value: [])
     
     init(
         gameRoomRepository: GameRoomRepository,
@@ -110,8 +113,18 @@ final class DefaultMultiGameUseCase: MultiGameUseCase {
         locationRepository.stopObservingLocation()
     }
     
-    func observing(roomID: String) -> Observable<[MultiGamePlayerData]> {
-        return gameRoomRepository.observingMultiGamePlayers(id: roomID)
+    func observing(roomID: String) {
+        return gameRoomRepository.observingRoom(id: roomID)
+            .withUnretained(self)
+            .subscribe(onNext: { _, roomDTO in
+                self.currentRoomPlayerData.accept(roomDTO.toRoomUsers())
+                let gameInformation = (roomDTO.gameInformation ?? []).map { $0.toDamin() }
+                self.inGamePlayersData.accept(gameInformation)
+                let reads = (roomDTO.chats ?? []).map { $0.read }
+                let readInformation = self.checkDidIReadThatChat(chats: reads)
+                self.unReadsCount.accept(readInformation)
+            })
+            .disposed(by: disposeBag)
     }
     
     func watchOthersLocation(roomID: String) -> Single<Coordinate> {
