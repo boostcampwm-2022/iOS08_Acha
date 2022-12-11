@@ -23,6 +23,7 @@ final class MultiGameViewModel: BaseViewModel {
         let exitButtonTapped: Observable<Void>
         let gameOverButtonTapped: Observable<Void>
         let toRoomButtonTapped: Observable<Void>
+        let viewWillDisappear: Observable<Void>
     }
     
     struct Output {
@@ -162,6 +163,14 @@ final class MultiGameViewModel: BaseViewModel {
             .withUnretained(self)
             .subscribe(onNext: { _ in
                 self.coordinator?.showMultiGameChatViewController(roomID: self.roomId)
+            })
+            .disposed(by: disposeBag)
+        
+        Observable.of(input.exitButtonTapped, input.viewWillDisappear)
+            .merge()
+            .withUnretained(self)
+            .subscribe(onNext: { _ in
+                self.useCase.stopOberservingRoom(id: self.roomId)
             })
             .disposed(by: disposeBag)
     

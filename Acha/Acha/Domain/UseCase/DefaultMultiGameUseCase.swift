@@ -139,6 +139,10 @@ final class DefaultMultiGameUseCase: MultiGameUseCase {
         gameRoomRepository.leaveRoom(id: roomID)
     }
     
+    func stopOberservingRoom(id: String) {
+        gameRoomRepository.removeObserverRoom(id: id)
+    }
+    
     private func checkDidIReadThatChat(chats: [[String]]) -> Int {
         guard let uuid = userRepository.getUUID() else {return 0}
         var count = 0

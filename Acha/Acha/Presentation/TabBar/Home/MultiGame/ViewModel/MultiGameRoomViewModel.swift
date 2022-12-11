@@ -17,6 +17,7 @@ final class MultiGameRoomViewModel: BaseViewModel {
         let viewDidAppear: Observable<Void>
         let exitButtonTapped: Observable<Void>
         let gameStartButtonTapped: Observable<Void>
+        let viewWillDisappear: Observable<Void>
     }
     
     struct Output {
@@ -74,6 +75,14 @@ final class MultiGameRoomViewModel: BaseViewModel {
             }
             .disposed(by: bag)
             
+        Observable.of(input.exitButtonTapped, input.viewWillDisappear)
+            .merge()
+            .withUnretained(self)
+            .subscribe(onNext: { _ in
+                self.useCase.removeObserver(roomID: self.roomID)
+            })
+            .disposed(by: disposeBag)
+        
         input.exitButtonTapped
             .subscribe { [weak self] _ in
                 guard let self = self else {return}
