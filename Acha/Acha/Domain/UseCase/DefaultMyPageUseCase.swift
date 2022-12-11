@@ -13,6 +13,7 @@ final class DefaultMyPageUseCase: MyPageUseCase {
     var userInfo: User?
     var nickName = PublishSubject<String>()
     var ownedBadges = BehaviorSubject<[Badge]>(value: [])
+    var recentlyOwnedBadges = BehaviorSubject<[Badge]>(value: [])
     var allBadges = BehaviorSubject<[Badge]>(value: [])
     
     // MARK: - Dependencies
@@ -39,12 +40,31 @@ final class DefaultMyPageUseCase: MyPageUseCase {
                     .asObservable()
                     .subscribe(onNext: { [weak self] badges in
                         guard let self else { return }
-                        self.allBadges.onNext(badges)
-                        let ownedBadges = badges.filter { user.badges.contains($0.id) }
-                        self.ownedBadges.onNext(ownedBadges)
+                        self.allBadges.onNext(badges.map {
+                            Badge(id: $0.id,
+                                  name: $0.name,
+                                  imageURL: $0.imageURL,
+                                  isHidden: $0.isHidden,
+                                  isOwn: user.badges.contains($0.id) ? true : false
+                            )
+                        })
+                        
+                        let ownedBadges = badges
+                            .filter { user.badges.contains($0.id) }
+                        
+                        let recentlyOwnedBadges = ownedBadges.count > 6 ? ownedBadges.suffix(6) : ownedBadges
+                        self.recentlyOwnedBadges.onNext(recentlyOwnedBadges)
                     })
                     .disposed(by: self.disposeBag)
             })
             .disposed(by: disposeBag)
+    }
+    
+    func logout() -> Observable<Void> {
+        userRepository.signOut()
+    }
+    
+    func deleteUser() -> Single<Void> {
+        userRepository.delete()
     }
 }

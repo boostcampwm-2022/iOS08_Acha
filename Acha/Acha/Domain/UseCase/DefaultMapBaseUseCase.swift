@@ -21,6 +21,7 @@ class DefaultMapBaseUseCase: MapBaseUseCase {
         locationService.start()
         locationService.userLocation
             .asObserver()
+            .skip(1)
             .map { Coordinate(latitude: $0.coordinate.latitude, longitude: $0.coordinate.longitude) }
             .bind(to: self.userLocation)
             .disposed(by: disposeBag)

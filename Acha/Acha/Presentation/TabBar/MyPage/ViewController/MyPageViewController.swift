@@ -117,7 +117,7 @@ extension MyPageViewController {
     }
     
     private func bind() {
-        let input = MyPageViewModel.Input(viewWillAppearEvent: rx.methodInvoked(#selector(UIViewController.viewWillAppear(_:))).map { _ in },
+        let input = MyPageViewModel.Input(viewWillAppearEvent: rx.viewWillAppear.asObservable(),
                                           badgeMoreButtonTapped: badgeMoreButtonTapped,
                                           editMyInfoTapped: editMyInfoTapped,
                                           logoutTapped: logoutTapped,
@@ -136,6 +136,14 @@ extension MyPageViewController {
             .subscribe(onNext: { [weak self] badges in
                 guard let self else { return }
                 self.makeBadgeSnapshot(badges: badges)
+            }).disposed(by: disposeBag)
+        
+        output.deleteFailure
+            .subscribe(onNext: { [weak self] in
+                guard let self else { return }
+                self.showAlert(
+                    title: "회원 탈퇴에 실패했습니다.",
+                    message: "아쉽네요")
             }).disposed(by: disposeBag)
     }
 }
@@ -226,7 +234,8 @@ extension MyPageViewController {
                     for: indexPath) as? BadgeCell else {
                     return BadgeCell()
                 }
-                cell.bind(image: badge.imageURL, badgeName: badge.name, disposeBag: self.disposeBag)
+                    cell.bind(badge: badge,
+                              disposeBag: self.disposeBag)
                 return cell
             case .setting(let type):
                 guard let cell = collectionView.dequeueReusableCell(
