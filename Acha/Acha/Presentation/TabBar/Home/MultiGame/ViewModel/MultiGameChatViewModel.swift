@@ -76,7 +76,6 @@ final class MultiGameChatViewModel: BaseViewModel {
         input.viewWillDisappear
             .withUnretained(self)
             .subscribe { _ in
-                self.useCase.leave(roomID: self.roomID)
                 self.coordinator?.navigationController.isNavigationBarHidden = true
             }
             .disposed(by: disposeBag)
