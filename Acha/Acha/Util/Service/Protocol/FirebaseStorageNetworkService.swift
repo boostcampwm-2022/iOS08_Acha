@@ -11,4 +11,5 @@ import RxSwift
 protocol FirebaseStorageNetworkService {
     func upload(type: FirebaseStorageType, data: Data, completion: @escaping (URL?) -> Void)
     func download(urlString: String, completion: @escaping (Data?) -> Void)
+    func download(urlString: String) -> Observable<Data>
 }

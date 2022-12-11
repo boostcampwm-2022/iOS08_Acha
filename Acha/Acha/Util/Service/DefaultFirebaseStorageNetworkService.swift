@@ -67,4 +67,24 @@ final class DefaultFirebaseStorageNetworkService: FirebaseStorageNetworkService 
         }.resume()
     }
     
+    private var disposeBag = DisposeBag()
+    func download(urlString: String) -> Observable<Data> {
+        return Observable<Data>.create { [weak self] observer in
+            guard let self,
+                  let url = URL(string: urlString) else {
+                observer.onError(FirebaseStorageError.urlError)
+                return Disposables.create()
+            }
+            
+            URLSession.shared.rx.data(request: URLRequest(url: url))
+                .subscribe(onNext: { data in
+                    observer.onNext(data)
+                }, onError: { error in
+                    observer.onError(error)
+                })
+                .disposed(by: self.disposeBag)
+
+            return Disposables.create()
+        }
+    }
 }
