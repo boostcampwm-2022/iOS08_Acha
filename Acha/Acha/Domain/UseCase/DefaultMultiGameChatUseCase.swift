@@ -11,7 +11,7 @@ import RxRelay
 
 final class DefaultMultiGameChatUseCase: MultiGameChatUseCase {
     
-    private var chats = ""
+    private var chats = BehaviorRelay<String>(value: "")
     private let disposeBag = DisposeBag()
     
     private let roomRepository: GameRoomRepository
@@ -26,14 +26,14 @@ final class DefaultMultiGameChatUseCase: MultiGameChatUseCase {
     }
     
     func chatWrite(text: String) {
-        chats = text
+        chats.accept(chats.value + text)
     }
     
     func chatUpdate(roomID: String) {
         userRepository.fetchUserData()
             .subscribe(onSuccess: { [weak self] user in
                 
-                guard let chat = self?.chats,
+                guard let chat = self?.chats.value,
                 chat.count != 0 else { return }
                 
                 let newChat = Chat(
@@ -62,7 +62,6 @@ final class DefaultMultiGameChatUseCase: MultiGameChatUseCase {
     
     func leave(roomID: String) {
         roomRepository.removeObserverRoom(id: roomID)
-        roomRepository.leaveRoom(id: roomID)
     }
     
     private func readsUpdate(roomID: String, reads: [[String]]) {

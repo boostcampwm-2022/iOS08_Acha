@@ -13,7 +13,7 @@ import CoreLocation
 
 final class MultiGameViewModel: BaseViewModel {
 
-    var disposeBag: RxSwift.DisposeBag = .init()
+    public let disposeBag: RxSwift.DisposeBag = .init()
     private var timerBag = DisposeBag()
     
     struct Input {
@@ -64,19 +64,6 @@ final class MultiGameViewModel: BaseViewModel {
         input.viewDidAppear
             .subscribe { [weak self] _ in
                 guard let self = self else {return}
-                if self.timerCount.value != 60 {
-                    return
-                }
-                self.useCase.timerStart()
-                    .subscribe { time in
-                        if time <= -1 {
-                            gameOver.onNext(())
-                            self.gameOverAction(time: 60)
-                        } else {
-                            self.timerCount.accept(time)
-                        }
-                    }
-                    .disposed(by: self.timerBag)
                 
                 self.useCase.getLocation()
                     .subscribe { location in
@@ -106,6 +93,20 @@ final class MultiGameViewModel: BaseViewModel {
                         unReadChat.onNext(count)
                     }
                     .disposed(by: self.disposeBag)
+                
+                if self.timerCount.value != 60 {
+                    return
+                }
+                self.useCase.timerStart()
+                    .subscribe { time in
+                        if time <= -1 {
+                            gameOver.onNext(())
+                            self.gameOverAction(time: 60)
+                        } else {
+                            self.timerCount.accept(time)
+                        }
+                    }
+                    .disposed(by: self.timerBag)
                     
             }
             .disposed(by: disposeBag)
