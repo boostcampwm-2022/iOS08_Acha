@@ -28,12 +28,10 @@ struct DefaultImageCacheService: ImageCacheService {
         guard let url = URL(string: imageURL) else { return nil }
 
         if let data = memoryCache.load(imageURL: url) {
-            print("MemoryCache hit")
             return data
         }
         
         if let data = diskCache.load(imageURL: url) {
-            print("DiskCache hit")
             memoryCache.write(imageURL: url, data: data)
             return data
         }
@@ -132,7 +130,6 @@ struct DiskCache {
                                                                       includingPropertiesForKeys: [.fileSizeKey]) else {
             return 0
         }
-        
         return resourceKeys.reduce(0) { result, url in
             guard let fileSize = try? url.resourceValues(forKeys: [.fileSizeKey]).fileSize else {
                 return result
