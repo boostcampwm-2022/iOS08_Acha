@@ -26,7 +26,7 @@ final class DefaultMultiGameChatUseCase: MultiGameChatUseCase {
     }
     
     func chatWrite(text: String) {
-        chats.accept(chats.value + text)
+        chats.accept(text)
     }
     
     func chatUpdate(roomID: String) {
@@ -46,6 +46,7 @@ final class DefaultMultiGameChatUseCase: MultiGameChatUseCase {
                     roomID: roomID,
                     chat: newChat
                 )
+                self?.chats.accept("")
             })
             .disposed(by: disposeBag)
     }
