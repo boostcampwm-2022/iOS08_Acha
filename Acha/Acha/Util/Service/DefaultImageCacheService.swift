@@ -84,11 +84,13 @@ struct DiskCache {
         let path = pathURL.appendingPathComponent(imageURL.lastPathComponent)
         guard let data else { return }
         
-        if cacheSize > maxCacheSize {
+        if cacheSize + data.count > maxCacheSize {
             removeCache(needSize: data.count)
         }
         
-        fileManager.createFile(atPath: path.path, contents: data, attributes: nil)
+        // contentModificationDateKey을 현재로 설정하면서, 파일을 생성
+        let attributes: [FileAttributeKey: Any] = [.modificationDate: Date()]
+        fileManager.createFile(atPath: path.path, contents: data, attributes: attributes)
     }
     
     /// contentModificationDateKey 기준으로, 필요한 만큼만 삭제
