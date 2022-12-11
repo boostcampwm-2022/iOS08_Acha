@@ -7,7 +7,6 @@
 
 import Foundation
 import RxSwift
-import CoreLocation
 
 protocol MultiGameUseCase {
     
@@ -25,4 +24,5 @@ protocol MultiGameUseCase {
     func stopObserveLocation()
     
     func observing(roomID: String) -> Observable<[MultiGamePlayerData]>
+    func watchOthersLocation(roomID: String) -> Single<Coordinate>
 }

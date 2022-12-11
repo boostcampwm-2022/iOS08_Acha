@@ -17,4 +17,25 @@ extension UIImage {
     static let ellipsisImage: UIImage = UIImage(systemName: "ellipsis")!
         .withTintColor(.pointDark, renderingMode: .alwaysOriginal)
     static let penguinImage = UIImage(named: "penguin") ?? UIImage()
+    static let firstAnnotation = UIImage(named: "firstAnnotation") ?? UIImage()
+    static let secondAnnotation = UIImage(named: "secondAnnotation") ?? UIImage()
+    static let thirdAnnotation = UIImage(named: "thirdAnnotation") ?? UIImage()
+    static let fourthAnnotation = UIImage(named: "fourthAnnotation") ?? UIImage()
+    static let systemEyeCircle = UIImage(
+        systemName: "eye.circle",
+        withConfiguration: UIImage.SymbolConfiguration(
+            pointSize: 30,
+            weight: .bold,
+            scale: .large
+        )
+    )
+    
+    func imageWith(newSize: CGSize) -> UIImage {
+        let image = UIGraphicsImageRenderer(size: newSize).image { _ in
+            draw(in: CGRect(origin: .zero, size: newSize))
+        }
+            
+        return image.withRenderingMode(renderingMode)
+    }
+
 }

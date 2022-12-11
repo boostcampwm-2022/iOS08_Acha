@@ -186,6 +186,9 @@
 		F1CC514D293F24E500B9008D /* MultiGamePlayerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CC514C293F24E500B9008D /* MultiGamePlayerData.swift */; };
 		F1CC514F293F37BC00B9008D /* MultiGamePlayerDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CC514E293F37BC00B9008D /* MultiGamePlayerDTO.swift */; };
 		F1CC5151293FAED600B9008D /* GameRankCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CC5150293FAED500B9008D /* GameRankCollectionViewCell.swift */; };
+		F1CC5153294069C200B9008D /* MKCircle+.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CC5152294069C200B9008D /* MKCircle+.swift */; };
+		F1CC51552940785900B9008D /* PlayerCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CC51542940785900B9008D /* PlayerCircle.swift */; };
+		F1CC515729407FE100B9008D /* PlayerAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CC515629407FE100B9008D /* PlayerAnnotationView.swift */; };
 		F1D202992923AB3D00F3E87D /* InGameRankingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D202982923AB3D00F3E87D /* InGameRankingViewController.swift */; };
 		F1D2029B2923B97400F3E87D /* InGameRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D2029A2923B97400F3E87D /* InGameRecordViewController.swift */; };
 		F1D202A42923C09300F3E87D /* InGameMenuCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D202A32923C09300F3E87D /* InGameMenuCollectionViewCell.swift */; };
@@ -433,6 +436,9 @@
 		F1CC514C293F24E500B9008D /* MultiGamePlayerData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiGamePlayerData.swift; sourceTree = "<group>"; };
 		F1CC514E293F37BC00B9008D /* MultiGamePlayerDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiGamePlayerDTO.swift; sourceTree = "<group>"; };
 		F1CC5150293FAED500B9008D /* GameRankCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRankCollectionViewCell.swift; sourceTree = "<group>"; };
+		F1CC5152294069C200B9008D /* MKCircle+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKCircle+.swift"; sourceTree = "<group>"; };
+		F1CC51542940785900B9008D /* PlayerCircle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCircle.swift; sourceTree = "<group>"; };
+		F1CC515629407FE100B9008D /* PlayerAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerAnnotationView.swift; sourceTree = "<group>"; };
 		F1D202982923AB3D00F3E87D /* InGameRankingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameRankingViewController.swift; sourceTree = "<group>"; };
 		F1D2029A2923B97400F3E87D /* InGameRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameRecordViewController.swift; sourceTree = "<group>"; };
 		F1D202A32923C09300F3E87D /* InGameMenuCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameMenuCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -612,8 +618,12 @@
 				F156F11D292365840053E807 /* CALayer+.swift */,
 				76A2E1A22923D94C001E887A /* CLLocationCoordinate2D+.swift */,
 				F1B0D8A9292CCA0F00EBDD02 /* Encodable+.swift */,
+
+				F1CC5152294069C200B9008D /* MKCircle+.swift */,
+
 				474952F72941E8D600098E7C /* Reactive */,
 				766978BE294087B7002128C7 /* UIImageView+.swift */,
+
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -945,8 +955,8 @@
 		76AA55F62937AD8900498441 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				76AA55F72937AD8900498441 /* MultiGameViewController.swift */,
 				76AA55F82937AD8900498441 /* MultiGameRoomViewController.swift */,
+				76AA55F72937AD8900498441 /* MultiGameViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -1039,8 +1049,10 @@
 			children = (
 				76AA55F42937AD8900498441 /* GameRoomCollectionViewHeader.swift */,
 				76AA55F52937AD8900498441 /* GameRoomCollectionViewCell.swift */,
-				F1CC514A293F237B00B9008D /* PlayerAnnotation.swift */,
 				F1CC5150293FAED500B9008D /* GameRankCollectionViewCell.swift */,
+				F1CC51542940785900B9008D /* PlayerCircle.swift */,
+				F1CC514A293F237B00B9008D /* PlayerAnnotation.swift */,
+				F1CC515629407FE100B9008D /* PlayerAnnotationView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1638,6 +1650,7 @@
 				E5BE8B91292218A500E9CFE8 /* Coordinator.swift in Sources */,
 				F1E83D8B29351C69004C7992 /* CommunityViewUsecase.swift in Sources */,
 				F1CC5143293EFED500B9008D /* DefaultTimeRepository.swift in Sources */,
+				F1CC5153294069C200B9008D /* MKCircle+.swift in Sources */,
 				764AF29F292B6EF500D16DC9 /* InGameRecordViewModel.swift in Sources */,
 				474E24E7293DC6B800CFAC59 /* RecordMainCell.swift in Sources */,
 				76AA56082937ADBB00498441 /* LogInRepository.swift in Sources */,
@@ -1645,6 +1658,7 @@
 				F12210C2292D031800AE5F26 /* KeyChainManager.swift in Sources */,
 				474E24EC293DC6B800CFAC59 /* RecordMapHeaderView.swift in Sources */,
 				76AA55D12937AC6300498441 /* RoomUser.swift in Sources */,
+				F1CC51552940785900B9008D /* PlayerCircle.swift in Sources */,
 				47D5774B29338A4A0014D171 /* RealtimeDatabaseNetworkService.swift in Sources */,
 				E5BE8B952922196D00E9CFE8 /* TabBarCoordinator.swift in Sources */,
 				474E24FF293DC76800CFAC59 /* RecordMapViewUseCase.swift in Sources */,
@@ -1677,6 +1691,7 @@
 				F1B0D8AA292CCA0F00EBDD02 /* Encodable+.swift in Sources */,
 				F1B514E9293B3FA300F653F3 /* DefaultKeychainService.swift in Sources */,
 				E5BE8BB32922200C00E9CFE8 /* MyPageViewController.swift in Sources */,
+				F1CC515729407FE100B9008D /* PlayerAnnotationView.swift in Sources */,
 				F1CC5151293FAED600B9008D /* GameRankCollectionViewCell.swift in Sources */,
 				F1D202A42923C09300F3E87D /* InGameMenuCollectionViewCell.swift in Sources */,
 				F156F11C2923623C0053E807 /* PaddingLabel.swift in Sources */,
