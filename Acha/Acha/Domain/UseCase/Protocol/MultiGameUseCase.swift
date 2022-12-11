@@ -25,4 +25,6 @@ protocol MultiGameUseCase {
     
     func observing(roomID: String) -> Observable<[MultiGamePlayerData]>
     func watchOthersLocation(roomID: String) -> Single<Coordinate>
+    
+    func leave(roomID: String)
 }

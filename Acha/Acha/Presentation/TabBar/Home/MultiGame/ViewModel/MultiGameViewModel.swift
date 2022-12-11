@@ -18,6 +18,7 @@ struct MultiGameViewModel: BaseViewModel {
         let viewDidAppear: Observable<Void>
         let resetButtonTapped: Observable<Void>
         let watchOthersLocationButtonTapped: Observable<Void>
+        let exitButtonTapped: Observable<Void>
     }
     
     struct Output {
@@ -97,6 +98,13 @@ struct MultiGameViewModel: BaseViewModel {
                         otherLocation.onNext(coordinate)
                     })
                     .disposed(by: disposeBag)
+            }
+            .disposed(by: disposeBag)
+        
+        input.exitButtonTapped
+            .subscribe { _ in
+                useCase.leave(roomID: roomId)
+                self.coordinator?.delegate?.didFinished(childCoordinator: self.coordinator!)
             }
             .disposed(by: disposeBag)
         

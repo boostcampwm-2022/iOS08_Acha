@@ -120,6 +120,12 @@ final class DefaultMultiGameUseCase: MultiGameUseCase {
                 return data.currentLocation ?? Coordinate(latitude: 0, longitude: 0)
             }
     }
+    
+    func leave(roomID: String) {
+        timeRepository.stopTimer()
+        locationRepository.stopObservingLocation()
+        gameRoomRepository.leaveRoom(id: roomID)
+    }
 
     private func distanceAppend(_ current: Coordinate) {
         let distance = previousPosition.distance(from: current)
