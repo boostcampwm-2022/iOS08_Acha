@@ -62,25 +62,6 @@ final class MultiGameViewModel: BaseViewModel {
         let otherLocation = PublishSubject<Coordinate>()
         let gameOver = PublishSubject<Void>()
         let unReadChat = PublishSubject<Int>()
-        
-        useCase.unReadsCount
-            .bind(to: unReadChat)
-            .disposed(by: disposeBag)
-        
-        useCase.inGamePlayersData
-            .bind(to: playerDataFetcehd)
-            .disposed(by: disposeBag)
-        
-        useCase.currentRoomPlayerData
-            .withUnretained(self)
-            .subscribe(onNext: { _, roomUsers in
-                if roomUsers.count < 2 {
-                    self.gameOverAction(time: 60)
-                    gameOver.onNext(())
-                }
-            })
-            .disposed(by: disposeBag)
-        
         input.viewDidAppear
             .subscribe { [weak self] _ in
                 guard let self = self else {return}
@@ -94,11 +75,25 @@ final class MultiGameViewModel: BaseViewModel {
                     .disposed(by: self.disposeBag)
                 
                 self.useCase.observing(roomID: self.roomId)
+                    .subscribe { players in
+                        if players.count >= 2 {
+                            playerDataFetcehd.onNext(players)
+                        } else {
+                            gameOver.onNext(())
+                            self.gameOverAction(time: 60)
+                        }
+                    }
+                    .disposed(by: self.disposeBag)
                 
                 self.useCase.healthKitAuthorization()
                     .subscribe()
                     .disposed(by: self.disposeBag)
                 
+                self.useCase.unReadChatting(roomID: self.roomId)
+                    .subscribe { count in
+                        unReadChat.onNext(count)
+                    }
+                    .disposed(by: self.disposeBag)
                 
                 if self.timerCount.value != 60 {
                     return
@@ -121,7 +116,9 @@ final class MultiGameViewModel: BaseViewModel {
             .subscribe(onNext: { [weak self] _ in
                 guard let self = self else {return}
                 self.useCase.getLocation()
-                    .subscribe(onNext: { position in
+                    .first()
+                    .subscribe(onSuccess: { position in
+                        guard let position = position else {return}
                         currentLocation.onNext(position)
                     })
                     .disposed(by: self.disposeBag)
@@ -171,10 +168,10 @@ final class MultiGameViewModel: BaseViewModel {
             })
             .disposed(by: disposeBag)
         
-        Observable.of(input.exitButtonTapped, input.gameOverButtonTapped, input.viewWillDisappear)
+        Observable.of(input.exitButtonTapped, input.viewWillDisappear)
             .merge()
-            .subscribe(onNext: { [weak self] _ in
-                guard let self = self else {return}
+            .withUnretained(self)
+            .subscribe(onNext: { _ in
                 self.useCase.stopOberservingRoom(id: self.roomId)
             })
             .disposed(by: disposeBag)
