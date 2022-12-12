@@ -28,7 +28,7 @@ final class SingleGameViewModel: MapBaseViewModel {
         
         var wentLocations = PublishSubject<[Coordinate]>()
         var visitLocations = PublishSubject<[Coordinate]>()
-        var gameOverInformation = PublishSubject<(Record, String)>()
+        var gameOverInformation = PublishSubject<(Record, String, Badge?)>()
     }
     
     // MARK: - Dependency
