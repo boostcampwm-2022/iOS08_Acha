@@ -6,8 +6,10 @@
 //
 
 import Foundation
+import RxSwift
 
 protocol ImageCacheService {
-    func load(imageURL: String) -> Data?
+    func isExist(imageURL: String) -> Bool
+    func load(imageURL: String) -> Single<Data>
     func write(imageURL: String, image: Data)
 }

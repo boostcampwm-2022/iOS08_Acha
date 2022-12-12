@@ -29,10 +29,12 @@ final class DefaultBadgeRepository: BadgeRepository {
             .asObservable()
             .flatMap { (badgeDTOs: [BadgeDTO]) in
                 Observable.zip(badgeDTOs.map { badgeDTO in
-                    if let data = self.imageCacheService.load(imageURL: badgeDTO.imageURL) {
-                        return Observable.of(
-                            Badge(id: badgeDTO.id, name: badgeDTO.name, image: data, isHidden: badgeDTO.isHidden)
-                        )
+                    if self.imageCacheService.isExist(imageURL: badgeDTO.imageURL) {
+                        return self.imageCacheService.load(imageURL: badgeDTO.imageURL)
+                            .asObservable()
+                            .map { data in
+                                Badge(id: badgeDTO.id, name: badgeDTO.name, image: data, isHidden: badgeDTO.isHidden)
+                            }
                     }
                     
                     return self.firebaseStorageNetworkService.download(urlString: badgeDTO.imageURL)

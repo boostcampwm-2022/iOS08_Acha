@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RxSwift
 
 struct DefaultImageCacheService: ImageCacheService {
     private let diskCache = DiskCache()
@@ -18,25 +19,29 @@ struct DefaultImageCacheService: ImageCacheService {
         case unknownError
     }
     
-    /// 필요할까요
-    private func isExist(imageURL: String) -> Bool {
+    /// 필요합니다
+    func isExist(imageURL: String) -> Bool {
         guard let url = URL(string: imageURL) else { return false }
-        return memoryCache.load(imageURL: url) != nil || diskCache.isExist(imageURL: url)
+        return memoryCache.isExist(imageURL: url) || diskCache.isExist(imageURL: url)
     }
     
-    func load(imageURL: String) -> Data? {
-        guard let url = URL(string: imageURL) else { return nil }
-
-        if let data = memoryCache.load(imageURL: url) {
-            return data
+    func load(imageURL: String) -> Single<Data> {
+        guard let url = URL(string: imageURL) else {
+            return Single<Data>.error(ImageCacheError.urlError)
         }
         
-        if let data = diskCache.load(imageURL: url) {
-            memoryCache.write(imageURL: url, data: data)
-            return data
+        if memoryCache.isExist(imageURL: url) {
+            return memoryCache.load(imageURL: url)
         }
         
-        return nil
+        if diskCache.isExist(imageURL: url) {
+            return diskCache.load(imageURL: url)
+                .do(onSuccess: {
+                    memoryCache.write(imageURL: url, data: $0)
+                })
+        }
+        
+        return Single<Data>.error(ImageCacheError.unknownError)
     }
     
     func write(imageURL: String, image: Data) {
@@ -47,6 +52,9 @@ struct DefaultImageCacheService: ImageCacheService {
 }
 
 struct DiskCache {
+    enum DiskCacheError: Error {
+        case dataError
+    }
     private let pathURL: URL
     private let fileManager = FileManager.default
     var cacheSize: Int {
@@ -69,13 +77,22 @@ struct DiskCache {
         return fileManager.fileExists(atPath: path.path)
     }
     
-    func load(imageURL: URL) -> Data? {
-        let path = pathURL.appendingPathComponent(imageURL.lastPathComponent)
-        guard let data = try? Data(contentsOf: path) else { return nil }
-        
-        try? fileManager.setAttributes([FileAttributeKey.modificationDate: Date()], ofItemAtPath: path.path)
-        
-        return data
+    func load(imageURL: URL) -> Single<Data> {
+
+        Single<Data>.create { single in
+            let path = pathURL.appendingPathComponent(imageURL.lastPathComponent)
+            DispatchQueue.global().async {
+                guard let data = try? Data(contentsOf: path) else {
+                    single(.failure(DiskCacheError.dataError))
+                    return
+                }
+                DispatchQueue.main.async {
+                    single(.success(data))
+                }
+            }
+            try? fileManager.setAttributes([FileAttributeKey.modificationDate: Date()], ofItemAtPath: path.path)
+            return Disposables.create()
+        }
     }
     
     func write(imageURL: URL, data: Data?) {
@@ -147,8 +164,18 @@ struct MemoryCache {
         cache.totalCostLimit = capacity
     }
     
-    func load(imageURL: URL) -> Data? {
-        cache.object(forKey: imageURL.lastPathComponent as AnyObject) as? Data
+    func isExist(imageURL: URL) -> Bool {
+        cache.object(forKey: imageURL.lastPathComponent as AnyObject) != nil
+    }
+    
+    func load(imageURL: URL) -> Single<Data> {
+        Single<Data>.create { single in
+            DispatchQueue.main.async {
+                let data = cache.object(forKey: imageURL.lastPathComponent as AnyObject) as? Data
+                single(.success(data ?? Data()))
+            }
+            return Disposables.create()
+        }
     }
     
     func write(imageURL: URL, data: Data?) {
