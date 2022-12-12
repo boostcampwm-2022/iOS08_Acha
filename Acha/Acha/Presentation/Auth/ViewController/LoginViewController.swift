@@ -11,11 +11,11 @@ import RxSwift
 
 final class LoginViewController: ScrollAbleViewController {
     
-    private let titleView = AuthTitleView(image: nil, text: "로그인")
-    private let emailTextField = AuthInputTextField(type: .email)
-    private let passwordTextField = AuthInputTextField(type: .password)
-    private let loginButton = AuthButton(color: .pointLight, text: "로그인")
-    private let toSignUpButton = AuthButton(color: .pointLight, text: "회원가입")
+    private lazy var titleView = AuthTitleView(image: nil, text: "로그인")
+    private lazy var emailTextField = AuthInputTextField(type: .email)
+    private lazy var passwordTextField = AuthInputTextField(type: .password)
+    private lazy var loginButton = AuthButton(color: .pointLight, text: "로그인")
+    private lazy var toSignUpButton = AuthButton(color: .pointLight, text: "회원가입")
     
     private let viewModel: LoginViewModel
     private var disposeBag = DisposeBag()

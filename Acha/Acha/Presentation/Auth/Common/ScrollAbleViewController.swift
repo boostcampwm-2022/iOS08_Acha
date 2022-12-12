@@ -7,10 +7,10 @@
 
 import UIKit
 
-class ScrollAbleViewController: UIViewController {
+final class ScrollAbleViewController: UIViewController {
     
-    let scrollView = UIScrollView()
-    let contentView = UIStackView()
+    lazy var scrollView = UIScrollView()
+    lazy var contentView = UIStackView()
     
     override func viewDidLoad() {
         super.viewDidLoad()

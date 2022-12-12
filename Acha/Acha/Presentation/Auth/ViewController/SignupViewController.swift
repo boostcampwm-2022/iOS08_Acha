@@ -13,12 +13,12 @@ import RxCocoa
 
 final class SignupViewController: ScrollAbleViewController {
     
-    private let titleView = AuthTitleView(image: nil, text: "회원가입")
-    private let emailTextField = AuthInputTextField(type: .email)
-    private let passwordTextField = AuthInputTextField(type: .password)
-    private let nickNameTextField = AuthInputTextField(type: .nickName)
-    private let signUpButton = AuthButton(color: .pointDark, text: "회원가입")
-    private let logInButton = AuthButton(color: .pointDark, text: "로그인")
+    private lazy var titleView = AuthTitleView(image: nil, text: "회원가입")
+    private lazy var emailTextField = AuthInputTextField(type: .email)
+    private lazy var passwordTextField = AuthInputTextField(type: .password)
+    private lazy var nickNameTextField = AuthInputTextField(type: .nickName)
+    private lazy var signUpButton = AuthButton(color: .pointDark, text: "회원가입")
+    private lazy var logInButton = AuthButton(color: .pointDark, text: "로그인")
     
     private let viewModel: SignUpViewModel
     private var disposeBag = DisposeBag()
