@@ -169,7 +169,7 @@ final class DefaultSingleGameUseCase: DefaultMapBaseUseCase, SingleGameUseCase {
                                        badges: user.badges,
                                        records: user.records + [newRecordID],
                                        friends: user.friends)
-                print(updatedUser)
+                
                 self.userRepository.updateUserData(user: updatedUser)
                 self.stop()
             })
