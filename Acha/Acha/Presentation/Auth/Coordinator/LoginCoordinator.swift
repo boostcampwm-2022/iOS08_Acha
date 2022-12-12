@@ -6,15 +6,21 @@
 //
 
 import UIKit
+import RxSwift
 
-protocol LoginCoordinatorProtocol: Coordinator, SignupCoordinatorProtocol {
+protocol LoginCoordinatorProtocol: Coordinator {
     func showLoginViewController()
     func showSignupViewController()
 }
 
+protocol LoginCoordinatorDelegate: AnyObject {
+    func switchToSignup()
+}
+
 final class LoginCoordinator: LoginCoordinatorProtocol {
     
-    var delegate: CoordinatorDelegate?
+    weak var delegate: CoordinatorDelegate?
+    weak var loginDelegate: LoginCoordinatorDelegate?
     
     var navigationController: UINavigationController
     
@@ -41,10 +47,7 @@ final class LoginCoordinator: LoginCoordinatorProtocol {
     }
     
     func showSignupViewController() {
-        let coordinator = SignupCoordinator(navigationController: navigationController)
-        appendChildCoordinator(coordinator: coordinator)
-        coordinator.delegate = self
-        coordinator.start()
+        loginDelegate?.switchToSignup()
     }
     
     /// snapkit 에서 superview 를 찾을 수 없다는 오류로 인해서 강제적으로 네비게이션 컨트롤러를
