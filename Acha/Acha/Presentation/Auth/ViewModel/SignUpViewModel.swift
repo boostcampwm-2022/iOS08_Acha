@@ -84,11 +84,14 @@ final class SignUpViewModel {
         let signUpButtonDidTap = Observable<Bool>.create { observer in
             input.signUpButtonDidTap
                 .subscribe { [weak self] _ in
-                    self?.useCase.signUp()
+                    guard let self = self else {return}
+                    self.allocatedIndicator(action: true)
+                    self.useCase.signUp()
                         .subscribe(onNext: { _ in
-                            guard let self = self else {return}
+                            self.allocatedIndicator(action: false)
                             self.coordinator?.delegate?.didFinished(childCoordinator: self.coordinator!)
                         }, onError: { _ in
+                            self.allocatedIndicator(action: false)
                             observer.onNext(false)
                         })
                         .disposed(by: bag)
@@ -108,6 +111,10 @@ final class SignUpViewModel {
     private func transitionView() {
         guard let strongCoordinator = coordinator else {return}
         strongCoordinator.delegate?.didFinished(childCoordinator: strongCoordinator)
+    }
+    
+    private func allocatedIndicator(action: Bool) {
+        coordinator?.navigationController.view.rx.indicator.onNext(action)
     }
     
 }

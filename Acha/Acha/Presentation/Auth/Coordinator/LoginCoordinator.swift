@@ -54,13 +54,7 @@ final class LoginCoordinator: LoginCoordinatorProtocol {
     func showSignupViewController() {
         loginDelegate?.switchToSignup()
     }
-    
-    /// snapkit 에서 superview 를 찾을 수 없다는 오류로 인해서 강제적으로 네비게이션 컨트롤러를
-    /// 정리해 줘야 되서 만든 함수 입니다.
-    private func navigationControllerRefactoring() {
-        var viewControllers = navigationController.viewControllers
-        viewControllers.remove(at: viewControllers.count-2)
-    }
+
 }
 #warning("didFinished 제거")
 extension LoginCoordinator: CoordinatorDelegate {

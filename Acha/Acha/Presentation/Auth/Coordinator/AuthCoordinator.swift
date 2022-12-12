@@ -51,9 +51,10 @@ extension AuthCoordinator: CoordinatorDelegate {
         removeChildCoordinator(coordinator: childCoordinator)
         switch childCoordinator {
         case is LoginCoordinatorProtocol:
-            popSelfFromNavigatonController()
+            navigationController.viewControllers = []
             delegate?.didFinished(childCoordinator: self)
         case is SignupCoordinatorProtocol:
+            navigationController.viewControllers = []
             connectLoginCoordinator()
         default:
             break
@@ -63,13 +64,13 @@ extension AuthCoordinator: CoordinatorDelegate {
 
 extension AuthCoordinator: LoginCoordinatorDelegate, SginupCoordinatorDelegate {
     func switchToSignup() {
-        popSelfFromNavigatonController()
+        navigationController.viewControllers = []
         removeAllChildCoordinator()
         connectSignupCoordinator()
     }
     
     func switchToLogin() {
-        popSelfFromNavigatonController()
+        navigationController.viewControllers = []
         removeAllChildCoordinator()
         connectLoginCoordinator()
     }
