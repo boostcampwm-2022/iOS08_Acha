@@ -187,7 +187,14 @@
 		F16B453B293330EC002429A2 /* MapDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16B453A293330EC002429A2 /* MapDTO.swift */; };
 		F18A7FD1292C5DA50054FADE /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18A7FD0292C5DA50054FADE /* UIImage+.swift */; };
 		F1AC0391292B33F8008302F8 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1AC0390292B33F8008302F8 /* SignUpViewModel.swift */; };
+
+		F1AF99FD29445AA300A25752 /* DependenciesContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1AF99FC29445AA300A25752 /* DependenciesContainer.swift */; };
+		F1AF9A0029445ED900A25752 /* DependenciesDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1AF99FF29445ED900A25752 /* DependenciesDefinition.swift */; };
+		F1AF9A062944873D00A25752 /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1AF9A052944873D00A25752 /* DIContainer.swift */; };
+		F1AF9A0A2944B52000A25752 /* DependencyKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1AF9A092944B52000A25752 /* DependencyKey.swift */; };
+
 		F1AF9A3B2944FBD000A25752 /* AchaKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1AF9A3A2944FBD000A25752 /* AchaKeyboard.swift */; };
+
 		F1B0D8AA292CCA0F00EBDD02 /* Encodable+.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B0D8A9292CCA0F00EBDD02 /* Encodable+.swift */; };
 		F1B0D8AC292CCA5200EBDD02 /* SignUpData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B0D8AB292CCA5200EBDD02 /* SignUpData.swift */; };
 		F1B514E3293B26C500F653F3 /* CommunityDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B514E2293B26C500F653F3 /* CommunityDTO.swift */; };
@@ -449,7 +456,14 @@
 		F16B453A293330EC002429A2 /* MapDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapDTO.swift; sourceTree = "<group>"; };
 		F18A7FD0292C5DA50054FADE /* UIImage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+.swift"; sourceTree = "<group>"; };
 		F1AC0390292B33F8008302F8 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
+
+		F1AF99FC29445AA300A25752 /* DependenciesContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependenciesContainer.swift; sourceTree = "<group>"; };
+		F1AF99FF29445ED900A25752 /* DependenciesDefinition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependenciesDefinition.swift; sourceTree = "<group>"; };
+		F1AF9A052944873D00A25752 /* DIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
+		F1AF9A092944B52000A25752 /* DependencyKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyKey.swift; sourceTree = "<group>"; };
+
 		F1AF9A3A2944FBD000A25752 /* AchaKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchaKeyboard.swift; sourceTree = "<group>"; };
+
 		F1B0D8A9292CCA0F00EBDD02 /* Encodable+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+.swift"; sourceTree = "<group>"; };
 		F1B0D8AB292CCA5200EBDD02 /* SignUpData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpData.swift; sourceTree = "<group>"; };
 		F1B514E2293B26C500F653F3 /* CommunityDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityDTO.swift; sourceTree = "<group>"; };
@@ -1171,7 +1185,11 @@
 		E5BE8B8D292216B400E9CFE8 /* Util */ = {
 			isa = PBXGroup;
 			children = (
+
+				F1AF99FE29445EA200A25752 /* Dependency */,
+
 				E505E0DB29448670006BF811 /* RandomFactory */,
+
 				76AA55C92937AC2500498441 /* Network */,
 				E57646B32939C26C00BADF18 /* Provider */,
 				E57646B22939C25A00BADF18 /* Manager */,
@@ -1306,6 +1324,17 @@
 				F156F11929235EC50053E807 /* ImageConstants.swift */,
 			);
 			path = Constants;
+			sourceTree = "<group>";
+		};
+		F1AF99FE29445EA200A25752 /* Dependency */ = {
+			isa = PBXGroup;
+			children = (
+				F1AF99FC29445AA300A25752 /* DependenciesContainer.swift */,
+				F1AF99FF29445ED900A25752 /* DependenciesDefinition.swift */,
+				F1AF9A052944873D00A25752 /* DIContainer.swift */,
+				F1AF9A092944B52000A25752 /* DependencyKey.swift */,
+			);
+			path = Dependency;
 			sourceTree = "<group>";
 		};
 		F1B0D8A4292CC81A00EBDD02 /* Data */ = {
@@ -1583,10 +1612,15 @@
 				47A26DBC292B73850007FBBF /* Coordinate.swift in Sources */,
 				47935E9F29238EB400481307 /* SelectMapViewModel.swift in Sources */,
 				F1B514E7293B3F6500F653F3 /* KeychainService.swift in Sources */,
+				F1AF9A0029445ED900A25752 /* DependenciesDefinition.swift in Sources */,
 				F1E83D7F29348A4A004C7992 /* CommentDTO.swift in Sources */,
 				F14B1495292BA1D40010E966 /* KeyboardManager.swift in Sources */,
 				761C1C0B292E439F000C88D0 /* SingleGameUseCase.swift in Sources */,
 				F13DB58F292B3C8D00323B28 /* AuthInputTextField.swift in Sources */,
+
+				F1E83D992935C727004C7992 /* TexCountView.swift in Sources */,
+				F1AF99FD29445AA300A25752 /* DependenciesContainer.swift in Sources */,
+
 				761E5F092935EFF400E6CACC /* DefaultInGameUseCase.swift in Sources */,
 				474E2501293DC78100CFAC59 /* DefaultTempRepository.swift in Sources */,
 				E5BE8B8F2922172400E9CFE8 /* AppCoordinator.swift in Sources */,
@@ -1736,6 +1770,7 @@
 				47653A2E2938C4A500BDC8E3 /* MyPageUseCase.swift in Sources */,
 				F156F11E292365840053E807 /* CALayer+.swift in Sources */,
 				761C1C10292E4562000C88D0 /* TimerService.swift in Sources */,
+				F1AF9A062944873D00A25752 /* DIContainer.swift in Sources */,
 				F1E7B0B1293DD1E80088332E /* DefaultRandomService.swift in Sources */,
 				F1FCEE0E292B483E001A55D6 /* UITextField+.swift in Sources */,
 				474E24F7293DC73200CFAC59 /* TempDBNetwork.swift in Sources */,
@@ -1747,6 +1782,7 @@
 				F1E7B0AF293DD1A50088332E /* GameRoomRepository.swift in Sources */,
 				F1B0D8AC292CCA5200EBDD02 /* SignUpData.swift in Sources */,
 				76B3BF4A2924DDE70056ABFD /* BaseViewModel.swift in Sources */,
+				F1AF9A0A2944B52000A25752 /* DependencyKey.swift in Sources */,
 				761E5F072935EF4200E6CACC /* InGameUseCase.swift in Sources */,
 				F156F1132923536A0053E807 /* DistanceAndTimeBar.swift in Sources */,
 				F1CC5141293EFBBC00B9008D /* MultiGameUseCase.swift in Sources */,

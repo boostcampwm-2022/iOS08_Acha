@@ -13,6 +13,7 @@ protocol MultiGameCoordinatorProtocol: Coordinator {
 }
 
 final class MultiGameCoordinator: MultiGameCoordinatorProtocol {
+    
     func start() {}
     
     var navigationController: UINavigationController
@@ -27,12 +28,13 @@ final class MultiGameCoordinator: MultiGameCoordinatorProtocol {
     
     func start(gameID: String) {
         showMultiGameRoomViewController(roomID: gameID)
-//        showMultiGameViewController(roomID: "weat")
     }
     
     func showMultiGameRoomViewController(roomID: String) {
         
-        let useCase = DefaultMultiGameRoomUseCase(repository: DiContainerManager.makeDefaultGameRoomRepository())
+        @DIContainer.Resolve(MultiGameRoomUseCase.self)
+        var useCase: MultiGameRoomUseCase
+//        let useCase = DependenciesContainer.shared.resolve(MultiGameRoomUseCase.self)
         let viewModel = MultiGameRoomViewModel(
             coordinator: self,
             useCase: useCase,
@@ -47,8 +49,9 @@ final class MultiGameCoordinator: MultiGameCoordinatorProtocol {
     }
     
     func showMultiGameViewController(roomID: String) {
-        
-        let useCase = DiContainerManager.makeMultiGameUseCase()
+        @DIContainer.Resolve(MultiGameUseCase.self)
+        var useCase: MultiGameUseCase
+//        let useCase = DependenciesContainer.shared.resolve(MultiGameUseCase.self)
         let viewModel = MultiGameViewModel(
             coordinator: self,
             useCase: useCase,
