@@ -42,6 +42,11 @@ final class LoginCoordinator: LoginCoordinatorProtocol {
             useCase: useCase
         )
         let viewController = LoginViewController(viewModel: viewModel)
+        let transiton = CATransition()
+        transiton.type = .moveIn
+        transiton.subtype = .fromLeft
+        transiton.duration = 0.3
+        navigationController.view.layer.add(transiton, forKey: "login")
         navigationController.pushViewController(viewController, animated: true)
         self.navigationController.isNavigationBarHidden = true
     }

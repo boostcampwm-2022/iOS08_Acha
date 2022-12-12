@@ -41,6 +41,11 @@ final class SignupCoordinator: SignupCoordinatorProtocol {
             coordinator: self,
             useCase: useCase
         )
+        let transiton = CATransition()
+        transiton.type = .moveIn
+        transiton.subtype = .fromRight
+        transiton.duration = 0.3
+        navigationController.view.layer.add(transiton, forKey: "signup")
         let viewController = SignupViewController(viewModel: viewModel)
         navigationController.pushViewController(viewController, animated: true)
     }
