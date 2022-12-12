@@ -209,5 +209,13 @@ final class DependenciesDefinition {
                 locationRepository: dependencies.resolve(LocationRepository.self)
             )
         )
+        
+        dependencies.register(
+            MyPageUseCase.self,
+            implement: DefaultMyPageUseCase(
+                userRepository: dependencies.resolve(UserRepository.self),
+                badgeRepository: dependencies.resolve(BadgeRepository.self)
+            )
+        )
     }
 }
