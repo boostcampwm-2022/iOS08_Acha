@@ -33,7 +33,6 @@ class DefaultMapBaseUseCase: MapBaseUseCase {
     
     func isAvailableLocationAuthorization() -> Observable<(Bool, Coordinate?)> {
         locationService.authorizationStatus
-            .debug()
             .map { [weak self] status in
                 if let self,
                    status,
