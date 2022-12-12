@@ -49,7 +49,10 @@ final class CommunityPostWriteViewModel: BaseViewModel {
             .subscribe(onNext: { [weak self] (post, image) in
                 guard let self else { return }
                 self.useCase.uploadPost(post: post, image: image)
-                self.coordinator.popLastViewController()
+                    .subscribe(onSuccess: { _ in
+                        self.coordinator.popLastViewController()
+                    })
+                    .disposed(by: self.disposeBag)
             }).disposed(by: disposeBag)
         
         return output

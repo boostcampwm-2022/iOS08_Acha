@@ -29,13 +29,26 @@ final class DefaultCommunityPostWriteUseCase: CommunityPostWriteUseCase {
         }
     }
     
-    func uploadPost(post: Post, image: Image?) {
-        if let selfPost = self.post {
-            var uploadPost = selfPost
-            uploadPost.text = post.text
-            repository.updatePost(post: uploadPost, image: image)
-        } else {
-            repository.uploadPost(post: post, image: image)
+    func uploadPost(post: Post, image: Image?) -> Single<Void> {
+        Single.create { [weak self] single in
+            guard let self else { return Disposables.create()}
+            
+            if let selfPost = self.post {
+                var uploadPost = selfPost
+                uploadPost.text = post.text
+                self.repository.updatePost(post: uploadPost, image: image)
+                    .subscribe(onSuccess: {
+                        single(.success(()))
+                    })
+                    .disposed(by: self.disposeBag)
+            } else {
+                self.repository.uploadPost(post: post, image: image)
+                    .subscribe(onSuccess: {
+                        single(.success(()))
+                    })
+                    .disposed(by: self.disposeBag)
+            }
+            return Disposables.create()
         }
     }
 }

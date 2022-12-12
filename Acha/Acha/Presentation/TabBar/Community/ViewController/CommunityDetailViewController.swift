@@ -23,7 +23,7 @@ final class CommunityDetailViewController: UIViewController, UICollectionViewDel
     // MARK: - UI properties
     private lazy var collectionView = UICollectionView(frame: .zero,
                                                        collectionViewLayout: collectionViewLayout())
-    private lazy var commentView = CommentView()
+    private let commentView = CommentView()
     
     // MARK: - Properties
     typealias DataSource = UICollectionViewDiffableDataSource<Section, Item>
@@ -63,7 +63,7 @@ final class CommunityDetailViewController: UIViewController, UICollectionViewDel
                     }
                 } else {
                     self.commentView.snp.updateConstraints {
-                        $0.bottom.equalTo(self.view.safeAreaLayoutGuide)
+                        $0.bottom.equalTo(self.view.safeAreaLayoutGuide).inset(10)
                     }
                 }
             })
@@ -99,6 +99,13 @@ final class CommunityDetailViewController: UIViewController, UICollectionViewDel
                 self.makeSnapshot(post: post)
             })
             .disposed(by: disposeBag)
+        
+        output.commentWriteSuccess
+            .subscribe(onNext: { [weak self] in
+                guard let self else { return }
+                self.reloadSnapshot()
+            })
+            .disposed(by: disposeBag)
     }
     
     private func configureUI() {
@@ -111,7 +118,7 @@ final class CommunityDetailViewController: UIViewController, UICollectionViewDel
         view.addSubview(commentView)
         
         commentView.snp.makeConstraints {
-            $0.trailing.leading.bottom.equalTo(view.safeAreaLayoutGuide)
+            $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide).inset(10)
             $0.height.equalTo(100)
         }
         
@@ -155,7 +162,6 @@ final class CommunityDetailViewController: UIViewController, UICollectionViewDel
                 
                 cell.bind(post: post)
                 cell.modifyButtonTapEvent?
-                    .debug()
                     .subscribe(onNext: { sendPost in
                         var newPost = sendPost
                         newPost.id = post.id
@@ -276,6 +282,12 @@ final class CommunityDetailViewController: UIViewController, UICollectionViewDel
         }
         
         dataSource.apply(snapshot, animatingDifferences: true)
+    }
+    
+    private func reloadSnapshot() {
+        var snapshot = dataSource.snapshot()
+        snapshot.reloadSections([.comment])
+        dataSource.apply(snapshot)
     }
 }
 

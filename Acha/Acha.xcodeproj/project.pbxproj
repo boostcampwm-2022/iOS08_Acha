@@ -797,8 +797,8 @@
 		47D5773F293389C50014D171 /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
-				E505E0AD294468AD006BF811 /* CommunityDetailUseCase.swift */,
 				E505E0AC294468AD006BF811 /* CommunityMainUseCase.swift */,
+				E505E0AD294468AD006BF811 /* CommunityDetailUseCase.swift */,
 				E505E0AB294468AD006BF811 /* CommunityPostWriteUseCase.swift */,
 				474E24FC293DC76800CFAC59 /* RecordMainViewUseCase.swift */,
 				474E24FD293DC76800CFAC59 /* RecordMapViewUseCase.swift */,

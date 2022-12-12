@@ -72,7 +72,8 @@ struct DefaultCommunityRepository: CommunityRepository {
         }
     }
     
-    func uploadPost(post: Post, image: Image?) {
+    func uploadPost(post: Post, image: Image?) -> Single<Void> {
+        Single.create { single in
             Single.create { single in
                 realtimeService.fetch(type: .postList)
                     .subscribe(onSuccess: { (postDTOs: [PostDTO?]) in
@@ -80,7 +81,7 @@ struct DefaultCommunityRepository: CommunityRepository {
                     }, onFailure: { _ in
                         single(.success([]))
                     }).disposed(by: disposeBag)
-                
+
                 return Disposables.create()
             }
             .subscribe(onSuccess: { posts in
@@ -94,37 +95,64 @@ struct DefaultCommunityRepository: CommunityRepository {
                         let minID = posts.max {
                             $0.id > $1.id
                         }?.id
-                        
+
                         post.id = (minID ?? 1) - 1
-                        
                         realtimeService.uploadPost(data: PostDTO(data: post))
+                            .subscribe(onSuccess: {
+                                single(.success(()))
+                            }, onFailure: { error in
+                                single(.failure(error))
+                            })
+                            .disposed(by: disposeBag)
                     })
                 } else {
                     var post = post
                     let minID = posts.max {
                         $0.id > $1.id
                     }?.id
-                    
+
                     post.id = (minID ?? 1) - 1
-                    
                     realtimeService.uploadPost(data: PostDTO(data: post))
+                        .subscribe(onSuccess: {
+                            single(.success(()))
+                        }, onFailure: { error in
+                            single(.failure(error))
+                        })
+                        .disposed(by: disposeBag)
                 }
             }).disposed(by: disposeBag)
+            return Disposables.create()
+        }
     }
     
-    func updatePost(post: Post, image: Image?) {
-        if let image {
-            storageService?.upload(type: .category(image.name),
-                                   data: image.data,
-                                   completion: { url in
-                guard let url else { return }
-                var newPost = post
-                newPost.image = url.absoluteString
-                
-                realtimeService.uploadPost(data: PostDTO(data: newPost))
-            })
-        } else {
-            realtimeService.uploadPost(data: PostDTO(data: post))
+    func updatePost(post: Post, image: Image?) -> Single<Void> {
+        Single.create { single in
+            if let image {
+                storageService?.upload(type: .category(image.name),
+                                       data: image.data,
+                                       completion: { url in
+                    guard let url else { return }
+                    var newPost = post
+                    newPost.image = url.absoluteString
+                    
+                    realtimeService.uploadPost(data: PostDTO(data: newPost))
+                        .subscribe(onSuccess: {
+                            single(.success(()))
+                        }, onFailure: { error in
+                            single(.failure(error))
+                        })
+                        .disposed(by: disposeBag)
+                })
+            } else {
+                realtimeService.uploadPost(data: PostDTO(data: post))
+                    .subscribe(onSuccess: {
+                        single(.success(()))
+                    }, onFailure: { error in
+                        single(.failure(error))
+                    })
+                    .disposed(by: disposeBag)
+            }
+            return Disposables.create()
         }
     }
     
@@ -132,31 +160,41 @@ struct DefaultCommunityRepository: CommunityRepository {
         realtimeService.delete(type: .post(id: id))
     }
     
-    func uploadComment(comment: Comment) {
+    func uploadComment(comment: Comment) -> Single<Void> {
         Single.create { single in
-            realtimeService.fetch(type: .post(id: comment.postId))
-                .subscribe(onSuccess: { (postDTO: PostDTO) in
-                    let post = postDTO.toDomain()
-                    guard let comments = post.comments else { return }
-                    single(.success(comments))
-                }, onFailure: { _ in
-                    single(.success([Comment]()))
-                }).disposed(by: disposeBag)
+            Single.create { single in
+                realtimeService.fetch(type: .post(id: comment.postId))
+                    .subscribe(onSuccess: { (postDTO: PostDTO) in
+                        let post = postDTO.toDomain()
+                        guard let comments = post.comments else { return }
+                        single(.success(comments))
+                    }, onFailure: { _ in
+                        single(.success([Comment]()))
+                    }).disposed(by: disposeBag)
+                
+                return Disposables.create()
+            }
+            .subscribe(onSuccess: { comments in
+                var comment = comment
+                let maxID = comments.max {
+                    $0.id < $1.id
+                }?.id
+                
+                comment.id = (maxID ?? -1) + 1
+                
+                realtimeService.uploadComment(data: CommentDTO(data: comment))
+                    .subscribe(onSuccess: {
+                        single(.success(()))
+                    }, onFailure: { error in
+                        single(.failure(error))
+                    })
+                    .disposed(by: disposeBag)
+                
+                uploadCommentSuccess.onNext(true)
+            })
+            .disposed(by: disposeBag)
             
             return Disposables.create()
         }
-        .subscribe(onSuccess: { comments in
-            var comment = comment
-            let maxID = comments.max {
-                $0.id < $1.id
-            }?.id
-            
-            comment.id = (maxID ?? -1) + 1
-            
-            realtimeService.uploadComment(data: CommentDTO(data: comment))
-            
-            uploadCommentSuccess.onNext(true)
-        })
-        .disposed(by: disposeBag)
     }
 }
