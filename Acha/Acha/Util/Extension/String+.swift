@@ -46,4 +46,8 @@ extension String {
         }
         return nil
     }
+    
+    func stringLimit(_ number: Int) -> String {
+        return self.count <= number ? self : self.map { String($0) }[0..<number].joined()
+    }
 }

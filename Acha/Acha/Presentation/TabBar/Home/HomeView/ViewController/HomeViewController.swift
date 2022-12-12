@@ -24,7 +24,7 @@ final class HomeViewController: UIViewController, UIViewControllerTransitioningD
         $0.backgroundColor = .white
     }
     
-    private lazy var titleLabel = UILabel().then {
+    private let titleLabel = UILabel().then {
         $0.clipsToBounds = true
         $0.layer.cornerRadius = 10
         let cornerMask: CACornerMask = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
@@ -89,7 +89,6 @@ final class HomeViewController: UIViewController, UIViewControllerTransitioningD
         $0.layer.shadowOffset = CGSize.zero
         $0.layer.shadowRadius = 6
     }
-    
     private lazy var multiGameEnterView = MultiGameEnterViewController()
     private lazy var qrReaderView = QRReaderViewController()
     
@@ -116,7 +115,17 @@ final class HomeViewController: UIViewController, UIViewControllerTransitioningD
             
     }
 //
-    // MARK: - Helpers
+
+    private func configureUI() {
+        view.backgroundColor = .white
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.largeTitleDisplayMode = .automatic
+        navigationItem.title = "땅따먹기"
+        navigationController?.navigationBar.largeTitleTextAttributes = [
+            .foregroundColor: UIColor.pointLight
+        ]
+    }
+
     private func bind() {
         let inputs = HomeViewModel.Input(
             singleGameModeDidTap: startSingleGameButton.rx.tap.asObservable(),
@@ -159,6 +168,15 @@ final class HomeViewController: UIViewController, UIViewControllerTransitioningD
         ]
         navigationController?.navigationBar.shadowImage = UIImage()
         
+
+        startGameContentView.addSubview(singleGameShadowView)
+        singleGameShadowView.addSubview(singleGameImageView)
+        startGameContentView.addSubview(startSingleGameButton)
+        
+        startGameContentView.addSubview(multiGameShadowView)
+        multiGameShadowView.addSubview(multiGameImageView)
+        startGameContentView.addSubview(startMultiGameButton)
+
         
         startGameContentView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(15)

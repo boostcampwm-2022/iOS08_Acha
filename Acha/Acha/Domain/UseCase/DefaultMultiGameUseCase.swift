@@ -15,6 +15,7 @@ final class DefaultMultiGameUseCase: MultiGameUseCase {
     
     enum GameRoomError: Error {
         case dataNotFetched
+        case cantProceedThisGame
     }
     
     private let gameRoomRepository: GameRoomRepository
@@ -90,6 +91,10 @@ final class DefaultMultiGameUseCase: MultiGameUseCase {
             .disposed(by: disposeBag)
     }
     
+    func healthKitAuthorization() -> Observable<Void> {
+        return recordRepository.healthKitAuthorization()
+    }
+    
     func healthKitStore(time: Int) {
         recordRepository.healthKitWrite(
             .init(distance: movedDistance,
@@ -122,7 +127,6 @@ final class DefaultMultiGameUseCase: MultiGameUseCase {
     }
     
     func leave(roomID: String) {
-        timeRepository.stopTimer()
         locationRepository.stopObservingLocation()
         gameRoomRepository.leaveRoom(id: roomID)
     }

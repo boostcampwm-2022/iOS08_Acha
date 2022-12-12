@@ -38,6 +38,20 @@ final class MultiGameViewController: UIViewController, DistanceAndTimeBarLine {
         )
     }
     
+    private lazy var gameOverButton = UIButton().then {
+        $0.setTitle("게임 종료", for: .normal)
+        $0.tintColor = .white
+        $0.backgroundColor = .pointLight
+        $0.layer.cornerRadius = 10
+    }
+    
+    private lazy var endLabel = UILabel().then {
+        $0.text = "게임 종료"
+        $0.textAlignment = .center
+        $0.font = .largeTitle
+        $0.textColor = .black
+    }
+    
     private lazy var watchOthersLocationButton: UIButton = UIButton().then {
         $0.setImage(
             .systemEyeCircle?.withTintColor(
@@ -82,7 +96,8 @@ final class MultiGameViewController: UIViewController, DistanceAndTimeBarLine {
             viewDidAppear: rx.viewDidAppear.asObservable(),
             resetButtonTapped: resetButton.rx.tap.asObservable(),
             watchOthersLocationButtonTapped: watchOthersLocationButton.rx.tap.asObservable(),
-            exitButtonTapped: exitButton.rx.tap.asObservable()
+            exitButtonTapped: exitButton.rx.tap.asObservable(),
+            gameOverButtonTapped: gameOverButton.rx.tap.asObservable()
         )
         let outputs = viewModel.transform(input: inputs)
         outputs.time
@@ -125,6 +140,12 @@ final class MultiGameViewController: UIViewController, DistanceAndTimeBarLine {
                 self?.setCamera(data: otherLocation)
             })
             .disposed(by: disposebag)
+        
+        outputs.gameOver
+            .drive(onNext: { [weak self] _ in
+                self?.configureGameOverUI()
+            })
+            .disposed(by: disposebag)
     }
     
     private func makeAnnotations(data: [MultiGamePlayerData]) -> [MKAnnotation] {
@@ -147,6 +168,32 @@ final class MultiGameViewController: UIViewController, DistanceAndTimeBarLine {
             return circle
         }
         return overlays
+    }
+    
+    private func configureGameOverUI() {
+        pointLabel.isHidden = true
+        exitButton.isHidden = true
+        view.addSubview(gameOverButton)
+        gameOverButton.snp.makeConstraints {
+            $0.bottom.equalTo(distanceAndTimeBar.snp.top).inset(-100)
+            $0.centerX.equalToSuperview()
+            $0.height.equalTo(60)
+            $0.width.equalTo(100)
+        }
+        view.addSubview(endLabel)
+        endLabel.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.top.equalToSuperview().inset(80)
+            $0.height.equalTo(100)
+        }
+        
+        pointBoard.snp.remakeConstraints {
+            $0.top.equalTo(endLabel.snp.bottom).inset(30)
+            $0.leading.trailing.equalToSuperview().inset(50)
+            $0.bottom.equalTo(gameOverButton.snp.bottom).offset(10)
+        }
+        
+        pointBoard.alpha = 0.8
     }
 
 }
@@ -186,8 +233,8 @@ extension MultiGameViewController {
         }
         
         pointLabel.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.top.equalToSuperview().inset(80)
+            $0.trailing.equalToSuperview().inset(80)
+            $0.top.equalToSuperview().inset(60)
             $0.height.equalTo(80)
         }
         
@@ -283,7 +330,7 @@ extension MultiGameViewController {
             $0.leading.equalToSuperview().inset(10)
             $0.top.equalTo(exitButton.snp.bottom).inset(-10)
             $0.height.equalTo(200)
-            $0.width.equalTo(180)
+            $0.width.equalTo(170)
         }
         gameSnapShot.appendSections([.ranking])
     }
