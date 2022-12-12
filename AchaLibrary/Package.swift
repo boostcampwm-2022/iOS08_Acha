@@ -15,7 +15,7 @@ let package = Package(
             targets: ["AchaLibrary"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/SnapKit/SnapKit", from: "5.0.0"),
+        .package(url: "https://github.com/SnapKit/SnapKit", from: "5.0.0"), 
         .package(url: "https://github.com/ReactiveX/RxSwift", from: "6.0.0"),
         .package(url: "https://github.com/devxoul/Then", from: "3.0.0"),
         .package(url: "https://github.com/firebase/firebase-ios-sdk.git", from: "9.0.0"),
@@ -30,6 +30,7 @@ let package = Package(
                 .product(name: "FirebaseDatabase", package: "firebase-ios-sdk"),
                 .product(name: "FirebaseAnalytics", package: "firebase-ios-sdk"),
                 .product(name: "FirebaseFirestore", package: "firebase-ios-sdk"),
+                .product(name: "FirebaseStorage", package: "firebase-ios-sdk"),
                 .product(name: "RxCocoa", package: "RxSwift"),
                 .product(name: "RxRelay", package: "RxSwift"),
                 .product(name: "RxSwift", package: "RxSwift"),

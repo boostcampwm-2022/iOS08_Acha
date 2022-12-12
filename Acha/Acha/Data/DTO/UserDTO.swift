@@ -9,7 +9,6 @@ import Foundation
 
 struct UserDTO: Codable {
     let id: String
-    let password: String
     let nickname: String
     let badges: [Int]?
     let records: [Int]?

@@ -40,17 +40,17 @@ final class SingleGameViewModel: MapBaseViewModel {
     // MARK: - Lifecycle
     init(map: Map,
          coordinator: SingleGameCoordinator,
-         singeGameUseCase: SingleGameUseCase) {
+         singleGameUseCase: SingleGameUseCase) {
         self.map = map
         self.coordinator = coordinator
-        self.useCase = singeGameUseCase
-        super.init(useCase: DefaultMapBaseUseCase(locationService: DefaultLocationService()))
+        self.useCase = singleGameUseCase
+        super.init(useCase: useCase)
     }
     
     // MARK: - Helpers
     func transform(input: Input) -> Output {
         createInput(input: input)
-        useCase.startRunning()
+        useCase.start()
         return createOutput()
     }
     
@@ -100,7 +100,7 @@ final class SingleGameViewModel: MapBaseViewModel {
     
     private func createOutput() -> Output {
         let output = Output()
-        useCase.currentLocation
+        useCase.userLocation
             .bind(to: output.currentLocation)
             .disposed(by: disposeBag)
         useCase.runningTime

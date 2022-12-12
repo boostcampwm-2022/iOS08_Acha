@@ -35,7 +35,9 @@ final class HomeCoordinator: HomeCoordinatorProtocol {
     }
     
     func showHomeViewController() {
-        let useCase = DiContainerManager.makeDefaultHomeUseCase()
+        @DIContainer.Resolve(HomeUseCase.self)
+        var useCase: HomeUseCase
+//        let useCase = DependenciesContainer.shared.resolve(HomeUseCase.self)
         let viewModel = HomeViewModel(
             coordinator: self,
             useCase: useCase
@@ -48,7 +50,7 @@ final class HomeCoordinator: HomeCoordinatorProtocol {
     
     func connectSingleGameFlow() {
         tabBarController?.tabBar.isHidden = true
-        
+        navigationController.interactivePopGestureRecognizer?.isEnabled = false
         let coordinator = SingleGameCoordinator(navigationController: navigationController)
         coordinator.delegate = self
         appendChildCoordinator(coordinator: coordinator)
