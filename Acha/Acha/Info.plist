@@ -2,6 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>앱을 사용하는 동안 사용자의 실시간 위치를 포함하기 위해 위치 권한을 요청합니다</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>앱을 사용하는 동안 사용자의 실시간 위치를 포함하기 위해 위치 권한을 요청합니다</string>
+	<key>NSCameraUsageDescription</key>
+	<string>QR 코드 인식을 위해 카메라 사용 권한을 요청합니다</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

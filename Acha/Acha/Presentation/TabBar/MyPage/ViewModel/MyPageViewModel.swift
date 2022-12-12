@@ -24,6 +24,7 @@ final class MyPageViewModel: BaseViewModel {
     struct Output {
         var nickName = PublishSubject<String>()
         var badges = PublishSubject<[Badge]>()
+        var deleteFailure = PublishSubject<Void>()
     }
     
     // MARK: - Properties
@@ -53,7 +54,7 @@ final class MyPageViewModel: BaseViewModel {
             .subscribe(onNext: { [weak self] in
                 guard let self,
                       let allBadges = try? self.useCase.allBadges.value(),
-                      let ownedBadges = try? self.useCase.ownedBadges.value() else { return }
+                      let ownedBadges = try? self.useCase.recentlyOwnedBadges.value() else { return }
                 self.coordinator?.showBadgeViewController(allBadges: allBadges,
                                                           ownedBadges: ownedBadges)
             }).disposed(by: disposeBag)
@@ -64,13 +65,28 @@ final class MyPageViewModel: BaseViewModel {
                 self.coordinator?.showMyInfoEditViewController()
             }).disposed(by: disposeBag)
         
-        Observable.merge(input.logoutTapped, input.withDrawalTapped)
-            .debug()
+        input.logoutTapped
             .subscribe(onNext: { [weak self] in
                 guard let self,
                       let coordinator = self.coordinator else { return }
-                #warning("탈퇴, 로그아웃 로직 추가")
-                coordinator.delegate?.didFinished(childCoordinator: coordinator)
+                self.useCase.logout()
+                    .subscribe(onNext: {
+                        coordinator.delegate?.didFinished(childCoordinator: coordinator)
+                    }, onError: {
+                        print($0)
+                    }).disposed(by: self.disposeBag)
+            }).disposed(by: disposeBag)
+        
+        input.withDrawalTapped
+            .subscribe(onNext: { [weak self] in
+                guard let self,
+                      let coordinator = self.coordinator else { return }
+                self.useCase.deleteUser()
+                    .subscribe(onSuccess: {
+                        coordinator.delegate?.didFinished(childCoordinator: coordinator)
+                    }, onFailure: { _ in
+                        output.deleteFailure.onNext(())
+                    }).disposed(by: self.disposeBag)
             }).disposed(by: disposeBag)
         
         input.openSourceTapped
@@ -84,10 +100,7 @@ final class MyPageViewModel: BaseViewModel {
             .bind(to: output.nickName)
             .disposed(by: disposeBag)
         
-        useCase.ownedBadges
-            .map { ownedBadges in
-                return ownedBadges.count > 6 ? ownedBadges.suffix(6) : ownedBadges
-            }
+        useCase.recentlyOwnedBadges
             .bind(to: output.badges)
             .disposed(by: disposeBag)
         

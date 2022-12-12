@@ -109,13 +109,13 @@ final class HomeViewController: UIViewController, UIViewControllerTransitioningD
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupSubviews()
         configureUI()
-        setUpSubviews()
         bind()
             
     }
 //
-    // MARK: - Helpers
+
     private func configureUI() {
         view.backgroundColor = .white
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -125,6 +125,7 @@ final class HomeViewController: UIViewController, UIViewControllerTransitioningD
             .foregroundColor: UIColor.pointLight
         ]
     }
+
     private func bind() {
         let inputs = HomeViewModel.Input(
             singleGameModeDidTap: startSingleGameButton.rx.tap.asObservable(),
@@ -157,10 +158,17 @@ final class HomeViewController: UIViewController, UIViewControllerTransitioningD
             .disposed(by: disposeBag)
     }
     
-    private func setUpSubviews() {
-        view.addSubview(startGameContentView)
-        view.addSubview(titleLabel)
+    private func configureUI() {
+        view.backgroundColor = .white
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.largeTitleDisplayMode = .automatic
+        navigationItem.title = "땅따먹기"
+        navigationController?.navigationBar.largeTitleTextAttributes = [
+            .foregroundColor: UIColor.pointLight
+        ]
+        navigationController?.navigationBar.shadowImage = UIImage()
         
+
         startGameContentView.addSubview(singleGameShadowView)
         singleGameShadowView.addSubview(singleGameImageView)
         startGameContentView.addSubview(startSingleGameButton)
@@ -168,6 +176,7 @@ final class HomeViewController: UIViewController, UIViewControllerTransitioningD
         startGameContentView.addSubview(multiGameShadowView)
         multiGameShadowView.addSubview(multiGameImageView)
         startGameContentView.addSubview(startMultiGameButton)
+
         
         startGameContentView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(15)
@@ -215,5 +224,18 @@ final class HomeViewController: UIViewController, UIViewControllerTransitioningD
             $0.leading.trailing.equalTo(multiGameImageView).inset(15)
             $0.height.equalTo(100)
         }
+    }
+    
+    private func setupSubviews() {
+        view.addSubview(startGameContentView)
+        view.addSubview(titleLabel)
+        
+        startGameContentView.addSubview(singleGameShadowView)
+        singleGameShadowView.addSubview(singleGameImageView)
+        startGameContentView.addSubview(startSingleGameButton)
+        
+        startGameContentView.addSubview(multiGameShadowView)
+        multiGameShadowView.addSubview(multiGameImageView)
+        startGameContentView.addSubview(startMultiGameButton)
     }
 }
