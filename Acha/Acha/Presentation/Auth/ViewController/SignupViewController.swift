@@ -11,7 +11,10 @@ import Then
 import RxSwift
 import RxCocoa
 
-final class SignupViewController: ScrollAbleViewController {
+final class SignupViewController: UIViewController {
+    
+    private lazy var scrollView = UIScrollView()
+    private lazy var contentView = UIStackView()
     
     private lazy var titleView = AuthTitleView(image: nil, text: "회원가입")
     private lazy var emailTextField = AuthInputTextField(type: .email)
@@ -35,14 +38,11 @@ final class SignupViewController: ScrollAbleViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        configureContentView()
+        hideKeyboardWhenTapped()
+        configureStackView()
+        configureUI()
         bind()
 
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        scrollView.removeFromSuperview()
     }
 
     func bind() {
@@ -120,14 +120,33 @@ final class SignupViewController: ScrollAbleViewController {
 }
 
 extension SignupViewController {
-
-    private func configureContentView() {
+    
+    private func configureStackView() {
+        contentView.axis = .vertical
+        contentView.spacing = 50
+        contentView.backgroundColor = .white
+        contentView.distribution = .fillProportionally
+    }
+    
+    private func configureUI() {
+        view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
         contentView.addArrangedSubview(titleView)
         contentView.addArrangedSubview(emailTextField)
         contentView.addArrangedSubview(passwordTextField)
         contentView.addArrangedSubview(nickNameTextField)
         contentView.addArrangedSubview(signUpButton)
         contentView.addArrangedSubview(logInButton)
+        
+        scrollView.snp.makeConstraints {
+            $0.top.bottom.equalToSuperview()
+            $0.leading.trailing.equalToSuperview().inset(80)
+        }
+
+        contentView.snp.makeConstraints {
+            $0.width.equalToSuperview()
+            $0.centerX.top.bottom.equalToSuperview()
+        }
         
         titleView.snp.makeConstraints {
             $0.height.equalTo(80)
@@ -155,4 +174,19 @@ extension SignupViewController {
         
     }
 
+}
+
+extension SignupViewController {
+    private func hideKeyboardWhenTapped() {
+        let tapGestureRecognizer = UITapGestureRecognizer(
+            target: self,
+            action: #selector(dismissKeyboard)
+        )
+        tapGestureRecognizer.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapGestureRecognizer)
+    }
+    
+    @objc private func dismissKeyboard() {
+        view.endEditing(true)
+    }
 }

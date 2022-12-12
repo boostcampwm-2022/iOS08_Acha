@@ -9,7 +9,10 @@ import UIKit
 import SnapKit
 import RxSwift
 
-final class LoginViewController: ScrollAbleViewController {
+final class LoginViewController: UIViewController {
+    
+    private lazy var scrollView = UIScrollView()
+    private lazy var contentView = UIStackView()
     
     private lazy var titleView = AuthTitleView(image: nil, text: "로그인")
     private lazy var emailTextField = AuthInputTextField(type: .email)
@@ -33,14 +36,19 @@ final class LoginViewController: ScrollAbleViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        configureStackView()
         layout()
+        hideKeyboardWhenTapped()
         bind()
         resignBind()
+        
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        scrollView.removeFromSuperview()
+    private func configureStackView() {
+        contentView.axis = .vertical
+        contentView.spacing = 50
+        contentView.backgroundColor = .white
+        contentView.distribution = .fillProportionally
     }
 }
 
@@ -52,6 +60,8 @@ extension LoginViewController {
     }
     
     private func addViews() {
+        view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
         contentView.addArrangedSubview(titleView)
         contentView.addArrangedSubview(emailTextField)
         contentView.addArrangedSubview(passwordTextField)
@@ -60,6 +70,17 @@ extension LoginViewController {
     }
     
     private func addConstraints() {
+        
+        scrollView.snp.makeConstraints {
+            $0.top.bottom.equalToSuperview()
+            $0.leading.trailing.equalToSuperview().inset(80)
+        }
+
+        contentView.snp.makeConstraints {
+            $0.width.equalToSuperview()
+            $0.centerX.top.bottom.equalToSuperview()
+        }
+        
         titleView.snp.makeConstraints {
             $0.height.equalTo(80)
         }
@@ -137,5 +158,20 @@ extension LoginViewController {
                 self?.passwordTextField.becomeFirstResponder()
             }
             .disposed(by: disposeBag)
+    }
+}
+
+extension LoginViewController {
+    private func hideKeyboardWhenTapped() {
+        let tapGestureRecognizer = UITapGestureRecognizer(
+            target: self,
+            action: #selector(dismissKeyboard)
+        )
+        tapGestureRecognizer.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapGestureRecognizer)
+    }
+    
+    @objc private func dismissKeyboard() {
+        view.endEditing(true)
     }
 }

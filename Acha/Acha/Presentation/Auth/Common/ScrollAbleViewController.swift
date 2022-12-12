@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class ScrollAbleViewController: UIViewController {
+class ScrollAbleViewController: UIViewController {
     
     lazy var scrollView = UIScrollView()
     lazy var contentView = UIStackView()
