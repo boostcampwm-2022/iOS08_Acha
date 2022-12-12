@@ -44,16 +44,16 @@ final class DefaultSingleGameUseCase: DefaultMapBaseUseCase, SingleGameUseCase {
         self.runningTimer = runningTimer
         self.userRepository = userRepository
         super.init(locationService: locationService)
-        
+    }
+    
+    override func start() {
+        super.start()
         userRepository.fetchUserData()
             .subscribe(onSuccess: { [weak self] user in
                 guard let self else { return }
                 self.user = user
             }).disposed(by: disposeBag)
-    }
-    
-    override func start() {
-        super.start()
+        
         startGameOverTimer()
         startRunningTimer()
         
