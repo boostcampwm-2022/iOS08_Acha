@@ -61,6 +61,37 @@ final class DefaultRealtimeDatabaseNetworkService: RealtimeDatabaseNetworkServic
         }
     }
     
+    func fetchAtKeyValue<T: Decodable>(type: FirebaseRealtimeType, value: Any, key: String) -> Single<T> {
+        return Single.create { [weak self] single in
+            guard let self else { return Disposables.create() }
+            let query = self.databaseReference.child(type.path).queryEqual(toValue: value, childKey: key)
+            query.observeSingleEvent(of: .value, with: { snapshot in
+                guard var snapData = snapshot.value else {
+                    single(.failure(FirebaseRealtimeError.dataError))
+                    return
+                }
+
+                if snapData is [String: Any] {
+                    guard let tempData = snapData as? [String: Any] else { return }
+                    snapData = Array(tempData.values)
+                }
+
+                guard !(snapData is NSNull),
+                      let jsonData = try? JSONSerialization.data(withJSONObject: snapData) else {
+                    single(.failure(FirebaseRealtimeError.dataError))
+                    return
+                }
+                guard let data = try? JSONDecoder().decode(T.self, from: jsonData) else {
+                    single(.failure(FirebaseRealtimeError.decodeError))
+                    return
+                }
+                single(.success(data))
+            })
+            
+            return Disposables.create()
+        }
+    }
+    
     func fetch<T: Decodable>(type: FirebaseRealtimeType) -> Single<T> {
         return Single.create { [weak self] single in
             guard let self else { return Disposables.create() }

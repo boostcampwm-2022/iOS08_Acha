@@ -774,10 +774,10 @@
 		47D5773E293389B80014D171 /* UseCase */ = {
 			isa = PBXGroup;
 			children = (
+				47D5773F293389C50014D171 /* Protocol */,
 				E505E0B2294468B5006BF811 /* DefaultCommunityMainUseCase.swift */,
 				E505E0B1294468B5006BF811 /* DefaultCommunityDetailUseCase.swift */,
 				E505E0B3294468B5006BF811 /* DefaultCommunityPostWriteUseCase.swift */,
-				47D5773F293389C50014D171 /* Protocol */,
 				47D57742293389EB0014D171 /* DefaultSelectMapUseCase.swift */,
 				47D5775C2934AB9B0014D171 /* DefaultMapBaseUseCase.swift */,
 				47653A2F2938C4AD00BDC8E3 /* DefaultMyPageUseCase.swift */,
