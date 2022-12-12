@@ -133,14 +133,19 @@ class BadgeViewController: UIViewController {
     
     private func bind() {
         let output = viewModel.transform(input: BadgeViewModel.Input())
+        
         output.brandNewBadges
             .subscribe(onNext: { [weak self] badges in
                 guard let self else { return }
+                let noBadge = Badge(id: -1, name: "뱃지가없어요", image: UIImage.noBadge.pngData() ?? Data(), isHidden: false)
+                let badges = badges.count == 0 ? [noBadge] : badges
                 self.makeBadgeSnapShot(badges: badges, section: .brandNew)
             }).disposed(by: disposeBag)
         output.aquiredBadges
             .subscribe(onNext: { [weak self] badges in
                 guard let self else { return }
+                let noBadge = Badge(id: -2, name: "뱃지가없어요", image: UIImage.noBadge.pngData() ?? Data(), isHidden: false)
+                let badges = badges.count == 0 ? [noBadge] : badges
                 self.makeBadgeSnapShot(badges: badges, section: .acquired)
             }).disposed(by: disposeBag)
         output.inaquiredBadges
