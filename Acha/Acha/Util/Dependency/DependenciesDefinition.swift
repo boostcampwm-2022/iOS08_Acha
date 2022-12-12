@@ -74,7 +74,7 @@ final class DependenciesDefinition {
         )
     }
     
-    //MARK:- Repository
+    // MARK: - Repository
     private func repositoryInject() {
 
         dependencies.register(
@@ -141,7 +141,7 @@ final class DependenciesDefinition {
         )
     }
     
-    //MARK: - UseCase
+    // MARK: - UseCase
     private func useCaseInject() {
         
         dependencies.register(
