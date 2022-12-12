@@ -81,7 +81,7 @@ final class SignupViewController: UIViewController {
             .asDriver(onErrorJustReturn: false)
             .drive(onNext: { [weak self] result in
                 if !result {
-                    self?.alertSignUpFailed()
+                    self?.showAlert(title: "경고", message: "회원가입에 실패하셨습니다.")
                 }
             })
             .disposed(by: disposeBag)
@@ -109,14 +109,6 @@ final class SignupViewController: UIViewController {
 
     }
     
-    private func alertSignUpFailed() {
-        let alertController = UIAlertController(title: "경고",
-                                                message: "회원가입에 실패하셨습니다.",
-                                                preferredStyle: .alert)
-        let alert = UIAlertAction(title: "예", style: .cancel)
-        alertController.addAction(alert)
-        present(alertController, animated: true)
-    }
 }
 
 extension SignupViewController {
@@ -139,20 +131,22 @@ extension SignupViewController {
         contentView.addArrangedSubview(logInButton)
         
         scrollView.snp.makeConstraints {
-            $0.top.bottom.equalToSuperview()
-            $0.leading.trailing.equalToSuperview().inset(80)
+            $0.top.bottom.equalTo(view.safeAreaLayoutGuide)
+            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide)
         }
 
         contentView.snp.makeConstraints {
-            $0.width.equalToSuperview()
+            $0.width.equalToSuperview().multipliedBy(0.7)
             $0.centerX.top.bottom.equalToSuperview()
         }
         
         titleView.snp.makeConstraints {
+            $0.top.equalToSuperview()
             $0.height.equalTo(80)
         }
         
         emailTextField.snp.makeConstraints {
+            $0.trailing.leading.equalToSuperview()
             $0.height.equalTo(60)
         }
         

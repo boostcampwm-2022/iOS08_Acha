@@ -37,7 +37,7 @@ final class LoginViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         configureStackView()
-        layout()
+        configureUI()
         hideKeyboardWhenTapped()
         bind()
         resignBind()
@@ -54,12 +54,7 @@ final class LoginViewController: UIViewController {
 
 extension LoginViewController {
     
-    private func layout() {        
-        addViews()
-        addConstraints()
-    }
-    
-    private func addViews() {
+    private func configureUI() {
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
         contentView.addArrangedSubview(titleView)
@@ -67,17 +62,14 @@ extension LoginViewController {
         contentView.addArrangedSubview(passwordTextField)
         contentView.addArrangedSubview(loginButton)
         contentView.addArrangedSubview(toSignUpButton)
-    }
-    
-    private func addConstraints() {
         
         scrollView.snp.makeConstraints {
-            $0.top.bottom.equalToSuperview()
-            $0.leading.trailing.equalToSuperview().inset(80)
+            $0.top.bottom.equalTo(view.safeAreaLayoutGuide)
+            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide)
         }
 
         contentView.snp.makeConstraints {
-            $0.width.equalToSuperview()
+            $0.width.equalToSuperview().multipliedBy(0.7)
             $0.centerX.top.bottom.equalToSuperview()
         }
         
@@ -138,18 +130,9 @@ extension LoginViewController {
         
         outputs.loginResult
             .subscribe(onNext: { [weak self] _ in
-                self?.alertLoginFailed()
+                self?.showAlert(title: "경고", message: "로그인에 실패하셨습니다.")
             })
             .disposed(by: disposeBag)
-    }
-    
-    private func alertLoginFailed() {
-        let alertController = UIAlertController(title: "경고",
-                                                message: "로그인에 실패하셨습니다.",
-                                                preferredStyle: .alert)
-        let alert = UIAlertAction(title: "예", style: .cancel)
-        alertController.addAction(alert)
-        present(alertController, animated: true)
     }
     
     private func resignBind() {
