@@ -19,11 +19,4 @@ struct BadgeDTO: Codable {
         case imageURL = "image"
         case isHidden
     }
-    
-    func toDomain(image: Data) -> Badge {
-        Badge(id: id,
-              name: name,
-              image: image,
-              isHidden: isHidden)
-    }
 }
