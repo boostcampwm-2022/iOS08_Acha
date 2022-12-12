@@ -115,17 +115,6 @@ final class HomeViewController: UIViewController, UIViewControllerTransitioningD
             
     }
 //
-
-    private func configureUI() {
-        view.backgroundColor = .white
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.largeTitleDisplayMode = .automatic
-        navigationItem.title = "땅따먹기"
-        navigationController?.navigationBar.largeTitleTextAttributes = [
-            .foregroundColor: UIColor.pointLight
-        ]
-    }
-
     private func bind() {
         let inputs = HomeViewModel.Input(
             singleGameModeDidTap: startSingleGameButton.rx.tap.asObservable(),
@@ -168,7 +157,6 @@ final class HomeViewController: UIViewController, UIViewControllerTransitioningD
         ]
         navigationController?.navigationBar.shadowImage = UIImage()
         
-
         startGameContentView.addSubview(singleGameShadowView)
         singleGameShadowView.addSubview(singleGameImageView)
         startGameContentView.addSubview(startSingleGameButton)
@@ -177,7 +165,6 @@ final class HomeViewController: UIViewController, UIViewControllerTransitioningD
         multiGameShadowView.addSubview(multiGameImageView)
         startGameContentView.addSubview(startMultiGameButton)
 
-        
         startGameContentView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(15)
             $0.height.equalTo(400)
