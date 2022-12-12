@@ -13,4 +13,5 @@ protocol AuthService {
     func logIn(data: LoginData) -> Single<String>
     func signOut() throws
     func delete() -> Single<Void>
+    func update(email: String, password: String) -> Single<Void>
 }
