@@ -86,9 +86,15 @@ extension LoginViewController {
 
 extension LoginViewController {
     func bind() {
-        KeyboardManager.keyboardWillShow(view: contentView)
-        KeyboardManager.keyboardWillHide(view: contentView)
-        
+        AchaKeyboard.shared.keyboardHeight
+            .drive(onNext: { [weak self] keyboardHeight in
+                guard let self = self else {return}
+                self.contentView.snp.updateConstraints {
+                    $0.bottom.equalToSuperview().offset(-keyboardHeight)
+                }
+            })
+            .disposed(by: disposeBag)
+
         let inputs = LoginViewModel.Input(
             emailUpdated: emailTextField.rx.text.orEmpty.asObservable(),
             passwordUpdated: passwordTextField.rx.text.orEmpty.asObservable(),

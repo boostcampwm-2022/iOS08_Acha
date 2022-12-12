@@ -27,6 +27,40 @@ final class MultiGameViewController: UIViewController, DistanceAndTimeBarLine {
         $0.setImage(.exitImage, for: .normal)
     }
     
+    private lazy var resetButton: UIButton = UIButton().then {
+        $0.setImage(
+            ImageConstants
+                .arrowPositionResetImage?
+                .withTintColor(
+                    .pointLight,
+                    renderingMode: .alwaysOriginal),
+            for: .normal
+        )
+    }
+    
+    private lazy var gameOverButton = UIButton().then {
+        $0.setTitle("게임 종료", for: .normal)
+        $0.tintColor = .white
+        $0.backgroundColor = .pointLight
+        $0.layer.cornerRadius = 10
+    }
+    
+    private lazy var endLabel = UILabel().then {
+        $0.text = "게임 종료"
+        $0.textAlignment = .center
+        $0.font = .largeTitle
+        $0.textColor = .black
+    }
+    
+    private lazy var watchOthersLocationButton: UIButton = UIButton().then {
+        $0.setImage(
+            .systemEyeCircle?.withTintColor(
+                .pointLight,
+                renderingMode: .alwaysOriginal
+            ), for: .normal
+        )
+    }
+    
     private lazy var pointBoard = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
 
     typealias GameDataDatasource = UICollectionViewDiffableDataSource<Section, MultiGamePlayerData>
@@ -59,25 +93,16 @@ final class MultiGameViewController: UIViewController, DistanceAndTimeBarLine {
     
     func bind() {
         let inputs = MultiGameViewModel.Input(
-            viewDidAppear: rx.viewDidAppear.asObservable()
+            viewDidAppear: rx.viewDidAppear.asObservable(),
+            resetButtonTapped: resetButton.rx.tap.asObservable(),
+            watchOthersLocationButtonTapped: watchOthersLocationButton.rx.tap.asObservable(),
+            exitButtonTapped: exitButton.rx.tap.asObservable(),
+            gameOverButtonTapped: gameOverButton.rx.tap.asObservable()
         )
         let outputs = viewModel.transform(input: inputs)
         outputs.time
             .drive(onNext: { [weak self] time in
                 self?.distanceAndTimeBar.timeLabel.text = "\(time)"
-            })
-            .disposed(by: disposebag)
-        
-        outputs.visitedLocation
-            .drive(onNext: { [weak self]  location in
-                self?.mapView.addOverlay(MKCircle(center: location.toCLLocationCoordinate2D(), radius: 0.1))
-                let annotation = PlayerAnnotation(player: MultiGamePlayerData(
-                    id: "aewtew",
-                    nickName: "AWettwe", currentLocation: location,
-                    point: 30)
-                )
-                self?.removeAllAnnotations()
-                self?.mapView.addAnnotation(annotation)
             })
             .disposed(by: disposebag)
         
@@ -95,10 +120,80 @@ final class MultiGameViewController: UIViewController, DistanceAndTimeBarLine {
         
         outputs.playerDataFetched
             .drive(onNext: { [weak self] players in
-                self?.makeSnapShot(data: players)
-                self?.pointBoard.reloadData()
+                guard let self = self else {return}
+                self.removeAllAnnotations()
+                self.mapView.addAnnotations(self.makeAnnotations(data: players))
+                self.mapView.addOverlays(self.makeOverlays(data: players))
+                self.makeSnapShot(data: players)
+                self.pointBoard.reloadData()
             })
             .disposed(by: disposebag)
+        
+        outputs.currentLocation
+            .drive(onNext: { [weak self] currentLocation in
+                self?.setCamera(data: currentLocation)
+            })
+            .disposed(by: disposebag)
+        
+        outputs.otherLocation
+            .drive(onNext: { [weak self] otherLocation in
+                self?.setCamera(data: otherLocation)
+            })
+            .disposed(by: disposebag)
+        
+        outputs.gameOver
+            .drive(onNext: { [weak self] _ in
+                self?.configureGameOverUI()
+            })
+            .disposed(by: disposebag)
+    }
+    
+    private func makeAnnotations(data: [MultiGamePlayerData]) -> [MKAnnotation] {
+        let annotations = data.enumerated().map { index, data in
+            guard let type = PlayerAnnotation.PlayerType(rawValue: index) else {
+                return PlayerAnnotation(player: data, type: .first)
+            }
+            let playerAnnoation = PlayerAnnotation(player: data, type: type)
+            return playerAnnoation
+        }
+        return annotations
+    }
+    
+    private func makeOverlays(data: [MultiGamePlayerData]) -> [MKOverlay] {
+        let nothing = CLLocationCoordinate2D()
+        let overlays = data.enumerated().map { index, data in
+            guard let type = MKCircle.CircleType(rawValue: index) else {return MKCircle()}
+            let circle = PlayerCircle(center: data.currentLocation?.toCLLocationCoordinate2D() ?? nothing, radius: 0.3)
+            circle.type = type
+            return circle
+        }
+        return overlays
+    }
+    
+    private func configureGameOverUI() {
+        pointLabel.isHidden = true
+        exitButton.isHidden = true
+        view.addSubview(gameOverButton)
+        gameOverButton.snp.makeConstraints {
+            $0.bottom.equalTo(distanceAndTimeBar.snp.top).inset(-100)
+            $0.centerX.equalToSuperview()
+            $0.height.equalTo(60)
+            $0.width.equalTo(100)
+        }
+        view.addSubview(endLabel)
+        endLabel.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.top.equalToSuperview().inset(80)
+            $0.height.equalTo(100)
+        }
+        
+        pointBoard.snp.remakeConstraints {
+            $0.top.equalTo(endLabel.snp.bottom).inset(30)
+            $0.leading.trailing.equalToSuperview().inset(50)
+            $0.bottom.equalTo(gameOverButton.snp.bottom).offset(10)
+        }
+        
+        pointBoard.alpha = 0.8
     }
 
 }
@@ -117,6 +212,8 @@ extension MultiGameViewController {
         view.addSubview(mapView)
         view.addSubview(exitButton)
         view.addSubview(pointLabel)
+        view.addSubview(resetButton)
+        view.addSubview(watchOthersLocationButton)
     }
     
     private func addConstraints() {
@@ -136,31 +233,57 @@ extension MultiGameViewController {
         }
         
         pointLabel.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.top.equalToSuperview().inset(80)
+            $0.trailing.equalToSuperview().inset(80)
+            $0.top.equalToSuperview().inset(60)
             $0.height.equalTo(80)
         }
+        
+        resetButton.snp.makeConstraints {
+            $0.bottom.equalTo(distanceAndTimeBar.snp.top).inset(-10)
+            $0.trailing.equalToSuperview().inset(10)
+            $0.width.height.equalTo(60)
+        }
+        
+        watchOthersLocationButton.snp.makeConstraints {
+            $0.bottom.equalTo(resetButton.snp.top).inset(-10)
+            $0.trailing.equalTo(resetButton)
+            $0.width.height.equalTo(resetButton)
+        }
+    }
+    
+    private func removeAllAnnotations() {
+        mapView.removeAnnotations(mapView.annotations)
     }
     
 }
 
 extension MultiGameViewController: MKMapViewDelegate {
-    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-         guard let circelOverLay = overlay as? MKCircle else {return MKOverlayRenderer()}
-
-         let circleRenderer = MKCircleRenderer(circle: circelOverLay)
-         circleRenderer.strokeColor = .blue
-         circleRenderer.fillColor = .blue
-         circleRenderer.alpha = 0.2
-         return circleRenderer
-     }
-    
-    private func removeAllAnnotations() {
-        let annotations = mapView.annotations.filter {
-            $0 !== mapView.userLocation
+    func mapView(
+        _ mapView: MKMapView,
+        rendererFor overlay: MKOverlay
+    ) -> MKOverlayRenderer {
+        guard let circleOverLay = overlay as? PlayerCircle else {
+            return MKOverlayRenderer()
         }
-        mapView.removeAnnotations(annotations)
+        let circleRenderer = MKCircleRenderer(circle: circleOverLay)
+        circleRenderer.strokeColor = circleOverLay.overlayColor()
+        circleRenderer.fillColor = circleOverLay.overlayColor()
+        circleRenderer.alpha = 0.5
+        return circleRenderer
     }
+    
+    func mapView(
+        _ mapView: MKMapView,
+        viewFor annotation: MKAnnotation
+    ) -> MKAnnotationView? {
+        let annotationView = PlayerAnnotationView(
+            annotation: annotation,
+            reuseIdentifier: PlayerAnnotationView.identifier
+        )
+        annotationView.canShowCallout = true
+        return annotationView
+    }
+
 }
 
 extension MultiGameViewController {
@@ -179,8 +302,15 @@ extension MultiGameViewController {
     private func makeSnapShot(data: [MultiGamePlayerData]) {
         let oldItems = gameSnapShot.itemIdentifiers(inSection: .ranking)
         gameSnapShot.deleteItems(oldItems)
+        let data = sortData(data: data)
         gameSnapShot.appendItems(data, toSection: .ranking)
         gameDataSource.apply(gameSnapShot, animatingDifferences: true)
+    }
+    
+    private func sortData(data: [MultiGamePlayerData]) -> [MultiGamePlayerData] {
+        return data.sorted { player1, player2 in
+            return player1.point > player2.point
+        }
     }
     
     private func registerCollectionView() {
@@ -200,7 +330,7 @@ extension MultiGameViewController {
             $0.leading.equalToSuperview().inset(10)
             $0.top.equalTo(exitButton.snp.bottom).inset(-10)
             $0.height.equalTo(200)
-            $0.width.equalTo(180)
+            $0.width.equalTo(170)
         }
         gameSnapShot.appendSections([.ranking])
     }
@@ -222,5 +352,18 @@ extension MultiGameViewController {
         let section = NSCollectionLayoutSection(group: group)
         let layout = UICollectionViewCompositionalLayout(section: section)
         return layout
+    }
+}
+
+extension MultiGameViewController {
+    private func setCamera(data: Coordinate) {
+        let initialLocation = CLLocation(latitude: data.latitude, longitude: data.longitude)
+        let region = MKCoordinateRegion(
+            center: initialLocation.coordinate,
+            latitudinalMeters: 150,
+            longitudinalMeters: 150
+        )
+        mapView.setCenter(initialLocation.coordinate, animated: true)
+        mapView.setRegion(region, animated: true)
     }
 }
