@@ -66,6 +66,7 @@ final class SelectMapViewController: MapBaseViewController {
         super.viewDidLoad()
         configureUI()
         bind()
+        configureMapViewDelegate()
         configureCollectionView()
     }
     
@@ -79,14 +80,19 @@ extension SelectMapViewController {
     
     // MARK: - Helpers
     func configureUI() {
+        guard let mapView else { return }
+        view.addSubview(mapView)
+        mapView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+        
         view.addSubview(guideLabel)
         guideLabel.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide).offset(50)
             $0.centerX.equalToSuperview()
             $0.height.equalTo(50)
         }
-        
-        guard let mapView else { return }
+    
         view.addSubview(focusButton)
         focusButton.snp.makeConstraints {
             $0.top.equalTo(mapView.snp.top).offset(50)
@@ -119,7 +125,7 @@ extension SelectMapViewController {
     
     private func bind() {
         let input = SelectMapViewModel.Input(
-            viewWillAppearEvent: rx.methodInvoked(#selector(UIViewController.viewWillAppear)).map { _ in },
+            viewWillAppearEvent: rx.viewWillAppear.asObservable(),
             mapSelected: mapSelectedEvent,
             regionDidChanged: regionDidChanged,
             startButtonTapped: startButton.rx.tap.asObservable(),
@@ -157,27 +163,46 @@ extension SelectMapViewController {
         let annotation = MapAnnotation(map: map, polyLine: lineDraw)
         mapView?.addAnnotation(annotation)
     }
-}
-
-// MARK: - MKMapViewDelegate
-extension SelectMapViewController {
     
-    #warning("rx로변경")
-    /// annotation (=pin) 클릭 시 액션
-    func mapView(_ mapView: MKMapView, didSelect annotation: MKAnnotation) {
-        if annotation is MKUserLocation { return }
-        rankingCollectionView.isHidden = false
-        startButton.isValid = true
+    private func configureMapViewDelegate() {
+        guard let mapView else { return }
+        mapView.rx.regionDidChange
+            .subscribe(onNext: { [weak self] region in
+                guard let self else { return }
+                let center = Coordinate(latitude: region.center.latitude,
+                                        longitude: region.center.longitude)
+                let span = CoordinateSpan(latitudeDelta: region.span.latitudeDelta,
+                                          longitudeDelta: region.span.longitudeDelta)
+                let mapRegion = MapRegion(center: center, span: span)
+                self.regionDidChanged.onNext(mapRegion)
+            }).disposed(by: disposeBag)
         
-        guard let annotation = annotation as? MapAnnotation else { return }
-        changeLineColor(polyLine: annotation.polyLine, color: .red)
+        mapView.rx.didSelectAnnotation
+            .subscribe(onNext: { [weak self] annotation in
+                if annotation is MKUserLocation { return }
+                
+                guard let self,
+                      let annotation = annotation as? MapAnnotation else { return }
+                self.rankingCollectionView.isHidden = false
+                self.startButton.isValid = true
+                self.changeLineColor(polyLine: annotation.polyLine, color: .red)
+                
+                // 땅이 랭킹뷰 위쪽에 오도록 지도 포커스
+                let center = CLLocationCoordinate2D(latitude: annotation.map.centerCoordinate.latitude - 0.003,
+                                                    longitude: annotation.map.centerCoordinate.longitude)
+                self.focusMapLocation(center: center)
+                
+                self.mapSelectedEvent.onNext(annotation.map)
+            }).disposed(by: disposeBag)
         
-        // 땅이 랭킹뷰 위쪽에 오도록 지도 포커스
-        let center = CLLocationCoordinate2D(latitude: annotation.map.centerCoordinate.latitude - 0.003,
-                                            longitude: annotation.map.centerCoordinate.longitude)
-        focusMapLocation(center: center)
-        
-        mapSelectedEvent.onNext(annotation.map)
+        mapView.rx.didDeselectAnnotation
+            .subscribe(onNext: { [weak self] annotation in
+                guard let self,
+                      let annotation = annotation as? MapAnnotation else { return }
+                self.rankingCollectionView.isHidden = true
+                self.startButton.isValid = false
+                self.changeLineColor(polyLine: annotation.polyLine, color: .gray)
+            }).disposed(by: disposeBag)
     }
     
     private func changeLineColor(polyLine: MKPolyline, color: UIColor) {
@@ -185,24 +210,6 @@ extension SelectMapViewController {
             renderer.strokeColor = color
         }
     }
-    
-    func mapView(_ mapView: MKMapView, didDeselect annotation: MKAnnotation) {
-        rankingCollectionView.isHidden = true
-        startButton.isValid = false
-        
-        guard let annotation = annotation as? MapAnnotation else { return }
-        changeLineColor(polyLine: annotation.polyLine, color: .gray)
-    }
-    
-    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-        let center = Coordinate(latitude: mapView.region.center.latitude,
-                                longitude: mapView.region.center.longitude)
-        let span = CoordinateSpan(latitudeDelta: mapView.region.span.latitudeDelta,
-                                  longitudeDelta: mapView.region.span.longitudeDelta)
-        let region = MapRegion(center: center, span: span)
-        regionDidChanged.onNext(region)
-    }
-
 }
 
 // MARK: - UICollectionViewDelegate

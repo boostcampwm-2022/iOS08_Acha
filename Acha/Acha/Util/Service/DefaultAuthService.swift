@@ -11,12 +11,13 @@ import RxSwift
 struct DefaultAuthService: AuthService {
 
     enum DefaultAuthError: Error {
-         case serverError
-         case signUpError
-         case logInError
-         case uidError
-         case signOutError
-     }
+        case serverError
+        case signUpError
+        case logInError
+        case uidError
+        case signOutError
+        case noUserError
+    }
 
     private let auth = FirebaseAuth.Auth.auth()
 
@@ -67,5 +68,22 @@ struct DefaultAuthService: AuthService {
 
     public func signOut() throws {
         try auth.signOut()
+    }
+    
+    public func delete() -> Single<Void> {
+        Single<Void>.create { single in
+            guard let user = Auth.auth().currentUser else {
+                single(.failure(DefaultAuthError.noUserError))
+                return Disposables.create()
+            }
+            user.delete { error in
+                if let error {
+                    single(.failure(error))
+                } else {
+                    single(.success(()))
+                }
+            }
+            return Disposables.create()
+        }
     }
 }
