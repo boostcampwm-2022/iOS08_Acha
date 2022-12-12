@@ -49,15 +49,21 @@ final class DefaultRealtimeDatabaseNetworkService: RealtimeDatabaseNetworkServic
         childReference.updateChildValues(["\(index)": jsonSerial])
     }
     
-    func upload<T: Encodable>(type: FirebaseRealtimeType, data: T) {
-        let childReference = self.databaseReference.child(type.path)
-        guard let json = try? JSONEncoder().encode(data),
-              let jsonSerial = try? JSONSerialization.jsonObject(with: json) as? [String: Any] ?? [:]
-        else {
-            print(FirebaseRealtimeError.encodeError)
-            return
+    func upload<T: Encodable>(type: FirebaseRealtimeType, data: T) -> Single<Void> {
+        Single.create { single in
+            let childReference = self.databaseReference.child(type.path)
+            guard let json = try? JSONEncoder().encode(data),
+                  let jsonSerial = try? JSONSerialization.jsonObject(with: json) as? [String: Any] ?? [:]
+            else {
+                print(FirebaseRealtimeError.encodeError)
+                return Disposables.create()
+            }
+            childReference.setValue(jsonSerial) { error, _ in
+                if let error { single(.failure(error)) }
+                else { single(.success(())) }
+            }
+            return Disposables.create()
         }
-        childReference.setValue(jsonSerial)
     }
     
     func delete(type: FirebaseRealtimeType) {
