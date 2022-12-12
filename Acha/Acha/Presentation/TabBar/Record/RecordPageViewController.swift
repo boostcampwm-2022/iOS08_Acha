@@ -11,11 +11,8 @@ class RecordPageViewController: UIViewController {
     // MARK: - UI properties
     private lazy var pageViewController = UIPageViewController(transitionStyle: .scroll,
                                                                navigationOrientation: .horizontal)
-    
     private let recordMainViewController: RecordMainViewController
-    
     private let recordMapViewController: RecordMapViewController
-    
     private lazy var viewList = [recordMainViewController, recordMapViewController]
     
     // MARK: - Lifecycles
@@ -38,7 +35,6 @@ class RecordPageViewController: UIViewController {
     }
     
     // MARK: - Helpers
-    
     private func setUpViews() {
         addChild(pageViewController)
         view.addSubview(pageViewController.view)
