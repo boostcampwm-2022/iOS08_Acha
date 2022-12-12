@@ -24,11 +24,13 @@ final class LoginViewModel: BaseViewModel {
         let loginResult: Observable<Bool>
     }
     
-    private let useCase: LoginUseCaseProtocol
+    private let useCase: LoginUseCase
     private weak var coordinator: LoginCoordinatorProtocol?
     
-    init(coordinator: LoginCoordinatorProtocol,
-         useCase: LoginUseCaseProtocol) {
+    init(
+        coordinator: LoginCoordinatorProtocol,
+        useCase: LoginUseCase
+    ) {
         self.coordinator = coordinator
         self.useCase = useCase
     }

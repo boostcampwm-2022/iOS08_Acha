@@ -34,9 +34,7 @@ final class LoginCoordinator: LoginCoordinatorProtocol {
         showLoginViewController()
     }
     func showLoginViewController() {
-        let provider = AuthProvider()
-        let repository = LogInRepository(provider: provider)
-        let useCase = LoginUseCase(repository: repository)
+        let useCase = DefaultLoginUseCase(repository: DiContainerManager.makeDefaultUserRepository())
         let viewModel = LoginViewModel(
             coordinator: self,
             useCase: useCase

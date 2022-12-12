@@ -28,12 +28,12 @@ final class SignUpViewModel {
         let signUpFailed: Observable<Bool>
     }
     
-    private let useCase: SignUpUsecaseProtocol
+    private let useCase: SignUpUsecase
     private weak var coordinator: SignupCoordinatorProtocol?
     
     init(
         coordinator: SignupCoordinatorProtocol,
-        useCase: SignUpUsecaseProtocol
+        useCase: SignUpUsecase
     ) {
         self.useCase = useCase
         self.coordinator = coordinator
