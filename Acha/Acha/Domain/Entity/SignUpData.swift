@@ -14,7 +14,6 @@ struct SignUpData: Equatable {
     
     func toUserDTO(id: String) -> UserDTO {
         return UserDTO(id: id,
-                    password: password,
                     nickname: nickName,
                     badges: [],
                     records: [],
