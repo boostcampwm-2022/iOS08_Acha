@@ -91,7 +91,16 @@ class MapBaseViewController: UIViewController, MapBaseViewProtocol {
                     guard let userLocation else { return }
                     self.setUpUserLocation(userLocation)
                 } else {
-                    self.showAlertToMoveSetting()
+                    self.showAlert(title: "위치 서비스를 사용할 수 없습니다. 기기의 '설정 > 개인정보 보호'에서 위치 서비스를 켜주세요.",
+                                   message: "",
+                                   actionTitle: "설정으로 이동",
+                                   actionHandler: {
+                        guard let settingURL = URL(string: UIApplication.openSettingsURLString) else { return }
+                        UIApplication.shared.open(settingURL)
+                    },
+                                   cancelHandler: {
+                        // TODO: 홈화면이나 이전 화면으로 이동
+                    })
                 }
             })
             .disposed(by: disposeBag)
@@ -120,25 +129,6 @@ extension MapBaseViewController {
         } else {
             mapView?.setCenter(clLocation, animated: true)
         }
-    }
-}
-
-extension MapBaseViewController {
-    #warning("showAlert으로 고치려고 했는데 showAlert에는 취소 액션이 없네여 추가하고 그거 쓰면 좋을 듯합니다")
-    private func showAlertToMoveSetting() {
-        let alert = UIAlertController(title: "위치 서비스를 사용할 수 없습니다. 기기의 '설정 > 개인정보 보호'에서 위치 서비스를 켜주세요.",
-                                      message: nil,
-                                      preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: "취소", style: .default, handler: { _ in
-            // TODO: 홈화면이나 이전 화면으로 이동
-        })
-        let moveSettingsAction = UIAlertAction(title: "설정으로 이동", style: .cancel, handler: { _ in
-            guard let settingURL = URL(string: UIApplication.openSettingsURLString) else { return }
-            UIApplication.shared.open(settingURL)
-        })
-        alert.addAction(cancelAction)
-        alert.addAction(moveSettingsAction)
-        present(alert, animated: true)
     }
 }
 

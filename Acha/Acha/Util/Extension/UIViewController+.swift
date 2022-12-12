@@ -23,15 +23,37 @@ extension UIViewController {
         actionHandler: @escaping (() -> Void)
     ) {
         let alert = UIAlertController(title: title,
-                       message: message,
-                       preferredStyle: .alert)
+                                      message: message,
+                                      preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: "취소", style: .cancel)
         
         let action = UIAlertAction(title: actionTitle, style: .default, handler: { _ in
-          actionHandler()
+            actionHandler()
         })
         alert.addAction(cancelAction)
         alert.addAction(action)
         present(alert, animated: true)
-      }
+    }
+    
+    /// 액션 핸들러 + 취소 핸들러
+    func showAlert(
+        title: String,
+        message: String,
+        actionTitle: String,
+        actionHandler: @escaping (() -> Void),
+        cancelHandler: @escaping (() -> Void)
+    ) {
+        let alert = UIAlertController(title: title,
+                                      message: message,
+                                      preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: { _ in
+            cancelHandler()
+        })
+        let action = UIAlertAction(title: actionTitle, style: .default, handler: { _ in
+            actionHandler()
+        })
+        alert.addAction(cancelAction)
+        alert.addAction(action)
+        present(alert, animated: true)
+    }
 }
