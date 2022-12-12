@@ -111,6 +111,13 @@ final class MultiGameViewController: UIViewController, DistanceAndTimeBarLine {
             viewWillDisappear: rx.viewWillDisappear.asObservable()
         )
         let outputs = viewModel.transform(input: inputs)
+        
+        outputs.firstLocation
+            .drive(onNext: { [weak self] position in
+                self?.setCamera(data: position)
+            })
+            .disposed(by: disposebag)
+        
         outputs.time
             .drive(onNext: { [weak self] time in
                 self?.distanceAndTimeBar.timeLabel.text = "\(time)"

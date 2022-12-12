@@ -27,6 +27,7 @@ final class MultiGameViewModel: BaseViewModel {
     }
     
     struct Output {
+        let firstLocation: Driver<Coordinate>
         let time: Driver<Int>
         let visitedLocation: Driver<Coordinate>
         let gamePoint: Driver<Int>
@@ -37,7 +38,17 @@ final class MultiGameViewModel: BaseViewModel {
         let gameOver: Driver<Void>
         let unReadChat: Driver<Int>
     }
-    let timerCount = BehaviorRelay(value: 60)
+    private let timerCount = BehaviorRelay(value: 60)
+    
+    private let firstLocation = PublishSubject<Coordinate>()
+    private let visitedLocation = PublishSubject<Coordinate>()
+    private let gamePoint = PublishSubject<Int>()
+    private let movedDistance = PublishSubject<Double>()
+    private let playerDataFetcehd = PublishSubject<[MultiGamePlayerData]>()
+    private let currentLocation = PublishSubject<Coordinate>()
+    private let otherLocation = PublishSubject<Coordinate>()
+    private let gameOver = PublishSubject<Void>()
+    private let unReadChat = PublishSubject<Int>()
     
     private let roomId: String
     private let useCase: MultiGameUseCase
@@ -54,32 +65,33 @@ final class MultiGameViewModel: BaseViewModel {
     }
     
     func transform(input: Input) -> Output {
-        let visitedLocation = PublishSubject<Coordinate>()
-        let gamePoint = PublishSubject<Int>()
-        let movedDistance = PublishSubject<Double>()
-        let playerDataFetcehd = PublishSubject<[MultiGamePlayerData]>()
-        let currentLocation = PublishSubject<Coordinate>()
-        let otherLocation = PublishSubject<Coordinate>()
-        let gameOver = PublishSubject<Void>()
-        let unReadChat = PublishSubject<Int>()
+
         input.viewDidAppear
             .subscribe { [weak self] _ in
                 guard let self = self else {return}
                 
                 self.useCase.getLocation()
+                    .first()
+                    .subscribe(onSuccess: { position in
+                        guard let position = position else {return}
+                        self.firstLocation.onNext(position)
+                    })
+                    .disposed(by: self.disposeBag)
+                
+                self.useCase.getLocation()
                     .subscribe { location in
-                        visitedLocation.onNext(location)
+                        self.visitedLocation.onNext(location)
                         self.useCase.updateData(roomId: self.roomId)
-                        movedDistance.onNext(self.useCase.movedDistance)
+                        self.movedDistance.onNext(self.useCase.movedDistance)
                     }
                     .disposed(by: self.disposeBag)
                 
                 self.useCase.observing(roomID: self.roomId)
                     .subscribe { players in
                         if players.count >= 2 {
-                            playerDataFetcehd.onNext(players)
+                            self.playerDataFetcehd.onNext(players)
                         } else {
-                            gameOver.onNext(())
+                            self.gameOver.onNext(())
                             self.gameOverAction(time: 60)
                         }
                     }
@@ -91,7 +103,7 @@ final class MultiGameViewModel: BaseViewModel {
                 
                 self.useCase.unReadChatting(roomID: self.roomId)
                     .subscribe { count in
-                        unReadChat.onNext(count)
+                        self.unReadChat.onNext(count)
                     }
                     .disposed(by: self.disposeBag)
                 
@@ -101,7 +113,7 @@ final class MultiGameViewModel: BaseViewModel {
                 self.useCase.timerStart()
                     .subscribe { time in
                         if time <= -1 {
-                            gameOver.onNext(())
+                            self.gameOver.onNext(())
                             self.gameOverAction(time: 60)
                         } else {
                             self.timerCount.accept(time)
@@ -119,7 +131,7 @@ final class MultiGameViewModel: BaseViewModel {
                     .first()
                     .subscribe(onSuccess: { position in
                         guard let position = position else {return}
-                        currentLocation.onNext(position)
+                        self.currentLocation.onNext(position)
                     })
                     .disposed(by: self.disposeBag)
             })
@@ -130,7 +142,7 @@ final class MultiGameViewModel: BaseViewModel {
                 guard let self = self else {return}
                 self.useCase.watchOthersLocation(roomID: self.roomId)
                     .subscribe(onSuccess: { coordinate in
-                        otherLocation.onNext(coordinate)
+                        self.otherLocation.onNext(coordinate)
                     })
                     .disposed(by: self.disposeBag)
             }
@@ -155,7 +167,7 @@ final class MultiGameViewModel: BaseViewModel {
             .subscribe { _ in
                 self.useCase.point()
                 .subscribe { point in
-                    gamePoint.onNext(point)
+                    self.gamePoint.onNext(point)
                 }
                 .disposed(by: self.disposeBag)
         }
@@ -177,6 +189,7 @@ final class MultiGameViewModel: BaseViewModel {
             .disposed(by: disposeBag)
     
         return Output(
+            firstLocation: firstLocation.asDriver(onErrorJustReturn: Coordinate(latitude: 0, longitude: 0)),
             time: timerCount.asDriver(onErrorJustReturn: -1),
             visitedLocation: visitedLocation.asDriver(onErrorJustReturn: Coordinate(latitude: 0, longitude: 0)),
             gamePoint: gamePoint.asDriver(onErrorJustReturn: 0),
