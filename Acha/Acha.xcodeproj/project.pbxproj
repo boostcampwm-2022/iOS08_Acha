@@ -215,6 +215,7 @@
 		F1D2029B2923B97400F3E87D /* InGameRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D2029A2923B97400F3E87D /* InGameRecordViewController.swift */; };
 		F1D202A42923C09300F3E87D /* InGameMenuCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D202A32923C09300F3E87D /* InGameMenuCollectionViewCell.swift */; };
 		F1D202B72924C63F00F3E87D /* InGameMenuModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D202B62924C63F00F3E87D /* InGameMenuModelProtocol.swift */; };
+		F1D85A7E294376E3005822B0 /* Rx+IndicatorAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D85A7D294376E3005822B0 /* Rx+IndicatorAnimation.swift */; };
 		F1DED3A42935ED0100ABC047 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED3A32935ED0100ABC047 /* Comment.swift */; };
 		F1DED3FA29386ED500ABC047 /* DefaultHealthKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED3F929386ED500ABC047 /* DefaultHealthKitService.swift */; };
 		F1DED3FC29386EF000ABC047 /* HealthKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED3FB29386EF000ABC047 /* HealthKitService.swift */; };
@@ -476,6 +477,7 @@
 		F1D2029A2923B97400F3E87D /* InGameRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameRecordViewController.swift; sourceTree = "<group>"; };
 		F1D202A32923C09300F3E87D /* InGameMenuCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameMenuCollectionViewCell.swift; sourceTree = "<group>"; };
 		F1D202B62924C63F00F3E87D /* InGameMenuModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameMenuModelProtocol.swift; sourceTree = "<group>"; };
+		F1D85A7D294376E3005822B0 /* Rx+IndicatorAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Rx+IndicatorAnimation.swift"; sourceTree = "<group>"; };
 		F1DED3A32935ED0100ABC047 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		F1DED3F829386DDA00ABC047 /* Acha.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Acha.entitlements; sourceTree = "<group>"; };
 		F1DED3F929386ED500ABC047 /* DefaultHealthKitService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultHealthKitService.swift; sourceTree = "<group>"; };
@@ -678,6 +680,7 @@
 		474952F72941E8D600098E7C /* Reactive */ = {
 			isa = PBXGroup;
 			children = (
+				F1D85A7D294376E3005822B0 /* Rx+IndicatorAnimation.swift */,
 				76AA56132937AE7E00498441 /* RxSwift+.swift */,
 				476A0E742941A9F400FAC471 /* MKMapView+Rx.swift */,
 			);
@@ -1737,6 +1740,7 @@
 				F1FCEE0E292B483E001A55D6 /* UITextField+.swift in Sources */,
 				474E24F7293DC73200CFAC59 /* TempDBNetwork.swift in Sources */,
 				474E24E4293DC6B800CFAC59 /* LineGraphView.swift in Sources */,
+				F1D85A7E294376E3005822B0 /* Rx+IndicatorAnimation.swift in Sources */,
 				47D5774F29338A7A0014D171 /* DefaultRealtimeDatabaseNetworkService.swift in Sources */,
 				E5BE8B9929221A4C00E9CFE8 /* RecordCoordinator.swift in Sources */,
 				47D5773D293389AC0014D171 /* DefaultMapRepository.swift in Sources */,
