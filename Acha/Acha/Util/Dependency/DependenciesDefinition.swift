@@ -62,6 +62,16 @@ final class DependenciesDefinition {
             TempDBNetwork.self,
             implement: DefaultTempDBNetwork()
         )
+        
+        dependencies.register(
+            ImageCacheService.self,
+            implement: DefaultImageCacheService()
+        )
+        
+        dependencies.register(
+            FirebaseStorageNetworkService.self,
+            implement: DefaultFirebaseStorageNetworkService()
+        )
     }
     
     //MARK:- Repository
@@ -85,7 +95,9 @@ final class DependenciesDefinition {
         dependencies.register(
             BadgeRepository.self,
             implement: DefaultBadgeRepository(
-                realTimeDatabaseNetworkService: dependencies.resolve(RealtimeDatabaseNetworkService.self)
+                realTimeDatabaseNetworkService: dependencies.resolve(RealtimeDatabaseNetworkService.self),
+                firebaseStorageNetworkService: dependencies.resolve(FirebaseStorageNetworkService.self),
+                imageCacheService: dependencies.resolve(ImageCacheService.self)
             )
         )
         
