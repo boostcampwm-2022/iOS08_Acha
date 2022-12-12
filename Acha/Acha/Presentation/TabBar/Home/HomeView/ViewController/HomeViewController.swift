@@ -109,12 +109,10 @@ final class HomeViewController: UIViewController, UIViewControllerTransitioningD
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupSubviews()
         configureUI()
         bind()
-            
     }
-//
+
     private func bind() {
         let inputs = HomeViewModel.Input(
             singleGameModeDidTap: startSingleGameButton.rx.tap.asObservable(),
@@ -149,54 +147,36 @@ final class HomeViewController: UIViewController, UIViewControllerTransitioningD
     
     private func configureUI() {
         view.backgroundColor = .white
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.largeTitleDisplayMode = .automatic
-        navigationItem.title = "땅따먹기"
-        navigationController?.navigationBar.largeTitleTextAttributes = [
-            .foregroundColor: UIColor.pointLight
-        ]
-        navigationController?.navigationBar.shadowImage = UIImage()
+        configureNavigationBar()
         
+        view.addSubview(startGameContentView)
+        view.addSubview(titleLabel)
         startGameContentView.addSubview(singleGameShadowView)
         singleGameShadowView.addSubview(singleGameImageView)
         startGameContentView.addSubview(startSingleGameButton)
-        
         startGameContentView.addSubview(multiGameShadowView)
         multiGameShadowView.addSubview(multiGameImageView)
         startGameContentView.addSubview(startMultiGameButton)
 
-        startGameContentView.snp.makeConstraints {
+        titleLabel.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(30)
             $0.leading.trailing.equalToSuperview().inset(15)
-            $0.height.equalTo(400)
-            $0.top.equalTo(titleLabel.snp.bottom).offset(-100)
+            $0.height.equalTo(80)
         }
         
-        titleLabel.snp.makeConstraints {
-            $0.height.equalTo(100)
-            $0.leading.trailing.equalToSuperview().inset(15)
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(50)
+        startGameContentView.snp.makeConstraints {
+            $0.top.leading.trailing.equalTo(titleLabel)
+            $0.height.equalTo(380)
         }
         
         singleGameShadowView.snp.makeConstraints {
+            $0.top.equalTo(titleLabel.snp.bottom).offset(20)
             $0.leading.equalToSuperview().offset(10)
-            $0.top.equalToSuperview().offset(120)
+            $0.trailing.equalTo(view.snp.centerX).offset(-5)
             $0.bottom.equalToSuperview().offset(-20)
-            $0.width.equalTo(166)
         }
         
         singleGameImageView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-        }
-        
-        multiGameShadowView.snp.makeConstraints {
-            
-            $0.trailing.equalToSuperview().offset(-10)
-            $0.top.equalToSuperview().offset(120)
-            $0.bottom.equalToSuperview().offset(-20)
-            $0.width.equalTo(166)
-        }
-        
-        multiGameImageView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
         
@@ -206,23 +186,30 @@ final class HomeViewController: UIViewController, UIViewControllerTransitioningD
             $0.height.equalTo(100)
         }
         
+        multiGameShadowView.snp.makeConstraints {
+            $0.top.bottom.equalTo(singleGameShadowView)
+            $0.leading.equalTo(view.snp.centerX).offset(5)
+            $0.trailing.equalToSuperview().offset(-10)
+        }
+        
+        multiGameImageView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+        
         startMultiGameButton.snp.makeConstraints {
             $0.center.equalTo(multiGameImageView)
             $0.leading.trailing.equalTo(multiGameImageView).inset(15)
-            $0.height.equalTo(100)
+            $0.height.equalTo(startSingleGameButton)
         }
     }
     
-    private func setupSubviews() {
-        view.addSubview(startGameContentView)
-        view.addSubview(titleLabel)
-        
-        startGameContentView.addSubview(singleGameShadowView)
-        singleGameShadowView.addSubview(singleGameImageView)
-        startGameContentView.addSubview(startSingleGameButton)
-        
-        startGameContentView.addSubview(multiGameShadowView)
-        multiGameShadowView.addSubview(multiGameImageView)
-        startGameContentView.addSubview(startMultiGameButton)
+    private func configureNavigationBar() {
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.largeTitleDisplayMode = .automatic
+        navigationItem.title = "땅따먹기"
+        navigationController?.navigationBar.largeTitleTextAttributes = [
+            .foregroundColor: UIColor.pointLight
+        ]
+        navigationController?.navigationBar.shadowImage = UIImage()
     }
 }
