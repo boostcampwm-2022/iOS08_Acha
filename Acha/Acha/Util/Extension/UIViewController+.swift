@@ -56,4 +56,24 @@ extension UIViewController {
         alert.addAction(action)
         present(alert, animated: true)
     }
+    
+    func showTextFieldAlert(title: String,
+                            message: String,
+                            actionTitle: String,
+                            actionHandler: @escaping ((_ text: String) -> Void)) {
+        let alert = UIAlertController(title: title,
+                                      message: message,
+                                      preferredStyle: .alert)
+        alert.addTextField()
+        alert.textFields?.first?.isSecureTextEntry = true
+        let action = UIAlertAction(title: actionTitle, style: .default) { (action: UIAlertAction) in
+            if let text = alert.textFields?[0].text {
+                actionHandler(text)
+            }
+        }
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel)
+        alert.addAction(cancelAction)
+        alert.addAction(action)
+        present(alert, animated: true)
+    }
 }
