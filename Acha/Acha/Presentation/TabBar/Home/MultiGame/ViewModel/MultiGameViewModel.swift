@@ -24,6 +24,7 @@ final class MultiGameViewModel: BaseViewModel {
         let gameOverButtonTapped: Observable<Void>
         let toRoomButtonTapped: Observable<Void>
         let viewWillDisappear: Observable<Void>
+        let appWillTerminate: Observable<Void>
     }
     
     struct Output {
@@ -87,6 +88,7 @@ final class MultiGameViewModel: BaseViewModel {
             .subscribe { [weak self] _ in
                 guard let self = self else {return}
                 self.useCase.getLocation()
+                    .skip(1)
                     .first()
                     .subscribe(onSuccess: { position in
                         guard let position = position else {return}
@@ -188,6 +190,22 @@ final class MultiGameViewModel: BaseViewModel {
             .disposed(by: disposeBag)
         
         Observable.of(input.exitButtonTapped, input.viewWillDisappear)
+            .merge()
+            .withUnretained(self)
+            .subscribe(onNext: { _ in
+                self.useCase.stopOberservingRoom(id: self.roomId)
+            })
+            .disposed(by: disposeBag)
+        
+        Observable.of(input.gameOverButtonTapped, input.viewWillDisappear)
+            .merge()
+            .withUnretained(self)
+            .subscribe(onNext: { _ in
+                self.useCase.stopOberservingRoom(id: self.roomId)
+            })
+            .disposed(by: disposeBag)
+        
+        Observable.of(input.appWillTerminate, input.viewWillDisappear)
             .merge()
             .withUnretained(self)
             .subscribe(onNext: { _ in

@@ -18,6 +18,7 @@ final class MultiGameRoomViewModel: BaseViewModel {
         let exitButtonTapped: Observable<Void>
         let gameStartButtonTapped: Observable<Void>
         let viewWillDisappear: Observable<Void>
+        let appWillTerminate: Observable<Void>
     }
     
     struct Output {
@@ -39,9 +40,8 @@ final class MultiGameRoomViewModel: BaseViewModel {
     }
     
     func transform(input: Input) -> Output {
-        let bag = disposeBag
-        let dataFetched = Observable<[RoomUser]>.create { observer in
-            input.viewDidAppear.subscribe { [weak self] _ in
+        let dataFetched = Observable<[RoomUser]>.create { [weak self] observer in
+            input.viewDidAppear.subscribe { _ in
                 guard let self = self else {return}
                 self.useCase.observing(roomID: self.roomID)
                     .subscribe(onNext: { roomUsers in
@@ -52,9 +52,9 @@ final class MultiGameRoomViewModel: BaseViewModel {
                         }
                         observer.onNext(roomUsers)
                     })
-                    .disposed(by: bag)
+                    .disposed(by: self.disposeBag)
             }
-            .disposed(by: bag)
+            .disposed(by: self!.disposeBag)
             return Disposables.create()
         }
         
@@ -71,9 +71,16 @@ final class MultiGameRoomViewModel: BaseViewModel {
                             message: error.localizedDescription
                         )
                     }
-                    .disposed(by: bag)
+                    .disposed(by: self.disposeBag)
             }
-            .disposed(by: bag)
+            .disposed(by: disposeBag)
+        
+        input.appWillTerminate
+            .withUnretained(self)
+            .subscribe(onNext: { _ in
+                self.useCase.leave(roomID: self.roomID)
+            })
+            .disposed(by: disposeBag)
             
         Observable.of(input.exitButtonTapped, input.viewWillDisappear)
             .merge()
@@ -83,15 +90,22 @@ final class MultiGameRoomViewModel: BaseViewModel {
             })
             .disposed(by: disposeBag)
         
+        Observable.of(input.appWillTerminate, input.viewWillDisappear)
+            .merge()
+            .withUnretained(self)
+            .subscribe(onNext: { _ in
+                self.useCase.removeObserver(roomID: self.roomID)
+            })
+            .disposed(by: disposeBag)
+        
         input.exitButtonTapped
-            .subscribe { [weak self] _ in
-                guard let self = self else {return}
+            .withUnretained(self)
+            .subscribe { _ in
                 self.useCase.leave(roomID: self.roomID)
                 self.coordinator?.delegate?.didFinished(childCoordinator: self.coordinator!)
             }
-            .disposed(by: bag)
+            .disposed(by: disposeBag)
         
-        disposeBag = bag
         return Output(dataFetched: dataFetched)
     }
 }

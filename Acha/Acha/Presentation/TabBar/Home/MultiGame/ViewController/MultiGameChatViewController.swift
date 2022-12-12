@@ -54,7 +54,8 @@ final class MultiGameChatViewController: UIViewController {
             viewDidAppear: rx.viewDidAppear.asObservable(),
             commentButtonTapped: commentView.commentButton.rx.tap.asObservable(),
             textInput: commentView.commentTextView.rx.text.orEmpty.asObservable(),
-            viewWillDisappear: rx.viewWillDisappear.asObservable()
+            viewWillDisappear: rx.viewWillDisappear.asObservable(),
+            appWillTerminate: UIApplication.rx.willTerminate.asObservable()
         )
         
         let outputs = viewModel.transform(input: inputs)

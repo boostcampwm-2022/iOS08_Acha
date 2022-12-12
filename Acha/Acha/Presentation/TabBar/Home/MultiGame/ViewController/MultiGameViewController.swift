@@ -108,7 +108,8 @@ final class MultiGameViewController: UIViewController, DistanceAndTimeBarLine {
             exitButtonTapped: exitButton.rx.tap.asObservable(),
             gameOverButtonTapped: gameOverButton.rx.tap.asObservable(),
             toRoomButtonTapped: toChatRoomButton.rx.tap.asObservable(),
-            viewWillDisappear: rx.viewWillDisappear.asObservable()
+            viewWillDisappear: rx.viewWillDisappear.asObservable(),
+            appWillTerminate: UIApplication.rx.willTerminate.retry(2).asObservable()
         )
         let outputs = viewModel.transform(input: inputs)
         

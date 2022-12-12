@@ -19,10 +19,16 @@ final class DefaultLocationService: NSObject, LocationService {
     override init() {
         self.locationManager = CLLocationManager()
         super.init()
-        setUp()
     }
     
     func start() {
+        setUp()
+        if locationManager.authorizationStatus == .authorizedAlways ||
+            locationManager.authorizationStatus == .authorizedWhenInUse {
+            locationManager.startUpdatingLocation()
+        } else {
+            getLocationUsagePermission()
+        }
         observeLocation()
     }
     
