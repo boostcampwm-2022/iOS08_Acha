@@ -19,10 +19,10 @@ final class DefaultLocationService: NSObject, LocationService {
     override init() {
         self.locationManager = CLLocationManager()
         super.init()
+        setUp()
     }
     
     func start() {
-        setUp()
         observeLocation()
     }
     
