@@ -7,7 +7,6 @@
 
 import Foundation
 import RxSwift
-import CoreLocation
 
 protocol MultiGameUseCase {
     
@@ -20,9 +19,13 @@ protocol MultiGameUseCase {
     var movedDistance: Double {get set}
     
     func healthKitStore(time: Int)
+    func healthKitAuthorization() -> Observable<Void>
     func updateData(roomId: String)
     
     func stopObserveLocation()
     
     func observing(roomID: String) -> Observable<[MultiGamePlayerData]>
+    func watchOthersLocation(roomID: String) -> Single<Coordinate>
+    
+    func leave(roomID: String)
 }

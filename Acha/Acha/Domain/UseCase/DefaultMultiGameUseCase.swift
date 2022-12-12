@@ -13,6 +13,11 @@ import RxRelay
 
 final class DefaultMultiGameUseCase: MultiGameUseCase {
     
+    enum GameRoomError: Error {
+        case dataNotFetched
+        case cantProceedThisGame
+    }
+    
     private let gameRoomRepository: GameRoomRepository
     private let userRepository: UserRepository
     private let recordRepository: RecordRepository
@@ -21,11 +26,12 @@ final class DefaultMultiGameUseCase: MultiGameUseCase {
     private let disposeBag = DisposeBag()
     
     var visitedLocation: Set<Coordinate> = []
-    var previousPosition = Coordinate(latitude: 0, longitude: 0)
+    private var previousPosition = Coordinate(latitude: 0, longitude: 0)
     var movedDistance: Double = 0
-    var calorie: Int {
+    private var calorie: Int {
         return Int(movedDistance/100)
     }
+    private var watchOtherLocationIndex = 0
     
     init(
         gameRoomRepository: GameRoomRepository,
@@ -85,6 +91,10 @@ final class DefaultMultiGameUseCase: MultiGameUseCase {
             .disposed(by: disposeBag)
     }
     
+    func healthKitAuthorization() -> Observable<Void> {
+        return recordRepository.healthKitAuthorization()
+    }
+    
     func healthKitStore(time: Int) {
         recordRepository.healthKitWrite(
             .init(distance: movedDistance,
@@ -102,11 +112,25 @@ final class DefaultMultiGameUseCase: MultiGameUseCase {
     
     func observing(roomID: String) -> Observable<[MultiGamePlayerData]> {
         return gameRoomRepository.observingMultiGamePlayers(id: roomID)
-            .map { $0.sorted { player1, player2 in
-                player1.point > player2.point
-            } }
     }
     
+    func watchOthersLocation(roomID: String) -> Single<Coordinate> {
+        return gameRoomRepository.fetchRoomData(id: roomID)
+            .map { $0.gameInformation ?? [] }
+            .map { $0.map { $0.toDamin() } }
+            .map { [weak self] datas in
+                guard let self = self else {return Coordinate(latitude: 0, longitude: 0)}
+                let data = datas[self.watchOtherLocationIndex]
+                self.watchOtherLocationIndex = (self.watchOtherLocationIndex + 1) % datas.count
+                return data.currentLocation ?? Coordinate(latitude: 0, longitude: 0)
+            }
+    }
+    
+    func leave(roomID: String) {
+        locationRepository.stopObservingLocation()
+        gameRoomRepository.leaveRoom(id: roomID)
+    }
+
     private func distanceAppend(_ current: Coordinate) {
         let distance = previousPosition.distance(from: current)
         if distance <= 100 {
