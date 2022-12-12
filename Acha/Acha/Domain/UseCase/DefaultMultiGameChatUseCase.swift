@@ -63,6 +63,7 @@ final class DefaultMultiGameChatUseCase: MultiGameChatUseCase {
     
     func leave(roomID: String) {
         roomRepository.removeObserverRoom(id: roomID)
+        roomRepository.leaveRoom(id: roomID)
     }
     
     private func readsUpdate(roomID: String, reads: [[String]]) {

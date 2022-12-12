@@ -66,10 +66,26 @@ final class MultiGameViewModel: BaseViewModel {
     
     func transform(input: Input) -> Output {
 
+        inputBind(input: input)
+        
+        return Output(
+            firstLocation: firstLocation.asDriver(onErrorJustReturn: Coordinate(latitude: 0, longitude: 0)),
+            time: timerCount.asDriver(onErrorJustReturn: -1),
+            visitedLocation: visitedLocation.asDriver(onErrorJustReturn: Coordinate(latitude: 0, longitude: 0)),
+            gamePoint: gamePoint.asDriver(onErrorJustReturn: 0),
+            movedDistance: movedDistance.asDriver(onErrorJustReturn: 0),
+            playerDataFetched: playerDataFetcehd.asDriver(onErrorJustReturn: []),
+            currentLocation: currentLocation.asDriver(onErrorJustReturn: Coordinate(latitude: 0, longitude: 0)),
+            otherLocation: otherLocation.asDriver(onErrorJustReturn: Coordinate(latitude: 0, longitude: 0)),
+            gameOver: gameOver.asDriver(onErrorJustReturn: ()),
+            unReadChat: unReadChat.asDriver(onErrorJustReturn: 0)
+        )
+    }
+    
+    private func inputBind(input: Input) {
         input.viewDidAppear
             .subscribe { [weak self] _ in
                 guard let self = self else {return}
-                
                 self.useCase.getLocation()
                     .first()
                     .subscribe(onSuccess: { position in
@@ -107,9 +123,7 @@ final class MultiGameViewModel: BaseViewModel {
                     }
                     .disposed(by: self.disposeBag)
                 
-                if self.timerCount.value != 60 {
-                    return
-                }
+                if self.timerCount.value != 60 { return }
                 self.useCase.timerStart()
                     .subscribe { time in
                         if time <= -1 {
@@ -162,16 +176,9 @@ final class MultiGameViewModel: BaseViewModel {
             })
             .disposed(by: disposeBag)
         
-        visitedLocation
-            .withUnretained(self)
-            .subscribe { _ in
-                self.useCase.point()
-                .subscribe { point in
-                    self.gamePoint.onNext(point)
-                }
-                .disposed(by: self.disposeBag)
-        }
-        .disposed(by: disposeBag)
+        useCase.point()
+            .bind(to: gamePoint)
+            .disposed(by: disposeBag)
         
         input.toRoomButtonTapped
             .withUnretained(self)
@@ -188,18 +195,6 @@ final class MultiGameViewModel: BaseViewModel {
             })
             .disposed(by: disposeBag)
     
-        return Output(
-            firstLocation: firstLocation.asDriver(onErrorJustReturn: Coordinate(latitude: 0, longitude: 0)),
-            time: timerCount.asDriver(onErrorJustReturn: -1),
-            visitedLocation: visitedLocation.asDriver(onErrorJustReturn: Coordinate(latitude: 0, longitude: 0)),
-            gamePoint: gamePoint.asDriver(onErrorJustReturn: 0),
-            movedDistance: movedDistance.asDriver(onErrorJustReturn: 0),
-            playerDataFetched: playerDataFetcehd.asDriver(onErrorJustReturn: []),
-            currentLocation: currentLocation.asDriver(onErrorJustReturn: Coordinate(latitude: 0, longitude: 0)),
-            otherLocation: otherLocation.asDriver(onErrorJustReturn: Coordinate(latitude: 0, longitude: 0)),
-            gameOver: gameOver.asDriver(onErrorJustReturn: ()),
-            unReadChat: unReadChat.asDriver(onErrorJustReturn: 0)
-        )
     }
     
     private func leaveRoom() {
