@@ -45,7 +45,7 @@ final class InGameRecordViewController: InGamePlayMenuViewController {
         let input = InGameRecordViewModel.Input()
         let output = viewModel.transform(input: input)
         output.inGameRecord
-            .subscribe(onSuccess: { [weak self] in
+            .subscribe(onNext: { [weak self] in
                 guard let self else { return }
                 self.makeSnapshot(data: $0)
             }).disposed(by: disposeBag)
