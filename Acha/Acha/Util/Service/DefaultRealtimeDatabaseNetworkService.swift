@@ -7,6 +7,7 @@
 
 import RxSwift
 import Firebase
+import FirebaseDatabase
 
 final class DefaultRealtimeDatabaseNetworkService: RealtimeDatabaseNetworkService {
 
@@ -18,16 +19,70 @@ final class DefaultRealtimeDatabaseNetworkService: RealtimeDatabaseNetworkServic
         case encodeError
     }
     
+    func fetch<T: Decodable>(type: FirebaseRealtimeType,
+                             child: String,
+                             value: Any? = nil,
+                             limitCount: Int? = nil) -> Single<T> {
+        return Single.create { [weak self] single in
+            guard let self else { return Disposables.create() }
+            var query = self.databaseReference.child(type.path).queryOrdered(byChild: child)
+            
+            if let value {
+                query = query.queryStarting(afterValue: value)
+            }
+            
+            if let limitCount {
+                query = query.queryLimited(toFirst: UInt(limitCount))
+            }
+            
+            query.observeSingleEvent(of: .value) { snapshot in
+                guard var snapData = snapshot.value else {
+                    single(.failure(FirebaseRealtimeError.dataError))
+                    return
+                }
+
+                if snapData is [String: Any] {
+                    guard let tempData = snapData as? [String: Any] else { return }
+                    snapData = Array(tempData.values)
+                }
+
+                guard !(snapData is NSNull),
+                      let jsonData = try? JSONSerialization.data(withJSONObject: snapData) else {
+                    single(.failure(FirebaseRealtimeError.dataError))
+                    return
+                }
+
+                guard let data = try? JSONDecoder().decode(T.self, from: jsonData) else {
+                    single(.failure(FirebaseRealtimeError.decodeError))
+                    return
+                }
+                single(.success(data))
+            }
+            return Disposables.create()
+        }
+    }
+    
     func fetch<T: Decodable>(type: FirebaseRealtimeType) -> Single<T> {
         return Single.create { [weak self] single in
             guard let self else { return Disposables.create() }
             let childReference = self.databaseReference.child(type.path)
             childReference.observeSingleEvent(of: .value, with: { snapshot in
-                guard let snapData = snapshot.value,
+                guard var snapData = snapshot.value else {
+                    single(.failure(FirebaseRealtimeError.dataError))
+                    return
+                }
+
+                if snapData is [String: Any] {
+                    guard let tempData = snapData as? [String: Any] else { return }
+                    snapData = Array(tempData.values)
+                }
+
+                guard !(snapData is NSNull),
                       let jsonData = try? JSONSerialization.data(withJSONObject: snapData) else {
                     single(.failure(FirebaseRealtimeError.dataError))
                     return
                 }
+
                 guard let data = try? JSONDecoder().decode(T.self, from: jsonData) else {
                     single(.failure(FirebaseRealtimeError.decodeError))
                     return

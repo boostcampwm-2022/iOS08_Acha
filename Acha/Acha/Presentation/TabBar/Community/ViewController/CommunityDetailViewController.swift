@@ -53,6 +53,22 @@ final class CommunityDetailViewController: UIViewController, UICollectionViewDel
     
     // MARK: - Helpers
     private func bind() {
+        AchaKeyboard.shared.keyboardHeight
+            .drive(onNext: { [weak self] keyboardHeight in
+                guard let self = self else {return}
+                if keyboardHeight != 0 {
+                    self.commentView.snp.updateConstraints {
+                        $0.bottom.equalTo(self.view.safeAreaLayoutGuide)
+                            .offset( self.view.safeAreaInsets.bottom-keyboardHeight)
+                    }
+                } else {
+                    self.commentView.snp.updateConstraints {
+                        $0.bottom.equalTo(self.view.safeAreaLayoutGuide)
+                    }
+                }
+            })
+            .disposed(by: disposeBag)
+        
         let input = CommunityDetailViewModel.Input(
             viewWillAppearEvent: rx.methodInvoked(#selector(viewWillAppear(_:)))
                 .map { _ in }
@@ -86,16 +102,13 @@ final class CommunityDetailViewController: UIViewController, UICollectionViewDel
     }
     
     private func configureUI() {
+        hideKeyboardWhenTapped()
         view.backgroundColor = .white
         navigationController?.navigationBar.tintColor = .pointLight
         navigationItem.title = "게시글"
         navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.pointLight]
         
         view.addSubview(commentView)
-        
-        KeyboardManager.keyboardWillHide(view: commentView, superView: view)
-        KeyboardManager.keyboardWillShow(view: commentView, superView: view)
-        hideKeyboardWhenTapped()
         
         commentView.snp.makeConstraints {
             $0.trailing.leading.bottom.equalTo(view.safeAreaLayoutGuide)

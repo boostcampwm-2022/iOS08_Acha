@@ -20,7 +20,6 @@ final class CommunityPostWriteViewController: UIViewController {
         $0.font = .postBody
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.isScrollEnabled = false
-        $0.returnKeyType = .done
         $0.delegate = self
         $0.textColor = .lightGray
         $0.text = textViewPlaceHolder
@@ -67,7 +66,7 @@ final class CommunityPostWriteViewController: UIViewController {
     }
     
     // MARK: - Properties
-    private let disposebag = DisposeBag()
+    private let disposeBag = DisposeBag()
     private let viewModel: CommunityPostWriteViewModel
     private var textViewPlaceHolder = "텍스트를 입력해주세요."
     private let maxTextCount = 300
@@ -93,10 +92,6 @@ final class CommunityPostWriteViewController: UIViewController {
         bind()
     }
     
-    override var keyCommands: [UIKeyCommand]? {
-        return [UIKeyCommand(input: "\r", modifierFlags: .shift, action: #selector(handleShiftEnter(command:)))]
-    }
-    
     // MARK: - Helpers
     private func bind() {
         textView.rx.text
@@ -104,7 +99,7 @@ final class CommunityPostWriteViewController: UIViewController {
             .subscribe(onNext: { [weak self] text in
                 guard let self else { return }
                 self.textCountLabel.text = "\(text.count) / 300"
-            }).disposed(by: disposebag)
+            }).disposed(by: disposeBag)
         
         let input = CommunityPostWriteViewModel.Input(
             viewWillAppearEvent: rx.methodInvoked(#selector(viewWillAppear(_:)))
@@ -131,7 +126,7 @@ final class CommunityPostWriteViewController: UIViewController {
                     }
                 }
                 
-            }).disposed(by: disposebag)
+            }).disposed(by: disposeBag)
     }
     
     private func setupViews() {
@@ -143,6 +138,8 @@ final class CommunityPostWriteViewController: UIViewController {
     }
     
     private func configureUI() {
+        hideKeyboardWhenTapped()
+        
         view.backgroundColor = .white
         navigationItem.title = "게시글 작성"
         navigationItem.rightBarButtonItem = rightButton
@@ -176,12 +173,6 @@ final class CommunityPostWriteViewController: UIViewController {
             $0.centerX.equalTo(imageAddButton.snp.trailing)
             $0.centerY.equalTo(imageAddButton.snp.top)
             $0.height.width.equalTo(25)
-        }
-    }
-    
-    @objc func handleShiftEnter(command: UIKeyCommand) {
-        if textView.text.count < maxTextCount {
-            textView.insertText("\r")
         }
     }
     
@@ -247,5 +238,20 @@ extension CommunityPostWriteViewController: UIImagePickerControllerDelegate, UIN
             imageAddButton.setImage(image, for: .normal)
         }
         dismiss(animated: true, completion: nil)
+    }
+}
+
+extension CommunityPostWriteViewController {
+    private func hideKeyboardWhenTapped() {
+        let tapGestureRecognizer = UITapGestureRecognizer(
+            target: self,
+            action: #selector(dismissKeyboard)
+        )
+        tapGestureRecognizer.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapGestureRecognizer)
+    }
+    
+    @objc private func dismissKeyboard() {
+        view.endEditing(true)
     }
 }

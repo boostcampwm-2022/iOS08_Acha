@@ -13,14 +13,13 @@ import RxCocoa
 
 final class CommentView: UIView {
 
-    lazy var commentTextView = UITextView().then {
-        $0.isSelectable = true
+    lazy var commentTextView: UITextView = UITextView().then {
         $0.layer.borderColor = UIColor.pointLight.cgColor
         $0.layer.borderWidth = 2
         $0.layer.cornerRadius = 5 
         $0.layer.backgroundColor = UIColor.white.cgColor
         $0.font = .postBody
-        $0.translatesAutoresizingMaskIntoConstraints = false
+        
     }
     
     lazy var commentButton = UIButton().then {
@@ -75,8 +74,11 @@ final class CommentView: UIView {
         }
         
         commentTextView.snp.makeConstraints {
-            $0.leading.top.bottom.equalToSuperview().inset(10)
+            $0.top.bottom.equalToSuperview()
+            $0.leading.equalToSuperview().inset(10)
             $0.trailing.equalTo(commentButton.snp.leading).offset(-10)
         }
+        
+        commentTextView.textContainerInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     }
 }

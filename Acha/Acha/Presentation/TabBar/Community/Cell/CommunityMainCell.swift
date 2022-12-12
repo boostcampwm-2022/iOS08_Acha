@@ -9,6 +9,7 @@ import UIKit
 import Then
 import SnapKit
 import RxSwift
+import RxRelay
 
 final class CommunityMainCell: UICollectionViewCell {
     // MARK: - UI properties
@@ -57,8 +58,9 @@ final class CommunityMainCell: UICollectionViewCell {
         $0.backgroundColor = .white
         $0.font = .postBody
         $0.textColor = .black
-        $0.isSelectable = false
+        $0.isEditable = false
         $0.isScrollEnabled = false
+        $0.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(textViewTapped)))
     }
     
     private lazy var postImageView: UIImageView = UIImageView().then {
@@ -92,8 +94,19 @@ final class CommunityMainCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        nickNameLabel.text = ""
+        createDateLabel.text = ""
+        postTextView.text = ""
+        postImageView.isHidden = true
+        commentCountLabel.text = "0"
+    }
+    
     // MARK: - Properties
     var id: Int = -1
+    var textViewTapEvent: PublishRelay<Int>?
     
     // MARK: - Helper
     private func setupViews() {
@@ -118,7 +131,7 @@ final class CommunityMainCell: UICollectionViewCell {
             $0.leading.trailing.equalToSuperview()
         }
         contextStackView.snp.makeConstraints {
-            $0.trailing.leading.equalToSuperview().priority(750)
+            $0.trailing.leading.equalToSuperview()
         }
         
         createDateLabel.snp.makeConstraints {
@@ -126,7 +139,7 @@ final class CommunityMainCell: UICollectionViewCell {
         }
 
         postTextView.snp.makeConstraints {
-            $0.height.greaterThanOrEqualTo(60).priority(750)
+            $0.height.greaterThanOrEqualTo(30).priority(750)
         }
         
         postImageView.snp.makeConstraints {
@@ -151,6 +164,7 @@ final class CommunityMainCell: UICollectionViewCell {
     }
     
     func bind(post: Post) {
+        textViewTapEvent = PublishRelay<Int>()
         id = post.id
         nickNameLabel.text = post.nickName
         createDateLabel.text = post.createdAt.convertToStringFormat(format: "YYYY-MM-dd")
@@ -175,5 +189,9 @@ final class CommunityMainCell: UICollectionViewCell {
         } else {
             commentCountLabel.text = "0"
         }
+    }
+    
+    @objc private func textViewTapped() {
+        textViewTapEvent?.accept(id)
     }
 }
