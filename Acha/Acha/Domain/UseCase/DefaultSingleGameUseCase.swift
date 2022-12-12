@@ -148,7 +148,6 @@ final class DefaultSingleGameUseCase: DefaultMapBaseUseCase, SingleGameUseCase {
                 guard let record = self.uploadRecord(id: newRecordID, isCompleted: isCompleted) else { return }
                 if let newBadgeIndex = self.getNewBadges() {
                     self.getBagde(id: newBadgeIndex)
-                        .debug()
                         .subscribe(onNext: { badge in
                             self.gameOverInformation.onNext((record, self.map.name, badge))
                             self.updateUser(newRecord: newRecordID, newBadge: newBadgeIndex)
@@ -224,6 +223,5 @@ final class DefaultSingleGameUseCase: DefaultMapBaseUseCase, SingleGameUseCase {
     func getBagde(id: Int) -> Observable<Badge> {
         badgeRepository.fetchSomeBadges(ids: [id])
             .map { $0[0] }
-            .debug()
     }
 }
