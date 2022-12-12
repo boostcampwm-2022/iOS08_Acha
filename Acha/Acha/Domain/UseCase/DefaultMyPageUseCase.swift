@@ -45,7 +45,7 @@ final class DefaultMyPageUseCase: MyPageUseCase {
                                   name: $0.name,
                                   imageURL: $0.imageURL,
                                   isHidden: $0.isHidden,
-                                  isOwn: user.badges.contains($0.id) ? true : false
+                                  isOwn: user.badges.contains($0.id)
                             )
                         })
                         

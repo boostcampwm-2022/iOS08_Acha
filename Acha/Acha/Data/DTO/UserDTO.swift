@@ -9,7 +9,6 @@ import Foundation
 
 struct UserDTO: Codable {
     let id: String
-    let password: String
     let nickname: String
     let badges: [Int]?
     let records: [Int]?
@@ -25,6 +24,7 @@ struct UserDTO: Codable {
                     nickName: nickname,
                     badges: badges ?? [],
                     records: records ?? [],
+                    pinCharacter: pinCharacter ?? "",
                     friends: friends ?? [])
     }
 }
