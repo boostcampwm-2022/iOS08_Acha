@@ -51,6 +51,7 @@ final class DefaultMyPageUseCase: MyPageUseCase {
                         
                         let ownedBadges = badges
                             .filter { user.badges.contains($0.id) }
+                        self.ownedBadges.onNext(ownedBadges)
                         
                         let recentlyOwnedBadges = ownedBadges.count > 6 ? ownedBadges.suffix(6) : ownedBadges
                         self.recentlyOwnedBadges.onNext(recentlyOwnedBadges)

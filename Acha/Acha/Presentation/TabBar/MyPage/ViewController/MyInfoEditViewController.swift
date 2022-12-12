@@ -6,22 +6,21 @@
 //
 
 import UIKit
-import FirebaseAuth
 import SnapKit
 import Then
+import RxSwift
 
 final class MyInfoEditViewController: UIViewController {
     
     // MARK: - UI properties
-    private let idTextFieldView = InfoTextFieldView(frame: CGRect(), title: "아이디", content: "deunggi@acha.com")
-    private let nickNameTextFieldView = InfoTextFieldView(frame: CGRect(), title: "닉네임", content: "승기바보")
+    private let emailTextFieldView = InfoTextFieldView(frame: CGRect(), title: "이메일")
+    private let nickNameTextFieldView = InfoTextFieldView(frame: CGRect(), title: "닉네임")
     private let characterLabel: UILabel = UILabel().then {
         $0.text = "대표 캐릭터"
         $0.textColor = .pointLight
         $0.font = .title
     }
     private let characterImageView: UIImageView = UIImageView().then {
-        $0.image = .penguinImage
         $0.contentMode = .scaleAspectFit
         $0.layer.borderWidth = 3
         $0.layer.borderColor = UIColor.pointLight.cgColor
@@ -41,15 +40,24 @@ final class MyInfoEditViewController: UIViewController {
     }
 
     // MARK: - Properties
+    private let viewModel: MyInfoEditViewModel
+    private var disposeBag = DisposeBag()
+    private var finishButtonTap = PublishSubject<String>()
     
     // MARK: - Lifecycles
+    init(viewModel: MyInfoEditViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
-        
-        guard let user = Auth.auth().currentUser else { return }
-        print(user.email)
-        print(user.uid)
+        bind()
     }
 }
 
@@ -59,31 +67,31 @@ extension MyInfoEditViewController {
         title = "내 정보 수정"
         view.backgroundColor = .white
         
-        view.addSubview(idTextFieldView)
+        view.addSubview(emailTextFieldView)
         view.addSubview(nickNameTextFieldView)
         view.addSubview(characterLabel)
         view.addSubview(characterImageView)
         view.addSubview(characterChangeButton)
         view.addSubview(finishButton)
         
-        idTextFieldView.snp.makeConstraints {
+        emailTextFieldView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide).offset(20)
             $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(30)
             $0.height.equalTo(40)
         }
         nickNameTextFieldView.snp.makeConstraints {
-            $0.top.equalTo(idTextFieldView.snp.bottom).offset(20)
-            $0.leading.trailing.equalTo(idTextFieldView)
-            $0.height.equalTo(idTextFieldView)
+            $0.top.equalTo(emailTextFieldView.snp.bottom).offset(20)
+            $0.leading.trailing.equalTo(emailTextFieldView)
+            $0.height.equalTo(emailTextFieldView)
         }
         characterLabel.snp.makeConstraints {
             $0.top.equalTo(nickNameTextFieldView.snp.bottom).offset(20)
-            $0.leading.equalTo(idTextFieldView)
-            $0.height.equalTo(idTextFieldView)
+            $0.leading.equalTo(emailTextFieldView)
+            $0.height.equalTo(emailTextFieldView)
         }
         characterImageView.snp.makeConstraints {
             $0.top.equalTo(characterLabel.snp.bottom).offset(10)
-            $0.leading.equalTo(idTextFieldView)
+            $0.leading.equalTo(emailTextFieldView)
             $0.width.height.equalTo(100)
         }
         characterChangeButton.snp.makeConstraints {
@@ -96,5 +104,65 @@ extension MyInfoEditViewController {
             $0.width.equalTo(90)
             $0.height.equalTo(40)
         }
+    }
+    
+    private func bind() {
+        let input = MyInfoEditViewModel.Input(
+            viewWillAppearEvent: rx.viewWillAppear.asObservable(),
+            emailText: emailTextFieldView.textField.rx.text.orEmpty.asObservable(),
+            nickNameText: nickNameTextFieldView.textField.rx.text.orEmpty.asObservable(),
+            characterChangeButtonTap: characterChangeButton.rx.tap.asObservable(),
+            finishButtonTap: finishButtonTap
+        )
+        let output = viewModel.transform(input: input)
+        
+        output.userInfo
+            .subscribe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] (user, email) in
+                guard let self else { return }
+                self.emailTextFieldView.setContent(email)
+                self.nickNameTextFieldView.setContent(user.nickName)
+                
+                DefaultImageService.shared.loadImage(url: user.pinCharacter)
+                    .subscribe(on: MainScheduler.instance)
+                    .subscribe(onNext: { [weak self] imageData in
+                        guard let self else { return }
+                        self.characterImageView.image = UIImage(data: imageData)
+                    })
+                    .disposed(by: self.disposeBag)
+            })
+            .disposed(by: disposeBag)
+        
+        output.pinCharacterUpdated
+            .subscribe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] imageData in
+                guard let self else { return }
+                self.characterImageView.image = UIImage(data: imageData)
+            })
+            .disposed(by: disposeBag)
+        
+        output.cannotSave
+            .subscribe(onNext: { [weak self] in
+                guard let self else { return }
+                self.showAlert(title: "이메일 혹은 닉네임이 유효하지 않습니다", message: "다시 입력해주세요")
+            })
+            .disposed(by: disposeBag)
+        
+        configureFinishButton()
+    }
+    
+    private func configureFinishButton() {
+        finishButton.rx.tap
+            .asObservable()
+            .subscribe(onNext: { [weak self] in
+                guard let self else { return }
+                self.showTextFieldAlert(title: "정보를 수정하기 위해 비밀번호를 입력해주세요",
+                                        message: "",
+                                        actionTitle: "확인",
+                                        actionHandler: { password in
+                    self.finishButtonTap.onNext(password)
+                })
+            })
+            .disposed(by: disposeBag)
     }
 }

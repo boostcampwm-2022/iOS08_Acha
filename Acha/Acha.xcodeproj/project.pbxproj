@@ -48,6 +48,12 @@
 		474E24FF293DC76800CFAC59 /* RecordMapViewUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 474E24FD293DC76800CFAC59 /* RecordMapViewUseCase.swift */; };
 		474E2501293DC78100CFAC59 /* DefaultTempRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 474E2500293DC78100CFAC59 /* DefaultTempRepository.swift */; };
 		474E2503293DC78700CFAC59 /* TempRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 474E2502293DC78700CFAC59 /* TempRepository.swift */; };
+		47651F51294486380062EC5F /* MyInfoEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47651F50294486380062EC5F /* MyInfoEditViewModel.swift */; };
+		47651F5329448F890062EC5F /* MyInfoEditUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47651F5229448F890062EC5F /* MyInfoEditUseCase.swift */; };
+		47651F5529448F9B0062EC5F /* DefaultMyInfoEditUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47651F5429448F9B0062EC5F /* DefaultMyInfoEditUseCase.swift */; };
+		47651F57294592220062EC5F /* CharacterSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47651F56294592220062EC5F /* CharacterSelectViewController.swift */; };
+		47651F592945947D0062EC5F /* CharacterSelectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47651F582945947D0062EC5F /* CharacterSelectViewModel.swift */; };
+		47651F5B294640860062EC5F /* Collection+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47651F5A294640860062EC5F /* Collection+.swift */; };
 		47653A2C2938C15700BDC8E3 /* MyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47653A2B2938C15700BDC8E3 /* MyPageViewModel.swift */; };
 		47653A2E2938C4A500BDC8E3 /* MyPageUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47653A2D2938C4A500BDC8E3 /* MyPageUseCase.swift */; };
 		47653A302938C4AD00BDC8E3 /* DefaultMyPageUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47653A2F2938C4AD00BDC8E3 /* DefaultMyPageUseCase.swift */; };
@@ -286,6 +292,12 @@
 		474E24FD293DC76800CFAC59 /* RecordMapViewUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordMapViewUseCase.swift; sourceTree = "<group>"; };
 		474E2500293DC78100CFAC59 /* DefaultTempRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultTempRepository.swift; sourceTree = "<group>"; };
 		474E2502293DC78700CFAC59 /* TempRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TempRepository.swift; sourceTree = "<group>"; };
+		47651F50294486380062EC5F /* MyInfoEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoEditViewModel.swift; sourceTree = "<group>"; };
+		47651F5229448F890062EC5F /* MyInfoEditUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoEditUseCase.swift; sourceTree = "<group>"; };
+		47651F5429448F9B0062EC5F /* DefaultMyInfoEditUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMyInfoEditUseCase.swift; sourceTree = "<group>"; };
+		47651F56294592220062EC5F /* CharacterSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterSelectViewController.swift; sourceTree = "<group>"; };
+		47651F582945947D0062EC5F /* CharacterSelectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterSelectViewModel.swift; sourceTree = "<group>"; };
+		47651F5A294640860062EC5F /* Collection+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+.swift"; sourceTree = "<group>"; };
 		47653A2B2938C15700BDC8E3 /* MyPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewModel.swift; sourceTree = "<group>"; };
 		47653A2D2938C4A500BDC8E3 /* MyPageUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageUseCase.swift; sourceTree = "<group>"; };
 		47653A2F2938C4AD00BDC8E3 /* DefaultMyPageUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMyPageUseCase.swift; sourceTree = "<group>"; };
@@ -616,6 +628,7 @@
 				F1B0D8A9292CCA0F00EBDD02 /* Encodable+.swift */,
 				474952F72941E8D600098E7C /* Reactive */,
 				766978BE294087B7002128C7 /* UIImageView+.swift */,
+				47651F5A294640860062EC5F /* Collection+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -755,6 +768,7 @@
 				474E24F8293DC75F00CFAC59 /* DefaultRecordMainViewUseCase.swift */,
 				474E24F9293DC75F00CFAC59 /* DefaultRecordMapViewUseCase.swift */,
 				F1CC513E293EFB9E00B9008D /* DefaultMultiGameUseCase.swift */,
+				47651F5429448F9B0062EC5F /* DefaultMyInfoEditUseCase.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -772,6 +786,7 @@
 				47653A2D2938C4A500BDC8E3 /* MyPageUseCase.swift */,
 				F1CC513A293EE64700B9008D /* MultiGameRoomUseCase.swift */,
 				F1CC5140293EFBBC00B9008D /* MultiGameUseCase.swift */,
+				47651F5229448F890062EC5F /* MyInfoEditUseCase.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -822,6 +837,8 @@
 			children = (
 				76AA55A72937765F00498441 /* BadgeViewModel.swift */,
 				47653A2B2938C15700BDC8E3 /* MyPageViewModel.swift */,
+				47651F50294486380062EC5F /* MyInfoEditViewModel.swift */,
+				47651F582945947D0062EC5F /* CharacterSelectViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -832,6 +849,7 @@
 				76AA55A52937762800498441 /* BadgeViewController.swift */,
 				E5BE8BB22922200C00E9CFE8 /* MyPageViewController.swift */,
 				470C70482938DBF400261250 /* MyInfoEditViewController.swift */,
+				47651F56294592220062EC5F /* CharacterSelectViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -1564,6 +1582,7 @@
 				E5027D58292670570021BF60 /* Record.swift in Sources */,
 				F1E83D79293485A1004C7992 /* CommunityRepository.swift in Sources */,
 				F1DED40029386F8500ABC047 /* HealthKitWriteData.swift in Sources */,
+				47651F5529448F9B0062EC5F /* DefaultMyInfoEditUseCase.swift in Sources */,
 				47653A382938D6EF00BDC8E3 /* BadgeRepository.swift in Sources */,
 				F1B514EB293B3FDD00F653F3 /* DefaultAuthService.swift in Sources */,
 				766978BF294087B7002128C7 /* UIImageView+.swift in Sources */,
@@ -1581,6 +1600,7 @@
 				F13DB58F292B3C8D00323B28 /* AuthInputTextField.swift in Sources */,
 				F1E83D992935C727004C7992 /* TexCountView.swift in Sources */,
 				761E5F092935EFF400E6CACC /* DefaultInGameUseCase.swift in Sources */,
+				47651F57294592220062EC5F /* CharacterSelectViewController.swift in Sources */,
 				474E2501293DC78100CFAC59 /* DefaultTempRepository.swift in Sources */,
 				E5BE8B8F2922172400E9CFE8 /* AppCoordinator.swift in Sources */,
 				47935E97292366CD00481307 /* UIButton+.swift in Sources */,
@@ -1623,6 +1643,7 @@
 				76B3BF442924C7450056ABFD /* SingleGameViewController.swift in Sources */,
 				F1E83D8629348C59004C7992 /* CommunityCollectionViewCell.swift in Sources */,
 				F1CC514B293F237B00B9008D /* PlayerAnnotation.swift in Sources */,
+				47651F592945947D0062EC5F /* CharacterSelectViewModel.swift in Sources */,
 				47D57743293389EB0014D171 /* DefaultSelectMapUseCase.swift in Sources */,
 				F156F11A29235EC50053E807 /* ImageConstants.swift in Sources */,
 				76AA55EA2937AD7A00498441 /* QRReaderViewController.swift in Sources */,
@@ -1662,6 +1683,7 @@
 				F1DED3FA29386ED500ABC047 /* DefaultHealthKitService.swift in Sources */,
 				E5BE8B9B29221A8A00E9CFE8 /* CommunityCoordinator.swift in Sources */,
 				76AA55D52937ACB900498441 /* MultiGameCoordinator.swift in Sources */,
+				47651F5B294640860062EC5F /* Collection+.swift in Sources */,
 				76AA56122937AE2600498441 /* RandomFactory.swift in Sources */,
 				47D5773B293389940014D171 /* MapRepository.swift in Sources */,
 				76B3BF54292624E30056ABFD /* Date+.swift in Sources */,
@@ -1674,6 +1696,7 @@
 				470C7055293B5C3E00261250 /* MyPageHeaderView.swift in Sources */,
 				474E24E9293DC6B800CFAC59 /* RecordMainChartCell.swift in Sources */,
 				F1DED3FC29386EF000ABC047 /* HealthKitService.swift in Sources */,
+				47651F5329448F890062EC5F /* MyInfoEditUseCase.swift in Sources */,
 				E5BE8B9F29221B2700E9CFE8 /* LoginCoordinator.swift in Sources */,
 				76AA55C62937AB4F00498441 /* CoordinateDTO.swift in Sources */,
 				76AA55E82937AD7A00498441 /* MultiGameEnterViewController.swift in Sources */,
@@ -1735,6 +1758,7 @@
 				F1D202992923AB3D00F3E87D /* InGameRankingViewController.swift in Sources */,
 				470C704E293B18C000261250 /* BadgeDTO.swift in Sources */,
 				76AA560E2937ADD400498441 /* SignUpUsecase.swift in Sources */,
+				47651F51294486380062EC5F /* MyInfoEditViewModel.swift in Sources */,
 				764AF2A3292B9D3600D16DC9 /* InGameRankingViewModel.swift in Sources */,
 				F1CC514F293F37BC00B9008D /* MultiGamePlayerDTO.swift in Sources */,
 				471863BF291E155700A35786 /* SceneDelegate.swift in Sources */,

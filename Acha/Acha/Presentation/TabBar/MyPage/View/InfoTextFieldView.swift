@@ -28,9 +28,8 @@ final class InfoTextFieldView: UIView {
     // MARK: - Properties
     
     // MARK: - Lifecycles
-    init(frame: CGRect, title: String, content: String) {
+    init(frame: CGRect, title: String) {
         label.text = title
-        textField.text = content
         super.init(frame: frame)
         configureUI()
     }
@@ -56,9 +55,8 @@ extension InfoTextFieldView {
             $0.height.equalTo(40)
         }
     }
-//
-//    func bind(title: String, content: String) {
-//        label.text = title
-//        textField.text = content
-//    }
+
+    func setContent(_ content: String) {
+        textField.text = content
+    }
 }
