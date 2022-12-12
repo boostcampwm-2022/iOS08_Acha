@@ -37,7 +37,8 @@ final class GameRankCollectionViewCell: UICollectionViewCell {
     }
     
     func bind(data: MultiGamePlayerData, rank: Int) {
-        rankingLabel.text = "\(rank) : \(data.nickName) \(data.point) 점"
+        let nickName = data.nickName.stringLimit(6)
+        rankingLabel.text = "\(rank) : \(nickName) \(data.point) 점"
     }
     
 }

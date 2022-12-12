@@ -10,12 +10,17 @@ import RxSwift
 import RxCocoa
 import CoreLocation
 
-struct MultiGameViewModel: BaseViewModel {
-    
+final class MultiGameViewModel: BaseViewModel {
+
     var disposeBag: RxSwift.DisposeBag = .init()
+    private var timerBag = DisposeBag()
     
     struct Input {
         let viewDidAppear: Observable<Void>
+        let resetButtonTapped: Observable<Void>
+        let watchOthersLocationButtonTapped: Observable<Void>
+        let exitButtonTapped: Observable<Void>
+        let gameOverButtonTapped: Observable<Void>
     }
     
     struct Output {
@@ -24,6 +29,9 @@ struct MultiGameViewModel: BaseViewModel {
         let gamePoint: Driver<Int>
         let movedDistance: Driver<Double>
         let playerDataFetched: Driver<[MultiGamePlayerData]>
+        let currentLocation: Driver<Coordinate>
+        let otherLocation: Driver<Coordinate>
+        let gameOver: Driver<Void>
     }
     
     private let roomId: String
@@ -46,56 +54,121 @@ struct MultiGameViewModel: BaseViewModel {
         let gamePoint = PublishSubject<Int>()
         let movedDistance = PublishSubject<Double>()
         let playerDataFetcehd = PublishSubject<[MultiGamePlayerData]>()
+        let currentLocation = PublishSubject<Coordinate>()
+        let otherLocation = PublishSubject<Coordinate>()
+        let gameOver = PublishSubject<Void>()
         input.viewDidAppear
-            .subscribe { _ in
-                useCase.timerStart()
+            .subscribe { [weak self] _ in
+                guard let self = self else {return}
+                self.useCase.timerStart()
                     .subscribe { time in
                         if time <= -1 {
-                            useCase.timerStop()
-                            gameOverAction(time: 60)
+                            gameOver.onNext(())
+                            self.gameOverAction(time: 60)
+                        } else {
+                            timeCount.onNext(time)
                         }
-                        else { timeCount.onNext(time) }
                     }
-                    .disposed(by: disposeBag)
+                    .disposed(by: self.timerBag)
                 
-                useCase.getLocation()
+                self.useCase.getLocation()
                     .subscribe { location in
                         visitedLocation.onNext(location)
-                        useCase.updateData(roomId: roomId)
-                        movedDistance.onNext(useCase.movedDistance)
+                        self.useCase.updateData(roomId: self.roomId)
+                        movedDistance.onNext(self.useCase.movedDistance)
                     }
-                    .disposed(by: disposeBag)
+                    .disposed(by: self.disposeBag)
                 
-                useCase.observing(roomID: roomId)
-                    .subscribe { playerDataFetcehd.onNext($0) }
-                    .disposed(by: disposeBag)
+                self.useCase.observing(roomID: self.roomId)
+                    .subscribe { players in
+                        if players.count >= 2 {
+                            playerDataFetcehd.onNext(players)
+                        } else {
+                            gameOver.onNext(())
+                            self.gameOverAction(time: 60)
+                        }
+                    }
+                    .disposed(by: self.disposeBag)
+                
+                self.useCase.healthKitAuthorization()
+                    .subscribe()
+                    .disposed(by: self.disposeBag)
                     
             }
             .disposed(by: disposeBag)
         
-        visitedLocation
+        input.resetButtonTapped
+            .subscribe(onNext: { [weak self] _ in
+                guard let self = self else {return}
+                self.useCase.getLocation()
+                    .subscribe(onNext: { position in
+                        currentLocation.onNext(position)
+                    })
+                    .disposed(by: self.disposeBag)
+            })
+            .disposed(by: disposeBag)
+        
+        input.watchOthersLocationButtonTapped
+            .subscribe { [weak self] _ in
+                guard let self = self else {return}
+                self.useCase.watchOthersLocation(roomID: self.roomId)
+                    .subscribe(onSuccess: { coordinate in
+                        otherLocation.onNext(coordinate)
+                    })
+                    .disposed(by: self.disposeBag)
+            }
+            .disposed(by: disposeBag)
+        
+        input.exitButtonTapped
+            .withUnretained(self)
             .subscribe { _ in
-            useCase.point()
+                self.leaveRoom()
+            }
+            .disposed(by: disposeBag)
+        
+        input.gameOverButtonTapped
+            .withUnretained(self)
+            .subscribe(onNext: { _ in
+                self.leaveRoom()
+            })
+            .disposed(by: disposeBag)
+        
+        visitedLocation
+            .withUnretained(self)
+            .subscribe { _ in
+                self.useCase.point()
                 .subscribe { point in
                     gamePoint.onNext(point)
                 }
-                .disposed(by: disposeBag)
+                .disposed(by: self.disposeBag)
         }
         .disposed(by: disposeBag)
-        
+    
         return Output(
             time: timeCount.asDriver(onErrorJustReturn: -1),
             visitedLocation: visitedLocation.asDriver(onErrorJustReturn: Coordinate(latitude: 0, longitude: 0)),
             gamePoint: gamePoint.asDriver(onErrorJustReturn: 0),
             movedDistance: movedDistance.asDriver(onErrorJustReturn: 0),
-            playerDataFetched: playerDataFetcehd.asDriver(onErrorJustReturn: [])
+            playerDataFetched: playerDataFetcehd.asDriver(onErrorJustReturn: []),
+            currentLocation: currentLocation.asDriver(onErrorJustReturn: Coordinate(latitude: 0, longitude: 0)),
+            otherLocation: otherLocation.asDriver(onErrorJustReturn: Coordinate(latitude: 0, longitude: 0)),
+            gameOver: gameOver.asDriver(onErrorJustReturn: ())
         )
+    }
+    
+    private func leaveRoom() {
+        useCase.leave(roomID: roomId)
+        coordinator?.delegate?.didFinished(childCoordinator: coordinator!)
     }
     
     private func gameOverAction(time: Int) {
         useCase.healthKitStore(time: time)
         useCase.stopObserveLocation()
-        self.coordinator?.navigationController.showAlert(title: "게임 종료", message: "종료 !!!")
-//        self.coordinator?.delegate?.didFinished(childCoordinator: self.coordinator!)
+        timerStop()
+    }
+    
+    private func timerStop() {
+        useCase.timerStop()
+        timerBag = DisposeBag()
     }
 }

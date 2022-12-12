@@ -8,16 +8,16 @@
 import Foundation
 
 struct Comment: Hashable {
-    let id: Int
-    let postId: Int
+    var id: Int
+    var postId: Int
     let userId: String
     let nickName: String
     let text: String
     let createdAt: Date
     
     init(
-        id: Int,
-        postId: Int,
+        id: Int = -1,
+        postId: Int = -1,
         userId: String,
         nickName: String,
         text: String,

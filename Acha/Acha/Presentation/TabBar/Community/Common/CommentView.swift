@@ -14,15 +14,19 @@ import RxCocoa
 final class CommentView: UIView {
 
     lazy var commentTextView = UITextView().then {
-        $0.layer.cornerRadius = 5
+        $0.isSelectable = true
+        $0.layer.borderColor = UIColor.pointLight.cgColor
+        $0.layer.borderWidth = 2
+        $0.layer.cornerRadius = 5 
+        $0.layer.backgroundColor = UIColor.white.cgColor
         $0.font = .postBody
-        $0.textContainerInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+        $0.translatesAutoresizingMaskIntoConstraints = false
     }
     
     lazy var commentButton = UIButton().then {
         $0.titleLabel?.font = .boldBody
         $0.setTitle("작성", for: .normal)
-        $0.backgroundColor = .pointDark
+        $0.backgroundColor = .pointLight
         $0.setTitleColor(.white, for: .normal)
         $0.layer.cornerRadius = 5
     }
@@ -31,8 +35,8 @@ final class CommentView: UIView {
     
     init() {
         super.init(frame: .zero)
-        backgroundColor = .commentBoxColor
-        layout()
+        setupViews()
+        configureUI()
     }
     
     required init?(coder: NSCoder) {
@@ -56,31 +60,23 @@ final class CommentView: UIView {
         }
     }
     
-}
-
-extension CommentView {
-    private func layout() {
-        addViews()
-        addConstraints()
-    }
-    
-    private func addViews() {
+    private func setupViews() {
         addSubview(commentTextView)
         addSubview(commentButton)
     }
     
-    private func addConstraints() {
+    private func configureUI() {
+        backgroundColor = .clear
+        
         commentButton.snp.makeConstraints {
-            $0.trailing.equalToSuperview().inset(10)
             $0.centerY.equalToSuperview()
-            $0.width.equalTo(60)
-            $0.height.equalTo(60)
+            $0.trailing.equalToSuperview().offset(-10)
+            $0.height.width.equalTo(60)
         }
         
         commentTextView.snp.makeConstraints {
-            $0.centerY.equalToSuperview()
             $0.leading.top.bottom.equalToSuperview().inset(10)
-            $0.trailing.equalTo(commentButton.snp.leading).inset(-10)
+            $0.trailing.equalTo(commentButton.snp.leading).offset(-10)
         }
     }
 }
