@@ -82,8 +82,7 @@ class BadgeViewController: UIViewController {
                 for: indexPath) as? BadgeCell else {
                 return BadgeCell()
             }
-            cell.bind(badge: item,
-                      disposeBag: self.disposeBag)
+            cell.bind(badge: item)
             return cell
         })
         configureHeaderDataSource()
@@ -115,9 +114,7 @@ class BadgeViewController: UIViewController {
             let groupSize = NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1.0),
                 heightDimension: .estimated(145))
-            let groupInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
             let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-            group.contentInsets = groupInsets
             
             let headerSize = NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1.0),
@@ -136,21 +133,25 @@ class BadgeViewController: UIViewController {
     
     private func bind() {
         let output = viewModel.transform(input: BadgeViewModel.Input())
+        
         output.brandNewBadges
             .subscribe(onNext: { [weak self] badges in
                 guard let self else { return }
+                let noBadge = Badge(id: -1, name: "뱃지가없어요", image: UIImage.noBadge.pngData() ?? Data(), isHidden: false)
+                let badges = badges.count == 0 ? [noBadge] : badges
                 self.makeBadgeSnapShot(badges: badges, section: .brandNew)
             }).disposed(by: disposeBag)
         output.aquiredBadges
             .subscribe(onNext: { [weak self] badges in
                 guard let self else { return }
+                let noBadge = Badge(id: -2, name: "뱃지가없어요", image: UIImage.noBadge.pngData() ?? Data(), isHidden: false)
+                let badges = badges.count == 0 ? [noBadge] : badges
                 self.makeBadgeSnapShot(badges: badges, section: .acquired)
             }).disposed(by: disposeBag)
         output.inaquiredBadges
             .subscribe(onNext: { [weak self] badges in
                 guard let self else { return }
                 self.makeBadgeSnapShot(badges: badges, section: .unacquired)
-                print(badges)
             }).disposed(by: disposeBag)
     }
     

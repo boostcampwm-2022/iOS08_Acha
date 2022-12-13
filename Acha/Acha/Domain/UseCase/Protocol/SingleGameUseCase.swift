@@ -20,7 +20,7 @@ protocol SingleGameUseCase: MapBaseUseCase {
     var visitLocations: PublishSubject<[Coordinate]> { get set }
     var tooFarFromLocaiton: BehaviorSubject<Bool> { get set }
     var visitedMapIndex: BehaviorSubject<Set<Int>> { get set }
-    var gameOverInformation: PublishSubject<(Record, String)> { get set }
+    var gameOverInformation: PublishSubject<(Record, String, Badge?)> { get set }
     
     func start()
     func startGameOverTimer()

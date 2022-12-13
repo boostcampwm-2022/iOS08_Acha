@@ -28,16 +28,20 @@ final class DefaultRecordRepository: RecordRepository {
     }
     
     func uploadNewRecord(record: Record) {
-        realTimeDatabaseNetworkService.fetch(type: FirebaseRealtimeType.record(id: nil))
-            .map { (recordDTOs: [RecordDTO]) in
-                return recordDTOs.map { $0.toDomain() }
-            }.subscribe(onSuccess: { [weak self] records in
-                guard let self else { return }
-                var record = record
-                record.id = records.count
-                self.realTimeDatabaseNetworkService.uploadNewRecord(index: records.count, data: record)
-            })
-            .disposed(by: disposeBag)
+        realTimeDatabaseNetworkService
+            .uploadNewRecord(index: record.id, data: record)
+    }
+    
+    func recordCount() -> Single<Int> {
+        Single<Int>.create { [weak self] single in
+            guard let self else { return Disposables.create() }
+            self.realTimeDatabaseNetworkService.fetch(type: .record(id: nil))
+                .subscribe(onSuccess: { (records: [RecordDTO]) in
+                    single(.success(records.count))
+                })
+                .disposed(by: self.disposeBag)
+            return Disposables.create()
+        }
     }
     
     func healthKitAuthorization() -> Observable<Void> {
@@ -49,7 +53,7 @@ final class DefaultRecordRepository: RecordRepository {
             healthKitService.write(type: .distances(meter: data.distance, time: data.diatanceTime)),
             healthKitService.write(type: .calories(kcal: data.calorie, time: data.calorieTime))
         ) { _, _ in return }
-        .asObservable()
+            .asObservable()
     }
     
     func healthKitRead() -> Observable<HealthKitReadData> {

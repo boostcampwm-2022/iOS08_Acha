@@ -9,7 +9,8 @@ import Foundation
 import RxSwift
 
 final class DefaultRecordMapViewUseCase: RecordMapViewUseCase {
-    private let repository: TempRepository
+    private let recordRepository: RecordRepository
+    private let mapRepository: MapRepository
     private let disposeBag = DisposeBag()
     
     var dropDownMenus = BehaviorSubject<[Map]>(value: [])
@@ -18,12 +19,14 @@ final class DefaultRecordMapViewUseCase: RecordMapViewUseCase {
     var mapNameAndRecordDatas = BehaviorSubject<(mapName: String,
                                                  recordDatas: [Record])>(value: (mapName: "", recordDatas: []))
     
-    init(repository: TempRepository) {
-        self.repository = repository
+    init(recordRepository: RecordRepository, mapRepository: MapRepository) {
+        self.recordRepository = recordRepository
+        self.mapRepository = mapRepository
     }
     
     func loadMapData() {
-        self.repository.fetchMapData()
+        mapRepository.fetchAllMaps()
+            .asObservable()
             .subscribe { maps in
                 var mapDataAtCategory = [String: [Map]]()
                 var mapDataAtMapName = [String: Map]()
@@ -37,17 +40,12 @@ final class DefaultRecordMapViewUseCase: RecordMapViewUseCase {
     }
     
     func loadRecordData() -> Observable<[Record]> {
-        return Observable.create { emitter in
-            self.repository.fetchRecordData()
-                .subscribe(onNext: { records in
-                    emitter.onNext(records)
-                }).disposed(by: self.disposeBag)
-            return Disposables.create()
-        }
+        recordRepository.fetchAllRecords()
+            .asObservable()
     }
     
     func fetchRecordDatasAtMapId() -> Observable<[Int: [Record]]> {
-        self.loadRecordData()
+        loadRecordData()
             .flatMap { records -> Observable<[Int: [Record]]> in
                 var recordDatasAtMapId = [Int: [Record]]()
                 records.forEach {
@@ -55,7 +53,6 @@ final class DefaultRecordMapViewUseCase: RecordMapViewUseCase {
                 }
                 return Observable.create { emitter in
                     emitter.onNext(recordDatasAtMapId)
-                    
                     return Disposables.create()
                 }
             }
@@ -85,7 +82,7 @@ final class DefaultRecordMapViewUseCase: RecordMapViewUseCase {
     }
     
     func getMapNameAndRecordDatasAtMapName(mapName: String) {
-        self.loadRecordData()
+        loadRecordData()
             .subscribe { recordDatas in
                 guard let mapDataAtMapName = try? self.mapDataAtMapName.value(),
                       let mapData = mapDataAtMapName[mapName],

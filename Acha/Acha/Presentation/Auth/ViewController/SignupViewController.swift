@@ -11,14 +11,17 @@ import Then
 import RxSwift
 import RxCocoa
 
-final class SignupViewController: ScrollAbleViewController {
+final class SignupViewController: UIViewController {
     
-    private let titleView = AuthTitleView(image: nil, text: "회원가입")
-    private let emailTextField = AuthInputTextField(type: .email)
-    private let passwordTextField = AuthInputTextField(type: .password)
-    private let nickNameTextField = AuthInputTextField(type: .nickName)
-    private let signUpButton = AuthButton(color: .pointDark, text: "회원가입")
-    private let logInButton = AuthButton(color: .pointDark, text: "로그인")
+    private lazy var scrollView = UIScrollView()
+    private lazy var contentView = UIStackView()
+    
+    private lazy var titleView = AuthTitleView(image: nil, text: "회원가입")
+    private lazy var emailTextField = AuthInputTextField(type: .email)
+    private lazy var passwordTextField = AuthInputTextField(type: .password)
+    private lazy var nickNameTextField = AuthInputTextField(type: .nickName)
+    private lazy var signUpButton = AuthButton(color: .pointDark, text: "회원가입")
+    private lazy var logInButton = AuthButton(color: .pointDark, text: "로그인")
     
     private let viewModel: SignUpViewModel
     private var disposeBag = DisposeBag()
@@ -35,14 +38,11 @@ final class SignupViewController: ScrollAbleViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        configureContentView()
+        hideKeyboardWhenTapped()
+        configureStackView()
+        configureUI()
         bind()
 
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        scrollView.removeFromSuperview()
     }
 
     func bind() {
@@ -81,7 +81,7 @@ final class SignupViewController: ScrollAbleViewController {
             .asDriver(onErrorJustReturn: false)
             .drive(onNext: { [weak self] result in
                 if !result {
-                    self?.alertSignUpFailed()
+                    self?.showAlert(title: "경고", message: "회원가입에 실패하셨습니다.")
                 }
             })
             .disposed(by: disposeBag)
@@ -109,19 +109,20 @@ final class SignupViewController: ScrollAbleViewController {
 
     }
     
-    private func alertSignUpFailed() {
-        let alertController = UIAlertController(title: "경고",
-                                                message: "회원가입에 실패하셨습니다.",
-                                                preferredStyle: .alert)
-        let alert = UIAlertAction(title: "예", style: .cancel)
-        alertController.addAction(alert)
-        present(alertController, animated: true)
-    }
 }
 
 extension SignupViewController {
-
-    private func configureContentView() {
+    
+    private func configureStackView() {
+        contentView.axis = .vertical
+        contentView.spacing = 50
+        contentView.backgroundColor = .white
+        contentView.distribution = .fillProportionally
+    }
+    
+    private func configureUI() {
+        view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
         contentView.addArrangedSubview(titleView)
         contentView.addArrangedSubview(emailTextField)
         contentView.addArrangedSubview(passwordTextField)
@@ -129,11 +130,23 @@ extension SignupViewController {
         contentView.addArrangedSubview(signUpButton)
         contentView.addArrangedSubview(logInButton)
         
+        scrollView.snp.makeConstraints {
+            $0.top.bottom.equalTo(view.safeAreaLayoutGuide)
+            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+        }
+
+        contentView.snp.makeConstraints {
+            $0.width.equalToSuperview().multipliedBy(0.7)
+            $0.centerX.top.bottom.equalToSuperview()
+        }
+        
         titleView.snp.makeConstraints {
+            $0.top.equalToSuperview()
             $0.height.equalTo(80)
         }
         
         emailTextField.snp.makeConstraints {
+            $0.trailing.leading.equalToSuperview()
             $0.height.equalTo(60)
         }
         
@@ -155,4 +168,19 @@ extension SignupViewController {
         
     }
 
+}
+
+extension SignupViewController {
+    private func hideKeyboardWhenTapped() {
+        let tapGestureRecognizer = UITapGestureRecognizer(
+            target: self,
+            action: #selector(dismissKeyboard)
+        )
+        tapGestureRecognizer.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapGestureRecognizer)
+    }
+    
+    @objc private func dismissKeyboard() {
+        view.endEditing(true)
+    }
 }

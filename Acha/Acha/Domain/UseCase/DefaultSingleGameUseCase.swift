@@ -8,14 +8,19 @@
 import Foundation
 import RxSwift
 import CoreLocation
+import FirebaseAuth
 
 final class DefaultSingleGameUseCase: DefaultMapBaseUseCase, SingleGameUseCase {
     private let recordRepository: RecordRepository
+    private let userRepository: UserRepository
+    private let badgeRepository: BadgeRepository
+    
     private var disposeBag = DisposeBag()
     
     var tapTimer: TimerServiceProtocol
     var runningTimer: TimerServiceProtocol
     var map: Map
+    var user: User?
     
     var ishideGameOverButton = BehaviorSubject<Bool>(value: true)
     var previousCoordinate: Coordinate?
@@ -26,23 +31,33 @@ final class DefaultSingleGameUseCase: DefaultMapBaseUseCase, SingleGameUseCase {
     var visitLocations = PublishSubject<[Coordinate]>()
     var tooFarFromLocaiton = BehaviorSubject<Bool>(value: false)
     var visitedMapIndex = BehaviorSubject<Set<Int>>(value: [])
-    var gameOverInformation = PublishSubject<(Record, String)>()
+    var gameOverInformation = PublishSubject<(Record, String, Badge?)>()
     
     init(map: Map,
          locationService: LocationService,
          recordRepository: RecordRepository,
          tapTimer: TimerServiceProtocol,
-         runningTimer: TimerServiceProtocol
+         runningTimer: TimerServiceProtocol,
+         userRepository: UserRepository,
+         badgeRepository: BadgeRepository
     ) {
         self.map = map
         self.recordRepository = recordRepository
         self.tapTimer = tapTimer
         self.runningTimer = runningTimer
+        self.userRepository = userRepository
+        self.badgeRepository = badgeRepository
         super.init(locationService: locationService)
     }
     
     override func start() {
         super.start()
+        userRepository.fetchUserData()
+            .subscribe(onSuccess: { [weak self] user in
+                guard let self else { return }
+                self.user = user
+            }).disposed(by: disposeBag)
+        
         startGameOverTimer()
         startRunningTimer()
         
@@ -126,13 +141,37 @@ final class DefaultSingleGameUseCase: DefaultMapBaseUseCase, SingleGameUseCase {
     }
     
     private func gameOver(isCompleted: Bool) {
+        recordRepository.recordCount()
+            .subscribe(onSuccess: { [weak self] newRecordID in
+                guard let self else { return }
+                
+                guard let record = self.uploadRecord(id: newRecordID, isCompleted: isCompleted) else { return }
+                if let newBadgeIndex = self.getNewBadges() {
+                    self.getBagde(id: newBadgeIndex)
+                        .subscribe(onNext: { badge in
+                            self.gameOverInformation.onNext((record, self.map.name, badge))
+                            self.updateUser(newRecord: newRecordID, newBadge: newBadgeIndex)
+                            self.stop()
+                        }).disposed(by: self.disposeBag)
+                    return
+                }
+                self.gameOverInformation.onNext((record, self.map.name, nil))
+                self.updateUser(newRecord: newRecordID, newBadge: self.getNewBadges())
+                self.stop()
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func uploadRecord(id: Int, isCompleted: Bool) -> Record? {
+        guard let user = self.user else { return nil }
         let runningTime = (try? runningTime.value()) ?? 0
         let runningDistance = (try? runningDistance.value()) ?? 0
         let createdAt = Date().convertToStringFormat(format: "yyyy-MM-dd")
         let kcal = Int(0.1128333333*Double(runningTime))
-        let record = Record(id: 0,
-                            mapID: map.mapID,
-                            userID: "마끼",
+        
+        let record = Record(id: id,
+                            mapID: self.map.mapID,
+                            userID: user.nickName,
                             calorie: kcal,
                             distance: Int(runningDistance),
                             time: runningTime,
@@ -140,10 +179,25 @@ final class DefaultSingleGameUseCase: DefaultMapBaseUseCase, SingleGameUseCase {
                             isCompleted: isCompleted,
                             createdAt: createdAt)
         
-        recordRepository.uploadNewRecord(record: record)
-
-        gameOverInformation.onNext((record, self.map.name))
-        stop()
+        self.recordRepository.uploadNewRecord(record: record)
+        return record
+    }
+    
+    private func updateUser(newRecord: Int, newBadge: Int?) {
+        guard let user = self.user else { return }
+        let newBadges = newBadge == nil ? user.badges : (user.badges + [newBadge ?? 123123])
+        let updatedUser = User(id: user.id,
+                               nickName: user.nickName,
+                               badges: newBadges,
+                               records: user.records + [newRecord],
+                               friends: user.friends)
+        self.userRepository.updateUserData(user: updatedUser)
+    }
+    
+    private func getNewBadges() -> Int? {
+        guard let user = self.user else { return nil }
+        let badgeIndex = [1, 3, 5, 10, 20, 30, 50].firstIndex(of: user.records.count + 1)
+        return badgeIndex
     }
     
     private func healthKitWriteData() -> HealthKitWriteData {
@@ -164,5 +218,10 @@ final class DefaultSingleGameUseCase: DefaultMapBaseUseCase, SingleGameUseCase {
     
     func healthKitAuthorization() -> Observable<Void> {
         return recordRepository.healthKitAuthorization()
+    }
+    
+    func getBagde(id: Int) -> Observable<Badge> {
+        badgeRepository.fetchSomeBadges(ids: [id])
+            .map { $0[0] }
     }
 }

@@ -30,15 +30,10 @@ final class MyPageCoordinator: MyPageCoordinatorProtocol {
     }
     
     func showMyPageViewController() {
-        let networkService = DefaultRealtimeDatabaseNetworkService()
-        let keychainService = DefaultKeychainService()
-        let authService = DefaultAuthService()
-        let userRepository = DefaultUserRepository(realtimeDataBaseService: networkService,
-                                                   keychainService: keychainService,
-                                                   authService: authService)
-        let badgeRepository = DefaultBadgeRepository(realTimeDatabaseNetworkService: networkService)
-        let useCase = DefaultMyPageUseCase(userRepository: userRepository, badgeRepository: badgeRepository)
-        let viewModel = MyPageViewModel(coordinator: self, useCase: useCase)
+        @DIContainer.Resolve(MyPageUseCase.self)
+        var useCase: MyPageUseCase
+        let viewModel = MyPageViewModel(coordinator: self,
+                                        useCase: useCase)
         let viewController = MyPageViewController(viewModel: viewModel)
         navigationController.pushViewController(viewController, animated: true)
     }

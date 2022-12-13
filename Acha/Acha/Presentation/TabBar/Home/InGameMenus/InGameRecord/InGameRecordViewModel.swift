@@ -17,7 +17,7 @@ final class InGameRecordViewModel: BaseViewModel {
     }
     
     struct Output {
-        var inGameRecord: Single<[InGameRecord]>
+        var inGameRecord: PublishSubject<[InGameRecord]>
     }
     
     private let inGameUseCase: InGameUseCase
@@ -28,6 +28,7 @@ final class InGameRecordViewModel: BaseViewModel {
     }
     
     func transform(input: Input) -> Output {
-        Output(inGameRecord: inGameUseCase.fetchRecord())
+        inGameUseCase.fetchRecord()
+        return Output(inGameRecord: inGameUseCase.inGameRecord)
     }
 }

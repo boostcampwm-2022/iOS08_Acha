@@ -51,6 +51,7 @@ struct DefaultUserRepository: UserRepository {
         return authService.signUp(data: data)
             .map { userDTO in
                 uploadUserData(data: userDTO)
+                loginDataUpdate(uuid: userDTO.id)
                 return userDTO
             }
     }
@@ -58,10 +59,14 @@ struct DefaultUserRepository: UserRepository {
     func logIn(data: LoginData) -> Single<String> {
         return authService.logIn(data: data)
             .map { uuid in
-                keychainService.delete()
-                keychainService.save(uuid: uuid)
+                loginDataUpdate(uuid: uuid)
                 return uuid
             }
+    }
+    
+    private func loginDataUpdate(uuid: String) {
+        keychainService.delete()
+        keychainService.save(uuid: uuid)
     }
     
     func signOut() -> Observable<Void> {
@@ -98,6 +103,23 @@ struct DefaultUserRepository: UserRepository {
                     throw UserError.signOutError
                 }
             }
+    }
+    
+    func updateUserData(user: User) {
+        guard let uuid = getUUID() else { return }
+        getUserDataFromRealTimeDataBaseService(uuid: uuid)
+            .subscribe(onSuccess: { userDTO in
+                let updatedUserDTO = UserDTO(id: userDTO.id,
+                                             nickname: user.nickName,
+                                             badges: user.badges,
+                                             records: user.records,
+                                             pinCharacter: userDTO.pinCharacter,
+                                             friends: user.friends)
+                
+                realtimeDataBaseService
+                    .upload(type: .user(id: updatedUserDTO.id), data: updatedUserDTO)
+            })
+            .disposed(by: disposeBag)
     }
     
     private func uploadUserData(data: UserDTO) {

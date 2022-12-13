@@ -9,27 +9,16 @@ import Foundation
 import RxSwift
 import RxRelay
 
-protocol LoginUseCaseProtocol: EmailValidatable, PasswordValidatable {
-    var emailRelay: BehaviorRelay<String> {get set}
-    var passwordRelay: BehaviorRelay<String> {get set}
-    
-    var emailValidation: Bool {get set}
-    var passwordValidation: Bool {get set}
-
-    func isLogInAble() -> Bool
-    func logIn() -> Observable<String>
-}
-
-final class LoginUseCase: LoginUseCaseProtocol {
+final class DefaultLoginUseCase: LoginUseCase {
     
     var emailValidation: Bool = false
     var passwordValidation: Bool = false
     
     var emailRelay: RxRelay.BehaviorRelay<String> = .init(value: "")
     var passwordRelay: RxRelay.BehaviorRelay<String> = .init(value: "")
-    private let repository: LogInRepositoryProtocol
+    private let repository: UserRepository
     
-    init(repository: LogInRepositoryProtocol) {
+    init(repository: UserRepository) {
         self.repository = repository
     }
     
@@ -54,7 +43,7 @@ final class LoginUseCase: LoginUseCaseProtocol {
     
     func logIn() -> Observable<String> {
         let loginData = LoginData(email: emailRelay.value, password: passwordRelay.value)
-        return repository.logIn(data: loginData)
+        return repository.logIn(data: loginData).asObservable()
     }
 
 }
