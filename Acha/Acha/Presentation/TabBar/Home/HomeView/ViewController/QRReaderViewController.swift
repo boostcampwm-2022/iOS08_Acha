@@ -81,7 +81,6 @@ final class QRReaderViewController: UIViewController, AVCaptureMetadataOutputObj
             guard let readableObject = metaDataObject as? AVMetadataMachineReadableCodeObject else {return}
             guard let stringValue = readableObject.stringValue else {return}
             AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
-            print(stringValue)
             found(roomID: stringValue)
         }
     }
