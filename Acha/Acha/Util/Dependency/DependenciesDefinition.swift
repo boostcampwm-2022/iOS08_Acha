@@ -102,13 +102,6 @@ final class DependenciesDefinition {
         )
         
         dependencies.register(
-            TempRepository.self,
-            implement: DefaultTempRepository(
-                tempDBNetwork: dependencies.resolve(TempDBNetwork.self)
-            )
-        )
-        
-        dependencies.register(
             UserRepository.self,
             implement: DefaultUserRepository(
                 realtimeDataBaseService: dependencies.resolve(RealtimeDatabaseNetworkService.self),

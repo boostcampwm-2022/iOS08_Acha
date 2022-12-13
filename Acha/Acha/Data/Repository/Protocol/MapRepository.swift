@@ -9,4 +9,5 @@ import RxSwift
 
 protocol MapRepository {
     func fetchAllMaps() -> Single<[Map]>
+    func fetchMapsAtLocation(location: String) -> Single<[Map]>
 }

@@ -16,8 +16,7 @@ protocol RecordMapViewUseCase {
     
     func loadMapData()
     func loadRecordData() -> Observable<[Record]>
-    func fetchRecordDatasAtMapId() -> Observable<[Int: [Record]]>
     func getDropDownMenus(mapName: String)
-    func getMapNameAndRecordDatasAtCategory(category: String)
+    func getMapNameAndRecordsAtLocation(location: String)
     func getMapNameAndRecordDatasAtMapName(mapName: String)
 }

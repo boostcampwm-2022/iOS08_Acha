@@ -37,7 +37,7 @@ final class RecordMapViewModel: BaseViewModel {
             .subscribe { [weak self] _ in
                 guard let self else { return }
                 self.useCase.loadMapData()
-                self.useCase.getMapNameAndRecordDatasAtCategory(category: Locations.incheon.string)
+                self.useCase.getMapNameAndRecordsAtLocation(location: Locations.incheon.string)
             }.disposed(by: disposeBag)
         
         input.sectionHeaderCreateEvent
@@ -55,7 +55,7 @@ final class RecordMapViewModel: BaseViewModel {
         input.categoryCellTapEvent
             .subscribe(onNext: { [weak self] category in
                 guard let self else { return }
-                self.useCase.getMapNameAndRecordDatasAtCategory(category: category)
+                self.useCase.getMapNameAndRecordsAtLocation(location: category)
             }).disposed(by: disposeBag)
         
         useCase.dropDownMenus
