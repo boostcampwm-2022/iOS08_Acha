@@ -12,7 +12,7 @@ import SnapKit
 final class CharacterSelectViewController: UIViewController {
     
     enum Section {
-        case badges
+        case characters
     }
     // MARK: - UI properties
     private var collectionView: UICollectionView!
@@ -22,7 +22,7 @@ final class CharacterSelectViewController: UIViewController {
     private var disposeBag = DisposeBag()
     private let finishButtonTapped = PublishSubject<Void>()
     private let cancelButtonTapped = PublishSubject<Void>()
-    typealias DataSource = UICollectionViewDiffableDataSource<Section, Badge>
+    typealias DataSource = UICollectionViewDiffableDataSource<Section, PinCharacter>
     private var dataSource: DataSource?
     
     // MARK: - Lifecycles
@@ -53,6 +53,7 @@ extension CharacterSelectViewController {
         collectionView.register(BadgeCell.self,
                                 forCellWithReuseIdentifier: BadgeCell.identifer)
         configureDataSource()
+        makeSnapshot()
     }
     
     private func configureCollectionViewLayout() -> UICollectionViewLayout {
@@ -80,8 +81,7 @@ extension CharacterSelectViewController {
                 for: indexPath) as? BadgeCell else {
                 return BadgeCell()
             }
-            cell.bind(badge: item,
-                      disposeBag: self.disposeBag)
+            cell.bind(pinCharacter: item)
             return cell
         })
     }
@@ -124,24 +124,17 @@ extension CharacterSelectViewController {
 extension CharacterSelectViewController {
     // MARK: - Bind
     private func bind() {
-        let input = CharacterSelectViewModel.Input(viewWillAppearEvent: rx.viewWillAppear.asObservable(),
-                                                   selectedCharacterIndex: collectionView.rx.itemSelected.asObservable(),
+        let input = CharacterSelectViewModel.Input(selectedCharacterIndex: collectionView.rx.itemSelected.asObservable(),
                                                    finishButtonTapped: finishButtonTapped,
                                                    cancelButtonTapped: cancelButtonTapped)
-        let output = viewModel.transform(input: input)
-        
-        output.ownedBadges
-            .subscribe(onNext: { [weak self] badges in
-                guard let self else { return }
-                self.makeSnapshot(badges: badges)
-            }).disposed(by: disposeBag)
+        let _ = viewModel.transform(input: input)
     }
     
-    private func makeSnapshot(badges: [Badge]) {
+    private func makeSnapshot() {
         guard let dataSource else { return }
         var snapshot = dataSource.snapshot()
-        snapshot.appendSections([.badges])
-        snapshot.appendItems(badges, toSection: .badges)
+        snapshot.appendSections([.characters])
+        snapshot.appendItems(PinCharacter.allCases, toSection: .characters)
         dataSource.apply(snapshot)
     }
 }

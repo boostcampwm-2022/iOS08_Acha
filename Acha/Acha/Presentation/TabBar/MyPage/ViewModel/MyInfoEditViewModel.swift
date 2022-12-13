@@ -22,12 +22,12 @@ final class MyInfoEditViewModel: BaseViewModel {
     // MARK: - Output
     struct Output {
         var userInfo = PublishSubject<(User, String)>()   // user, email
-        var pinCharacterUpdated: PublishSubject<Data>
+        var pinCharacterUpdated: PublishSubject<String>
         var cannotSave = PublishSubject<Void>()
     }
     var emailValidity: Bool = true
     var nickNameValidity: Bool = true
-    var pinCharacterUpdated = PublishSubject<Data>()
+    var pinCharacterUpdated = PublishSubject<String>()
     
     // MARK: - Properties
     var disposeBag = DisposeBag()
@@ -87,8 +87,7 @@ final class MyInfoEditViewModel: BaseViewModel {
         input.characterChangeButtonTap
             .subscribe(onNext: { [weak self] in
                 guard let self else { return }
-                self.coordinator?.showCharacterSelectViewController(myInfoEditViewModel: self,
-                                                                    ownedBadges: self.ownedBadges)
+                self.coordinator?.showCharacterSelectViewController(delegate: self)
             }).disposed(by: disposeBag)
         
         input.finishButtonTap
@@ -118,12 +117,6 @@ final class MyInfoEditViewModel: BaseViewModel {
 extension MyInfoEditViewModel: CharacterSelectViewModelDelegate {
     func deliverSelectedCharacter(imageURL: String) {
         user.pinCharacter = imageURL
-        #warning("image service 수정 필요")
-        DefaultImageService.shared.loadImage(url: imageURL)
-            .subscribe(onNext: { [weak self] imageData in
-                guard let self else { return }
-                self.pinCharacterUpdated.onNext(imageData)
-            })
-            .disposed(by: disposeBag)
+        self.pinCharacterUpdated.onNext(imageURL)
     }
 }

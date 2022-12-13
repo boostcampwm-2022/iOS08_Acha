@@ -190,6 +190,7 @@ final class DefaultSingleGameUseCase: DefaultMapBaseUseCase, SingleGameUseCase {
                                nickName: user.nickName,
                                badges: newBadges,
                                records: user.records + [newRecord],
+                               pinCharacter: user.pinCharacter,
                                friends: user.friends)
         self.userRepository.updateUserData(user: updatedUser)
     }

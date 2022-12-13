@@ -12,7 +12,7 @@ protocol MyPageCoordinatorProtocol: Coordinator {
     func showMyPageViewController()
     func showBadgeViewController(allBadges: [Badge], ownedBadges: [Badge])
     func showMyInfoEditViewController(user: User, ownedBadges: [Badge])
-    func showCharacterSelectViewController(myInfoEditViewModel: MyInfoEditViewModel, ownedBadges: [Badge])
+    func showCharacterSelectViewController(delegate: MyInfoEditViewModel)
     func showSafariViewController(stringURL: String)
 }
 
@@ -71,11 +71,9 @@ final class MyPageCoordinator: MyPageCoordinatorProtocol {
         navigationController.pushViewController(viewController, animated: true)
     }
     
-    func showCharacterSelectViewController(myInfoEditViewModel: MyInfoEditViewModel,
-                                           ownedBadges: [Badge]) {
+    func showCharacterSelectViewController(delegate: MyInfoEditViewModel) {
         let viewModel = CharacterSelectViewModel(coordinator: self,
-                                                 delegate: myInfoEditViewModel,
-                                                 ownedBadges: ownedBadges)
+                                                 delegate: delegate)
         let viewController = CharacterSelectViewController(viewModel: viewModel)
         navigationController.pushViewController(viewController, animated: true)
     }

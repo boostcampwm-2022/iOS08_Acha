@@ -123,22 +123,15 @@ extension MyInfoEditViewController {
                 guard let self else { return }
                 self.emailTextFieldView.setContent(email)
                 self.nickNameTextFieldView.setContent(user.nickName)
-                
-                DefaultImageService.shared.loadImage(url: user.pinCharacter)
-                    .subscribe(on: MainScheduler.instance)
-                    .subscribe(onNext: { [weak self] imageData in
-                        guard let self else { return }
-                        self.characterImageView.image = UIImage(data: imageData)
-                    })
-                    .disposed(by: self.disposeBag)
+                self.characterImageView.image = PinCharacter(rawValue: user.pinCharacter)?.image
             })
             .disposed(by: disposeBag)
         
         output.pinCharacterUpdated
             .subscribe(on: MainScheduler.instance)
-            .subscribe(onNext: { [weak self] imageData in
+            .subscribe(onNext: { [weak self] pinCharacterURL in
                 guard let self else { return }
-                self.characterImageView.image = UIImage(data: imageData)
+                self.characterImageView.image = PinCharacter(rawValue: pinCharacterURL)?.image
             })
             .disposed(by: disposeBag)
         
