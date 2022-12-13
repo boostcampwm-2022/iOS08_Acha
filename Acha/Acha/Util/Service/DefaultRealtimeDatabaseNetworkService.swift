@@ -97,17 +97,7 @@ final class DefaultRealtimeDatabaseNetworkService: RealtimeDatabaseNetworkServic
             guard let self else { return Disposables.create() }
             let childReference = self.databaseReference.child(type.path)
             childReference.observeSingleEvent(of: .value, with: { snapshot in
-                guard var snapData = snapshot.value else {
-                    single(.failure(FirebaseRealtimeError.dataError))
-                    return
-                }
-
-                if snapData is [String: Any] {
-                    guard let tempData = snapData as? [String: Any] else { return }
-                    snapData = Array(tempData.values)
-                }
-
-                guard !(snapData is NSNull),
+                guard let snapData = snapshot.value,
                       let jsonData = try? JSONSerialization.data(withJSONObject: snapData) else {
                     single(.failure(FirebaseRealtimeError.dataError))
                     return
@@ -174,15 +164,21 @@ final class DefaultRealtimeDatabaseNetworkService: RealtimeDatabaseNetworkServic
         }
     }
     
-    func upload<T: Encodable>(type: FirebaseRealtimeType, data: T) {
-        let childReference = self.databaseReference.child(type.path)
-        guard let json = try? JSONEncoder().encode(data),
-              let jsonSerial = try? JSONSerialization.jsonObject(with: json) as? [String: Any] ?? [:]
-        else {
-            print(FirebaseRealtimeError.encodeError)
-            return
+    func upload<T: Encodable>(type: FirebaseRealtimeType, data: T) -> Single<Void> {
+        Single.create { single in
+            let childReference = self.databaseReference.child(type.path)
+            guard let json = try? JSONEncoder().encode(data),
+                  let jsonSerial = try? JSONSerialization.jsonObject(with: json) as? [String: Any] ?? [:]
+            else {
+                print(FirebaseRealtimeError.encodeError)
+                return Disposables.create()
+            }
+            childReference.setValue(jsonSerial) { error, _ in
+                if let error { single(.failure(error)) }
+                else { single(.success(())) }
+            }
+            return Disposables.create()
         }
-        childReference.setValue(jsonSerial)
     }
     
     func delete(type: FirebaseRealtimeType) {

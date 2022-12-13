@@ -12,7 +12,6 @@ import FirebaseAuth
 
 final class DefaultSingleGameUseCase: DefaultMapBaseUseCase, SingleGameUseCase {
     private let recordRepository: RecordRepository
-    private let userRepository: UserRepository
     private let badgeRepository: BadgeRepository
     
     private var disposeBag = DisposeBag()
@@ -20,7 +19,6 @@ final class DefaultSingleGameUseCase: DefaultMapBaseUseCase, SingleGameUseCase {
     var tapTimer: TimerServiceProtocol
     var runningTimer: TimerServiceProtocol
     var map: Map
-    var user: User?
     
     var ishideGameOverButton = BehaviorSubject<Bool>(value: true)
     var previousCoordinate: Coordinate?
@@ -45,19 +43,13 @@ final class DefaultSingleGameUseCase: DefaultMapBaseUseCase, SingleGameUseCase {
         self.recordRepository = recordRepository
         self.tapTimer = tapTimer
         self.runningTimer = runningTimer
-        self.userRepository = userRepository
         self.badgeRepository = badgeRepository
-        super.init(locationService: locationService)
+        super.init(locationService: locationService,
+                   userRepository: userRepository)
     }
     
     override func start() {
         super.start()
-        userRepository.fetchUserData()
-            .subscribe(onSuccess: { [weak self] user in
-                guard let self else { return }
-                self.user = user
-            }).disposed(by: disposeBag)
-        
         startGameOverTimer()
         startRunningTimer()
         
@@ -163,7 +155,7 @@ final class DefaultSingleGameUseCase: DefaultMapBaseUseCase, SingleGameUseCase {
     }
     
     private func uploadRecord(id: Int, isCompleted: Bool) -> Record? {
-        guard let user = self.user else { return nil }
+        guard let user = try? self.user.value() else { return nil }
         let runningTime = (try? runningTime.value()) ?? 0
         let runningDistance = (try? runningDistance.value()) ?? 0
         let createdAt = Date().convertToStringFormat(format: "yyyy-MM-dd")
@@ -184,18 +176,19 @@ final class DefaultSingleGameUseCase: DefaultMapBaseUseCase, SingleGameUseCase {
     }
     
     private func updateUser(newRecord: Int, newBadge: Int?) {
-        guard let user = self.user else { return }
+        guard let user = try? self.user.value() else { return }
         let newBadges = newBadge == nil ? user.badges : (user.badges + [newBadge ?? 123123])
         let updatedUser = User(id: user.id,
                                nickName: user.nickName,
                                badges: newBadges,
                                records: user.records + [newRecord],
+                               pinCharacter: user.pinCharacter,
                                friends: user.friends)
-        self.userRepository.updateUserData(user: updatedUser)
+        userRepository.updateUserData(user: updatedUser)
     }
     
     private func getNewBadges() -> Int? {
-        guard let user = self.user else { return nil }
+        guard let user = try? self.user.value() else { return nil }
         let badgeIndex = [1, 3, 5, 10, 20, 30, 50].firstIndex(of: user.records.count + 1)
         return badgeIndex
     }

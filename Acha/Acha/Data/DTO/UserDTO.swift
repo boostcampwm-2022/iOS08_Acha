@@ -24,6 +24,7 @@ struct UserDTO: Codable {
                     nickName: nickname,
                     badges: badges ?? [],
                     records: records ?? [],
+                    pinCharacter: pinCharacter ?? "firstAnnotation",
                     friends: friends ?? [])
     }
 }

@@ -35,7 +35,6 @@ final class DefaultMyPageUseCase: MyPageUseCase {
                 guard let self else { return }
                 self.userInfo = user
                 self.nickName.onNext(user.nickName)
-                
                 self.badgeRepository.fetchAllBadges()
                     .asObservable()
                     .subscribe(onNext: { [weak self] badges in
@@ -45,12 +44,13 @@ final class DefaultMyPageUseCase: MyPageUseCase {
                                   name: $0.name,
                                   image: $0.image,
                                   isHidden: $0.isHidden,
-                                  isOwn: user.badges.contains($0.id) ? true : false
+                                  isOwn: user.badges.contains($0.id)
                             )
                         })
                         
                         let ownedBadges = badges
                             .filter { user.badges.contains($0.id) }
+                        self.ownedBadges.onNext(ownedBadges)
                         
                         let recentlyOwnedBadges = ownedBadges.count > 6 ? ownedBadges.suffix(6) : ownedBadges
                         self.recentlyOwnedBadges.onNext(recentlyOwnedBadges)

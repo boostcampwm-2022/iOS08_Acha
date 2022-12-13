@@ -18,10 +18,14 @@ final class DefaultSelectMapUseCase: DefaultMapBaseUseCase, SelectMapUseCase {
     private var maps: [Map] = []
     private var visbleMapsIdx: [Int] = []
     
-    init(locationService: LocationService, mapRepository: MapRepository, recordRepository: RecordRepository) {
+    init(locationService: LocationService,
+         mapRepository: MapRepository,
+         userRepository: UserRepository,
+         recordRepository: RecordRepository) {
         self.mapRepository = mapRepository
         self.recordRepository = recordRepository
-        super.init(locationService: locationService)
+        super.init(locationService: locationService,
+                   userRepository: userRepository)
     }
     
     override func start() {

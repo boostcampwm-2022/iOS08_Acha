@@ -149,6 +149,7 @@ final class DependenciesDefinition {
             implement: DefaultSelectMapUseCase(
                 locationService: dependencies.resolve(LocationService.self),
                 mapRepository: dependencies.resolve(MapRepository.self),
+                userRepository: dependencies.resolve(UserRepository.self),
                 recordRepository: dependencies.resolve(RecordRepository.self)
             )
         )
@@ -156,7 +157,8 @@ final class DependenciesDefinition {
         dependencies.register(
             MapBaseUseCase.self,
             implement: DefaultMapBaseUseCase(
-                locationService: dependencies.resolve(LocationService.self)
+                locationService: dependencies.resolve(LocationService.self),
+                userRepository: dependencies.resolve(UserRepository.self)
             )
         )
     
