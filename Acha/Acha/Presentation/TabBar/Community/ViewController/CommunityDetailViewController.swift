@@ -163,11 +163,12 @@ final class CommunityDetailViewController: UIViewController, UICollectionViewDel
                 
                 cell.bind(post: post, isMine: isMine)
                 cell.modifyButtonTapEvent?
-                    .subscribe(onNext: { sendPost in
-                        var newPost = sendPost
+                    .subscribe(onNext: { postContent in
+                        var newPost = Post()
                         newPost.id = post.id
                         newPost.image = post.image
                         newPost.comments = post.comments
+                        newPost.text = postContent
                         self.postCellModifyButtonTapEvent.accept(newPost)
                     })
                     .disposed(by: self.disposeBag)

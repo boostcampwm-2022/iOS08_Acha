@@ -10,7 +10,7 @@ import RxSwift
 
 protocol CommunityDetailUseCase {
     func fetchPost()
-    func uploadComment(comment: Comment) -> Single<Void>
+    func uploadComment(commentMessage: String) -> Single<Void>
     func deletePost()
     
     var post: PublishSubject<(post: Post, isMine: Bool)> { get set }

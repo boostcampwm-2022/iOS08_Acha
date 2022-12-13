@@ -75,7 +75,7 @@ final class CommunityDetailPostCell: UICollectionViewCell {
     
     // MARK: - Properties
     static let identifier = "CommunityDetailPostCell"
-    var modifyButtonTapEvent: PublishRelay<Post>?
+    var modifyButtonTapEvent: PublishRelay<String>?
     var deleteButtonTapEvent: PublishRelay<Void>?
     
     // MARK: - Lifecycles
@@ -133,11 +133,8 @@ final class CommunityDetailPostCell: UICollectionViewCell {
         [
             UIAction(title: "수정", handler: { [weak self] _ in
                 guard let self else { return }
-                guard let nickName = self.nickNameLabel.text,
-                      let modifyButtonTapEvent = self.modifyButtonTapEvent else { return }
-                modifyButtonTapEvent.accept(Post(userId: "몰라",
-                                                      nickName: nickName,
-                                                      text: self.postTextView.text))
+                guard let modifyButtonTapEvent = self.modifyButtonTapEvent else { return }
+                modifyButtonTapEvent.accept(self.postTextView.text ?? "")
             }),
             UIAction(title: "삭제", handler: { [weak self] _ in
                 guard let self,
@@ -152,7 +149,7 @@ final class CommunityDetailPostCell: UICollectionViewCell {
     
     func bind(post: Post, isMine: Bool) {
         ellipsisButton.isHidden = !isMine
-        modifyButtonTapEvent = PublishRelay<Post>()
+        modifyButtonTapEvent = PublishRelay<String>()
         deleteButtonTapEvent = PublishRelay<Void>()
         
         nickNameLabel.text = post.nickName

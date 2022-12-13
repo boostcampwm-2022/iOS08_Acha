@@ -34,23 +34,23 @@ final class DefaultCommunityPostWriteUseCase: CommunityPostWriteUseCase {
         }
     }
     
-    func uploadPost(post: Post, image: Image?) -> Single<Void> {
+    func uploadPost(postContent: String, image: Image?) -> Single<Void> {
         return Single.create { [weak self] single in
             guard let self else { return Disposables.create()}
             self.userRepository.fetchUserData()
                 .subscribe(onSuccess: { user in
                     if let selfPost = self.post {
                         var uploadPost = selfPost
-                        uploadPost.text = post.text
+                        uploadPost.text = postContent
+                        uploadPost.userId = user.id
+                        uploadPost.nickName = user.nickName
                         self.communityRepository.updatePost(post: uploadPost, image: image)
                             .subscribe(onSuccess: {
                                 single(.success(()))
                             })
                             .disposed(by: self.disposeBag)
                     } else {
-                        var post = post
-                        post.userId = user.id
-                        post.nickName = user.nickName
+                        var post = Post(userId: user.id, nickName: user.nickName, text: postContent)
                         self.communityRepository.uploadPost(post: post, image: image)
                             .subscribe(onSuccess: {
                                 single(.success(()))
