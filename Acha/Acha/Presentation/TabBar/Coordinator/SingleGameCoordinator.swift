@@ -29,13 +29,19 @@ final class SingleGameCoordinator: SingleGameCoordinatorProtocol {
     func showSelectMapViewController() {
         let networkService = DefaultRealtimeDatabaseNetworkService()
         let mapRepository = DefaultMapRepository(realTimeDatabaseNetworkService: networkService)
+        let userRepository = DefaultUserRepository(realtimeDataBaseService: networkService,
+                                                   keychainService: DefaultKeychainService(),
+                                                   authService: DefaultAuthService())
         let recordRepository = DefaultRecordRepository(
             realTimeDatabaseNetworkService: networkService,
             healthKitService: DefaultHealthKitService()
         )
         let useCase = DefaultSelectMapUseCase(locationService: DefaultLocationService(),
                                               mapRepository: mapRepository,
+                                              userRepository: userRepository,
                                               recordRepository: recordRepository)
+//        @DIContainer.Resolve(SelectMapUseCase.self)
+//        var useCase: SelectMapUseCase
         let viewModel = SelectMapViewModel(coordinator: self, selectMapUseCase: useCase)
         let viewController = SelectMapViewController(viewModel: viewModel)
         navigationController.navigationBar.isHidden = true

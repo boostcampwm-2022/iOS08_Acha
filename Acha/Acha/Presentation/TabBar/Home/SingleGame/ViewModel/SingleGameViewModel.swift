@@ -124,7 +124,6 @@ final class SingleGameViewModel: MapBaseViewModel {
         useCase.gameOverInformation
             .bind(to: output.gameOverInformation)
             .disposed(by: disposeBag)
-        
         return output
     }
 }

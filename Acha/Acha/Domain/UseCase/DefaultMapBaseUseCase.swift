@@ -10,21 +10,30 @@ import RxSwift
 class DefaultMapBaseUseCase: MapBaseUseCase {
     
     private let locationService: LocationService
-    private var disposeBag = DisposeBag()
-    var userLocation = BehaviorSubject<Coordinate>(value: Coordinate(latitude: 37.0, longitude: 126.0))
+    let userRepository: UserRepository
     
-    init(locationService: LocationService) {
+    var user = BehaviorSubject<User>(value: User())
+    var userLocation = BehaviorSubject<Coordinate>(value: Coordinate(latitude: 37.0, longitude: 126.0))
+    private var disposeBag = DisposeBag()
+    
+    init(locationService: LocationService,
+         userRepository: UserRepository) {
         self.locationService = locationService
+        self.userRepository = userRepository
     }
     
     func start() {
         locationService.start()
         locationService.userLocation
-            .asObserver()
-            .skip(1)
             .map { Coordinate(latitude: $0.coordinate.latitude, longitude: $0.coordinate.longitude) }
             .bind(to: self.userLocation)
             .disposed(by: disposeBag)
+        
+        userRepository.fetchUserData()
+            .subscribe(onSuccess: { [weak self] user in
+                guard let self else { return }
+                self.user.onNext(user)
+            }).disposed(by: disposeBag)
     }
     
     func stop() {
@@ -33,6 +42,7 @@ class DefaultMapBaseUseCase: MapBaseUseCase {
     
     func isAvailableLocationAuthorization() -> Observable<(Bool, Coordinate?)> {
         locationService.authorizationStatus
+            .delay(.microseconds(1), scheduler: MainScheduler.instance)
             .map { [weak self] status in
                 if let self,
                    status,

@@ -17,6 +17,7 @@ class MapBaseViewModel: BaseViewModel {
     }
     // MARK: - Output
     struct Output {
+        var user = PublishSubject<User>()
         var isAvailableLocationAuthorization = PublishSubject<(Bool, Coordinate?)>()
         var focusUserEvent = PublishSubject<Coordinate>()
     }
@@ -34,6 +35,10 @@ class MapBaseViewModel: BaseViewModel {
     // MARK: - Helpers
     func transform(input: Input) -> Output {
         let output = Output()
+        
+        mapBaseUseCase.user
+            .bind(to: output.user)
+            .disposed(by: disposeBag)
 
         input.viewWillDisappearEvent
             .subscribe(onNext: { [weak self] in

@@ -36,6 +36,8 @@ class MapBaseViewController: UIViewController, MapBaseViewProtocol {
     
     // MARK: - Properties
     let mapBaseViewModel: MapBaseViewModel
+    var user = PublishSubject<User>()
+    var userAnnotationView = PublishSubject<MKAnnotationView>()
     var disposeBag = DisposeBag()
     
     // MARK: - Lifecycles
@@ -104,6 +106,14 @@ class MapBaseViewController: UIViewController, MapBaseViewProtocol {
                 }
             })
             .disposed(by: disposeBag)
+        
+        Observable.zip(output.user, userAnnotationView)
+            .subscribe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] user, userAnnotationView in
+                if let pinCharacter = PinCharacter(rawValue: user.pinCharacter) {
+                    userAnnotationView.image = pinCharacter.image
+                }
+            }).disposed(by: disposeBag)
     }
 }
 
@@ -149,5 +159,15 @@ extension MapBaseViewController: MKMapViewDelegate {
         renderer.alpha = 1.0
         
         return renderer
+    }
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        if annotation.isEqual(mapView.userLocation) {
+            let annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "userLocation")
+            annotationView.image = PinCharacter.firstAnnotation.image
+            userAnnotationView.onNext(annotationView)
+            return annotationView
+        }
+        return nil
     }
 }

@@ -131,20 +131,18 @@ extension SelectMapViewController {
             startButtonTapped: startButton.rx.tap.asObservable(),
             backButtonTapped: backButton.rx.tap.asObservable())
         let output = viewModel.transform(input: input)
-
+        
         output.visibleMaps
             .subscribe { [weak self] maps in
                 maps.forEach { mapElement in
                     self?.displayMap(mapElement)
                 }
             }.disposed(by: disposeBag)
-        
         output.selectedMapRankings
             .subscribe { [weak self] mapName, records in
                 self?.makeSnapshot(rankings: records, mapName: mapName)
             }
             .disposed(by: disposeBag)
-        
         output.cannotStart
             .subscribe { [weak self] _ in
                 self?.showAlert(title: "선택한 땅과의 거리가 너무 멀어요",
