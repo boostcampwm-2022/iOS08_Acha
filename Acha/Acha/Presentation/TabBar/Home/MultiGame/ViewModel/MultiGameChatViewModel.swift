@@ -47,9 +47,7 @@ final class MultiGameChatViewModel: BaseViewModel {
             .withUnretained(self)
             .subscribe { _ in
                 
-                let roomName = self.roomID.stringLimit(8)
-                self.coordinator?.navigationController.navigationBar.backItem?.title = ""
-                self.coordinator?.navigationController.navigationBar.topItem?.title = "\(roomName)... 방 채팅"
+                self.coordinator?.navigationController.navigationBar.backItem?.title = "\(self.roomID) 방 채팅"
                 self.coordinator?.navigationController.navigationBar.tintColor = .pointDark
                 
                 self.useCase.observeChats(roomID: self.roomID)

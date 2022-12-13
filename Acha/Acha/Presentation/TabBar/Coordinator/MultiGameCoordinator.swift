@@ -28,6 +28,8 @@ final class MultiGameCoordinator: MultiGameCoordinatorProtocol {
     }
     
     func start(gameID: String) {
+        navigationController.navigationBar.topItem?.title = ""
+        navigationController.navigationBar.tintColor = .pointDark
         showMultiGameRoomViewController(roomID: gameID)
     }
     
