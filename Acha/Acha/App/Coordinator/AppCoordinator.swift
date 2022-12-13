@@ -23,11 +23,6 @@ final class AppCoordinator: AppCoordinatorProtocol {
     }
     
     func start() {
-
-        // 로그인 여부 따라 로직 분리
-        connectTabBar()
-//        connectAuth()
-
         if (try? KeyChainManager.get()) == nil {
             connectAuth()
         } else {
