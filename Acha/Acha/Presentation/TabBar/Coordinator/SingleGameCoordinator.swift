@@ -46,7 +46,7 @@ final class SingleGameCoordinator: SingleGameCoordinatorProtocol {
         let viewModel = SingleGameViewModel(
             map: selectedMap,
             coordinator: self,
-            singeGameUseCase: DefaultSingleGameUseCase(
+            singleGameUseCase: DefaultSingleGameUseCase(
                 map: selectedMap,
                 locationService: DefaultLocationService(),
                 recordRepository: DefaultRecordRepository(
@@ -54,7 +54,12 @@ final class SingleGameCoordinator: SingleGameCoordinatorProtocol {
                     healthKitService: DefaultHealthKitService()
                 ),
                 tapTimer: TimerService(),
-                runningTimer: TimerService()
+                runningTimer: TimerService(),
+                userRepository: DefaultUserRepository(
+                    realtimeDataBaseService: DefaultRealtimeDatabaseNetworkService(),
+                    keychainService: DefaultKeychainService(),
+                    authService: DefaultAuthService()
+                )
             )
         )
         let viewController = SingleGameViewController(viewModel: viewModel)
@@ -68,6 +73,11 @@ final class SingleGameCoordinator: SingleGameCoordinatorProtocol {
                 recordRepository: DefaultRecordRepository(
                     realTimeDatabaseNetworkService: DefaultRealtimeDatabaseNetworkService(),
                     healthKitService: DefaultHealthKitService()
+                ),
+                userRepository: DefaultUserRepository(
+                    realtimeDataBaseService: DefaultRealtimeDatabaseNetworkService(),
+                    keychainService: DefaultKeychainService(),
+                    authService: DefaultAuthService()
                 )
             )
         )
@@ -83,6 +93,11 @@ final class SingleGameCoordinator: SingleGameCoordinatorProtocol {
                 recordRepository: DefaultRecordRepository(
                     realTimeDatabaseNetworkService: DefaultRealtimeDatabaseNetworkService(),
                     healthKitService: DefaultHealthKitService()
+                ),
+                userRepository: DefaultUserRepository(
+                    realtimeDataBaseService: DefaultRealtimeDatabaseNetworkService(),
+                    keychainService: DefaultKeychainService(),
+                    authService: DefaultAuthService()
                 )
             )
         )

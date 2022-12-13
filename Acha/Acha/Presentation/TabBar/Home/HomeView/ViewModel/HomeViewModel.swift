@@ -28,11 +28,11 @@ final class HomeViewModel: BaseViewModel {
     
     var disposeBag = DisposeBag()
     private weak var coordinator: HomeCoordinator?
-    private let useCase: HomeUseCaseProtocol
+    private let useCase: HomeUseCase
     
     init(
         coordinator: HomeCoordinator,
-        useCase: HomeUseCaseProtocol
+        useCase: HomeUseCase
     ) {
         self.useCase = useCase
         self.coordinator = coordinator
@@ -40,51 +40,67 @@ final class HomeViewModel: BaseViewModel {
     
     public func transform(input: Input) -> Output {
         
-        let bag = DisposeBag()
-        
         input.singleGameModeDidTap
             .subscribe { [weak self] _ in
                 self?.coordinator?.connectSingleGameFlow()
             }
-            .disposed(by: bag)
+            .disposed(by: disposeBag)
         input.cameraDetectedSometing
             .distinctUntilChanged()
-            .subscribe { [weak self] qrStirngValue in
-                self?.useCase.enterRoom(roomID: qrStirngValue)
-                self?.coordinator?.connectMultiGameFlow(gameID: qrStirngValue)
+            .subscribe { [weak self] qrStringValue in
+                guard let self = self else {return}
+                self.useCase.enterRoom(id: qrStringValue)
+                    .subscribe(onSuccess: { _ in
+                        self.coordinator?.connectMultiGameFlow(gameID: qrStringValue)
+                    }, onFailure: { error in
+                        self.coordinator?.navigationController.showAlert(
+                            title: "주의",
+                            message: error.localizedDescription
+                        )
+                    })
+                    .disposed(by: self.disposeBag)
             }
-            .disposed(by: bag)
+            .disposed(by: disposeBag)
         
         input.makeRoomButtonDidTap
             .subscribe { [weak self] _ in
-                guard let strongSelf = self else {return}
-                strongSelf.coordinator?.connectMultiGameFlow(gameID: strongSelf.useCase.makeRoomID())
+                guard let self = self else {return}
+                self.useCase.makeRoom()
+                    .subscribe(onNext: { roomID in
+                        self.coordinator?.connectMultiGameFlow(gameID: roomID)
+                    }, onError: { _ in
+                        self.coordinator?.navigationController.showAlert(
+                            title: "주의",
+                            message: "방 생성에 실패했습니다 😭😭😭"
+                        )
+                    })
+                    .disposed(by: self.disposeBag)
             }
-            .disposed(by: bag)
+            .disposed(by: disposeBag)
         
-        let uuidDidPass = Observable<String>.create { observer in
+        let uuidDidPass = Observable<String>.create { [weak self] observer in
+            guard let self = self else {return Disposables.create()}
             input.makeRoomButtonDidTap
-                .subscribe { [weak self] _ in
-                    self?.useCase.getUUID()
+                .subscribe { _ in
+                    self.useCase.getUUID()
                         .subscribe { uuid in
                             observer.onNext(uuid)
                         }
-                        .disposed(by: bag)
+                        .disposed(by: self.disposeBag)
                 }
-                .disposed(by: bag)
+                .disposed(by: self.disposeBag)
             return Disposables.create()
         }
         
-        let didMultiGameModeDidTap = Observable<Void>.create { observer in
+        let didMultiGameModeDidTap = Observable<Void>.create { [weak self] observer in
+            guard let self = self else {return Disposables.create()}
             input.multiGameModeDidTap
                 .subscribe { _ in
                     observer.onNext(())
                 }
-                .disposed(by: bag)
+                .disposed(by: self.disposeBag)
             return Disposables.create()
         }
-        
-        disposeBag = bag
         
         return Output(
             multiGameModeTapped: didMultiGameModeDidTap,

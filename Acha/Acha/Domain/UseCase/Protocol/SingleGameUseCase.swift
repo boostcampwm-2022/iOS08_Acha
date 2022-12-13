@@ -8,13 +8,12 @@
 import Foundation
 import RxSwift
 
-protocol SingleGameUseCase {
+protocol SingleGameUseCase: MapBaseUseCase {
     var tapTimer: TimerServiceProtocol { get }
     var runningTimer: TimerServiceProtocol { get }
     
     var ishideGameOverButton: BehaviorSubject<Bool> { get }
     var previousCoordinate: Coordinate? { get set }
-    var currentLocation: PublishSubject<Coordinate> { get set }
     var runningTime: BehaviorSubject<Int> { get set }
     var runningDistance: BehaviorSubject<Double> { get set }
     var wentLocations: PublishSubject<[Coordinate]> { get set }
@@ -23,10 +22,10 @@ protocol SingleGameUseCase {
     var visitedMapIndex: BehaviorSubject<Set<Int>> { get set }
     var gameOverInformation: PublishSubject<(Record, String)> { get set }
     
-    func startRunning()
+    func start()
     func startGameOverTimer()
     func startRunningTimer()
-    func stopRunning()
+    func stop()
     func gameOverButtonTapped()
     
     func healthKitWrite() -> Observable<Void>

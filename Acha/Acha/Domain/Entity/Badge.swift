@@ -10,7 +10,7 @@ import Foundation
 struct Badge: Hashable {
     let id: Int
     let name: String
-    let imageURL: String
+    let image: Data
     let isHidden: Bool
     var isOwn: Bool = false
 }

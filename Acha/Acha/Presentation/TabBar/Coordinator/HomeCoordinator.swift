@@ -35,9 +35,9 @@ final class HomeCoordinator: HomeCoordinatorProtocol {
     }
     
     func showHomeViewController() {
-        let provider = HomeProvider()
-        let repository = HomeRepository(provider: provider)
-        let useCase = HomeUseCase(repository: repository)
+        @DIContainer.Resolve(HomeUseCase.self)
+        var useCase: HomeUseCase
+//        let useCase = DependenciesContainer.shared.resolve(HomeUseCase.self)
         let viewModel = HomeViewModel(
             coordinator: self,
             useCase: useCase
@@ -47,9 +47,10 @@ final class HomeCoordinator: HomeCoordinatorProtocol {
         navigationController.pushViewController(viewController, animated: true)
     }
     
+    
     func connectSingleGameFlow() {
         tabBarController?.tabBar.isHidden = true
-        
+        navigationController.interactivePopGestureRecognizer?.isEnabled = false
         let coordinator = SingleGameCoordinator(navigationController: navigationController)
         coordinator.delegate = self
         appendChildCoordinator(coordinator: coordinator)

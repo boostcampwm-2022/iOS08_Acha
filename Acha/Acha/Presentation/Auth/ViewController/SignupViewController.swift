@@ -85,9 +85,16 @@ final class SignupViewController: ScrollAbleViewController {
                 }
             })
             .disposed(by: disposeBag)
+        
+        AchaKeyboard.shared.keyboardHeight
+            .drive(onNext: { [weak self] keyboardHeight in
+                guard let self = self else {return}
+                self.contentView.snp.updateConstraints {
+                    $0.bottom.equalToSuperview().offset(-keyboardHeight)
+                }
+            })
+            .disposed(by: disposeBag)
 
-        KeyboardManager.keyboardWillHide(view: contentView)
-        KeyboardManager.keyboardWillShow(view: contentView)
         emailTextField.rx.controlEvent([.editingDidEndOnExit])
             .subscribe { [weak self] _ in
                 self?.passwordTextField.becomeFirstResponder()

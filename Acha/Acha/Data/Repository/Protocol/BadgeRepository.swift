@@ -8,6 +8,6 @@
 import RxSwift
 
 protocol BadgeRepository {
-    func fetchAllBadges() -> Single<[Badge]>
-    func fetchSomeBadges(ids: [Int]) -> Single<[Badge]>
+    func fetchAllBadges() -> Observable<[Badge]>
+    func fetchSomeBadges(ids: [Int]) -> Observable<[Badge]>
 }

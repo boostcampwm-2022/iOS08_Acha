@@ -6,9 +6,10 @@
 //
 
 import Foundation
+import MapKit
 
 // MARK: - Coordinate
-struct Coordinate: Decodable {
+struct Coordinate: Decodable, Hashable {
     let latitude, longitude: Double
     
     func distance(from: Coordinate) -> Double {
@@ -20,5 +21,12 @@ struct Coordinate: Decodable {
         cos(theta.degreeToRadian())
     
         return acos(dist).radianToDegree() * 60 * 1.853159616 * 1000
+    }
+    
+    func toCLLocationCoordinate2D() -> CLLocationCoordinate2D {
+        return CLLocationCoordinate2D(
+            latitude: latitude,
+            longitude: longitude
+        )
     }
 }

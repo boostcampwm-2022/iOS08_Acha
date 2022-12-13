@@ -37,10 +37,6 @@ final class TabBarCoordinator: TabBarCoordinatorProtocol {
         }
         tabBarController.viewControllers = navigationControllers
         navigationController.viewControllers = [tabBarController]
-        
-        tabBarController.tabBar.backgroundColor = .pointLight
-        tabBarController.tabBar.tintColor = .white
-        tabBarController.tabBar.isTranslucent = false
     }
     
     func createTabNavigationController(tabBarType type: TabBarType) -> UINavigationController {
