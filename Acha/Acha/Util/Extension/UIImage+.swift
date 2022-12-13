@@ -23,6 +23,7 @@ extension UIImage {
     static let secondAnnotation = UIImage(named: "secondAnnotation") ?? UIImage()
     static let thirdAnnotation = UIImage(named: "thirdAnnotation") ?? UIImage()
     static let fourthAnnotation = UIImage(named: "fourthAnnotation") ?? UIImage()
+    static let noBadge = UIImage(named: "noBadge") ?? UIImage()
     static let systemEyeCircle = UIImage(
         systemName: "eye.circle",
         withConfiguration: UIImage.SymbolConfiguration(

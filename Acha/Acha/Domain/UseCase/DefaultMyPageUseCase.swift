@@ -35,7 +35,6 @@ final class DefaultMyPageUseCase: MyPageUseCase {
                 guard let self else { return }
                 self.userInfo = user
                 self.nickName.onNext(user.nickName)
-                
                 self.badgeRepository.fetchAllBadges()
                     .asObservable()
                     .subscribe(onNext: { [weak self] badges in

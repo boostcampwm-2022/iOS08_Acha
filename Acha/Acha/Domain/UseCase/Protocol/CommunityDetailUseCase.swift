@@ -12,6 +12,6 @@ protocol CommunityDetailUseCase {
     var post: PublishSubject<Post> { get set }
     
     func fetchPost()
-    func uploadComment(comment: Comment)
+    func uploadComment(comment: Comment) -> Single<Void>
     func deletePost()
 }
