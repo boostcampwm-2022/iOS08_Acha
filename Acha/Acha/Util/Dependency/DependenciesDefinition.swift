@@ -74,7 +74,7 @@ final class DependenciesDefinition {
         )
     }
     
-    //MARK:- Repository
+    // MARK: - Repository
     private func repositoryInject() {
 
         dependencies.register(
@@ -141,7 +141,7 @@ final class DependenciesDefinition {
         )
     }
     
-    //MARK: - UseCase
+    // MARK: - UseCase
     private func useCaseInject() {
         
         dependencies.register(
@@ -210,6 +210,14 @@ final class DependenciesDefinition {
                 recordRepository: dependencies.resolve(RecordRepository.self),
                 timeRepository: dependencies.resolve(TimeRepository.self),
                 locationRepository: dependencies.resolve(LocationRepository.self)
+            )
+        )
+        
+        dependencies.register(
+            MyPageUseCase.self,
+            implement: DefaultMyPageUseCase(
+                userRepository: dependencies.resolve(UserRepository.self),
+                badgeRepository: dependencies.resolve(BadgeRepository.self)
             )
         )
     }
