@@ -19,18 +19,9 @@ final class DefaultCommunityMainUseCase: CommunityMainUseCase {
         self.repository = repository
     }
     
-    func loadPostData() {
-        repository.getAllPost()
-            .subscribe(onSuccess: { [weak self] posts in
-                guard let self else { return }
-                self.posts.onNext(posts)
-            })
-            .disposed(by: disposeBag)
-    }
-    
     func loadPostData(count: Int) {
         repository.loadPost(count: count)
-            .subscribe(onSuccess: { [weak self] posts in
+            .subscribe(onNext: { [weak self] posts in
                 guard let self else { return }
                 self.posts.onNext(posts)
             })

@@ -115,15 +115,8 @@ final class CommunityPostWriteViewController: UIViewController {
                 guard let self else { return }
                 self.textView.text = post.text
                 self.textView.textColor = .black
-                if let image = post.image {
-                    let service = DefaultFirebaseStorageNetworkService()
-                    service.download(urlString: image) { data in
-                        guard let data else { return }
-                        DispatchQueue.main.async { [weak self] in
-                            guard let self else { return }
-                            self.imageAddButton.imageView?.image = UIImage(data: data)
-                        }
-                    }
+                if let data = post.image {
+                    self.imageAddButton.imageView?.image = UIImage(data: data)
                 }
                 
             }).disposed(by: disposeBag)

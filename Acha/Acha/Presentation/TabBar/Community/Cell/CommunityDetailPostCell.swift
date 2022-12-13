@@ -160,16 +160,9 @@ final class CommunityDetailPostCell: UICollectionViewCell {
         createDateLabel.text = post.createdAt.convertToStringFormat(format: "YYYY-MM-dd")
         postTextView.text = post.text
 
-        if let image = post.image {
-            self.postImageView.isHidden = false
-            let service = DefaultFirebaseStorageNetworkService()
-            service.download(urlString: image) { data in
-                guard let data else { return }
-                DispatchQueue.main.async { [weak self] in
-                    guard let self else { return }
-                    self.postImageView.image = UIImage(data: data)
-                }
-            }
+        if let data = post.image {
+            postImageView.isHidden = false
+            postImageView.image = UIImage(data: data)
         } else {
             postImageView.isHidden = true
         }

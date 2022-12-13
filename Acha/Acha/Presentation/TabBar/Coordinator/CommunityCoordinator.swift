@@ -28,7 +28,9 @@ final class CommunityCoordinator: CommunityCoordinatorProtocol {
     }
     
     func showCommunityMainViewController() {
-        let repository = DefaultCommunityRepository(realtimeService: DefaultRealtimeDatabaseNetworkService())
+        let repository = DefaultCommunityRepository(realtimeService: DefaultRealtimeDatabaseNetworkService(),
+                                                    storageService: DefaultFirebaseStorageNetworkService(),
+                                                    imageCacheService: DefaultImageCacheService())
         let useCase = DefaultCommunityMainUseCase(repository: repository)
         let viewModel = CommunityMainViewModel(useCase: useCase,
                                                coordinator: self)
@@ -38,7 +40,8 @@ final class CommunityCoordinator: CommunityCoordinatorProtocol {
     
     func showCommunityPostWriteViewController(post: Post? = nil) {
         let repository = DefaultCommunityRepository(realtimeService: DefaultRealtimeDatabaseNetworkService(),
-                                                    storageService: DefaultFirebaseStorageNetworkService())
+                                                    storageService: DefaultFirebaseStorageNetworkService(),
+                                                    imageCacheService: DefaultImageCacheService())
         let useCase = DefaultCommunityPostWriteUseCase(repository: repository, post: post)
         let viewModel = CommunityPostWriteViewModel(useCase: useCase,
                                                     coordinator: self)
@@ -47,7 +50,8 @@ final class CommunityCoordinator: CommunityCoordinatorProtocol {
     }
     
     func showCommunityDetailViewController(postID: Int) {
-        let repository = DefaultCommunityRepository(realtimeService: DefaultRealtimeDatabaseNetworkService())
+        let repository = DefaultCommunityRepository(realtimeService: DefaultRealtimeDatabaseNetworkService(),
+                                                    imageCacheService: DefaultImageCacheService())
         let useCase = DefaultCommunityDetailUseCase(postID: postID, repository: repository)
         let viewModel = CommunityDetailViewModel(useCase: useCase,
                                                  coordinator: self)

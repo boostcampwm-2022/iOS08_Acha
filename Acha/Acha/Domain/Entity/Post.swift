@@ -12,7 +12,7 @@ struct Post: Hashable {
     let userId: String
     let nickName: String
     var text: String
-    var image: String?
+    var image: Data?
     let createdAt: Date
     var comments: [Comment]?
     
@@ -31,7 +31,7 @@ struct Post: Hashable {
         userId: String,
         nickName: String,
         text: String,
-        image: String? = nil,
+        image: Data? = nil,
         createdAt: Date = Date(),
         comments: [Comment]? = nil
     ) {
@@ -42,9 +42,5 @@ struct Post: Hashable {
         self.image = image
         self.createdAt = createdAt
         self.comments = comments
-    }
-    
-    mutating func addComment(data: Comment) {
-        comments?.append(data)
     }
 }

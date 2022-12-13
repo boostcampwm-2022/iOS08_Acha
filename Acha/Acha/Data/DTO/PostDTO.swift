@@ -23,18 +23,17 @@ struct PostDTO: Codable {
             userId: userId,
             nickName: nickName,
             text: text,
-            image: image,
             createdAt: createdAt,
             comments: comments
         )
     }
     
-    init(data: Post) {
+    init(data: Post, image: String? = nil) {
         self.id = data.id
         self.userId = data.userId
         self.nickName = data.nickName
         self.text = data.text
-        self.image = data.image
+        self.image = image
         self.createdAt = data.createdAt
         self.comments = data.comments?.compactMap { CommentDTO(data: $0) }
     }
