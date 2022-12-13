@@ -82,8 +82,7 @@ class BadgeViewController: UIViewController {
                 for: indexPath) as? BadgeCell else {
                 return BadgeCell()
             }
-            cell.bind(badge: item,
-                      disposeBag: self.disposeBag)
+            cell.bind(badge: item)
             return cell
         })
         configureHeaderDataSource()
@@ -115,9 +114,7 @@ class BadgeViewController: UIViewController {
             let groupSize = NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1.0),
                 heightDimension: .estimated(145))
-            let groupInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
             let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-            group.contentInsets = groupInsets
             
             let headerSize = NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1.0),
@@ -150,7 +147,6 @@ class BadgeViewController: UIViewController {
             .subscribe(onNext: { [weak self] badges in
                 guard let self else { return }
                 self.makeBadgeSnapShot(badges: badges, section: .unacquired)
-                print(badges)
             }).disposed(by: disposeBag)
     }
     

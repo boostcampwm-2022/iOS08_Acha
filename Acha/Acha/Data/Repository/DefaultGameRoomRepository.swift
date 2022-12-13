@@ -93,7 +93,7 @@ struct DefaultGameRoomRepository: GameRoomRepository {
                 var roomDTO = roomDTO
                 roomDTO.user = roomDTO.user.filter { $0.id != uuid }
                 if roomDTO.user.count == 0 {
-                    deleteRoom(id: id)
+                    removeObserverRoom(id: id)
                 } else {
                     firebaseRealTimeDatabase.upload(type: .room(id: id), data: roomDTO)
                 }
@@ -118,6 +118,16 @@ struct DefaultGameRoomRepository: GameRoomRepository {
         return observingRoom(id: id)
             .map { $0.gameInformation ?? [] }
             .map { $0.map { $0.toDamin() } }
+    }
+    
+    func observingChats(id: String) -> Observable<[ChatDTO]> {
+        return observingRoom(id: id)
+            .map { $0.chats ?? [] }
+    }
+    
+    func observingReads(id: String) -> Observable<[[String]]> {
+        return observingChats(id: id)
+            .map { $0.map { $0.read } }
     }
     
     func startGame(roomId: String) {
@@ -156,6 +166,38 @@ struct DefaultGameRoomRepository: GameRoomRepository {
                 firebaseRealTimeDatabase.upload(type: .room(id: roomId), data: roomDTO)
             })
             .disposed(by: disposeBag)
+    }
+    
+    func updateReads(roomID: String, reads: [[String]]) {
+        fetchRoomData(id: roomID)
+            .subscribe(onSuccess: { roomDTO in
+                var roomDTO = roomDTO
+                guard let chats = roomDTO.chats else {return}
+                roomDTO.chats = chatsReadUpdate(chats: chats, reads: reads)
+                firebaseRealTimeDatabase.upload(type: .room(id: roomID), data: roomDTO)
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    func updateChats(roomID: String, chat: Chat) {
+        fetchRoomData(id: roomID)
+            .subscribe(onSuccess: { roomDTO in
+                var roomDTO = roomDTO
+                let newChat = ChatDTO(data: chat)
+                roomDTO.appendChat(chat: newChat)
+                firebaseRealTimeDatabase.upload(type: .room(id: roomID), data: roomDTO)
+            })
+            .disposed(by: disposeBag)
+                
+    }
+    
+    private func chatsReadUpdate(chats: [ChatDTO], reads: [[String]]) -> [ChatDTO] {
+        var chats = chats
+        let limit = chats.count > reads.count ? reads.count : chats.count
+        for index in 0..<limit {
+            chats[index].read = reads[index]
+        }
+        return chats
     }
     
     func observingRoomUser(id: String) -> Observable<[RoomUser]> {

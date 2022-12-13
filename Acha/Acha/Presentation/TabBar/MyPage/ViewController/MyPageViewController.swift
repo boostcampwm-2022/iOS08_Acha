@@ -238,8 +238,7 @@ extension MyPageViewController {
                     for: indexPath) as? BadgeCell else {
                     return BadgeCell()
                 }
-                    cell.bind(badge: badge,
-                              disposeBag: self.disposeBag)
+                    cell.bind(badge: badge)
                 return cell
             case .setting(let type):
                 guard let cell = collectionView.dequeueReusableCell(

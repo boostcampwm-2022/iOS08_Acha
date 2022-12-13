@@ -40,13 +40,11 @@ final class HomeViewModel: BaseViewModel {
     
     public func transform(input: Input) -> Output {
         
-        let bag = DisposeBag()
-        
         input.singleGameModeDidTap
             .subscribe { [weak self] _ in
                 self?.coordinator?.connectSingleGameFlow()
             }
-            .disposed(by: bag)
+            .disposed(by: disposeBag)
         input.cameraDetectedSometing
             .distinctUntilChanged()
             .subscribe { [weak self] qrStringValue in
@@ -62,7 +60,7 @@ final class HomeViewModel: BaseViewModel {
                     })
                     .disposed(by: self.disposeBag)
             }
-            .disposed(by: bag)
+            .disposed(by: disposeBag)
         
         input.makeRoomButtonDidTap
             .subscribe { [weak self] _ in
@@ -78,31 +76,31 @@ final class HomeViewModel: BaseViewModel {
                     })
                     .disposed(by: self.disposeBag)
             }
-            .disposed(by: bag)
+            .disposed(by: disposeBag)
         
-        let uuidDidPass = Observable<String>.create { observer in
+        let uuidDidPass = Observable<String>.create { [weak self] observer in
+            guard let self = self else {return Disposables.create()}
             input.makeRoomButtonDidTap
-                .subscribe { [weak self] _ in
-                    self?.useCase.getUUID()
+                .subscribe { _ in
+                    self.useCase.getUUID()
                         .subscribe { uuid in
                             observer.onNext(uuid)
                         }
-                        .disposed(by: bag)
+                        .disposed(by: self.disposeBag)
                 }
-                .disposed(by: bag)
+                .disposed(by: self.disposeBag)
             return Disposables.create()
         }
         
-        let didMultiGameModeDidTap = Observable<Void>.create { observer in
+        let didMultiGameModeDidTap = Observable<Void>.create { [weak self] observer in
+            guard let self = self else {return Disposables.create()}
             input.multiGameModeDidTap
                 .subscribe { _ in
                     observer.onNext(())
                 }
-                .disposed(by: bag)
+                .disposed(by: self.disposeBag)
             return Disposables.create()
         }
-        
-        disposeBag = bag
         
         return Output(
             multiGameModeTapped: didMultiGameModeDidTap,

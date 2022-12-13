@@ -13,6 +13,11 @@ import RxRelay
 
 final class DefaultMultiGameUseCase: MultiGameUseCase {
     
+    enum GameRoomError: Error {
+        case dataNotFetched
+        case cantProceedThisGame
+    }
+    
     private let gameRoomRepository: GameRoomRepository
     private let userRepository: UserRepository
     private let recordRepository: RecordRepository
@@ -21,11 +26,15 @@ final class DefaultMultiGameUseCase: MultiGameUseCase {
     private let disposeBag = DisposeBag()
     
     var visitedLocation: Set<Coordinate> = []
-    var previousPosition = Coordinate(latitude: 0, longitude: 0)
+    private var previousPosition = Coordinate(latitude: 0, longitude: 0)
     var movedDistance: Double = 0
-    var calorie: Int {
+    private var calorie: Int {
         return Int(movedDistance/100)
     }
+    private var watchOtherLocationIndex = 0
+    var inGamePlayersData = BehaviorRelay<[MultiGamePlayerData]>(value: [])
+    var unReadsCount = BehaviorRelay<Int>(value: 0)
+    var currentRoomPlayerData = BehaviorRelay<[RoomUser]>(value: [])
     
     init(
         gameRoomRepository: GameRoomRepository,
@@ -85,6 +94,10 @@ final class DefaultMultiGameUseCase: MultiGameUseCase {
             .disposed(by: disposeBag)
     }
     
+    func healthKitAuthorization() -> Observable<Void> {
+        return recordRepository.healthKitAuthorization()
+    }
+    
     func healthKitStore(time: Int) {
         recordRepository.healthKitWrite(
             .init(distance: movedDistance,
@@ -100,13 +113,60 @@ final class DefaultMultiGameUseCase: MultiGameUseCase {
         locationRepository.stopObservingLocation()
     }
     
-    func observing(roomID: String) -> Observable<[MultiGamePlayerData]> {
-        return gameRoomRepository.observingMultiGamePlayers(id: roomID)
-            .map { $0.sorted { player1, player2 in
-                player1.point > player2.point
-            } }
+    func observing(roomID: String) {
+        return gameRoomRepository.observingRoom(id: roomID)
+            .withUnretained(self)
+            .subscribe(onNext: { _, roomDTO in
+                self.currentRoomPlayerData.accept(roomDTO.toRoomUsers())
+                let gameInformation = (roomDTO.gameInformation ?? []).map { $0.toDamin() }
+                self.inGamePlayersData.accept(gameInformation)
+                let reads = (roomDTO.chats ?? []).map { $0.read }
+                let readInformation = self.checkDidIReadThatChat(chats: reads)
+                self.unReadsCount.accept(readInformation)
+            })
+            .disposed(by: disposeBag)
     }
     
+    func watchOthersLocation(roomID: String) -> Single<Coordinate> {
+        return gameRoomRepository.fetchRoomData(id: roomID)
+            .map { $0.gameInformation ?? [] }
+            .map { $0.map { $0.toDamin() } }
+            .map { [weak self] datas in
+                guard let self = self else {return Coordinate(latitude: 0, longitude: 0)}
+                let data = datas[self.watchOtherLocationIndex]
+                self.watchOtherLocationIndex = (self.watchOtherLocationIndex + 1) % datas.count
+                return data.currentLocation ?? Coordinate(latitude: 0, longitude: 0)
+            }
+    }
+    
+    func unReadChatting(roomID: String) -> Observable<Int> {
+        return gameRoomRepository.observingReads(id: roomID)
+            .map { [weak self] reads in
+                guard let self = self else {return 0}
+                return self.checkDidIReadThatChat(chats: reads)
+            }
+    }
+    
+    func leave(roomID: String) {
+        locationRepository.stopObservingLocation()
+        gameRoomRepository.leaveRoom(id: roomID)
+    }
+    
+    func stopOberservingRoom(id: String) {
+        gameRoomRepository.removeObserverRoom(id: id)
+    }
+    
+    private func checkDidIReadThatChat(chats: [[String]]) -> Int {
+        guard let uuid = userRepository.getUUID() else {return 0}
+        var count = 0
+        chats.forEach { chat in
+            if !chat.contains(uuid) {
+                count += 1
+            }
+        }
+        return count
+    }
+
     private func distanceAppend(_ current: Coordinate) {
         let distance = previousPosition.distance(from: current)
         if distance <= 100 {

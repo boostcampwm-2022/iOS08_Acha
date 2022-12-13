@@ -43,6 +43,9 @@ final class SingleGameCoordinator: SingleGameCoordinatorProtocol {
     }
     
     func showSingleGamePlayViewController(selectedMap: Map) {
+        let realtimeService = DefaultRealtimeDatabaseNetworkService()
+        let timerService = TimerService()
+        
         let viewModel = SingleGameViewModel(
             map: selectedMap,
             coordinator: self,
@@ -50,11 +53,21 @@ final class SingleGameCoordinator: SingleGameCoordinatorProtocol {
                 map: selectedMap,
                 locationService: DefaultLocationService(),
                 recordRepository: DefaultRecordRepository(
-                    realTimeDatabaseNetworkService: DefaultRealtimeDatabaseNetworkService(),
+                    realTimeDatabaseNetworkService: realtimeService,
                     healthKitService: DefaultHealthKitService()
                 ),
-                tapTimer: TimerService(),
-                runningTimer: TimerService()
+                tapTimer: timerService,
+                runningTimer: timerService,
+                userRepository: DefaultUserRepository(
+                    realtimeDataBaseService: realtimeService,
+                    keychainService: DefaultKeychainService(),
+                    authService: DefaultAuthService()
+                ),
+                badgeRepository: DefaultBadgeRepository(
+                    realTimeDatabaseNetworkService: realtimeService,
+                    firebaseStorageNetworkService: DefaultFirebaseStorageNetworkService(),
+                    imageCacheService: DefaultImageCacheService()
+                )
             )
         )
         let viewController = SingleGameViewController(viewModel: viewModel)
@@ -68,6 +81,11 @@ final class SingleGameCoordinator: SingleGameCoordinatorProtocol {
                 recordRepository: DefaultRecordRepository(
                     realTimeDatabaseNetworkService: DefaultRealtimeDatabaseNetworkService(),
                     healthKitService: DefaultHealthKitService()
+                ),
+                userRepository: DefaultUserRepository(
+                    realtimeDataBaseService: DefaultRealtimeDatabaseNetworkService(),
+                    keychainService: DefaultKeychainService(),
+                    authService: DefaultAuthService()
                 )
             )
         )
@@ -83,6 +101,11 @@ final class SingleGameCoordinator: SingleGameCoordinatorProtocol {
                 recordRepository: DefaultRecordRepository(
                     realTimeDatabaseNetworkService: DefaultRealtimeDatabaseNetworkService(),
                     healthKitService: DefaultHealthKitService()
+                ),
+                userRepository: DefaultUserRepository(
+                    realtimeDataBaseService: DefaultRealtimeDatabaseNetworkService(),
+                    keychainService: DefaultKeychainService(),
+                    authService: DefaultAuthService()
                 )
             )
         )

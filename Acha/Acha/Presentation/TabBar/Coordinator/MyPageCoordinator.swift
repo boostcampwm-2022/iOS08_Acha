@@ -31,13 +31,16 @@ final class MyPageCoordinator: MyPageCoordinatorProtocol {
     }
     
     func showMyPageViewController() {
-        let networkService = DefaultRealtimeDatabaseNetworkService()
+        let realtimeNetworkService = DefaultRealtimeDatabaseNetworkService()
+        let storageNetworkService = DefaultFirebaseStorageNetworkService()
         let keychainService = DefaultKeychainService()
         let authService = DefaultAuthService()
-        let userRepository = DefaultUserRepository(realtimeDataBaseService: networkService,
+        let userRepository = DefaultUserRepository(realtimeDataBaseService: realtimeNetworkService,
                                                    keychainService: keychainService,
                                                    authService: authService)
-        let badgeRepository = DefaultBadgeRepository(realTimeDatabaseNetworkService: networkService)
+        let badgeRepository = DefaultBadgeRepository(realTimeDatabaseNetworkService: realtimeNetworkService,
+                                                     firebaseStorageNetworkService: storageNetworkService,
+                                                     imageCacheService: DefaultImageCacheService())
         let useCase = DefaultMyPageUseCase(userRepository: userRepository, badgeRepository: badgeRepository)
         let viewModel = MyPageViewModel(coordinator: self, useCase: useCase)
         let viewController = MyPageViewController(viewModel: viewModel)

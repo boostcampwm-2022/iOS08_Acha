@@ -43,7 +43,7 @@ final class DefaultMyPageUseCase: MyPageUseCase {
                         self.allBadges.onNext(badges.map {
                             Badge(id: $0.id,
                                   name: $0.name,
-                                  imageURL: $0.imageURL,
+                                  image: $0.image,
                                   isHidden: $0.isHidden,
                                   isOwn: user.badges.contains($0.id)
                             )
