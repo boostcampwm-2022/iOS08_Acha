@@ -71,7 +71,7 @@ final class MultiGameRoomViewController: UIViewController {
             exitButtonTapped: exitButton.rx.tap.asObservable(),
             gameStartButtonTapped: startButton.rx.tap.asObservable(),
             viewWillDisappear: rx.viewWillDisappear.asObservable(),
-            appWillTerminate: UIApplication.rx.willTerminate.retry(3).asObservable()
+            appWillTerminate: UIApplication.rx.willTerminate.asObservable()
         )
                 
         let outputs = viewModel.transform(input: inputs)

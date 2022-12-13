@@ -74,29 +74,17 @@ final class MultiGameRoomViewModel: BaseViewModel {
                     .disposed(by: self.disposeBag)
             }
             .disposed(by: disposeBag)
-        
-        input.appWillTerminate
-            .withUnretained(self)
-            .subscribe(onNext: { _ in
-                self.useCase.leave(roomID: self.roomID)
-            })
-            .disposed(by: disposeBag)
             
-        Observable.of(input.exitButtonTapped, input.viewWillDisappear)
-            .merge()
-            .withUnretained(self)
-            .subscribe(onNext: { _ in
-                self.useCase.removeObserver(roomID: self.roomID)
-            })
-            .disposed(by: disposeBag)
-        
-        Observable.of(input.appWillTerminate, input.viewWillDisappear)
-            .merge()
-            .withUnretained(self)
-            .subscribe(onNext: { _ in
-                self.useCase.removeObserver(roomID: self.roomID)
-            })
-            .disposed(by: disposeBag)
+        Observable.of(
+            input.exitButtonTapped,
+            input.viewWillDisappear
+        )
+        .merge()
+        .withUnretained(self)
+        .subscribe(onNext: { _ in
+            self.useCase.removeObserver(roomID: self.roomID)
+        })
+        .disposed(by: disposeBag)
         
         input.exitButtonTapped
             .withUnretained(self)

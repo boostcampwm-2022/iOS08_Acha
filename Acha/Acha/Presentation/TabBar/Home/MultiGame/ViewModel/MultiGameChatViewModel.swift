@@ -74,14 +74,6 @@ final class MultiGameChatViewModel: BaseViewModel {
             }
             .disposed(by: disposeBag)
         
-        input.appWillTerminate
-            .withUnretained(self)
-            .subscribe { _ in
-                self.useCase.leave(roomID: self.roomID)
-                self.coordinator?.delegate?.didFinished(childCoordinator: self.coordinator!)
-            }
-            .disposed(by: disposeBag)
-        
         input.viewWillDisappear
             .withUnretained(self)
             .subscribe { _ in
