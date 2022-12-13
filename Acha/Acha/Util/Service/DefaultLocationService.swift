@@ -23,6 +23,12 @@ final class DefaultLocationService: NSObject, LocationService {
     
     func start() {
         setUp()
+        if locationManager.authorizationStatus == .authorizedAlways ||
+            locationManager.authorizationStatus == .authorizedWhenInUse {
+            startUserLocation()
+        } else {
+            getLocationUsagePermission()
+        }
         observeLocation()
     }
     
@@ -36,6 +42,14 @@ final class DefaultLocationService: NSObject, LocationService {
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.showsBackgroundLocationIndicator = true
         locationManager.allowsBackgroundLocationUpdates = true
+    }
+    
+    private func startUserLocation() {
+        locationManager.startUpdatingLocation()
+        if let location = locationManager.location {
+            userLocation.onNext(location)
+        }
+        authorizationStatus.onNext(true)
     }
     
     private func observeLocation() {
@@ -59,11 +73,7 @@ extension DefaultLocationService: CLLocationManagerDelegate {
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         switch manager.authorizationStatus {
         case .authorizedAlways, .authorizedWhenInUse:
-            manager.startUpdatingLocation()
-            if let location = locationManager.location {
-                userLocation.onNext(location)
-            }
-            authorizationStatus.onNext(true)
+            startUserLocation()
         case .restricted, .notDetermined:
             getLocationUsagePermission()
         case .denied:
