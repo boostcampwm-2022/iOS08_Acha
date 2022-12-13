@@ -47,18 +47,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func applicationWillTerminate(_ application: UIApplication) {
-        print("🥳🥳🥳🥳🥳🥳🥳🥳🥳")
         guard let roomID = UserDefaults.standard.value(forKey: "roomID") as? String else {return}
-        print(roomID)
         UserDefaults.standard.removeObject(forKey: "roomID")
         let service = DefaultRealtimeDatabaseNetworkService()
-        service.terminateGet(type: .room(id: roomID), id: roomID)
-            .subscribe(onNext: {
-                print($0)
-            })
-            .disposed(by: DisposeBag())
+        service.terminate(type: .room(id: roomID))
         sleep(6)
-        print("3초뒤")
     }
 }
 
