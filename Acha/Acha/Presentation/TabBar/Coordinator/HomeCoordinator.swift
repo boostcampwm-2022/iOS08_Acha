@@ -47,6 +47,7 @@ final class HomeCoordinator: HomeCoordinatorProtocol {
         navigationController.pushViewController(viewController, animated: true)
     }
     
+    
     func connectSingleGameFlow() {
         tabBarController?.tabBar.isHidden = true
         navigationController.interactivePopGestureRecognizer?.isEnabled = false
