@@ -164,6 +164,7 @@
 		E505E0D829446A47006BF811 /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505E0CD29446A47006BF811 /* CommentView.swift */; };
 		E505E0DA29446CE7006BF811 /* FirebaseStorageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505E0D929446CE7006BF811 /* FirebaseStorageType.swift */; };
 		E505E0DD29448670006BF811 /* RandomFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505E0DC29448670006BF811 /* RandomFactory.swift */; };
+		E526576A2946E5D200A350CE /* CommunityIndicatorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52657692946E5D200A350CE /* CommunityIndicatorCell.swift */; };
 		E5BE8B8F2922172400E9CFE8 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8B8E2922172400E9CFE8 /* AppCoordinator.swift */; };
 		E5BE8B91292218A500E9CFE8 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8B90292218A500E9CFE8 /* Coordinator.swift */; };
 		E5BE8B93292218F100E9CFE8 /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8B92292218F100E9CFE8 /* AuthCoordinator.swift */; };
@@ -181,7 +182,6 @@
 		F1034B59292B37EB00BD8407 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1034B58292B37EB00BD8407 /* LoginViewModel.swift */; };
 		F12210C2292D031800AE5F26 /* KeyChainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12210C1292D031800AE5F26 /* KeyChainManager.swift */; };
 		F13DB58F292B3C8D00323B28 /* AuthInputTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13DB58E292B3C8D00323B28 /* AuthInputTextField.swift */; };
-		F14B1495292BA1D40010E966 /* KeyboardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F14B1494292BA1D40010E966 /* KeyboardManager.swift */; };
 		F156F1132923536A0053E807 /* DistanceAndTimeBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F156F1122923536A0053E807 /* DistanceAndTimeBar.swift */; };
 		F156F11A29235EC50053E807 /* ImageConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F156F11929235EC50053E807 /* ImageConstants.swift */; };
 		F156F11C2923623C0053E807 /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F156F11B2923623C0053E807 /* PaddingLabel.swift */; };
@@ -445,6 +445,7 @@
 		E505E0CD29446A47006BF811 /* CommentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
 		E505E0D929446CE7006BF811 /* FirebaseStorageType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseStorageType.swift; sourceTree = "<group>"; };
 		E505E0DC29448670006BF811 /* RandomFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RandomFactory.swift; sourceTree = "<group>"; };
+		E52657692946E5D200A350CE /* CommunityIndicatorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityIndicatorCell.swift; sourceTree = "<group>"; };
 		E5BE8B8E2922172400E9CFE8 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		E5BE8B90292218A500E9CFE8 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		E5BE8B92292218F100E9CFE8 /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
@@ -462,7 +463,6 @@
 		F1034B58292B37EB00BD8407 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		F12210C1292D031800AE5F26 /* KeyChainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainManager.swift; sourceTree = "<group>"; };
 		F13DB58E292B3C8D00323B28 /* AuthInputTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthInputTextField.swift; sourceTree = "<group>"; };
-		F14B1494292BA1D40010E966 /* KeyboardManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardManager.swift; sourceTree = "<group>"; };
 		F156F1122923536A0053E807 /* DistanceAndTimeBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceAndTimeBar.swift; sourceTree = "<group>"; };
 		F156F11929235EC50053E807 /* ImageConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageConstants.swift; sourceTree = "<group>"; };
 		F156F11B2923623C0053E807 /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
@@ -681,10 +681,7 @@
 				76A2E1A22923D94C001E887A /* CLLocationCoordinate2D+.swift */,
 				F1B0D8A9292CCA0F00EBDD02 /* Encodable+.swift */,
 				F1CC5152294069C200B9008D /* MKCircle+.swift */,
-
-
 				F1D85A4F29427B00005822B0 /* UIApplication+Rx.swift */,
-
 				474952F72941E8D600098E7C /* Reactive */,
 				766978BE294087B7002128C7 /* UIImageView+.swift */,
 			);
@@ -815,10 +812,10 @@
 		47D5773E293389B80014D171 /* UseCase */ = {
 			isa = PBXGroup;
 			children = (
-				E505E0B1294468B5006BF811 /* DefaultCommunityDetailUseCase.swift */,
-				E505E0B2294468B5006BF811 /* DefaultCommunityMainUseCase.swift */,
-				E505E0B3294468B5006BF811 /* DefaultCommunityPostWriteUseCase.swift */,
 				47D5773F293389C50014D171 /* Protocol */,
+				E505E0B2294468B5006BF811 /* DefaultCommunityMainUseCase.swift */,
+				E505E0B1294468B5006BF811 /* DefaultCommunityDetailUseCase.swift */,
+				E505E0B3294468B5006BF811 /* DefaultCommunityPostWriteUseCase.swift */,
 				47D57742293389EB0014D171 /* DefaultSelectMapUseCase.swift */,
 				47D5775C2934AB9B0014D171 /* DefaultMapBaseUseCase.swift */,
 				47653A2F2938C4AD00BDC8E3 /* DefaultMyPageUseCase.swift */,
@@ -839,8 +836,8 @@
 		47D5773F293389C50014D171 /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
-				E505E0AD294468AD006BF811 /* CommunityDetailUseCase.swift */,
 				E505E0AC294468AD006BF811 /* CommunityMainUseCase.swift */,
+				E505E0AD294468AD006BF811 /* CommunityDetailUseCase.swift */,
 				E505E0AB294468AD006BF811 /* CommunityPostWriteUseCase.swift */,
 				474E24FC293DC76800CFAC59 /* RecordMainViewUseCase.swift */,
 				474E24FD293DC76800CFAC59 /* RecordMapViewUseCase.swift */,
@@ -1060,9 +1057,9 @@
 		E505E0BF29446A47006BF811 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				E505E0C029446A47006BF811 /* CommunityPostWriteViewController.swift */,
 				E505E0C129446A47006BF811 /* CommunityMainViewController.swift */,
 				E505E0C229446A47006BF811 /* CommunityDetailViewController.swift */,
+				E505E0C029446A47006BF811 /* CommunityPostWriteViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -1071,8 +1068,8 @@
 			isa = PBXGroup;
 			children = (
 				E505E0C429446A47006BF811 /* CommunityMainViewModel.swift */,
-				E505E0C529446A47006BF811 /* CommunityPostWriteViewModel.swift */,
 				E505E0C629446A47006BF811 /* CommunityDetailViewModel.swift */,
+				E505E0C529446A47006BF811 /* CommunityPostWriteViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1084,6 +1081,7 @@
 				E505E0C929446A47006BF811 /* CommunityMainCell.swift */,
 				E505E0CA29446A47006BF811 /* CommunityDetailPostCell.swift */,
 				E505E0CB29446A47006BF811 /* CommunityDetailCommentCell.swift */,
+				E52657692946E5D200A350CE /* CommunityIndicatorCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -1108,7 +1106,6 @@
 			isa = PBXGroup;
 			children = (
 				F12210C1292D031800AE5F26 /* KeyChainManager.swift */,
-				F14B1494292BA1D40010E966 /* KeyboardManager.swift */,
 				F1E7B0B4293DD2AF0088332E /* DIContainerManager.swift */,
 				F1AF9A3A2944FBD000A25752 /* AchaKeyboard.swift */,
 			);
@@ -1648,7 +1645,6 @@
 				F1B514E7293B3F6500F653F3 /* KeychainService.swift in Sources */,
 				F1AF9A0029445ED900A25752 /* DependenciesDefinition.swift in Sources */,
 				F1E83D7F29348A4A004C7992 /* CommentDTO.swift in Sources */,
-				F14B1495292BA1D40010E966 /* KeyboardManager.swift in Sources */,
 				761C1C0B292E439F000C88D0 /* SingleGameUseCase.swift in Sources */,
 				F13DB58F292B3C8D00323B28 /* AuthInputTextField.swift in Sources */,
 				F1AF99FD29445AA300A25752 /* DependenciesContainer.swift in Sources */,
@@ -1770,6 +1766,7 @@
 				F1E7B0B3293DD1F80088332E /* RandomService.swift in Sources */,
 				E5BE8BA129221B6D00E9CFE8 /* SignupCoordinator .swift in Sources */,
 				F1CC513D293EFAD800B9008D /* MultiGameViewModel.swift in Sources */,
+				E526576A2946E5D200A350CE /* CommunityIndicatorCell.swift in Sources */,
 				E5BE8B97292219D800E9CFE8 /* HomeCoordinator.swift in Sources */,
 				F1CC514D293F24E500B9008D /* MultiGamePlayerData.swift in Sources */,
 				F1D202B72924C63F00F3E87D /* InGameMenuModelProtocol.swift in Sources */,

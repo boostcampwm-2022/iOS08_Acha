@@ -19,6 +19,7 @@ final class CommunityDetailViewModel: BaseViewModel {
     
     struct Output {
         var post = PublishRelay<Post>()
+        var commentWriteSuccess = PublishRelay<Void>()
     }
     
     // MARK: - Dependency
@@ -47,6 +48,10 @@ final class CommunityDetailViewModel: BaseViewModel {
             .subscribe(onNext: { [weak self] comment in
                 guard let self else { return }
                 self.useCase.uploadComment(comment: comment)
+                    .subscribe(onSuccess: {
+                        output.commentWriteSuccess.accept(())
+                    })
+                    .disposed(by: self.disposeBag)
             }).disposed(by: disposeBag)
         
         input.postModifyButtonTapEvent

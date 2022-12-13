@@ -81,7 +81,6 @@ final class CommunityDetailPostCell: UICollectionViewCell {
         super.init(frame: frame)
         setupViews()
         configureUI()
-        print(#function)
     }
     
     required init?(coder: NSCoder) {
