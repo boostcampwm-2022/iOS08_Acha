@@ -79,6 +79,11 @@ final class DefaultMultiGameUseCase: MultiGameUseCase {
         }
     }
     
+    func gameOver(roomID: String) -> Observable<Bool> {
+        return gameRoomRepository.observingRoomUser(id: roomID)
+            .map { $0.count < 2 ? true : false }
+    }
+    
     func updateData(roomId: String) {
         userRepository.fetchUserData()
             .subscribe(onSuccess: { [weak self] user in

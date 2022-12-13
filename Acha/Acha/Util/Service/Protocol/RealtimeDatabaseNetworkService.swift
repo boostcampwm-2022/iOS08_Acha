@@ -16,4 +16,5 @@ protocol RealtimeDatabaseNetworkService {
     func delete(type: FirebaseRealtimeType)
     func observing<T: Decodable>(type: FirebaseRealtimeType) -> Observable<T>
     func removeObserver(type: FirebaseRealtimeType)
+    func terminateGet(type: FirebaseRealtimeType, id: String) -> Observable<RoomDTO>
 }

@@ -33,4 +33,6 @@ protocol MultiGameUseCase {
     
     func unReadChatting(roomID: String) -> Observable<Int>
     func stopOberservingRoom(id: String)
+    
+    func gameOver(roomID: String) -> Observable<Bool>
 }

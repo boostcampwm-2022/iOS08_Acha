@@ -18,7 +18,7 @@ final class MultiGameRoomViewModel: BaseViewModel {
         let exitButtonTapped: Observable<Void>
         let gameStartButtonTapped: Observable<Void>
         let viewWillDisappear: Observable<Void>
-        let appWillTerminate: Observable<Void>
+        let didEnterBackground: Observable<Void>
     }
     
     struct Output {
@@ -57,6 +57,12 @@ final class MultiGameRoomViewModel: BaseViewModel {
             .disposed(by: self!.disposeBag)
             return Disposables.create()
         }
+//        UIApplication.rx.applicationWillTerminate
+//            .subscribe(onNext: { [weak self] in
+//                guard let self = self else {retunr}
+//                DefaultRealtimeDatabaseNetworkService().terminateGet(type: .room(id: self.roomID), id: self.roomID)
+//            })
+//            .disposed(by: disposeBag)
         
         input.gameStartButtonTapped
             .subscribe { [weak self] _ in
@@ -73,6 +79,13 @@ final class MultiGameRoomViewModel: BaseViewModel {
                     }
                     .disposed(by: self.disposeBag)
             }
+            .disposed(by: disposeBag)
+        
+        input.didEnterBackground
+            .withUnretained(self)
+            .subscribe(onNext: { _ in
+                UserDefaults.standard.setValue(self.roomID, forKey: "roomID")
+            })
             .disposed(by: disposeBag)
             
         Observable.of(

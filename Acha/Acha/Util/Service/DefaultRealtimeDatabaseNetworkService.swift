@@ -38,6 +38,59 @@ final class DefaultRealtimeDatabaseNetworkService: RealtimeDatabaseNetworkServic
         }
     }
     
+    func terminateGet(type: FirebaseRealtimeType, id: String) -> Observable<RoomDTO> {
+        guard let uuid = try? KeyChainManager.get() else {return .empty()}
+        guard let url = getURL(type: type) else {return .empty()}
+        let urlRequest = URLRequest(url: url)
+        return usingURL(request: urlRequest, type: RoomDTO.self)
+            .map { var roomDTO = $0
+                roomDTO.user = roomDTO.user.filter { $0.id != uuid }
+                return roomDTO
+            }
+//            .map { self.terminatePost(type: .room(id: id), data: $0) }
+    }
+    
+    func terminatePost<T: Codable>(type: FirebaseRealtimeType, data: T) -> Observable<T> {
+        print("포스트포스트")
+        guard let url = getURL(type: type) else {return .empty()}
+        var urlRequest = URLRequest(url: url)
+        urlRequest.allHTTPHeaderFields = ["Content-Type": "application/json"]
+        urlRequest.httpMethod = "POST"
+        urlRequest.httpBody = data.toJSON
+        print(urlRequest)
+        return usingURL(request: urlRequest, type: T.self)
+    }
+    
+    private func getURL(type: FirebaseRealtimeType) -> URL? {
+        let childReference = self.databaseReference.child(type.path).url + ".json"
+        return URL(string: childReference)
+    }
+    
+    private func usingURL<T: Codable>(
+        request: URLRequest,
+        type: T.Type
+    ) -> Observable<T> {
+        print("11111")
+        return Observable<T>.create { observer in
+            let task = URLSession.shared.dataTask(with: request) { data, resource, error in
+                do {
+                    guard let data = data else {return}
+                    print(data)
+                    guard let uuid = try? KeyChainManager.get() else {return}
+                    guard var roomDTO = try JSONDecoder().decode(T.self, from: data) as? RoomDTO else {return}
+                    print(roomDTO)
+                    roomDTO.user = roomDTO.user.filter { $0.id != uuid }
+                    self.upload(type: .room(id: roomDTO.id), data: roomDTO)
+                } catch {
+                    print(error)
+                }
+            }
+            task.resume()
+            
+            return Disposables.create()
+        }
+    }
+    
     func uploadNewRecord(index: Int, data: Record) {
         let childReference = self.databaseReference.child(FirebaseRealtimeType.record(id: nil).path)
         guard let json = try? JSONEncoder().encode(data),

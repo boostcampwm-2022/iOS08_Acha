@@ -24,7 +24,7 @@ final class MultiGameViewModel: BaseViewModel {
         let gameOverButtonTapped: Observable<Void>
         let toRoomButtonTapped: Observable<Void>
         let viewWillDisappear: Observable<Void>
-        let appWillTerminate: Observable<Void>
+        let didEnterBackground: Observable<Void>
     }
     
     struct Output {
@@ -110,9 +110,17 @@ final class MultiGameViewModel: BaseViewModel {
                     .subscribe { players in
                         if players.count >= 2 {
                             self.playerDataFetcehd.onNext(players)
-                        } else {
+                        }
+                    }
+                    .disposed(by: self.disposeBag)
+                
+                self.useCase.gameOver(roomID: self.roomId)
+                    .subscribe { over in
+                        print(over)
+                        if over {
                             self.gameOver.onNext(())
                             self.gameOverAction(time: 60)
+                            
                         }
                     }
                     .disposed(by: self.disposeBag)
@@ -188,6 +196,13 @@ final class MultiGameViewModel: BaseViewModel {
             .withUnretained(self)
             .subscribe(onNext: { _ in
                 self.coordinator?.showMultiGameChatViewController(roomID: self.roomId)
+            })
+            .disposed(by: disposeBag)
+        
+        input.didEnterBackground
+            .withUnretained(self)
+            .subscribe(onNext: { _ in
+                UserDefaults.standard.setValue(self.roomId, forKey: "roomID")
             })
             .disposed(by: disposeBag)
         

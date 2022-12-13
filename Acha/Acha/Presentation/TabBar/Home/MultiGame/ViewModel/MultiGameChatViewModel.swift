@@ -16,7 +16,7 @@ final class MultiGameChatViewModel: BaseViewModel {
         let commentButtonTapped: Observable<Void>
         let textInput: Observable<String>
         let viewWillDisappear: Observable<Void>
-        let appWillTerminate: Observable<Void>
+        let didEnterBackground: Observable<Void>
     }
     struct Output {
         let chatFetched: Driver<[Chat]>
@@ -62,6 +62,13 @@ final class MultiGameChatViewModel: BaseViewModel {
             .subscribe { [weak self] texts in
                 self?.useCase.chatWrite(text: texts)
             }
+            .disposed(by: disposeBag)
+        
+        input.didEnterBackground
+            .withUnretained(self)
+            .subscribe(onNext: { _ in
+                UserDefaults.standard.setValue(self.roomID, forKey: "roomID")
+            })
             .disposed(by: disposeBag)
         
         input.commentButtonTapped
