@@ -13,6 +13,8 @@ class RecordMainCell: UICollectionViewCell {
     // MARK: - UI properties
     private lazy var imageView = UIImageView().then {
         $0.image = UIImage(systemName: "house")
+        $0.clipsToBounds = true
+        $0.layer.cornerRadius = 10
     }
     
     private lazy var mapNameLabel = UILabel().then {
@@ -116,9 +118,9 @@ class RecordMainCell: UICollectionViewCell {
         }
     }
     
-    func bind(mapName: String, record: Record) {
-        mapNameLabel.text = mapName
-        imageView.image = UIImage(systemName: "house")
+    func bind(map: Map, record: Record) {
+        mapNameLabel.text = map.name
+        imageView.image = UIImage(data: map.image)
         if let isWin = record.isWin {
             winLabel.isHidden = false
             if isWin {

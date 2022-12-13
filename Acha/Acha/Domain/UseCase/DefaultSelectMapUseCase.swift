@@ -31,7 +31,7 @@ final class DefaultSelectMapUseCase: DefaultMapBaseUseCase, SelectMapUseCase {
     override func start() {
         super.start()
         mapRepository.fetchAllMaps()
-            .subscribe(onSuccess: { [weak self] maps in
+            .subscribe(onNext: { [weak self] maps in
                 guard let self else { return }
                 self.maps = maps
             })

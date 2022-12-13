@@ -12,4 +12,11 @@ struct MapDTO: Codable {
     let name: String
     let centerCoordinate: CoordinateDTO
     let coordinates: [CoordinateDTO]
+    let location: String
+    let image: String
+    
+    enum CodingKeys: String, CodingKey {
+        case mapID = "mapId"
+        case name, centerCoordinate, coordinates, location, image
+    }
 }
