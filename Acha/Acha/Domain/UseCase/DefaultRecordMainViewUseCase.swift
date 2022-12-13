@@ -14,12 +14,12 @@ final class DefaultRecordMainViewUseCase: RecordMainViewUseCase {
     private let mapRepository: MapRepository
     private let disposeBag = DisposeBag()
     
-    var mapNameAtMapId = BehaviorSubject<[Int: String]>(value: [:])
+    var mapAtMapId = BehaviorSubject<[Int: Map]>(value: [:])
     var weekDatas = PublishSubject<[RecordViewChartData]>()
     var recordSectionDatas = PublishSubject<(allDates: [String],
                                              totalRecordAtDate: [String: DayTotalRecord],
                                              recordsAtDate: [String: [Record]],
-                                             mapNameAtMapId: [Int: String])>()
+                                             mapAtMapId: [Int: Map])>()
     
     init(userRepository: UserRepository,
          recordRepository: RecordRepository,
@@ -32,11 +32,11 @@ final class DefaultRecordMainViewUseCase: RecordMainViewUseCase {
     func loadMapData() {
         self.mapRepository.fetchAllMaps()
             .subscribe { maps in
-                var mapNameAtMapId = [Int: String]()
+                var mapAtMapId = [Int: Map]()
                 maps.forEach {
-                    mapNameAtMapId[$0.mapID] = $0.name
+                    mapAtMapId[$0.mapID] = $0
                 }
-                self.mapNameAtMapId.onNext(mapNameAtMapId)
+                self.mapAtMapId.onNext(mapAtMapId)
             }.disposed(by: self.disposeBag)
     }
     
@@ -48,7 +48,7 @@ final class DefaultRecordMainViewUseCase: RecordMainViewUseCase {
                     .map { $0.filter { user.records.contains($0.id) } }
                     .subscribe(onSuccess: { [weak self] userRecords in
                         guard let self,
-                              let mapNameAtMapId = try? self.mapNameAtMapId.value() else { return }
+                              let mapAtMapId = try? self.mapAtMapId.value() else { return }
                         var totalDataAtDate = [String: DayTotalRecord]()
                         var allDates = [String]()
                         var recordsAtDate = [String: [Record]]()
@@ -90,7 +90,7 @@ final class DefaultRecordMainViewUseCase: RecordMainViewUseCase {
                         self.recordSectionDatas.onNext((allDates: allDates,
                                                         totalRecordAtDate: totalDataAtDate,
                                                         recordsAtDate: recordsAtDate,
-                                                        mapNameAtMapId: mapNameAtMapId))
+                                                        mapAtMapId: mapAtMapId))
                     }).disposed(by: self.disposeBag)
             }).disposed(by: disposeBag)
     }

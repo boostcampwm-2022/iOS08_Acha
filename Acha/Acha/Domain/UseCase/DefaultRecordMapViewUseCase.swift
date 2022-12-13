@@ -27,7 +27,7 @@ final class DefaultRecordMapViewUseCase: RecordMapViewUseCase {
     func loadMapData() {
         mapRepository.fetchAllMaps()
             .asObservable()
-            .subscribe { maps in
+            .subscribe(onNext: { maps in
                 var mapDataAtCategory = [String: [Map]]()
                 var mapDataAtMapName = [String: Map]()
                 maps.forEach {
@@ -36,7 +36,7 @@ final class DefaultRecordMapViewUseCase: RecordMapViewUseCase {
                 }
                 self.mapDataAtMapName.onNext(mapDataAtMapName)
                 self.mapDataAtCategory.onNext(mapDataAtCategory)
-            }.disposed(by: self.disposeBag)
+            }).disposed(by: self.disposeBag)
     }
     
     func loadRecordData() -> Observable<[Record]> {
