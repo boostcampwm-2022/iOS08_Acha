@@ -61,8 +61,11 @@ final class MyPageViewModel: BaseViewModel {
         
         input.editMyInfoTapped
             .subscribe(onNext: { [weak self] in
-                guard let self else { return }
-                self.coordinator?.showMyInfoEditViewController()
+                guard let self,
+                      let user = self.useCase.userInfo,
+                      let ownedBadges = try? self.useCase.ownedBadges.value() else { return }
+                self.coordinator?.showMyInfoEditViewController(user: user,
+                                                               ownedBadges: ownedBadges)
             }).disposed(by: disposeBag)
         
         input.logoutTapped

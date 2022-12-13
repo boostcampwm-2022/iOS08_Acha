@@ -49,9 +49,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         guard let roomID = UserDefaults.standard.value(forKey: "roomID") as? String else {return}
         UserDefaults.standard.removeObject(forKey: "roomID")
+        print(roomID)
         let service = DefaultRealtimeDatabaseNetworkService()
         service.terminate(type: .room(id: roomID))
-        sleep(6)
+        sleep(5)
     }
 }
 

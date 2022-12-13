@@ -42,9 +42,9 @@ enum FBRealTimeDBType: ProvidableType {
     
     var type: Encodable.Type {
         switch self {
-        case .user(_, _):
+        case .user:
             return UserDTO.self
-        case .room(_, _):
+        case .room:
             return RoomDTO.self
         default:
             return RoomDTO.self
@@ -53,23 +53,23 @@ enum FBRealTimeDBType: ProvidableType {
     
     var httpHeader: [String: String]? {
         switch self {
-        case .room(_), .user(_), .newRoom(_):
+        case .room, .user, .newRoom:
             return ["Content-Type": "application/json"]
         }
     }
     
     var httpMethod: String {
         switch self {
-        case .room(_), .user(_):
+        case .room, .user:
             return "GET"
-        case .newRoom(_):
+        case .newRoom:
             return "POST"
         }
     }
     
     var httpBody: Data? {
         switch self {
-        case .room(_), .user(_):
+        case .room, .user:
             return nil
         case .newRoom(id: _, data: let data):
             return data.toJSON

@@ -88,15 +88,12 @@ final class MultiGameViewModel: BaseViewModel {
             .subscribe { [weak self] _ in
                 guard let self = self else {return}
                 self.useCase.getLocation()
-                    .skip(1)
                     .first()
                     .subscribe(onSuccess: { position in
                         guard let position = position else {return}
                         self.firstLocation.onNext(position)
                     })
                     .disposed(by: self.disposeBag)
-                
-                self.useCase.initVisitedLocation()
                 
                 self.useCase.getLocation()
                     .subscribe { location in
@@ -116,7 +113,6 @@ final class MultiGameViewModel: BaseViewModel {
                 
                 self.useCase.gameOver(roomID: self.roomId)
                     .subscribe { over in
-                        print(over)
                         if over {
                             self.gameOver.onNext(())
                             self.gameOverAction(time: 60)
@@ -146,6 +142,8 @@ final class MultiGameViewModel: BaseViewModel {
                         }
                     }
                     .disposed(by: self.timerBag)
+                
+                self.useCase.initVisitedLocation()
                     
             }
             .disposed(by: disposeBag)

@@ -33,6 +33,7 @@ class SingleGameViewController: MapBaseViewController, DistanceAndTimeBarLine {
         $0.layer.cornerRadius = 10
     }
     private lazy var gameOverView = GameOverView()
+    private lazy var gameOverBadgeView = BadgeCell()
     // MARK: - Properties
     private let viewModel: SingleGameViewModel!
     
@@ -209,8 +210,9 @@ extension SingleGameViewController {
         
         output.gameOverInformation
             .subscribe(on: MainScheduler.instance)
-            .subscribe(onNext: { [weak self] (record, mapName) in
+            .subscribe(onNext: { [weak self] (record, mapName, newBadge) in
                 guard let self else { return }
+                self.gameOverButton.isHidden = true
                 self.view.addSubview(self.gameOverView)
                 self.gameOverView.bind(mapName: mapName,
                                   time: "\(record.time)초",
@@ -220,6 +222,16 @@ extension SingleGameViewController {
                     $0.center.equalToSuperview()
                     $0.leading.trailing.equalTo(self.view.safeAreaLayoutGuide).inset(44)
                     $0.height.equalTo(400)
+                }
+                if let newBadge {
+                    self.view.addSubview(self.gameOverBadgeView)
+                    self.gameOverBadgeView.snp.makeConstraints {
+                        $0.centerX.equalToSuperview()
+                        $0.top.equalToSuperview().offset(100)
+                        $0.height.equalTo(120)
+                        $0.width.equalTo(100)
+                    }
+                    self.gameOverBadgeView.bind(badge: newBadge)
                 }
             }).disposed(by: disposeBag)
         bindButtons()
@@ -274,14 +286,5 @@ extension SingleGameViewController {
         }
         
         return renderer
-    }
-    
-    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        if annotation.isEqual(mapView.userLocation) {
-            let penguinView = MKAnnotationView(annotation: annotation, reuseIdentifier: "userLocation")
-            penguinView.image = .penguinImage
-            return penguinView
-        }
-        return nil
     }
 }

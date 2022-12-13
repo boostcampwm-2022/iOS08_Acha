@@ -55,4 +55,9 @@ final class BadgeCell: UICollectionViewCell {
         badgeImage.image = UIImage(data: badge.image)
         badgeLabel.text = badge.name
     }
+    
+    func bind(pinCharacter: PinCharacter) {
+        badgeImage.image = pinCharacter.image
+        badgeLabel.text = pinCharacter.name
+    }
 }

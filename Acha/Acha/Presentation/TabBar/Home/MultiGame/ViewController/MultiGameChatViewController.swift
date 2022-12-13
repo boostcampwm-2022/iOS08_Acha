@@ -67,7 +67,7 @@ final class MultiGameChatViewController: UIViewController {
             .disposed(by: disposeBag)
         
         outputs.chatDelievered
-            .delay(.milliseconds(300))
+            .delay(.milliseconds(280))
             .drive(onNext: { [weak self] _ in
                 self?.commentView.commentTextView.text = ""
             })

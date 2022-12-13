@@ -11,9 +11,14 @@ import SnapKit
 import RxSwift
 import RxRelay
 
-final class CommunityMainViewController: UIViewController {
+final class CommunityMainViewController: UIViewController, UICollectionViewDelegate {
     enum Section {
         case community
+    }
+    
+    enum Item: Hashable {
+        case community(Post)
+        case indicator
     }
     
     // MARK: - UI properties
@@ -28,13 +33,14 @@ final class CommunityMainViewController: UIViewController {
     }
     
     // MARK: - Properties
-    typealias DataSource = UICollectionViewDiffableDataSource<Section, Post>
+    typealias DataSource = UICollectionViewDiffableDataSource<Section, Item>
     private var dataSource: DataSource!
     private let viewModel: CommunityMainViewModel!
     private let disposeBag = DisposeBag()
     
     private var cellTapEvent = PublishRelay<Int>()
     private var rightButtonTapEvent = PublishRelay<Void>()
+    private var cellReloadEvent = PublishRelay<Int>()
     
     // MARK: - Lifecycles
     init(viewModel: CommunityMainViewModel) {
@@ -52,6 +58,11 @@ final class CommunityMainViewController: UIViewController {
         bind()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        deleteSnapshot()
+    }
+    
     // MARK: - Helpers
     private func bind() {
         collectionView.rx.itemSelected
@@ -66,7 +77,8 @@ final class CommunityMainViewController: UIViewController {
                 .map({ _ in })
                 .asObservable(),
             cellTapEvent: self.cellTapEvent.asObservable(),
-            rightButtonTapEvent: self.rightButtonTapEvent.asObservable()
+            rightButtonTapEvent: self.rightButtonTapEvent.asObservable(),
+            cellReloadEvent: self.cellReloadEvent.asObservable()
         )
         
         let output = viewModel.transform(input: input)
@@ -75,6 +87,14 @@ final class CommunityMainViewController: UIViewController {
             .subscribe(onNext: { [weak self] posts in
                 guard let self else { return }
                 self.updateSnapshot(posts: posts)
+            })
+            .disposed(by: disposeBag)
+        
+        output.reloadEvent
+            .subscribe(onNext: { [weak self] in
+                guard let self else { return }
+                self.reloadSnapshot()
+                self.collectionView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
             })
             .disposed(by: disposeBag)
     }
@@ -94,7 +114,10 @@ final class CommunityMainViewController: UIViewController {
         collectionView.contentInsetAdjustmentBehavior = .never
         collectionView.register(CommunityMainCell.self,
                                 forCellWithReuseIdentifier: CommunityMainCell.identifier)
+        collectionView.register(CommunityIndicatorCell.self,
+                                forCellWithReuseIdentifier: CommunityIndicatorCell.identifier)
         collectionView.backgroundColor = .white
+        collectionView.delegate = self
         
         view.addSubview(collectionView)
         
@@ -108,28 +131,43 @@ final class CommunityMainViewController: UIViewController {
     
     private func configureDataSource() {
         dataSource = DataSource(collectionView: collectionView,
-                                cellProvider: { collectionView, indexPath, itemIdentifier in
-            guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: CommunityMainCell.identifier,
-                for: indexPath) as? CommunityMainCell else {
-                return UICollectionViewCell()
+                                cellProvider: { [weak self] collectionView, indexPath, itemIdentifier in
+            guard let self else { return UICollectionViewCell() }
+            switch itemIdentifier {
+            case .community(let post):
+                guard let cell = collectionView.dequeueReusableCell(
+                    withReuseIdentifier: CommunityMainCell.identifier,
+                    for: indexPath) as? CommunityMainCell else {
+                    return UICollectionViewCell()
+                }
+                cell.bind(post: post)
+                cell.textViewTapEvent?.subscribe(onNext: { postID in
+                    self.cellTapEvent.accept(postID)
+                }).disposed(by: self.disposeBag)
+                return cell
+            case .indicator:
+                guard let cell = collectionView.dequeueReusableCell(
+                    withReuseIdentifier: CommunityIndicatorCell.identifier,
+                    for: indexPath) as? CommunityIndicatorCell else {
+                    return UICollectionViewCell()
+                }
+                
+                cell.indicatorView.startAnimating()
+                return cell
             }
-            cell.bind(post: itemIdentifier)
-            
-            return cell
         })
     }
     
     private func collectionViewLayout() -> UICollectionViewCompositionalLayout {
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1),
-            heightDimension: .estimated(130)
+            heightDimension: .estimated(100)
         )
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
         let groupSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1),
-            heightDimension: .estimated(130)
+            heightDimension: .estimated(100)
         )
         let group = NSCollectionLayoutGroup.vertical(
             layoutSize: groupSize,
@@ -145,20 +183,48 @@ final class CommunityMainViewController: UIViewController {
     
     private func updateSnapshot(posts: [Post]) {
         var snapshot = dataSource.snapshot()
-        snapshot.deleteSections([.community])
+//        snapshot.deleteSections([.community])
 
-        snapshot.appendSections([.community])
-        snapshot.appendItems(posts, toSection: .community)
+        if snapshot.sectionIdentifiers.isEmpty {
+            snapshot.appendSections([.community])
+            snapshot.appendItems([.indicator], toSection: .community)
+        }
+        
+        posts.forEach {
+            snapshot.insertItems([.community($0)], beforeItem: .indicator)
+        }
+        dataSource.apply(snapshot)
+    }
+    
+    private func reloadSnapshot() {
+        var snapshot = dataSource.snapshot()
+        snapshot.reloadSections([.community])
         dataSource.apply(snapshot)
     }
     
     private func deleteSnapshot() {
         var snapshot = dataSource.snapshot()
         snapshot.deleteSections([.community])
-        dataSource.apply(snapshot)
+        dataSource.apply(snapshot, animatingDifferences: true)
     }
     
     @objc private func rightButtonTapped() {
         self.rightButtonTapEvent.accept(())
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        willDisplay cell: UICollectionViewCell,
+                        forItemAt indexPath: IndexPath) {
+        if indexPath.row == collectionView.numberOfItems(inSection: indexPath.section)-1 {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                let itemCount = self.dataSource.snapshot().numberOfItems
+                if itemCount > 1 {
+                    let lastCellIndexPath = IndexPath(row: indexPath.row - 1, section: indexPath.section)
+                    guard let cell = self.collectionView.cellForItem(at: lastCellIndexPath)
+                            as? CommunityMainCell else { return }
+                    self.cellReloadEvent.accept(cell.id)
+                }
+            }
+        }
     }
 }

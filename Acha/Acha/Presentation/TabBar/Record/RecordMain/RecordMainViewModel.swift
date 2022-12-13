@@ -23,10 +23,10 @@ class RecordMainViewModel: BaseViewModel {
                                                mapNameAtMapId: [Int: String])>()
     }
     
-    var useCase: RecordMainViewUseCase!
+    var useCase: RecordMainViewUseCase
     var disposeBag = DisposeBag()
     
-    init(useCase: DefaultRecordMainViewUseCase) {
+    init(useCase: RecordMainViewUseCase) {
         self.useCase = useCase
     }
     
