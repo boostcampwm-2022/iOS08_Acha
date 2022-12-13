@@ -175,7 +175,7 @@ final class DefaultSingleGameUseCase: DefaultMapBaseUseCase, SingleGameUseCase {
         return record
     }
     
-    private func updateUser(newRecord: Int, newBadge: Int?) {
+    private func updateUser(newRecord: Int, newBadge: Int? = nil) {
         guard let user = try? self.user.value() else { return }
         let newBadges = newBadge == nil ? user.badges : (user.badges + [newBadge ?? 123123])
         let updatedUser = User(id: user.id,
