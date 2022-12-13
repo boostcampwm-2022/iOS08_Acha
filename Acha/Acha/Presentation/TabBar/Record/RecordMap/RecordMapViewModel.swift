@@ -23,10 +23,10 @@ final class RecordMapViewModel: BaseViewModel {
         var mapNameAndRecordDatas = BehaviorRelay<(mapName: String, recordDatas: [Record])>(value: ("", []))
     }
     
-    private let useCase: RecordMapViewUseCase!
+    private let useCase: RecordMapViewUseCase
     var disposeBag = DisposeBag()
     
-    init(useCase: DefaultRecordMapViewUseCase) {
+    init(useCase: RecordMapViewUseCase) {
         self.useCase = useCase
     }
     

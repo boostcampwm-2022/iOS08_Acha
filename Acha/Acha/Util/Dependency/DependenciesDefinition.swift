@@ -188,14 +188,17 @@ final class DependenciesDefinition {
         dependencies.register(
             RecordMainViewUseCase.self,
             implement: DefaultRecordMainViewUseCase(
-                repository: dependencies.resolve(TempRepository.self)
+                userRepository: dependencies.resolve(UserRepository.self),
+                recordRepository: dependencies.resolve(RecordRepository.self),
+                mapRepository: dependencies.resolve(MapRepository.self)
             )
         )
         
         dependencies.register(
             RecordMapViewUseCase.self,
-            implement: DefaultRecordMainViewUseCase(
-                repository: dependencies.resolve(TempRepository.self)
+            implement: DefaultRecordMapViewUseCase(
+                recordRepository: dependencies.resolve(RecordRepository.self),
+                mapRepository: dependencies.resolve(MapRepository.self)
             )
         )
         
