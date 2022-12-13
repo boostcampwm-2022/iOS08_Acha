@@ -65,7 +65,7 @@ final class CommunityMainCell: UICollectionViewCell {
     
     private lazy var postImageView: UIImageView = UIImageView().then {
         $0.backgroundColor = .white
-        $0.contentMode = .scaleAspectFit
+        $0.contentMode = .scaleAspectFill
         $0.image = nil
         $0.isHidden = true
         $0.clipsToBounds = true
@@ -144,9 +144,9 @@ final class CommunityMainCell: UICollectionViewCell {
             $0.height.greaterThanOrEqualTo(30).priority(750)
         }
         
-        postImageView.snp.makeConstraints {
-            $0.height.equalTo(300).priority(1000)
-        }
+//        postImageView.snp.makeConstraints {
+//            $0.height.equalTo
+//        }
 
         commentInfoView.snp.makeConstraints {
             $0.height.equalTo(50).priority(500)
@@ -174,7 +174,8 @@ final class CommunityMainCell: UICollectionViewCell {
         
         if let data = post.image {
             postImageView.isHidden = false
-            postImageView.image = UIImage(data: data)
+            postImageView.image = UIImage(data: data)?.resize(newWidth: contentView.frame.width - 20)
+            
         } else {
             postImageView.isHidden = true
         }

@@ -51,6 +51,7 @@ final class CommunityCoordinator: CommunityCoordinatorProtocol {
     
     func showCommunityDetailViewController(postID: Int) {
         let repository = DefaultCommunityRepository(realtimeService: DefaultRealtimeDatabaseNetworkService(),
+                                                    storageService: DefaultFirebaseStorageNetworkService(),
                                                     imageCacheService: DefaultImageCacheService())
         let useCase = DefaultCommunityDetailUseCase(postID: postID, repository: repository)
         let viewModel = CommunityDetailViewModel(useCase: useCase,

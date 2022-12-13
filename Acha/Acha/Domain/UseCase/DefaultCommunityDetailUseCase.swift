@@ -28,12 +28,18 @@ final class DefaultCommunityDetailUseCase: CommunityDetailUseCase {
     }
     
     func fetchPost() {
-        repository.getAllPost()
-            .subscribe(onSuccess: { posts in
-                guard let post = posts.first(where: { $0.id == self.postID }) else { return }
+        repository.fetchPost(postID: postID)
+            .subscribe(onNext: { [weak self] post in
+                guard let self else { return }
                 self.post.onNext(post)
             })
             .disposed(by: disposeBag)
+//        repository.getAllPost()
+//            .subscribe(onSuccess: { posts in
+//                guard let post = posts.first(where: { $0.id == self.postID }) else { return }
+//                self.post.onNext(post)
+//            })
+//            .disposed(by: disposeBag)
     }
     
     func uploadComment(comment: Comment) -> Single<Void> {

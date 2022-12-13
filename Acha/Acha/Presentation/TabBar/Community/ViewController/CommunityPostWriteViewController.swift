@@ -116,7 +116,8 @@ final class CommunityPostWriteViewController: UIViewController {
                 self.textView.text = post.text
                 self.textView.textColor = .black
                 if let data = post.image {
-                    self.imageAddButton.imageView?.image = UIImage(data: data)
+                    self.imageAddButton.setImage(UIImage(data: data)?.resize(newWidth: self.view.frame.width - 30),
+                                                 for: .normal)
                 }
                 
             }).disposed(by: disposeBag)

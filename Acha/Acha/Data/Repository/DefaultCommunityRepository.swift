@@ -10,7 +10,7 @@ import RxSwift
 
 struct DefaultCommunityRepository: CommunityRepository {
     private let realtimeService: RealtimeDatabaseNetworkService
-    private let storageService: FirebaseStorageNetworkService?
+    private let storageService: FirebaseStorageNetworkService
     private let imageCacheService: ImageCacheService
     private let disposeBag = DisposeBag()
     
@@ -18,16 +18,11 @@ struct DefaultCommunityRepository: CommunityRepository {
     
     init(
         realtimeService: RealtimeDatabaseNetworkService,
-        storageService: FirebaseStorageNetworkService? = nil,
+        storageService: FirebaseStorageNetworkService,
         imageCacheService: ImageCacheService
     ) {
         self.realtimeService = realtimeService
-        
-        if let storageService {
-            self.storageService = storageService
-        } else {
-            self.storageService = nil
-        }
+        self.storageService = storageService
         self.imageCacheService = imageCacheService
     }
     
@@ -40,8 +35,7 @@ struct DefaultCommunityRepository: CommunityRepository {
         .flatMap { (postDTOs: [PostDTO?]) in
             let postDTOs = postDTOs.compactMap { $0 }.sorted(by: { return $0.id < $1.id })
             return Observable.zip(postDTOs.map { postDTO in
-                guard let imageURL = postDTO.image,
-                      let storageService else {
+                guard let imageURL = postDTO.image else {
                     return Observable.of(postDTO.toDomain())
                 }
                 if self.imageCacheService.isExist(imageURL: imageURL) {
@@ -62,6 +56,36 @@ struct DefaultCommunityRepository: CommunityRepository {
                         return post
                     }
             })
+        }
+    }
+    
+    func fetchPost(postID: Int) -> Observable<Post> {
+        realtimeService.fetchAtKeyValue(type: .postList,
+                                        value: postID,
+                                        key: "id")
+        .asObservable()
+        .flatMap { (postDTOs: [PostDTO?]) in
+            let postDTO = postDTOs.compactMap { $0 }[0]
+            guard let imageURL = postDTO.image else {
+                return Observable.of(postDTO.toDomain())
+            }
+            if self.imageCacheService.isExist(imageURL: imageURL) {
+                return self.imageCacheService.load(imageURL: imageURL)
+                    .asObservable()
+                    .map { data in
+                        var post = postDTO.toDomain()
+                        post.image = data
+                        return post
+                    }
+            }
+            
+            return storageService.download(urlString: imageURL)
+                .map { data -> Post in
+                    self.imageCacheService.write(imageURL: imageURL, image: data)
+                    var post = postDTO.toDomain()
+                    post.image = data
+                    return post
+                }
         }
     }
     
@@ -93,7 +117,7 @@ struct DefaultCommunityRepository: CommunityRepository {
             }
             .subscribe(onSuccess: { posts in
                 if let image {
-                    storageService?.upload(type: .category(image.name),
+                    storageService.upload(type: .category(image.name),
                                            data: image.data,
                                            completion: { url in
                         guard let url else { return }
@@ -135,7 +159,7 @@ struct DefaultCommunityRepository: CommunityRepository {
     func updatePost(post: Post, image: Image?) -> Single<Void> {
         Single.create { single in
             if let image {
-                storageService?.upload(type: .category(image.name),
+                storageService.upload(type: .category(image.name),
                                        data: image.data,
                                        completion: { url in
                     guard let url else { return }

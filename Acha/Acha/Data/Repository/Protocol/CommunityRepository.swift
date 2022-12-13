@@ -12,6 +12,7 @@ protocol CommunityRepository {
     var uploadCommentSuccess: PublishSubject<Bool> { get set }
     
     func loadPost(count: Int) -> Observable<[Post]>
+    func fetchPost(postID: Int) -> Observable<Post>
     func getAllPost() -> Single<[Post]>
     func uploadPost(post: Post, image: Image?) -> Single<Void>
     func updatePost(post: Post, image: Image?) -> Single<Void> 
