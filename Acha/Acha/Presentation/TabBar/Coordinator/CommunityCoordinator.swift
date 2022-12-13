@@ -28,10 +28,10 @@ final class CommunityCoordinator: CommunityCoordinatorProtocol {
     }
     
     func showCommunityMainViewController() {
-        let repository = DefaultCommunityRepository(realtimeService: DefaultRealtimeDatabaseNetworkService(),
+        let communityRepository = DefaultCommunityRepository(realtimeService: DefaultRealtimeDatabaseNetworkService(),
                                                     storageService: DefaultFirebaseStorageNetworkService(),
                                                     imageCacheService: DefaultImageCacheService())
-        let useCase = DefaultCommunityMainUseCase(repository: repository)
+        let useCase = DefaultCommunityMainUseCase(communityRepository: communityRepository)
         let viewModel = CommunityMainViewModel(useCase: useCase,
                                                coordinator: self)
         let viewController = CommunityMainViewController(viewModel: viewModel)
@@ -44,7 +44,8 @@ final class CommunityCoordinator: CommunityCoordinatorProtocol {
                                                    keychainService: DefaultKeychainService(),
                                                    authService: DefaultAuthService())
         let communityRepository = DefaultCommunityRepository(realtimeService: realTimeNetworkService,
-                                                    storageService: DefaultFirebaseStorageNetworkService())
+                                                             storageService: DefaultFirebaseStorageNetworkService(),
+                                                             imageCacheService: DefaultImageCacheService())
         let useCase = DefaultCommunityPostWriteUseCase(post: post,
                                                        communityRepository: communityRepository,
                                                        userRepository: userRepository)
@@ -59,7 +60,10 @@ final class CommunityCoordinator: CommunityCoordinatorProtocol {
         let userRepository = DefaultUserRepository(realtimeDataBaseService: realTimeNetworkService,
                                                    keychainService: DefaultKeychainService(),
                                                    authService: DefaultAuthService())
-        let communityRepository = DefaultCommunityRepository(realtimeService: realTimeNetworkService)
+        let communityRepository = DefaultCommunityRepository(realtimeService: realTimeNetworkService,
+                                                             storageService: DefaultFirebaseStorageNetworkService(),
+                                                             imageCacheService: DefaultImageCacheService())
+        
         let useCase = DefaultCommunityDetailUseCase(postID: postID,
                                                     communityRepository: communityRepository,
                                                     userRepository: userRepository)

@@ -14,7 +14,8 @@ final class DefaultCommunityDetailUseCase: CommunityDetailUseCase {
     private let userRepository: UserRepository
     private let postID: Int
     private let disposeBag = DisposeBag()
-    var post = PublishSubject<Post>()
+    var post = PublishSubject<(post: Post, isMine: Bool)>()
+    var user = BehaviorSubject<User?>(value: nil)
     
     init(postID: Int,
          communityRepository: CommunityRepository,
@@ -30,39 +31,46 @@ final class DefaultCommunityDetailUseCase: CommunityDetailUseCase {
                 self.fetchPost()
             })
             .disposed(by: disposeBag)
+        
+        userRepository.fetchUserData()
+            .asObservable()
+            .bind(to: user)
+            .disposed(by: disposeBag)
     }
     
     func fetchPost() {
-        repository.fetchPost(postID: postID)
+//        let postObservable = communityRepository.fetchPost(postID: postID)
+//        let userObservable = user.asObservable()
+//
+//        Observable.combineLatest(postObservable, userObservable)
+//            .map { (post: $0, isMine: ($0.userId == ($1?.id ?? "-1"))) }
+//            .debug()
+//            .bind(to: post)
+//            .disposed(by: disposeBag)
+        
+        communityRepository.fetchPost(postID: postID)
             .subscribe(onNext: { [weak self] post in
-                guard let self else { return }
-                self.post.onNext(post)
+                guard let self,
+                      let user = try? self.user.value() else { return }
+                
+                self.post.onNext((post: post, isMine: post.userId == user.id))
             })
             .disposed(by: disposeBag)
-//        repository.getAllPost()
-//            .subscribe(onSuccess: { posts in
-//                guard let post = posts.first(where: { $0.id == self.postID }) else { return }
-//                self.post.onNext(post)
-//            })
-//            .disposed(by: disposeBag)
     }
     
     func uploadComment(comment: Comment) -> Single<Void> {
         Single.create { [weak self] single in
-            guard let self else { return Disposables.create()}
-            
-            self.userRepository.fetchUserData()
-                .subscribe(onSuccess: { user in
-                    var comment = comment
-                    comment.postId = self.postID
-                    comment.nickName = user.nickName
-                    comment.userId = user.id
-                    self.communityRepository.uploadComment(comment: comment)
-                        .subscribe(onSuccess: {
-                            single(.success(()))
-                        })
-                        .disposed(by: self.disposeBag)
-                }).disposed(by: self.disposeBag)
+            guard let self,
+                  let user = try? self.user.value() else { return Disposables.create() }
+            var comment = comment
+            comment.postId = self.postID
+            comment.nickName = user.nickName
+            comment.userId = user.id
+            self.communityRepository.uploadComment(comment: comment)
+                .subscribe(onSuccess: {
+                    single(.success(()))
+                })
+                .disposed(by: self.disposeBag)
             return Disposables.create()
         }
     }

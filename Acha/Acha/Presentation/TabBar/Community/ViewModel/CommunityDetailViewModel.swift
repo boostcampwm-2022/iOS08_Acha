@@ -18,7 +18,8 @@ final class CommunityDetailViewModel: BaseViewModel {
     }
     
     struct Output {
-        var post = PublishRelay<Post>()
+        var post = PublishRelay<(post: Post, isMine: Bool)>()
+        var user = PublishRelay<User>()
         var commentWriteSuccess = PublishRelay<Void>()
     }
     
@@ -42,6 +43,10 @@ final class CommunityDetailViewModel: BaseViewModel {
             .subscribe(onNext: { [weak self] _ in
                 guard let self else { return }
                 self.useCase.fetchPost()
+                self.useCase.user
+                    .compactMap { $0 }
+                    .bind(to: output.user)
+                    .disposed(by: self.disposeBag)
             }).disposed(by: disposeBag)
         
         input.commentRegisterButtonTapEvent

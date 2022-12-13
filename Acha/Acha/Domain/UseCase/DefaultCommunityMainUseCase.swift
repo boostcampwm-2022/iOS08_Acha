@@ -10,17 +10,17 @@ import RxSwift
 import RxRelay
 
 final class DefaultCommunityMainUseCase: CommunityMainUseCase {
-    private let repository: DefaultCommunityRepository
+    private let communityRepository: DefaultCommunityRepository
     private let disposeBag = DisposeBag()
     
     var posts = PublishSubject<[Post]>()
     
-    init(repository: DefaultCommunityRepository) {
-        self.repository = repository
+    init(communityRepository: DefaultCommunityRepository) {
+        self.communityRepository = communityRepository
     }
     
     func loadPostData(count: Int) {
-        repository.loadPost(count: count)
+        communityRepository.loadPost(count: count)
             .subscribe(onNext: { [weak self] posts in
                 guard let self else { return }
                 self.posts.onNext(posts)

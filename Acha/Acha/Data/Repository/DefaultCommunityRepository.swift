@@ -211,12 +211,11 @@ struct DefaultCommunityRepository: CommunityRepository {
                 realtimeService.uploadComment(data: CommentDTO(data: comment))
                     .subscribe(onSuccess: {
                         single(.success(()))
+                        uploadCommentSuccess.onNext(true)
                     }, onFailure: { error in
                         single(.failure(error))
                     })
                     .disposed(by: disposeBag)
-                
-                uploadCommentSuccess.onNext(true)
             })
             .disposed(by: disposeBag)
             

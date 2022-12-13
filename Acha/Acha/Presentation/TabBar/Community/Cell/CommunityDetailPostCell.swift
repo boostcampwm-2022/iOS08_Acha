@@ -150,7 +150,8 @@ final class CommunityDetailPostCell: UICollectionViewCell {
         ellipsisButton.showsMenuAsPrimaryAction = true
     }
     
-    func bind(post: Post) {
+    func bind(post: Post, isMine: Bool) {
+        ellipsisButton.isHidden = !isMine
         modifyButtonTapEvent = PublishRelay<Post>()
         deleteButtonTapEvent = PublishRelay<Void>()
         
