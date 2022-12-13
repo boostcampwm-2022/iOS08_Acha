@@ -105,6 +105,24 @@ struct DefaultUserRepository: UserRepository {
             }
     }
     
+    func updateUserData(user: User) {
+        guard let uuid = getUUID() else { return }
+        getUserDataFromRealTimeDataBaseService(uuid: uuid)
+            .subscribe(onSuccess: { userDTO in
+                let updatedUserDTO = UserDTO(id: userDTO.id,
+                                             password: userDTO.password,
+                                             nickname: user.nickName,
+                                             badges: user.badges,
+                                             records: user.records,
+                                             pinCharacter: userDTO.pinCharacter,
+                                             friends: user.friends)
+                
+                realtimeDataBaseService
+                    .upload(type: .user(id: updatedUserDTO.id), data: updatedUserDTO)
+            })
+            .disposed(by: disposeBag)
+    }
+    
     private func uploadUserData(data: UserDTO) {
         realtimeDataBaseService.upload(type: .user(id: data.id), data: data)
     }

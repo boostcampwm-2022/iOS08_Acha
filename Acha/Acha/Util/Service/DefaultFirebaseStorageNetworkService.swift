@@ -16,6 +16,7 @@ final class DefaultFirebaseStorageNetworkService: FirebaseStorageNetworkService 
         case dataError
         case decodeError
         case encodeError
+        case urlError
     }
     
     func upload(type: FirebaseStorageType, data: Data) -> Single<URL> {
@@ -53,7 +54,7 @@ final class DefaultFirebaseStorageNetworkService: FirebaseStorageNetworkService 
     
     func download(urlString: String, completion: @escaping (Data?) -> Void) {
         guard let url = URL(string: urlString) else { return }
-    
+        
         URLSession.shared.dataTask(with: url) { (data, response, _) in
             guard let data = data,
                   let response = response as? HTTPURLResponse,
@@ -64,5 +65,26 @@ final class DefaultFirebaseStorageNetworkService: FirebaseStorageNetworkService 
             
             completion(data)
         }.resume()
+    }
+    
+    private var disposeBag = DisposeBag()
+    func download(urlString: String) -> Observable<Data> {
+        return Observable<Data>.create { [weak self] observer in
+            guard let self,
+                  let url = URL(string: urlString) else {
+                observer.onError(FirebaseStorageError.urlError)
+                return Disposables.create()
+            }
+            
+            URLSession.shared.rx.data(request: URLRequest(url: url))
+                .subscribe(onNext: { data in
+                    observer.onNext(data)
+                }, onError: { error in
+                    observer.onError(error)
+                })
+                .disposed(by: self.disposeBag)
+
+            return Disposables.create()
+        }
     }
 }

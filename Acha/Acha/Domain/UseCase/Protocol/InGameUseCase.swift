@@ -9,6 +9,8 @@ import Foundation
 import RxSwift
 
 protocol InGameUseCase {
-    func fetchRecord() -> Single<[InGameRecord]>
+    var inGameRecord: PublishSubject<[InGameRecord]> { get set }
+    
+    func fetchRecord()
     func fetchRanking() -> Single<[InGameRanking]>
 }
