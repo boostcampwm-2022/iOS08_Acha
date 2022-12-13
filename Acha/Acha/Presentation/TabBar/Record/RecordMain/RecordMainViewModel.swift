@@ -20,7 +20,7 @@ class RecordMainViewModel: BaseViewModel {
         var recordSectionDatas = PublishRelay<(allDates: [String],
                                                totalRecordAtDate: [String: DayTotalRecord],
                                                recordsAtDate: [String: [Record]],
-                                               mapNameAtMapId: [Int: String])>()
+                                               mapAtMapId: [Int: Map])>()
     }
     
     var useCase: RecordMainViewUseCase
