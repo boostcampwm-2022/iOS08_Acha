@@ -688,15 +688,13 @@
 				F156F11D292365840053E807 /* CALayer+.swift */,
 				76A2E1A22923D94C001E887A /* CLLocationCoordinate2D+.swift */,
 				F1B0D8A9292CCA0F00EBDD02 /* Encodable+.swift */,
-
 				F1CC5152294069C200B9008D /* MKCircle+.swift */,
+
 
 				F1D85A4F29427B00005822B0 /* UIApplication+Rx.swift */,
 
-
 				474952F72941E8D600098E7C /* Reactive */,
 				766978BE294087B7002128C7 /* UIImageView+.swift */,
-
 			);
 			path = Extension;
 			sourceTree = "<group>";
