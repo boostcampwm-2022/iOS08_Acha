@@ -29,7 +29,7 @@ final class RecordMainViewController: UIViewController, UICollectionViewDelegate
 
     enum RecordMainViewItems: Hashable {
         case chart([RecordViewChartData])
-        case myRecord(Record, String)
+        case myRecord(Record, Map)
     }
     
     // MARK: - UI properties
@@ -78,12 +78,12 @@ final class RecordMainViewController: UIViewController, UICollectionViewDelegate
             .drive (onNext: { [weak self] (allDates,
                                            totalDataAtDate,
                                            recordsAtData,
-                                           mapNameAtMapId) in
+                                           mapAtMapId) in
                 guard let self else { return }
                 self.appendRecordItem(allDates: allDates,
                                       totalDataAtData: totalDataAtDate,
                                       recordsAtData: recordsAtData,
-                                      mapNameAtMapId: mapNameAtMapId)
+                                      mapAtMapId: mapAtMapId)
             }).disposed(by: disposeBag)
     }
     
@@ -139,12 +139,12 @@ final class RecordMainViewController: UIViewController, UICollectionViewDelegate
                 cell.bind(recordViewChartDataArray: recordViewChartDataArray)
                 
                 return cell
-            case .myRecord(let record, let mapName):
+            case .myRecord(let record, let map):
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecordMainCell.identifier,
                                                                     for: indexPath) as? RecordMainCell else {
                     return UICollectionViewCell()
                 }
-                cell.bind(mapName: mapName, record: record)
+                cell.bind(map: map, record: record)
                 
                 return cell
             }
@@ -223,7 +223,7 @@ final class RecordMainViewController: UIViewController, UICollectionViewDelegate
     private func appendRecordItem(allDates: [String],
                                   totalDataAtData: [String: DayTotalRecord],
                                   recordsAtData: [String: [Record]],
-                                  mapNameAtMapId: [Int: String]) {
+                                  mapAtMapId: [Int: Map]) {
         var snapshot = dataSource.snapshot()
         let previousSections = snapshot.sectionIdentifiers.filter { $0 != .chart }
         snapshot.deleteSections(previousSections)
@@ -234,8 +234,8 @@ final class RecordMainViewController: UIViewController, UICollectionViewDelegate
             snapshot.appendSections([.record(headerRecord)])
             
             recordsAtData[date]?.forEach({ record in
-                guard let mapName = mapNameAtMapId[record.mapID] else { return }
-                snapshot.appendItems([.myRecord(record, mapName)])
+                guard let map = mapAtMapId[record.mapID] else { return }
+                snapshot.appendItems([.myRecord(record, map)])
             })
         }
         dataSource.apply(snapshot)

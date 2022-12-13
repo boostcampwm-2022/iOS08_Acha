@@ -163,6 +163,7 @@
 		E505E0DA29446CE7006BF811 /* FirebaseStorageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505E0D929446CE7006BF811 /* FirebaseStorageType.swift */; };
 		E505E0DD29448670006BF811 /* RandomFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505E0DC29448670006BF811 /* RandomFactory.swift */; };
 		E526576A2946E5D200A350CE /* CommunityIndicatorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52657692946E5D200A350CE /* CommunityIndicatorCell.swift */; };
+		E53873D529483DD800FD6356 /* RecordMapImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53873D429483DD800FD6356 /* RecordMapImageCell.swift */; };
 		E5BE8B8F2922172400E9CFE8 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8B8E2922172400E9CFE8 /* AppCoordinator.swift */; };
 		E5BE8B91292218A500E9CFE8 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8B90292218A500E9CFE8 /* Coordinator.swift */; };
 		E5BE8B93292218F100E9CFE8 /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE8B92292218F100E9CFE8 /* AuthCoordinator.swift */; };
@@ -438,6 +439,7 @@
 		E53873D12948285D00FD6356 /* Acha.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = Acha.app; path = "/Users/baenamseog/Desktop/feature/modifyRecord/Acha/build/Debug-iphoneos/Acha.app"; sourceTree = "<absolute>"; };
 		E53873D22948285D00FD6356 /* AchaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = AchaTests.xctest; path = "/Users/baenamseog/Desktop/feature/modifyRecord/Acha/build/Debug-iphoneos/AchaTests.xctest"; sourceTree = "<absolute>"; };
 		E53873D32948285D00FD6356 /* AchaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = AchaUITests.xctest; path = "/Users/baenamseog/Desktop/feature/modifyRecord/Acha/build/Debug-iphoneos/AchaUITests.xctest"; sourceTree = "<absolute>"; };
+		E53873D429483DD800FD6356 /* RecordMapImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordMapImageCell.swift; sourceTree = "<group>"; };
 		E5BE8B8E2922172400E9CFE8 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		E5BE8B90292218A500E9CFE8 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		E5BE8B92292218F100E9CFE8 /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
@@ -698,6 +700,7 @@
 				474E24E1293DC6B800CFAC59 /* RecordMapCategoryCell.swift */,
 				474E24E2293DC6B800CFAC59 /* RecordMapViewController.swift */,
 				474E24E3293DC6B800CFAC59 /* RecordMapRankingCell.swift */,
+				E53873D429483DD800FD6356 /* RecordMapImageCell.swift */,
 			);
 			path = RecordMap;
 			sourceTree = "<group>";
@@ -1745,6 +1748,7 @@
 				F1D85A442941E8EF005822B0 /* Chat.swift in Sources */,
 				F1FCEE1A292B52E4001A55D6 /* ScrollAbleViewController.swift in Sources */,
 				E505E0BC2944694F006BF811 /* DefaultFirebaseStorageNetworkService.swift in Sources */,
+				E53873D529483DD800FD6356 /* RecordMapImageCell.swift in Sources */,
 				F18A7FD1292C5DA50054FADE /* UIImage+.swift in Sources */,
 				E505E0D529446A47006BF811 /* CommunityMainCell.swift in Sources */,
 				E505E0AF294468AD006BF811 /* CommunityMainUseCase.swift in Sources */,

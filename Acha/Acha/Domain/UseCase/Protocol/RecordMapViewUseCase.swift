@@ -12,7 +12,9 @@ protocol RecordMapViewUseCase {
     var dropDownMenus: BehaviorSubject<[Map]> { get set }
     var mapDataAtMapName: BehaviorSubject<[String: Map]> { get set }
     var mapDataAtCategory: BehaviorSubject<[String: [Map]]> { get set }
-    var mapNameAndRecordDatas: BehaviorSubject<(mapName: String, recordDatas: [Record])> { get set }
+    var mapNameAndRecordDatas: PublishSubject<(mapImage: Data?,
+                                               mapName: String,
+                                               recordDatas: [Record])> { get set }
     
     func loadMapData()
     func loadRecordData() -> Observable<[Record]>

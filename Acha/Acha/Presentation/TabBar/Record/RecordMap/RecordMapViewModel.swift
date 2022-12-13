@@ -19,8 +19,8 @@ final class RecordMapViewModel: BaseViewModel {
     }
     
     struct Output {
-        var dropDownMenus = BehaviorRelay<[Map]>(value: [])
-        var mapNameAndRecordDatas = BehaviorRelay<(mapName: String, recordDatas: [Record])>(value: ("", []))
+        var dropDownMenus = PublishRelay<[Map]>()
+        var mapNameAndRecordDatas = PublishRelay<(mapImage: Data?, mapName: String, recordDatas: [Record])>()
     }
     
     private let useCase: RecordMapViewUseCase

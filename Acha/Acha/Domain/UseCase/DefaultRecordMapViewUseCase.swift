@@ -16,8 +16,9 @@ final class DefaultRecordMapViewUseCase: RecordMapViewUseCase {
     var dropDownMenus = BehaviorSubject<[Map]>(value: [])
     var mapDataAtMapName = BehaviorSubject<[String: Map]>(value: [:])
     var mapDataAtCategory = BehaviorSubject<[String: [Map]]>(value: [:])
-    var mapNameAndRecordDatas = BehaviorSubject<(mapName: String,
-                                                 recordDatas: [Record])>(value: (mapName: "", recordDatas: []))
+    var mapNameAndRecordDatas = PublishSubject<(mapImage: Data?,
+                                                mapName: String,
+                                                recordDatas: [Record])>()
     
     init(recordRepository: RecordRepository, mapRepository: MapRepository) {
         self.recordRepository = recordRepository
@@ -26,8 +27,7 @@ final class DefaultRecordMapViewUseCase: RecordMapViewUseCase {
     
     func loadMapData() {
         mapRepository.fetchAllMaps()
-            .asObservable()
-            .subscribe { maps in
+            .subscribe(onNext: { maps in
                 var mapDataAtCategory = [String: [Map]]()
                 var mapDataAtMapName = [String: Map]()
                 maps.forEach {
@@ -36,7 +36,7 @@ final class DefaultRecordMapViewUseCase: RecordMapViewUseCase {
                 }
                 self.mapDataAtMapName.onNext(mapDataAtMapName)
                 self.mapDataAtCategory.onNext(mapDataAtCategory)
-            }.disposed(by: self.disposeBag)
+            }).disposed(by: self.disposeBag)
     }
     
     func loadRecordData() -> Observable<[Record]> {
@@ -55,16 +55,18 @@ final class DefaultRecordMapViewUseCase: RecordMapViewUseCase {
     
     func getMapNameAndRecordsAtLocation(location: String) {
         mapRepository.fetchMapsAtLocation(location: location)
-            .subscribe(onSuccess: { [weak self] maps in
+            .subscribe(onNext: { [weak self] maps in
                 guard let self else { return }
                 if maps.isEmpty {
-                    self.mapNameAndRecordDatas.onNext((mapName: "맵이 없습니다.", recordDatas: []))
+                    self.mapNameAndRecordDatas.onNext((mapImage: nil, mapName: "맵이 없습니다.", recordDatas: []))
                 } else {
                     let map = maps[0]
                     self.recordRepository.fetchRecordDataAtMapID(mapID: map.mapID)
                         .subscribe(onSuccess: { records in
                             let records = records.filter { $0.isCompleted == true }.sorted { $0.time < $1.time }
-                            self.mapNameAndRecordDatas.onNext((mapName: map.name, recordDatas: records))
+                            self.mapNameAndRecordDatas.onNext((mapImage: map.image,
+                                                               mapName: map.name,
+                                                               recordDatas: records))
                         })
                         .disposed(by: self.disposeBag)
                 }
@@ -79,9 +81,13 @@ final class DefaultRecordMapViewUseCase: RecordMapViewUseCase {
                       let mapData = mapDataAtMapName[mapName],
                       let recordDatas = recordDatas.element else { return }
                 
-                let recordDatasAtMapId = recordDatas.filter { $0.mapID == mapData.mapID && $0.isCompleted == true }.sorted { $0.time < $1.time }
+                let recordDatasAtMapId = recordDatas
+                    .filter { $0.mapID == mapData.mapID && $0.isCompleted == true }
+                    .sorted { $0.time < $1.time }
                 
-                self.mapNameAndRecordDatas.onNext((mapName: mapData.name, recordDatas: recordDatasAtMapId))
+                self.mapNameAndRecordDatas.onNext((mapImage: mapData.image,
+                                                   mapName: mapData.name,
+                                                   recordDatas: recordDatasAtMapId))
             }.disposed(by: self.disposeBag)
     }
 }

@@ -8,6 +8,6 @@
 import RxSwift
 
 protocol MapRepository {
-    func fetchAllMaps() -> Single<[Map]>
-    func fetchMapsAtLocation(location: String) -> Single<[Map]>
+    func fetchAllMaps() -> Observable<[Map]>
+    func fetchMapsAtLocation(location: String) -> Observable<[Map]>
 }
