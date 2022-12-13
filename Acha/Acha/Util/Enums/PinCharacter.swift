@@ -14,7 +14,7 @@ enum PinCharacter: String, CaseIterable {
     case fourthAnnotation
     
     var image: UIImage {
-        UIImage(named: self.rawValue) ?? .firstAnnotation
+        (UIImage(named: self.rawValue) ?? .firstAnnotation).imageWith(newSize: CGSize(width: 30, height: 30))
     }
     
     var name: String {
