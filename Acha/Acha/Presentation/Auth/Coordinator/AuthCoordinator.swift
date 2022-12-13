@@ -49,28 +49,24 @@ final class AuthCoordinator: AuthCoordinatorProtocol {
 extension AuthCoordinator: CoordinatorDelegate {
     func didFinished(childCoordinator: Coordinator) {
         removeChildCoordinator(coordinator: childCoordinator)
-        switch childCoordinator {
-        case is LoginCoordinatorProtocol:
-            popSelfFromNavigatonController()
-            delegate?.didFinished(childCoordinator: self)
-        case is SignupCoordinatorProtocol:
-            connectLoginCoordinator()
-        default:
-            break
-        }
+        navigationController.viewControllers = []
+        delegate?.didFinished(childCoordinator: self)
     }
 }
 
 extension AuthCoordinator: LoginCoordinatorDelegate, SginupCoordinatorDelegate {
     func switchToSignup() {
-        popSelfFromNavigatonController()
-        removeAllChildCoordinator()
+        resetViews()
         connectSignupCoordinator()
     }
     
     func switchToLogin() {
-        popSelfFromNavigatonController()
-        removeAllChildCoordinator()
+        resetViews()
         connectLoginCoordinator()
+    }
+    
+    private func resetViews() {
+        navigationController.viewControllers = []
+        removeAllChildCoordinator()
     }
 }

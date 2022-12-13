@@ -20,6 +20,7 @@ struct DefaultAuthService: AuthService {
     }
 
     private let auth = FirebaseAuth.Auth.auth()
+    private let disposeBag = DisposeBag()
 
     public func signUp(data: SignUpData) -> Single<UserDTO> {
         return Single<UserDTO>.create { single in
@@ -33,13 +34,20 @@ struct DefaultAuthService: AuthService {
                 }
                 guard let userId = result?.user.uid else {
                     single(.failure(DefaultAuthError.uidError))
-                    return
+                    return 
                 }
 
                 // 유저 데이터 추가
                 let userDTO = data.toUserDTO(id: userId)
-
-                single(.success(userDTO))
+                
+                // 로그인 
+                logIn(data: LoginData(email: data.email, password: data.password))
+                    .subscribe(onSuccess: { _ in
+                        single(.success(userDTO))
+                    }, onFailure: { error in
+                        single(.failure(error))
+                    })
+                    .disposed(by: disposeBag)
             }
             return Disposables.create()
         }

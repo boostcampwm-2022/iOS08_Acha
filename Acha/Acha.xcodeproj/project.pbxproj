@@ -11,7 +11,6 @@
 		470C704E293B18C000261250 /* BadgeDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470C704B293B18C000261250 /* BadgeDTO.swift */; };
 		470C704F293B18C000261250 /* RecordDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470C704C293B18C000261250 /* RecordDTO.swift */; };
 		470C7053293B191B00261250 /* SelectMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470C7052293B191B00261250 /* SelectMapViewController.swift */; };
-		470C7054293B5C2600261250 /* AuthProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AA56042937AD9700498441 /* AuthProvider.swift */; };
 		470C7055293B5C3E00261250 /* MyPageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AA55A1293775F200498441 /* MyPageHeaderView.swift */; };
 		471039562937B7A700003CB5 /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471039552937B7A700003CB5 /* SettingCell.swift */; };
 		471863BD291E155700A35786 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471863BC291E155700A35786 /* AppDelegate.swift */; };
@@ -121,10 +120,8 @@
 		76AA56002937AD8900498441 /* MultiGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AA55F72937AD8900498441 /* MultiGameViewController.swift */; };
 		76AA56012937AD8900498441 /* MultiGameRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AA55F82937AD8900498441 /* MultiGameRoomViewController.swift */; };
 		76AA56022937AD8900498441 /* DefaultMultiGameRoomUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AA55FA2937AD8900498441 /* DefaultMultiGameRoomUseCase.swift */; };
-		76AA56082937ADBB00498441 /* LogInRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AA56062937ADBA00498441 /* LogInRepository.swift */; };
-		76AA56092937ADBB00498441 /* SignUpRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AA56072937ADBB00498441 /* SignUpRepository.swift */; };
-		76AA560D2937ADD400498441 /* LoginUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AA560A2937ADD400498441 /* LoginUsecase.swift */; };
-		76AA560E2937ADD400498441 /* SignUpUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AA560B2937ADD400498441 /* SignUpUsecase.swift */; };
+		76AA560D2937ADD400498441 /* DefaultLoginUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AA560A2937ADD400498441 /* DefaultLoginUsecase.swift */; };
+		76AA560E2937ADD400498441 /* DefatulSignUpUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AA560B2937ADD400498441 /* DefatulSignUpUsecase.swift */; };
 		76AA560F2937ADD400498441 /* AuthUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AA560C2937ADD400498441 /* AuthUseCaseProtocol.swift */; };
 		76AA56142937AE7E00498441 /* RxSwift+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AA56132937AE7E00498441 /* RxSwift+.swift */; };
 		76AA56162937B1E000498441 /* FBRealTimeDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AA56152937B1E000498441 /* FBRealTimeDB.swift */; };
@@ -255,6 +252,8 @@
 		F1E83D7D293489E1004C7992 /* PostDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E83D7C293489E1004C7992 /* PostDTO.swift */; };
 		F1E83D7F29348A4A004C7992 /* CommentDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E83D7E29348A4A004C7992 /* CommentDTO.swift */; };
 		F1E83D8329348AE0004C7992 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E83D8229348AE0004C7992 /* Post.swift */; };
+		F1EDC77F29470F66002F2E43 /* LoginUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EDC77E29470F66002F2E43 /* LoginUseCase.swift */; };
+		F1EDC78129470F70002F2E43 /* SignUpUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EDC78029470F70002F2E43 /* SignUpUseCase.swift */; };
 		F1FCEE0E292B483E001A55D6 /* UITextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FCEE0D292B483E001A55D6 /* UITextField+.swift */; };
 		F1FCEE11292B4C87001A55D6 /* AuthButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FCEE10292B4C87001A55D6 /* AuthButton.swift */; };
 		F1FCEE14292B4E9A001A55D6 /* AuthTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FCEE13292B4E9A001A55D6 /* AuthTitleView.swift */; };
@@ -406,11 +405,8 @@
 		76AA55F72937AD8900498441 /* MultiGameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiGameViewController.swift; sourceTree = "<group>"; };
 		76AA55F82937AD8900498441 /* MultiGameRoomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiGameRoomViewController.swift; sourceTree = "<group>"; };
 		76AA55FA2937AD8900498441 /* DefaultMultiGameRoomUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultMultiGameRoomUseCase.swift; sourceTree = "<group>"; };
-		76AA56042937AD9700498441 /* AuthProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthProvider.swift; sourceTree = "<group>"; };
-		76AA56062937ADBA00498441 /* LogInRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogInRepository.swift; sourceTree = "<group>"; };
-		76AA56072937ADBB00498441 /* SignUpRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpRepository.swift; sourceTree = "<group>"; };
-		76AA560A2937ADD400498441 /* LoginUsecase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginUsecase.swift; sourceTree = "<group>"; };
-		76AA560B2937ADD400498441 /* SignUpUsecase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpUsecase.swift; sourceTree = "<group>"; };
+		76AA560A2937ADD400498441 /* DefaultLoginUsecase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultLoginUsecase.swift; sourceTree = "<group>"; };
+		76AA560B2937ADD400498441 /* DefatulSignUpUsecase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefatulSignUpUsecase.swift; sourceTree = "<group>"; };
 		76AA560C2937ADD400498441 /* AuthUseCaseProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthUseCaseProtocol.swift; sourceTree = "<group>"; };
 		76AA56132937AE7E00498441 /* RxSwift+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RxSwift+.swift"; sourceTree = "<group>"; };
 		76AA56152937B1E000498441 /* FBRealTimeDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBRealTimeDB.swift; sourceTree = "<group>"; };
@@ -541,6 +537,8 @@
 		F1E83D7C293489E1004C7992 /* PostDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDTO.swift; sourceTree = "<group>"; };
 		F1E83D7E29348A4A004C7992 /* CommentDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentDTO.swift; sourceTree = "<group>"; };
 		F1E83D8229348AE0004C7992 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		F1EDC77E29470F66002F2E43 /* LoginUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUseCase.swift; sourceTree = "<group>"; };
+		F1EDC78029470F70002F2E43 /* SignUpUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpUseCase.swift; sourceTree = "<group>"; };
 		F1FCEE0D292B483E001A55D6 /* UITextField+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+.swift"; sourceTree = "<group>"; };
 		F1FCEE10292B4C87001A55D6 /* AuthButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthButton.swift; sourceTree = "<group>"; };
 		F1FCEE13292B4E9A001A55D6 /* AuthTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthTitleView.swift; sourceTree = "<group>"; };
@@ -793,8 +791,6 @@
 				47D57739293389850014D171 /* Protocol */,
 				47D5773C293389AC0014D171 /* DefaultMapRepository.swift */,
 				47D5775329338FFF0014D171 /* DefaultRecordRepository.swift */,
-				76AA56062937ADBA00498441 /* LogInRepository.swift */,
-				76AA56072937ADBB00498441 /* SignUpRepository.swift */,
 				47653A392938D70500BDC8E3 /* DefaultBadgeRepository.swift */,
 				474E2500293DC78100CFAC59 /* DefaultTempRepository.swift */,
 				F1DED401293880CB00ABC047 /* DefaultCommunityRepository.swift */,
@@ -834,8 +830,8 @@
 				47653A2F2938C4AD00BDC8E3 /* DefaultMyPageUseCase.swift */,
 				761C1C08292E437E000C88D0 /* DefaultSingleGameUseCase.swift */,
 				761E5F082935EFF400E6CACC /* DefaultInGameUseCase.swift */,
-				76AA560A2937ADD400498441 /* LoginUsecase.swift */,
-				76AA560B2937ADD400498441 /* SignUpUsecase.swift */,
+				76AA560A2937ADD400498441 /* DefaultLoginUsecase.swift */,
+				76AA560B2937ADD400498441 /* DefatulSignUpUsecase.swift */,
 				76AA55FA2937AD8900498441 /* DefaultMultiGameRoomUseCase.swift */,
 				76AA55E42937AD7A00498441 /* DefaultHomeUseCase.swift */,
 				474E24F8293DC75F00CFAC59 /* DefaultRecordMainViewUseCase.swift */,
@@ -862,7 +858,12 @@
 				47653A2D2938C4A500BDC8E3 /* MyPageUseCase.swift */,
 				F1CC513A293EE64700B9008D /* MultiGameRoomUseCase.swift */,
 				F1CC5140293EFBBC00B9008D /* MultiGameUseCase.swift */,
+
+				F1EDC77E29470F66002F2E43 /* LoginUseCase.swift */,
+				F1EDC78029470F70002F2E43 /* SignUpUseCase.swift */,
+
 				F1D85A4B2941F469005822B0 /* MultiGameChatUseCase.swift */,
+
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -1120,14 +1121,6 @@
 			path = Manager;
 			sourceTree = "<group>";
 		};
-		E57646B32939C26C00BADF18 /* Provider */ = {
-			isa = PBXGroup;
-			children = (
-				76AA56042937AD9700498441 /* AuthProvider.swift */,
-			);
-			path = Provider;
-			sourceTree = "<group>";
-		};
 		E57646B42939C2B600BADF18 /* DTO */ = {
 			isa = PBXGroup;
 			children = (
@@ -1235,7 +1228,6 @@
 				E505E0DB29448670006BF811 /* RandomFactory */,
 
 				76AA55C92937AC2500498441 /* Network */,
-				E57646B32939C26C00BADF18 /* Provider */,
 				E57646B22939C25A00BADF18 /* Manager */,
 				47D5774629338A170014D171 /* Service */,
 				F156F1142923540C0053E807 /* Constants */,
@@ -1611,6 +1603,8 @@
 				E505E0D329446A47006BF811 /* CommunityDetailViewModel.swift in Sources */,
 				E505E0D829446A47006BF811 /* CommentView.swift in Sources */,
 				470C704F293B18C000261250 /* RecordDTO.swift in Sources */,
+				F1EDC77F29470F66002F2E43 /* LoginUseCase.swift in Sources */,
+				F1EDC78129470F70002F2E43 /* SignUpUseCase.swift in Sources */,
 				474E24E8293DC6B800CFAC59 /* RecordMainViewModel.swift in Sources */,
 				476A0E752941A9F400FAC471 /* MKMapView+Rx.swift in Sources */,
 				474E24FE293DC76800CFAC59 /* RecordMainViewUseCase.swift in Sources */,
@@ -1637,13 +1631,12 @@
 				4768898F2937928900AF633B /* Badge.swift in Sources */,
 				76A2E1A529249099001E887A /* Double+.swift in Sources */,
 				4738D76F2922756B003AE835 /* Map.swift in Sources */,
-				470C7054293B5C2600261250 /* AuthProvider.swift in Sources */,
 				4795F04A29374DD300B174D6 /* DefaultLocationService.swift in Sources */,
 				E505E0D129446A47006BF811 /* CommunityMainViewModel.swift in Sources */,
 				47D5775B2934AB8A0014D171 /* MapBaseUseCase.swift in Sources */,
 				761C1C0E292E4554000C88D0 /* TimerServiceProtocol.swift in Sources */,
 				76AA55FE2937AD8900498441 /* GameRoomCollectionViewHeader.swift in Sources */,
-				76AA560D2937ADD400498441 /* LoginUsecase.swift in Sources */,
+				76AA560D2937ADD400498441 /* DefaultLoginUsecase.swift in Sources */,
 				769F1AAC2935A7A800A3BB47 /* GameOverView.swift in Sources */,
 				E5027D5E292686440021BF60 /* RecordViewDayTotalRecord.swift in Sources */,
 				76AA55E52937AD7A00498441 /* HomeViewModel.swift in Sources */,
@@ -1691,7 +1684,6 @@
 				474E24EF293DC6B800CFAC59 /* RecordMapRankingCell.swift in Sources */,
 				F1AC0391292B33F8008302F8 /* SignUpViewModel.swift in Sources */,
 				76AA55CD2937AC3500498441 /* FBRealTimeDBType.swift in Sources */,
-				76AA56092937ADBB00498441 /* SignUpRepository.swift in Sources */,
 				F16B453B293330EC002429A2 /* MapDTO.swift in Sources */,
 				E5027D5C292670F30021BF60 /* RecordViewChartData.swift in Sources */,
 				E505E0AE294468AD006BF811 /* CommunityPostWriteUseCase.swift in Sources */,
@@ -1743,7 +1735,6 @@
 				F1CC5153294069C200B9008D /* MKCircle+.swift in Sources */,
 				764AF29F292B6EF500D16DC9 /* InGameRecordViewModel.swift in Sources */,
 				474E24E7293DC6B800CFAC59 /* RecordMainCell.swift in Sources */,
-				76AA56082937ADBB00498441 /* LogInRepository.swift in Sources */,
 				F1FCEE14292B4E9A001A55D6 /* AuthTitleView.swift in Sources */,
 				F12210C2292D031800AE5F26 /* KeyChainManager.swift in Sources */,
 				474E24EC293DC6B800CFAC59 /* RecordMapHeaderView.swift in Sources */,
@@ -1847,7 +1838,7 @@
 				F1CC5141293EFBBC00B9008D /* MultiGameUseCase.swift in Sources */,
 				F1D202992923AB3D00F3E87D /* InGameRankingViewController.swift in Sources */,
 				470C704E293B18C000261250 /* BadgeDTO.swift in Sources */,
-				76AA560E2937ADD400498441 /* SignUpUsecase.swift in Sources */,
+				76AA560E2937ADD400498441 /* DefatulSignUpUsecase.swift in Sources */,
 				764AF2A3292B9D3600D16DC9 /* InGameRankingViewModel.swift in Sources */,
 				F1CC514F293F37BC00B9008D /* MultiGamePlayerDTO.swift in Sources */,
 				471863BF291E155700A35786 /* SceneDelegate.swift in Sources */,

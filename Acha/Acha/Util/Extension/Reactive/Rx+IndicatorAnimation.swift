@@ -13,28 +13,37 @@ extension Reactive where Base: UIView {
     
     var indicator: Binder<Bool> {
         Binder(base) { base, indicator in
-            
+
             if indicator {
-                let image = UIButton().then {
-                    $0.center = base.center
-                    $0.layer.borderColor = UIColor.black.cgColor
-                    $0.layer.borderWidth = 4
-                    $0.layer.cornerRadius = 10
-                    $0.frame.size = CGSize(width: 50, height: 50)
+                let backView = UIView(frame: base.frame).then {
+                    $0.alpha = 0.6
+                    $0.backgroundColor = .black
                     $0.tag = 444
                 }
-                base.addSubview(image)
+                let image = UIButton().then {
+                    base.isUserInteractionEnabled = false
+                    $0.layer.borderColor = UIColor.blue.cgColor
+                    $0.layer.borderWidth = 4
+                    $0.layer.cornerRadius = 10
+                    $0.frame.size = CGSize(width: 60, height: 60)
+                    $0.tag = 444
+                }
+                base.addSubview(backView)
+                backView.addSubview(image)
+                image.center = base.center
                 image.layer.add(animationGroup, forKey: nil)
             } else {
-                base.subviews.forEach { if $0 is UIButton,
-                                           $0.tag == 444 { $0.removeFromSuperview() } }
+                base.isUserInteractionEnabled = true
+                base.subviews.forEach { if $0.tag == 444 {
+                    $0.removeFromSuperview()
+                } }
             }
         }
     }
     
     var animationGroup: CAAnimationGroup {
         let animationGroup = CAAnimationGroup()
-        animationGroup.duration = 0.7
+        animationGroup.duration = 0.6
         animationGroup.fillMode = CAMediaTimingFillMode.forwards
         animationGroup.repeatCount = .infinity
         

@@ -9,20 +9,7 @@ import Foundation
 import RxSwift
 import RxRelay
 
-protocol SignUpUsecaseProtocol: EmailValidatable, PasswordValidatable, NickNameValidatable {
-    var emailRelay: BehaviorRelay<String> {get set}
-    var passwordRelay: BehaviorRelay<String> {get set}
-    var nickNameRelay: BehaviorRelay<String> {get set}
-    
-    var emailValidation: Bool {get set}
-    var passwordValidation: Bool {get set}
-    var nickNameValidation: Bool {get set}
-    
-    func isSignAble() -> Bool
-    func signUp() -> Observable<String>
-}
-
-final class SignUpUsecase: SignUpUsecaseProtocol {
+final class DefaultSignUpUsecase: SignUpUsecase {
     
     var emailValidation: Bool = false
     var passwordValidation: Bool = false
@@ -32,9 +19,9 @@ final class SignUpUsecase: SignUpUsecaseProtocol {
     var passwordRelay: RxRelay.BehaviorRelay<String> = .init(value: "")
     var nickNameRelay: RxRelay.BehaviorRelay<String> = .init(value: "")
     
-    private let repository: SignUpRepositoryProtocol
+    private let repository: UserRepository
     
-    init(repository: SignUpRepositoryProtocol) {
+    init(repository: UserRepository) {
         self.repository = repository
     }
     
@@ -71,5 +58,7 @@ final class SignUpUsecase: SignUpUsecaseProtocol {
             nickName: nickNameRelay.value
         )
         return repository.signUp(data: signUpData)
+            .map { $0.id }
+            .asObservable()
     }
 }
