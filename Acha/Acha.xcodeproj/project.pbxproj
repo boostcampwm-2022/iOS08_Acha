@@ -221,7 +221,6 @@
 		F1D2029B2923B97400F3E87D /* InGameRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D2029A2923B97400F3E87D /* InGameRecordViewController.swift */; };
 		F1D202A42923C09300F3E87D /* InGameMenuCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D202A32923C09300F3E87D /* InGameMenuCollectionViewCell.swift */; };
 		F1D202B72924C63F00F3E87D /* InGameMenuModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D202B62924C63F00F3E87D /* InGameMenuModelProtocol.swift */; };
-
 		F1D85A422941E875005822B0 /* MultiGameChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D85A412941E875005822B0 /* MultiGameChatViewController.swift */; };
 		F1D85A442941E8EF005822B0 /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D85A432941E8EF005822B0 /* Chat.swift */; };
 		F1D85A462941E99F005822B0 /* ChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D85A452941E99F005822B0 /* ChatCell.swift */; };
@@ -230,9 +229,7 @@
 		F1D85A4C2941F469005822B0 /* MultiGameChatUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D85A4B2941F469005822B0 /* MultiGameChatUseCase.swift */; };
 		F1D85A4E2941F5D2005822B0 /* ChatDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D85A4D2941F5D2005822B0 /* ChatDTO.swift */; };
 		F1D85A5029427B00005822B0 /* UIApplication+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D85A4F29427B00005822B0 /* UIApplication+Rx.swift */; };
-
 		F1D85A7E294376E3005822B0 /* Rx+IndicatorAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D85A7D294376E3005822B0 /* Rx+IndicatorAnimation.swift */; };
-
 		F1DED3A42935ED0100ABC047 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED3A32935ED0100ABC047 /* Comment.swift */; };
 		F1DED3FA29386ED500ABC047 /* DefaultHealthKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED3F929386ED500ABC047 /* DefaultHealthKitService.swift */; };
 		F1DED3FC29386EF000ABC047 /* HealthKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DED3FB29386EF000ABC047 /* HealthKitService.swift */; };
@@ -280,15 +277,15 @@
 		470C704C293B18C000261250 /* RecordDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordDTO.swift; sourceTree = "<group>"; };
 		470C7052293B191B00261250 /* SelectMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectMapViewController.swift; sourceTree = "<group>"; };
 		471039552937B7A700003CB5 /* SettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
-		471863B9291E155700A35786 /* Acha.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Acha.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		471863B9291E155700A35786 /* Acha.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = Acha.app; path = "/Users/baenamseog/Desktop/feature/modifyRecord/Acha/build/Debug-iphoneos/Acha.app"; sourceTree = "<absolute>"; };
 		471863BC291E155700A35786 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		471863BE291E155700A35786 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		471863C5291E155800A35786 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		471863C8291E155800A35786 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		471863CA291E155800A35786 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		471863CF291E155800A35786 /* AchaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AchaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		471863CF291E155800A35786 /* AchaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = AchaTests.xctest; path = "/Users/baenamseog/Desktop/feature/modifyRecord/Acha/build/Debug-iphoneos/AchaTests.xctest"; sourceTree = "<absolute>"; };
 		471863D3291E155800A35786 /* AchaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchaTests.swift; sourceTree = "<group>"; };
-		471863D9291E155800A35786 /* AchaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AchaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		471863D9291E155800A35786 /* AchaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = AchaUITests.xctest; path = "/Users/baenamseog/Desktop/feature/modifyRecord/Acha/build/Debug-iphoneos/AchaUITests.xctest"; sourceTree = "<absolute>"; };
 		471863DD291E155800A35786 /* AchaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchaUITests.swift; sourceTree = "<group>"; };
 		471863DF291E155800A35786 /* AchaUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchaUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		471A6F3A293DCB7B0076DEE3 /* UserDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDTO.swift; sourceTree = "<group>"; };
@@ -330,7 +327,6 @@
 		47935E942923310700481307 /* SystemImageNameSpace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemImageNameSpace.swift; sourceTree = "<group>"; };
 		47935E96292366CD00481307 /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		47935E98292375DC00481307 /* MapAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAnnotation.swift; sourceTree = "<group>"; };
-		47935E9C29238E9E00481307 /* SelectMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectMapViewController.swift; sourceTree = "<group>"; };
 		47935E9E29238EB300481307 /* SelectMapViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectMapViewModel.swift; sourceTree = "<group>"; };
 		4795F04729374DC800B174D6 /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		4795F04929374DD300B174D6 /* DefaultLocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultLocationService.swift; sourceTree = "<group>"; };
@@ -502,7 +498,6 @@
 		F1D2029A2923B97400F3E87D /* InGameRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameRecordViewController.swift; sourceTree = "<group>"; };
 		F1D202A32923C09300F3E87D /* InGameMenuCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameMenuCollectionViewCell.swift; sourceTree = "<group>"; };
 		F1D202B62924C63F00F3E87D /* InGameMenuModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameMenuModelProtocol.swift; sourceTree = "<group>"; };
-
 		F1D85A412941E875005822B0 /* MultiGameChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiGameChatViewController.swift; sourceTree = "<group>"; };
 		F1D85A432941E8EF005822B0 /* Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
 		F1D85A452941E99F005822B0 /* ChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCell.swift; sourceTree = "<group>"; };
@@ -511,9 +506,7 @@
 		F1D85A4B2941F469005822B0 /* MultiGameChatUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiGameChatUseCase.swift; sourceTree = "<group>"; };
 		F1D85A4D2941F5D2005822B0 /* ChatDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatDTO.swift; sourceTree = "<group>"; };
 		F1D85A4F29427B00005822B0 /* UIApplication+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Rx.swift"; sourceTree = "<group>"; };
-
 		F1D85A7D294376E3005822B0 /* Rx+IndicatorAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Rx+IndicatorAnimation.swift"; sourceTree = "<group>"; };
-
 		F1DED3A32935ED0100ABC047 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		F1DED3F829386DDA00ABC047 /* Acha.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Acha.entitlements; sourceTree = "<group>"; };
 		F1DED3F929386ED500ABC047 /* DefaultHealthKitService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultHealthKitService.swift; sourceTree = "<group>"; };
@@ -565,14 +558,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		470C704A293B17C200261250 /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-				47935E9C29238E9E00481307 /* SelectMapViewController.swift */,
-			);
-			name = "Recovered References";
-			sourceTree = "<group>";
-		};
 		470C7051293B191B00261250 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -584,34 +569,13 @@
 		471863B0291E155700A35786 = {
 			isa = PBXGroup;
 			children = (
-				7663E6BE292F6C85007E1F09 /* 국민대 30KMH.gpx */,
-				7663E6BD292F696D007E1F09 /* 국민대 12KMH.gpx */,
-				7663E6BB292F6788007E1F09 /* 부원여중 5MPH.gpx */,
-				7663E6B9292F6788007E1F09 /* 부원여중 12KMH.gpx */,
-				7663E6BC292F6788007E1F09 /* 부평동초등학교 4.2MPH.gpx */,
-				7663E6BA292F6788007E1F09 /* 부평동초등학교 4MPH.gpx */,
-				7663E6B8292F6788007E1F09 /* 부평동초등학교 5MPH.gpx */,
-				76213CBE292CEA6600895462 /* WorkSpace by 6km:h.gpx */,
-				76213CBD292CEA6600895462 /* WorkSpace by 25km:h.gpx */,
+				E526576B294820E100A350CE /* GPX */,
 				4738D7602921D6E4003AE835 /* GoogleService-Info.plist */,
 				4738D75B2921D398003AE835 /* Packages */,
 				471863BB291E155700A35786 /* Acha */,
 				471863D2291E155800A35786 /* AchaTests */,
 				471863DC291E155800A35786 /* AchaUITests */,
-				471863BA291E155700A35786 /* Products */,
-				4738D75D2921D3E7003AE835 /* Frameworks */,
-				470C704A293B17C200261250 /* Recovered References */,
 			);
-			sourceTree = "<group>";
-		};
-		471863BA291E155700A35786 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				471863B9291E155700A35786 /* Acha.app */,
-				471863CF291E155800A35786 /* AchaTests.xctest */,
-				471863D9291E155800A35786 /* AchaUITests.xctest */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		471863BB291E155700A35786 /* Acha */ = {
@@ -655,13 +619,6 @@
 				4738D75C2921D398003AE835 /* AchaLibrary */,
 			);
 			name = Packages;
-			sourceTree = "<group>";
-		};
-		4738D75D2921D3E7003AE835 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		4738D764292238AD003AE835 /* Extension */ = {
@@ -849,12 +806,9 @@
 				47653A2D2938C4A500BDC8E3 /* MyPageUseCase.swift */,
 				F1CC513A293EE64700B9008D /* MultiGameRoomUseCase.swift */,
 				F1CC5140293EFBBC00B9008D /* MultiGameUseCase.swift */,
-
 				F1EDC77E29470F66002F2E43 /* LoginUseCase.swift */,
 				F1EDC78029470F70002F2E43 /* SignUpUseCase.swift */,
-
 				F1D85A4B2941F469005822B0 /* MultiGameChatUseCase.swift */,
-
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -1100,6 +1054,22 @@
 				E505E0DC29448670006BF811 /* RandomFactory.swift */,
 			);
 			path = RandomFactory;
+			sourceTree = "<group>";
+		};
+		E526576B294820E100A350CE /* GPX */ = {
+			isa = PBXGroup;
+			children = (
+				7663E6BE292F6C85007E1F09 /* 국민대 30KMH.gpx */,
+				7663E6BD292F696D007E1F09 /* 국민대 12KMH.gpx */,
+				7663E6BB292F6788007E1F09 /* 부원여중 5MPH.gpx */,
+				7663E6B9292F6788007E1F09 /* 부원여중 12KMH.gpx */,
+				7663E6BC292F6788007E1F09 /* 부평동초등학교 4.2MPH.gpx */,
+				7663E6BA292F6788007E1F09 /* 부평동초등학교 4MPH.gpx */,
+				7663E6B8292F6788007E1F09 /* 부평동초등학교 5MPH.gpx */,
+				76213CBE292CEA6600895462 /* WorkSpace by 6km:h.gpx */,
+				76213CBD292CEA6600895462 /* WorkSpace by 25km:h.gpx */,
+			);
+			path = GPX;
 			sourceTree = "<group>";
 		};
 		E57646B22939C25A00BADF18 /* Manager */ = {
@@ -1521,7 +1491,7 @@
 				F1D202AB29247AC600F3E87D /* XCRemoteSwiftPackageReference "Then" */,
 				F1D202B12924815E00F3E87D /* XCRemoteSwiftPackageReference "SnapKit" */,
 			);
-			productRefGroup = 471863BA291E155700A35786 /* Products */;
+			productRefGroup = 471863B0291E155700A35786;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
