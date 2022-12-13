@@ -31,6 +31,10 @@ final class DefaultMultiGameUseCase: MultiGameUseCase {
     private var calorie: Int {
         return Int(movedDistance/100)
     }
+
+    private var gamePoint: Int {
+        return visitedLocation.count
+    }
     private var watchOtherLocationIndex = 0
     
     init(
@@ -45,6 +49,10 @@ final class DefaultMultiGameUseCase: MultiGameUseCase {
         self.recordRepository = recordRepository
         self.timeRepository = timeRepository
         self.locationRepository = locationRepository
+    }
+    
+    func initVisitedLocation() {
+        visitedLocation = []
     }
     
     func timerStart() -> Observable<Int> {
@@ -66,7 +74,7 @@ final class DefaultMultiGameUseCase: MultiGameUseCase {
     
     func point() -> Observable<Int> {
         return Observable<Int>.create { [weak self] observer in
-            observer.onNext(self?.visitedLocation.count ?? 0)
+            observer.onNext(self?.gamePoint ?? 0)
             return Disposables.create()
         }
     }

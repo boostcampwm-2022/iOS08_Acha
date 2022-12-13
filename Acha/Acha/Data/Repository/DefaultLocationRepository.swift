@@ -20,6 +20,7 @@ struct DefaultLocationRepository: LocationRepository {
     func getCurrentLocation() -> Observable<Coordinate> {
         locationService.start()
         return locationService.userLocation
+            .skip(1)
             .map { return Coordinate(
                 latitude: $0.coordinate.latitude,
                 longitude: $0.coordinate.longitude

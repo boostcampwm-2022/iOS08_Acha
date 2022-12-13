@@ -96,6 +96,8 @@ final class MultiGameViewModel: BaseViewModel {
                     })
                     .disposed(by: self.disposeBag)
                 
+                self.useCase.initVisitedLocation()
+                
                 self.useCase.getLocation()
                     .subscribe { location in
                         self.visitedLocation.onNext(location)

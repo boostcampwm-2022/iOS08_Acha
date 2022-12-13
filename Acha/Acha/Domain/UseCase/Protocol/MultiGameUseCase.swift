@@ -22,6 +22,8 @@ protocol MultiGameUseCase {
     func healthKitAuthorization() -> Observable<Void>
     func updateData(roomId: String)
     
+    func initVisitedLocation()
+    
     func stopObserveLocation()
     
     func observing(roomID: String) -> Observable<[MultiGamePlayerData]>
