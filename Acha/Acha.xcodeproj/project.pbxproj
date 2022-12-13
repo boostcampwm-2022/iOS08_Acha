@@ -45,8 +45,6 @@
 		474E24FB293DC75F00CFAC59 /* DefaultRecordMapViewUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 474E24F9293DC75F00CFAC59 /* DefaultRecordMapViewUseCase.swift */; };
 		474E24FE293DC76800CFAC59 /* RecordMainViewUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 474E24FC293DC76800CFAC59 /* RecordMainViewUseCase.swift */; };
 		474E24FF293DC76800CFAC59 /* RecordMapViewUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 474E24FD293DC76800CFAC59 /* RecordMapViewUseCase.swift */; };
-		474E2501293DC78100CFAC59 /* DefaultTempRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 474E2500293DC78100CFAC59 /* DefaultTempRepository.swift */; };
-		474E2503293DC78700CFAC59 /* TempRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 474E2502293DC78700CFAC59 /* TempRepository.swift */; };
 		47653A2C2938C15700BDC8E3 /* MyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47653A2B2938C15700BDC8E3 /* MyPageViewModel.swift */; };
 		47653A2E2938C4A500BDC8E3 /* MyPageUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47653A2D2938C4A500BDC8E3 /* MyPageUseCase.swift */; };
 		47653A302938C4AD00BDC8E3 /* DefaultMyPageUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47653A2F2938C4AD00BDC8E3 /* DefaultMyPageUseCase.swift */; };
@@ -277,15 +275,12 @@
 		470C704C293B18C000261250 /* RecordDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordDTO.swift; sourceTree = "<group>"; };
 		470C7052293B191B00261250 /* SelectMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectMapViewController.swift; sourceTree = "<group>"; };
 		471039552937B7A700003CB5 /* SettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
-		471863B9291E155700A35786 /* Acha.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = Acha.app; path = "/Users/baenamseog/Desktop/feature/modifyRecord/Acha/build/Debug-iphoneos/Acha.app"; sourceTree = "<absolute>"; };
 		471863BC291E155700A35786 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		471863BE291E155700A35786 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		471863C5291E155800A35786 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		471863C8291E155800A35786 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		471863CA291E155800A35786 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		471863CF291E155800A35786 /* AchaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = AchaTests.xctest; path = "/Users/baenamseog/Desktop/feature/modifyRecord/Acha/build/Debug-iphoneos/AchaTests.xctest"; sourceTree = "<absolute>"; };
 		471863D3291E155800A35786 /* AchaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchaTests.swift; sourceTree = "<group>"; };
-		471863D9291E155800A35786 /* AchaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = AchaUITests.xctest; path = "/Users/baenamseog/Desktop/feature/modifyRecord/Acha/build/Debug-iphoneos/AchaUITests.xctest"; sourceTree = "<absolute>"; };
 		471863DD291E155800A35786 /* AchaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchaUITests.swift; sourceTree = "<group>"; };
 		471863DF291E155800A35786 /* AchaUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchaUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		471A6F3A293DCB7B0076DEE3 /* UserDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDTO.swift; sourceTree = "<group>"; };
@@ -314,8 +309,6 @@
 		474E24F9293DC75F00CFAC59 /* DefaultRecordMapViewUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultRecordMapViewUseCase.swift; sourceTree = "<group>"; };
 		474E24FC293DC76800CFAC59 /* RecordMainViewUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordMainViewUseCase.swift; sourceTree = "<group>"; };
 		474E24FD293DC76800CFAC59 /* RecordMapViewUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordMapViewUseCase.swift; sourceTree = "<group>"; };
-		474E2500293DC78100CFAC59 /* DefaultTempRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultTempRepository.swift; sourceTree = "<group>"; };
-		474E2502293DC78700CFAC59 /* TempRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TempRepository.swift; sourceTree = "<group>"; };
 		47653A2B2938C15700BDC8E3 /* MyPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewModel.swift; sourceTree = "<group>"; };
 		47653A2D2938C4A500BDC8E3 /* MyPageUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageUseCase.swift; sourceTree = "<group>"; };
 		47653A2F2938C4AD00BDC8E3 /* DefaultMyPageUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMyPageUseCase.swift; sourceTree = "<group>"; };
@@ -442,6 +435,9 @@
 		E505E0D929446CE7006BF811 /* FirebaseStorageType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseStorageType.swift; sourceTree = "<group>"; };
 		E505E0DC29448670006BF811 /* RandomFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RandomFactory.swift; sourceTree = "<group>"; };
 		E52657692946E5D200A350CE /* CommunityIndicatorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityIndicatorCell.swift; sourceTree = "<group>"; };
+		E53873D12948285D00FD6356 /* Acha.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = Acha.app; path = "/Users/baenamseog/Desktop/feature/modifyRecord/Acha/build/Debug-iphoneos/Acha.app"; sourceTree = "<absolute>"; };
+		E53873D22948285D00FD6356 /* AchaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = AchaTests.xctest; path = "/Users/baenamseog/Desktop/feature/modifyRecord/Acha/build/Debug-iphoneos/AchaTests.xctest"; sourceTree = "<absolute>"; };
+		E53873D32948285D00FD6356 /* AchaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = AchaUITests.xctest; path = "/Users/baenamseog/Desktop/feature/modifyRecord/Acha/build/Debug-iphoneos/AchaUITests.xctest"; sourceTree = "<absolute>"; };
 		E5BE8B8E2922172400E9CFE8 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		E5BE8B90292218A500E9CFE8 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		E5BE8B92292218F100E9CFE8 /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
@@ -740,7 +736,6 @@
 				47D5773C293389AC0014D171 /* DefaultMapRepository.swift */,
 				47D5775329338FFF0014D171 /* DefaultRecordRepository.swift */,
 				47653A392938D70500BDC8E3 /* DefaultBadgeRepository.swift */,
-				474E2500293DC78100CFAC59 /* DefaultTempRepository.swift */,
 				F1DED401293880CB00ABC047 /* DefaultCommunityRepository.swift */,
 				F1B514F0293B414F00F653F3 /* DefaultUserRepository.swift */,
 				F1E7B0AC293DD01B0088332E /* DefaultGameRoomRepository.swift */,
@@ -757,7 +752,6 @@
 				47D5773A293389940014D171 /* MapRepository.swift */,
 				47D5775129338FB60014D171 /* RecordRepository.swift */,
 				47653A372938D6EF00BDC8E3 /* BadgeRepository.swift */,
-				474E2502293DC78700CFAC59 /* TempRepository.swift */,
 				F1DED40529388A3700ABC047 /* UserRepository.swift */,
 				F1E7B0AE293DD1A50088332E /* GameRoomRepository.swift */,
 				F1CC5144293F001000B9008D /* TimeRepository.swift */,
@@ -1416,7 +1410,7 @@
 				4738D75E2921D3E7003AE835 /* AchaLibrary */,
 			);
 			productName = Acha;
-			productReference = 471863B9291E155700A35786 /* Acha.app */;
+			productReference = E53873D12948285D00FD6356 /* Acha.app */;
 			productType = "com.apple.product-type.application";
 		};
 		471863CE291E155800A35786 /* AchaTests */ = {
@@ -1434,7 +1428,7 @@
 			);
 			name = AchaTests;
 			productName = AchaTests;
-			productReference = 471863CF291E155800A35786 /* AchaTests.xctest */;
+			productReference = E53873D22948285D00FD6356 /* AchaTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		471863D8291E155800A35786 /* AchaUITests */ = {
@@ -1452,7 +1446,7 @@
 			);
 			name = AchaUITests;
 			productName = AchaUITests;
-			productReference = 471863D9291E155800A35786 /* AchaUITests.xctest */;
+			productReference = E53873D32948285D00FD6356 /* AchaUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -1619,7 +1613,6 @@
 				F13DB58F292B3C8D00323B28 /* AuthInputTextField.swift in Sources */,
 				F1AF99FD29445AA300A25752 /* DependenciesContainer.swift in Sources */,
 				761E5F092935EFF400E6CACC /* DefaultInGameUseCase.swift in Sources */,
-				474E2501293DC78100CFAC59 /* DefaultTempRepository.swift in Sources */,
 				E5BE8B8F2922172400E9CFE8 /* AppCoordinator.swift in Sources */,
 				47935E97292366CD00481307 /* UIButton+.swift in Sources */,
 				474E24F3293DC71000CFAC59 /* Locations.swift in Sources */,
@@ -1715,7 +1708,6 @@
 				F1DED3FE29386F7400ABC047 /* HealthKitReadData.swift in Sources */,
 				76AA55FF2937AD8900498441 /* GameRoomCollectionViewCell.swift in Sources */,
 				F1E7B0B5293DD2AF0088332E /* DIContainerManager.swift in Sources */,
-				474E2503293DC78700CFAC59 /* TempRepository.swift in Sources */,
 				470C7055293B5C3E00261250 /* MyPageHeaderView.swift in Sources */,
 				474E24E9293DC6B800CFAC59 /* RecordMainChartCell.swift in Sources */,
 				F1DED3FC29386EF000ABC047 /* HealthKitService.swift in Sources */,
