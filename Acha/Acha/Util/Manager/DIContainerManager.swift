@@ -57,4 +57,11 @@ struct DiContainerManager {
             locationRepository: makeLocationRepository()
         )
     }
+    
+    static func makeMultiGameChatUseCase() -> MultiGameChatUseCase {
+        return DefaultMultiGameChatUseCase(
+            roomRepository: makeDefaultGameRoomRepository(),
+            userRepository: makeDefaultUserRepository()
+        )
+    }
 }
