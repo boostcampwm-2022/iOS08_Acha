@@ -64,13 +64,6 @@ final class MultiGameChatViewModel: BaseViewModel {
             }
             .disposed(by: disposeBag)
         
-        input.didEnterBackground
-            .withUnretained(self)
-            .subscribe(onNext: { _ in
-                UserDefaults.standard.setValue(self.roomID, forKey: "roomID")
-            })
-            .disposed(by: disposeBag)
-        
         input.commentButtonTapped
             .withUnretained(self)
             .subscribe { _ in

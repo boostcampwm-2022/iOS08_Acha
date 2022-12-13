@@ -66,7 +66,8 @@ final class MultiGameCoordinator: MultiGameCoordinatorProtocol {
     }
     
     func showMultiGameChatViewController(roomID: String) {
-        let useCase = DiContainerManager.makeMultiGameChatUseCase()
+        @DIContainer.Resolve(MultiGameChatUseCase.self)
+        var useCase: MultiGameChatUseCase
         let viewModel = MultiGameChatViewModel(
             coordinator: self,
             roomID: roomID,

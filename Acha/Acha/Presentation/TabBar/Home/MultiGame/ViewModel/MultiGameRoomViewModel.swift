@@ -57,12 +57,6 @@ final class MultiGameRoomViewModel: BaseViewModel {
             .disposed(by: self!.disposeBag)
             return Disposables.create()
         }
-//        UIApplication.rx.applicationWillTerminate
-//            .subscribe(onNext: { [weak self] in
-//                guard let self = self else {retunr}
-//                DefaultRealtimeDatabaseNetworkService().terminateGet(type: .room(id: self.roomID), id: self.roomID)
-//            })
-//            .disposed(by: disposeBag)
         
         input.gameStartButtonTapped
             .subscribe { [weak self] _ in

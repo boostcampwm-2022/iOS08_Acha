@@ -28,7 +28,7 @@ final class MultiGameChatViewController: UIViewController {
     private lazy var chatDataSource = makeDataSource()
     private lazy var chatSnapShot = ChatSnapShot()
     
-    private let viewModel: MultiGameChatViewModel
+    private weak var viewModel: MultiGameChatViewModel?
     private let disposeBag = DisposeBag()
     
     init(viewModel: MultiGameChatViewModel, roomID: String) {
@@ -58,7 +58,7 @@ final class MultiGameChatViewController: UIViewController {
             didEnterBackground: UIApplication.rx.didEnterBackground.asObservable()
         )
         
-        let outputs = viewModel.transform(input: inputs)
+        guard let outputs = viewModel?.transform(input: inputs) else {return}
         
         outputs.chatFetched
             .drive(onNext: { [weak self] chats in
