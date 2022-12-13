@@ -23,7 +23,7 @@ final class CommunityDetailViewController: UIViewController, UICollectionViewDel
     // MARK: - UI properties
     private lazy var collectionView = UICollectionView(frame: .zero,
                                                        collectionViewLayout: collectionViewLayout())
-    private lazy var commentView = CommentView()
+    private let commentView = CommentView()
     
     // MARK: - Properties
     typealias DataSource = UICollectionViewDiffableDataSource<Section, Item>
@@ -53,6 +53,22 @@ final class CommunityDetailViewController: UIViewController, UICollectionViewDel
     
     // MARK: - Helpers
     private func bind() {
+        AchaKeyboard.shared.keyboardHeight
+            .drive(onNext: { [weak self] keyboardHeight in
+                guard let self = self else {return}
+                if keyboardHeight != 0 {
+                    self.commentView.snp.updateConstraints {
+                        $0.bottom.equalTo(self.view.safeAreaLayoutGuide)
+                            .offset( self.view.safeAreaInsets.bottom-keyboardHeight)
+                    }
+                } else {
+                    self.commentView.snp.updateConstraints {
+                        $0.bottom.equalTo(self.view.safeAreaLayoutGuide).inset(10)
+                    }
+                }
+            })
+            .disposed(by: disposeBag)
+        
         let input = CommunityDetailViewModel.Input(
             viewWillAppearEvent: rx.methodInvoked(#selector(viewWillAppear(_:)))
                 .map { _ in }
@@ -83,9 +99,17 @@ final class CommunityDetailViewController: UIViewController, UICollectionViewDel
                 self.makeSnapshot(post: post)
             })
             .disposed(by: disposeBag)
+        
+        output.commentWriteSuccess
+            .subscribe(onNext: { [weak self] in
+                guard let self else { return }
+                self.reloadSnapshot()
+            })
+            .disposed(by: disposeBag)
     }
     
     private func configureUI() {
+        hideKeyboardWhenTapped()
         view.backgroundColor = .white
         navigationController?.navigationBar.tintColor = .pointLight
         navigationItem.title = "게시글"
@@ -93,12 +117,8 @@ final class CommunityDetailViewController: UIViewController, UICollectionViewDel
         
         view.addSubview(commentView)
         
-        KeyboardManager.keyboardWillHide(view: commentView, superView: view)
-        KeyboardManager.keyboardWillShow(view: commentView, superView: view)
-        hideKeyboardWhenTapped()
-        
         commentView.snp.makeConstraints {
-            $0.trailing.leading.bottom.equalTo(view.safeAreaLayoutGuide)
+            $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide).inset(10)
             $0.height.equalTo(100)
         }
         
@@ -142,7 +162,6 @@ final class CommunityDetailViewController: UIViewController, UICollectionViewDel
                 
                 cell.bind(post: post)
                 cell.modifyButtonTapEvent?
-                    .debug()
                     .subscribe(onNext: { sendPost in
                         var newPost = sendPost
                         newPost.id = post.id
@@ -263,6 +282,12 @@ final class CommunityDetailViewController: UIViewController, UICollectionViewDel
         }
         
         dataSource.apply(snapshot, animatingDifferences: true)
+    }
+    
+    private func reloadSnapshot() {
+        var snapshot = dataSource.snapshot()
+        snapshot.reloadSections([.comment])
+        dataSource.apply(snapshot)
     }
 }
 

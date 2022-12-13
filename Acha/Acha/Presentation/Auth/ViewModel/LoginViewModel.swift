@@ -24,11 +24,13 @@ final class LoginViewModel: BaseViewModel {
         let loginResult: Observable<Bool>
     }
     
-    private let useCase: LoginUseCaseProtocol
+    private let useCase: LoginUseCase
     private weak var coordinator: LoginCoordinatorProtocol?
     
-    init(coordinator: LoginCoordinatorProtocol,
-         useCase: LoginUseCaseProtocol) {
+    init(
+        coordinator: LoginCoordinatorProtocol,
+        useCase: LoginUseCase
+    ) {
         self.coordinator = coordinator
         self.useCase = useCase
     }
@@ -60,11 +62,14 @@ final class LoginViewModel: BaseViewModel {
         let loginResult = Observable<Bool>.create { observer in
             input.loginButtonDidTap
                 .subscribe { [weak self] _ in
-                    self?.useCase.logIn()
+                    guard let self = self else {return}
+                    self.allocatedIndicator(action: true)
+                    self.useCase.logIn()
                         .subscribe(onNext: { _ in
-                            guard let self = self else {return}
+                            self.allocatedIndicator(action: false)
                             self.coordinator?.delegate?.didFinished(childCoordinator: self.coordinator!)
                         }, onError: { _ in
+                            self.allocatedIndicator(action: false)
                             observer.onNext(false)
                         })
                         .disposed(by: bag)
@@ -90,6 +95,10 @@ final class LoginViewModel: BaseViewModel {
     private func translateView() {
         guard let storngCoordinator = coordinator else {return}
         storngCoordinator.delegate?.didFinished(childCoordinator: storngCoordinator)
+    }
+    
+    private func allocatedIndicator(action: Bool) {
+        coordinator?.navigationController.view.rx.indicator.onNext(action)
     }
     
 }

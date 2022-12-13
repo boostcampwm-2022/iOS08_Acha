@@ -36,10 +36,20 @@ final class DefaultCommunityDetailUseCase: CommunityDetailUseCase {
             .disposed(by: disposeBag)
     }
     
-    func uploadComment(comment: Comment) {
-        var comment = comment
-        comment.postId = postID
-        repository.uploadComment(comment: comment)
+    func uploadComment(comment: Comment) -> Single<Void> {
+        Single.create { [weak self] single in
+            guard let self else { return Disposables.create()}
+            
+            var comment = comment
+            comment.postId = self.postID
+            self.repository.uploadComment(comment: comment)
+                .subscribe(onSuccess: {
+                    single(.success(()))
+                })
+                .disposed(by: self.disposeBag)
+            
+            return Disposables.create()
+        }
     }
     
     func deletePost() {

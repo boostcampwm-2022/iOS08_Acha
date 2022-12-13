@@ -17,6 +17,7 @@ final class MultiGameChatViewModel: BaseViewModel {
         let textInput: Observable<String>
         let viewWillDisappear: Observable<Void>
         let didEnterBackground: Observable<Void>
+
     }
     struct Output {
         let chatFetched: Driver<[Chat]>
@@ -48,6 +49,7 @@ final class MultiGameChatViewModel: BaseViewModel {
             .subscribe { _ in
                 
                 self.coordinator?.navigationController.navigationBar.backItem?.title = "\(self.roomID) 방 채팅"
+
                 self.coordinator?.navigationController.navigationBar.tintColor = .pointDark
                 
                 self.useCase.observeChats(roomID: self.roomID)
@@ -64,6 +66,7 @@ final class MultiGameChatViewModel: BaseViewModel {
             }
             .disposed(by: disposeBag)
         
+
         input.didEnterBackground
             .withUnretained(self)
             .subscribe(onNext: { _ in
@@ -71,6 +74,7 @@ final class MultiGameChatViewModel: BaseViewModel {
             })
             .disposed(by: disposeBag)
         
+
         input.commentButtonTapped
             .withUnretained(self)
             .subscribe { _ in

@@ -11,5 +11,5 @@ import RxRelay
 
 protocol CommunityPostWriteUseCase {
     func confirmHavePost() -> Single<Post?>
-    func uploadPost(post: Post, image: Image?)
+    func uploadPost(post: Post, image: Image?) -> Single<Void>
 }

@@ -11,7 +11,8 @@ import SafariServices
 protocol MyPageCoordinatorProtocol: Coordinator {
     func showMyPageViewController()
     func showBadgeViewController(allBadges: [Badge], ownedBadges: [Badge])
-    func showMyInfoEditViewController()
+    func showMyInfoEditViewController(user: User, ownedBadges: [Badge])
+    func showCharacterSelectViewController(delegate: MyInfoEditViewModel)
     func showSafariViewController(stringURL: String)
 }
 
@@ -30,18 +31,10 @@ final class MyPageCoordinator: MyPageCoordinatorProtocol {
     }
     
     func showMyPageViewController() {
-        let realtimeNetworkService = DefaultRealtimeDatabaseNetworkService()
-        let storageNetworkService = DefaultFirebaseStorageNetworkService()
-        let keychainService = DefaultKeychainService()
-        let authService = DefaultAuthService()
-        let userRepository = DefaultUserRepository(realtimeDataBaseService: realtimeNetworkService,
-                                                   keychainService: keychainService,
-                                                   authService: authService)
-        let badgeRepository = DefaultBadgeRepository(realTimeDatabaseNetworkService: realtimeNetworkService,
-                                                     firebaseStorageNetworkService: storageNetworkService,
-                                                     imageCacheService: DefaultImageCacheService())
-        let useCase = DefaultMyPageUseCase(userRepository: userRepository, badgeRepository: badgeRepository)
-        let viewModel = MyPageViewModel(coordinator: self, useCase: useCase)
+        @DIContainer.Resolve(MyPageUseCase.self)
+        var useCase: MyPageUseCase
+        let viewModel = MyPageViewModel(coordinator: self,
+                                        useCase: useCase)
         let viewController = MyPageViewController(viewModel: viewModel)
         navigationController.pushViewController(viewController, animated: true)
     }
@@ -54,16 +47,39 @@ final class MyPageCoordinator: MyPageCoordinatorProtocol {
         navigationController.pushViewController(viewController, animated: true)
     }
     
-    func showMyInfoEditViewController() {
-        let viewController = MyInfoEditViewController()
+    func showMyInfoEditViewController(user: User, ownedBadges: [Badge]) {
+        let networkService = DefaultRealtimeDatabaseNetworkService()
+        let keychainService = DefaultKeychainService()
+        let authService = DefaultAuthService()
+        let userRepository = DefaultUserRepository(realtimeDataBaseService: networkService,
+                                                   keychainService: keychainService,
+                                                   authService: authService)
+        let useCase = DefaultMyInfoEditUseCase(userRepository: userRepository)
+        let viewModel = MyInfoEditViewModel(coordinator: self,
+                                            useCase: useCase,
+                                            user: user,
+                                            ownedBadges: ownedBadges)
+        let viewController = MyInfoEditViewController(viewModel: viewModel)
         navigationController.pushViewController(viewController, animated: true)
     }
     
-    #warning("여기서 사파리 뷰컨 띄워주는게 맞겠죠?")
+    func showCharacterSelectViewController(delegate: MyInfoEditViewModel) {
+        let viewModel = CharacterSelectViewModel(coordinator: self,
+                                                 delegate: delegate)
+        let viewController = CharacterSelectViewController(viewModel: viewModel)
+        navigationController.pushViewController(viewController, animated: true)
+    }
+    
     func showSafariViewController(stringURL: String) {
-        guard let url = URL(string: stringURL)
-        else { return }
-        let safariVC = SFSafariViewController(url: url)
-        navigationController.present(safariVC, animated: true)
+        guard let url = URL(string: stringURL) else { return }
+        let viewController = SFSafariViewController(url: url)
+        navigationController.present(viewController, animated: true)
+    }
+}
+
+extension MyPageCoordinator: CoordinatorDelegate {
+    func didFinished(childCoordinator: Coordinator) {
+        removeChildCoordinator(coordinator: childCoordinator)
+        navigationController.viewControllers.removeLast()
     }
 }

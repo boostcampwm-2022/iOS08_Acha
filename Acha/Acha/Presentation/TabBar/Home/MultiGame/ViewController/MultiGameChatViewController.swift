@@ -45,8 +45,10 @@ final class MultiGameChatViewController: UIViewController {
         super.viewDidLoad()
         configureCommentView()
         configureCollectionView()
+
         bind()
         keyboardBind()
+
     }
 
     private func bind() {
@@ -54,8 +56,10 @@ final class MultiGameChatViewController: UIViewController {
             viewDidAppear: rx.viewDidAppear.asObservable(),
             commentButtonTapped: commentView.commentButton.rx.tap.asObservable(),
             textInput: commentView.commentTextView.rx.text.orEmpty.asObservable(),
+
             viewWillDisappear: rx.viewWillDisappear.asObservable(),
             didEnterBackground: UIApplication.rx.didEnterBackground.asObservable()
+
         )
         
         let outputs = viewModel.transform(input: inputs)
@@ -77,6 +81,7 @@ final class MultiGameChatViewController: UIViewController {
     private func keyboardBind() {
         hideKeyboardWhenTapped()
         
+
         AchaKeyboard.shared.keyboardHeight
             .drive(onNext: { [weak self] keyboardHeight in
                 guard let self else {return}
@@ -87,6 +92,7 @@ final class MultiGameChatViewController: UIViewController {
                 self.view.layoutIfNeeded()
             })
             .disposed(by: disposeBag)
+
     }
     
     private func configureCommentView() {
@@ -94,7 +100,9 @@ final class MultiGameChatViewController: UIViewController {
         commentView.snp.makeConstraints {
             $0.leading.equalToSuperview()
             $0.trailing.equalToSuperview()
+
             $0.bottom.equalToSuperview().offset(-20)
+
             $0.height.equalTo(80)
         }
     }
@@ -176,4 +184,5 @@ extension MultiGameChatViewController {
     @objc private func dismissKeyboard() {
         view.endEditing(true)
     }
+
 }

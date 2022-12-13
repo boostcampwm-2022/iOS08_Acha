@@ -29,13 +29,19 @@ final class SingleGameCoordinator: SingleGameCoordinatorProtocol {
     func showSelectMapViewController() {
         let networkService = DefaultRealtimeDatabaseNetworkService()
         let mapRepository = DefaultMapRepository(realTimeDatabaseNetworkService: networkService)
+        let userRepository = DefaultUserRepository(realtimeDataBaseService: networkService,
+                                                   keychainService: DefaultKeychainService(),
+                                                   authService: DefaultAuthService())
         let recordRepository = DefaultRecordRepository(
             realTimeDatabaseNetworkService: networkService,
             healthKitService: DefaultHealthKitService()
         )
         let useCase = DefaultSelectMapUseCase(locationService: DefaultLocationService(),
                                               mapRepository: mapRepository,
+                                              userRepository: userRepository,
                                               recordRepository: recordRepository)
+//        @DIContainer.Resolve(SelectMapUseCase.self)
+//        var useCase: SelectMapUseCase
         let viewModel = SelectMapViewModel(coordinator: self, selectMapUseCase: useCase)
         let viewController = SelectMapViewController(viewModel: viewModel)
         navigationController.navigationBar.isHidden = true
@@ -43,6 +49,9 @@ final class SingleGameCoordinator: SingleGameCoordinatorProtocol {
     }
     
     func showSingleGamePlayViewController(selectedMap: Map) {
+        let realtimeService = DefaultRealtimeDatabaseNetworkService()
+        let timerService = TimerService()
+        
         let viewModel = SingleGameViewModel(
             map: selectedMap,
             coordinator: self,
@@ -50,15 +59,20 @@ final class SingleGameCoordinator: SingleGameCoordinatorProtocol {
                 map: selectedMap,
                 locationService: DefaultLocationService(),
                 recordRepository: DefaultRecordRepository(
-                    realTimeDatabaseNetworkService: DefaultRealtimeDatabaseNetworkService(),
+                    realTimeDatabaseNetworkService: realtimeService,
                     healthKitService: DefaultHealthKitService()
                 ),
-                tapTimer: TimerService(),
-                runningTimer: TimerService(),
+                tapTimer: timerService,
+                runningTimer: timerService,
                 userRepository: DefaultUserRepository(
-                    realtimeDataBaseService: DefaultRealtimeDatabaseNetworkService(),
+                    realtimeDataBaseService: realtimeService,
                     keychainService: DefaultKeychainService(),
                     authService: DefaultAuthService()
+                ),
+                badgeRepository: DefaultBadgeRepository(
+                    realTimeDatabaseNetworkService: realtimeService,
+                    firebaseStorageNetworkService: DefaultFirebaseStorageNetworkService(),
+                    imageCacheService: DefaultImageCacheService()
                 )
             )
         )

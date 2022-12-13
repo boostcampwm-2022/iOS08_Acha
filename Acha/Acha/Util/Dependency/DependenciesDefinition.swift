@@ -74,7 +74,7 @@ final class DependenciesDefinition {
         )
     }
     
-    //MARK:- Repository
+    // MARK: - Repository
     private func repositoryInject() {
 
         dependencies.register(
@@ -141,7 +141,7 @@ final class DependenciesDefinition {
         )
     }
     
-    //MARK: - UseCase
+    // MARK: - UseCase
     private func useCaseInject() {
         
         dependencies.register(
@@ -149,6 +149,7 @@ final class DependenciesDefinition {
             implement: DefaultSelectMapUseCase(
                 locationService: dependencies.resolve(LocationService.self),
                 mapRepository: dependencies.resolve(MapRepository.self),
+                userRepository: dependencies.resolve(UserRepository.self),
                 recordRepository: dependencies.resolve(RecordRepository.self)
             )
         )
@@ -156,7 +157,8 @@ final class DependenciesDefinition {
         dependencies.register(
             MapBaseUseCase.self,
             implement: DefaultMapBaseUseCase(
-                locationService: dependencies.resolve(LocationService.self)
+                locationService: dependencies.resolve(LocationService.self),
+                userRepository: dependencies.resolve(UserRepository.self)
             )
         )
     
@@ -188,14 +190,17 @@ final class DependenciesDefinition {
         dependencies.register(
             RecordMainViewUseCase.self,
             implement: DefaultRecordMainViewUseCase(
-                repository: dependencies.resolve(TempRepository.self)
+                userRepository: dependencies.resolve(UserRepository.self),
+                recordRepository: dependencies.resolve(RecordRepository.self),
+                mapRepository: dependencies.resolve(MapRepository.self)
             )
         )
         
         dependencies.register(
             RecordMapViewUseCase.self,
-            implement: DefaultRecordMainViewUseCase(
-                repository: dependencies.resolve(TempRepository.self)
+            implement: DefaultRecordMapViewUseCase(
+                recordRepository: dependencies.resolve(RecordRepository.self),
+                mapRepository: dependencies.resolve(MapRepository.self)
             )
         )
         
@@ -207,6 +212,14 @@ final class DependenciesDefinition {
                 recordRepository: dependencies.resolve(RecordRepository.self),
                 timeRepository: dependencies.resolve(TimeRepository.self),
                 locationRepository: dependencies.resolve(LocationRepository.self)
+            )
+        )
+        
+        dependencies.register(
+            MyPageUseCase.self,
+            implement: DefaultMyPageUseCase(
+                userRepository: dependencies.resolve(UserRepository.self),
+                badgeRepository: dependencies.resolve(BadgeRepository.self)
             )
         )
     }

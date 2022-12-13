@@ -24,7 +24,9 @@ final class MultiGameViewModel: BaseViewModel {
         let gameOverButtonTapped: Observable<Void>
         let toRoomButtonTapped: Observable<Void>
         let viewWillDisappear: Observable<Void>
+
         let didEnterBackground: Observable<Void>
+
     }
     
     struct Output {
@@ -39,6 +41,7 @@ final class MultiGameViewModel: BaseViewModel {
         let gameOver: Driver<Void>
         let unReadChat: Driver<Int>
     }
+
     private let timerCount = BehaviorRelay(value: 60)
     
     private let firstLocation = PublishSubject<Coordinate>()
@@ -50,6 +53,7 @@ final class MultiGameViewModel: BaseViewModel {
     private let otherLocation = PublishSubject<Coordinate>()
     private let gameOver = PublishSubject<Void>()
     private let unReadChat = PublishSubject<Int>()
+
     
     private let roomId: String
     private let useCase: MultiGameUseCase
@@ -66,6 +70,7 @@ final class MultiGameViewModel: BaseViewModel {
     }
     
     func transform(input: Input) -> Output {
+
 
         inputBind(input: input)
         
@@ -97,6 +102,7 @@ final class MultiGameViewModel: BaseViewModel {
                     .disposed(by: self.disposeBag)
                 
                 self.useCase.initVisitedLocation()
+
                 
                 self.useCase.getLocation()
                     .subscribe { location in
@@ -107,6 +113,7 @@ final class MultiGameViewModel: BaseViewModel {
                     .disposed(by: self.disposeBag)
                 
                 self.useCase.observing(roomID: self.roomId)
+
                     .subscribe { players in
                         if players.count >= 2 {
                             self.playerDataFetcehd.onNext(players)
@@ -124,11 +131,13 @@ final class MultiGameViewModel: BaseViewModel {
                         }
                     }
                     .disposed(by: self.disposeBag)
+
                 
                 self.useCase.healthKitAuthorization()
                     .subscribe()
                     .disposed(by: self.disposeBag)
                 
+
                 self.useCase.unReadChatting(roomID: self.roomId)
                     .subscribe { count in
                         self.unReadChat.onNext(count)
@@ -140,6 +149,7 @@ final class MultiGameViewModel: BaseViewModel {
                     .subscribe { time in
                         if time <= -1 {
                             self.gameOver.onNext(())
+
                             self.gameOverAction(time: 60)
                         } else {
                             self.timerCount.accept(time)
@@ -216,7 +226,22 @@ final class MultiGameViewModel: BaseViewModel {
             self.useCase.stopOberservingRoom(id: self.roomId)
         })
         .disposed(by: disposeBag)
-    
+        
+        input.toRoomButtonTapped
+            .withUnretained(self)
+            .subscribe(onNext: { _ in
+                self.coordinator?.showMultiGameChatViewController(roomID: self.roomId)
+            })
+            .disposed(by: disposeBag)
+        
+        Observable.of(input.exitButtonTapped, input.gameOverButtonTapped, input.viewWillDisappear)
+            .merge()
+            .subscribe(onNext: { [weak self] _ in
+                guard let self = self else {return}
+                self.useCase.stopOberservingRoom(id: self.roomId)
+            })
+            .disposed(by: disposeBag)
+
     }
     
     private func leaveRoom() {
