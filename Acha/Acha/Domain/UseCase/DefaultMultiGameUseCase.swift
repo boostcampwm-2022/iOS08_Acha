@@ -32,6 +32,9 @@ final class DefaultMultiGameUseCase: MultiGameUseCase {
         return Int(movedDistance/100)
     }
     private var watchOtherLocationIndex = 0
+    var inGamePlayersData = BehaviorRelay<[MultiGamePlayerData]>(value: [])
+    var unReadsCount = BehaviorRelay<Int>(value: 0)
+    var currentRoomPlayerData = BehaviorRelay<[RoomUser]>(value: [])
     
     init(
         gameRoomRepository: GameRoomRepository,
@@ -110,8 +113,18 @@ final class DefaultMultiGameUseCase: MultiGameUseCase {
         locationRepository.stopObservingLocation()
     }
     
-    func observing(roomID: String) -> Observable<[MultiGamePlayerData]> {
-        return gameRoomRepository.observingMultiGamePlayers(id: roomID)
+    func observing(roomID: String) {
+        return gameRoomRepository.observingRoom(id: roomID)
+            .withUnretained(self)
+            .subscribe(onNext: { _, roomDTO in
+                self.currentRoomPlayerData.accept(roomDTO.toRoomUsers())
+                let gameInformation = (roomDTO.gameInformation ?? []).map { $0.toDamin() }
+                self.inGamePlayersData.accept(gameInformation)
+                let reads = (roomDTO.chats ?? []).map { $0.read }
+                let readInformation = self.checkDidIReadThatChat(chats: reads)
+                self.unReadsCount.accept(readInformation)
+            })
+            .disposed(by: disposeBag)
     }
     
     func watchOthersLocation(roomID: String) -> Single<Coordinate> {
@@ -126,9 +139,32 @@ final class DefaultMultiGameUseCase: MultiGameUseCase {
             }
     }
     
+    func unReadChatting(roomID: String) -> Observable<Int> {
+        return gameRoomRepository.observingReads(id: roomID)
+            .map { [weak self] reads in
+                guard let self = self else {return 0}
+                return self.checkDidIReadThatChat(chats: reads)
+            }
+    }
+    
     func leave(roomID: String) {
         locationRepository.stopObservingLocation()
         gameRoomRepository.leaveRoom(id: roomID)
+    }
+    
+    func stopOberservingRoom(id: String) {
+        gameRoomRepository.removeObserverRoom(id: id)
+    }
+    
+    private func checkDidIReadThatChat(chats: [[String]]) -> Int {
+        guard let uuid = userRepository.getUUID() else {return 0}
+        var count = 0
+        chats.forEach { chat in
+            if !chat.contains(uuid) {
+                count += 1
+            }
+        }
+        return count
     }
 
     private func distanceAppend(_ current: Coordinate) {

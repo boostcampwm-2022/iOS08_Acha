@@ -10,6 +10,7 @@ import RxSwift
 protocol RecordRepository {
     func fetchAllRecords() -> Single<[Record]>
     func uploadNewRecord(record: Record)
+    func recordCount() -> Single<Int>
     func healthKitAuthorization() -> Observable<Void>
     func healthKitWrite(_ data: HealthKitWriteData) -> Observable<Void>
     func healthKitRead() -> Observable<HealthKitReadData>

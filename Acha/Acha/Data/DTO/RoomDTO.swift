@@ -14,6 +14,7 @@ struct RoomDTO: Codable {
     let mapID: [Int]?
     var inGameUserDatas: [InGameUserDataDTO]?
     var gameInformation: [MultiGamePlayerDTO]?
+    var chats: [ChatDTO]?
     
     func toRoomUsers() -> [RoomUser] {
         return user.map { $0.toRoomUser() }
@@ -27,6 +28,14 @@ struct RoomDTO: Codable {
         self.user.append(user)
     }
     
+    mutating func appendChat(chat: ChatDTO) {
+        if self.chats == nil {
+            self.chats = [chat]
+        } else {
+            self.chats?.append(chat)
+        }
+    }
+    
     init(id: String, user: [UserDTO]) {
         self.id = id
         self.user = user
@@ -34,5 +43,6 @@ struct RoomDTO: Codable {
         self.mapID = nil
         self.inGameUserDatas = nil
         self.gameInformation = nil
+        self.chats = nil
     }
 }

@@ -13,5 +13,6 @@ protocol UserRepository {
     func signUp(data: SignUpData) -> Single<UserDTO>
     func logIn(data: LoginData) -> Single<String>
     func signOut() -> Observable<Void>
+    func updateUserData(user: User)
     func delete() -> Single<Void>
 }

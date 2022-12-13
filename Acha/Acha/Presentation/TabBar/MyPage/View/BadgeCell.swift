@@ -51,8 +51,8 @@ final class BadgeCell: UICollectionViewCell {
         }
     }
     
-    func bind(badge: Badge, disposeBag: DisposeBag) {
-        badgeImage.setImage(url: badge.imageURL, disposeBag: disposeBag)
+    func bind(badge: Badge) {
+        badgeImage.image = UIImage(data: badge.image)
         badgeLabel.text = badge.name
     }
 }

@@ -89,8 +89,8 @@ final class InGameRankingViewController: InGamePlayMenuViewController {
 }
 
 struct InGameRanking: Hashable, InGameMenuModelProtocol {
+    var id: Int
     var time: Int
     var userName: String
     var date: Date
-
 }
