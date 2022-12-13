@@ -107,6 +107,9 @@ extension CharacterSelectViewController {
                                            action: #selector(cancelButtonDidTap))
         navigationItem.rightBarButtonItem = finishButton
         navigationItem.leftBarButtonItem = cancelButton
+        finishButton.tintColor = .pointLight
+        cancelButton.tintColor = .pointLight
+        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.pointLight]
     }
     
     @objc private func finishButtonDidTap() {

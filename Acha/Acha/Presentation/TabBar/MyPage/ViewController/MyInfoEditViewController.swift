@@ -65,6 +65,7 @@ extension MyInfoEditViewController {
     private func configureUI() {
         navigationController?.navigationBar.prefersLargeTitles = false
         title = "내 정보 수정"
+        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.pointLight]
         view.backgroundColor = .white
         
         view.addSubview(emailTextFieldView)
