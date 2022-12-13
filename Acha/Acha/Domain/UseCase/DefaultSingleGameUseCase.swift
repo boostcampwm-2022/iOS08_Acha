@@ -148,7 +148,7 @@ final class DefaultSingleGameUseCase: DefaultMapBaseUseCase, SingleGameUseCase {
                     return
                 }
                 self.gameOverInformation.onNext((record, self.map.name, nil))
-                self.updateUser(newRecord: newRecordID, newBadge: self.getNewBadges())
+                self.updateUser(newRecord: newRecordID, newBadge: nil)
                 self.stop()
             })
             .disposed(by: disposeBag)
@@ -185,6 +185,8 @@ final class DefaultSingleGameUseCase: DefaultMapBaseUseCase, SingleGameUseCase {
                                pinCharacter: user.pinCharacter,
                                friends: user.friends)
         userRepository.updateUserData(user: updatedUser)
+            .subscribe()
+            .disposed(by: disposeBag)
     }
     
     private func getNewBadges() -> Int? {
