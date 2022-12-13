@@ -39,15 +39,6 @@ final class DefaultCommunityDetailUseCase: CommunityDetailUseCase {
     }
     
     func fetchPost() {
-//        let postObservable = communityRepository.fetchPost(postID: postID)
-//        let userObservable = user.asObservable()
-//
-//        Observable.combineLatest(postObservable, userObservable)
-//            .map { (post: $0, isMine: ($0.userId == ($1?.id ?? "-1"))) }
-//            .debug()
-//            .bind(to: post)
-//            .disposed(by: disposeBag)
-        
         communityRepository.fetchPost(postID: postID)
             .subscribe(onNext: { [weak self] post in
                 guard let self,
@@ -58,14 +49,11 @@ final class DefaultCommunityDetailUseCase: CommunityDetailUseCase {
             .disposed(by: disposeBag)
     }
     
-    func uploadComment(comment: Comment) -> Single<Void> {
+    func uploadComment(commentMessage: String) -> Single<Void> {
         Single.create { [weak self] single in
             guard let self,
                   let user = try? self.user.value() else { return Disposables.create() }
-            var comment = comment
-            comment.postId = self.postID
-            comment.nickName = user.nickName
-            comment.userId = user.id
+            var comment = Comment(postId: self.postID, userId: user.id, nickName: user.nickName, text: commentMessage)
             self.communityRepository.uploadComment(comment: comment)
                 .subscribe(onSuccess: {
                     single(.success(()))

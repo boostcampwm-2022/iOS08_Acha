@@ -74,17 +74,12 @@ final class CommunityDetailViewController: UIViewController, UICollectionViewDel
                 .map { _ in }
                 .asObservable(),
             commentRegisterButtonTapEvent: commentView
-                .commentButton
-                .rx.tap
+                .commentButton.rx.tap
                 .map { [weak self] _ in
                     guard let self else { fatalError() }
-                    
-                    let comment = Comment(userId: "USER1",
-                                          nickName: "USER1",
-                                          text: self.commentView.commentTextView.text)
+                    let commnetMessage = self.commentView.commentTextView.text
                     self.commentView.commentTextView.text = ""
-                    
-                    return comment
+                    return commnetMessage ?? ""
                 }
                 .asObservable(),
             postModifyButtonTapEvent: postCellModifyButtonTapEvent.asObservable(),

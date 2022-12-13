@@ -12,7 +12,7 @@ import RxRelay
 final class CommunityDetailViewModel: BaseViewModel {
     struct Input {
         var viewWillAppearEvent: Observable<Void>
-        var commentRegisterButtonTapEvent: Observable<Comment>
+        var commentRegisterButtonTapEvent: Observable<String>
         var postModifyButtonTapEvent: Observable<Post>
         var postDeleteButtonTapEvent: Observable<Void>
     }
@@ -50,9 +50,9 @@ final class CommunityDetailViewModel: BaseViewModel {
             }).disposed(by: disposeBag)
         
         input.commentRegisterButtonTapEvent
-            .subscribe(onNext: { [weak self] comment in
+            .subscribe(onNext: { [weak self] commentMessage in
                 guard let self else { return }
-                self.useCase.uploadComment(comment: comment)
+                self.useCase.uploadComment(commentMessage: commentMessage)
                     .subscribe(onSuccess: {
                         output.commentWriteSuccess.accept(())
                     })
