@@ -29,15 +29,21 @@ final class DefaultRecordMainViewUseCase: RecordMainViewUseCase {
         self.mapRepository = mapRepository
     }
     
-    func loadMapData() {
-        self.mapRepository.fetchAllMaps()
-            .subscribe { maps in
-                var mapAtMapId = [Int: Map]()
-                maps.forEach {
-                    mapAtMapId[$0.mapID] = $0
-                }
-                self.mapAtMapId.onNext(mapAtMapId)
-            }.disposed(by: self.disposeBag)
+    func loadMapData() -> Single<Void> {
+        Single.create { [weak self] single in
+            guard let self else { return Disposables.create() }
+            self.mapRepository.fetchAllMaps()
+                .subscribe(onNext: { maps in
+                    var mapAtMapId = [Int: Map]()
+                    maps.forEach {
+                        mapAtMapId[$0.mapID] = $0
+                    }
+                    self.mapAtMapId.onNext(mapAtMapId)
+                    single(.success(()))
+                })
+                .disposed(by: self.disposeBag)
+            return Disposables.create()
+        }
     }
     
     func loadRecordData() {

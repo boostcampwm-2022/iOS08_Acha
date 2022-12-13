@@ -22,12 +22,14 @@ final class DefaultMapRepository: MapRepository {
         self.imageCacheService = imageCacheService
     }
     
-    func fetchAllMaps() -> Single<[Map]> {
+    func fetchAllMaps() -> Observable<[Map]> {
         realTimeDatabaseNetworkService.fetch(type: FirebaseRealtimeType.mapList(id: nil))
-            .flatMap { (mapDTOs: [MapDTO]) -> Single<[Map]> in
-                Single.zip(mapDTOs.map { mapDTO in
+            .asObservable()
+            .flatMap { (mapDTOs: [MapDTO]) in
+                Observable.zip(mapDTOs.map { mapDTO in
                     if self.imageCacheService.isExist(imageURL: mapDTO.image) {
                         return self.imageCacheService.load(imageURL: mapDTO.image)
+                            .asObservable()
                             .map { data in
                                 Map(mapID: mapDTO.mapID,
                                     name: mapDTO.name,
@@ -48,7 +50,6 @@ final class DefaultMapRepository: MapRepository {
                                        location: mapDTO.location,
                                        image: data)
                         }
-                        .asSingle()
                 })
             }
     }

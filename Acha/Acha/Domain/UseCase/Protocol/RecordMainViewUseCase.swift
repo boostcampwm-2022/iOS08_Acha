@@ -16,6 +16,6 @@ protocol RecordMainViewUseCase {
                                             recordsAtDate: [String: [Record]],
                                             mapAtMapId: [Int: Map])> { get set }
     
-    func loadMapData()
+    func loadMapData() -> Single<Void>
     func loadRecordData()
 }
