@@ -110,7 +110,6 @@ struct DefaultUserRepository: UserRepository {
         getUserDataFromRealTimeDataBaseService(uuid: uuid)
             .subscribe(onSuccess: { userDTO in
                 let updatedUserDTO = UserDTO(id: userDTO.id,
-                                             password: userDTO.password,
                                              nickname: user.nickName,
                                              badges: user.badges,
                                              records: user.records,

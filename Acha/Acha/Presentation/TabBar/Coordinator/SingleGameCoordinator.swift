@@ -43,6 +43,9 @@ final class SingleGameCoordinator: SingleGameCoordinatorProtocol {
     }
     
     func showSingleGamePlayViewController(selectedMap: Map) {
+        let realtimeService = DefaultRealtimeDatabaseNetworkService()
+        let timerService = TimerService()
+        
         let viewModel = SingleGameViewModel(
             map: selectedMap,
             coordinator: self,
@@ -50,15 +53,20 @@ final class SingleGameCoordinator: SingleGameCoordinatorProtocol {
                 map: selectedMap,
                 locationService: DefaultLocationService(),
                 recordRepository: DefaultRecordRepository(
-                    realTimeDatabaseNetworkService: DefaultRealtimeDatabaseNetworkService(),
+                    realTimeDatabaseNetworkService: realtimeService,
                     healthKitService: DefaultHealthKitService()
                 ),
-                tapTimer: TimerService(),
-                runningTimer: TimerService(),
+                tapTimer: timerService,
+                runningTimer: timerService,
                 userRepository: DefaultUserRepository(
-                    realtimeDataBaseService: DefaultRealtimeDatabaseNetworkService(),
+                    realtimeDataBaseService: realtimeService,
                     keychainService: DefaultKeychainService(),
                     authService: DefaultAuthService()
+                ),
+                badgeRepository: DefaultBadgeRepository(
+                    realTimeDatabaseNetworkService: realtimeService,
+                    firebaseStorageNetworkService: DefaultFirebaseStorageNetworkService(),
+                    imageCacheService: DefaultImageCacheService()
                 )
             )
         )

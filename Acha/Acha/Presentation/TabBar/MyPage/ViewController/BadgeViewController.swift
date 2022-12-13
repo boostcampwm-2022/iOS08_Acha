@@ -147,7 +147,6 @@ class BadgeViewController: UIViewController {
             .subscribe(onNext: { [weak self] badges in
                 guard let self else { return }
                 self.makeBadgeSnapShot(badges: badges, section: .unacquired)
-                print(badges)
             }).disposed(by: disposeBag)
     }
     

@@ -189,14 +189,11 @@
 		F16B453B293330EC002429A2 /* MapDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16B453A293330EC002429A2 /* MapDTO.swift */; };
 		F18A7FD1292C5DA50054FADE /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18A7FD0292C5DA50054FADE /* UIImage+.swift */; };
 		F1AC0391292B33F8008302F8 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1AC0390292B33F8008302F8 /* SignUpViewModel.swift */; };
-
 		F1AF99FD29445AA300A25752 /* DependenciesContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1AF99FC29445AA300A25752 /* DependenciesContainer.swift */; };
 		F1AF9A0029445ED900A25752 /* DependenciesDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1AF99FF29445ED900A25752 /* DependenciesDefinition.swift */; };
 		F1AF9A062944873D00A25752 /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1AF9A052944873D00A25752 /* DIContainer.swift */; };
 		F1AF9A0A2944B52000A25752 /* DependencyKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1AF9A092944B52000A25752 /* DependencyKey.swift */; };
-
 		F1AF9A3B2944FBD000A25752 /* AchaKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1AF9A3A2944FBD000A25752 /* AchaKeyboard.swift */; };
-
 		F1B0D8AA292CCA0F00EBDD02 /* Encodable+.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B0D8A9292CCA0F00EBDD02 /* Encodable+.swift */; };
 		F1B0D8AC292CCA5200EBDD02 /* SignUpData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B0D8AB292CCA5200EBDD02 /* SignUpData.swift */; };
 		F1B514E3293B26C500F653F3 /* CommunityDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B514E2293B26C500F653F3 /* CommunityDTO.swift */; };
@@ -473,14 +470,11 @@
 		F16B453A293330EC002429A2 /* MapDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapDTO.swift; sourceTree = "<group>"; };
 		F18A7FD0292C5DA50054FADE /* UIImage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+.swift"; sourceTree = "<group>"; };
 		F1AC0390292B33F8008302F8 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
-
 		F1AF99FC29445AA300A25752 /* DependenciesContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependenciesContainer.swift; sourceTree = "<group>"; };
 		F1AF99FF29445ED900A25752 /* DependenciesDefinition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependenciesDefinition.swift; sourceTree = "<group>"; };
 		F1AF9A052944873D00A25752 /* DIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
 		F1AF9A092944B52000A25752 /* DependencyKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyKey.swift; sourceTree = "<group>"; };
-
 		F1AF9A3A2944FBD000A25752 /* AchaKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchaKeyboard.swift; sourceTree = "<group>"; };
-
 		F1B0D8A9292CCA0F00EBDD02 /* Encodable+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+.swift"; sourceTree = "<group>"; };
 		F1B0D8AB292CCA5200EBDD02 /* SignUpData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpData.swift; sourceTree = "<group>"; };
 		F1B514E2293B26C500F653F3 /* CommunityDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityDTO.swift; sourceTree = "<group>"; };
@@ -1222,11 +1216,8 @@
 		E5BE8B8D292216B400E9CFE8 /* Util */ = {
 			isa = PBXGroup;
 			children = (
-
 				F1AF99FE29445EA200A25752 /* Dependency */,
-
 				E505E0DB29448670006BF811 /* RandomFactory */,
-
 				76AA55C92937AC2500498441 /* Network */,
 				E57646B22939C25A00BADF18 /* Manager */,
 				47D5774629338A170014D171 /* Service */,
@@ -1660,10 +1651,7 @@
 				F14B1495292BA1D40010E966 /* KeyboardManager.swift in Sources */,
 				761C1C0B292E439F000C88D0 /* SingleGameUseCase.swift in Sources */,
 				F13DB58F292B3C8D00323B28 /* AuthInputTextField.swift in Sources */,
-
-				F1E83D992935C727004C7992 /* TexCountView.swift in Sources */,
 				F1AF99FD29445AA300A25752 /* DependenciesContainer.swift in Sources */,
-
 				761E5F092935EFF400E6CACC /* DefaultInGameUseCase.swift in Sources */,
 				474E2501293DC78100CFAC59 /* DefaultTempRepository.swift in Sources */,
 				E5BE8B8F2922172400E9CFE8 /* AppCoordinator.swift in Sources */,
@@ -1757,7 +1745,6 @@
 				76AA55D52937ACB900498441 /* MultiGameCoordinator.swift in Sources */,
 				47D5773B293389940014D171 /* MapRepository.swift in Sources */,
 				76B3BF54292624E30056ABFD /* Date+.swift in Sources */,
-				F1E83D7729348591004C7992 /* CommunityViewModel.swift in Sources */,
 				76A4320C2944B16900D5963F /* FirebaseStorageType.swift in Sources */,
 				F1DED3FE29386F7400ABC047 /* HealthKitReadData.swift in Sources */,
 				76AA55FF2937AD8900498441 /* GameRoomCollectionViewCell.swift in Sources */,

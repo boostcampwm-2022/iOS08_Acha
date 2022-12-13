@@ -142,7 +142,6 @@ final class CommunityDetailViewController: UIViewController, UICollectionViewDel
                 
                 cell.bind(post: post)
                 cell.modifyButtonTapEvent?
-                    .debug()
                     .subscribe(onNext: { sendPost in
                         var newPost = sendPost
                         newPost.id = post.id
