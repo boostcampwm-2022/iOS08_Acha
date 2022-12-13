@@ -9,8 +9,8 @@ import Foundation
 
 struct Post: Hashable {
     var id: Int
-    let userId: String
-    let nickName: String
+    var userId: String
+    var nickName: String
     var text: String
     var image: Data?
     let createdAt: Date

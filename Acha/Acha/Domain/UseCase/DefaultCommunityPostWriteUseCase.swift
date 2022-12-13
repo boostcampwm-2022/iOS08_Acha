@@ -10,13 +10,18 @@ import RxSwift
 import RxRelay
 
 final class DefaultCommunityPostWriteUseCase: CommunityPostWriteUseCase {
-    private let repository: CommunityRepository
+    private let communityRepository: CommunityRepository
+    private let userRepository: UserRepository
     private let disposeBag = DisposeBag()
     let post: Post!
     
-    init(repository: CommunityRepository, post: Post? = nil) {
-        self.repository = repository
+    init(post: Post? = nil,
+         communityRepository: CommunityRepository,
+         userRepository: UserRepository
+    ) {
+        self.communityRepository = communityRepository
         self.post = post
+        self.userRepository = userRepository
     }
     
     func confirmHavePost() -> Single<Post?> {
@@ -30,24 +35,29 @@ final class DefaultCommunityPostWriteUseCase: CommunityPostWriteUseCase {
     }
     
     func uploadPost(post: Post, image: Image?) -> Single<Void> {
-        Single.create { [weak self] single in
+        return Single.create { [weak self] single in
             guard let self else { return Disposables.create()}
-            
-            if let selfPost = self.post {
-                var uploadPost = selfPost
-                uploadPost.text = post.text
-                self.repository.updatePost(post: uploadPost, image: image)
-                    .subscribe(onSuccess: {
-                        single(.success(()))
-                    })
-                    .disposed(by: self.disposeBag)
-            } else {
-                self.repository.uploadPost(post: post, image: image)
-                    .subscribe(onSuccess: {
-                        single(.success(()))
-                    })
-                    .disposed(by: self.disposeBag)
-            }
+            self.userRepository.fetchUserData()
+                .subscribe(onSuccess: { user in
+                    if let selfPost = self.post {
+                        var uploadPost = selfPost
+                        uploadPost.text = post.text
+                        self.communityRepository.updatePost(post: uploadPost, image: image)
+                            .subscribe(onSuccess: {
+                                single(.success(()))
+                            })
+                            .disposed(by: self.disposeBag)
+                    } else {
+                        var post = post
+                        post.userId = user.id
+                        post.nickName = user.nickName
+                        self.communityRepository.uploadPost(post: post, image: image)
+                            .subscribe(onSuccess: {
+                                single(.success(()))
+                            })
+                            .disposed(by: self.disposeBag)
+                    }
+                }).disposed(by: self.disposeBag)
             return Disposables.create()
         }
     }

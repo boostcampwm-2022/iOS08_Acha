@@ -10,16 +10,21 @@ import RxSwift
 import RxRelay
 
 final class DefaultCommunityDetailUseCase: CommunityDetailUseCase {
-    private let repository: CommunityRepository
+    private let communityRepository: CommunityRepository
+    private let userRepository: UserRepository
     private let postID: Int
     private let disposeBag = DisposeBag()
     var post = PublishSubject<Post>()
     
-    init(postID: Int, repository: CommunityRepository) {
+    init(postID: Int,
+         communityRepository: CommunityRepository,
+         userRepository: UserRepository
+    ) {
         self.postID = postID
-        self.repository = repository
+        self.communityRepository = communityRepository
+        self.userRepository = userRepository
         
-        repository.uploadCommentSuccess
+        communityRepository.uploadCommentSuccess
             .subscribe(onNext: { [weak self] _ in
                 guard let self else { return }
                 self.fetchPost()
@@ -46,19 +51,23 @@ final class DefaultCommunityDetailUseCase: CommunityDetailUseCase {
         Single.create { [weak self] single in
             guard let self else { return Disposables.create()}
             
-            var comment = comment
-            comment.postId = self.postID
-            self.repository.uploadComment(comment: comment)
-                .subscribe(onSuccess: {
-                    single(.success(()))
-                })
-                .disposed(by: self.disposeBag)
-            
+            self.userRepository.fetchUserData()
+                .subscribe(onSuccess: { user in
+                    var comment = comment
+                    comment.postId = self.postID
+                    comment.nickName = user.nickName
+                    comment.userId = user.id
+                    self.communityRepository.uploadComment(comment: comment)
+                        .subscribe(onSuccess: {
+                            single(.success(()))
+                        })
+                        .disposed(by: self.disposeBag)
+                }).disposed(by: self.disposeBag)
             return Disposables.create()
         }
     }
     
     func deletePost() {
-        repository.deletePost(id: postID)
+        communityRepository.deletePost(id: postID)
     }
 }
