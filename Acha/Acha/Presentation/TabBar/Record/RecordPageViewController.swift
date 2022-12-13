@@ -58,34 +58,27 @@ class RecordPageViewController: UIViewController {
 
 extension RecordPageViewController: UIPageViewControllerDelegate, UIPageViewControllerDataSource {
     func pageViewController(_ pageViewController: UIPageViewController,
-                            viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        guard let index = viewList.firstIndex(of: viewController) else {return nil}
-        
-        if viewList[index] is RecordMapViewController {
+                            didFinishAnimating finished: Bool,
+                            previousViewControllers: [UIViewController],
+                            transitionCompleted completed: Bool) {
+        if previousViewControllers.first is RecordMainViewController {
             navigationItem.title = "맵 랭킹"
-        } else if viewList[index] is RecordMainViewController {
+        } else if previousViewControllers.first is RecordMapViewController {
             navigationItem.title = "개인 기록"
         }
-        
+    }
+    func pageViewController(_ pageViewController: UIPageViewController,
+                            viewControllerBefore viewController: UIViewController) -> UIViewController? {
+        guard let index = viewList.firstIndex(of: viewController) else {return nil}
         let previousIndex = index - 1
         if previousIndex < 0 { return nil}
-        
         return viewList[previousIndex]
     }
-    
     func pageViewController(_ pageViewController: UIPageViewController,
                             viewControllerAfter viewController: UIViewController) -> UIViewController? {
         guard let index = viewList.firstIndex(of: viewController) else {return nil}
-
-        if viewList[index] is RecordMapViewController {
-            navigationItem.title = "맵 랭킹"
-        } else if viewList[index] is RecordMainViewController {
-            navigationItem.title = "개인 기록"
-        }
-        
-       let nextIndex = index + 1
-       if nextIndex == viewList.count { return nil}
-        
-       return viewList[nextIndex]
+        let nextIndex = index + 1
+        if nextIndex == viewList.count { return nil}
+        return viewList[nextIndex]
     }
 }
