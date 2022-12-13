@@ -24,6 +24,9 @@ final class DefaultCommunityMainUseCase: CommunityMainUseCase {
             .subscribe(onNext: { [weak self] posts in
                 guard let self else { return }
                 self.posts.onNext(posts)
+            }, onError: { [weak self] _ in
+                guard let self else { return }
+                self.posts.onNext([])
             })
             .disposed(by: disposeBag)
     }

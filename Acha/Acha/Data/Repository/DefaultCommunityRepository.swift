@@ -108,8 +108,8 @@ struct DefaultCommunityRepository: CommunityRepository {
         Single.create { single in
             Single.create { single in
                 realtimeService.fetch(type: .postList)
-                    .subscribe(onSuccess: { (postDTOs: [PostDTO?]) in
-                        single(.success(postDTOs.compactMap { $0 }.map { $0.toDomain() }))
+                    .subscribe(onSuccess: { (result: [String: PostDTO]) in
+                        single(.success(result.values.map { $0.toDomain() }))
                     }, onFailure: { _ in
                         single(.success([]))
                     }).disposed(by: disposeBag)
@@ -122,11 +122,8 @@ struct DefaultCommunityRepository: CommunityRepository {
                                            completion: { url in
                         guard let url else { return }
                         var post = post
-                        let minID = posts.max {
-                            $0.id > $1.id
-                        }?.id
+                        let minID = posts.max { $0.id > $1.id }?.id
                         post.id = (minID ?? 1) - 1
-                        
                         let postDTO = PostDTO(data: post,
                                               image: url.absoluteString)
                         realtimeService.uploadPost(data: postDTO)
@@ -139,9 +136,7 @@ struct DefaultCommunityRepository: CommunityRepository {
                     })
                 } else {
                     var post = post
-                    let minID = posts.max {
-                        $0.id > $1.id
-                    }?.id
+                    let minID = posts.max { $0.id > $1.id }?.id
                     post.id = (minID ?? 1) - 1
                     realtimeService.uploadPost(data: PostDTO(data: post))
                         .subscribe(onSuccess: {

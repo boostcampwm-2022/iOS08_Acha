@@ -104,6 +104,12 @@ final class CommunityDetailViewController: UIViewController, UICollectionViewDel
             .subscribe(onNext: { [weak self] in
                 guard let self else { return }
                 self.reloadSnapshot()
+                self.collectionView.setContentOffset(
+                    CGPoint(
+                        x: 0,
+                        y: self.collectionView.contentSize.height - self.collectionView.bounds.height),
+                    animated: true
+                )
             })
             .disposed(by: disposeBag)
     }
