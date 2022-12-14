@@ -25,12 +25,13 @@ final class CommentView: UIView {
         $0.textContainerInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     }
     
-    lazy var commentButton = UIButton().then {
+    lazy var commentButton: UIButton = UIButton().then {
         $0.titleLabel?.font = .boldBody
         $0.setTitle("작성", for: .normal)
         $0.backgroundColor = .pointLight
         $0.setTitleColor(.white, for: .normal)
         $0.layer.cornerRadius = 5
+        $0.isValid = false
     }
     
     private let disposebag = DisposeBag()
@@ -87,6 +88,9 @@ extension CommentView: UITextViewDelegate {
         if newLength > maxTextCount {
           return false
         }
+        
+        commentButton.isValid = newLength != 0
+        
         return true
     }
 }

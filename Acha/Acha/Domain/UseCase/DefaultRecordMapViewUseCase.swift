@@ -27,6 +27,7 @@ final class DefaultRecordMapViewUseCase: RecordMapViewUseCase {
     
     func loadMapData() {
         mapRepository.fetchAllMaps()
+            .asObservable()
             .subscribe(onNext: { maps in
                 var mapDataAtCategory = [String: [Map]]()
                 var mapDataAtMapName = [String: Map]()
@@ -60,16 +61,23 @@ final class DefaultRecordMapViewUseCase: RecordMapViewUseCase {
                 if maps.isEmpty {
                     self.mapNameAndRecordDatas.onNext((mapImage: nil, mapName: "맵이 없습니다.", recordDatas: []))
                 } else {
-                    let map = maps[0]
+                    let map = maps.sorted { $0.mapID < $1.mapID }[0]
                     self.recordRepository.fetchRecordDataAtMapID(mapID: map.mapID)
                         .subscribe(onSuccess: { records in
                             let records = records.filter { $0.isCompleted == true }.sorted { $0.time < $1.time }
                             self.mapNameAndRecordDatas.onNext((mapImage: map.image,
                                                                mapName: map.name,
                                                                recordDatas: records))
+                        }, onFailure: { _ in
+                            self.mapNameAndRecordDatas.onNext((mapImage: map.image,
+                                                               mapName: map.name,
+                                                               recordDatas: []))
                         })
                         .disposed(by: self.disposeBag)
                 }
+            }, onError: { [weak self] _ in
+                guard let self else { return }
+                self.mapNameAndRecordDatas.onNext((mapImage: nil, mapName: "맵이 없습니다.", recordDatas: []))
             })
             .disposed(by: disposeBag)
     }

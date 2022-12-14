@@ -10,49 +10,73 @@ import RxSwift
 import RxRelay
 
 final class DefaultCommunityDetailUseCase: CommunityDetailUseCase {
-    private let repository: CommunityRepository
+    private let communityRepository: CommunityRepository
+    private let userRepository: UserRepository
     private let postID: Int
     private let disposeBag = DisposeBag()
-    var post = PublishSubject<Post>()
+    var post = PublishSubject<(post: Post, isMine: Bool)>()
+    var user = BehaviorSubject<User?>(value: nil)
     
-    init(postID: Int, repository: CommunityRepository) {
+    init(postID: Int,
+         communityRepository: CommunityRepository,
+         userRepository: UserRepository
+    ) {
         self.postID = postID
-        self.repository = repository
+        self.communityRepository = communityRepository
+        self.userRepository = userRepository
         
-        repository.uploadCommentSuccess
+        communityRepository.uploadCommentSuccess
             .subscribe(onNext: { [weak self] _ in
                 guard let self else { return }
                 self.fetchPost()
             })
             .disposed(by: disposeBag)
+        
+        userRepository.fetchUserData()
+            .asObservable()
+            .bind(to: user)
+            .disposed(by: disposeBag)
     }
     
     func fetchPost() {
-        repository.getAllPost()
-            .subscribe(onSuccess: { posts in
-                guard let post = posts.first(where: { $0.id == self.postID }) else { return }
-                self.post.onNext(post)
+        communityRepository.fetchPost(postID: postID)
+            .subscribe(onNext: { [weak self] post in
+                guard let self,
+                      let user = try? self.user.value() else { return }
+                
+                self.post.onNext((post: post, isMine: post.userId == user.id))
             })
             .disposed(by: disposeBag)
     }
     
-    func uploadComment(comment: Comment) -> Single<Void> {
+    func uploadComment(commentMessage: String) -> Single<Void> {
         Single.create { [weak self] single in
-            guard let self else { return Disposables.create()}
-            
-            var comment = comment
-            comment.postId = self.postID
-            self.repository.uploadComment(comment: comment)
+            guard let self,
+                  let user = try? self.user.value() else { return Disposables.create() }
+            let comment = Comment(postId: self.postID,
+                                  userId: user.id,
+                                  nickName: user.nickName,
+                                  text: commentMessage)
+            self.communityRepository.uploadComment(comment: comment)
                 .subscribe(onSuccess: {
+                    single(.success(()))
+                })
+                .disposed(by: self.disposeBag)
+            return Disposables.create()
+        }
+    }
+    
+    func deletePost() -> Single<Void> {
+        Single.create { [weak self] single in
+            guard let self else { return Disposables.create() }
+            
+            self.communityRepository.deletePost(id: self.postID)
+                .subscribe(onSuccess: { _ in
                     single(.success(()))
                 })
                 .disposed(by: self.disposeBag)
             
             return Disposables.create()
         }
-    }
-    
-    func deletePost() {
-        repository.deletePost(id: postID)
     }
 }

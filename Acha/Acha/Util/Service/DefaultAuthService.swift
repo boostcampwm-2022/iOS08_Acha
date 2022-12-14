@@ -94,4 +94,29 @@ struct DefaultAuthService: AuthService {
             return Disposables.create()
         }
     }
+    
+    public func update(email: String, password: String) -> Single<Void> {
+        Single<Void>.create { single in
+            guard let user = Auth.auth().currentUser,
+                  let previousEmail = user.email else {
+                single(.failure(DefaultAuthError.noUserError))
+                return Disposables.create()
+            }
+            
+            // 이메일을 업데이트하기 위해 사용자 재인증
+            let credential = EmailAuthProvider.credential(withEmail: previousEmail,
+                                                          password: password)
+            user.reauthenticate(with: credential) { _, error in
+                if let error {
+                    single(.failure(error))
+                } else {
+                    user.updateEmail(to: email) { error in
+                        if let error { single(.failure(error)) }
+                        else { single(.success(())) }
+                    }
+                }
+            }
+            return Disposables.create()
+        }
+    }
 }

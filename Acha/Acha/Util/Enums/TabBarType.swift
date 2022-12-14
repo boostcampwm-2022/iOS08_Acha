@@ -44,7 +44,7 @@ enum TabBarType: CaseIterable {
         case .home:
             return "house"
         case .record:
-            return "list.clipboard"
+            return "chart.bar"
         case .community:
             return "person.2"
         case .myPage:
@@ -57,7 +57,7 @@ enum TabBarType: CaseIterable {
         case .home:
             return "house.fill"
         case .record:
-            return "list.clipboard.fill"
+            return "chart.bar.fill"
         case .community:
             return "person.2.fill"
         case .myPage:

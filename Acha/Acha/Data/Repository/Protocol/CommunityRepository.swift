@@ -11,11 +11,11 @@ import RxSwift
 protocol CommunityRepository {
     var uploadCommentSuccess: PublishSubject<Bool> { get set }
     
-    func loadPost(count: Int) -> Single<[Post]>
+    func loadPost(count: Int) -> Observable<[Post]>
+    func fetchPost(postID: Int) -> Observable<Post>
     func getAllPost() -> Single<[Post]>
-    func getImage(urlString: String) -> Single<Image>
     func uploadPost(post: Post, image: Image?) -> Single<Void>
     func updatePost(post: Post, image: Image?) -> Single<Void> 
-    func deletePost(id: Int)
+    func deletePost(id: Int) -> Single<Void>
     func uploadComment(comment: Comment) -> Single<Void>
 }

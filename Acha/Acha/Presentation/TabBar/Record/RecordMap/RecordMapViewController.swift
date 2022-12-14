@@ -271,7 +271,10 @@ class RecordMapViewController: UIViewController {
             snapshot.appendItems([.ranking($0.offset + 1, $0.element)], toSection: .ranking(mapName))
         }
         
-        guard let data = mapImage else { return }
+        guard let data = mapImage else {
+            dataSource.apply(snapshot)
+            return
+        }
         snapshot.appendItems([.map(data)], toSection: .map)
         
         dataSource.apply(snapshot)

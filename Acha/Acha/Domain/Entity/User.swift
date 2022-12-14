@@ -9,9 +9,23 @@ import Foundation
 
 struct User {
     let id: String
-    let nickName: String
+    var nickName: String
     let badges: [Int]
     let records: [Int]
-    //    let pinCharacter: String
+    var pinCharacter: String
     let friends: [Int]
+    
+    init(id: String = "",
+         nickName: String = "",
+         badges: [Int] = [],
+         records: [Int] = [],
+         pinCharacter: String = "firstAnnotation",
+         friends: [Int] = []) {
+        self.id = id
+        self.nickName = nickName
+        self.badges = badges
+        self.records = records
+        self.pinCharacter = pinCharacter
+        self.friends = friends
+    }
  }

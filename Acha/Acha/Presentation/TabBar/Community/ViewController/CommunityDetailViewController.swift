@@ -16,7 +16,7 @@ final class CommunityDetailViewController: UIViewController, UICollectionViewDel
     }
      
     enum Item: Hashable {
-        case post(Post)
+        case post(Post, Bool)
         case comment(Comment)
     }
     
@@ -74,17 +74,14 @@ final class CommunityDetailViewController: UIViewController, UICollectionViewDel
                 .map { _ in }
                 .asObservable(),
             commentRegisterButtonTapEvent: commentView
-                .commentButton
-                .rx.tap
+                .commentButton.rx.tap
                 .map { [weak self] _ in
                     guard let self else { fatalError() }
-                    
-                    let comment = Comment(userId: "USER1",
-                                          nickName: "USER1",
-                                          text: self.commentView.commentTextView.text)
-                    self.commentView.commentTextView.text = ""
-                    
-                    return comment
+                    let commnetMessage = self.commentView.commentTextView.text
+                    self.commentView.commentTextView.text = "텍스트를 입력해주세요."
+                    self.commentView.commentTextView.textColor = .lightGray
+                    self.commentView.commentButton.isValid = false
+                    return commnetMessage ?? ""
                 }
                 .asObservable(),
             postModifyButtonTapEvent: postCellModifyButtonTapEvent.asObservable(),
@@ -94,9 +91,9 @@ final class CommunityDetailViewController: UIViewController, UICollectionViewDel
         let output = viewModel.transform(input: input)
         
         output.post
-            .subscribe(onNext: { [weak self] post in
+            .subscribe(onNext: { [weak self] (post, isMine) in
                 guard let self else { return }
-                self.makeSnapshot(post: post)
+                self.makeSnapshot(post: post, isMine: isMine)
             })
             .disposed(by: disposeBag)
         
@@ -104,6 +101,12 @@ final class CommunityDetailViewController: UIViewController, UICollectionViewDel
             .subscribe(onNext: { [weak self] in
                 guard let self else { return }
                 self.reloadSnapshot()
+                self.collectionView.setContentOffset(
+                    CGPoint(
+                        x: 0,
+                        y: self.collectionView.contentSize.height - self.collectionView.bounds.height),
+                    animated: true
+                )
             })
             .disposed(by: disposeBag)
     }
@@ -154,19 +157,20 @@ final class CommunityDetailViewController: UIViewController, UICollectionViewDel
                                 cellProvider: { [weak self] collectionView, indexPath, itemIdentifier in
             guard let self else { return UICollectionViewCell() }
             switch itemIdentifier {
-            case .post(let post):
+            case .post(let post, let isMine):
                 guard let cell = collectionView.dequeueReusableCell(
                     withReuseIdentifier: CommunityDetailPostCell.identifier,
                     for: indexPath) as? CommunityDetailPostCell
                 else { return UICollectionViewCell() }
                 
-                cell.bind(post: post)
+                cell.bind(post: post, isMine: isMine)
                 cell.modifyButtonTapEvent?
-                    .subscribe(onNext: { sendPost in
-                        var newPost = sendPost
+                    .subscribe(onNext: { postContent in
+                        var newPost = Post()
                         newPost.id = post.id
                         newPost.image = post.image
                         newPost.comments = post.comments
+                        newPost.text = postContent
                         self.postCellModifyButtonTapEvent.accept(newPost)
                     })
                     .disposed(by: self.disposeBag)
@@ -266,12 +270,12 @@ final class CommunityDetailViewController: UIViewController, UICollectionViewDel
         return section
     }
     
-    private func makeSnapshot(post: Post) {
+    private func makeSnapshot(post: Post, isMine: Bool) {
         var snapshot = Snapshot()
         snapshot.deleteSections([.post, .comment])
         
         snapshot.appendSections([.post, .comment])
-        snapshot.appendItems([.post(post)], toSection: .post)
+        snapshot.appendItems([.post(post, isMine)], toSection: .post)
         
         guard let comments = post.comments else {
             dataSource.apply(snapshot)

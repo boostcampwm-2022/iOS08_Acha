@@ -105,25 +105,46 @@ struct DefaultUserRepository: UserRepository {
             }
     }
     
-    func updateUserData(user: User) {
-        guard let uuid = getUUID() else { return }
-        getUserDataFromRealTimeDataBaseService(uuid: uuid)
-            .subscribe(onSuccess: { userDTO in
-                let updatedUserDTO = UserDTO(id: userDTO.id,
-                                             nickname: user.nickName,
-                                             badges: user.badges,
-                                             records: user.records,
-                                             pinCharacter: userDTO.pinCharacter,
-                                             friends: user.friends)
-                
-                realtimeDataBaseService
-                    .upload(type: .user(id: updatedUserDTO.id), data: updatedUserDTO)
-            })
-            .disposed(by: disposeBag)
+    func updateUserData(user: User) -> Single<Void> {
+        Single.create { single in
+            guard let uuid = getUUID() else {
+                return Disposables.create()
+            }
+            getUserDataFromRealTimeDataBaseService(uuid: uuid)
+                .subscribe(onSuccess: { userDTO in
+                    let updatedUserDTO = UserDTO(
+                        id: userDTO.id,
+                        nickname: user.nickName,
+                        badges: user.badges,
+                        records: user.records,
+                        pinCharacter: user.pinCharacter,
+                        friends: user.friends
+                    )
+                    realtimeDataBaseService
+                        .upload(
+                            type: .user(id: updatedUserDTO.id),
+                            data: updatedUserDTO
+                        )
+                        .subscribe(onSuccess: {
+                            single(.success(()))
+                        }, onFailure: { error in
+                            single(.failure(error))
+                        })
+                        .disposed(by: disposeBag)
+                })
+                .disposed(by: disposeBag)
+            return Disposables.create()
+        }
+    }
+    
+    func updateUserEmail(email: String, password: String) -> Single<Void> {
+        authService.update(email: email, password: password)
     }
     
     private func uploadUserData(data: UserDTO) {
         realtimeDataBaseService.upload(type: .user(id: data.id), data: data)
+            .subscribe { _ in }
+            .disposed(by: disposeBag)
     }
     
     private func getUserDataFromRealTimeDataBaseService(uuid: String) -> Single<UserDTO> {

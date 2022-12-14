@@ -31,10 +31,11 @@ final class DefaultMultiGameUseCase: MultiGameUseCase {
     private var calorie: Int {
         return Int(movedDistance/100)
     }
+
+    private var gamePoint: Int {
+        return visitedLocation.count
+    }
     private var watchOtherLocationIndex = 0
-    var inGamePlayersData = BehaviorRelay<[MultiGamePlayerData]>(value: [])
-    var unReadsCount = BehaviorRelay<Int>(value: 0)
-    var currentRoomPlayerData = BehaviorRelay<[RoomUser]>(value: [])
     
     init(
         gameRoomRepository: GameRoomRepository,
@@ -48,6 +49,10 @@ final class DefaultMultiGameUseCase: MultiGameUseCase {
         self.recordRepository = recordRepository
         self.timeRepository = timeRepository
         self.locationRepository = locationRepository
+    }
+    
+    func initVisitedLocation() {
+        visitedLocation = []
     }
     
     func timerStart() -> Observable<Int> {
@@ -69,9 +74,14 @@ final class DefaultMultiGameUseCase: MultiGameUseCase {
     
     func point() -> Observable<Int> {
         return Observable<Int>.create { [weak self] observer in
-            observer.onNext(self?.visitedLocation.count ?? 0)
+            observer.onNext(self?.gamePoint ?? 0)
             return Disposables.create()
         }
+    }
+    
+    func gameOver(roomID: String) -> Observable<Bool> {
+        return gameRoomRepository.observingRoomUser(id: roomID)
+            .map { $0.count < 2 ? true : false }
     }
     
     func updateData(roomId: String) {
@@ -113,18 +123,8 @@ final class DefaultMultiGameUseCase: MultiGameUseCase {
         locationRepository.stopObservingLocation()
     }
     
-    func observing(roomID: String) {
-        return gameRoomRepository.observingRoom(id: roomID)
-            .withUnretained(self)
-            .subscribe(onNext: { _, roomDTO in
-                self.currentRoomPlayerData.accept(roomDTO.toRoomUsers())
-                let gameInformation = (roomDTO.gameInformation ?? []).map { $0.toDamin() }
-                self.inGamePlayersData.accept(gameInformation)
-                let reads = (roomDTO.chats ?? []).map { $0.read }
-                let readInformation = self.checkDidIReadThatChat(chats: reads)
-                self.unReadsCount.accept(readInformation)
-            })
-            .disposed(by: disposeBag)
+    func observing(roomID: String) -> Observable<[MultiGamePlayerData]> {
+        return gameRoomRepository.observingMultiGamePlayers(id: roomID)
     }
     
     func watchOthersLocation(roomID: String) -> Single<Coordinate> {

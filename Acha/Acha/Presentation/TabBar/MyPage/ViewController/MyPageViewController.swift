@@ -77,6 +77,11 @@ final class MyPageViewController: UIViewController {
         configureUI()
         bind()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.prefersLargeTitles = true
+    }
 }
 
 // MARK: - Helpers
@@ -93,7 +98,6 @@ extension MyPageViewController {
     }
     
     private func configureNavigationTitle() {
-        navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.largeTitleDisplayMode = .automatic
         navigationItem.title = "회원님, 안녕하세요!"
         navigationController?.navigationBar.largeTitleTextAttributes = [
@@ -135,6 +139,11 @@ extension MyPageViewController {
         output.badges
             .subscribe(onNext: { [weak self] badges in
                 guard let self else { return }
+                let noBadge = Badge(id: -2,
+                                    name: "뱃지가없어요",
+                                    image: UIImage.noBadge.pngData() ?? Data(),
+                                    isHidden: false)
+                let badges = badges.count == 0 ? [noBadge] : badges
                 self.makeBadgeSnapshot(badges: badges)
             }).disposed(by: disposeBag)
         
@@ -316,9 +325,9 @@ extension MyPageViewController {
     private func makeBadgeSnapshot(badges: [Badge]) {
         guard let dataSource else { return }
         var snapshot = dataSource.snapshot()
+        snapshot.deleteItems(snapshot.itemIdentifiers(inSection: .badge))
         let badgeItems = badges.map { MyPageItem.badge(badge: $0) }
         snapshot.appendItems(badgeItems, toSection: .badge)
         dataSource.apply(snapshot)
     }
-
 }

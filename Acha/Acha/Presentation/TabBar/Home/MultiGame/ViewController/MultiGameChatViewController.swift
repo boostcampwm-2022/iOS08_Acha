@@ -28,7 +28,7 @@ final class MultiGameChatViewController: UIViewController {
     private lazy var chatDataSource = makeDataSource()
     private lazy var chatSnapShot = ChatSnapShot()
     
-    private let viewModel: MultiGameChatViewModel
+    private weak var viewModel: MultiGameChatViewModel?
     private let disposeBag = DisposeBag()
     
     init(viewModel: MultiGameChatViewModel, roomID: String) {
@@ -45,9 +45,8 @@ final class MultiGameChatViewController: UIViewController {
         super.viewDidLoad()
         configureCommentView()
         configureCollectionView()
-        keyboardBind()
         bind()
-        
+        keyboardBind()
     }
 
     private func bind() {
@@ -55,10 +54,11 @@ final class MultiGameChatViewController: UIViewController {
             viewDidAppear: rx.viewDidAppear.asObservable(),
             commentButtonTapped: commentView.commentButton.rx.tap.asObservable(),
             textInput: commentView.commentTextView.rx.text.orEmpty.asObservable(),
-            viewWillDisappear: rx.viewWillDisappear.asObservable()
+            viewWillDisappear: rx.viewWillDisappear.asObservable(),
+            didEnterBackground: UIApplication.rx.didEnterBackground.asObservable()
         )
         
-        let outputs = viewModel.transform(input: inputs)
+        guard let outputs = viewModel?.transform(input: inputs) else {return}
         
         outputs.chatFetched
             .drive(onNext: { [weak self] chats in
@@ -67,7 +67,7 @@ final class MultiGameChatViewController: UIViewController {
             .disposed(by: disposeBag)
         
         outputs.chatDelievered
-            .delay(.milliseconds(300))
+            .delay(.milliseconds(280))
             .drive(onNext: { [weak self] _ in
                 self?.commentView.commentTextView.text = ""
             })
@@ -77,26 +77,24 @@ final class MultiGameChatViewController: UIViewController {
     private func keyboardBind() {
         hideKeyboardWhenTapped()
         
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(keyboardWillShow),
-            name: UIResponder.keyboardWillShowNotification, object: nil
-        )
-        
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(keyboardWillHide),
-            name: UIResponder.keyboardWillHideNotification,
-            object: nil
-        )
+        AchaKeyboard.shared.keyboardHeight
+            .drive(onNext: { [weak self] keyboardHeight in
+                guard let self else {return}
+                let height = keyboardHeight > 0 ? self.view.safeAreaInsets.bottom - keyboardHeight : -20
+                self.commentView.snp.updateConstraints {
+                    $0.bottom.equalTo(height)
+                }
+                self.view.layoutIfNeeded()
+            })
+            .disposed(by: disposeBag)
     }
     
     private func configureCommentView() {
         view.addSubview(commentView)
+        commentView.commentTextView.text = nil
         commentView.snp.makeConstraints {
-            $0.leading.equalToSuperview()
-            $0.trailing.equalToSuperview()
-            $0.bottom.equalToSuperview()
+            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.bottom.equalToSuperview().offset(-20)
             $0.height.equalTo(80)
         }
     }
@@ -178,16 +176,4 @@ extension MultiGameChatViewController {
     @objc private func dismissKeyboard() {
         view.endEditing(true)
     }
-    
-    @objc func keyboardWillShow(notification: NSNotification) {
-        guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
-            return
-        }
-        self.view.frame.origin.y = 0 - keyboardSize.height
-    }
-    
-    @objc func keyboardWillHide(notification: NSNotification) {
-        self.view.frame.origin.y = 0
-    }
-    
 }

@@ -68,9 +68,11 @@ final class MultiGameRoomViewController: UIViewController {
     private func bind() {
         let inputs = MultiGameRoomViewModel.Input(
             viewDidAppear: rx.viewDidAppear.asObservable(),
+            viewWillAppear: rx.viewWillAppear.asObservable(),
             exitButtonTapped: exitButton.rx.tap.asObservable(),
             gameStartButtonTapped: startButton.rx.tap.asObservable(),
-            viewWillDisappear: rx.viewWillDisappear.asObservable()
+            viewWillDisappear: rx.viewWillDisappear.asObservable(),
+            didEnterBackground: UIApplication.rx.didEnterBackground.asObservable()
         )
                 
         let outputs = viewModel.transform(input: inputs)
@@ -208,13 +210,15 @@ extension MultiGameRoomViewController {
     
     private func configureCollectionViewHeader() {
         
-        dataSource.supplementaryViewProvider = { collectionView, elementKind, indexPath in
+        dataSource.supplementaryViewProvider = { [weak self] collectionView, elementKind, indexPath in
             guard elementKind == UICollectionView.elementKindSectionHeader,
                   let header = collectionView.dequeueReusableSupplementaryView(
                     ofKind: elementKind,
                     withReuseIdentifier: GameRoomCollectionViewHeader.identifier,
                     for: indexPath) as? GameRoomCollectionViewHeader
             else { return UICollectionReusableView() }
+            let player = self?.snapshot.itemIdentifiers(inSection: .gameRoom) ?? []
+            header.bind(playerNumber: player.count)
             return header
         }
     }

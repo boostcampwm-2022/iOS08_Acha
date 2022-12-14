@@ -59,11 +59,6 @@ final class DependenciesDefinition {
         )
         
         dependencies.register(
-            TempDBNetwork.self,
-            implement: DefaultTempDBNetwork()
-        )
-        
-        dependencies.register(
             ImageCacheService.self,
             implement: DefaultImageCacheService()
         )
@@ -144,6 +139,7 @@ final class DependenciesDefinition {
             implement: DefaultSelectMapUseCase(
                 locationService: dependencies.resolve(LocationService.self),
                 mapRepository: dependencies.resolve(MapRepository.self),
+                userRepository: dependencies.resolve(UserRepository.self),
                 recordRepository: dependencies.resolve(RecordRepository.self)
             )
         )
@@ -151,7 +147,8 @@ final class DependenciesDefinition {
         dependencies.register(
             MapBaseUseCase.self,
             implement: DefaultMapBaseUseCase(
-                locationService: dependencies.resolve(LocationService.self)
+                locationService: dependencies.resolve(LocationService.self),
+                userRepository: dependencies.resolve(UserRepository.self)
             )
         )
     
@@ -205,6 +202,14 @@ final class DependenciesDefinition {
                 recordRepository: dependencies.resolve(RecordRepository.self),
                 timeRepository: dependencies.resolve(TimeRepository.self),
                 locationRepository: dependencies.resolve(LocationRepository.self)
+            )
+        )
+        
+        dependencies.register(
+            MultiGameChatUseCase.self,
+            implement: DefaultMultiGameChatUseCase(
+                roomRepository: dependencies.resolve(GameRoomRepository.self),
+                userRepository: dependencies.resolve(UserRepository.self)
             )
         )
         

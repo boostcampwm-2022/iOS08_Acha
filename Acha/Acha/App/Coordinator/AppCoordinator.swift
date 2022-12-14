@@ -28,7 +28,6 @@ final class AppCoordinator: AppCoordinatorProtocol {
         } else {
             connectTabBar()
         }
-
     }
     
     func connectAuth() {

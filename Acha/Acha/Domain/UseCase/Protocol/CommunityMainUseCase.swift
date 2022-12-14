@@ -10,6 +10,5 @@ import RxSwift
 
 protocol CommunityMainUseCase {
     var posts: PublishSubject<[Post]> { get set }
-    func loadPostData()
     func loadPostData(count: Int)
 }

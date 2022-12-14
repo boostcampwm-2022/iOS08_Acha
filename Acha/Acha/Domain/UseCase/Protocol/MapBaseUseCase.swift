@@ -8,9 +8,10 @@
 import RxSwift
 
 protocol MapBaseUseCase {
+    var user: BehaviorSubject<User> { get set }
     var userLocation: BehaviorSubject<Coordinate> { get set }
     
     func start()
     func stop()
-    func isAvailableLocationAuthorization() -> PublishSubject<Bool>
+    func isAvailableLocationAuthorization() -> Observable<(Bool, Coordinate?)>
 }

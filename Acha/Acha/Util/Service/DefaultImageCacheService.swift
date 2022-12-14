@@ -81,14 +81,12 @@ struct DiskCache {
 
         Single<Data>.create { single in
             let path = pathURL.appendingPathComponent(imageURL.lastPathComponent)
-            DispatchQueue.global().async {
+            DispatchQueue.main.async {
                 guard let data = try? Data(contentsOf: path) else {
                     single(.failure(DiskCacheError.dataError))
                     return
                 }
-                DispatchQueue.main.async {
                     single(.success(data))
-                }
             }
             try? fileManager.setAttributes([FileAttributeKey.modificationDate: Date()], ofItemAtPath: path.path)
             return Disposables.create()

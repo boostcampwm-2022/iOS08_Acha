@@ -57,7 +57,8 @@ final class CommunityPostWriteViewController: UIViewController {
         $0.style = .plain
         $0.target = self
         $0.action = #selector(rightButtonTapped)
-        $0.tintColor = .pointLight
+        $0.tintColor = .pointLight.withAlphaComponent(0.5)
+        $0.isEnabled = false
         $0.setTitleTextAttributes([.font: UIFont.defaultTitle ], for: .normal)
     }
     
@@ -71,7 +72,7 @@ final class CommunityPostWriteViewController: UIViewController {
     private var textViewPlaceHolder = "텍스트를 입력해주세요."
     private let maxTextCount = 300
     
-    private var rightButtonTapEvent = PublishRelay<(Post, Image?)>()
+    private var rightButtonTapEvent = PublishRelay<(String, Image?)>()
     
     // MARK: - Lifecycles
     init(viewModel: CommunityPostWriteViewModel) {
@@ -98,7 +99,7 @@ final class CommunityPostWriteViewController: UIViewController {
             .compactMap { $0 }
             .subscribe(onNext: { [weak self] text in
                 guard let self else { return }
-                self.textCountLabel.text = "\(text.count) / 300"
+                self.textCountLabel.text = text == self.textViewPlaceHolder ? "0 / 300" : "\(text.count) / 300"
             }).disposed(by: disposeBag)
         
         let input = CommunityPostWriteViewModel.Input(
@@ -115,15 +116,9 @@ final class CommunityPostWriteViewController: UIViewController {
                 guard let self else { return }
                 self.textView.text = post.text
                 self.textView.textColor = .black
-                if let image = post.image {
-                    let service = DefaultFirebaseStorageNetworkService()
-                    service.download(urlString: image) { data in
-                        guard let data else { return }
-                        DispatchQueue.main.async { [weak self] in
-                            guard let self else { return }
-                            self.imageAddButton.imageView?.image = UIImage(data: data)
-                        }
-                    }
+                if let data = post.image {
+                    self.imageAddButton.setImage(UIImage(data: data)?.resize(newWidth: self.view.frame.width - 30),
+                                                 for: .normal)
                 }
                 
             }).disposed(by: disposeBag)
@@ -186,18 +181,17 @@ final class CommunityPostWriteViewController: UIViewController {
     
     @objc private func rightButtonTapped() {
         let imageName = UUID().uuidString + String(Date().timeIntervalSince1970)
-        let post = Post(userId: "유저ID",
-                        nickName: "닉네임",
-                        text: textView.text)
+        navigationItem.rightBarButtonItem?.isEnabled = false
+        navigationItem.rightBarButtonItem?.tintColor = .pointLight.withAlphaComponent(0.5)
         
         if imageAddButton.imageView?.image != UIImage.plusImage {
             guard let data = imageAddButton.imageView?.image?.jpegData(compressionQuality: 0.4) else { return }
             let image = Image(name: imageName,
                               data: data)
             
-            self.rightButtonTapEvent.accept((post, image))
+            self.rightButtonTapEvent.accept((textView.text ?? "", image))
         } else {
-            self.rightButtonTapEvent.accept((post, nil))
+            self.rightButtonTapEvent.accept((textView.text ?? "", nil))
         }
     }
 }
@@ -221,6 +215,14 @@ extension CommunityPostWriteViewController: UITextViewDelegate {
         let newLength = textView.text.count - range.length + text.count
         if newLength > maxTextCount {
           return false
+        }
+        
+        if newLength != 0 {
+            navigationItem.rightBarButtonItem?.isEnabled = true
+            navigationItem.rightBarButtonItem?.tintColor = .pointLight.withAlphaComponent(1.0)
+        } else {
+            navigationItem.rightBarButtonItem?.isEnabled = false
+            navigationItem.rightBarButtonItem?.tintColor = .pointLight.withAlphaComponent(0.5)
         }
         return true
     }
