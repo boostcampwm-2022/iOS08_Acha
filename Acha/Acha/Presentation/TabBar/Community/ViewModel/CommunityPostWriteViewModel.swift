@@ -48,9 +48,14 @@ final class CommunityPostWriteViewModel: BaseViewModel {
         input.rightButtonTapped
             .subscribe(onNext: { [weak self] (postContent, image) in
                 guard let self else { return }
+                self.coordinator.navigationController.view.rx.indicator.onNext(true)
                 self.useCase.uploadPost(postContent: postContent, image: image)
                     .subscribe(onSuccess: { _ in
+                        self.coordinator.navigationController.view.rx.indicator.onNext(false)
                         self.coordinator.popLastViewController()
+                    }, onFailure: { _ in
+                        self.coordinator.navigationController.view.rx.indicator.onNext(false)
+                        self.coordinator.navigationController.showAlert(title: "경고", message: "게시글 작성에 실패했습니다!")
                     })
                     .disposed(by: self.disposeBag)
             }).disposed(by: disposeBag)
