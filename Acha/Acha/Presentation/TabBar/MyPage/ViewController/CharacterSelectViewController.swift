@@ -81,6 +81,7 @@ extension CharacterSelectViewController {
                 for: indexPath) as? BadgeCell else {
                 return BadgeCell()
             }
+            cell.contentView.alpha = 0.5
             cell.bind(pinCharacter: item)
             return cell
         })
@@ -127,7 +128,21 @@ extension CharacterSelectViewController {
         let input = CharacterSelectViewModel.Input(selectedCharacterIndex: collectionView.rx.itemSelected.asObservable(),
                                                    finishButtonTapped: finishButtonTapped,
                                                    cancelButtonTapped: cancelButtonTapped)
-        let _ = viewModel.transform(input: input)
+        _ = viewModel.transform(input: input)
+        
+        collectionView.rx.itemSelected
+            .subscribe(onNext: { [weak self] indexPath in
+                guard let self,
+                      let cell = self.collectionView.cellForItem(at: indexPath) else { return }
+                cell.contentView.alpha = 1.0
+            }).disposed(by: disposeBag)
+        
+        collectionView.rx.itemDeselected
+            .subscribe(onNext: { [weak self] indexPath in
+                guard let self,
+                      let cell = self.collectionView.cellForItem(at: indexPath) else { return }
+                cell.contentView.alpha = 0.5
+            }).disposed(by: disposeBag)
     }
     
     private func makeSnapshot() {

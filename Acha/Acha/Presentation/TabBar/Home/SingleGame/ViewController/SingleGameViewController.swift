@@ -224,14 +224,15 @@ extension SingleGameViewController {
                     $0.height.equalTo(400)
                 }
                 if let newBadge {
-                    self.view.addSubview(self.gameOverBadgeView)
-                    self.gameOverBadgeView.snp.makeConstraints {
+                    self.gameOverBadgeView.bind(badge: newBadge)
+                    let badgeView = self.gameOverBadgeView.contentView
+                    self.view.addSubview(badgeView)
+                    badgeView.snp.makeConstraints {
                         $0.centerX.equalToSuperview()
                         $0.top.equalToSuperview().offset(100)
-                        $0.height.equalTo(120)
+                        $0.height.equalTo(125)
                         $0.width.equalTo(100)
                     }
-                    self.gameOverBadgeView.bind(badge: newBadge)
                 }
             }).disposed(by: disposeBag)
         bindButtons()

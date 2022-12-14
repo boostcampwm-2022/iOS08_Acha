@@ -37,7 +37,7 @@ final class BadgeCell: UICollectionViewCell {
     }
     // MARK: - Helpers
     private func setupSubviews() {
-        [badgeLabel, badgeImage].forEach { addSubview($0) }
+        [badgeLabel, badgeImage].forEach { contentView.addSubview($0) }
         
         badgeImage.snp.makeConstraints {
             $0.top.centerX.equalToSuperview()
