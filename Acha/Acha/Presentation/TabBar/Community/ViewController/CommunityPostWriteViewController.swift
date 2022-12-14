@@ -181,6 +181,8 @@ final class CommunityPostWriteViewController: UIViewController {
     
     @objc private func rightButtonTapped() {
         let imageName = UUID().uuidString + String(Date().timeIntervalSince1970)
+        navigationItem.rightBarButtonItem?.isEnabled = false
+        navigationItem.rightBarButtonItem?.tintColor = .pointLight.withAlphaComponent(0.5)
         
         if imageAddButton.imageView?.image != UIImage.plusImage {
             guard let data = imageAddButton.imageView?.image?.jpegData(compressionQuality: 0.4) else { return }
