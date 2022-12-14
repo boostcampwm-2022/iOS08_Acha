@@ -15,6 +15,7 @@ final class MultiGameRoomViewModel: BaseViewModel {
 
     struct Input {
         let viewDidAppear: Observable<Void>
+        let viewWillAppear: Observable<Void>
         let exitButtonTapped: Observable<Void>
         let gameStartButtonTapped: Observable<Void>
         let viewWillDisappear: Observable<Void>
@@ -40,6 +41,14 @@ final class MultiGameRoomViewModel: BaseViewModel {
     }
     
     func transform(input: Input) -> Output {
+        
+        input.viewWillAppear
+            .withUnretained(self)
+            .subscribe(onNext: { _ in
+                self.coordinator?.navigationController.setNavigationBarHidden(true, animated: false)
+            })
+            .disposed(by: disposeBag)
+        
         let dataFetched = Observable<[RoomUser]>.create { [weak self] observer in
             input.viewDidAppear.subscribe { _ in
                 guard let self = self else {return}

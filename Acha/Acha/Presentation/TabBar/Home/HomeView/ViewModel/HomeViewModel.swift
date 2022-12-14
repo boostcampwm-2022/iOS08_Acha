@@ -8,28 +8,24 @@
 import Foundation
 import RxSwift
 import RxRelay
-
 final class HomeViewModel: BaseViewModel {
-
     struct Input {
+        let viewWillAppear: Observable<Void>
         let singleGameModeDidTap: Observable<Void>
         let multiGameModeDidTap: Observable<Void>
         let makeRoomButtonDidTap: Observable<Void>
         let enterOtherRoomButtonDidTap: Observable<Void>
         let cameraDetectedSometing: Observable<String>
     }
-    
     struct Output {
         let multiGameModeTapped: Observable<Void>
         let uuidDidPass: Observable<String>
         let roomEnterBehavior: Observable<Void>
         let qrInformationDetectedByCamera: Observable<String>
     }
-    
     var disposeBag = DisposeBag()
     private weak var coordinator: HomeCoordinator?
     private let useCase: HomeUseCase
-    
     init(
         coordinator: HomeCoordinator,
         useCase: HomeUseCase
@@ -37,9 +33,13 @@ final class HomeViewModel: BaseViewModel {
         self.useCase = useCase
         self.coordinator = coordinator
     }
-    
     public func transform(input: Input) -> Output {
-        
+        input.viewWillAppear
+            .withUnretained(self)
+            .subscribe { _ in
+                self.coordinator?.navigationController.setNavigationBarHidden(false, animated: false)
+            }
+            .disposed(by: disposeBag)
         input.singleGameModeDidTap
             .subscribe { [weak self] _ in
                 self?.coordinator?.connectSingleGameFlow()
@@ -61,7 +61,6 @@ final class HomeViewModel: BaseViewModel {
                     .disposed(by: self.disposeBag)
             }
             .disposed(by: disposeBag)
-        
         input.makeRoomButtonDidTap
             .subscribe { [weak self] _ in
                 guard let self = self else {return}
@@ -71,13 +70,12 @@ final class HomeViewModel: BaseViewModel {
                     }, onError: { _ in
                         self.coordinator?.navigationController.showAlert(
                             title: "주의",
-                            message: "방 생성에 실패했습니다 😭😭😭"
+                            message: "방 생성에 실패했습니다 :울음::울음::울음:"
                         )
                     })
                     .disposed(by: self.disposeBag)
             }
             .disposed(by: disposeBag)
-        
         let uuidDidPass = Observable<String>.create { [weak self] observer in
             guard let self = self else {return Disposables.create()}
             input.makeRoomButtonDidTap
@@ -91,7 +89,6 @@ final class HomeViewModel: BaseViewModel {
                 .disposed(by: self.disposeBag)
             return Disposables.create()
         }
-        
         let didMultiGameModeDidTap = Observable<Void>.create { [weak self] observer in
             guard let self = self else {return Disposables.create()}
             input.multiGameModeDidTap
@@ -101,7 +98,6 @@ final class HomeViewModel: BaseViewModel {
                 .disposed(by: self.disposeBag)
             return Disposables.create()
         }
-        
         return Output(
             multiGameModeTapped: didMultiGameModeDidTap,
             uuidDidPass: uuidDidPass,

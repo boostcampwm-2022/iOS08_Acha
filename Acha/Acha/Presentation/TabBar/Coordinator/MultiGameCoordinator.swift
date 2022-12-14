@@ -23,21 +23,16 @@ final class MultiGameCoordinator: MultiGameCoordinatorProtocol {
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
-        navigationController.isNavigationBarHidden = true 
         childCoordinators = []
     }
     
     func start(gameID: String) {
-        navigationController.navigationBar.topItem?.title = ""
-        navigationController.navigationBar.tintColor = .pointDark
         showMultiGameRoomViewController(roomID: gameID)
     }
     
     func showMultiGameRoomViewController(roomID: String) {
-        
         @DIContainer.Resolve(MultiGameRoomUseCase.self)
         var useCase: MultiGameRoomUseCase
-//        let useCase = DependenciesContainer.shared.resolve(MultiGameRoomUseCase.self)
         let viewModel = MultiGameRoomViewModel(
             coordinator: self,
             useCase: useCase,
@@ -47,14 +42,12 @@ final class MultiGameCoordinator: MultiGameCoordinatorProtocol {
             viewModel: viewModel,
             roomID: roomID
         )
-        
         navigationController.pushViewController(viewController, animated: true)
     }
     
     func showMultiGameViewController(roomID: String) {
         @DIContainer.Resolve(MultiGameUseCase.self)
         var useCase: MultiGameUseCase
-//        let useCase = DependenciesContainer.shared.resolve(MultiGameUseCase.self)
         let viewModel = MultiGameViewModel(
             coordinator: self,
             useCase: useCase,

@@ -115,6 +115,7 @@ final class HomeViewController: UIViewController, UIViewControllerTransitioningD
 
     private func bind() {
         let inputs = HomeViewModel.Input(
+            viewWillAppear: rx.viewWillAppear.asObservable(),
             singleGameModeDidTap: startSingleGameButton.rx.tap.asObservable(),
             multiGameModeDidTap: startMultiGameButton.rx.tap.asObservable(),
             makeRoomButtonDidTap: multiGameEnterView.makeRoomButton.rx.tap.asObservable(),

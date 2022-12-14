@@ -68,6 +68,7 @@ final class MultiGameRoomViewController: UIViewController {
     private func bind() {
         let inputs = MultiGameRoomViewModel.Input(
             viewDidAppear: rx.viewDidAppear.asObservable(),
+            viewWillAppear: rx.viewWillAppear.asObservable(),
             exitButtonTapped: exitButton.rx.tap.asObservable(),
             gameStartButtonTapped: startButton.rx.tap.asObservable(),
             viewWillDisappear: rx.viewWillDisappear.asObservable(),
