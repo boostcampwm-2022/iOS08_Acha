@@ -57,7 +57,8 @@ final class CommunityPostWriteViewController: UIViewController {
         $0.style = .plain
         $0.target = self
         $0.action = #selector(rightButtonTapped)
-        $0.tintColor = .pointLight
+        $0.tintColor = .pointLight.withAlphaComponent(0.5)
+        $0.isEnabled = false
         $0.setTitleTextAttributes([.font: UIFont.defaultTitle ], for: .normal)
     }
     
@@ -98,7 +99,7 @@ final class CommunityPostWriteViewController: UIViewController {
             .compactMap { $0 }
             .subscribe(onNext: { [weak self] text in
                 guard let self else { return }
-                self.textCountLabel.text = "\(text.count) / 300"
+                self.textCountLabel.text = text == self.textViewPlaceHolder ? "0 / 300" : "\(text.count) / 300"
             }).disposed(by: disposeBag)
         
         let input = CommunityPostWriteViewModel.Input(
@@ -212,6 +213,14 @@ extension CommunityPostWriteViewController: UITextViewDelegate {
         let newLength = textView.text.count - range.length + text.count
         if newLength > maxTextCount {
           return false
+        }
+        
+        if newLength != 0 {
+            navigationItem.rightBarButtonItem?.isEnabled = true
+            navigationItem.rightBarButtonItem?.tintColor = .pointLight.withAlphaComponent(1.0)
+        } else {
+            navigationItem.rightBarButtonItem?.isEnabled = false
+            navigationItem.rightBarButtonItem?.tintColor = .pointLight.withAlphaComponent(0.5)
         }
         return true
     }

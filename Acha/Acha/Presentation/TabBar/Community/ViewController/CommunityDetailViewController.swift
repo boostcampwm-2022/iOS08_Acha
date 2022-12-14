@@ -78,7 +78,9 @@ final class CommunityDetailViewController: UIViewController, UICollectionViewDel
                 .map { [weak self] _ in
                     guard let self else { fatalError() }
                     let commnetMessage = self.commentView.commentTextView.text
-                    self.commentView.commentTextView.text = ""
+                    self.commentView.commentTextView.text = "텍스트를 입력해주세요."
+                    self.commentView.commentTextView.textColor = .lightGray
+                    self.commentView.commentButton.isValid = false
                     return commnetMessage ?? ""
                 }
                 .asObservable(),

@@ -31,7 +31,7 @@ final class CommentView: UIView {
         $0.backgroundColor = .pointLight
         $0.setTitleColor(.white, for: .normal)
         $0.layer.cornerRadius = 5
-        $0.isEnabled = false
+        $0.isValid = false
     }
     
     private let disposebag = DisposeBag()
@@ -80,9 +80,6 @@ extension CommentView: UITextViewDelegate {
         if textView.text.isEmpty {
             textView.text = textViewPlaceHolder
             textView.textColor = .lightGray
-            commentButton.isEnabled = false
-        } else {
-            commentButton.isEnabled = true
         }
     }
     
@@ -91,6 +88,8 @@ extension CommentView: UITextViewDelegate {
         if newLength > maxTextCount {
           return false
         }
+        
+        commentButton.isValid = newLength != 0
         
         return true
     }

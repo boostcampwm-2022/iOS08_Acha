@@ -229,9 +229,7 @@ final class CommunityMainViewController: UIViewController, UICollectionViewDeleg
     
     private func deleteSnapshot() {
         var snapshot = dataSource.snapshot()
-        if snapshot.itemIdentifiers.count > 5 {
-            snapshot.deleteItems(Array(snapshot.itemIdentifiers[5...]))
-        }
+        snapshot.deleteAllItems()
         dataSource.apply(snapshot)
     }
     
