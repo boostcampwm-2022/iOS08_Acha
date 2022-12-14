@@ -13,5 +13,5 @@ protocol CommunityDetailUseCase {
     
     func fetchPost()
     func uploadComment(comment: Comment) -> Single<Void>
-    func deletePost()
+    func deletePost() -> Single<Void>
 }

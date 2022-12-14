@@ -34,12 +34,6 @@ final class DefaultCommunityDetailUseCase: CommunityDetailUseCase {
                 self.post.onNext(post)
             })
             .disposed(by: disposeBag)
-//        repository.getAllPost()
-//            .subscribe(onSuccess: { posts in
-//                guard let post = posts.first(where: { $0.id == self.postID }) else { return }
-//                self.post.onNext(post)
-//            })
-//            .disposed(by: disposeBag)
     }
     
     func uploadComment(comment: Comment) -> Single<Void> {
@@ -58,7 +52,17 @@ final class DefaultCommunityDetailUseCase: CommunityDetailUseCase {
         }
     }
     
-    func deletePost() {
-        repository.deletePost(id: postID)
+    func deletePost() -> Single<Void> {
+        Single.create { [weak self] single in
+            guard let self else { return Disposables.create() }
+            
+            self.repository.deletePost(id: self.postID)
+                .subscribe(onSuccess: { _ in
+                    single(.success(()))
+                })
+                .disposed(by: self.disposeBag)
+            
+            return Disposables.create()
+        }
     }
 }

@@ -18,7 +18,7 @@ protocol RealtimeDatabaseNetworkService {
     func uploadPost(data: PostDTO) -> Single<Void>
     func uploadComment(data: CommentDTO) -> Single<Void>
     func upload<T: Encodable>(type: FirebaseRealtimeType, data: T)
-    func delete(type: FirebaseRealtimeType)
+    func delete(type: FirebaseRealtimeType) -> Single<Void>
     func observing<T: Decodable>(type: FirebaseRealtimeType) -> Observable<T>
     func removeObserver(type: FirebaseRealtimeType)
 }

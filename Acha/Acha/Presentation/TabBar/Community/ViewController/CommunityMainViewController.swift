@@ -183,7 +183,6 @@ final class CommunityMainViewController: UIViewController, UICollectionViewDeleg
     
     private func updateSnapshot(posts: [Post]) {
         var snapshot = dataSource.snapshot()
-//        snapshot.deleteSections([.community])
 
         if snapshot.sectionIdentifiers.isEmpty {
             snapshot.appendSections([.community])

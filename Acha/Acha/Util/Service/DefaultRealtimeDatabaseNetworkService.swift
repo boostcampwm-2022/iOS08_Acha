@@ -177,9 +177,19 @@ final class DefaultRealtimeDatabaseNetworkService: RealtimeDatabaseNetworkServic
         childReference.setValue(jsonSerial)
     }
     
-    func delete(type: FirebaseRealtimeType) {
-        let childReference = self.databaseReference.child(type.path)
-        childReference.removeValue()
+    func delete(type: FirebaseRealtimeType) -> Single<Void> {
+        Single.create { [weak self] single in
+            guard let self else { return Disposables.create() }
+            let childReference = self.databaseReference.child(type.path)
+            childReference.removeValue { error, _ in
+                if let error = error {
+                    single(.failure(error))
+                } else {
+                    single(.success(()))
+                }
+            }
+            return Disposables.create()
+        }
     }
     
     func observing<T: Decodable>(type: FirebaseRealtimeType) -> Observable<T> {

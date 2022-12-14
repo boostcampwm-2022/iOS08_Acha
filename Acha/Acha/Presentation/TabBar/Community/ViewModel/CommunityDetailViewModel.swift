@@ -64,7 +64,10 @@ final class CommunityDetailViewModel: BaseViewModel {
             .subscribe(onNext: { [weak self] _ in
                 guard let self else { return }
                 self.useCase.deletePost()
-                self.coordinator?.popLastViewController()
+                    .subscribe(onSuccess: {
+                        self.coordinator?.popLastViewController()
+                    })
+                    .disposed(by: self.disposeBag)
             }).disposed(by: disposeBag)
         
         useCase.post
