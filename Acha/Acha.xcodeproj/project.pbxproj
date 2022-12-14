@@ -688,6 +688,7 @@
 				F1B0D8A9292CCA0F00EBDD02 /* Encodable+.swift */,
 				F1CC5152294069C200B9008D /* MKCircle+.swift */,
 				F1D85A4F29427B00005822B0 /* UIApplication+Rx.swift */,
+
 				474952F72941E8D600098E7C /* Reactive */,
 				47651F5A294640860062EC5F /* Collection+.swift */,
 			);

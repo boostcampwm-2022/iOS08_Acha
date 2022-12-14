@@ -18,6 +18,8 @@ final class DefaultRealtimeDatabaseNetworkService: RealtimeDatabaseNetworkServic
         case encodeError
     }
     
+    private let disposebag = DisposeBag()
+    
     func fetch<T: Decodable>(type: FirebaseRealtimeType,
                              child: String,
                              value: Any? = nil,
@@ -114,6 +116,45 @@ final class DefaultRealtimeDatabaseNetworkService: RealtimeDatabaseNetworkServic
         }
     }
     
+    func terminate(type: FirebaseRealtimeType) {
+        guard let url = getURL(type: type) else {return}
+        let urlRequest = URLRequest(url: url)
+        print(urlRequest)
+        usingURL(request: urlRequest, type: RoomDTO.self)
+    }
+    
+    private func getURL(type: FirebaseRealtimeType) -> URL? {
+        let childReference = self.databaseReference.child(type.path).url + ".json"
+        return URL(string: childReference)
+    }
+    
+    private func usingURL<T: Codable>(
+        request: URLRequest,
+        type: T.Type
+    ) {
+        let task = URLSession.shared.dataTask(with: request) { data, resource, error in
+            print("URLSession")
+            guard error == nil,
+                  let resource = resource as? HTTPURLResponse,
+                  resource.statusCode == 200,
+                  let data = data else {return}
+            do {
+                let uuid = try KeyChainManager.get()
+                print(uuid)
+                guard var roomDTO = try JSONDecoder().decode(T.self, from: data) as? RoomDTO else {return}
+                print(roomDTO)
+                roomDTO.user = roomDTO.user.filter { $0.id != uuid }
+                self.upload(type: .room(id: roomDTO.id), data: roomDTO)
+                    .subscribe()
+                    .disposed(by: self.disposebag)
+            } catch {
+                print(error)
+            }
+        }
+        task.resume()
+        
+    }
+    
     func uploadNewRecord(index: Int, data: Record) {
         let childReference = self.databaseReference.child(FirebaseRealtimeType.record(id: nil).path)
         guard let json = try? JSONEncoder().encode(data),
@@ -181,6 +222,12 @@ final class DefaultRealtimeDatabaseNetworkService: RealtimeDatabaseNetworkServic
             }
             return Disposables.create()
         }
+    }
+    
+    func reUpload<T: Encodable>(type: FirebaseRealtimeType, data: T) {
+        let childReference = self.databaseReference.child(type.path)
+        let data = data.dictionary
+        childReference.setValue(data)
     }
     
     func delete(type: FirebaseRealtimeType) {

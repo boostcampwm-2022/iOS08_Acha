@@ -26,7 +26,8 @@ final class DefaultLocationService: NSObject, LocationService {
         setUp()
         if locationManager.authorizationStatus == .authorizedAlways ||
             locationManager.authorizationStatus == .authorizedWhenInUse {
-            startUserLocation()
+            locationManager.startUpdatingLocation()
+
         } else {
             getLocationUsagePermission()
         }

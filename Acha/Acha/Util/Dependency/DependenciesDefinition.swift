@@ -218,6 +218,14 @@ final class DependenciesDefinition {
         )
         
         dependencies.register(
+            MultiGameChatUseCase.self,
+            implement: DefaultMultiGameChatUseCase(
+                roomRepository: dependencies.resolve(GameRoomRepository.self),
+                userRepository: dependencies.resolve(UserRepository.self)
+            )
+        )
+        
+        dependencies.register(
             MyPageUseCase.self,
             implement: DefaultMyPageUseCase(
                 userRepository: dependencies.resolve(UserRepository.self),

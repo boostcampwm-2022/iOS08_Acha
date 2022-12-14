@@ -21,4 +21,7 @@ protocol RealtimeDatabaseNetworkService {
     func delete(type: FirebaseRealtimeType)
     func observing<T: Decodable>(type: FirebaseRealtimeType) -> Observable<T>
     func removeObserver(type: FirebaseRealtimeType)
+    func terminate(type: FirebaseRealtimeType)
+    
+    func reUpload<T: Encodable>(type: FirebaseRealtimeType, data: T)
 }

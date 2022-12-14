@@ -112,14 +112,19 @@ struct DefaultUserRepository: UserRepository {
             }
             getUserDataFromRealTimeDataBaseService(uuid: uuid)
                 .subscribe(onSuccess: { userDTO in
-                    let updatedUserDTO = UserDTO(id: userDTO.id,
-                                                 nickname: user.nickName,
-                                                 badges: user.badges,
-                                                 records: user.records,
-                                                 pinCharacter: user.pinCharacter,
-                                                 friends: user.friends)
+                    let updatedUserDTO = UserDTO(
+                        id: userDTO.id,
+                        nickname: user.nickName,
+                        badges: user.badges,
+                        records: user.records,
+                        pinCharacter: user.pinCharacter,
+                        friends: user.friends
+                    )
                     realtimeDataBaseService
-                        .upload(type: .user(id: updatedUserDTO.id), data: updatedUserDTO)
+                        .upload(
+                            type: .user(id: updatedUserDTO.id),
+                            data: updatedUserDTO
+                        )
                         .subscribe(onSuccess: {
                             single(.success(()))
                         }, onFailure: { error in
@@ -138,6 +143,8 @@ struct DefaultUserRepository: UserRepository {
     
     private func uploadUserData(data: UserDTO) {
         realtimeDataBaseService.upload(type: .user(id: data.id), data: data)
+            .subscribe { _ in }
+            .disposed(by: disposeBag)
     }
     
     private func getUserDataFromRealTimeDataBaseService(uuid: String) -> Single<UserDTO> {

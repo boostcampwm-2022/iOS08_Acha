@@ -24,9 +24,11 @@ final class MultiGameViewModel: BaseViewModel {
         let gameOverButtonTapped: Observable<Void>
         let toRoomButtonTapped: Observable<Void>
         let viewWillDisappear: Observable<Void>
+        let didEnterBackground: Observable<Void>
     }
     
     struct Output {
+        let firstLocation: Driver<Coordinate>
         let time: Driver<Int>
         let visitedLocation: Driver<Coordinate>
         let gamePoint: Driver<Int>
@@ -37,7 +39,17 @@ final class MultiGameViewModel: BaseViewModel {
         let gameOver: Driver<Void>
         let unReadChat: Driver<Int>
     }
-    let timerCount = BehaviorRelay(value: 60)
+    private let timerCount = BehaviorRelay(value: 60)
+    
+    private let firstLocation = PublishSubject<Coordinate>()
+    private let visitedLocation = PublishSubject<Coordinate>()
+    private let gamePoint = PublishSubject<Int>()
+    private let movedDistance = PublishSubject<Double>()
+    private let playerDataFetcehd = PublishSubject<[MultiGamePlayerData]>()
+    private let currentLocation = PublishSubject<Coordinate>()
+    private let otherLocation = PublishSubject<Coordinate>()
+    private let gameOver = PublishSubject<Void>()
+    private let unReadChat = PublishSubject<Int>()
     
     private let roomId: String
     private let useCase: MultiGameUseCase
@@ -54,65 +66,84 @@ final class MultiGameViewModel: BaseViewModel {
     }
     
     func transform(input: Input) -> Output {
-        let visitedLocation = PublishSubject<Coordinate>()
-        let gamePoint = PublishSubject<Int>()
-        let movedDistance = PublishSubject<Double>()
-        let playerDataFetcehd = PublishSubject<[MultiGamePlayerData]>()
-        let currentLocation = PublishSubject<Coordinate>()
-        let otherLocation = PublishSubject<Coordinate>()
-        let gameOver = PublishSubject<Void>()
-        let unReadChat = PublishSubject<Int>()
+
+        inputBind(input: input)
         
-        useCase.unReadsCount
-            .bind(to: unReadChat)
-            .disposed(by: disposeBag)
-        
-        useCase.inGamePlayersData
-            .bind(to: playerDataFetcehd)
-            .disposed(by: disposeBag)
-        
-        useCase.currentRoomPlayerData
-            .withUnretained(self)
-            .subscribe(onNext: { _, roomUsers in
-                if roomUsers.count < 2 {
-                    self.gameOverAction(time: 60)
-                    gameOver.onNext(())
-                }
-            })
-            .disposed(by: disposeBag)
-        
+        return Output(
+            firstLocation: firstLocation.asDriver(onErrorJustReturn: Coordinate(latitude: 0, longitude: 0)),
+            time: timerCount.asDriver(onErrorJustReturn: -1),
+            visitedLocation: visitedLocation.asDriver(onErrorJustReturn: Coordinate(latitude: 0, longitude: 0)),
+            gamePoint: gamePoint.asDriver(onErrorJustReturn: 0),
+            movedDistance: movedDistance.asDriver(onErrorJustReturn: 0),
+            playerDataFetched: playerDataFetcehd.asDriver(onErrorJustReturn: []),
+            currentLocation: currentLocation.asDriver(onErrorJustReturn: Coordinate(latitude: 0, longitude: 0)),
+            otherLocation: otherLocation.asDriver(onErrorJustReturn: Coordinate(latitude: 0, longitude: 0)),
+            gameOver: gameOver.asDriver(onErrorJustReturn: ()),
+            unReadChat: unReadChat.asDriver(onErrorJustReturn: 0)
+        )
+    }
+    
+    private func inputBind(input: Input) {
         input.viewDidAppear
             .subscribe { [weak self] _ in
                 guard let self = self else {return}
+                self.useCase.getLocation()
+                    .first()
+                    .subscribe(onSuccess: { position in
+                        guard let position = position else {return}
+                        self.firstLocation.onNext(position)
+                    })
+                    .disposed(by: self.disposeBag)
                 
                 self.useCase.getLocation()
                     .subscribe { location in
-                        visitedLocation.onNext(location)
+                        self.visitedLocation.onNext(location)
                         self.useCase.updateData(roomId: self.roomId)
-                        movedDistance.onNext(self.useCase.movedDistance)
+                        self.movedDistance.onNext(self.useCase.movedDistance)
                     }
                     .disposed(by: self.disposeBag)
                 
                 self.useCase.observing(roomID: self.roomId)
+                    .subscribe { players in
+                        if players.count >= 2 {
+                            self.playerDataFetcehd.onNext(players)
+                        }
+                    }
+                    .disposed(by: self.disposeBag)
+                
+                self.useCase.gameOver(roomID: self.roomId)
+                    .subscribe { over in
+                        if over {
+                            self.gameOver.onNext(())
+                            self.gameOverAction(time: 60)
+                            
+                        }
+                    }
+                    .disposed(by: self.disposeBag)
                 
                 self.useCase.healthKitAuthorization()
                     .subscribe()
                     .disposed(by: self.disposeBag)
                 
+                self.useCase.unReadChatting(roomID: self.roomId)
+                    .subscribe { count in
+                        self.unReadChat.onNext(count)
+                    }
+                    .disposed(by: self.disposeBag)
                 
-                if self.timerCount.value != 60 {
-                    return
-                }
+                if self.timerCount.value != 60 { return }
                 self.useCase.timerStart()
                     .subscribe { time in
                         if time <= -1 {
-                            gameOver.onNext(())
+                            self.gameOver.onNext(())
                             self.gameOverAction(time: 60)
                         } else {
                             self.timerCount.accept(time)
                         }
                     }
                     .disposed(by: self.timerBag)
+                
+                self.useCase.initVisitedLocation()
                     
             }
             .disposed(by: disposeBag)
@@ -121,8 +152,10 @@ final class MultiGameViewModel: BaseViewModel {
             .subscribe(onNext: { [weak self] _ in
                 guard let self = self else {return}
                 self.useCase.getLocation()
-                    .subscribe(onNext: { position in
-                        currentLocation.onNext(position)
+                    .first()
+                    .subscribe(onSuccess: { position in
+                        guard let position = position else {return}
+                        self.currentLocation.onNext(position)
                     })
                     .disposed(by: self.disposeBag)
             })
@@ -133,7 +166,7 @@ final class MultiGameViewModel: BaseViewModel {
                 guard let self = self else {return}
                 self.useCase.watchOthersLocation(roomID: self.roomId)
                     .subscribe(onSuccess: { coordinate in
-                        otherLocation.onNext(coordinate)
+                        self.otherLocation.onNext(coordinate)
                     })
                     .disposed(by: self.disposeBag)
             }
@@ -153,16 +186,9 @@ final class MultiGameViewModel: BaseViewModel {
             })
             .disposed(by: disposeBag)
         
-        visitedLocation
-            .withUnretained(self)
-            .subscribe { _ in
-                self.useCase.point()
-                .subscribe { point in
-                    gamePoint.onNext(point)
-                }
-                .disposed(by: self.disposeBag)
-        }
-        .disposed(by: disposeBag)
+        useCase.point()
+            .bind(to: gamePoint)
+            .disposed(by: disposeBag)
         
         input.toRoomButtonTapped
             .withUnretained(self)
@@ -171,25 +197,24 @@ final class MultiGameViewModel: BaseViewModel {
             })
             .disposed(by: disposeBag)
         
-        Observable.of(input.exitButtonTapped, input.gameOverButtonTapped, input.viewWillDisappear)
-            .merge()
-            .subscribe(onNext: { [weak self] _ in
-                guard let self = self else {return}
-                self.useCase.stopOberservingRoom(id: self.roomId)
+        input.didEnterBackground
+            .withUnretained(self)
+            .subscribe(onNext: { _ in
+                UserDefaults.standard.setValue(self.roomId, forKey: "roomID")
             })
             .disposed(by: disposeBag)
-    
-        return Output(
-            time: timerCount.asDriver(onErrorJustReturn: -1),
-            visitedLocation: visitedLocation.asDriver(onErrorJustReturn: Coordinate(latitude: 0, longitude: 0)),
-            gamePoint: gamePoint.asDriver(onErrorJustReturn: 0),
-            movedDistance: movedDistance.asDriver(onErrorJustReturn: 0),
-            playerDataFetched: playerDataFetcehd.asDriver(onErrorJustReturn: []),
-            currentLocation: currentLocation.asDriver(onErrorJustReturn: Coordinate(latitude: 0, longitude: 0)),
-            otherLocation: otherLocation.asDriver(onErrorJustReturn: Coordinate(latitude: 0, longitude: 0)),
-            gameOver: gameOver.asDriver(onErrorJustReturn: ()),
-            unReadChat: unReadChat.asDriver(onErrorJustReturn: 0)
+        
+        Observable.of(
+            input.exitButtonTapped,
+            input.gameOverButtonTapped
         )
+        .merge()
+        .withUnretained(self)
+        .subscribe(onNext: { _ in
+            self.useCase.stopOberservingRoom(id: self.roomId)
+        })
+        .disposed(by: disposeBag)
+    
     }
     
     private func leaveRoom() {
