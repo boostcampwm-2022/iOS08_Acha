@@ -13,6 +13,7 @@ protocol RealtimeDatabaseNetworkService {
                              value: Any?,
                              limitCount: Int?) -> Single<T>
     func fetch<T: Decodable>(type: FirebaseRealtimeType) -> Single<T>
+    func fetchAtKeyValue<T: Decodable>(type: FirebaseRealtimeType, value: Any, key: String) -> Single<T>
     func uploadNewRecord(index: Int, data: Record)
     func uploadPost(data: PostDTO) -> Single<Void>
     func uploadComment(data: CommentDTO) -> Single<Void>

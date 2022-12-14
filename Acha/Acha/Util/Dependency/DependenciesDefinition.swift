@@ -80,7 +80,9 @@ final class DependenciesDefinition {
         dependencies.register(
             MapRepository.self,
             implement: DefaultMapRepository(
-                realTimeDatabaseNetworkService: dependencies.resolve(RealtimeDatabaseNetworkService.self)
+                realTimeDatabaseNetworkService: dependencies.resolve(RealtimeDatabaseNetworkService.self),
+                firebaseStorageNetworkService: dependencies.resolve(FirebaseStorageNetworkService.self),
+                imageCacheService: dependencies.resolve(ImageCacheService.self)
             )
         )
         

@@ -320,9 +320,9 @@ extension MyPageViewController {
     private func makeBadgeSnapshot(badges: [Badge]) {
         guard let dataSource else { return }
         var snapshot = dataSource.snapshot()
+        snapshot.deleteItems(snapshot.itemIdentifiers(inSection: .badge))
         let badgeItems = badges.map { MyPageItem.badge(badge: $0) }
         snapshot.appendItems(badgeItems, toSection: .badge)
         dataSource.apply(snapshot)
     }
-
 }

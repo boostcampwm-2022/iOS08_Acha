@@ -20,7 +20,7 @@ class RecordMainViewModel: BaseViewModel {
         var recordSectionDatas = PublishRelay<(allDates: [String],
                                                totalRecordAtDate: [String: DayTotalRecord],
                                                recordsAtDate: [String: [Record]],
-                                               mapNameAtMapId: [Int: String])>()
+                                               mapAtMapId: [Int: Map])>()
     }
     
     var useCase: RecordMainViewUseCase
@@ -37,7 +37,9 @@ class RecordMainViewModel: BaseViewModel {
             .subscribe(onNext: { [weak self] _ in
                 guard let self else { return }
                 self.useCase.loadMapData()
-                self.useCase.loadRecordData()
+                    .subscribe(onSuccess: { _ in
+                        self.useCase.loadRecordData()
+                    }).disposed(by: self.disposeBag)
             }).disposed(by: disposeBag)
         
         useCase.weekDatas

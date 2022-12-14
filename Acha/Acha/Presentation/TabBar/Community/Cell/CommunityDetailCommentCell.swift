@@ -52,6 +52,7 @@ final class CommunityDetailCommentCell: UICollectionViewCell {
         $0.font = .postBody
         $0.textColor = .black
         $0.isSelectable = false
+        $0.isScrollEnabled = false
     }
     
     // MARK: - Properties

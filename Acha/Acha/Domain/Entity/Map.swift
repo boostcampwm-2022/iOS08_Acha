@@ -8,16 +8,11 @@
 import Foundation
 
 // MARK: - Map
-struct Map: Decodable {
+struct Map: Hashable {
     let mapID: Int
     let name: String
     let centerCoordinate: Coordinate
     let coordinates: [Coordinate]
     let location: String
-    let image: String?
-
-    enum CodingKeys: String, CodingKey {
-        case mapID = "mapId"
-        case name, centerCoordinate, coordinates, location, image
-    }
+    let image: Data
 }

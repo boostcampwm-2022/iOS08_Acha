@@ -27,7 +27,7 @@ final class DefaultRecordMapViewUseCase: RecordMapViewUseCase {
     func loadMapData() {
         mapRepository.fetchAllMaps()
             .asObservable()
-            .subscribe { maps in
+            .subscribe(onNext: { maps in
                 var mapDataAtCategory = [String: [Map]]()
                 var mapDataAtMapName = [String: Map]()
                 maps.forEach {
@@ -36,7 +36,7 @@ final class DefaultRecordMapViewUseCase: RecordMapViewUseCase {
                 }
                 self.mapDataAtMapName.onNext(mapDataAtMapName)
                 self.mapDataAtCategory.onNext(mapDataAtCategory)
-            }.disposed(by: self.disposeBag)
+            }).disposed(by: self.disposeBag)
     }
     
     func loadRecordData() -> Observable<[Record]> {
@@ -75,7 +75,9 @@ final class DefaultRecordMapViewUseCase: RecordMapViewUseCase {
                       let recordDatas = recordDatas.element else { return }
                       let mapData = mapDatas[0]
                 
-                let recordDatasAtMapId = recordDatas.filter { $0.mapID == mapData.mapID && $0.isCompleted ==  true }.sorted { $0.time < $1.time }
+                let recordDatasAtMapId = recordDatas
+                    .filter { $0.mapID == mapData.mapID && $0.isCompleted ==  true }
+                    .sorted { $0.time < $1.time }
                 
                 self.mapNameAndRecordDatas.onNext((mapName: mapData.name, recordDatas: recordDatasAtMapId))
             }.disposed(by: self.disposeBag)
@@ -88,7 +90,9 @@ final class DefaultRecordMapViewUseCase: RecordMapViewUseCase {
                       let mapData = mapDataAtMapName[mapName],
                       let recordDatas = recordDatas.element else { return }
                 
-                let recordDatasAtMapId = recordDatas.filter { $0.mapID == mapData.mapID && $0.isCompleted == true }.sorted { $0.time < $1.time }
+                let recordDatasAtMapId = recordDatas
+                    .filter { $0.mapID == mapData.mapID && $0.isCompleted == true }
+                    .sorted { $0.time < $1.time }
                 
                 self.mapNameAndRecordDatas.onNext((mapName: mapData.name, recordDatas: recordDatasAtMapId))
             }.disposed(by: self.disposeBag)

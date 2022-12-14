@@ -15,10 +15,10 @@ final class DefaultTempRepository: TempRepository {
         self.tempDBNetwork = tempDBNetwork
     }
     
-    func fetchMapData() -> Observable<[Map]> {
+    func fetchMapData() -> Observable<[MapDTO]> {
         return tempDBNetwork.fetchData(path: "mapList").map { data in
-            guard let map = try? JSONDecoder().decode([Map].self, from: data) else { return [] }
-            return map
+            guard let mapDTO = try? JSONDecoder().decode([MapDTO].self, from: data) else { return [] }
+            return mapDTO
         }
     }
     
