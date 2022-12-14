@@ -71,7 +71,7 @@ final class CommunityPostWriteViewController: UIViewController {
     private var textViewPlaceHolder = "텍스트를 입력해주세요."
     private let maxTextCount = 300
     
-    private var rightButtonTapEvent = PublishRelay<(Post, Image?)>()
+    private var rightButtonTapEvent = PublishRelay<(String, Image?)>()
     
     // MARK: - Lifecycles
     init(viewModel: CommunityPostWriteViewModel) {
@@ -115,15 +115,9 @@ final class CommunityPostWriteViewController: UIViewController {
                 guard let self else { return }
                 self.textView.text = post.text
                 self.textView.textColor = .black
-                if let image = post.image {
-                    let service = DefaultFirebaseStorageNetworkService()
-                    service.download(urlString: image) { data in
-                        guard let data else { return }
-                        DispatchQueue.main.async { [weak self] in
-                            guard let self else { return }
-                            self.imageAddButton.imageView?.image = UIImage(data: data)
-                        }
-                    }
+                if let data = post.image {
+                    self.imageAddButton.setImage(UIImage(data: data)?.resize(newWidth: self.view.frame.width - 30),
+                                                 for: .normal)
                 }
                 
             }).disposed(by: disposeBag)
@@ -186,18 +180,15 @@ final class CommunityPostWriteViewController: UIViewController {
     
     @objc private func rightButtonTapped() {
         let imageName = UUID().uuidString + String(Date().timeIntervalSince1970)
-        let post = Post(userId: "유저ID",
-                        nickName: "닉네임",
-                        text: textView.text)
         
         if imageAddButton.imageView?.image != UIImage.plusImage {
             guard let data = imageAddButton.imageView?.image?.jpegData(compressionQuality: 0.4) else { return }
             let image = Image(name: imageName,
                               data: data)
             
-            self.rightButtonTapEvent.accept((post, image))
+            self.rightButtonTapEvent.accept((textView.text ?? "", image))
         } else {
-            self.rightButtonTapEvent.accept((post, nil))
+            self.rightButtonTapEvent.accept((textView.text ?? "", nil))
         }
     }
 }

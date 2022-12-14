@@ -9,9 +9,10 @@ import Foundation
 import RxSwift
 
 protocol CommunityDetailUseCase {
-    var post: PublishSubject<Post> { get set }
-    
     func fetchPost()
-    func uploadComment(comment: Comment) -> Single<Void>
+    func uploadComment(commentMessage: String) -> Single<Void>
     func deletePost()
+    
+    var post: PublishSubject<(post: Post, isMine: Bool)> { get set }
+    var user: BehaviorSubject<User?> { get set }
 }

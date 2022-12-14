@@ -10,38 +10,82 @@ import RxSwift
 
 struct DefaultCommunityRepository: CommunityRepository {
     private let realtimeService: RealtimeDatabaseNetworkService
-    private let storageService: FirebaseStorageNetworkService?
+    private let storageService: FirebaseStorageNetworkService
+    private let imageCacheService: ImageCacheService
     private let disposeBag = DisposeBag()
     
     var uploadCommentSuccess = PublishSubject<Bool>()
     
     init(
         realtimeService: RealtimeDatabaseNetworkService,
-        storageService: FirebaseStorageNetworkService? = nil
+        storageService: FirebaseStorageNetworkService,
+        imageCacheService: ImageCacheService
     ) {
         self.realtimeService = realtimeService
-        
-        if let storageService {
-            self.storageService = storageService
-        } else {
-            self.storageService = nil
+        self.storageService = storageService
+        self.imageCacheService = imageCacheService
+    }
+    
+    func loadPost(count: Int = -1) -> Observable<[Post]> {
+        realtimeService.fetch(type: .postList,
+                              child: "id",
+                              value: count,
+                              limitCount: 5)
+        .asObservable()
+        .flatMap { (postDTOs: [PostDTO?]) in
+            let postDTOs = postDTOs.compactMap { $0 }.sorted(by: { return $0.id < $1.id })
+            return Observable.zip(postDTOs.map { postDTO in
+                guard let imageURL = postDTO.image else {
+                    return Observable.of(postDTO.toDomain())
+                }
+                if self.imageCacheService.isExist(imageURL: imageURL) {
+                    return self.imageCacheService.load(imageURL: imageURL)
+                        .asObservable()
+                        .map { data in
+                            var post = postDTO.toDomain()
+                            post.image = data
+                            return post
+                        }
+                }
+                
+                return storageService.download(urlString: imageURL)
+                    .map { data -> Post in
+                        self.imageCacheService.write(imageURL: imageURL, image: data)
+                        var post = postDTO.toDomain()
+                        post.image = data
+                        return post
+                    }
+            })
         }
     }
     
-    func loadPost(count: Int = -1) -> Single<[Post]> {
-        return Single.create { single in
-            realtimeService.fetch(type: .postList,
-                                  child: "id",
-                                  value: count,
-                                  limitCount: 5)
-            .subscribe(onSuccess: { (postDTOs: [PostDTO?]) in
-                single(.success(postDTOs.compactMap { $0 }.sorted(by: {
-                    return $0.id < $1.id
-                }).map { $0.toDomain() }))
-            }, onFailure: { _ in
-                single(.success([]))
-            }).disposed(by: disposeBag)
-            return Disposables.create()
+    func fetchPost(postID: Int) -> Observable<Post> {
+        realtimeService.fetchAtKeyValue(type: .postList,
+                                        value: postID,
+                                        key: "id")
+        .asObservable()
+        .flatMap { (postDTOs: [PostDTO?]) in
+            let postDTO = postDTOs.compactMap { $0 }[0]
+            guard let imageURL = postDTO.image else {
+                return Observable.of(postDTO.toDomain())
+            }
+            if self.imageCacheService.isExist(imageURL: imageURL) {
+                return self.imageCacheService.load(imageURL: imageURL)
+                    .asObservable()
+                    .map { data in
+                        var post = postDTO.toDomain()
+                        post.image = data
+                        return post
+                    }
+            }
+            
+            return storageService.download(urlString: imageURL)
+                .map { data -> Post in
+                    self.imageCacheService.write(imageURL: imageURL, image: data)
+                    var post = postDTO.toDomain()
+                    post.image = data
+                    return post
+                }
         }
     }
     
@@ -60,44 +104,29 @@ struct DefaultCommunityRepository: CommunityRepository {
         }
     }
     
-    func getImage(urlString: String) -> Single<Image> {
-        return Single.create { single in
-            storageService?.download(urlString: urlString, completion: { data in
-                if let data {
-                    single(.success(Image(name: urlString, data: data)))
-                }
-            })
-            
-            return Disposables.create()
-        }
-    }
-    
     func uploadPost(post: Post, image: Image?) -> Single<Void> {
         Single.create { single in
             Single.create { single in
                 realtimeService.fetch(type: .postList)
-                    .subscribe(onSuccess: { (postDTOs: [PostDTO?]) in
-                        single(.success(postDTOs.compactMap { $0 }.map { $0.toDomain() }))
+                    .subscribe(onSuccess: { (result: [String: PostDTO]) in
+                        single(.success(result.values.map { $0.toDomain() }))
                     }, onFailure: { _ in
                         single(.success([]))
                     }).disposed(by: disposeBag)
-
                 return Disposables.create()
             }
             .subscribe(onSuccess: { posts in
                 if let image {
-                    storageService?.upload(type: .category(image.name),
+                    storageService.upload(type: .category(image.name),
                                            data: image.data,
                                            completion: { url in
                         guard let url else { return }
                         var post = post
-                        post.image = url.absoluteString
-                        let minID = posts.max {
-                            $0.id > $1.id
-                        }?.id
-
+                        let minID = posts.max { $0.id > $1.id }?.id
                         post.id = (minID ?? 1) - 1
-                        realtimeService.uploadPost(data: PostDTO(data: post))
+                        let postDTO = PostDTO(data: post,
+                                              image: url.absoluteString)
+                        realtimeService.uploadPost(data: postDTO)
                             .subscribe(onSuccess: {
                                 single(.success(()))
                             }, onFailure: { error in
@@ -107,10 +136,7 @@ struct DefaultCommunityRepository: CommunityRepository {
                     })
                 } else {
                     var post = post
-                    let minID = posts.max {
-                        $0.id > $1.id
-                    }?.id
-
+                    let minID = posts.max { $0.id > $1.id }?.id
                     post.id = (minID ?? 1) - 1
                     realtimeService.uploadPost(data: PostDTO(data: post))
                         .subscribe(onSuccess: {
@@ -128,14 +154,14 @@ struct DefaultCommunityRepository: CommunityRepository {
     func updatePost(post: Post, image: Image?) -> Single<Void> {
         Single.create { single in
             if let image {
-                storageService?.upload(type: .category(image.name),
+                storageService.upload(type: .category(image.name),
                                        data: image.data,
                                        completion: { url in
                     guard let url else { return }
-                    var newPost = post
-                    newPost.image = url.absoluteString
+                    let postDTO = PostDTO(data: post,
+                                          image: url.absoluteString)
                     
-                    realtimeService.uploadPost(data: PostDTO(data: newPost))
+                    realtimeService.uploadPost(data: postDTO)
                         .subscribe(onSuccess: {
                             single(.success(()))
                         }, onFailure: { error in
@@ -185,12 +211,11 @@ struct DefaultCommunityRepository: CommunityRepository {
                 realtimeService.uploadComment(data: CommentDTO(data: comment))
                     .subscribe(onSuccess: {
                         single(.success(()))
+                        uploadCommentSuccess.onNext(true)
                     }, onFailure: { error in
                         single(.failure(error))
                     })
                     .disposed(by: disposeBag)
-                
-                uploadCommentSuccess.onNext(true)
             })
             .disposed(by: disposeBag)
             
