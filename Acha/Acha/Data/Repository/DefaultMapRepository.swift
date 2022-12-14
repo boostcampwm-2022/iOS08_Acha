@@ -11,6 +11,7 @@ final class DefaultMapRepository: MapRepository {
     private let realTimeDatabaseNetworkService: RealtimeDatabaseNetworkService
     private let firebaseStorageNetworkService: FirebaseStorageNetworkService
     private let imageCacheService: ImageCacheService
+    private let disposeBag = DisposeBag()
     
     init(
         realTimeDatabaseNetworkService: RealtimeDatabaseNetworkService,
@@ -52,5 +53,39 @@ final class DefaultMapRepository: MapRepository {
                         }
                 })
             }
+    }
+    
+    func fetchMapsAtLocation(location: String) -> Observable<[Map]> {
+        realTimeDatabaseNetworkService.fetchAtKeyValue(type: .mapList(id: nil),
+                                                       value: location,
+                                                       key: "location")
+        .asObservable()
+        .flatMap { (mapDTOs: [MapDTO?]) in
+            Observable.zip(mapDTOs.compactMap { $0 }.map { mapDTO in
+                if self.imageCacheService.isExist(imageURL: mapDTO.image) {
+                    return self.imageCacheService.load(imageURL: mapDTO.image)
+                        .asObservable()
+                        .map { data in
+                            Map(mapID: mapDTO.mapID,
+                                name: mapDTO.name,
+                                centerCoordinate: mapDTO.centerCoordinate.toDomain(),
+                                coordinates: mapDTO.coordinates.map { $0.toDomain() },
+                                location: mapDTO.location,
+                                image: data)
+                        }
+                }
+                
+                return self.firebaseStorageNetworkService.download(urlString: mapDTO.image)
+                    .map { data -> Map in
+                        self.imageCacheService.write(imageURL: mapDTO.image, image: data)
+                        return Map(mapID: mapDTO.mapID,
+                                   name: mapDTO.name,
+                                   centerCoordinate: mapDTO.centerCoordinate.toDomain(),
+                                   coordinates: mapDTO.coordinates.map { $0.toDomain() },
+                                   location: mapDTO.location,
+                                   image: data)
+                    }
+            })
+        }
     }
 }

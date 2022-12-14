@@ -102,7 +102,7 @@ final class DefaultRealtimeDatabaseNetworkService: RealtimeDatabaseNetworkServic
             let childReference = self.databaseReference.child(type.path)
             childReference.observeSingleEvent(of: .value, with: { snapshot in
                 guard let snapData = snapshot.value,
-                      let jsonData = try? JSONSerialization.data(withJSONObject: snapData) else {
+                      let jsonData = try? JSONSerialization.data(withJSONObject: snapData)else {
                     single(.failure(FirebaseRealtimeError.dataError))
                     return
                 }

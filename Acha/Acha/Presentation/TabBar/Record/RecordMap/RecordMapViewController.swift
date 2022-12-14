@@ -15,13 +15,16 @@ class RecordMapViewController: UIViewController {
     enum RecordMapViewSections: Hashable {
         case category
         case ranking(String)
+        case map
         
         var title: String {
             switch self {
             case .category:
                 return "category"
-            case .ranking(let mapName):
-                return mapName
+            case .ranking(let name):
+                return name
+            case .map:
+                return ""
             }
         }
     }
@@ -29,6 +32,7 @@ class RecordMapViewController: UIViewController {
     enum RecordMapViewItems: Hashable {
         case category(String)
         case ranking(Int, Record)
+        case map(Data)
     }
     
     // MARK: - UI properties
@@ -79,11 +83,12 @@ class RecordMapViewController: UIViewController {
                 self.sectionHeaderView.setDropDownMenus(maps: maps)
             }).disposed(by: disposeBag)
         
-        output.mapNameAndRecordDatas.asDriver(onErrorJustReturn: ("", []))
+        output.mapNameAndRecordDatas.asDriver(onErrorJustReturn: (nil, "", []))
             .drive(onNext: { [weak self] mapNameAndRecords in
-                guard let self else {return }
-                self.updateRankingSectionAndItems(mapName: mapNameAndRecords.0,
-                                                  records: mapNameAndRecords.1)
+                guard let self else { return }
+                self.updateRankingSectionAndItems(mapImage: mapNameAndRecords.0,
+                                                  mapName: mapNameAndRecords.1,
+                                                  records: mapNameAndRecords.2)
             }).disposed(by: disposeBag)
     }
     
@@ -103,6 +108,8 @@ class RecordMapViewController: UIViewController {
                                 forCellWithReuseIdentifier: RecordMapCategoryCell.identifier)
         collectionView.register(RecordMapRankingCell.self,
                                 forCellWithReuseIdentifier: RecordMapRankingCell.identifier)
+        collectionView.register(RecordMapImageCell.self,
+                                forCellWithReuseIdentifier: RecordMapImageCell.identifier)
         collectionView.register(RecordMapHeaderView.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                                 withReuseIdentifier: RecordMapHeaderView.identifier)
@@ -153,6 +160,15 @@ class RecordMapViewController: UIViewController {
                 cell.bind(ranking: rank, record: recond)
                 
                 return cell
+            case .map(let data):
+                guard let cell = collectionView.dequeueReusableCell(
+                    withReuseIdentifier: RecordMapImageCell.identifier,
+                    for: indexPath) as? RecordMapImageCell else {
+                    return UICollectionViewCell()
+                }
+                cell.bind(data: data)
+                
+                return cell 
             }
         })
         
@@ -232,7 +248,7 @@ class RecordMapViewController: UIViewController {
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                               heightDimension: .absolute(70))
+                                               heightDimension: .fractionalWidth(1.0))
         let groupInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10)
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
                                                      subitems: [item])
@@ -245,15 +261,21 @@ class RecordMapViewController: UIViewController {
         return section
     }
     
-    func updateRankingSectionAndItems(mapName: String, records: [Record]) {
+    func updateRankingSectionAndItems(mapImage: Data?, mapName: String, records: [Record]) {
         var snapshot = dataSource.snapshot()
         let previousSections = snapshot.sectionIdentifiers.filter { $0 != .category }
         snapshot.deleteSections(previousSections)
         
-        snapshot.appendSections([.ranking(mapName)])
+        snapshot.appendSections([.ranking(mapName), .map])
         records.prefix(3).enumerated().forEach {
             snapshot.appendItems([.ranking($0.offset + 1, $0.element)], toSection: .ranking(mapName))
         }
+        
+        guard let data = mapImage else {
+            dataSource.apply(snapshot)
+            return
+        }
+        snapshot.appendItems([.map(data)], toSection: .map)
         
         dataSource.apply(snapshot)
     }

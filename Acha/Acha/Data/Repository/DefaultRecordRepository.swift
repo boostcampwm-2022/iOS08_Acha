@@ -27,6 +27,15 @@ final class DefaultRecordRepository: RecordRepository {
             }
     }
     
+    func fetchRecordDataAtMapID(mapID: Int) -> Single<[Record]> {
+        realTimeDatabaseNetworkService.fetchAtKeyValue(type: .record(id: nil),
+                                      value: mapID,
+                                      key: "map_id")
+        .map { (recordDTOs: [RecordDTO?]) in
+            recordDTOs.compactMap { $0 }.map { $0.toDomain() }
+        }
+    }
+    
     func uploadNewRecord(record: Record) {
         realTimeDatabaseNetworkService
             .uploadNewRecord(index: record.id, data: record)

@@ -59,11 +59,6 @@ final class DependenciesDefinition {
         )
         
         dependencies.register(
-            TempDBNetwork.self,
-            implement: DefaultTempDBNetwork()
-        )
-        
-        dependencies.register(
             ImageCacheService.self,
             implement: DefaultImageCacheService()
         )
@@ -100,13 +95,6 @@ final class DependenciesDefinition {
                 realTimeDatabaseNetworkService: dependencies.resolve(RealtimeDatabaseNetworkService.self),
                 firebaseStorageNetworkService: dependencies.resolve(FirebaseStorageNetworkService.self),
                 imageCacheService: dependencies.resolve(ImageCacheService.self)
-            )
-        )
-        
-        dependencies.register(
-            TempRepository.self,
-            implement: DefaultTempRepository(
-                tempDBNetwork: dependencies.resolve(TempDBNetwork.self)
             )
         )
         

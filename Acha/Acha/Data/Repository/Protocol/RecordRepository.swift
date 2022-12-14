@@ -9,6 +9,7 @@ import RxSwift
 
 protocol RecordRepository {
     func fetchAllRecords() -> Single<[Record]>
+    func fetchRecordDataAtMapID(mapID: Int) -> Single<[Record]>
     func uploadNewRecord(record: Record)
     func recordCount() -> Single<Int>
     func healthKitAuthorization() -> Observable<Void>
