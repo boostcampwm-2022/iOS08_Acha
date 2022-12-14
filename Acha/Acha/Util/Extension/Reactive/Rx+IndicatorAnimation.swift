@@ -22,7 +22,7 @@ extension Reactive where Base: UIView {
                 }
                 let image = UIButton().then {
                     base.isUserInteractionEnabled = false
-                    $0.layer.borderColor = UIColor.blue.cgColor
+                    $0.layer.borderColor = UIColor.pointDark.cgColor
                     $0.layer.borderWidth = 4
                     $0.layer.cornerRadius = 10
                     $0.frame.size = CGSize(width: 60, height: 60)

@@ -53,7 +53,10 @@ final class DefaultCommunityDetailUseCase: CommunityDetailUseCase {
         Single.create { [weak self] single in
             guard let self,
                   let user = try? self.user.value() else { return Disposables.create() }
-            var comment = Comment(postId: self.postID, userId: user.id, nickName: user.nickName, text: commentMessage)
+            let comment = Comment(postId: self.postID,
+                                  userId: user.id,
+                                  nickName: user.nickName,
+                                  text: commentMessage)
             self.communityRepository.uploadComment(comment: comment)
                 .subscribe(onSuccess: {
                     single(.success(()))
@@ -63,7 +66,17 @@ final class DefaultCommunityDetailUseCase: CommunityDetailUseCase {
         }
     }
     
-    func deletePost() {
-        communityRepository.deletePost(id: postID)
+    func deletePost() -> Single<Void> {
+        Single.create { [weak self] single in
+            guard let self else { return Disposables.create() }
+            
+            self.communityRepository.deletePost(id: self.postID)
+                .subscribe(onSuccess: { _ in
+                    single(.success(()))
+                })
+                .disposed(by: self.disposeBag)
+            
+            return Disposables.create()
+        }
     }
 }

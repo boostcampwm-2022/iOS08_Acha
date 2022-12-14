@@ -28,7 +28,9 @@ final class SingleGameCoordinator: SingleGameCoordinatorProtocol {
     
     func showSelectMapViewController() {
         let networkService = DefaultRealtimeDatabaseNetworkService()
-        let mapRepository = DefaultMapRepository(realTimeDatabaseNetworkService: networkService)
+        let mapRepository = DefaultMapRepository(realTimeDatabaseNetworkService: networkService,
+                                                 firebaseStorageNetworkService: DefaultFirebaseStorageNetworkService(),
+                                                 imageCacheService: DefaultImageCacheService())
         let userRepository = DefaultUserRepository(realtimeDataBaseService: networkService,
                                                    keychainService: DefaultKeychainService(),
                                                    authService: DefaultAuthService())

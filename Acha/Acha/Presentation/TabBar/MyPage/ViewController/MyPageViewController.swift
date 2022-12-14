@@ -139,6 +139,11 @@ extension MyPageViewController {
         output.badges
             .subscribe(onNext: { [weak self] badges in
                 guard let self else { return }
+                let noBadge = Badge(id: -2,
+                                    name: "뱃지가없어요",
+                                    image: UIImage.noBadge.pngData() ?? Data(),
+                                    isHidden: false)
+                let badges = badges.count == 0 ? [noBadge] : badges
                 self.makeBadgeSnapshot(badges: badges)
             }).disposed(by: disposeBag)
         
