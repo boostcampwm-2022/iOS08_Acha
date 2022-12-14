@@ -91,9 +91,9 @@ final class MultiGameChatViewController: UIViewController {
     
     private func configureCommentView() {
         view.addSubview(commentView)
+        commentView.commentTextView.text = nil
         commentView.snp.makeConstraints {
-            $0.leading.equalToSuperview()
-            $0.trailing.equalToSuperview()
+            $0.leading.trailing.equalToSuperview().inset(20)
             $0.bottom.equalToSuperview().offset(-20)
             $0.height.equalTo(80)
         }
