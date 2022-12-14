@@ -19,6 +19,15 @@ final class CommunityMainViewController: UIViewController, UICollectionViewDeleg
     enum Item: Hashable {
         case community(Post)
         case indicator
+        
+        var data: Post? {
+            switch self {
+            case.community(let post):
+                return post
+            default:
+                return nil
+            }
+        }
     }
     
     // MARK: - UI properties
@@ -183,11 +192,13 @@ final class CommunityMainViewController: UIViewController, UICollectionViewDeleg
     
     private func updateSnapshot(posts: [Post]) {
         var snapshot = dataSource.snapshot()
-//        snapshot.deleteSections([.community])
-
+        
         if snapshot.sectionIdentifiers.isEmpty {
             snapshot.appendSections([.community])
-            snapshot.appendItems([.indicator], toSection: .community)
+            
+            if posts.count >= 3 {
+                snapshot.appendItems([.indicator], toSection: .community)
+            }
         }
         
         posts.forEach {

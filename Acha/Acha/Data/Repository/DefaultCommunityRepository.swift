@@ -182,8 +182,15 @@ struct DefaultCommunityRepository: CommunityRepository {
         }
     }
     
-    func deletePost(id: Int) {
-        realtimeService.delete(type: .post(id: id))
+    func deletePost(id: Int) -> Single<Void> {
+        Single.create { single in
+            realtimeService.delete(type: .post(id: id))
+                .subscribe(onSuccess: { _ in
+                    single(.success(()))
+                })
+                .disposed(by: disposeBag)
+            return Disposables.create()
+        }
     }
     
     func uploadComment(comment: Comment) -> Single<Void> {

@@ -11,7 +11,7 @@ import RxSwift
 protocol CommunityDetailUseCase {
     func fetchPost()
     func uploadComment(commentMessage: String) -> Single<Void>
-    func deletePost()
+    func deletePost() -> Single<Void>
     
     var post: PublishSubject<(post: Post, isMine: Bool)> { get set }
     var user: BehaviorSubject<User?> { get set }
