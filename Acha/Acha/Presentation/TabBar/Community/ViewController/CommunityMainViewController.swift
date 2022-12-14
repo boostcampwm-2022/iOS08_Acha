@@ -69,6 +69,10 @@ final class CommunityMainViewController: UIViewController, UICollectionViewDeleg
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
         deleteSnapshot()
     }
     
@@ -95,7 +99,11 @@ final class CommunityMainViewController: UIViewController, UICollectionViewDeleg
         output.posts
             .subscribe(onNext: { [weak self] posts in
                 guard let self else { return }
-                self.updateSnapshot(posts: posts)
+                if self.dataSource.snapshot().itemIdentifiers.isEmpty {
+                    self.makeSnapshot(posts: posts)
+                } else {
+                    self.updateSnapshot(posts: posts)
+                }
             })
             .disposed(by: disposeBag)
         
@@ -190,16 +198,22 @@ final class CommunityMainViewController: UIViewController, UICollectionViewDeleg
         return layout
     }
     
+    private func makeSnapshot(posts: [Post]) {
+        var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
+        
+        snapshot.appendSections([.community])
+        if posts.count >= 3 {
+            snapshot.appendItems([.indicator], toSection: .community)
+        }
+        
+        posts.forEach {
+            snapshot.insertItems([.community($0)], beforeItem: .indicator)
+        }
+        dataSource.apply(snapshot)
+    }
+    
     private func updateSnapshot(posts: [Post]) {
         var snapshot = dataSource.snapshot()
-        
-        if snapshot.sectionIdentifiers.isEmpty {
-            snapshot.appendSections([.community])
-            
-            if posts.count >= 3 {
-                snapshot.appendItems([.indicator], toSection: .community)
-            }
-        }
         
         posts.forEach {
             snapshot.insertItems([.community($0)], beforeItem: .indicator)
@@ -215,8 +229,10 @@ final class CommunityMainViewController: UIViewController, UICollectionViewDeleg
     
     private func deleteSnapshot() {
         var snapshot = dataSource.snapshot()
-        snapshot.deleteSections([.community])
-        dataSource.apply(snapshot, animatingDifferences: true)
+        if snapshot.itemIdentifiers.count > 5 {
+            snapshot.deleteItems(Array(snapshot.itemIdentifiers[5...]))
+        }
+        dataSource.apply(snapshot)
     }
     
     @objc private func rightButtonTapped() {
