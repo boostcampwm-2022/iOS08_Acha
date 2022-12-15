@@ -96,6 +96,8 @@ struct DefaultUserRepository: UserRepository {
                 // 디비에서 제거
                 guard let uuid = getUUID() else { return }
                 realtimeDataBaseService.delete(type: .user(id: uuid))
+                    .subscribe()
+                    .disposed(by: disposeBag)
                 
                 // 키체인에서 제거
                 keychainService.delete()

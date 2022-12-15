@@ -111,6 +111,8 @@ struct DefaultGameRoomRepository: GameRoomRepository {
     
     func deleteRoom(id: String) {
         firebaseRealTimeDatabase.delete(type: .room(id: id))
+            .subscribe()
+            .disposed(by: disposeBag)
     }
     
     func observingRoom(id: String) -> Observable<RoomDTO> {

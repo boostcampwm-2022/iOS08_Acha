@@ -156,7 +156,7 @@ final class DefaultRealtimeDatabaseNetworkService: RealtimeDatabaseNetworkServic
     }
     
     func uploadNewRecord(index: Int, data: Record) {
-        let childReference = self.databaseReference.child(FirebaseRealtimeType.record(id: nil).path)
+        let childReference = self.databaseReference.child(FirebaseRealtimeType.record.path)
         guard let json = try? JSONEncoder().encode(data),
               let jsonSerial = try? JSONSerialization.jsonObject(with: json) as? [String: Any] ?? [:]
         else {
