@@ -44,10 +44,11 @@ class LineGraphView: UIView {
         
         self.layer.addSublayer(graphLayer)
 
-        guard let maxDistance = values.max(), maxDistance != 0 else { return }
-        
-        let chartHeight = 360.0
-        let heightPerMeter = chartHeight / maxDistance
+        var heightPerMeter: Double = 0
+        if let maxDistance = values.max(), maxDistance != 0 {
+            let chartHeight = 360.0
+            heightPerMeter = chartHeight / maxDistance
+        }
         
         let xOffset: CGFloat = self.frame.width / CGFloat(values.count)
         
