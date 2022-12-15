@@ -7,6 +7,10 @@
 >**아차**와 함께 재미있게 운동하며 새로운 **땅따먹기 게임**을 경험해보세요.
 >혼자 건물을 주변을 **산책**할 수도 있고, 여러 친구와 땅을 먹으며 **영역 경쟁**하는 실제 땅따먹기 게임!
 
+
+  <img src="https://img.shields.io/badge/Swift-F05138?style=flat-square&logo=Swift&logoColor=white"/> <img src="https://img.shields.io/badge/Xcode-F05138?style=flat-square&logo=Xcode&logoColor=white"/> <img src="https://img.shields.io/badge/Firebase-F05138?style=flat-square&logo=Firebase&logoColor=white"/>  <img src="https://img.shields.io/badge/SnapKit-F05138?style=flat-square&logo=SnapKit&logoColor=white"/> <img src="https://img.shields.io/badge/Then-F05138?style=flat-square&logo=Then&logoColor=white"/> 
+
+
 # ✨ 기능 소개
 
 ## 혼자하기 모드
@@ -236,3 +240,7 @@ MVC 에서 생기는 **ViewController 이 방대해지는 문제** 와 기존의
 
 
 **저희들의 개발 과정은 이곳에서 보실 수 있습니다 👉👉👉** [아차의 WIKI](https://github.com/boostcampwm-2022/iOS08_Acha/wiki)
+
+<div align="center">
+  <a href="https://hits.seeyoufarm.com"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fboostcampwm-2022%2Fweb12-MOJ&count_bg=%2357CCA9&title_bg=%234F3433&icon=&icon_color=%23453A3A&title=hits&edge_flat=false"/></a>
+</div>
