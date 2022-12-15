@@ -233,6 +233,11 @@ extension CommunityPostWriteViewController: UIImagePickerControllerDelegate, UIN
                                didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             imageAddButton.setImage(image, for: .normal)
+            
+            if textView.text != textViewPlaceHolder {
+                navigationItem.rightBarButtonItem?.isEnabled = true
+                navigationItem.rightBarButtonItem?.tintColor = .pointLight.withAlphaComponent(1.0)
+            }
         }
         dismiss(animated: true, completion: nil)
     }

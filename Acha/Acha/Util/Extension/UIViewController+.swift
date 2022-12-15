@@ -15,6 +15,15 @@ extension UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
+    func showAlert(title: String, message: String, actionHandler: @escaping (() -> Void)) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "확인", style: .default, handler: { _ in
+            actionHandler()
+        })
+        alert.addAction(okAction)
+        present(alert, animated: true, completion: nil)
+    }
+    
     /// 액션 핸들러를 포함한 버튼, 취소 버튼을 포함하는 핸들러
     func showAlert(
         title: String,
