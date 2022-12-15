@@ -74,6 +74,9 @@
 </div>
 
 # ✨ 기술 스택 
+<div align="center">
+<img src="https://user-images.githubusercontent.com/76652929/207842188-e8797d7b-83ed-43b6-a96f-810d503441ec.png" width="500" height="309"/>
+</div>
 
 # ✨ 기술 특장점 
 
@@ -116,10 +119,10 @@ MVC 에서 생기는 **ViewController 이 방대해지는 문제** 와 기존의
 
 ## **CoreLocation**
 
+> **사용한 이유**
 - 사용자의 **현재 위치**를 얻어 이동 경로, 먹는 중인 땅을 그릴수 있게 했습니다.
     
-    > **사용한 이유**
-    > 
+
 
 > **결과**
 > 
