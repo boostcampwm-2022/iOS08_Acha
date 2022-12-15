@@ -14,7 +14,7 @@ extension UIImage {
     static let commentImage: UIImage = UIImage(named: "commentImage")!
     
     static let authEmailImage: UIImage = UIImage(named: "email")!
-    static let authNickNameImage: UIImage = UIImage(named: "nickName")!
+    static let authNickNameImage: UIImage = UIImage(named: "nickname")!
     static let authPasswordImage: UIImage = UIImage(named: "password")!
     static let authInvalidateImage: UIImage = UIImage(named: "invalidate")!
     
