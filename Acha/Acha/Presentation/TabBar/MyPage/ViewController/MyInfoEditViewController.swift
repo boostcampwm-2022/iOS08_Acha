@@ -66,6 +66,7 @@ extension MyInfoEditViewController {
         navigationController?.navigationBar.prefersLargeTitles = false
         title = "내 정보 수정"
         navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.pointLight]
+        navigationController?.navigationBar.tintColor = .pointLight
         view.backgroundColor = .white
         
         view.addSubview(emailTextFieldView)
@@ -155,6 +156,7 @@ extension MyInfoEditViewController {
                                         actionTitle: "확인",
                                         actionHandler: { password in
                     self.finishButtonTap.onNext(password)
+                    self.view.rx.indicator.onNext(true)
                 })
             })
             .disposed(by: disposeBag)

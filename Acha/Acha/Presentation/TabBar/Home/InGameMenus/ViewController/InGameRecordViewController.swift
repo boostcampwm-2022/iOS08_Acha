@@ -71,7 +71,7 @@ final class InGameRecordViewController: InGamePlayMenuViewController {
                 image: nil,
                 text: """
                       \(itemIdentifier.date.convertToStringFormat(format: "yyyy년 MM월 dd일 EEE요일"))
-                      \(itemIdentifier.time.convertToDayHourMinueFormat())
+                      \(itemIdentifier.time.convertToHourMinuteSecondFormat())
                       """
             )
             return cell

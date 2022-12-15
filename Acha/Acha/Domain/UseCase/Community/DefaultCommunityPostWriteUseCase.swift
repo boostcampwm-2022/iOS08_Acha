@@ -50,7 +50,7 @@ final class DefaultCommunityPostWriteUseCase: CommunityPostWriteUseCase {
                             })
                             .disposed(by: self.disposeBag)
                     } else {
-                        var post = Post(userId: user.id, nickName: user.nickName, text: postContent)
+                        let post = Post(userId: user.id, nickName: user.nickName, text: postContent)
                         self.communityRepository.uploadPost(post: post, image: image)
                             .subscribe(onSuccess: {
                                 single(.success(()))

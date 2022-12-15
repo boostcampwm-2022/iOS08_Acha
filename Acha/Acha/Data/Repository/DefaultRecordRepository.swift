@@ -21,14 +21,14 @@ final class DefaultRecordRepository: RecordRepository {
     }
     
     func fetchAllRecords() -> Single<[Record]> {
-        realTimeDatabaseNetworkService.fetch(type: .record)
+        realTimeDatabaseNetworkService.fetch(type: .recordList)
             .map { (recordDTOs: [RecordDTO]) in
                 return recordDTOs.map { $0.toDomain() }
             }
     }
     
     func fetchRecordDataAtMapID(mapID: Int) -> Single<[Record]> {
-        realTimeDatabaseNetworkService.fetchAtKeyValue(type: .record,
+        realTimeDatabaseNetworkService.fetchAtKeyValue(type: .recordList,
                                       value: mapID,
                                       key: "map_id")
         .map { (recordDTOs: [RecordDTO?]) in
@@ -38,13 +38,16 @@ final class DefaultRecordRepository: RecordRepository {
     
     func uploadNewRecord(record: Record) {
         realTimeDatabaseNetworkService
-            .uploadNewRecord(index: record.id, data: record)
+            .upload(type: .record(id: record.id),
+                    data: record)
+            .subscribe()
+            .disposed(by: disposeBag)
     }
     
     func recordCount() -> Single<Int> {
         Single<Int>.create { [weak self] single in
             guard let self else { return Disposables.create() }
-            self.realTimeDatabaseNetworkService.fetch(type: .record)
+            self.realTimeDatabaseNetworkService.fetch(type: .recordList)
                 .subscribe(onSuccess: { (records: [RecordDTO]) in
                     single(.success(records.count))
                 })

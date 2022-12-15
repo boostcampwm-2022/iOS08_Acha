@@ -22,7 +22,6 @@ final class DefaultLocationService: NSObject, LocationService {
     }
     
     func start() {
-        getLocationUsagePermission()
         setUp()
         if locationManager.authorizationStatus == .authorizedAlways ||
             locationManager.authorizationStatus == .authorizedWhenInUse {

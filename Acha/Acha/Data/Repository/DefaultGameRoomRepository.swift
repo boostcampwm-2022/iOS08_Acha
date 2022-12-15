@@ -61,7 +61,10 @@ struct DefaultGameRoomRepository: GameRoomRepository {
                     getUserDataFromRealTimeDataBaseService()
                         .subscribe { userDTO in
                             roomDTO.enterRoom(user: userDTO)
-                            firebaseRealTimeDatabase.reUpload(type: .room(id: id), data: roomDTO)
+                            firebaseRealTimeDatabase.upload(type: .room(id: id),
+                                                            data: roomDTO)
+                            .subscribe()
+                            .disposed(by: disposeBag)
                         }
                         .disposed(by: disposeBag)
                     return fetchRoomUserData(id: id)
@@ -101,7 +104,10 @@ struct DefaultGameRoomRepository: GameRoomRepository {
                 if roomDTO.user.count == 0 {
                     removeObserverRoom(id: id)
                 } else {
-                    firebaseRealTimeDatabase.reUpload(type: .room(id: id), data: roomDTO)
+                    firebaseRealTimeDatabase.upload(type: .room(id: id),
+                                                    data: roomDTO)
+                    .subscribe()
+                    .disposed(by: disposeBag)
                 }
                 return roomDTO
             }
@@ -145,7 +151,10 @@ struct DefaultGameRoomRepository: GameRoomRepository {
                 roomDTO.gameInformation = roomDTO.user.map {
                     MultiGamePlayerDTO(data: makeInitMultiGamePlayerData(data: $0), history: [Coordinate]())
                 }
-                firebaseRealTimeDatabase.reUpload(type: .room(id: roomId), data: roomDTO)
+                firebaseRealTimeDatabase.upload(type: .room(id: roomId),
+                                                data: roomDTO)
+                .subscribe()
+                .disposed(by: disposeBag)
             })
             .disposed(by: disposeBag)
     }
@@ -171,7 +180,10 @@ struct DefaultGameRoomRepository: GameRoomRepository {
                     $0.id == multiGamePlayerDTO.id
                 }) else {return}
                 roomDTO.gameInformation?[index] = multiGamePlayerDTO
-                firebaseRealTimeDatabase.reUpload(type: .room(id: roomId), data: roomDTO)
+                firebaseRealTimeDatabase.upload(type: .room(id: roomId),
+                                                data: roomDTO)
+                .subscribe()
+                .disposed(by: disposeBag)
             })
             .disposed(by: disposeBag)
     }
@@ -182,7 +194,10 @@ struct DefaultGameRoomRepository: GameRoomRepository {
                 var roomDTO = roomDTO
                 guard let chats = roomDTO.chats else {return}
                 roomDTO.chats = chatsReadUpdate(chats: chats, reads: reads)
-                firebaseRealTimeDatabase.reUpload(type: .room(id: roomID), data: roomDTO)
+                firebaseRealTimeDatabase.upload(type: .room(id: roomID),
+                                                data: roomDTO)
+                .subscribe()
+                .disposed(by: disposeBag)
             })
             .disposed(by: disposeBag)
     }
@@ -193,7 +208,10 @@ struct DefaultGameRoomRepository: GameRoomRepository {
                 var roomDTO = roomDTO
                 let newChat = ChatDTO(data: chat)
                 roomDTO.appendChat(chat: newChat)
-                firebaseRealTimeDatabase.reUpload(type: .room(id: roomID), data: roomDTO)
+                firebaseRealTimeDatabase.upload(type: .room(id: roomID),
+                                                data: roomDTO)
+                .subscribe()
+                .disposed(by: disposeBag)
             })
             .disposed(by: disposeBag)
                 

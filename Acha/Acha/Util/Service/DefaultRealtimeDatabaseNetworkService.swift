@@ -155,58 +155,6 @@ final class DefaultRealtimeDatabaseNetworkService: RealtimeDatabaseNetworkServic
         
     }
     
-    func uploadNewRecord(index: Int, data: Record) {
-        let childReference = self.databaseReference.child(FirebaseRealtimeType.record.path)
-        guard let json = try? JSONEncoder().encode(data),
-              let jsonSerial = try? JSONSerialization.jsonObject(with: json) as? [String: Any] ?? [:]
-        else {
-            print(FirebaseRealtimeError.encodeError)
-            return
-        }
-        childReference.updateChildValues(["\(index)": jsonSerial])
-    }
-    
-    func uploadPost(data: PostDTO) -> Single<Void> {
-        Single.create { single in
-            let childReference = self.databaseReference.child(FirebaseRealtimeType.postList.path)
-            guard let json = try? JSONEncoder().encode(data),
-                  let jsonSerial = try? JSONSerialization.jsonObject(with: json) as? [String: Any] ?? [:]
-            else {
-                print(FirebaseRealtimeError.encodeError)
-                return Disposables.create()
-            }
-            childReference.updateChildValues(["\(data.id)": jsonSerial]) { error, _ in
-                if let error {
-                    single(.failure(error))
-                } else {
-                    single(.success(()))
-                }
-            }
-            return Disposables.create()
-        }
-    }
-    
-    func uploadComment(data: CommentDTO) -> Single<Void> {
-        Single.create { single in
-            let childReference = self.databaseReference.child(FirebaseRealtimeType.comment(id: data.postId).path)
-            guard let json = try? JSONEncoder().encode(data),
-                  let jsonSerial = try? JSONSerialization.jsonObject(with: json) as? [String: Any] ?? [:]
-            else {
-                print(FirebaseRealtimeError.encodeError)
-                return Disposables.create()
-            }
-            childReference.updateChildValues(["\(data.id)": jsonSerial]) { error, _ in
-                if let error {
-                    single(.failure(error))
-                } else {
-                    single(.success(()))
-                }
-            }
-            
-            return Disposables.create()
-        }
-    }
-    
     func upload<T: Encodable>(type: FirebaseRealtimeType, data: T) -> Single<Void> {
         Single.create { single in
             let childReference = self.databaseReference.child(type.path)
@@ -225,12 +173,6 @@ final class DefaultRealtimeDatabaseNetworkService: RealtimeDatabaseNetworkServic
             }
             return Disposables.create()
         }
-    }
-    
-    func reUpload<T: Encodable>(type: FirebaseRealtimeType, data: T) {
-        let childReference = self.databaseReference.child(type.path)
-        let data = data.dictionary
-        childReference.setValue(data)
     }
     
     func delete(type: FirebaseRealtimeType) -> Single<Void> {

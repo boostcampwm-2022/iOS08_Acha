@@ -279,7 +279,7 @@
 		471863DF291E155800A35786 /* AchaUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchaUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		471A6F3A293DCB7B0076DEE3 /* UserDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDTO.swift; sourceTree = "<group>"; };
 		4738D75C2921D398003AE835 /* AchaLibrary */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = AchaLibrary; path = ../AchaLibrary; sourceTree = "<group>"; };
-		4738D7602921D6E4003AE835 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../GoogleService-Info.plist"; sourceTree = "<group>"; };
+		4738D7602921D6E4003AE835 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4738D765292238C3003AE835 /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
 		4738D767292267BA003AE835 /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 		4738D76E2922756B003AE835 /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
@@ -552,7 +552,6 @@
 		471863B0291E155700A35786 = {
 			isa = PBXGroup;
 			children = (
-				4738D7602921D6E4003AE835 /* GoogleService-Info.plist */,
 				E526576B294820E100A350CE /* GPX */,
 				4738D75B2921D398003AE835 /* Packages */,
 				471863BB291E155700A35786 /* Acha */,
@@ -1054,6 +1053,7 @@
 				471863C5291E155800A35786 /* Assets.xcassets */,
 				471863C7291E155800A35786 /* LaunchScreen.storyboard */,
 				471863CA291E155800A35786 /* Info.plist */,
+				4738D7602921D6E4003AE835 /* GoogleService-Info.plist */,
 			);
 			path = App;
 			sourceTree = "<group>";
