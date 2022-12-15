@@ -80,28 +80,6 @@
 
 # ✨ 기술 특장점 
 
-## MVVM-C & Clean Architecture
-
-> **사용한 이유**
-> 
-
-MVC 에서 생기는 **ViewController 이 방대해지는 문제** 와 기존의 MVC 와 MVVM 에서 생기는 **의존성 문제**를 해결하기 위해 MVVM-C & Clean Architecture 패턴을 사용했습니다.
-
-> **구조**
-
-<div align="center">
-<img src="https://user-images.githubusercontent.com/76652929/207755158-0803b5d1-0924-4a8a-99e6-9da1e1d8ad51.png" width="800" height="400"/>
-</div>
-
-
-> **결과**
-> 
-- 뷰 전환시 Coordinator 패턴을 사용해 **단일 책임 원칙**을 지킬 수 있었습니다.
-- Clean Architecture 패턴을 적용해 레이어를 나눠 **테스트와 확장성이 용이**하게 되었습니다.
-- Entity 와 DTO 를 분리하여 View Layer와 DB Layer의 **역할을 분리**할 수 있어서 **의존성을 떨어뜨릴 수** **있었고**, 화면에 필요한 데이터를 선별해 사용하여 **데이터의 은닉화**가 가능하게 되었습니다.
-
-
-
 ## RxSwift
 
 > 사용**한 이유**
@@ -231,7 +209,29 @@ MVC 에서 생기는 **ViewController 이 방대해지는 문제** 와 기존의
 <img src="https://user-images.githubusercontent.com/76652929/207755520-4f09a629-dfd8-4ec0-8d52-650169b2ce40.gif" width="300" height="600"/>
 </div>
 
-기존의 정적인 차트에서 동적인 차트로 바뀌면서 변화가 더 눈에 띕니다.
+기존의 정적인 차트에서 동적인 차트로 바뀌면서 변화가 눈에 더 잘 띌 수 있게 되었습니다. 
+
+## MVVM-C & Clean Architecture
+
+> **사용한 이유**
+> 
+
+MVC 에서 생기는 **ViewController 이 방대해지는 문제** 와 기존의 MVC 와 MVVM 에서 생기는 **의존성 문제**를 해결하기 위해 MVVM-C & Clean Architecture 패턴을 사용했습니다.
+
+> **구조**
+
+<div align="center">
+<img src="https://user-images.githubusercontent.com/76652929/207755158-0803b5d1-0924-4a8a-99e6-9da1e1d8ad51.png" width="800" height="400"/>
+</div>
+
+
+> **결과**
+> 
+- 뷰 전환시 Coordinator 패턴을 사용해 **단일 책임 원칙**을 지킬 수 있었습니다.
+- Clean Architecture 패턴을 적용해 레이어를 나눠 **테스트와 확장성이 용이**하게 되었습니다.
+- Entity 와 DTO 를 분리하여 View Layer와 DB Layer의 **역할을 분리**할 수 있어서 **의존성을 떨어뜨릴 수** **있었고**, 화면에 필요한 데이터를 선별해 사용하여 **데이터의 은닉화**가 가능하게 되었습니다.
+
+
 
 
 ## 팀소개 👨‍👨‍👧‍👦
