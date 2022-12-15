@@ -100,6 +100,7 @@ final class MyInfoEditViewModel: BaseViewModel {
                         .subscribe(onSuccess: { [weak self] in
                             guard let self,
                                   let coordinator = self.coordinator else { return }
+                            coordinator.navigationController.viewControllers.last?.view.rx.indicator.onNext(false)
                             coordinator.didFinished(childCoordinator: coordinator)
                         }, onFailure: { error in
                             print(error)

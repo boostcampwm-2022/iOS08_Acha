@@ -156,6 +156,7 @@ extension MyInfoEditViewController {
                                         actionTitle: "확인",
                                         actionHandler: { password in
                     self.finishButtonTap.onNext(password)
+                    self.view.rx.indicator.onNext(true)
                 })
             })
             .disposed(by: disposeBag)

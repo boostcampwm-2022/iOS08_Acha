@@ -15,13 +15,13 @@ extension Reactive where Base: UIView {
         Binder(base) { base, indicator in
 
             if indicator {
+                base.isUserInteractionEnabled = false
                 let backView = UIView(frame: base.frame).then {
                     $0.alpha = 0.6
                     $0.backgroundColor = .black
                     $0.tag = 444
                 }
                 let image = UIButton().then {
-                    base.isUserInteractionEnabled = false
                     $0.layer.borderColor = UIColor.pointDark.cgColor
                     $0.layer.borderWidth = 4
                     $0.layer.cornerRadius = 10
