@@ -70,10 +70,9 @@ final class InGameRankingViewController: InGamePlayMenuViewController {
                 withReuseIdentifier: InGameMenuCell.identifier,
                 for: indexPath
             ) as? InGameMenuCell else {return UICollectionViewCell()}
-            #warning("데이터 어떻게 보내줄지 결정해야 함")
             cell.setData(
                 image: UIImage(named: "rank\(indexPath.row)"),
-                text: itemIdentifier.userName+"(\(itemIdentifier.time.convertToDayHourMinueFormat()))"
+                text: itemIdentifier.userName+"(\(itemIdentifier.time.convertToHourMinuteSecondFormat()))"
             )
             return cell
         }

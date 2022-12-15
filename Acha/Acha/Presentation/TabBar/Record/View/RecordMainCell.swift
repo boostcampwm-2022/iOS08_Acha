@@ -133,7 +133,7 @@ class RecordMainCell: UICollectionViewCell {
         } else {
             winLabel.isHidden = true
         }
-        timeLabel.text = "시간: \(record.time.convertToDayHourMinueFormat())"
+        timeLabel.text = "시간: \(record.time.convertToHourMinuteSecondFormat())"
         modeLabel.text = record.isSingleMode == true ? "모드: 혼자 하기" : "모드: 같이 하기"
         distanceLabel.text = "거리: \(record.distance.convertToDecimal) m"
         kcalLabel.text = "칼로리: \(record.calorie.convertToDecimal) kcal"
