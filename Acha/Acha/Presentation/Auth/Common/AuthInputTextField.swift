@@ -19,11 +19,11 @@ final class AuthInputTextField: UITextField {
         var image: UIImage {
             switch self {
             case .email:
-                return ImageConstants.authEmailImage()
+                return .authEmailImage
             case .nickName:
-                return ImageConstants.authNickNameImage()
+                return .authNickNameImage
             case .password:
-                return ImageConstants.authPasswordImage()
+                return .authPasswordImage
             }
         }
         

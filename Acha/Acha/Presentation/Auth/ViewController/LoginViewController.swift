@@ -99,7 +99,7 @@ extension LoginViewController {
 
 extension LoginViewController {
     func bind() {
-        AchaKeyboard.shared.keyboardHeight
+        AchaKeyboardManager.shared.keyboardHeight
             .drive(onNext: { [weak self] keyboardHeight in
                 guard let self = self else {return}
                 self.contentView.snp.updateConstraints {

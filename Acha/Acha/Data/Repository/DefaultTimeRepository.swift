@@ -10,9 +10,9 @@ import RxSwift
 
 struct DefaultTimeRepository: TimeRepository {
     
-    private let timerService: TimerServiceProtocol
+    private let timerService: TimerService
     
-    init(timeService: TimerServiceProtocol) {
+    init(timeService: TimerService) {
         self.timerService = timeService
     }
     

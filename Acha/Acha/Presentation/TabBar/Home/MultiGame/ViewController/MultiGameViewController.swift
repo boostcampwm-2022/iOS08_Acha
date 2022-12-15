@@ -24,18 +24,13 @@ final class MultiGameViewController: UIViewController, DistanceAndTimeBarLine {
         $0.textColor = .black
     }
     private lazy var exitButton = UIButton().then {
-        $0.setImage(.exitImage, for: .normal)
+        $0.setImage(.multiplyImage, for: .normal)
     }
     
     private lazy var resetButton: UIButton = UIButton().then {
-        $0.setImage(
-            ImageConstants
-                .arrowPositionResetImage?
-                .withTintColor(
-                    .pointLight,
-                    renderingMode: .alwaysOriginal),
-            for: .normal
-        )
+        $0.setImage(.arrowPositionResetImage?.withTintColor(.pointLight,
+                                                            renderingMode: .alwaysOriginal),
+                    for: .normal)
     }
     
     private lazy var gameOverButton = UIButton().then {
@@ -322,9 +317,9 @@ extension MultiGameViewController {
     private func makeDataSource() -> GameDataDatasource {
         let dataSource = GameDataDatasource(collectionView: pointBoard) { collectionView, indexPath, itemIdentifier in
             guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: GameRankCollectionViewCell.identifier,
+                withReuseIdentifier: GameRankCell.identifier,
                 for: indexPath
-            ) as? GameRankCollectionViewCell else {return UICollectionViewCell()}
+            ) as? GameRankCell else {return UICollectionViewCell()}
             cell.bind(data: itemIdentifier, rank: indexPath.row+1)
             return cell
         }
@@ -347,8 +342,8 @@ extension MultiGameViewController {
     
     private func registerCollectionView() {
         pointBoard.register(
-            GameRankCollectionViewCell.self,
-            forCellWithReuseIdentifier: GameRankCollectionViewCell.identifier
+            GameRankCell.self,
+            forCellWithReuseIdentifier: GameRankCell.identifier
         )
     }
     
