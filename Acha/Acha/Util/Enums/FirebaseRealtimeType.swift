@@ -8,8 +8,8 @@
 import Foundation
 
 enum FirebaseRealtimeType {
-    case mapList(id: Int?)
-    case record(id: Int?)
+    case mapList
+    case record
     case user(id: String)
     case room(id: String)
     case postList
@@ -19,10 +19,10 @@ enum FirebaseRealtimeType {
     
     var path: String {
         switch self {
-        case .mapList(let id):
-            return id == nil ? "mapList" : "mapList/\(id)"
-        case .record(let id):
-            return id == nil ? "record" : "record/\(id)"
+        case .mapList:
+            return "mapList"
+        case .record:
+            return "record"
         case .user(let id):
             return "User/\(id)"
         case .room(let id):
