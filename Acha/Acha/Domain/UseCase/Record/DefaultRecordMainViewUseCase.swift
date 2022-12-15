@@ -61,11 +61,9 @@ final class DefaultRecordMainViewUseCase: RecordMainViewUseCase {
                         
                         userRecords.forEach {
                             recordsAtDate[$0.createdAt] = (recordsAtDate[$0.createdAt] ?? []) + [$0]
-                            
                             if !allDates.contains($0.createdAt) {
                                 allDates.append($0.createdAt)
                             }
-                            
                             if totalDataAtDate[$0.createdAt] != nil {
                                 totalDataAtDate[$0.createdAt]?.distance += $0.distance
                                 totalDataAtDate[$0.createdAt]?.calorie += $0.calorie
@@ -74,14 +72,14 @@ final class DefaultRecordMainViewUseCase: RecordMainViewUseCase {
                                                                               calorie: $0.calorie)
                             }
                         }
-                        
                         allDates.sort {
-                            return $0.convertToDateFormat(format: "yyyy-MM-dd") > $1.convertToDateFormat(format: "yyyy-MM-dd")
+                            let firstTime = $0.convertToDateFormat(format: "yyyy-MM-dd")
+                            let secondTime = $1.convertToDateFormat(format: "yyyy-MM-dd")
+                            return firstTime > secondTime
                         }
                         
                         let startDay = Date(timeIntervalSinceNow: -(86400 * 6))
                         var weekDatas = Array(repeating: RecordViewChartData(number: 0, distance: 0), count: 7)
-                        
                         for index in 0...6 {
                             let day = startDay.addingTimeInterval(Double(index) * 86400)
                             let dayString = day.convertToStringFormat(format: "yyyy-MM-dd")

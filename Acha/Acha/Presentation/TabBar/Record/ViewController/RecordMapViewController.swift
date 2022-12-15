@@ -149,7 +149,6 @@ class RecordMapViewController: UIViewController {
                     return UICollectionViewCell()
                 }
                 cell.setLocationName(name: locationName)
-                
                 return cell
             case .ranking(let rank, let recond):
                 guard let cell = collectionView.dequeueReusableCell(
@@ -158,7 +157,6 @@ class RecordMapViewController: UIViewController {
                     return UICollectionViewCell()
                 }
                 cell.bind(ranking: rank, record: recond)
-                
                 return cell
             case .map(let data):
                 guard let cell = collectionView.dequeueReusableCell(
@@ -167,7 +165,6 @@ class RecordMapViewController: UIViewController {
                     return UICollectionViewCell()
                 }
                 cell.bind(data: data)
-                
                 return cell 
             }
         })

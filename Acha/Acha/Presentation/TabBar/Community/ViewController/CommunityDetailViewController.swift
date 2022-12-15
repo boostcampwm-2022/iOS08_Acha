@@ -52,7 +52,7 @@ final class CommunityDetailViewController: UIViewController, UICollectionViewDel
     }
     
     // MARK: - Helpers
-    private func bind() {
+    private func keyboardBind() {
         AchaKeyboardManager.shared.keyboardHeight
             .drive(onNext: { [weak self] keyboardHeight in
                 guard let self = self else {return}
@@ -68,7 +68,10 @@ final class CommunityDetailViewController: UIViewController, UICollectionViewDel
                 }
             })
             .disposed(by: disposeBag)
-        
+    }
+    
+    private func bind() {
+        keyboardBind()
         let input = CommunityDetailViewModel.Input(
             viewWillAppearEvent: rx.methodInvoked(#selector(viewWillAppear(_:)))
                 .map { _ in }
@@ -87,16 +90,13 @@ final class CommunityDetailViewController: UIViewController, UICollectionViewDel
             postModifyButtonTapEvent: postCellModifyButtonTapEvent.asObservable(),
             postDeleteButtonTapEvent: postCellDeleteButtonTapEvent.asObservable()
         )
-        
         let output = viewModel.transform(input: input)
-        
         output.post
             .subscribe(onNext: { [weak self] (post, isMine) in
                 guard let self else { return }
                 self.makeSnapshot(post: post, isMine: isMine)
             })
             .disposed(by: disposeBag)
-        
         output.commentWriteSuccess
             .subscribe(onNext: { [weak self] in
                 guard let self else { return }

@@ -438,10 +438,10 @@
 		E5BE8BB62922201F00E9CFE8 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		E5BE8BB92922217600E9CFE8 /* TabBarType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarType.swift; sourceTree = "<group>"; };
 		E5F48E65294AEEEE0011DBE7 /* Acha.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Acha.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		E5F48E66294AEEEE0011DBE7 /* AchaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = AchaTests.xctest; path = "/Users/baenamseog/Desktop/feature/grouping/Acha/build/Debug-iphoneos/AchaTests.xctest"; sourceTree = "<absolute>"; };
-		E5F48E67294AEEEE0011DBE7 /* AchaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = AchaUITests.xctest; path = "/Users/baenamseog/Desktop/feature/grouping/Acha/build/Debug-iphoneos/AchaUITests.xctest"; sourceTree = "<absolute>"; };
 		E5F48E6B294AF1870011DBE7 /* InGameRanking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameRanking.swift; sourceTree = "<group>"; };
 		E5F48E6D294AF19C0011DBE7 /* InGameRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameRecord.swift; sourceTree = "<group>"; };
+		E5F48E7E294B079A0011DBE7 /* AchaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AchaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E5F48E7F294B079A0011DBE7 /* AchaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AchaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1034B58292B37EB00BD8407 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		F12210C1292D031800AE5F26 /* KeyChainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainManager.swift; sourceTree = "<group>"; };
 		F13DB58E292B3C8D00323B28 /* AuthInputTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthInputTextField.swift; sourceTree = "<group>"; };
@@ -559,6 +559,8 @@
 				471863D2291E155800A35786 /* AchaTests */,
 				471863DC291E155800A35786 /* AchaUITests */,
 				E5F48E65294AEEEE0011DBE7 /* Acha.app */,
+				E5F48E7E294B079A0011DBE7 /* AchaTests.xctest */,
+				E5F48E7F294B079A0011DBE7 /* AchaUITests.xctest */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1466,7 +1468,7 @@
 			);
 			name = AchaTests;
 			productName = AchaTests;
-			productReference = E5F48E66294AEEEE0011DBE7 /* AchaTests.xctest */;
+			productReference = E5F48E7E294B079A0011DBE7 /* AchaTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		471863D8291E155800A35786 /* AchaUITests */ = {
@@ -1484,7 +1486,7 @@
 			);
 			name = AchaUITests;
 			productName = AchaUITests;
-			productReference = E5F48E67294AEEEE0011DBE7 /* AchaUITests.xctest */;
+			productReference = E5F48E7F294B079A0011DBE7 /* AchaUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -1982,7 +1984,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Acha/Acha.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -2018,7 +2019,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Acha/Acha.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;

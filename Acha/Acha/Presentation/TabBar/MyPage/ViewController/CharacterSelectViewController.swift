@@ -125,9 +125,10 @@ extension CharacterSelectViewController {
 extension CharacterSelectViewController {
     // MARK: - Bind
     private func bind() {
-        let input = CharacterSelectViewModel.Input(selectedCharacterIndex: collectionView.rx.itemSelected.asObservable(),
-                                                   finishButtonTapped: finishButtonTapped,
-                                                   cancelButtonTapped: cancelButtonTapped)
+        let input = CharacterSelectViewModel.Input(
+            selectedCharacterIndex: collectionView.rx.itemSelected.asObservable(),
+            finishButtonTapped: finishButtonTapped,
+            cancelButtonTapped: cancelButtonTapped)
         _ = viewModel.transform(input: input)
         
         collectionView.rx.itemSelected

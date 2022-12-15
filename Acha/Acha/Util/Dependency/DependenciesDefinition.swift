@@ -133,7 +133,6 @@ final class DependenciesDefinition {
     
     // MARK: - UseCase
     private func useCaseInject() {
-        
         dependencies.register(
             SignUpUsecase.self,
             implement: DefaultSignUpUsecase(

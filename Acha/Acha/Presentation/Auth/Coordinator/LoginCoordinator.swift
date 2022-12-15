@@ -53,11 +53,4 @@ final class LoginCoordinator: LoginCoordinatorProtocol {
     func showSignupViewController() {
         loginDelegate?.switchToSignup()
     }
-
-}
-#warning("didFinished 제거")
-extension LoginCoordinator: CoordinatorDelegate {
-    func didFinished(childCoordinator: Coordinator) {
-        showLoginViewController()
-    }
 }
