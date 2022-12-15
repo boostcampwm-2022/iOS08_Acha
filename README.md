@@ -1,17 +1,13 @@
-# iOS08_Acha
-iOS 그룹프로젝트 8조 아차입니다. 아차 🤦‍♂️
+# 아차 - 땅따먹기 게임
 
-# ✨ 프로젝트 소개
+<img src = "https://user-images.githubusercontent.com/76652929/207753778-a9e6be7c-9560-4d6a-87b1-4367b96b555f.png" width="400" height="400"/> 
 
-<img src="  width="200" height="400"/>
 
 > 땅따먹기 게임을 아시나요?
-**아차**와 함께 재미있게 운동하며 새로운 **땅따먹기 게임**을 경험해보세요.
-혼자 건물을 주변을 **산책**할 수도 있고, 여러 친구와 땅을 먹으며 **영역 경쟁**하는 실제 땅따먹기 게임!
->
+>**아차**와 함께 재미있게 운동하며 새로운 **땅따먹기 게임**을 경험해보세요.
+>혼자 건물을 주변을 **산책**할 수도 있고, 여러 친구와 땅을 먹으며 **영역 경쟁**하는 실제 땅따먹기 게임!
 
-
-# ✨ 프로젝트 기능
+# ✨ 기능 소개
 
 ## 혼자하기 모드
 
@@ -21,6 +17,9 @@ iOS 그룹프로젝트 8조 아차입니다. 아차 🤦‍♂️
 - 게임이 종료되면 운동 기록이 **건강 앱**에도 저장됩니다.
 
 
+<img src = "https://user-images.githubusercontent.com/76652929/207753956-58ba6bef-c073-4a39-bf30-0b8a08147e44.png" width="570" height="619"/>
+
+
 ## 같이하기 모드
 
 - **QR코드**를 통해 방에 입장하여 친구와 함께 할 수 있습니다.
@@ -28,22 +27,32 @@ iOS 그룹프로젝트 8조 아차입니다. 아차 🤦‍♂️
 - 게임 중 **실시간으로 다른 플레이어와 채팅**을 할 수 있습니다.
 
 
+<img src="https://user-images.githubusercontent.com/76652929/207754137-008a7726-7533-4d2e-bcf0-6e9520aa2ab9.png" width="550" height="309"/>
+
+
 ## 기록
 
 - **자신의 기록**을 볼 수 있습니다.
 - 여러 땅의 **랭킹**을 볼 수 있습니다.
+
+<img src="https://user-images.githubusercontent.com/76652929/207754294-335b0649-d042-4f93-a208-febb058b98de.png" width="400" height="619"/>
+
 
 
 ## 뱃지
 
 - 게임 **결과**에 따라 다양한 **뱃지**를 획득할 수 있습니다.
 
+<img src="https://user-images.githubusercontent.com/76652929/207754567-1e9193b0-dc4a-43f8-9b5a-a23fd423ccba.png" width="350" height="309"/>
 
 ## 커뮤니티
 
 - 커뮤니티에서 **다른 플레이어와 소통**할 수 있습니다.
 - **사진**을 첨부하여 **게시글**을 올릴 수 있습니다.
 - 다른 사용자의 **게시글**을 보고 **댓글**을 **작성**할 수 있습니다.
+
+<img src="https://user-images.githubusercontent.com/76652929/207754718-6f38e19b-0d48-4109-9d77-7c0a6b3ccc6a.png" width="550" height="309"/>
+
 
 
 # ✨ 기술 스택 
@@ -58,6 +67,8 @@ iOS 그룹프로젝트 8조 아차입니다. 아차 🤦‍♂️
 MVC 에서 생기는 **ViewController 이 방대해지는 문제** 와 기존의 MVC 와 MVVM 에서 생기는 **의존성 문제**를 해결하기 위해 MVVM-C & Clean Architecture 패턴을 사용했습니다.
 
 > **구조**
+
+<img src="https://user-images.githubusercontent.com/76652929/207755158-0803b5d1-0924-4a8a-99e6-9da1e1d8ad51.png" width="800" height="400"/>
 
 
 
@@ -158,7 +169,8 @@ MVC 에서 생기는 **ViewController 이 방대해지는 문제** 와 기존의
 
 사용자의 로그인 결과를 앱 내부에 저장 하기에는 **사용자의 민감한 데이터가 유출될 수 있는 취약점**이 있었습니다.
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/ea2e9da4-9974-4d0f-ba10-cc584d97df8c/Untitled.png)
+<img src="https://user-images.githubusercontent.com/76652929/207755338-74a3622b-ca85-4e5f-8920-5b6452c907d3.png" width="600" height="300"/>
+
 
 **Keychain Services API** 는 데이터와 같이 속성 값을 주어 **데이터를 암호화** 하고 이를 Keychain 에 저장하는 방식으로 구성 되어 보안적으로 더 나은 선택이라 생각해서 사용하게 되었습니다. 
 
@@ -192,6 +204,9 @@ MVC 에서 생기는 **ViewController 이 방대해지는 문제** 와 기존의
 > **결과**
 > 
 
+<img src="https://user-images.githubusercontent.com/76652929/207755520-4f09a629-dfd8-4ec0-8d52-650169b2ce40.gif" width="300" height="600"/>
+
+
 기존의 정적인 차트에서 동적인 차트로 바뀌면서 변화가 더 눈에 띕니다.
 
 
@@ -219,14 +234,5 @@ MVC 에서 생기는 **ViewController 이 방대해지는 문제** 와 기존의
 
 [godo129 - Overview](https://github.com/godo129)
 
-# ✨ GitHub
 
----
-
-[GitHub - boostcampwm-2022/iOS08_Acha: iOS 그룹프로젝트 8조 아차입니다. 아차 🤦‍♂️](https://github.com/boostcampwm-2022/iOS08_Acha)
-
-# ✨ GitHub Wiki
-
----
-
-[Home · boostcampwm-2022/iOS08_Acha Wiki](https://github.com/boostcampwm-2022/iOS08_Acha/wiki)
+**저희들의 개발 과정은 이곳에서 보실 수 있습니다 👉👉👉** [아차의 WIKI](https://github.com/boostcampwm-2022/iOS08_Acha/wiki)
