@@ -105,9 +105,7 @@ final class MultiGameViewModel: BaseViewModel {
                 
                 self.useCase.observing(roomID: self.roomId)
                     .subscribe { players in
-                        if players.count >= 2 {
-                            self.playerDataFetcehd.onNext(players)
-                        }
+                        self.playerDataFetcehd.onNext(players)
                     }
                     .disposed(by: self.disposeBag)
                 
