@@ -1,11 +1,16 @@
 # 아차 - 땅따먹기 게임
 
+<div align="center">
 <img src = "https://user-images.githubusercontent.com/76652929/207753778-a9e6be7c-9560-4d6a-87b1-4367b96b555f.png" width="400" height="400"/> 
+</div>
 
 
-> 땅따먹기 게임을 아시나요?
->**아차**와 함께 재미있게 운동하며 새로운 **땅따먹기 게임**을 경험해보세요.
+
+> 땅따먹기 게임을 아시나요?  
+>**아차**와 함께 재미있게 운동하며 새로운 **땅따먹기 게임**을 경험해보세요.  
 >혼자 건물을 주변을 **산책**할 수도 있고, 여러 친구와 땅을 먹으며 **영역 경쟁**하는 실제 땅따먹기 게임!
+
+
 
 <div align="center">
   
@@ -22,34 +27,40 @@
 - 게임이 종료되면 이번 **게임에 대한 기록(땅 이름, 시간, 거리, 칼로리)**을 확인할 수 있습니다.
 - 게임이 종료되면 운동 기록이 **건강 앱**에도 저장됩니다.
 
+<div align="center">
 
 <img src = "https://user-images.githubusercontent.com/76652929/207753956-58ba6bef-c073-4a39-bf30-0b8a08147e44.png" width="570" height="619"/>
 
-
+</div>
 ## 같이하기 모드
 
 - **QR코드**를 통해 방에 입장하여 친구와 함께 할 수 있습니다.
 - 게임 중 **다른 플레이어의 실시간 위치와 포인트**를 확인할 수 있습니다.
 - 게임 중 **실시간으로 다른 플레이어와 채팅**을 할 수 있습니다.
 
+<div align="center">
 
 <img src="https://user-images.githubusercontent.com/76652929/207754137-008a7726-7533-4d2e-bcf0-6e9520aa2ab9.png" width="550" height="309"/>
 
+</div>
 
 ## 기록
 
 - **자신의 기록**을 볼 수 있습니다.
 - 여러 땅의 **랭킹**을 볼 수 있습니다.
 
+<div align="center">
 <img src="https://user-images.githubusercontent.com/76652929/207754294-335b0649-d042-4f93-a208-febb058b98de.png" width="400" height="619"/>
 
-
+</div>
 
 ## 뱃지
 
 - 게임 **결과**에 따라 다양한 **뱃지**를 획득할 수 있습니다.
 
+<div align="center">
 <img src="https://user-images.githubusercontent.com/76652929/207754567-1e9193b0-dc4a-43f8-9b5a-a23fd423ccba.png" width="350" height="309"/>
+</div>
 
 ## 커뮤니티
 
@@ -57,9 +68,10 @@
 - **사진**을 첨부하여 **게시글**을 올릴 수 있습니다.
 - 다른 사용자의 **게시글**을 보고 **댓글**을 **작성**할 수 있습니다.
 
+<div align="center">
 <img src="https://user-images.githubusercontent.com/76652929/207754718-6f38e19b-0d48-4109-9d77-7c0a6b3ccc6a.png" width="550" height="309"/>
 
-
+</div>
 
 # ✨ 기술 스택 
 
@@ -74,8 +86,9 @@ MVC 에서 생기는 **ViewController 이 방대해지는 문제** 와 기존의
 
 > **구조**
 
+<div align="center">
 <img src="https://user-images.githubusercontent.com/76652929/207755158-0803b5d1-0924-4a8a-99e6-9da1e1d8ad51.png" width="800" height="400"/>
-
+</div>
 
 
 > **결과**
@@ -90,8 +103,8 @@ MVC 에서 생기는 **ViewController 이 방대해지는 문제** 와 기존의
 
 > 사용**한 이유**
 > 
-- GCD를 이용하여 비동기 처리 시 **코드 블록이 중첩되는 현상을 피하기 위해** RxSwift를 선택했습니다.
-- 비동기 처리 방법 중 **가장 보편적으로 사용**되고 있는 RxSwift를 사용해보고 싶었습니다.
+- GCD를 이용한 비동기 처리 시 **코드 블록의 중첩**으로 **가독성이 떨어지는 현상을 피하기 위해** RxSwift를 선택했습니다.
+- 비동기 처리 방법 중 **가장 보편적으로 사용**되고 있는 RxSwift를 사용하고자 했습니다.
 
 > **결과**
 > 
@@ -175,8 +188,9 @@ MVC 에서 생기는 **ViewController 이 방대해지는 문제** 와 기존의
 
 사용자의 로그인 결과를 앱 내부에 저장 하기에는 **사용자의 민감한 데이터가 유출될 수 있는 취약점**이 있었습니다.
 
+<div align="center">
 <img src="https://user-images.githubusercontent.com/76652929/207755338-74a3622b-ca85-4e5f-8920-5b6452c907d3.png" width="600" height="300"/>
-
+</div>
 
 **Keychain Services API** 는 데이터와 같이 속성 값을 주어 **데이터를 암호화** 하고 이를 Keychain 에 저장하는 방식으로 구성 되어 보안적으로 더 나은 선택이라 생각해서 사용하게 되었습니다. 
 
@@ -210,20 +224,21 @@ MVC 에서 생기는 **ViewController 이 방대해지는 문제** 와 기존의
 > **결과**
 > 
 
+<div align="center">
 <img src="https://user-images.githubusercontent.com/76652929/207755520-4f09a629-dfd8-4ec0-8d52-650169b2ce40.gif" width="300" height="600"/>
-
+</div>
 
 기존의 정적인 차트에서 동적인 차트로 바뀌면서 변화가 더 눈에 띕니다.
 
 
 ## 팀소개 👨‍👨‍👧‍👦
-
+<div align="center">
 
 S020 배남석 | S021 변상연 | S052 조승기 | S059 홍성철
 -- | -- | -- | --
  <img src="https://avatars.githubusercontent.com/u/76683388?v=4" width="150"> | <img src="https://avatars.githubusercontent.com/u/68235938?v=4" width="150">  |  <img src="https://avatars.githubusercontent.com/u/57134892?v=4" width="150"> |  <img src="https://avatars.githubusercontent.com/u/76652929?v=4" width="150">
 [NamSeok-Bae](https://github.com/NamSeok-Bae) | [sangyeon3](https://github.com/sangyeon3) | [seungki-cho](https://github.com/seungki-cho) | [godo129](https://github.com/godo129)
-
+</div>
 
 **저희들의 개발 과정은 이곳에서 보실 수 있습니다 👉👉👉** [아차의 WIKI](https://github.com/boostcampwm-2022/iOS08_Acha/wiki)
 
