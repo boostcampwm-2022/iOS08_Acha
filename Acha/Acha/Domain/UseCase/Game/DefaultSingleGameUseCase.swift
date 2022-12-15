@@ -16,8 +16,8 @@ final class DefaultSingleGameUseCase: DefaultMapBaseUseCase, SingleGameUseCase {
     
     private var disposeBag = DisposeBag()
     
-    var tapTimer: TimerServiceProtocol
-    var runningTimer: TimerServiceProtocol
+    var tapTimer: TimerService
+    var runningTimer: TimerService
     var map: Map
     
     var ishideGameOverButton = BehaviorSubject<Bool>(value: true)
@@ -34,8 +34,8 @@ final class DefaultSingleGameUseCase: DefaultMapBaseUseCase, SingleGameUseCase {
     init(map: Map,
          locationService: LocationService,
          recordRepository: RecordRepository,
-         tapTimer: TimerServiceProtocol,
-         runningTimer: TimerServiceProtocol,
+         tapTimer: TimerService,
+         runningTimer: TimerService,
          userRepository: UserRepository,
          badgeRepository: BadgeRepository
     ) {

@@ -53,8 +53,8 @@ final class InGameRecordViewController: InGamePlayMenuViewController {
     }
     private func collectionViewRegister() {
         collectionView.register(
-            InGameMenuCollectionViewCell.self,
-            forCellWithReuseIdentifier: InGameMenuCollectionViewCell.identifier
+            InGameMenuCell.self,
+            forCellWithReuseIdentifier: InGameMenuCell.identifier
         )
     }
     
@@ -64,9 +64,9 @@ final class InGameRecordViewController: InGamePlayMenuViewController {
             collectionView: collectionView
         ) { collectionView, indexPath, itemIdentifier in
             guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: InGameMenuCollectionViewCell.identifier,
+                withReuseIdentifier: InGameMenuCell.identifier,
                 for: indexPath
-            ) as? InGameMenuCollectionViewCell else {return UICollectionViewCell()}
+            ) as? InGameMenuCell else {return UICollectionViewCell()}
             cell.setData(
                 image: nil,
                 text: "\(itemIdentifier.date.convertToStringFormat(format: "yyyy년 MM월 dd일 EEE요일")) \(itemIdentifier.time.convertToDayHourMinueFormat())"
@@ -83,11 +83,4 @@ final class InGameRecordViewController: InGamePlayMenuViewController {
         recordDataSource.apply(snapshot, animatingDifferences: true)
     }
     
-}
-
-struct InGameRecord: Hashable, InGameMenuModelProtocol {
-    var id: Int
-    var time: Int
-    var userName: String
-    var date: Date
 }

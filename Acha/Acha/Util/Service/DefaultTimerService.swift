@@ -1,5 +1,5 @@
 //
-//  TimerService.swift
+//  DefaultTimerService.swift
 //  Acha
 //
 //  Created by 조승기 on 2022/11/23.
@@ -8,7 +8,7 @@
 import Foundation
 import RxSwift
 
-final class TimerService: TimerServiceProtocol {
+final class DefaultTimerService: TimerService {
     var disposeBag = DisposeBag()
     
     func start() -> Observable<Int> {

@@ -9,8 +9,8 @@ import Foundation
 import RxSwift
 
 protocol SingleGameUseCase: MapBaseUseCase {
-    var tapTimer: TimerServiceProtocol { get }
-    var runningTimer: TimerServiceProtocol { get }
+    var tapTimer: TimerService { get }
+    var runningTimer: TimerService { get }
     
     var ishideGameOverButton: BehaviorSubject<Bool> { get }
     var previousCoordinate: Coordinate? { get set }

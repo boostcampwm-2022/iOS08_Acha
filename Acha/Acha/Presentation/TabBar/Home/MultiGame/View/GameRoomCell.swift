@@ -9,7 +9,7 @@ import UIKit
 import Then
 import SnapKit
 
-final class GameRoomCollectionViewCell: UICollectionViewCell {
+final class GameRoomCell: UICollectionViewCell {
     static let identifier = "gameRoomCollectionViewCell"
     private lazy var nameLabel = PaddingLabel(
         topInset: 0,
@@ -37,7 +37,7 @@ final class GameRoomCollectionViewCell: UICollectionViewCell {
     }
 }
 
-extension GameRoomCollectionViewCell {
+extension GameRoomCell {
     func layout() {
         addViews()
         addConstratins()
@@ -54,7 +54,7 @@ extension GameRoomCollectionViewCell {
     }
 }
 
-extension GameRoomCollectionViewCell {
+extension GameRoomCell {
     func bind(data: RoomUser) {
         nameLabel.text = data.nickName
     }

@@ -34,7 +34,8 @@ final class SignupCoordinator: SignupCoordinatorProtocol {
     }
     
     func showSignupViewController() {
-        let useCase = DefaultSignUpUsecase(repository: DiContainerManager.makeDefaultUserRepository())
+        @DIContainer.Resolve(SignUpUsecase.self)
+        var useCase: SignUpUsecase
         let viewModel = SignUpViewModel(
             coordinator: self,
             useCase: useCase

@@ -56,8 +56,8 @@ final class InGameRankingViewController: InGamePlayMenuViewController {
     // MARK: - Helpers
     private func collectionViewRegister() {
         collectionView.register(
-            InGameMenuCollectionViewCell.self,
-            forCellWithReuseIdentifier: InGameMenuCollectionViewCell.identifier
+            InGameMenuCell.self,
+            forCellWithReuseIdentifier: InGameMenuCell.identifier
         )
     }
     private func makeDataSource() -> RankingDataSource {
@@ -67,9 +67,9 @@ final class InGameRankingViewController: InGamePlayMenuViewController {
                 collectionView
         ) { collectionView, indexPath, itemIdentifier in
             guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: InGameMenuCollectionViewCell.identifier,
+                withReuseIdentifier: InGameMenuCell.identifier,
                 for: indexPath
-            ) as? InGameMenuCollectionViewCell else {return UICollectionViewCell()}
+            ) as? InGameMenuCell else {return UICollectionViewCell()}
             #warning("데이터 어떻게 보내줄지 결정해야 함")
             cell.setData(
                 image: UIImage(named: "rank\(indexPath.row)"),
@@ -86,11 +86,4 @@ final class InGameRankingViewController: InGamePlayMenuViewController {
         snapshot.appendItems(data)
         rankingDataSource.apply(snapshot, animatingDifferences: true)
     }
-}
-
-struct InGameRanking: Hashable, InGameMenuModelProtocol {
-    var id: Int
-    var time: Int
-    var userName: String
-    var date: Date
 }

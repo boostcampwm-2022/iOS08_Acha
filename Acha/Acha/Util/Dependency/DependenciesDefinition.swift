@@ -44,8 +44,8 @@ final class DependenciesDefinition {
         )
         
         dependencies.register(
-            TimerService.self,
-            implement: TimerService()
+            DefaultTimerService.self,
+            implement: DefaultTimerService()
         )
         
         dependencies.register(
@@ -119,7 +119,7 @@ final class DependenciesDefinition {
         dependencies.register(
             TimeRepository.self,
             implement: DefaultTimeRepository(
-                timeService: dependencies.resolve(TimerService.self)
+                timeService: dependencies.resolve(DefaultTimerService.self)
             )
         )
 
@@ -133,6 +133,20 @@ final class DependenciesDefinition {
     
     // MARK: - UseCase
     private func useCaseInject() {
+        
+        dependencies.register(
+            SignUpUsecase.self,
+            implement: DefaultSignUpUsecase(
+                repository: dependencies.resolve(UserRepository.self)
+            )
+        )
+        
+        dependencies.register(
+            LoginUseCase.self,
+            implement: DefaultLoginUseCase(
+                repository: dependencies.resolve(UserRepository.self)
+            )
+        )
         
         dependencies.register(
             SelectMapUseCase.self,

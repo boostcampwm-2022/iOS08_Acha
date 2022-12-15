@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class InGameMenuCollectionViewCell: UICollectionViewCell {
+final class InGameMenuCell: UICollectionViewCell {
     // MARK: - UI properties
     private let stackView = UIStackView().then {
         $0.axis = .horizontal
@@ -45,7 +45,7 @@ final class InGameMenuCollectionViewCell: UICollectionViewCell {
     
 }
 // MARK: - Helpers
-extension InGameMenuCollectionViewCell {
+extension InGameMenuCell {
     private func layout() {
         addViews()
         layoutViews()
@@ -78,7 +78,7 @@ extension InGameMenuCollectionViewCell {
     
 }
 
-extension InGameMenuCollectionViewCell {
+extension InGameMenuCell {
     func setData(image: UIImage?, text: String) {
         if case .some(let wrapped) = image {
             extraImageView.image = wrapped

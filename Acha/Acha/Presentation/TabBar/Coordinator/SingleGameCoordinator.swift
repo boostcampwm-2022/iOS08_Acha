@@ -52,7 +52,7 @@ final class SingleGameCoordinator: SingleGameCoordinatorProtocol {
     
     func showSingleGamePlayViewController(selectedMap: Map) {
         let realtimeService = DefaultRealtimeDatabaseNetworkService()
-        let timerService = TimerService()
+        let timerService = DefaultTimerService()
         
         let viewModel = SingleGameViewModel(
             map: selectedMap,

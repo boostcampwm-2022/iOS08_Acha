@@ -17,14 +17,9 @@ class SingleGameViewController: MapBaseViewController, DistanceAndTimeBarLine {
     // MARK: - UI properties
     var distanceAndTimeBar = DistanceAndTimeBar()
     private lazy var rightMenuButton: UIButton = UIButton().then {
-        $0.setImage(
-            ImageConstants.inGameMenuButtonImage?
-                .withTintColor(
-                    .pointLight,
-                    renderingMode: .alwaysOriginal
-                ),
-            for: .normal
-        )
+        $0.setImage(.inGameMenuButtonImage?.withTintColor(.pointLight,
+                                                           renderingMode: .alwaysOriginal),
+                    for: .normal)
     }
     private lazy var gameOverButton = UIButton().then {
         $0.setTitle("게임 종료", for: .normal)

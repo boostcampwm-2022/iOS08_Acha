@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class GameRoomCollectionViewHeader: UICollectionReusableView {
+final class GameRoomHeader: UICollectionReusableView {
     static let identifier = "GameRoomCollectionViewHeader"
     private let headerLabel: PaddingLabel = PaddingLabel(
         topInset: 0,
@@ -37,7 +37,7 @@ final class GameRoomCollectionViewHeader: UICollectionReusableView {
     }
 }
 
-extension GameRoomCollectionViewHeader {
+extension GameRoomHeader {
     private func layout() {
         addViews()
         addConstraints()

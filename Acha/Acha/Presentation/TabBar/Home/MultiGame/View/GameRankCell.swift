@@ -9,8 +9,8 @@ import UIKit
 import Then
 import SnapKit
 
-final class GameRankCollectionViewCell: UICollectionViewCell {
-    static let identifier = String(describing: GameRankCollectionViewCell.self)
+final class GameRankCell: UICollectionViewCell {
+    static let identifier = String(describing: GameRankCell.self)
     private let rankingLabel = PaddingLabel(topInset: 10, bottomInset: 10, leftInset: 10, rightInset: 10).then {
         $0.font = .smallTitle
     }
