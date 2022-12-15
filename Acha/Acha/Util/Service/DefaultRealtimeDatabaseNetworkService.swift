@@ -217,8 +217,11 @@ final class DefaultRealtimeDatabaseNetworkService: RealtimeDatabaseNetworkServic
                 return Disposables.create()
             }
             childReference.setValue(jsonSerial) { error, _ in
-                if let error { single(.failure(error)) }
-                else { single(.success(())) }
+                if let error {
+                    single(.failure(error))
+                } else {
+                    single(.success(()))
+                }
             }
             return Disposables.create()
         }

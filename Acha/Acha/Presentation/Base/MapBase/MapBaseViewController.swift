@@ -109,7 +109,7 @@ class MapBaseViewController: UIViewController, MapBaseViewProtocol {
         
         Observable.zip(output.user, userAnnotationView)
             .subscribe(on: MainScheduler.instance)
-            .subscribe(onNext: { [weak self] user, userAnnotationView in
+            .subscribe(onNext: { user, userAnnotationView in
                 if let pinCharacter = PinCharacter(rawValue: user.pinCharacter) {
                     userAnnotationView.image = pinCharacter.image
                 }

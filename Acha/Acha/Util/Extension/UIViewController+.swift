@@ -66,7 +66,7 @@ extension UIViewController {
                                       preferredStyle: .alert)
         alert.addTextField()
         alert.textFields?.first?.isSecureTextEntry = true
-        let action = UIAlertAction(title: actionTitle, style: .default) { (action: UIAlertAction) in
+        let action = UIAlertAction(title: actionTitle, style: .default) { (_: UIAlertAction) in
             if let text = alert.textFields?[0].text {
                 actionHandler(text)
             }

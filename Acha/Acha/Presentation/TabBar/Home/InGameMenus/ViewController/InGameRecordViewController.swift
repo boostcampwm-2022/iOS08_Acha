@@ -69,7 +69,10 @@ final class InGameRecordViewController: InGamePlayMenuViewController {
             ) as? InGameMenuCell else {return UICollectionViewCell()}
             cell.setData(
                 image: nil,
-                text: "\(itemIdentifier.date.convertToStringFormat(format: "yyyy년 MM월 dd일 EEE요일")) \(itemIdentifier.time.convertToDayHourMinueFormat())"
+                text: """
+                      \(itemIdentifier.date.convertToStringFormat(format: "yyyy년 MM월 dd일 EEE요일"))
+                      \(itemIdentifier.time.convertToDayHourMinueFormat())
+                      """
             )
             return cell
         }

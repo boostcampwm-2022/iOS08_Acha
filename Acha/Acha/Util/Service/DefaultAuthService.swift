@@ -111,8 +111,11 @@ struct DefaultAuthService: AuthService {
                     single(.failure(error))
                 } else {
                     user.updateEmail(to: email) { error in
-                        if let error { single(.failure(error)) }
-                        else { single(.success(())) }
+                        if let error {
+                            single(.failure(error))
+                        } else {
+                            single(.success(()))
+                        }
                     }
                 }
             }

@@ -75,10 +75,7 @@ final class RecordMainViewController: UIViewController, UICollectionViewDelegate
             }).disposed(by: disposeBag)
         
         output.recordSectionDatas.asDriver(onErrorJustReturn: ([], [:], [:], [:]))
-            .drive (onNext: { [weak self] (allDates,
-                                           totalDataAtDate,
-                                           recordsAtData,
-                                           mapAtMapId) in
+            .drive(onNext: { [weak self] (allDates, totalDataAtDate, recordsAtData, mapAtMapId) in
                 guard let self else { return }
                 self.appendRecordItem(allDates: allDates,
                                       totalDataAtData: totalDataAtDate,

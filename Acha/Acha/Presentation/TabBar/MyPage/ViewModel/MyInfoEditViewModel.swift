@@ -96,7 +96,6 @@ final class MyInfoEditViewModel: BaseViewModel {
                 if !self.emailValidity || !self.nickNameValidity {
                     output.cannotSave.onNext(())
                 } else {
-                    // TODO: db user 업데이트 후 화면 전환
                     self.useCase.updateUserInfo(user: self.user, email: self.userEmail, password: password)
                         .subscribe(onSuccess: { [weak self] in
                             guard let self,

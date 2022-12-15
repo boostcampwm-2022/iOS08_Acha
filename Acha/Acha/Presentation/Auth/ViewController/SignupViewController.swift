@@ -46,7 +46,6 @@ final class SignupViewController: UIViewController {
     }
 
     func bind() {
-        
         let inputs = SignUpViewModel.Input(
             passwordUpdated: passwordTextField.rx.text.orEmpty.asObservable(),
             nickNameUpdated: nickNameTextField.rx.text.orEmpty.asObservable(),
@@ -54,7 +53,6 @@ final class SignupViewController: UIViewController {
             signUpButtonDidTap: signUpButton.rx.tap.asObservable(),
             logInButtonDidTap: logInButton.rx.tap.asObservable()
         )
-        
         let outputs = viewModel.transform(input: inputs)
         outputs.passwordValidated
             .asDriver(onErrorJustReturn: false)
@@ -106,9 +104,7 @@ final class SignupViewController: UIViewController {
                 self?.nickNameTextField.becomeFirstResponder()
             }
             .disposed(by: disposeBag)
-
     }
-    
 }
 
 extension SignupViewController {

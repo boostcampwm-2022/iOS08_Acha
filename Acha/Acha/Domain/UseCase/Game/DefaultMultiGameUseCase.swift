@@ -177,11 +177,9 @@ final class DefaultMultiGameUseCase: MultiGameUseCase {
     
     private func appendVisitedLocation(_ location: Coordinate) {
         var availiableToList = true
-        for position in visitedLocation {
-            if position.distance(from: location) < 5 {
-                availiableToList = false
-                break
-            }
+        for position in visitedLocation where position.distance(from: location) < 5 {
+            availiableToList = false
+            break
         }
         if availiableToList { visitedLocation.insert(location) }
     }
