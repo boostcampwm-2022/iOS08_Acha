@@ -15,12 +15,14 @@ final class CommunityDetailViewModel: BaseViewModel {
         var commentRegisterButtonTapEvent: Observable<String>
         var postModifyButtonTapEvent: Observable<Post>
         var postDeleteButtonTapEvent: Observable<Void>
+        var needViewTransform: Observable<Void>
     }
     
     struct Output {
         var post = PublishRelay<(post: Post, isMine: Bool)>()
         var user = PublishRelay<User>()
         var commentWriteSuccess = PublishRelay<Void>()
+        var fetchFailure = PublishRelay<Void>()
     }
     
     // MARK: - Dependency
@@ -75,8 +77,19 @@ final class CommunityDetailViewModel: BaseViewModel {
                     .disposed(by: self.disposeBag)
             }).disposed(by: disposeBag)
         
+        input.needViewTransform
+            .subscribe(onNext: { [weak self] _ in
+                guard let self else { return }
+                self.coordinator?.popLastViewController()
+            })
+            .disposed(by: disposeBag)
+        
         useCase.post
             .bind(to: output.post)
+            .disposed(by: disposeBag)
+        
+        useCase.fetchFailure
+            .bind(to: output.fetchFailure)
             .disposed(by: disposeBag)
         
         return output

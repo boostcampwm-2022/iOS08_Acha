@@ -15,4 +15,5 @@ protocol CommunityDetailUseCase {
     
     var post: PublishSubject<(post: Post, isMine: Bool)> { get set }
     var user: BehaviorSubject<User?> { get set }
+    var fetchFailure: PublishSubject<Void> { get set }
 }

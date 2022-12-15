@@ -16,6 +16,7 @@ final class DefaultCommunityDetailUseCase: CommunityDetailUseCase {
     private let disposeBag = DisposeBag()
     var post = PublishSubject<(post: Post, isMine: Bool)>()
     var user = BehaviorSubject<User?>(value: nil)
+    var fetchFailure = PublishSubject<Void>()
     
     init(postID: Int,
          communityRepository: CommunityRepository,
@@ -45,6 +46,9 @@ final class DefaultCommunityDetailUseCase: CommunityDetailUseCase {
                       let user = try? self.user.value() else { return }
                 
                 self.post.onNext((post: post, isMine: post.userId == user.id))
+            }, onError: { [weak self] _ in
+                guard let self else { return }
+                self.fetchFailure.onNext(())
             })
             .disposed(by: disposeBag)
     }

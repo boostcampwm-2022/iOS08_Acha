@@ -89,21 +89,6 @@ struct DefaultCommunityRepository: CommunityRepository {
         }
     }
     
-    func getAllPost() -> Single<[Post]> {
-        return Single.create { single in
-            realtimeService.fetch(type: .postList)
-                .subscribe(onSuccess: { (postDTOs: [PostDTO?]) in
-                    single(.success(postDTOs.compactMap { $0 }.sorted(by: {
-                        return $0.id < $1.id
-                    }).map { $0.toDomain() }))
-                }, onFailure: { _ in
-                    single(.success([]))
-                }).disposed(by: disposeBag)
-            
-            return Disposables.create()
-        }
-    }
-    
     func uploadPost(post: Post, image: Image?) -> Single<Void> {
         Single.create { single in
             Single.create { single in

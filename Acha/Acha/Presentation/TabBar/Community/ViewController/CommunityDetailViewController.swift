@@ -34,6 +34,7 @@ final class CommunityDetailViewController: UIViewController, UICollectionViewDel
     
     var postCellModifyButtonTapEvent = PublishRelay<Post>()
     var postCellDeleteButtonTapEvent = PublishRelay<Void>()
+    var needViewTransform = PublishRelay<Void>()
     
     // MARK: - Lifecycles
     init(viewModel: CommunityDetailViewModel) {
@@ -88,7 +89,8 @@ final class CommunityDetailViewController: UIViewController, UICollectionViewDel
                 }
                 .asObservable(),
             postModifyButtonTapEvent: postCellModifyButtonTapEvent.asObservable(),
-            postDeleteButtonTapEvent: postCellDeleteButtonTapEvent.asObservable()
+            postDeleteButtonTapEvent: postCellDeleteButtonTapEvent.asObservable(),
+            needViewTransform: needViewTransform.asObservable()
         )
         let output = viewModel.transform(input: input)
         output.post
@@ -107,6 +109,15 @@ final class CommunityDetailViewController: UIViewController, UICollectionViewDel
                         y: self.collectionView.contentSize.height - self.collectionView.bounds.height),
                     animated: true
                 )
+            })
+            .disposed(by: disposeBag)
+        output.fetchFailure
+            .subscribe(onNext: { [weak self] in
+                guard let self else { return }
+                self.showAlert(title: "게시글을 불러오지 못하였습니다.",
+                               message: "") {
+                    self.needViewTransform.accept(())
+                }
             })
             .disposed(by: disposeBag)
     }
