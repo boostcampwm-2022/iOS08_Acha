@@ -423,6 +423,7 @@
 		E505E0CD29446A47006BF811 /* CommentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
 		E52657692946E5D200A350CE /* CommunityIndicatorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityIndicatorCell.swift; sourceTree = "<group>"; };
 		E53873D429483DD800FD6356 /* RecordMapImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordMapImageCell.swift; sourceTree = "<group>"; };
+		E59F4291294B81B50095FC8D /* 부평동초등학교 20MPH.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "부평동초등학교 20MPH.gpx"; sourceTree = "<group>"; };
 		E5BE8B8E2922172400E9CFE8 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		E5BE8B90292218A500E9CFE8 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		E5BE8B92292218F100E9CFE8 /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
@@ -967,6 +968,7 @@
 				7663E6BC292F6788007E1F09 /* 부평동초등학교 4.2MPH.gpx */,
 				7663E6BA292F6788007E1F09 /* 부평동초등학교 4MPH.gpx */,
 				7663E6B8292F6788007E1F09 /* 부평동초등학교 5MPH.gpx */,
+				E59F4291294B81B50095FC8D /* 부평동초등학교 20MPH.gpx */,
 				76213CBE292CEA6600895462 /* WorkSpace by 6km:h.gpx */,
 				76213CBD292CEA6600895462 /* WorkSpace by 25km:h.gpx */,
 			);

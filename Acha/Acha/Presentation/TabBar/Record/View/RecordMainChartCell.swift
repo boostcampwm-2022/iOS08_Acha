@@ -105,7 +105,7 @@ class RecordMainChartCell: UICollectionViewCell {
             label.font = .subBody
             label.textColor = .pointLight
             label.textAlignment = .center
-            label.text = "0"
+            label.text = "0 m"
         }
         distanceStackView.addArrangedSubview(lastDistanceLabel)
         
