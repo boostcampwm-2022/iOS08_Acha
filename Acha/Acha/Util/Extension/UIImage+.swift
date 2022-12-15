@@ -11,7 +11,6 @@ extension UIImage {
     // MARK: - Asset
     static let noBadge = UIImage(named: "noBadge")!
     static let xImage = UIImage(named: "x.circle.fill")!
-    static let penguinImage = UIImage(named: "penguin")!
     static let commentImage: UIImage = UIImage(named: "commentImage")!
     
     static let authEmailImage: UIImage = UIImage(named: "email")!
