@@ -40,7 +40,7 @@
 
 <div align="center">
 
-<img src="https://user-images.githubusercontent.com/76652929/207754137-008a7726-7533-4d2e-bcf0-6e9520aa2ab9.png" width="550" height="309"/>
+<img src="https://user-images.githubusercontent.com/76652929/207754137-008a7726-7533-4d2e-bcf0-6e9520aa2ab9.png" width="550" height="380"/>
 
 </div>
 
@@ -59,7 +59,7 @@
 - 게임 **결과**에 따라 다양한 **뱃지**를 획득할 수 있습니다.
 
 <div align="center">
-<img src="https://user-images.githubusercontent.com/76652929/207754567-1e9193b0-dc4a-43f8-9b5a-a23fd423ccba.png" width="350" height="309"/>
+<img src="https://user-images.githubusercontent.com/76652929/207754567-1e9193b0-dc4a-43f8-9b5a-a23fd423ccba.png" width="370" height="379"/>
 </div>
 
 ## 커뮤니티
@@ -69,7 +69,7 @@
 - 다른 사용자의 **게시글**을 보고 **댓글**을 **작성**할 수 있습니다.
 
 <div align="center">
-<img src="https://user-images.githubusercontent.com/76652929/207754718-6f38e19b-0d48-4109-9d77-7c0a6b3ccc6a.png" width="550" height="309"/>
+<img src="https://user-images.githubusercontent.com/76652929/207754718-6f38e19b-0d48-4109-9d77-7c0a6b3ccc6a.png" width="550" height="359"/>
 
 </div>
 
@@ -170,7 +170,7 @@
 사용자의 로그인 결과를 앱 내부에 저장 하기에는 **사용자의 민감한 데이터가 유출될 수 있는 취약점**이 있었습니다.
 
 <div align="center">
-<img src="https://user-images.githubusercontent.com/76652929/207755338-74a3622b-ca85-4e5f-8920-5b6452c907d3.png" width="600" height="300"/>
+<img src="https://user-images.githubusercontent.com/76652929/207755338-74a3622b-ca85-4e5f-8920-5b6452c907d3.png" width="500" height="300"/>
 </div>
 
 **Keychain Services API** 는 데이터와 같이 속성 값을 주어 **데이터를 암호화** 하고 이를 Keychain 에 저장하는 방식으로 구성 되어 보안적으로 더 나은 선택이라 생각해서 사용하게 되었습니다. 
@@ -241,10 +241,9 @@ S020 배남석 | S021 변상연 | S052 조승기 | S059 홍성철
 -- | -- | -- | --
  <img src="https://avatars.githubusercontent.com/u/76683388?v=4" width="150"> | <img src="https://avatars.githubusercontent.com/u/68235938?v=4" width="150">  |  <img src="https://avatars.githubusercontent.com/u/57134892?v=4" width="150"> |  <img src="https://avatars.githubusercontent.com/u/76652929?v=4" width="150">
 [NamSeok-Bae](https://github.com/NamSeok-Bae) | [sangyeon3](https://github.com/sangyeon3) | [seungki-cho](https://github.com/seungki-cho) | [godo129](https://github.com/godo129)
-</div>
+
 
 **저희들의 개발 과정은 이곳에서 보실 수 있습니다 👉👉👉** [아차의 WIKI](https://github.com/boostcampwm-2022/iOS08_Acha/wiki)
 
-<div align="center">
   <a href="https://hits.seeyoufarm.com"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fboostcampwm-2022%2Fweb12-MOJ&count_bg=%2357CCA9&title_bg=%234F3433&icon=&icon_color=%23453A3A&title=hits&edge_flat=false"/></a>
 </div>
