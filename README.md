@@ -7,9 +7,11 @@
 >**아차**와 함께 재미있게 운동하며 새로운 **땅따먹기 게임**을 경험해보세요.
 >혼자 건물을 주변을 **산책**할 수도 있고, 여러 친구와 땅을 먹으며 **영역 경쟁**하는 실제 땅따먹기 게임!
 
-
-  <img src="https://img.shields.io/badge/Swift-F05138?style=flat-square&logo=Swift&logoColor=white"/> <img src="https://img.shields.io/badge/Xcode-F05138?style=flat-square&logo=Xcode&logoColor=white"/> <img src="https://img.shields.io/badge/Firebase-F05138?style=flat-square&logo=Firebase&logoColor=white"/>  <img src="https://img.shields.io/badge/SnapKit-F05138?style=flat-square&logo=SnapKit&logoColor=white"/> <img src="https://img.shields.io/badge/Then-F05138?style=flat-square&logo=Then&logoColor=white"/> 
-
+<div align="center">
+  
+![Swift](https://img.shields.io/badge/swift-v5.7-orange?logo=swift) ![Xcode](https://img.shields.io/badge/xcode-v14.1-blue?logo=xcode)
+  ![iOS](https://img.shields.io/badge/ios-v14.0-blue?logo=iOS)
+  </div>
 
 # ✨ 기능 소개
 
