@@ -21,14 +21,14 @@ final class DefaultRecordRepository: RecordRepository {
     }
     
     func fetchAllRecords() -> Single<[Record]> {
-        realTimeDatabaseNetworkService.fetch(type: FirebaseRealtimeType.record(id: nil))
+        realTimeDatabaseNetworkService.fetch(type: .record)
             .map { (recordDTOs: [RecordDTO]) in
                 return recordDTOs.map { $0.toDomain() }
             }
     }
     
     func fetchRecordDataAtMapID(mapID: Int) -> Single<[Record]> {
-        realTimeDatabaseNetworkService.fetchAtKeyValue(type: .record(id: nil),
+        realTimeDatabaseNetworkService.fetchAtKeyValue(type: .record,
                                       value: mapID,
                                       key: "map_id")
         .map { (recordDTOs: [RecordDTO?]) in
@@ -44,7 +44,7 @@ final class DefaultRecordRepository: RecordRepository {
     func recordCount() -> Single<Int> {
         Single<Int>.create { [weak self] single in
             guard let self else { return Disposables.create() }
-            self.realTimeDatabaseNetworkService.fetch(type: .record(id: nil))
+            self.realTimeDatabaseNetworkService.fetch(type: .record)
                 .subscribe(onSuccess: { (records: [RecordDTO]) in
                     single(.success(records.count))
                 })

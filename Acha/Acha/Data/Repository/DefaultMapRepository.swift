@@ -24,7 +24,7 @@ final class DefaultMapRepository: MapRepository {
     }
     
     func fetchAllMaps() -> Observable<[Map]> {
-        realTimeDatabaseNetworkService.fetch(type: FirebaseRealtimeType.mapList(id: nil))
+        realTimeDatabaseNetworkService.fetch(type: .mapList)
             .asObservable()
             .flatMap { (mapDTOs: [MapDTO]) in
                 Observable.zip(mapDTOs.map { mapDTO in
@@ -56,7 +56,7 @@ final class DefaultMapRepository: MapRepository {
     }
     
     func fetchMapsAtLocation(location: String) -> Observable<[Map]> {
-        realTimeDatabaseNetworkService.fetchAtKeyValue(type: .mapList(id: nil),
+        realTimeDatabaseNetworkService.fetchAtKeyValue(type: .mapList,
                                                        value: location,
                                                        key: "location")
         .asObservable()
