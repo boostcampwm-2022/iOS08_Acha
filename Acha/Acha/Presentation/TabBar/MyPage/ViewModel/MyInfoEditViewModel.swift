@@ -52,7 +52,7 @@ final class MyInfoEditViewModel: BaseViewModel {
     
     // MARK: - Helpers
     func transform(input: Input) -> Output {
-        var output = Output(pinCharacterUpdated: pinCharacterUpdated)
+        let output = Output(pinCharacterUpdated: pinCharacterUpdated)
         
         input.viewWillAppearEvent
             .subscribe(onNext: { [weak self] in
