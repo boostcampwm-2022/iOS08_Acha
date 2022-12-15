@@ -188,7 +188,7 @@
 		F1AF9A0029445ED900A25752 /* DependenciesDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1AF99FF29445ED900A25752 /* DependenciesDefinition.swift */; };
 		F1AF9A062944873D00A25752 /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1AF9A052944873D00A25752 /* DIContainer.swift */; };
 		F1AF9A0A2944B52000A25752 /* DependencyKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1AF9A092944B52000A25752 /* DependencyKey.swift */; };
-		F1AF9A3B2944FBD000A25752 /* AchaKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1AF9A3A2944FBD000A25752 /* AchaKeyboard.swift */; };
+		F1AF9A3B2944FBD000A25752 /* AchaKeyboardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1AF9A3A2944FBD000A25752 /* AchaKeyboardManager.swift */; };
 		F1B0D8AA292CCA0F00EBDD02 /* Encodable+.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B0D8A9292CCA0F00EBDD02 /* Encodable+.swift */; };
 		F1B0D8AC292CCA5200EBDD02 /* SignUpData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B0D8AB292CCA5200EBDD02 /* SignUpData.swift */; };
 		F1B514E7293B3F6500F653F3 /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B514E6293B3F6500F653F3 /* KeychainService.swift */; };
@@ -455,7 +455,7 @@
 		F1AF99FF29445ED900A25752 /* DependenciesDefinition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependenciesDefinition.swift; sourceTree = "<group>"; };
 		F1AF9A052944873D00A25752 /* DIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
 		F1AF9A092944B52000A25752 /* DependencyKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyKey.swift; sourceTree = "<group>"; };
-		F1AF9A3A2944FBD000A25752 /* AchaKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchaKeyboard.swift; sourceTree = "<group>"; };
+		F1AF9A3A2944FBD000A25752 /* AchaKeyboardManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchaKeyboardManager.swift; sourceTree = "<group>"; };
 		F1B0D8A9292CCA0F00EBDD02 /* Encodable+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+.swift"; sourceTree = "<group>"; };
 		F1B0D8AB292CCA5200EBDD02 /* SignUpData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpData.swift; sourceTree = "<group>"; };
 		F1B514E2293B26C500F653F3 /* CommunityDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityDTO.swift; sourceTree = "<group>"; };
@@ -566,16 +566,11 @@
 			isa = PBXGroup;
 			children = (
 				F1DED3F829386DDA00ABC047 /* Acha.entitlements */,
-				F1B0D8A4292CC81A00EBDD02 /* Data */,
 				E5BE8B882922164400E9CFE8 /* App */,
+				F1B0D8A4292CC81A00EBDD02 /* Data */,
 				E5BE8B8B2922169D00E9CFE8 /* Domain */,
 				E5BE8B8C292216A600E9CFE8 /* Presentation */,
 				E5BE8B8D292216B400E9CFE8 /* Util */,
-				471863BC291E155700A35786 /* AppDelegate.swift */,
-				471863BE291E155700A35786 /* SceneDelegate.swift */,
-				471863C5291E155800A35786 /* Assets.xcassets */,
-				471863C7291E155800A35786 /* LaunchScreen.storyboard */,
-				471863CA291E155800A35786 /* Info.plist */,
 			);
 			path = Acha;
 			sourceTree = "<group>";
@@ -981,7 +976,7 @@
 			isa = PBXGroup;
 			children = (
 				F12210C1292D031800AE5F26 /* KeyChainManager.swift */,
-				F1AF9A3A2944FBD000A25752 /* AchaKeyboard.swift */,
+				F1AF9A3A2944FBD000A25752 /* AchaKeyboardManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -1052,6 +1047,11 @@
 			isa = PBXGroup;
 			children = (
 				E5BE8B892922167400E9CFE8 /* Coordinator */,
+				471863BC291E155700A35786 /* AppDelegate.swift */,
+				471863BE291E155700A35786 /* SceneDelegate.swift */,
+				471863C5291E155800A35786 /* Assets.xcassets */,
+				471863C7291E155800A35786 /* LaunchScreen.storyboard */,
+				471863CA291E155800A35786 /* Info.plist */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -1748,7 +1748,7 @@
 				E5BE8BB32922200C00E9CFE8 /* MyPageViewController.swift in Sources */,
 				F1CC515729407FE100B9008D /* PlayerAnnotationView.swift in Sources */,
 				F1CC5151293FAED600B9008D /* GameRankCell.swift in Sources */,
-				F1AF9A3B2944FBD000A25752 /* AchaKeyboard.swift in Sources */,
+				F1AF9A3B2944FBD000A25752 /* AchaKeyboardManager.swift in Sources */,
 				F1D202A42923C09300F3E87D /* InGameMenuCell.swift in Sources */,
 				E505E0CF29446A47006BF811 /* CommunityMainViewController.swift in Sources */,
 				F156F11C2923623C0053E807 /* PaddingLabel.swift in Sources */,
@@ -1988,7 +1988,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 4QG3GC35LA;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Acha/Info.plist;
+				INFOPLIST_FILE = Acha/App/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSCameraUsageDescription = "카메라를 사용해도 되겠습니까?";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "건강 데이터를 써도 되겠습니까?";
@@ -2024,7 +2024,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 4QG3GC35LA;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Acha/Info.plist;
+				INFOPLIST_FILE = Acha/App/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSCameraUsageDescription = "카메라를 사용해도 되겠습니까?";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "건강 데이터를 써도 되겠습니까?";

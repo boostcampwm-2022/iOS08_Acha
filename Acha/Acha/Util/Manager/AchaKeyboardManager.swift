@@ -9,8 +9,8 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-final class AchaKeyboard {
-    static let shared = AchaKeyboard()
+final class AchaKeyboardManager {
+    static let shared = AchaKeyboardManager()
     
     private let frame: Driver<CGRect>
     let keyboardHeight: Driver<CGFloat>

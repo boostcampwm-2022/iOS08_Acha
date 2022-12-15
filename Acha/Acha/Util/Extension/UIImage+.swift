@@ -12,12 +12,7 @@ extension UIImage {
     static let noBadge = UIImage(named: "noBadge")!
     static let xImage = UIImage(named: "x.circle.fill")!
     static let penguinImage = UIImage(named: "penguin")!
-    static let homeImage: UIImage = UIImage(named: "home")!
-    static let exitImage: UIImage = UIImage(named: "exitImage")!
-    
     static let commentImage: UIImage = UIImage(named: "commentImage")!
-    static let magnyfingGlassImage: UIImage = UIImage(named: "magnifyingGlass")!
-    static let defaultSelectImage: UIImage = UIImage(named: "defaultSelectImage")!
     
     static let authEmailImage: UIImage = UIImage(named: "email")!
     static let authNickNameImage: UIImage = UIImage(named: "nickName")!
@@ -43,6 +38,27 @@ extension UIImage {
                                                     pointSize: 30,
                                                     weight: .bold,
                                                     scale: .large))
+    static let multiplyImage: UIImage = UIImage(systemName: "multiply",
+                                                withConfiguration: UIImage.SymbolConfiguration(
+                                                   pointSize: 30,
+                                                   weight: .bold,
+                                                   scale: .large))!
+           .withTintColor(.black,
+                          renderingMode: .alwaysOriginal)
+    static let houseImage: UIImage = UIImage(systemName: "house",
+                                             withConfiguration: UIImage.SymbolConfiguration(
+                                                pointSize: 30,
+                                                weight: .bold,
+                                                scale: .large))!
+        .withTintColor(.white,
+                       renderingMode: .alwaysOriginal)
+    static let magnifyingglassImage: UIImage = UIImage(systemName: "magnifyingglass",
+                                                       withConfiguration: UIImage.SymbolConfiguration(
+                                                          pointSize: 30,
+                                                          weight: .bold,
+                                                          scale: .large))!
+        .withTintColor(.white,
+                       renderingMode: .alwaysOriginal)
     
     static let inGameMenuButtonImage = UIImage(
         systemName: "ellipsis",

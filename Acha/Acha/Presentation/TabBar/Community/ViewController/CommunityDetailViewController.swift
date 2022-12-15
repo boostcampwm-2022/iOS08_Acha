@@ -53,7 +53,7 @@ final class CommunityDetailViewController: UIViewController, UICollectionViewDel
     
     // MARK: - Helpers
     private func bind() {
-        AchaKeyboard.shared.keyboardHeight
+        AchaKeyboardManager.shared.keyboardHeight
             .drive(onNext: { [weak self] keyboardHeight in
                 guard let self = self else {return}
                 if keyboardHeight != 0 {

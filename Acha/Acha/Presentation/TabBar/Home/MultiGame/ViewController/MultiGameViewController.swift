@@ -24,7 +24,7 @@ final class MultiGameViewController: UIViewController, DistanceAndTimeBarLine {
         $0.textColor = .black
     }
     private lazy var exitButton = UIButton().then {
-        $0.setImage(.exitImage, for: .normal)
+        $0.setImage(.multiplyImage, for: .normal)
     }
     
     private lazy var resetButton: UIButton = UIButton().then {

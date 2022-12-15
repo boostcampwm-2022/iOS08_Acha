@@ -77,7 +77,7 @@ final class MultiGameChatViewController: UIViewController {
     private func keyboardBind() {
         hideKeyboardWhenTapped()
         
-        AchaKeyboard.shared.keyboardHeight
+        AchaKeyboardManager.shared.keyboardHeight
             .drive(onNext: { [weak self] keyboardHeight in
                 guard let self else {return}
                 let height = keyboardHeight > 0 ? self.view.safeAreaInsets.bottom - keyboardHeight : -20

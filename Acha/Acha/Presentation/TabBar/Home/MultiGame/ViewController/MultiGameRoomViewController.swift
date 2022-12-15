@@ -15,7 +15,7 @@ import FirebaseDatabase
 final class MultiGameRoomViewController: UIViewController {
     
     private lazy var exitButton = UIButton().then {
-        $0.setImage(.exitImage, for: .normal)
+        $0.setImage(.multiplyImage, for: .normal)
     }
     private lazy var qrCodeImageView = UIImageView()
     private lazy var roomIdLabel: UILabel = UILabel().then {
