@@ -216,29 +216,13 @@ MVC 에서 생기는 **ViewController 이 방대해지는 문제** 와 기존의
 기존의 정적인 차트에서 동적인 차트로 바뀌면서 변화가 더 눈에 띕니다.
 
 
-# ✨ 팀원 소개
+## 팀소개 👨‍👨‍👧‍👦
 
----
 
-배남석
-
-[NamSeok-Bae - Overview](https://github.com/NamSeok-Bae)
-
-조승기
-
-[seungki-cho - Overview](https://github.com/seungki-cho)
-
-![3472488806206586976_20221203171548166-modified.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/9ff6833f-31fd-46c9-8dd2-c6cb9b186e43/3472488806206586976_20221203171548166-modified.png)
-
-변상연
-
-[sangyeon3 - Overview](https://github.com/sangyeon3)
-
-![image-modified.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/951ef64c-59ca-43ec-8e5f-84d81ac9c7e3/image-modified.png)
-
-홍성철
-
-[godo129 - Overview](https://github.com/godo129)
+S020 배남석 | S021 변상연 | S052 조승기 | S059 홍성철
+-- | -- | -- | --
+ <img src="https://avatars.githubusercontent.com/u/76683388?v=4" width="150"> | <img src="https://avatars.githubusercontent.com/u/68235938?v=4" width="150">  |  <img src="https://avatars.githubusercontent.com/u/57134892?v=4" width="150"> |  <img src="https://avatars.githubusercontent.com/u/76652929?v=4" width="150">
+[NamSeok-Bae](https://github.com/NamSeok-Bae) | [sangyeon3](https://github.com/sangyeon3) | [seungki-cho](https://github.com/seungki-cho) | [godo129](https://github.com/godo129)
 
 
 **저희들의 개발 과정은 이곳에서 보실 수 있습니다 👉👉👉** [아차의 WIKI](https://github.com/boostcampwm-2022/iOS08_Acha/wiki)
