@@ -52,6 +52,7 @@ class BadgeViewController: UIViewController {
     // MARK: - Helpers
     private func setupSubviews() {
         navigationItem.title = "뱃지"
+        navigationController?.navigationBar.tintColor = .pointLight
         cofigureCollectionView()
         bind()
     }
