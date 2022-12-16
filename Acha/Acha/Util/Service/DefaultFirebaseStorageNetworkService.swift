@@ -26,7 +26,7 @@ final class DefaultFirebaseStorageNetworkService: FirebaseStorageNetworkService 
             metaData.contentType = "image/jpeg"
             
             let firebaseReference = self.storage.reference().child(type.path)
-            firebaseReference.putData(data, metadata: metaData) { metaData, error in
+            firebaseReference.putData(data, metadata: metaData) { _, error in
                 firebaseReference.downloadURL { url, _ in
                     if let url {
                         single(.success(url))
@@ -45,7 +45,7 @@ final class DefaultFirebaseStorageNetworkService: FirebaseStorageNetworkService 
         metaData.contentType = "image/jpeg"
         
         let firebaseReference = Storage.storage().reference().child(type.path)
-        firebaseReference.putData(data, metadata: metaData) { _ , _ in
+        firebaseReference.putData(data, metadata: metaData) { _, _ in
             firebaseReference.downloadURL { url, _ in
                 completion(url)
             }

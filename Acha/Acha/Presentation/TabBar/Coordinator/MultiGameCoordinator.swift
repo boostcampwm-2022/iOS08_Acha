@@ -23,7 +23,6 @@ final class MultiGameCoordinator: MultiGameCoordinatorProtocol {
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
-        navigationController.isNavigationBarHidden = true 
         childCoordinators = []
     }
     
@@ -32,10 +31,8 @@ final class MultiGameCoordinator: MultiGameCoordinatorProtocol {
     }
     
     func showMultiGameRoomViewController(roomID: String) {
-        
         @DIContainer.Resolve(MultiGameRoomUseCase.self)
         var useCase: MultiGameRoomUseCase
-//        let useCase = DependenciesContainer.shared.resolve(MultiGameRoomUseCase.self)
         let viewModel = MultiGameRoomViewModel(
             coordinator: self,
             useCase: useCase,
@@ -45,14 +42,12 @@ final class MultiGameCoordinator: MultiGameCoordinatorProtocol {
             viewModel: viewModel,
             roomID: roomID
         )
-        
         navigationController.pushViewController(viewController, animated: true)
     }
     
     func showMultiGameViewController(roomID: String) {
         @DIContainer.Resolve(MultiGameUseCase.self)
         var useCase: MultiGameUseCase
-//        let useCase = DependenciesContainer.shared.resolve(MultiGameUseCase.self)
         let viewModel = MultiGameViewModel(
             coordinator: self,
             useCase: useCase,
@@ -64,7 +59,8 @@ final class MultiGameCoordinator: MultiGameCoordinatorProtocol {
     }
     
     func showMultiGameChatViewController(roomID: String) {
-        let useCase = DiContainerManager.makeMultiGameChatUseCase()
+        @DIContainer.Resolve(MultiGameChatUseCase.self)
+        var useCase: MultiGameChatUseCase
         let viewModel = MultiGameChatViewModel(
             coordinator: self,
             roomID: roomID,

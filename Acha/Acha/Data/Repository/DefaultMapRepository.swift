@@ -9,12 +9,83 @@ import RxSwift
 
 final class DefaultMapRepository: MapRepository {
     private let realTimeDatabaseNetworkService: RealtimeDatabaseNetworkService
+    private let firebaseStorageNetworkService: FirebaseStorageNetworkService
+    private let imageCacheService: ImageCacheService
+    private let disposeBag = DisposeBag()
     
-    init(realTimeDatabaseNetworkService: RealtimeDatabaseNetworkService) {
+    init(
+        realTimeDatabaseNetworkService: RealtimeDatabaseNetworkService,
+        firebaseStorageNetworkService: FirebaseStorageNetworkService,
+        imageCacheService: ImageCacheService
+    ) {
         self.realTimeDatabaseNetworkService = realTimeDatabaseNetworkService
+        self.firebaseStorageNetworkService = firebaseStorageNetworkService
+        self.imageCacheService = imageCacheService
     }
     
-    func fetchAllMaps() -> Single<[Map]> {
-        realTimeDatabaseNetworkService.fetch(type: FirebaseRealtimeType.mapList(id: nil))
+    func fetchAllMaps() -> Observable<[Map]> {
+        realTimeDatabaseNetworkService.fetch(type: .mapList)
+            .asObservable()
+            .flatMap { (mapDTOs: [MapDTO]) in
+                Observable.zip(mapDTOs.map { mapDTO in
+                    if self.imageCacheService.isExist(imageURL: mapDTO.image) {
+                        return self.imageCacheService.load(imageURL: mapDTO.image)
+                            .asObservable()
+                            .map { data in
+                                Map(mapID: mapDTO.mapID,
+                                    name: mapDTO.name,
+                                    centerCoordinate: mapDTO.centerCoordinate.toDomain(),
+                                    coordinates: mapDTO.coordinates.map { $0.toDomain() },
+                                    location: mapDTO.location,
+                                    image: data)
+                            }
+                    }
+                    
+                    return self.firebaseStorageNetworkService.download(urlString: mapDTO.image)
+                        .map { data -> Map in
+                            self.imageCacheService.write(imageURL: mapDTO.image, image: data)
+                            return Map(mapID: mapDTO.mapID,
+                                       name: mapDTO.name,
+                                       centerCoordinate: mapDTO.centerCoordinate.toDomain(),
+                                       coordinates: mapDTO.coordinates.map { $0.toDomain() },
+                                       location: mapDTO.location,
+                                       image: data)
+                        }
+                })
+            }
+    }
+    
+    func fetchMapsAtLocation(location: String) -> Observable<[Map]> {
+        realTimeDatabaseNetworkService.fetchAtKeyValue(type: .mapList,
+                                                       value: location,
+                                                       key: "location")
+        .asObservable()
+        .flatMap { (mapDTOs: [MapDTO?]) in
+            Observable.zip(mapDTOs.compactMap { $0 }.map { mapDTO in
+                if self.imageCacheService.isExist(imageURL: mapDTO.image) {
+                    return self.imageCacheService.load(imageURL: mapDTO.image)
+                        .asObservable()
+                        .map { data in
+                            Map(mapID: mapDTO.mapID,
+                                name: mapDTO.name,
+                                centerCoordinate: mapDTO.centerCoordinate.toDomain(),
+                                coordinates: mapDTO.coordinates.map { $0.toDomain() },
+                                location: mapDTO.location,
+                                image: data)
+                        }
+                }
+                
+                return self.firebaseStorageNetworkService.download(urlString: mapDTO.image)
+                    .map { data -> Map in
+                        self.imageCacheService.write(imageURL: mapDTO.image, image: data)
+                        return Map(mapID: mapDTO.mapID,
+                                   name: mapDTO.name,
+                                   centerCoordinate: mapDTO.centerCoordinate.toDomain(),
+                                   coordinates: mapDTO.coordinates.map { $0.toDomain() },
+                                   location: mapDTO.location,
+                                   image: data)
+                    }
+            })
+        }
     }
 }

@@ -12,11 +12,14 @@ protocol SignupCoordinatorProtocol: Coordinator {
     func showLoginViewController()
 }
 
-final class SignupCoordinator: SignupCoordinatorProtocol, LoginCoordinatorProtocol {
-    func connectSignupFlow() {
-    }
+protocol SginupCoordinatorDelegate: AnyObject {
+    func switchToLogin()
+}
+
+final class SignupCoordinator: SignupCoordinatorProtocol {
     
-    var delegate: CoordinatorDelegate?
+    weak var delegate: CoordinatorDelegate?
+    weak var signupDelegate: SginupCoordinatorDelegate?
     
     var navigationController: UINavigationController
     
@@ -31,36 +34,23 @@ final class SignupCoordinator: SignupCoordinatorProtocol, LoginCoordinatorProtoc
     }
     
     func showSignupViewController() {
-        let provider = AuthProvider()
-        let repository = SignUpRepository(provider: provider)
-        let useCase = SignUpUsecase(repository: repository)
+        @DIContainer.Resolve(SignUpUsecase.self)
+        var useCase: SignUpUsecase
         let viewModel = SignUpViewModel(
             coordinator: self,
             useCase: useCase
         )
+        let transiton = CATransition()
+        transiton.type = .moveIn
+        transiton.subtype = .fromRight
+        transiton.duration = 0.3
+        navigationController.view.layer.add(transiton, forKey: "signup")
         let viewController = SignupViewController(viewModel: viewModel)
         navigationController.pushViewController(viewController, animated: true)
     }
     
     func showLoginViewController() {
-        let provider = AuthProvider()
-        let repository = LogInRepository(provider: provider)
-        let useCase = LoginUseCase(repository: repository)
-        let viewModel = LoginViewModel(
-            coordinator: self,
-            useCase: useCase
-        )
-        let viewController = LoginViewController(viewModel: viewModel)
-        navigationController.pushViewController(viewController, animated: true)
-        self.navigationController.isNavigationBarHidden = true
-        navigationControllerRefactoring()
-    }
-    
-    /// snapkit 에서 superview 를 찾을 수 없다는 오류로 인해서 강제적으로 네비게이션 컨트롤러를
-    /// 정리해 줘야 되서 만든 함수 입니다.
-    private func navigationControllerRefactoring() {
-        var viewControllers = navigationController.viewControllers
-        viewControllers.remove(at: viewControllers.count-2)
+        signupDelegate?.switchToLogin()
     }
 
 }

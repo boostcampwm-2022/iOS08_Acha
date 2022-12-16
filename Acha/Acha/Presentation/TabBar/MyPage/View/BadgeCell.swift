@@ -37,7 +37,7 @@ final class BadgeCell: UICollectionViewCell {
     }
     // MARK: - Helpers
     private func setupSubviews() {
-        [badgeLabel, badgeImage].forEach { addSubview($0) }
+        [badgeLabel, badgeImage].forEach { contentView.addSubview($0) }
         
         badgeImage.snp.makeConstraints {
             $0.top.centerX.equalToSuperview()
@@ -54,5 +54,10 @@ final class BadgeCell: UICollectionViewCell {
     func bind(badge: Badge) {
         badgeImage.image = UIImage(data: badge.image)
         badgeLabel.text = badge.name
+    }
+    
+    func bind(pinCharacter: PinCharacter) {
+        badgeImage.image = pinCharacter.image
+        badgeLabel.text = pinCharacter.name
     }
 }

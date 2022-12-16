@@ -17,6 +17,7 @@ class MapBaseViewModel: BaseViewModel {
     }
     // MARK: - Output
     struct Output {
+        var user = PublishSubject<User>()
         var isAvailableLocationAuthorization = PublishSubject<(Bool, Coordinate?)>()
         var focusUserEvent = PublishSubject<Coordinate>()
     }
@@ -34,6 +35,10 @@ class MapBaseViewModel: BaseViewModel {
     // MARK: - Helpers
     func transform(input: Input) -> Output {
         let output = Output()
+        
+        mapBaseUseCase.user
+            .bind(to: output.user)
+            .disposed(by: disposeBag)
 
         input.viewWillDisappearEvent
             .subscribe(onNext: { [weak self] in
@@ -51,15 +56,6 @@ class MapBaseViewModel: BaseViewModel {
             .disposed(by: disposeBag)
         
         mapBaseUseCase.isAvailableLocationAuthorization()
-            .map { [weak self] available in
-                if let self,
-                   available,
-                   let userLocation = try? self.mapBaseUseCase.userLocation.value() {
-                    return (available, userLocation)
-                } else {
-                       return (available, nil)
-                   }
-            }
             .bind(to: output.isAvailableLocationAuthorization)
             .disposed(by: disposeBag)
         

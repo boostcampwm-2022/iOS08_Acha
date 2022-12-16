@@ -34,7 +34,7 @@ final class CommunityDetailPostCell: UICollectionViewCell {
         $0.axis = .vertical
         $0.spacing = 10
         $0.isLayoutMarginsRelativeArrangement = true
-        $0.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 0, right: 10)
+        $0.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     }
 
     private lazy var nickNameLabel: UILabel = UILabel().then {
@@ -69,11 +69,13 @@ final class CommunityDetailPostCell: UICollectionViewCell {
         $0.contentMode = .scaleAspectFit
         $0.image = nil
         $0.isHidden = true
+        $0.clipsToBounds = true
+        $0.layer.cornerRadius = 10
     }
     
     // MARK: - Properties
     static let identifier = "CommunityDetailPostCell"
-    var modifyButtonTapEvent: PublishRelay<Post>?
+    var modifyButtonTapEvent: PublishRelay<String>?
     var deleteButtonTapEvent: PublishRelay<Void>?
     
     // MARK: - Lifecycles
@@ -81,7 +83,6 @@ final class CommunityDetailPostCell: UICollectionViewCell {
         super.init(frame: frame)
         setupViews()
         configureUI()
-        print(#function)
     }
     
     required init?(coder: NSCoder) {
@@ -124,10 +125,6 @@ final class CommunityDetailPostCell: UICollectionViewCell {
             $0.height.greaterThanOrEqualTo(60).priority(750)
         }
         
-        postImageView.snp.makeConstraints {
-            $0.height.equalTo(300).priority(1000)
-        }
-        
         ellipsisButtonSetting()
     }
     
@@ -136,11 +133,8 @@ final class CommunityDetailPostCell: UICollectionViewCell {
         [
             UIAction(title: "수정", handler: { [weak self] _ in
                 guard let self else { return }
-                guard let nickName = self.nickNameLabel.text,
-                      let modifyButtonTapEvent = self.modifyButtonTapEvent else { return }
-                modifyButtonTapEvent.accept(Post(userId: "몰라",
-                                                      nickName: nickName,
-                                                      text: self.postTextView.text))
+                guard let modifyButtonTapEvent = self.modifyButtonTapEvent else { return }
+                modifyButtonTapEvent.accept(self.postTextView.text ?? "")
             }),
             UIAction(title: "삭제", handler: { [weak self] _ in
                 guard let self,
@@ -153,24 +147,18 @@ final class CommunityDetailPostCell: UICollectionViewCell {
         ellipsisButton.showsMenuAsPrimaryAction = true
     }
     
-    func bind(post: Post) {
-        modifyButtonTapEvent = PublishRelay<Post>()
+    func bind(post: Post, isMine: Bool) {
+        ellipsisButton.isHidden = !isMine
+        modifyButtonTapEvent = PublishRelay<String>()
         deleteButtonTapEvent = PublishRelay<Void>()
         
         nickNameLabel.text = post.nickName
         createDateLabel.text = post.createdAt.convertToStringFormat(format: "YYYY-MM-dd")
         postTextView.text = post.text
 
-        if let image = post.image {
-            self.postImageView.isHidden = false
-            let service = DefaultFirebaseStorageNetworkService()
-            service.download(urlString: image) { data in
-                guard let data else { return }
-                DispatchQueue.main.async { [weak self] in
-                    guard let self else { return }
-                    self.postImageView.image = UIImage(data: data)
-                }
-            }
+        if let data = post.image {
+            postImageView.isHidden = false
+            postImageView.image = UIImage(data: data)?.resize(newWidth: contentView.frame.width - 20)
         } else {
             postImageView.isHidden = true
         }

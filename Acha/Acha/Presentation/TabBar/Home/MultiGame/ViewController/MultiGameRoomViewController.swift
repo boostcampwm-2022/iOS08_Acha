@@ -15,7 +15,7 @@ import FirebaseDatabase
 final class MultiGameRoomViewController: UIViewController {
     
     private lazy var exitButton = UIButton().then {
-        $0.setImage(.exitImage, for: .normal)
+        $0.setImage(.multiplyImage, for: .normal)
     }
     private lazy var qrCodeImageView = UIImageView()
     private lazy var roomIdLabel: UILabel = UILabel().then {
@@ -68,9 +68,11 @@ final class MultiGameRoomViewController: UIViewController {
     private func bind() {
         let inputs = MultiGameRoomViewModel.Input(
             viewDidAppear: rx.viewDidAppear.asObservable(),
+            viewWillAppear: rx.viewWillAppear.asObservable(),
             exitButtonTapped: exitButton.rx.tap.asObservable(),
             gameStartButtonTapped: startButton.rx.tap.asObservable(),
-            viewWillDisappear: rx.viewWillDisappear.asObservable()
+            viewWillDisappear: rx.viewWillDisappear.asObservable(),
+            didEnterBackground: UIApplication.rx.didEnterBackground.asObservable()
         )
                 
         let outputs = viewModel.transform(input: inputs)
@@ -86,13 +88,13 @@ final class MultiGameRoomViewController: UIViewController {
 extension MultiGameRoomViewController {
     private func registerCollectionView() {
         roomCollectionView.register(
-            GameRoomCollectionViewCell.self,
-            forCellWithReuseIdentifier: GameRoomCollectionViewCell.identifier
+            GameRoomCell.self,
+            forCellWithReuseIdentifier: GameRoomCell.identifier
         )
         roomCollectionView.register(
-            GameRoomCollectionViewHeader.self,
+            GameRoomHeader.self,
             forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-            withReuseIdentifier: GameRoomCollectionViewHeader.identifier
+            withReuseIdentifier: GameRoomHeader.identifier
         )
     }
     private func makeDataSource() -> RoomDataSource {
@@ -100,9 +102,9 @@ extension MultiGameRoomViewController {
             collectionView: roomCollectionView
         ) { collectionView, indexPath, itemIdentifier in
             let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: GameRoomCollectionViewCell.identifier,
+                withReuseIdentifier: GameRoomCell.identifier,
                 for: indexPath
-            ) as? GameRoomCollectionViewCell
+            ) as? GameRoomCell
             cell?.bind(data: itemIdentifier)
             return cell
         }
@@ -208,13 +210,15 @@ extension MultiGameRoomViewController {
     
     private func configureCollectionViewHeader() {
         
-        dataSource.supplementaryViewProvider = { collectionView, elementKind, indexPath in
+        dataSource.supplementaryViewProvider = { [weak self] collectionView, elementKind, indexPath in
             guard elementKind == UICollectionView.elementKindSectionHeader,
                   let header = collectionView.dequeueReusableSupplementaryView(
                     ofKind: elementKind,
-                    withReuseIdentifier: GameRoomCollectionViewHeader.identifier,
-                    for: indexPath) as? GameRoomCollectionViewHeader
+                    withReuseIdentifier: GameRoomHeader.identifier,
+                    for: indexPath) as? GameRoomHeader
             else { return UICollectionReusableView() }
+            let player = self?.snapshot.itemIdentifiers(inSection: .gameRoom) ?? []
+            header.bind(playerNumber: player.count)
             return header
         }
     }
@@ -223,7 +227,7 @@ extension MultiGameRoomViewController {
         guard let header = roomCollectionView.supplementaryView(
             forElementKind: UICollectionView.elementKindSectionHeader,
             at: IndexPath.init(row: 0, section: 0)
-        ) as? GameRoomCollectionViewHeader else {
+        ) as? GameRoomHeader else {
             return
         }
         header.bind(playerNumber: playerNumber)

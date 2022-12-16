@@ -8,7 +8,7 @@
 import Foundation
 
 extension Int {
-    func convertToDayHourMinueFormat() -> String {
+    func convertToHourMinuteSecondFormat() -> String {
         var time = self
         let day = String(format: "%02d", time/3600)
         time %= 3600

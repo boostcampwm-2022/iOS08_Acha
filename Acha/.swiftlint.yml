@@ -1,5 +1,8 @@
 disabled_rules:
 - trailing_whitespace
+- large_tuple
+- function_body_length
+- type_body_length
 excluded:
 - Acha/AppDelegate.swift
 - Acha/SceneDelegate.swift

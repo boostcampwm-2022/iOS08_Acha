@@ -10,6 +10,6 @@ import RxSwift
 
 protocol TempRepository {
     var tempDBNetwork: TempDBNetwork { get set }
-    func fetchMapData() -> Observable<[Map]>
+    func fetchMapData() -> Observable<[MapDTO]>
     func fetchRecordData() -> Observable<[Record]>
 }

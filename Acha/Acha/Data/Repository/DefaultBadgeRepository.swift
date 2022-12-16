@@ -47,9 +47,24 @@ final class DefaultBadgeRepository: BadgeRepository {
     }
     
     func fetchSomeBadges(ids: [Int]) -> Observable<[Badge]> {
-        fetchAllBadges()
-            .map { (badges: [Badge]) -> [Badge] in
-                return badges.filter { ids.contains($0.id) }
+        realTimeDatabaseNetworkService.fetch(type: FirebaseRealtimeType.badge)
+            .asObservable()
+            .flatMap { (badgeDTOs: [BadgeDTO]) in
+                Observable.zip(badgeDTOs.filter { ids.contains($0.id) }.map { badgeDTO in
+                    if self.imageCacheService.isExist(imageURL: badgeDTO.imageURL) {
+                        return self.imageCacheService.load(imageURL: badgeDTO.imageURL)
+                            .asObservable()
+                            .map { data in
+                                Badge(id: badgeDTO.id, name: badgeDTO.name, image: data, isHidden: badgeDTO.isHidden)
+                            }
+                    }
+                    
+                    return self.firebaseStorageNetworkService.download(urlString: badgeDTO.imageURL)
+                        .map { data -> Badge in
+                            self.imageCacheService.write(imageURL: badgeDTO.imageURL, image: data)
+                            return Badge(id: badgeDTO.id, name: badgeDTO.name, image: data, isHidden: badgeDTO.isHidden)
+                        }
+                })
             }
     }
 }

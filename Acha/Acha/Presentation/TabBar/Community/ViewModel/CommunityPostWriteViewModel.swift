@@ -12,7 +12,7 @@ import RxRelay
 final class CommunityPostWriteViewModel: BaseViewModel {
     struct Input {
         var viewWillAppearEvent: Observable<Void>
-        var rightButtonTapped: Observable<(Post, Image?)>
+        var rightButtonTapped: Observable<(String, Image?)>
     }
     
     struct Output {
@@ -46,10 +46,13 @@ final class CommunityPostWriteViewModel: BaseViewModel {
             }).disposed(by: disposeBag)
         
         input.rightButtonTapped
-            .subscribe(onNext: { [weak self] (post, image) in
+            .subscribe(onNext: { [weak self] (postContent, image) in
                 guard let self else { return }
-                self.useCase.uploadPost(post: post, image: image)
-                self.coordinator.popLastViewController()
+                self.useCase.uploadPost(postContent: postContent, image: image)
+                    .subscribe(onSuccess: { _ in
+                        self.coordinator.popLastViewController()
+                    })
+                    .disposed(by: self.disposeBag)
             }).disposed(by: disposeBag)
         
         return output

@@ -87,10 +87,8 @@ final class SelectMapRecordCell: UICollectionViewCell {
     func bind(ranking: Int, record: Record) {
         rankingLabel.text = String(ranking)
         if record.id < 0 { return }
-        #warning("getUser() 해서 user nickname 가져와야 함")
         idLabel.text = record.userID
-        timeLabel.text = record.time.convertToDayHourMinueFormat()
-        #warning("getUser() 해서 user pinCharacter 가져와야 함")
+        timeLabel.text = record.time.convertToHourMinuteSecondFormat()
         pinImageView.image = UIImage(named: "penguin")
     }
 }

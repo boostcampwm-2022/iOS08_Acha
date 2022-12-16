@@ -23,17 +23,11 @@ final class AppCoordinator: AppCoordinatorProtocol {
     }
     
     func start() {
-
-        // 로그인 여부 따라 로직 분리
-        connectTabBar()
-//        connectAuth()
-
         if (try? KeyChainManager.get()) == nil {
             connectAuth()
         } else {
             connectTabBar()
         }
-
     }
     
     func connectAuth() {
@@ -52,15 +46,12 @@ final class AppCoordinator: AppCoordinatorProtocol {
 }
 
 extension AppCoordinator: CoordinatorDelegate {
-    #warning("append 제거")
     func didFinished(childCoordinator: Coordinator) {
         removeAllChildCoordinator()
         switch childCoordinator {
         case is AuthCoordinator:
-            appendChildCoordinator(coordinator: childCoordinator)
             connectTabBar()
         case is TabBarCoordinator:
-            appendChildCoordinator(coordinator: childCoordinator)
             connectAuth()
         default:
             break

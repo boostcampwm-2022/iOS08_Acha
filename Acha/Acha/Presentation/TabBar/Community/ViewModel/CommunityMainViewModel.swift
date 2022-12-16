@@ -15,11 +15,13 @@ final class CommunityMainViewModel: BaseViewModel {
         var viewDidAppearEvent: Observable<Void>
         var cellTapEvent: Observable<Int>
         var rightButtonTapEvent: Observable<Void>
+        var cellReloadEvent: Observable<Int>
     }
     
     // MARK: - Output
     struct Output {
         var posts = PublishRelay<[Post]>()
+        var reloadEvent = PublishRelay<Void>()
     }
     
     // MARK: - Dependency
@@ -42,7 +44,7 @@ final class CommunityMainViewModel: BaseViewModel {
         input.viewDidAppearEvent
             .subscribe(onNext: { [weak self] _ in
                 guard let self else { return }
-                self.useCase.loadPostData()
+                self.useCase.loadPostData(count: Int.min)
             }).disposed(by: disposeBag)
         
         input.cellTapEvent
@@ -57,9 +59,20 @@ final class CommunityMainViewModel: BaseViewModel {
                 self.coordinator?.showCommunityPostWriteViewController()
             }).disposed(by: disposeBag)
         
+        input.cellReloadEvent
+            .subscribe(onNext: { [weak self] postCount in
+                guard let self else { return }
+                self.useCase.loadPostData(count: postCount)
+            }).disposed(by: disposeBag)
+        
         useCase.posts
-            .bind(to: output.posts)
-            .disposed(by: disposeBag)
+            .subscribe(onNext: { posts in
+                if posts.isEmpty {
+                    output.reloadEvent.accept(())
+                } else {
+                    output.posts.accept(posts)
+                }
+            }).disposed(by: disposeBag)
         
         return output
     }

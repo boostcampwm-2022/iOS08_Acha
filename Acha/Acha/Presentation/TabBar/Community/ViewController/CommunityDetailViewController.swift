@@ -16,14 +16,14 @@ final class CommunityDetailViewController: UIViewController, UICollectionViewDel
     }
      
     enum Item: Hashable {
-        case post(Post)
+        case post(Post, Bool)
         case comment(Comment)
     }
     
     // MARK: - UI properties
     private lazy var collectionView = UICollectionView(frame: .zero,
                                                        collectionViewLayout: collectionViewLayout())
-    private lazy var commentView = CommentView()
+    private let commentView = CommentView()
     
     // MARK: - Properties
     typealias DataSource = UICollectionViewDiffableDataSource<Section, Item>
@@ -34,6 +34,7 @@ final class CommunityDetailViewController: UIViewController, UICollectionViewDel
     
     var postCellModifyButtonTapEvent = PublishRelay<Post>()
     var postCellDeleteButtonTapEvent = PublishRelay<Void>()
+    var needViewTransform = PublishRelay<Void>()
     
     // MARK: - Lifecycles
     init(viewModel: CommunityDetailViewModel) {
@@ -52,40 +53,77 @@ final class CommunityDetailViewController: UIViewController, UICollectionViewDel
     }
     
     // MARK: - Helpers
+    private func keyboardBind() {
+        AchaKeyboardManager.shared.keyboardHeight
+            .drive(onNext: { [weak self] keyboardHeight in
+                guard let self = self else {return}
+                if keyboardHeight != 0 {
+                    self.commentView.snp.updateConstraints {
+                        $0.bottom.equalTo(self.view.safeAreaLayoutGuide)
+                            .offset( self.view.safeAreaInsets.bottom-keyboardHeight)
+                    }
+                } else {
+                    self.commentView.snp.updateConstraints {
+                        $0.bottom.equalTo(self.view.safeAreaLayoutGuide).inset(10)
+                    }
+                }
+            })
+            .disposed(by: disposeBag)
+    }
+    
     private func bind() {
+        keyboardBind()
         let input = CommunityDetailViewModel.Input(
             viewWillAppearEvent: rx.methodInvoked(#selector(viewWillAppear(_:)))
                 .map { _ in }
                 .asObservable(),
             commentRegisterButtonTapEvent: commentView
-                .commentButton
-                .rx.tap
+                .commentButton.rx.tap
                 .map { [weak self] _ in
                     guard let self else { fatalError() }
-                    
-                    let comment = Comment(userId: "USER1",
-                                          nickName: "USER1",
-                                          text: self.commentView.commentTextView.text)
-                    self.commentView.commentTextView.text = ""
-                    
-                    return comment
+                    let commnetMessage = self.commentView.commentTextView.text
+                    self.commentView.commentTextView.text = "텍스트를 입력해주세요."
+                    self.commentView.commentTextView.textColor = .lightGray
+                    self.commentView.commentButton.isValid = false
+                    return commnetMessage ?? ""
                 }
                 .asObservable(),
             postModifyButtonTapEvent: postCellModifyButtonTapEvent.asObservable(),
-            postDeleteButtonTapEvent: postCellDeleteButtonTapEvent.asObservable()
+            postDeleteButtonTapEvent: postCellDeleteButtonTapEvent.asObservable(),
+            needViewTransform: needViewTransform.asObservable()
         )
-        
         let output = viewModel.transform(input: input)
-        
         output.post
-            .subscribe(onNext: { [weak self] post in
+            .subscribe(onNext: { [weak self] (post, isMine) in
                 guard let self else { return }
-                self.makeSnapshot(post: post)
+                self.makeSnapshot(post: post, isMine: isMine)
+            })
+            .disposed(by: disposeBag)
+        output.commentWriteSuccess
+            .subscribe(onNext: { [weak self] in
+                guard let self else { return }
+                self.reloadSnapshot()
+                self.collectionView.setContentOffset(
+                    CGPoint(
+                        x: 0,
+                        y: self.collectionView.contentSize.height - self.collectionView.bounds.height),
+                    animated: true
+                )
+            })
+            .disposed(by: disposeBag)
+        output.fetchFailure
+            .subscribe(onNext: { [weak self] in
+                guard let self else { return }
+                self.showAlert(title: "게시글을 불러오지 못하였습니다.",
+                               message: "") {
+                    self.needViewTransform.accept(())
+                }
             })
             .disposed(by: disposeBag)
     }
     
     private func configureUI() {
+        hideKeyboardWhenTapped()
         view.backgroundColor = .white
         navigationController?.navigationBar.tintColor = .pointLight
         navigationItem.title = "게시글"
@@ -93,12 +131,8 @@ final class CommunityDetailViewController: UIViewController, UICollectionViewDel
         
         view.addSubview(commentView)
         
-        KeyboardManager.keyboardWillHide(view: commentView, superView: view)
-        KeyboardManager.keyboardWillShow(view: commentView, superView: view)
-        hideKeyboardWhenTapped()
-        
         commentView.snp.makeConstraints {
-            $0.trailing.leading.bottom.equalTo(view.safeAreaLayoutGuide)
+            $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide).inset(10)
             $0.height.equalTo(100)
         }
         
@@ -134,20 +168,20 @@ final class CommunityDetailViewController: UIViewController, UICollectionViewDel
                                 cellProvider: { [weak self] collectionView, indexPath, itemIdentifier in
             guard let self else { return UICollectionViewCell() }
             switch itemIdentifier {
-            case .post(let post):
+            case .post(let post, let isMine):
                 guard let cell = collectionView.dequeueReusableCell(
                     withReuseIdentifier: CommunityDetailPostCell.identifier,
                     for: indexPath) as? CommunityDetailPostCell
                 else { return UICollectionViewCell() }
                 
-                cell.bind(post: post)
+                cell.bind(post: post, isMine: isMine)
                 cell.modifyButtonTapEvent?
-                    .debug()
-                    .subscribe(onNext: { sendPost in
-                        var newPost = sendPost
+                    .subscribe(onNext: { postContent in
+                        var newPost = Post()
                         newPost.id = post.id
                         newPost.image = post.image
                         newPost.comments = post.comments
+                        newPost.text = postContent
                         self.postCellModifyButtonTapEvent.accept(newPost)
                     })
                     .disposed(by: self.disposeBag)
@@ -247,12 +281,12 @@ final class CommunityDetailViewController: UIViewController, UICollectionViewDel
         return section
     }
     
-    private func makeSnapshot(post: Post) {
+    private func makeSnapshot(post: Post, isMine: Bool) {
         var snapshot = Snapshot()
         snapshot.deleteSections([.post, .comment])
         
         snapshot.appendSections([.post, .comment])
-        snapshot.appendItems([.post(post)], toSection: .post)
+        snapshot.appendItems([.post(post, isMine)], toSection: .post)
         
         guard let comments = post.comments else {
             dataSource.apply(snapshot)
@@ -263,6 +297,12 @@ final class CommunityDetailViewController: UIViewController, UICollectionViewDel
         }
         
         dataSource.apply(snapshot, animatingDifferences: true)
+    }
+    
+    private func reloadSnapshot() {
+        var snapshot = dataSource.snapshot()
+        snapshot.reloadSections([.comment])
+        dataSource.apply(snapshot)
     }
 }
 

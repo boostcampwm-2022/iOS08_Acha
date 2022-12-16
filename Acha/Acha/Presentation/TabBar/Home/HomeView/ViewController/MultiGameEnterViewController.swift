@@ -16,7 +16,7 @@ final class MultiGameEnterViewController: UIViewController {
         $0.layer.cornerRadius = 10
         $0.setTitle("방 만들기", for: .normal)
         $0.titleLabel?.font = .largeTitle
-        $0.setImage(.homeImage, for: .normal)
+        $0.setImage(.houseImage, for: .normal)
         $0.semanticContentAttribute = .forceLeftToRight
         $0.imageView?.contentMode = .scaleAspectFit
         $0.imageEdgeInsets = UIEdgeInsets(top: 0, left: -75, bottom: 0, right: 15)
@@ -28,7 +28,7 @@ final class MultiGameEnterViewController: UIViewController {
         $0.layer.cornerRadius = 10
         $0.setTitle("방 입장", for: .normal)
         $0.titleLabel?.font = .largeTitle
-        $0.setImage(.magnyfingGlassImage, for: .normal)
+        $0.setImage(.magnifyingglassImage, for: .normal)
         $0.semanticContentAttribute = .forceLeftToRight
         $0.imageView?.contentMode = .scaleAspectFit
         $0.imageEdgeInsets = UIEdgeInsets(top: 0, left: -75, bottom: 0, right: 15)
