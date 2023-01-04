@@ -32,6 +32,7 @@
 <img src = "https://user-images.githubusercontent.com/76652929/207753956-58ba6bef-c073-4a39-bf30-0b8a08147e44.png" width="570" height="619"/>
 
 </div>
+
 ## 같이하기 모드
 
 - **QR코드**를 통해 방에 입장하여 친구와 함께 할 수 있습니다.
